@@ -1,0 +1,200 @@
+{
+  "changed_members": [
+    {
+      "id": "closure-mapping.f1099b-covered-w-lt-adjustment",
+      "v86": "v3",
+      "v87": "v4",
+      "role": "source-closure-mapping",
+      "fields_changed": [
+        "closure_question",
+        "version"
+      ]
+    },
+    {
+      "id": "closure-mapping.f1099b-covered-w-st-adjustment",
+      "v86": "v3",
+      "v87": "v4",
+      "role": "source-closure-mapping",
+      "fields_changed": [
+        "closure_question",
+        "version"
+      ]
+    },
+    {
+      "id": "core_calculations.vocabulary",
+      "v86": "v2",
+      "v87": "v3",
+      "role": "fact-type-bundle",
+      "fields_changed": [
+        "title",
+        "version"
+      ]
+    },
+    {
+      "id": "exception1.vocabulary",
+      "v86": "v1",
+      "v87": "v2",
+      "role": "fact-type-bundle",
+      "fields_changed": [
+        "title",
+        "version"
+      ]
+    },
+    {
+      "id": "input-question.exception1-only-box2a-capital-gains",
+      "v86": "v2",
+      "v87": "v3",
+      "role": "input-question",
+      "fields_changed": [
+        "question",
+        "version"
+      ]
+    },
+    {
+      "id": "input-question.sli-scope-not-claimed-as-dependent",
+      "v86": "v1",
+      "v87": "v2",
+      "role": "input-question",
+      "fields_changed": [
+        "question",
+        "version"
+      ]
+    },
+    {
+      "id": "sli-scope.vocabulary",
+      "v86": "v1",
+      "v87": "v2",
+      "role": "fact-type-bundle",
+      "fields_changed": [
+        "title",
+        "version"
+      ]
+    }
+  ],
+  "readers": [
+    {
+      "id": "rule.closure-check.f1099b-covered-w-lt-adjustment",
+      "v86": "v1",
+      "v87": "v1",
+      "bytes_identical": true
+    },
+    {
+      "id": "rule.closure-check.f1099b-covered-w-st-adjustment",
+      "v86": "v1",
+      "v87": "v1",
+      "bytes_identical": true
+    },
+    {
+      "id": "rule.ctc-filer-gate",
+      "v86": "v1",
+      "v87": "v1",
+      "bytes_identical": true
+    },
+    {
+      "id": "rule.dependents-worksheet-line-1",
+      "v86": "v1",
+      "v87": "v1",
+      "bytes_identical": true
+    },
+    {
+      "id": "rule.f1099b-covered-w-lt-adjustment-subtotal",
+      "v86": "v4",
+      "v87": "v4",
+      "bytes_identical": true
+    },
+    {
+      "id": "rule.f1099b-covered-w-st-adjustment-subtotal",
+      "v86": "v4",
+      "v87": "v4",
+      "bytes_identical": true
+    },
+    {
+      "id": "rule.f1099b.covered-w-lt-txn.admission",
+      "v86": "v2",
+      "v87": "v2",
+      "bytes_identical": true
+    },
+    {
+      "id": "rule.f1099b.covered-w-st-txn.admission",
+      "v86": "v2",
+      "v87": "v2",
+      "bytes_identical": true
+    },
+    {
+      "id": "rule.form1040-line16",
+      "v86": "v7",
+      "v87": "v7",
+      "bytes_identical": true
+    },
+    {
+      "id": "rule.form1040-line7b",
+      "v86": "v2",
+      "v87": "v2",
+      "bytes_identical": true
+    },
+    {
+      "id": "rule.form1040-standard-deduction",
+      "v86": "v3",
+      "v87": "v3",
+      "bytes_identical": true
+    },
+    {
+      "id": "rule.odc-return-gate",
+      "v86": "v1",
+      "v87": "v1",
+      "bytes_identical": true
+    },
+    {
+      "id": "rule.schedule-d-line1b",
+      "v86": "v3",
+      "v87": "v3",
+      "bytes_identical": true
+    },
+    {
+      "id": "rule.schedule-d-line8b",
+      "v86": "v3",
+      "v87": "v3",
+      "bytes_identical": true
+    },
+    {
+      "id": "rule.schedule-d-required.conclusion",
+      "v86": "v1",
+      "v87": "v1",
+      "bytes_identical": true
+    },
+    {
+      "id": "rule.schedule1a-part-v-line-36a",
+      "v86": "v1",
+      "v87": "v1",
+      "bytes_identical": true
+    },
+    {
+      "id": "rule.schedule1a-part-v-line-36b",
+      "v86": "v1",
+      "v87": "v1",
+      "bytes_identical": true
+    },
+    {
+      "id": "rule.selected-preferential-base",
+      "v86": "v10",
+      "v87": "v10",
+      "bytes_identical": true
+    },
+    {
+      "id": "rule.sli-worksheet",
+      "v86": "v6",
+      "v87": "v6",
+      "bytes_identical": true
+    }
+  ],
+  "checks": {
+    "only_question_and_bundle_members_changed": true,
+    "only_words_titles_and_versions_changed": true,
+    "every_reader_unchanged": true,
+    "input_bindings_unchanged": true,
+    "seven_members": true,
+    "fact_type_identities_unchanged": true,
+    "question_pins_unchanged": true
+  },
+  "pass": true
+}

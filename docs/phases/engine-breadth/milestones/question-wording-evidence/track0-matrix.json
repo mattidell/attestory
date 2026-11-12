@@ -1,0 +1,1844 @@
+{
+  "cores": {
+    "v86": "published core v86, registry v84, release v84",
+    "v87": "scratch core v87, registry v85, release v85 (prototype.py)"
+  },
+  "words": {
+    "v86": {
+      "wash_st": "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?",
+      "wash_lt": "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered long-term sale on every Form 1099-B you or your spouse received for 2025?",
+      "only_box2a": "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV (for example, no gain from selling stock, funds or other property)?",
+      "sli": "Is someone else claiming you as a dependent on their 2025 return?"
+    },
+    "v87": {
+      "wash_st": "Have you recorded the wash-sale loss adjustment amount of every covered short-term sale with a wash-sale loss adjustment (a loss disallowed because you bought the same investment within 30 days before or after the sale) on every Form 1099-B you or your spouse received for 2025?",
+      "wash_lt": "Have you recorded the wash-sale loss adjustment amount of every covered long-term sale with a wash-sale loss adjustment (a loss disallowed because you bought the same investment within 30 days before or after the sale) on every Form 1099-B you or your spouse received for 2025?",
+      "only_box2a": "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds or other property in 2025 (even a sale with no gain or loss)?",
+      "sli": "Is someone else claiming you (or your spouse, on a joint return) as a dependent on their 2025 return?"
+    }
+  },
+  "count": 13,
+  "passed": 13,
+  "cases": [
+    {
+      "id": "m_exc1_gain",
+      "group": "matrix",
+      "hand": {
+        "schedule-d.line-1a": 200,
+        "form1040.line-7b": "guard_inapplicable",
+        "form1040.line-7a": 200,
+        "form1040.line-15": 34450,
+        "form1040.line-16": 3899
+      },
+      "asks": [],
+      "note": "Gain sale: only-box-2a no on both cores.",
+      "v86_hand": true,
+      "same_acts": true,
+      "v86": {
+        "outcome": "success",
+        "stop": "saturated",
+        "lines": {
+          "form1040.line-12e": 15750,
+          "form1040.line-13b": 0,
+          "form1040.line-15": 34450,
+          "form1040.line-16": 3899,
+          "form1040.line-7a": 200,
+          "form1040.line-7b": "guard_inapplicable",
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": 200,
+          "schedule-d.line-1a": 200,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-7": 200,
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule1.line-21": 0
+        },
+        "symbols": {
+          "schedule-d-required.conclusion": "yes",
+          "f1099b.covered-w-lt-adjustment-subtotal": "0",
+          "f1099b.covered-w-st-adjustment-subtotal": "0",
+          "schedule1.line21-sli-deduction": "0",
+          "schedule1a.line36a-taxpayer": "0",
+          "schedule1a.line36b-spouse": "0"
+        },
+        "questions": [],
+        "asked_on": {
+          "form1040.line-25b": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-25d": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-33": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-34": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-35a": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-37": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ]
+        },
+        "titles_shown": {}
+      },
+      "v86_hand_failures": [],
+      "v86_ask_failures": [],
+      "v87": {
+        "outcome": "success",
+        "stop": "saturated",
+        "lines": {
+          "form1040.line-12e": 15750,
+          "form1040.line-13b": 0,
+          "form1040.line-15": 34450,
+          "form1040.line-16": 3899,
+          "form1040.line-7a": 200,
+          "form1040.line-7b": "guard_inapplicable",
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": 200,
+          "schedule-d.line-1a": 200,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-7": 200,
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule1.line-21": 0
+        },
+        "symbols": {
+          "schedule-d-required.conclusion": "yes",
+          "f1099b.covered-w-lt-adjustment-subtotal": "0",
+          "f1099b.covered-w-st-adjustment-subtotal": "0",
+          "schedule1.line21-sli-deduction": "0",
+          "schedule1a.line36a-taxpayer": "0",
+          "schedule1a.line36b-spouse": "0"
+        },
+        "questions": [],
+        "asked_on": {
+          "form1040.line-25b": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-25d": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-33": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-34": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-35a": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-37": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ]
+        },
+        "titles_shown": {}
+      },
+      "v87_hand_failures": [],
+      "v87_ask_failures": [],
+      "pass": true,
+      "numbers_identical": true
+    },
+    {
+      "id": "m_exc1_nosale",
+      "group": "matrix",
+      "hand": {
+        "form1040.line-7b": "published_categorical",
+        "form1040.line-7a": 0,
+        "form1040.line-15": 34250,
+        "form1040.line-16": 3875
+      },
+      "asks": [],
+      "note": "No sale: all yes.",
+      "v86_hand": true,
+      "same_acts": true,
+      "v86": {
+        "outcome": "success",
+        "stop": "saturated",
+        "lines": {
+          "form1040.line-12e": 15750,
+          "form1040.line-13b": 0,
+          "form1040.line-15": 34250,
+          "form1040.line-16": 3875,
+          "form1040.line-7a": 0,
+          "form1040.line-7b": "published_categorical",
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": 0,
+          "schedule-d.line-1a": 0,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-7": 0,
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule1.line-21": 0
+        },
+        "symbols": {
+          "schedule-d-required.conclusion": "no",
+          "f1099b.covered-w-lt-adjustment-subtotal": "0",
+          "f1099b.covered-w-st-adjustment-subtotal": "0",
+          "schedule1.line21-sli-deduction": "0",
+          "schedule1a.line36a-taxpayer": "0",
+          "schedule1a.line36b-spouse": "0"
+        },
+        "questions": [],
+        "asked_on": {
+          "form1040.line-25b": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-25d": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-33": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-34": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-35a": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-37": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ]
+        },
+        "titles_shown": {}
+      },
+      "v86_hand_failures": [],
+      "v86_ask_failures": [],
+      "v87": {
+        "outcome": "success",
+        "stop": "saturated",
+        "lines": {
+          "form1040.line-12e": 15750,
+          "form1040.line-13b": 0,
+          "form1040.line-15": 34250,
+          "form1040.line-16": 3875,
+          "form1040.line-7a": 0,
+          "form1040.line-7b": "published_categorical",
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": 0,
+          "schedule-d.line-1a": 0,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-7": 0,
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule1.line-21": 0
+        },
+        "symbols": {
+          "schedule-d-required.conclusion": "no",
+          "f1099b.covered-w-lt-adjustment-subtotal": "0",
+          "f1099b.covered-w-st-adjustment-subtotal": "0",
+          "schedule1.line21-sli-deduction": "0",
+          "schedule1a.line36a-taxpayer": "0",
+          "schedule1a.line36b-spouse": "0"
+        },
+        "questions": [],
+        "asked_on": {
+          "form1040.line-25b": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-25d": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-33": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-34": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-35a": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-37": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ]
+        },
+        "titles_shown": {}
+      },
+      "v87_hand_failures": [],
+      "v87_ask_failures": [],
+      "pass": true,
+      "numbers_identical": true
+    },
+    {
+      "id": "m_exc1_zero",
+      "group": "matrix",
+      "hand": {
+        "schedule-d.line-1a": 0,
+        "form1040.line-7b": "guard_inapplicable",
+        "form1040.line-7a": 0,
+        "form1040.line-15": 34250,
+        "form1040.line-16": 3875
+      },
+      "asks": [],
+      "note": "Zero-net sale. v86 truthful yes/yes (conclusion no beside a sale); v87 truthful no/yes. Same numbers.",
+      "v86_hand": true,
+      "same_acts": false,
+      "v86": {
+        "outcome": "success",
+        "stop": "saturated",
+        "lines": {
+          "form1040.line-12e": 15750,
+          "form1040.line-13b": 0,
+          "form1040.line-15": 34250,
+          "form1040.line-16": 3875,
+          "form1040.line-7a": 0,
+          "form1040.line-7b": "guard_inapplicable",
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": 0,
+          "schedule-d.line-1a": 0,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-7": 0,
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule1.line-21": 0
+        },
+        "symbols": {
+          "schedule-d-required.conclusion": "no",
+          "f1099b.covered-w-lt-adjustment-subtotal": "0",
+          "f1099b.covered-w-st-adjustment-subtotal": "0",
+          "schedule1.line21-sli-deduction": "0",
+          "schedule1a.line36a-taxpayer": "0",
+          "schedule1a.line36b-spouse": "0"
+        },
+        "questions": [],
+        "asked_on": {
+          "form1040.line-25b": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-25d": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-33": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-34": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-35a": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-37": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ]
+        },
+        "titles_shown": {}
+      },
+      "v86_hand_failures": [],
+      "v86_ask_failures": [],
+      "v87": {
+        "outcome": "success",
+        "stop": "saturated",
+        "lines": {
+          "form1040.line-12e": 15750,
+          "form1040.line-13b": 0,
+          "form1040.line-15": 34250,
+          "form1040.line-16": 3875,
+          "form1040.line-7a": 0,
+          "form1040.line-7b": "guard_inapplicable",
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": 0,
+          "schedule-d.line-1a": 0,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-7": 0,
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule1.line-21": 0
+        },
+        "symbols": {
+          "schedule-d-required.conclusion": "yes",
+          "f1099b.covered-w-lt-adjustment-subtotal": "0",
+          "f1099b.covered-w-st-adjustment-subtotal": "0",
+          "schedule1.line21-sli-deduction": "0",
+          "schedule1a.line36a-taxpayer": "0",
+          "schedule1a.line36b-spouse": "0"
+        },
+        "questions": [],
+        "asked_on": {
+          "form1040.line-25b": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-25d": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-33": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-34": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-35a": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-37": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ]
+        },
+        "titles_shown": {}
+      },
+      "v87_hand_failures": [],
+      "v87_ask_failures": [],
+      "pass": true
+    },
+    {
+      "id": "m_sli_joint_filer_claimed",
+      "group": "matrix",
+      "hand": {
+        "schedule1.line-21": 0,
+        "form1040.line-15": 18500,
+        "form1040.line-16": 1853
+      },
+      "asks": [],
+      "note": "Joint, the filer claimed: yes on both cores.",
+      "v86_hand": true,
+      "same_acts": true,
+      "v86": {
+        "outcome": "success",
+        "stop": "saturated",
+        "lines": {
+          "form1040.line-12e": 31500,
+          "form1040.line-13b": 0,
+          "form1040.line-15": 18500,
+          "form1040.line-16": 1853,
+          "form1040.line-7a": 0,
+          "form1040.line-7b": "published_categorical",
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": 0,
+          "schedule-d.line-1a": 0,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-7": 0,
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule1.line-21": 0
+        },
+        "symbols": {
+          "schedule-d-required.conclusion": "no",
+          "f1099b.covered-w-lt-adjustment-subtotal": "0",
+          "f1099b.covered-w-st-adjustment-subtotal": "0",
+          "schedule1.line21-sli-deduction": "0",
+          "schedule1a.line36a-taxpayer": "0",
+          "schedule1a.line36b-spouse": "0"
+        },
+        "questions": [],
+        "asked_on": {
+          "form1040.line-25b": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-25d": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-33": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-34": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-35a": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-37": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ]
+        },
+        "titles_shown": {}
+      },
+      "v86_hand_failures": [],
+      "v86_ask_failures": [],
+      "v87": {
+        "outcome": "success",
+        "stop": "saturated",
+        "lines": {
+          "form1040.line-12e": 31500,
+          "form1040.line-13b": 0,
+          "form1040.line-15": 18500,
+          "form1040.line-16": 1853,
+          "form1040.line-7a": 0,
+          "form1040.line-7b": "published_categorical",
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": 0,
+          "schedule-d.line-1a": 0,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-7": 0,
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule1.line-21": 0
+        },
+        "symbols": {
+          "schedule-d-required.conclusion": "no",
+          "f1099b.covered-w-lt-adjustment-subtotal": "0",
+          "f1099b.covered-w-st-adjustment-subtotal": "0",
+          "schedule1.line21-sli-deduction": "0",
+          "schedule1a.line36a-taxpayer": "0",
+          "schedule1a.line36b-spouse": "0"
+        },
+        "questions": [],
+        "asked_on": {
+          "form1040.line-25b": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-25d": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-33": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-34": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-35a": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-37": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ]
+        },
+        "titles_shown": {}
+      },
+      "v87_hand_failures": [],
+      "v87_ask_failures": [],
+      "pass": true,
+      "numbers_identical": true
+    },
+    {
+      "id": "m_sli_joint_neither",
+      "group": "matrix",
+      "hand": {
+        "schedule1.line-21": 500,
+        "form1040.line-15": 18000,
+        "form1040.line-16": 1803
+      },
+      "asks": [],
+      "note": "Joint, neither spouse claimed.",
+      "v86_hand": true,
+      "same_acts": true,
+      "v86": {
+        "outcome": "success",
+        "stop": "saturated",
+        "lines": {
+          "form1040.line-12e": 31500,
+          "form1040.line-13b": 0,
+          "form1040.line-15": 18000,
+          "form1040.line-16": 1803,
+          "form1040.line-7a": 0,
+          "form1040.line-7b": "published_categorical",
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": 0,
+          "schedule-d.line-1a": 0,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-7": 0,
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule1.line-21": 500
+        },
+        "symbols": {
+          "schedule-d-required.conclusion": "no",
+          "f1099b.covered-w-lt-adjustment-subtotal": "0",
+          "f1099b.covered-w-st-adjustment-subtotal": "0",
+          "schedule1.line21-sli-deduction": "500",
+          "schedule1a.line36a-taxpayer": "0",
+          "schedule1a.line36b-spouse": "0"
+        },
+        "questions": [],
+        "asked_on": {
+          "form1040.line-25b": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-25d": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-33": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-34": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-35a": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-37": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ]
+        },
+        "titles_shown": {}
+      },
+      "v86_hand_failures": [],
+      "v86_ask_failures": [],
+      "v87": {
+        "outcome": "success",
+        "stop": "saturated",
+        "lines": {
+          "form1040.line-12e": 31500,
+          "form1040.line-13b": 0,
+          "form1040.line-15": 18000,
+          "form1040.line-16": 1803,
+          "form1040.line-7a": 0,
+          "form1040.line-7b": "published_categorical",
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": 0,
+          "schedule-d.line-1a": 0,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-7": 0,
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule1.line-21": 500
+        },
+        "symbols": {
+          "schedule-d-required.conclusion": "no",
+          "f1099b.covered-w-lt-adjustment-subtotal": "0",
+          "f1099b.covered-w-st-adjustment-subtotal": "0",
+          "schedule1.line21-sli-deduction": "500",
+          "schedule1a.line36a-taxpayer": "0",
+          "schedule1a.line36b-spouse": "0"
+        },
+        "questions": [],
+        "asked_on": {
+          "form1040.line-25b": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-25d": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-33": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-34": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-35a": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-37": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ]
+        },
+        "titles_shown": {}
+      },
+      "v87_hand_failures": [],
+      "v87_ask_failures": [],
+      "pass": true,
+      "numbers_identical": true
+    },
+    {
+      "id": "m_sli_joint_spouse_claimed",
+      "group": "matrix",
+      "hand": {
+        "schedule1.line-21": 0,
+        "form1040.line-15": 18500,
+        "form1040.line-16": 1853
+      },
+      "asks": [],
+      "note": "Joint, only the spouse claimed. v86 words ask about 'you': truthful no, records fact yes, 500. v87: yes, 0.",
+      "v86_hand": false,
+      "same_acts": false,
+      "v86": {
+        "outcome": "success",
+        "stop": "saturated",
+        "lines": {
+          "form1040.line-12e": 31500,
+          "form1040.line-13b": 0,
+          "form1040.line-15": 18000,
+          "form1040.line-16": 1803,
+          "form1040.line-7a": 0,
+          "form1040.line-7b": "published_categorical",
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": 0,
+          "schedule-d.line-1a": 0,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-7": 0,
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule1.line-21": 500
+        },
+        "symbols": {
+          "schedule-d-required.conclusion": "no",
+          "f1099b.covered-w-lt-adjustment-subtotal": "0",
+          "f1099b.covered-w-st-adjustment-subtotal": "0",
+          "schedule1.line21-sli-deduction": "500",
+          "schedule1a.line36a-taxpayer": "0",
+          "schedule1a.line36b-spouse": "0"
+        },
+        "questions": [],
+        "asked_on": {
+          "form1040.line-25b": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-25d": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-33": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-34": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-35a": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-37": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ]
+        },
+        "titles_shown": {}
+      },
+      "v86_hand_failures": [
+        "schedule1.line-21: hand 0 got 500",
+        "form1040.line-15: hand 18500 got 18000",
+        "form1040.line-16: hand 1853 got 1803"
+      ],
+      "v86_ask_failures": [],
+      "v87": {
+        "outcome": "success",
+        "stop": "saturated",
+        "lines": {
+          "form1040.line-12e": 31500,
+          "form1040.line-13b": 0,
+          "form1040.line-15": 18500,
+          "form1040.line-16": 1853,
+          "form1040.line-7a": 0,
+          "form1040.line-7b": "published_categorical",
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": 0,
+          "schedule-d.line-1a": 0,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-7": 0,
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule1.line-21": 0
+        },
+        "symbols": {
+          "schedule-d-required.conclusion": "no",
+          "f1099b.covered-w-lt-adjustment-subtotal": "0",
+          "f1099b.covered-w-st-adjustment-subtotal": "0",
+          "schedule1.line21-sli-deduction": "0",
+          "schedule1a.line36a-taxpayer": "0",
+          "schedule1a.line36b-spouse": "0"
+        },
+        "questions": [],
+        "asked_on": {
+          "form1040.line-25b": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-25d": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-33": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-34": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-35a": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-37": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ]
+        },
+        "titles_shown": {}
+      },
+      "v87_hand_failures": [],
+      "v87_ask_failures": [],
+      "pass": true,
+      "v86_counterexample_fixed": true
+    },
+    {
+      "id": "m_sli_single_claimed",
+      "group": "matrix",
+      "hand": {
+        "schedule1.line-21": 0,
+        "form1040.line-16": 3875
+      },
+      "asks": [],
+      "note": "Single, claimed.",
+      "v86_hand": true,
+      "same_acts": true,
+      "v86": {
+        "outcome": "success",
+        "stop": "saturated",
+        "lines": {
+          "form1040.line-12e": 15750,
+          "form1040.line-13b": 0,
+          "form1040.line-15": 34250,
+          "form1040.line-16": 3875,
+          "form1040.line-7a": 0,
+          "form1040.line-7b": "published_categorical",
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": 0,
+          "schedule-d.line-1a": 0,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-7": 0,
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule1.line-21": 0
+        },
+        "symbols": {
+          "schedule-d-required.conclusion": "no",
+          "f1099b.covered-w-lt-adjustment-subtotal": "0",
+          "f1099b.covered-w-st-adjustment-subtotal": "0",
+          "schedule1.line21-sli-deduction": "0",
+          "schedule1a.line36a-taxpayer": "0",
+          "schedule1a.line36b-spouse": "0"
+        },
+        "questions": [],
+        "asked_on": {
+          "form1040.line-25b": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-25d": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-33": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-34": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-35a": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-37": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ]
+        },
+        "titles_shown": {}
+      },
+      "v86_hand_failures": [],
+      "v86_ask_failures": [],
+      "v87": {
+        "outcome": "success",
+        "stop": "saturated",
+        "lines": {
+          "form1040.line-12e": 15750,
+          "form1040.line-13b": 0,
+          "form1040.line-15": 34250,
+          "form1040.line-16": 3875,
+          "form1040.line-7a": 0,
+          "form1040.line-7b": "published_categorical",
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": 0,
+          "schedule-d.line-1a": 0,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-7": 0,
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule1.line-21": 0
+        },
+        "symbols": {
+          "schedule-d-required.conclusion": "no",
+          "f1099b.covered-w-lt-adjustment-subtotal": "0",
+          "f1099b.covered-w-st-adjustment-subtotal": "0",
+          "schedule1.line21-sli-deduction": "0",
+          "schedule1a.line36a-taxpayer": "0",
+          "schedule1a.line36b-spouse": "0"
+        },
+        "questions": [],
+        "asked_on": {
+          "form1040.line-25b": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-25d": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-33": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-34": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-35a": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-37": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ]
+        },
+        "titles_shown": {}
+      },
+      "v87_hand_failures": [],
+      "v87_ask_failures": [],
+      "pass": true,
+      "numbers_identical": true
+    },
+    {
+      "id": "m_sli_single_not",
+      "group": "matrix",
+      "hand": {
+        "schedule1.line-21": 500,
+        "form1040.line-16": 3815
+      },
+      "asks": [],
+      "note": "Single, not claimed.",
+      "v86_hand": true,
+      "same_acts": true,
+      "v86": {
+        "outcome": "success",
+        "stop": "saturated",
+        "lines": {
+          "form1040.line-12e": 15750,
+          "form1040.line-13b": 0,
+          "form1040.line-15": 33750,
+          "form1040.line-16": 3815,
+          "form1040.line-7a": 0,
+          "form1040.line-7b": "published_categorical",
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": 0,
+          "schedule-d.line-1a": 0,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-7": 0,
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule1.line-21": 500
+        },
+        "symbols": {
+          "schedule-d-required.conclusion": "no",
+          "f1099b.covered-w-lt-adjustment-subtotal": "0",
+          "f1099b.covered-w-st-adjustment-subtotal": "0",
+          "schedule1.line21-sli-deduction": "500",
+          "schedule1a.line36a-taxpayer": "0",
+          "schedule1a.line36b-spouse": "0"
+        },
+        "questions": [],
+        "asked_on": {
+          "form1040.line-25b": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-25d": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-33": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-34": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-35a": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-37": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ]
+        },
+        "titles_shown": {}
+      },
+      "v86_hand_failures": [],
+      "v86_ask_failures": [],
+      "v87": {
+        "outcome": "success",
+        "stop": "saturated",
+        "lines": {
+          "form1040.line-12e": 15750,
+          "form1040.line-13b": 0,
+          "form1040.line-15": 33750,
+          "form1040.line-16": 3815,
+          "form1040.line-7a": 0,
+          "form1040.line-7b": "published_categorical",
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": 0,
+          "schedule-d.line-1a": 0,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-7": 0,
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule1.line-21": 500
+        },
+        "symbols": {
+          "schedule-d-required.conclusion": "no",
+          "f1099b.covered-w-lt-adjustment-subtotal": "0",
+          "f1099b.covered-w-st-adjustment-subtotal": "0",
+          "schedule1.line21-sli-deduction": "500",
+          "schedule1a.line36a-taxpayer": "0",
+          "schedule1a.line36b-spouse": "0"
+        },
+        "questions": [],
+        "asked_on": {
+          "form1040.line-25b": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-25d": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-33": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-34": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-35a": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-37": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ]
+        },
+        "titles_shown": {}
+      },
+      "v87_hand_failures": [],
+      "v87_ask_failures": [],
+      "pass": true,
+      "numbers_identical": true
+    },
+    {
+      "id": "m_wash_both",
+      "group": "matrix",
+      "hand": {
+        "schedule-d.line-1a": 200,
+        "schedule-d.line-1b": 0,
+        "f1099b.covered-w-st-adjustment-subtotal": 200,
+        "form1040.line-7a": 200,
+        "form1040.line-15": 34450,
+        "form1040.line-16": 3899
+      },
+      "asks": [],
+      "note": "Both kinds. v86 words: truthful no (the plain sale has no adjustment), blocked. v87: yes.",
+      "v86_hand": false,
+      "same_acts": false,
+      "v86": {
+        "outcome": "success",
+        "stop": "saturated",
+        "lines": {
+          "form1040.line-12e": 15750,
+          "form1040.line-13b": "blocked",
+          "form1040.line-15": "blocked",
+          "form1040.line-16": "blocked",
+          "form1040.line-7a": "blocked",
+          "form1040.line-7b": "guard_inapplicable",
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": "blocked",
+          "schedule-d.line-1a": 200,
+          "schedule-d.line-1b": "blocked",
+          "schedule-d.line-7": "blocked",
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule1.line-21": 0
+        },
+        "symbols": {
+          "schedule-d-required.conclusion": "yes",
+          "f1099b.covered-w-lt-adjustment-subtotal": "0",
+          "schedule1.line21-sli-deduction": "0"
+        },
+        "questions": [],
+        "asked_on": {
+          "form1040.line-25b": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-25d": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ]
+        },
+        "titles_shown": {}
+      },
+      "v86_hand_failures": [
+        "schedule-d.line-1b: hand 0 got 'blocked'",
+        "f1099b.covered-w-st-adjustment-subtotal: hand 200 got None",
+        "form1040.line-7a: hand 200 got 'blocked'",
+        "form1040.line-15: hand 34450 got 'blocked'",
+        "form1040.line-16: hand 3899 got 'blocked'"
+      ],
+      "v86_ask_failures": [],
+      "v87": {
+        "outcome": "success",
+        "stop": "saturated",
+        "lines": {
+          "form1040.line-12e": 15750,
+          "form1040.line-13b": 0,
+          "form1040.line-15": 34450,
+          "form1040.line-16": 3899,
+          "form1040.line-7a": 200,
+          "form1040.line-7b": "guard_inapplicable",
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": 200,
+          "schedule-d.line-1a": 200,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-7": 200,
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule1.line-21": 0
+        },
+        "symbols": {
+          "schedule-d-required.conclusion": "yes",
+          "f1099b.covered-w-lt-adjustment-subtotal": "0",
+          "f1099b.covered-w-st-adjustment-subtotal": "200.0",
+          "schedule1.line21-sli-deduction": "0",
+          "schedule1a.line36a-taxpayer": "0",
+          "schedule1a.line36b-spouse": "0"
+        },
+        "questions": [],
+        "asked_on": {
+          "form1040.line-25b": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-25d": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-33": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-34": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-35a": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-37": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ]
+        },
+        "titles_shown": {}
+      },
+      "v87_hand_failures": [],
+      "v87_ask_failures": [],
+      "pass": true,
+      "v86_counterexample_fixed": true
+    },
+    {
+      "id": "m_wash_none",
+      "group": "matrix",
+      "hand": {
+        "schedule-d.line-1a": 0,
+        "schedule-d.line-1b": 0,
+        "form1040.line-7a": 0,
+        "form1040.line-15": 34250,
+        "form1040.line-16": 3875
+      },
+      "asks": [],
+      "note": "No covered sale; the adjustment family closed empty.",
+      "v86_hand": true,
+      "same_acts": true,
+      "v86": {
+        "outcome": "success",
+        "stop": "saturated",
+        "lines": {
+          "form1040.line-12e": 15750,
+          "form1040.line-13b": 0,
+          "form1040.line-15": 34250,
+          "form1040.line-16": 3875,
+          "form1040.line-7a": 0,
+          "form1040.line-7b": "published_categorical",
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": 0,
+          "schedule-d.line-1a": 0,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-7": 0,
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule1.line-21": 0
+        },
+        "symbols": {
+          "schedule-d-required.conclusion": "no",
+          "f1099b.covered-w-lt-adjustment-subtotal": "0",
+          "f1099b.covered-w-st-adjustment-subtotal": "0",
+          "schedule1.line21-sli-deduction": "0",
+          "schedule1a.line36a-taxpayer": "0",
+          "schedule1a.line36b-spouse": "0"
+        },
+        "questions": [],
+        "asked_on": {
+          "form1040.line-25b": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-25d": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-33": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-34": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-35a": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-37": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ]
+        },
+        "titles_shown": {}
+      },
+      "v86_hand_failures": [],
+      "v86_ask_failures": [],
+      "v87": {
+        "outcome": "success",
+        "stop": "saturated",
+        "lines": {
+          "form1040.line-12e": 15750,
+          "form1040.line-13b": 0,
+          "form1040.line-15": 34250,
+          "form1040.line-16": 3875,
+          "form1040.line-7a": 0,
+          "form1040.line-7b": "published_categorical",
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": 0,
+          "schedule-d.line-1a": 0,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-7": 0,
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule1.line-21": 0
+        },
+        "symbols": {
+          "schedule-d-required.conclusion": "no",
+          "f1099b.covered-w-lt-adjustment-subtotal": "0",
+          "f1099b.covered-w-st-adjustment-subtotal": "0",
+          "schedule1.line21-sli-deduction": "0",
+          "schedule1a.line36a-taxpayer": "0",
+          "schedule1a.line36b-spouse": "0"
+        },
+        "questions": [],
+        "asked_on": {
+          "form1040.line-25b": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-25d": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-33": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-34": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-35a": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-37": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ]
+        },
+        "titles_shown": {}
+      },
+      "v87_hand_failures": [],
+      "v87_ask_failures": [],
+      "pass": true,
+      "numbers_identical": true
+    },
+    {
+      "id": "m_wash_none_unanswered",
+      "group": "matrix",
+      "hand": {
+        "schedule-d.line-1b": "blocked"
+      },
+      "asks": [
+        "wash_st"
+      ],
+      "note": "No covered sale, adjustment closure unanswered: asked. Truthful answer on both cores: yes (no such sale).",
+      "v86_hand": true,
+      "same_acts": true,
+      "v86": {
+        "outcome": "success",
+        "stop": "saturated",
+        "lines": {
+          "form1040.line-12e": 15750,
+          "form1040.line-13b": "blocked",
+          "form1040.line-15": "blocked",
+          "form1040.line-16": "blocked",
+          "form1040.line-7a": "blocked",
+          "form1040.line-7b": "published_categorical",
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": "blocked",
+          "schedule-d.line-1a": 0,
+          "schedule-d.line-1b": "blocked",
+          "schedule-d.line-7": "blocked",
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule1.line-21": 0
+        },
+        "symbols": {
+          "schedule-d-required.conclusion": "no",
+          "f1099b.covered-w-lt-adjustment-subtotal": "0",
+          "schedule1.line21-sli-deduction": "0"
+        },
+        "questions": [
+          "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
+        ],
+        "asked_on": {
+          "form.eic-worksheet-a.line-3": [
+            "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form.eic-worksheet-a.line-5": [
+            "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form.eic-worksheet-a.line-6": [
+            "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form.sch8812.line-14": [
+            "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form.sch8812.line-17": [
+            "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form.sch8812.worksheet-a.line-5": [
+            "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form1040.line-11a": [
+            "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form1040.line-11b": [
+            "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form1040.line-13b": [
+            "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form1040.line-14": [
+            "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form1040.line-15": [
+            "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form1040.line-16": [
+            "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form1040.line-19": [
+            "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form1040.line-20": [
+            "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form1040.line-24": [
+            "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form1040.line-25b": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-25d": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-27a": [
+            "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form1040.line-28": [
+            "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form1040.line-32": [
+            "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form1040.line-33": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale.",
+            "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form1040.line-34": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale.",
+            "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form1040.line-35a": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale.",
+            "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form1040.line-37": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale.",
+            "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form1040.line-6b": [
+            "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form1040.line-7a": [
+            "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form1040.line-9": [
+            "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form1040.tax-after-credits": [
+            "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "schedule-d.line-16": [
+            "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "schedule-d.line-1b": [
+            "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "schedule-d.line-21": [
+            "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "schedule-d.line-7": [
+            "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "schedule3.line-1": [
+            "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "schedule3.line-8": [
+            "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
+          ]
+        },
+        "titles_shown": {}
+      },
+      "v86_hand_failures": [],
+      "v86_ask_failures": [],
+      "v87": {
+        "outcome": "success",
+        "stop": "saturated",
+        "lines": {
+          "form1040.line-12e": 15750,
+          "form1040.line-13b": "blocked",
+          "form1040.line-15": "blocked",
+          "form1040.line-16": "blocked",
+          "form1040.line-7a": "blocked",
+          "form1040.line-7b": "published_categorical",
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": "blocked",
+          "schedule-d.line-1a": 0,
+          "schedule-d.line-1b": "blocked",
+          "schedule-d.line-7": "blocked",
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule1.line-21": 0
+        },
+        "symbols": {
+          "schedule-d-required.conclusion": "no",
+          "f1099b.covered-w-lt-adjustment-subtotal": "0",
+          "schedule1.line21-sli-deduction": "0"
+        },
+        "questions": [
+          "Have you recorded the wash-sale loss adjustment amount of every covered short-term sale with a wash-sale loss adjustment (a loss disallowed because you bought the same investment within 30 days before or after the sale) on every Form 1099-B you or your spouse received for 2025?"
+        ],
+        "asked_on": {
+          "form.eic-worksheet-a.line-3": [
+            "Have you recorded the wash-sale loss adjustment amount of every covered short-term sale with a wash-sale loss adjustment (a loss disallowed because you bought the same investment within 30 days before or after the sale) on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form.eic-worksheet-a.line-5": [
+            "Have you recorded the wash-sale loss adjustment amount of every covered short-term sale with a wash-sale loss adjustment (a loss disallowed because you bought the same investment within 30 days before or after the sale) on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form.eic-worksheet-a.line-6": [
+            "Have you recorded the wash-sale loss adjustment amount of every covered short-term sale with a wash-sale loss adjustment (a loss disallowed because you bought the same investment within 30 days before or after the sale) on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form.sch8812.line-14": [
+            "Have you recorded the wash-sale loss adjustment amount of every covered short-term sale with a wash-sale loss adjustment (a loss disallowed because you bought the same investment within 30 days before or after the sale) on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form.sch8812.line-17": [
+            "Have you recorded the wash-sale loss adjustment amount of every covered short-term sale with a wash-sale loss adjustment (a loss disallowed because you bought the same investment within 30 days before or after the sale) on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form.sch8812.worksheet-a.line-5": [
+            "Have you recorded the wash-sale loss adjustment amount of every covered short-term sale with a wash-sale loss adjustment (a loss disallowed because you bought the same investment within 30 days before or after the sale) on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form1040.line-11a": [
+            "Have you recorded the wash-sale loss adjustment amount of every covered short-term sale with a wash-sale loss adjustment (a loss disallowed because you bought the same investment within 30 days before or after the sale) on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form1040.line-11b": [
+            "Have you recorded the wash-sale loss adjustment amount of every covered short-term sale with a wash-sale loss adjustment (a loss disallowed because you bought the same investment within 30 days before or after the sale) on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form1040.line-13b": [
+            "Have you recorded the wash-sale loss adjustment amount of every covered short-term sale with a wash-sale loss adjustment (a loss disallowed because you bought the same investment within 30 days before or after the sale) on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form1040.line-14": [
+            "Have you recorded the wash-sale loss adjustment amount of every covered short-term sale with a wash-sale loss adjustment (a loss disallowed because you bought the same investment within 30 days before or after the sale) on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form1040.line-15": [
+            "Have you recorded the wash-sale loss adjustment amount of every covered short-term sale with a wash-sale loss adjustment (a loss disallowed because you bought the same investment within 30 days before or after the sale) on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form1040.line-16": [
+            "Have you recorded the wash-sale loss adjustment amount of every covered short-term sale with a wash-sale loss adjustment (a loss disallowed because you bought the same investment within 30 days before or after the sale) on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form1040.line-19": [
+            "Have you recorded the wash-sale loss adjustment amount of every covered short-term sale with a wash-sale loss adjustment (a loss disallowed because you bought the same investment within 30 days before or after the sale) on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form1040.line-20": [
+            "Have you recorded the wash-sale loss adjustment amount of every covered short-term sale with a wash-sale loss adjustment (a loss disallowed because you bought the same investment within 30 days before or after the sale) on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form1040.line-24": [
+            "Have you recorded the wash-sale loss adjustment amount of every covered short-term sale with a wash-sale loss adjustment (a loss disallowed because you bought the same investment within 30 days before or after the sale) on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form1040.line-25b": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-25d": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-27a": [
+            "Have you recorded the wash-sale loss adjustment amount of every covered short-term sale with a wash-sale loss adjustment (a loss disallowed because you bought the same investment within 30 days before or after the sale) on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form1040.line-28": [
+            "Have you recorded the wash-sale loss adjustment amount of every covered short-term sale with a wash-sale loss adjustment (a loss disallowed because you bought the same investment within 30 days before or after the sale) on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form1040.line-32": [
+            "Have you recorded the wash-sale loss adjustment amount of every covered short-term sale with a wash-sale loss adjustment (a loss disallowed because you bought the same investment within 30 days before or after the sale) on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form1040.line-33": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale.",
+            "Have you recorded the wash-sale loss adjustment amount of every covered short-term sale with a wash-sale loss adjustment (a loss disallowed because you bought the same investment within 30 days before or after the sale) on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form1040.line-34": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale.",
+            "Have you recorded the wash-sale loss adjustment amount of every covered short-term sale with a wash-sale loss adjustment (a loss disallowed because you bought the same investment within 30 days before or after the sale) on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form1040.line-35a": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale.",
+            "Have you recorded the wash-sale loss adjustment amount of every covered short-term sale with a wash-sale loss adjustment (a loss disallowed because you bought the same investment within 30 days before or after the sale) on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form1040.line-37": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale.",
+            "Have you recorded the wash-sale loss adjustment amount of every covered short-term sale with a wash-sale loss adjustment (a loss disallowed because you bought the same investment within 30 days before or after the sale) on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form1040.line-6b": [
+            "Have you recorded the wash-sale loss adjustment amount of every covered short-term sale with a wash-sale loss adjustment (a loss disallowed because you bought the same investment within 30 days before or after the sale) on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form1040.line-7a": [
+            "Have you recorded the wash-sale loss adjustment amount of every covered short-term sale with a wash-sale loss adjustment (a loss disallowed because you bought the same investment within 30 days before or after the sale) on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form1040.line-9": [
+            "Have you recorded the wash-sale loss adjustment amount of every covered short-term sale with a wash-sale loss adjustment (a loss disallowed because you bought the same investment within 30 days before or after the sale) on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form1040.tax-after-credits": [
+            "Have you recorded the wash-sale loss adjustment amount of every covered short-term sale with a wash-sale loss adjustment (a loss disallowed because you bought the same investment within 30 days before or after the sale) on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "schedule-d.line-16": [
+            "Have you recorded the wash-sale loss adjustment amount of every covered short-term sale with a wash-sale loss adjustment (a loss disallowed because you bought the same investment within 30 days before or after the sale) on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "schedule-d.line-1b": [
+            "Have you recorded the wash-sale loss adjustment amount of every covered short-term sale with a wash-sale loss adjustment (a loss disallowed because you bought the same investment within 30 days before or after the sale) on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "schedule-d.line-21": [
+            "Have you recorded the wash-sale loss adjustment amount of every covered short-term sale with a wash-sale loss adjustment (a loss disallowed because you bought the same investment within 30 days before or after the sale) on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "schedule-d.line-7": [
+            "Have you recorded the wash-sale loss adjustment amount of every covered short-term sale with a wash-sale loss adjustment (a loss disallowed because you bought the same investment within 30 days before or after the sale) on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "schedule3.line-1": [
+            "Have you recorded the wash-sale loss adjustment amount of every covered short-term sale with a wash-sale loss adjustment (a loss disallowed because you bought the same investment within 30 days before or after the sale) on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "schedule3.line-8": [
+            "Have you recorded the wash-sale loss adjustment amount of every covered short-term sale with a wash-sale loss adjustment (a loss disallowed because you bought the same investment within 30 days before or after the sale) on every Form 1099-B you or your spouse received for 2025?"
+          ]
+        },
+        "titles_shown": {}
+      },
+      "v87_hand_failures": [],
+      "v87_ask_failures": [],
+      "pass": true,
+      "numbers_identical": true
+    },
+    {
+      "id": "m_wash_one",
+      "group": "matrix",
+      "hand": {
+        "schedule-d.line-1a": 0,
+        "schedule-d.line-1b": 0,
+        "form1040.line-7a": 0,
+        "f1099b.covered-w-st-adjustment-subtotal": 200,
+        "form1040.line-15": 34250,
+        "form1040.line-16": 3875
+      },
+      "asks": [],
+      "note": "One covered wash sale only (500, 700, 200): column (h) 0. Both words: yes once the 200 is recorded.",
+      "v86_hand": true,
+      "same_acts": true,
+      "v86": {
+        "outcome": "success",
+        "stop": "saturated",
+        "lines": {
+          "form1040.line-12e": 15750,
+          "form1040.line-13b": 0,
+          "form1040.line-15": 34250,
+          "form1040.line-16": 3875,
+          "form1040.line-7a": 0,
+          "form1040.line-7b": "guard_inapplicable",
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": 0,
+          "schedule-d.line-1a": 0,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-7": 0,
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule1.line-21": 0
+        },
+        "symbols": {
+          "schedule-d-required.conclusion": "yes",
+          "f1099b.covered-w-lt-adjustment-subtotal": "0",
+          "f1099b.covered-w-st-adjustment-subtotal": "200.0",
+          "schedule1.line21-sli-deduction": "0",
+          "schedule1a.line36a-taxpayer": "0",
+          "schedule1a.line36b-spouse": "0"
+        },
+        "questions": [],
+        "asked_on": {
+          "form1040.line-25b": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-25d": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-33": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-34": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-35a": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-37": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ]
+        },
+        "titles_shown": {}
+      },
+      "v86_hand_failures": [],
+      "v86_ask_failures": [],
+      "v87": {
+        "outcome": "success",
+        "stop": "saturated",
+        "lines": {
+          "form1040.line-12e": 15750,
+          "form1040.line-13b": 0,
+          "form1040.line-15": 34250,
+          "form1040.line-16": 3875,
+          "form1040.line-7a": 0,
+          "form1040.line-7b": "guard_inapplicable",
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": 0,
+          "schedule-d.line-1a": 0,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-7": 0,
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule1.line-21": 0
+        },
+        "symbols": {
+          "schedule-d-required.conclusion": "yes",
+          "f1099b.covered-w-lt-adjustment-subtotal": "0",
+          "f1099b.covered-w-st-adjustment-subtotal": "200.0",
+          "schedule1.line21-sli-deduction": "0",
+          "schedule1a.line36a-taxpayer": "0",
+          "schedule1a.line36b-spouse": "0"
+        },
+        "questions": [],
+        "asked_on": {
+          "form1040.line-25b": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-25d": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-33": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-34": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-35a": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-37": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ]
+        },
+        "titles_shown": {}
+      },
+      "v87_hand_failures": [],
+      "v87_ask_failures": [],
+      "pass": true,
+      "numbers_identical": true
+    },
+    {
+      "id": "m_wash_plain",
+      "group": "matrix",
+      "hand": {
+        "schedule-d.line-1a": 200,
+        "schedule-d.line-1b": 0,
+        "form1040.line-7a": 200,
+        "form1040.line-15": 34450,
+        "form1040.line-16": 3899
+      },
+      "asks": [],
+      "note": "Covered sales with no adjustment. v86 words: truthful no (unanswered here), blocked. v87 words: yes.",
+      "v86_hand": false,
+      "same_acts": false,
+      "v86": {
+        "outcome": "success",
+        "stop": "saturated",
+        "lines": {
+          "form1040.line-12e": 15750,
+          "form1040.line-13b": "blocked",
+          "form1040.line-15": "blocked",
+          "form1040.line-16": "blocked",
+          "form1040.line-7a": "blocked",
+          "form1040.line-7b": "guard_inapplicable",
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": "blocked",
+          "schedule-d.line-1a": 200,
+          "schedule-d.line-1b": "blocked",
+          "schedule-d.line-7": "blocked",
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule1.line-21": 0
+        },
+        "symbols": {
+          "schedule-d-required.conclusion": "yes",
+          "f1099b.covered-w-lt-adjustment-subtotal": "0",
+          "schedule1.line21-sli-deduction": "0"
+        },
+        "questions": [
+          "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
+        ],
+        "asked_on": {
+          "form.eic-worksheet-a.line-3": [
+            "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form.eic-worksheet-a.line-5": [
+            "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form.eic-worksheet-a.line-6": [
+            "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form.sch8812.line-14": [
+            "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form.sch8812.line-17": [
+            "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form.sch8812.worksheet-a.line-5": [
+            "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form1040.line-11a": [
+            "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form1040.line-11b": [
+            "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form1040.line-13b": [
+            "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form1040.line-14": [
+            "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form1040.line-15": [
+            "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form1040.line-16": [
+            "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form1040.line-19": [
+            "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form1040.line-20": [
+            "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form1040.line-24": [
+            "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form1040.line-25b": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-25d": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-27a": [
+            "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form1040.line-28": [
+            "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form1040.line-32": [
+            "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form1040.line-33": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale.",
+            "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form1040.line-34": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale.",
+            "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form1040.line-35a": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale.",
+            "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form1040.line-37": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale.",
+            "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form1040.line-6b": [
+            "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form1040.line-7a": [
+            "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form1040.line-9": [
+            "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "form1040.tax-after-credits": [
+            "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "schedule-d.line-16": [
+            "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "schedule-d.line-1b": [
+            "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "schedule-d.line-21": [
+            "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "schedule-d.line-7": [
+            "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "schedule3.line-1": [
+            "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
+          ],
+          "schedule3.line-8": [
+            "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
+          ]
+        },
+        "titles_shown": {}
+      },
+      "v86_hand_failures": [
+        "schedule-d.line-1b: hand 0 got 'blocked'",
+        "form1040.line-7a: hand 200 got 'blocked'",
+        "form1040.line-15: hand 34450 got 'blocked'",
+        "form1040.line-16: hand 3899 got 'blocked'"
+      ],
+      "v86_ask_failures": [],
+      "v87": {
+        "outcome": "success",
+        "stop": "saturated",
+        "lines": {
+          "form1040.line-12e": 15750,
+          "form1040.line-13b": 0,
+          "form1040.line-15": 34450,
+          "form1040.line-16": 3899,
+          "form1040.line-7a": 200,
+          "form1040.line-7b": "guard_inapplicable",
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": 200,
+          "schedule-d.line-1a": 200,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-7": 200,
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule1.line-21": 0
+        },
+        "symbols": {
+          "schedule-d-required.conclusion": "yes",
+          "f1099b.covered-w-lt-adjustment-subtotal": "0",
+          "f1099b.covered-w-st-adjustment-subtotal": "0",
+          "schedule1.line21-sli-deduction": "0",
+          "schedule1a.line36a-taxpayer": "0",
+          "schedule1a.line36b-spouse": "0"
+        },
+        "questions": [],
+        "asked_on": {
+          "form1040.line-25b": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-25d": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-33": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-34": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-35a": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-37": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ]
+        },
+        "titles_shown": {}
+      },
+      "v87_hand_failures": [],
+      "v87_ask_failures": [],
+      "pass": true,
+      "v86_counterexample_fixed": true
+    }
+  ]
+}
