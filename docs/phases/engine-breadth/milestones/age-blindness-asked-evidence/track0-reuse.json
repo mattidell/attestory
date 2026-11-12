@@ -1,0 +1,501 @@
+{
+  "counts": {
+    "changed_members": 8,
+    "readers": 4,
+    "live": 5,
+    "live_passed": 5
+  },
+  "pass": true,
+  "checks": {
+    "only_the_eight_members": true,
+    "questions_added": true,
+    "two_rule_successors": true,
+    "bundle_v3_to_v4": true,
+    "four_bindings_became_required": true,
+    "condition_binding_added": true,
+    "other_readers_unchanged": true,
+    "two_successors_differ": true,
+    "spouse_titles_unchanged": true,
+    "existing_facts_unchanged": true,
+    "condition_fact_added": true,
+    "live_composition": true
+  },
+  "changed_members": [
+    {
+      "id": "core_calculations.vocabulary",
+      "v87": "v3",
+      "v88": "v4",
+      "role": "fact-type-bundle"
+    },
+    {
+      "id": "input-question.spouse-blind",
+      "v87": null,
+      "v88": "v1",
+      "role": "input-question"
+    },
+    {
+      "id": "input-question.spouse-over-65",
+      "v87": null,
+      "v88": "v1",
+      "role": "input-question"
+    },
+    {
+      "id": "input-question.standard-deduction.spouse-separate-condition",
+      "v87": null,
+      "v88": "v1",
+      "role": "input-question"
+    },
+    {
+      "id": "input-question.taxpayer-blind",
+      "v87": null,
+      "v88": "v1",
+      "role": "input-question"
+    },
+    {
+      "id": "input-question.taxpayer-over-65",
+      "v87": null,
+      "v88": "v1",
+      "role": "input-question"
+    },
+    {
+      "id": "rule.dependents-worksheet-line-1",
+      "v87": "v1",
+      "v88": "v2",
+      "role": "computation"
+    },
+    {
+      "id": "rule.schedule1a-part-v-line-36b",
+      "v87": "v1",
+      "v88": "v2",
+      "role": "computation"
+    }
+  ],
+  "binding_changes": [
+    {
+      "symbol": "spouse_blind",
+      "v87": "optional_default",
+      "v88": "required",
+      "other_fields_unchanged": true
+    },
+    {
+      "symbol": "spouse_over_65",
+      "v87": "optional_default",
+      "v88": "required",
+      "other_fields_unchanged": true
+    },
+    {
+      "symbol": "spouse_separate_condition",
+      "v87": null,
+      "v88": "required",
+      "other_fields_unchanged": false
+    },
+    {
+      "symbol": "taxpayer_blind",
+      "v87": "optional_default",
+      "v88": "required",
+      "other_fields_unchanged": true
+    },
+    {
+      "symbol": "taxpayer_over_65",
+      "v87": "optional_default",
+      "v88": "required",
+      "other_fields_unchanged": true
+    }
+  ],
+  "readers": [
+    {
+      "id": "dependents-worksheet-line-1",
+      "v87": "v1",
+      "v88": "v2",
+      "bytes_identical": false
+    },
+    {
+      "id": "form1040-standard-deduction",
+      "v87": "v3",
+      "v88": "v3",
+      "bytes_identical": true
+    },
+    {
+      "id": "schedule1a-part-v-line-36a",
+      "v87": "v1",
+      "v88": "v1",
+      "bytes_identical": true
+    },
+    {
+      "id": "schedule1a-part-v-line-36b",
+      "v87": "v1",
+      "v88": "v2",
+      "bytes_identical": false
+    }
+  ],
+  "title_changes": [],
+  "live": [
+    {
+      "id": "reuse_single_false",
+      "failures": [],
+      "measured": {
+        "v87": {
+          "outcome": "success",
+          "lines": {
+            "form1040.line-12e": 15750,
+            "form1040.line-13b": 0,
+            "form1040.line-14": 15750,
+            "form1040.line-15": 34250,
+            "form1040.line-16": 3875,
+            "form1040.line-24": 3875,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 625,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 0,
+            "dependents-worksheet.line3": 15750,
+            "dependents-worksheet.line4b": 0,
+            "dependents-worksheet.line4a": 15750,
+            "dependents-worksheet.line4c": 15750,
+            "deductions.line-12e": 15750,
+            "schedule1a.line36a-taxpayer": 0,
+            "schedule1a.line36b-spouse": 0,
+            "schedule1a.line37-enhanced-deduction-total": 0
+          },
+          "asked_slugs": [],
+          "questions": [],
+          "blocked_field_count": 0,
+          "blocked_fields": [],
+          "missing": [],
+          "blocked_rules": [],
+          "error": null,
+          "reason": null
+        },
+        "v88": {
+          "outcome": "success",
+          "lines": {
+            "form1040.line-12e": 15750,
+            "form1040.line-13b": 0,
+            "form1040.line-14": 15750,
+            "form1040.line-15": 34250,
+            "form1040.line-16": 3875,
+            "form1040.line-24": 3875,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 625,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 0,
+            "dependents-worksheet.line3": 15750,
+            "dependents-worksheet.line4b": 0,
+            "dependents-worksheet.line4a": 15750,
+            "dependents-worksheet.line4c": 15750,
+            "deductions.line-12e": 15750,
+            "schedule1a.line36a-taxpayer": 0,
+            "schedule1a.line36b-spouse": 0,
+            "schedule1a.line37-enhanced-deduction-total": 0
+          },
+          "asked_slugs": [],
+          "questions": [],
+          "blocked_field_count": 0,
+          "blocked_fields": [],
+          "missing": [],
+          "blocked_rules": [],
+          "error": null,
+          "reason": null
+        }
+      }
+    },
+    {
+      "id": "reuse_joint_spouse_age",
+      "failures": [],
+      "measured": {
+        "v87": {
+          "outcome": "success",
+          "lines": {
+            "form1040.line-12e": 33100,
+            "form1040.line-13b": 6000,
+            "form1040.line-14": 39100,
+            "form1040.line-15": 10900,
+            "form1040.line-16": 1093,
+            "form1040.line-24": 1093,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 3407,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 1,
+            "dependents-worksheet.line3": 31500,
+            "dependents-worksheet.line4b": 1600,
+            "dependents-worksheet.line4a": 31500,
+            "dependents-worksheet.line4c": 33100,
+            "deductions.line-12e": 33100,
+            "schedule1a.line36a-taxpayer": 0,
+            "schedule1a.line36b-spouse": 6000,
+            "schedule1a.line37-enhanced-deduction-total": 6000
+          },
+          "asked_slugs": [],
+          "questions": [],
+          "blocked_field_count": 0,
+          "blocked_fields": [],
+          "missing": [],
+          "blocked_rules": [],
+          "error": null,
+          "reason": null
+        },
+        "v88": {
+          "outcome": "success",
+          "lines": {
+            "form1040.line-12e": 33100,
+            "form1040.line-13b": 6000,
+            "form1040.line-14": 39100,
+            "form1040.line-15": 10900,
+            "form1040.line-16": 1093,
+            "form1040.line-24": 1093,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 3407,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 1,
+            "dependents-worksheet.line3": 31500,
+            "dependents-worksheet.line4b": 1600,
+            "dependents-worksheet.line4a": 31500,
+            "dependents-worksheet.line4c": 33100,
+            "deductions.line-12e": 33100,
+            "schedule1a.line36a-taxpayer": 0,
+            "schedule1a.line36b-spouse": 6000,
+            "schedule1a.line37-enhanced-deduction-total": 6000
+          },
+          "asked_slugs": [],
+          "questions": [],
+          "blocked_field_count": 0,
+          "blocked_fields": [],
+          "missing": [],
+          "blocked_rules": [],
+          "error": null,
+          "reason": null
+        }
+      }
+    },
+    {
+      "id": "reuse_dependent_age",
+      "failures": [],
+      "measured": {
+        "v87": {
+          "outcome": "success",
+          "lines": {
+            "form1040.line-12e": 17750,
+            "form1040.line-13b": 6000,
+            "form1040.line-14": 23750,
+            "form1040.line-15": 26250,
+            "form1040.line-16": 2915,
+            "form1040.line-24": 2915,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 1585,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 1,
+            "dependents-worksheet.line3": 15750,
+            "dependents-worksheet.line4b": 2000,
+            "dependents-worksheet.line4a": 15750,
+            "dependents-worksheet.line4c": 17750,
+            "deductions.line-12e": 17750,
+            "schedule1a.line36a-taxpayer": 6000,
+            "schedule1a.line36b-spouse": 0,
+            "schedule1a.line37-enhanced-deduction-total": 6000
+          },
+          "asked_slugs": [],
+          "questions": [],
+          "blocked_field_count": 0,
+          "blocked_fields": [],
+          "missing": [],
+          "blocked_rules": [],
+          "error": null,
+          "reason": null
+        },
+        "v88": {
+          "outcome": "success",
+          "lines": {
+            "form1040.line-12e": 17750,
+            "form1040.line-13b": 6000,
+            "form1040.line-14": 23750,
+            "form1040.line-15": 26250,
+            "form1040.line-16": 2915,
+            "form1040.line-24": 2915,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 1585,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 1,
+            "dependents-worksheet.line3": 15750,
+            "dependents-worksheet.line4b": 2000,
+            "dependents-worksheet.line4a": 15750,
+            "dependents-worksheet.line4c": 17750,
+            "deductions.line-12e": 17750,
+            "schedule1a.line36a-taxpayer": 6000,
+            "schedule1a.line36b-spouse": 0,
+            "schedule1a.line37-enhanced-deduction-total": 6000
+          },
+          "asked_slugs": [],
+          "questions": [],
+          "blocked_field_count": 0,
+          "blocked_fields": [],
+          "missing": [],
+          "blocked_rules": [],
+          "error": null,
+          "reason": null
+        }
+      }
+    },
+    {
+      "id": "reuse_qss_spouse_recorded",
+      "failures": [],
+      "measured": {
+        "v87": {
+          "outcome": "success",
+          "lines": {
+            "form1040.line-12e": 33100,
+            "form1040.line-13b": 0,
+            "form1040.line-14": 33100,
+            "form1040.line-15": 16900,
+            "form1040.line-16": 1693,
+            "form1040.line-24": 1693,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 2807,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 1,
+            "dependents-worksheet.line3": 31500,
+            "dependents-worksheet.line4b": 1600,
+            "dependents-worksheet.line4a": 31500,
+            "dependents-worksheet.line4c": 33100,
+            "deductions.line-12e": 33100,
+            "schedule1a.line36a-taxpayer": 0,
+            "schedule1a.line36b-spouse": 0,
+            "schedule1a.line37-enhanced-deduction-total": 0
+          },
+          "asked_slugs": [],
+          "questions": [],
+          "blocked_field_count": 0,
+          "blocked_fields": [],
+          "missing": [],
+          "blocked_rules": [],
+          "error": null,
+          "reason": null
+        },
+        "v88": {
+          "outcome": "success",
+          "lines": {
+            "form1040.line-12e": 31500,
+            "form1040.line-13b": 0,
+            "form1040.line-14": 31500,
+            "form1040.line-15": 18500,
+            "form1040.line-16": 1853,
+            "form1040.line-24": 1853,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 2647,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 0,
+            "dependents-worksheet.line3": 31500,
+            "dependents-worksheet.line4b": 0,
+            "dependents-worksheet.line4a": 31500,
+            "dependents-worksheet.line4c": 31500,
+            "deductions.line-12e": 31500,
+            "schedule1a.line36a-taxpayer": 0,
+            "schedule1a.line36b-spouse": 0,
+            "schedule1a.line37-enhanced-deduction-total": 0
+          },
+          "asked_slugs": [],
+          "questions": [],
+          "blocked_field_count": 0,
+          "blocked_fields": [],
+          "missing": [],
+          "blocked_rules": [],
+          "error": null,
+          "reason": null
+        }
+      }
+    },
+    {
+      "id": "reuse_separate_condition_no",
+      "failures": [],
+      "measured": {
+        "v87": {
+          "outcome": "success",
+          "lines": {
+            "form1040.line-12e": 17350,
+            "form1040.line-13b": 0,
+            "form1040.line-14": 17350,
+            "form1040.line-15": 32650,
+            "form1040.line-16": 3683,
+            "form1040.line-24": 3683,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 817,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 1,
+            "dependents-worksheet.line3": 15750,
+            "dependents-worksheet.line4b": 1600,
+            "dependents-worksheet.line4a": 15750,
+            "dependents-worksheet.line4c": 17350,
+            "deductions.line-12e": 17350,
+            "schedule1a.line36a-taxpayer": 0,
+            "schedule1a.line36b-spouse": 0,
+            "schedule1a.line37-enhanced-deduction-total": 0
+          },
+          "asked_slugs": [],
+          "questions": [],
+          "blocked_field_count": 2,
+          "blocked_fields": [
+            "form1040.line-6d",
+            "form1040.line-6d-not-checked"
+          ],
+          "missing": [],
+          "blocked_rules": [],
+          "error": null,
+          "reason": null
+        },
+        "v88": {
+          "outcome": "success",
+          "lines": {
+            "form1040.line-12e": 15750,
+            "form1040.line-13b": 0,
+            "form1040.line-14": 15750,
+            "form1040.line-15": 34250,
+            "form1040.line-16": 3875,
+            "form1040.line-24": 3875,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 625,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 0,
+            "dependents-worksheet.line3": 15750,
+            "dependents-worksheet.line4b": 0,
+            "dependents-worksheet.line4a": 15750,
+            "dependents-worksheet.line4c": 15750,
+            "deductions.line-12e": 15750,
+            "schedule1a.line36a-taxpayer": 0,
+            "schedule1a.line36b-spouse": 0,
+            "schedule1a.line37-enhanced-deduction-total": 0
+          },
+          "asked_slugs": [],
+          "questions": [],
+          "blocked_field_count": 2,
+          "blocked_fields": [
+            "form1040.line-6d",
+            "form1040.line-6d-not-checked"
+          ],
+          "missing": [],
+          "blocked_rules": [],
+          "error": null,
+          "reason": null
+        }
+      }
+    }
+  ],
+  "failed": []
+}

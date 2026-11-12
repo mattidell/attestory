@@ -1,0 +1,4095 @@
+{
+  "cores": {
+    "v86": "published",
+    "v87": "question-wording prototype.py (scratch)",
+    "v88": "prototype.py (scratch)"
+  },
+  "law": "law.json",
+  "base_return": "question-wording harness wage return: single, wages 50,000, 4,500 withheld, every other question answered",
+  "cases": [
+    {
+      "id": "single-born-1961-01-01",
+      "says": "Single; born January 1, 1961; not blind. Age 65 is reached the day before the 65th birthday (December 31, 2025).",
+      "status": "single",
+      "hand": {
+        "form1040.line-12e": 17750,
+        "schedule1a.line36a-taxpayer": 6000,
+        "form1040.line-15": 26250,
+        "form1040.line-16": 2915
+      },
+      "basis": "chart: single, 1 box 17,750; Schedule 1-A Part V 6,000 (MAGI 50,000 is under 75,000); 50,000 - 17,750 - 6,000 = 26,250; Tax Table 2,915",
+      "extra": {
+        "senior-deduction.taxpayer-valid-ssn": "yes"
+      },
+      "truthful": {
+        "taxpayer-over-65": true,
+        "taxpayer-blind": false
+      },
+      "v88_only": {},
+      "recorded_on_v86": {},
+      "measured": {
+        "unanswered@v86": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": 15750,
+            "form1040.line-13b": 0,
+            "form1040.line-14": 15750,
+            "form1040.line-15": 34250,
+            "form1040.line-16": 3875,
+            "form1040.line-24": 3875,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 625,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 0,
+            "dependents-worksheet.line3": 15750,
+            "dependents-worksheet.line4b": 0,
+            "dependents-worksheet.line4a": 15750,
+            "dependents-worksheet.line4c": 15750,
+            "deductions.line-12e": 15750,
+            "schedule1a.line36a-taxpayer": 0,
+            "schedule1a.line36b-spouse": 0,
+            "schedule1a.line37-enhanced-deduction-total": 0
+          },
+          "questions": [],
+          "blocked_field_count": 0,
+          "asked_on": [],
+          "blocked_rules": []
+        },
+        "unanswered@v87": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": 15750,
+            "form1040.line-13b": 0,
+            "form1040.line-14": 15750,
+            "form1040.line-15": 34250,
+            "form1040.line-16": 3875,
+            "form1040.line-24": 3875,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 625,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 0,
+            "dependents-worksheet.line3": 15750,
+            "dependents-worksheet.line4b": 0,
+            "dependents-worksheet.line4a": 15750,
+            "dependents-worksheet.line4c": 15750,
+            "deductions.line-12e": 15750,
+            "schedule1a.line36a-taxpayer": 0,
+            "schedule1a.line36b-spouse": 0,
+            "schedule1a.line37-enhanced-deduction-total": 0
+          },
+          "questions": [],
+          "blocked_field_count": 0,
+          "asked_on": [],
+          "blocked_rules": []
+        },
+        "unanswered@v88": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": "blocked",
+            "form1040.line-13b": "blocked",
+            "form1040.line-14": "blocked",
+            "form1040.line-15": "blocked",
+            "form1040.line-16": "blocked",
+            "form1040.line-24": "blocked",
+            "form1040.line-33": "blocked",
+            "form1040.line-34": "blocked",
+            "form1040.line-37": "blocked"
+          },
+          "symbols": {
+            "dependents-worksheet.line3": 15750,
+            "dependents-worksheet.line4a": 15750,
+            "schedule1a.line36b-spouse": 0
+          },
+          "questions": [
+            "Were you born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday, so a birthday of January 1, 1961 counts and January 2, 1961 does not. If this return is for someone who died in 2025 before reaching age 65, answer no.",
+            "Were you totally blind on December 31, 2025, or do you have a statement certified by your eye doctor (ophthalmologist or optometrist) that you can't see better than 20/200 in your better eye with glasses or contact lenses, or that your field of vision is 20 degrees or less?"
+          ],
+          "blocked_field_count": 20,
+          "asked_on": [
+            "form.sch8812.line-14",
+            "form.sch8812.line-17",
+            "form.sch8812.worksheet-a.line-5",
+            "form1040.line-12e",
+            "form1040.line-13b",
+            "form1040.line-14",
+            "form1040.line-15",
+            "form1040.line-16",
+            "form1040.line-19",
+            "form1040.line-20",
+            "form1040.line-24",
+            "form1040.line-28",
+            "form1040.line-32",
+            "form1040.line-33",
+            "form1040.line-34",
+            "form1040.line-35a",
+            "form1040.line-37",
+            "form1040.tax-after-credits",
+            "schedule3.line-1",
+            "schedule3.line-8"
+          ],
+          "blocked_rules": [
+            {
+              "rule": "dependents-worksheet-line-1",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "taxpayer_over_65",
+                "taxpayer_blind"
+              ]
+            },
+            {
+              "rule": "dependents-worksheet-line-4b",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "dependents-worksheet.line1-box-count"
+              ]
+            },
+            {
+              "rule": "dependents-worksheet-line-4c",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "dependents-worksheet.line4b"
+              ]
+            },
+            {
+              "rule": "form1040-standard-deduction",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "dependents-worksheet.line4c",
+                "dependents-worksheet.line4b"
+              ]
+            },
+            {
+              "rule": "schedule1a-part-v-line-36a",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "taxpayer_over_65"
+              ]
+            },
+            {
+              "rule": "schedule1a-part-v-line-37",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "schedule1a.line36a-taxpayer"
+              ]
+            }
+          ]
+        },
+        "truthful@v86": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": 17750,
+            "form1040.line-13b": 6000,
+            "form1040.line-14": 23750,
+            "form1040.line-15": 26250,
+            "form1040.line-16": 2915,
+            "form1040.line-24": 2915,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 1585,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 1,
+            "dependents-worksheet.line3": 15750,
+            "dependents-worksheet.line4b": 2000,
+            "dependents-worksheet.line4a": 15750,
+            "dependents-worksheet.line4c": 17750,
+            "deductions.line-12e": 17750,
+            "schedule1a.line36a-taxpayer": 6000,
+            "schedule1a.line36b-spouse": 0,
+            "schedule1a.line37-enhanced-deduction-total": 6000
+          },
+          "questions": [],
+          "blocked_field_count": 0,
+          "asked_on": [],
+          "blocked_rules": []
+        },
+        "truthful@v87": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": 17750,
+            "form1040.line-13b": 6000,
+            "form1040.line-14": 23750,
+            "form1040.line-15": 26250,
+            "form1040.line-16": 2915,
+            "form1040.line-24": 2915,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 1585,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 1,
+            "dependents-worksheet.line3": 15750,
+            "dependents-worksheet.line4b": 2000,
+            "dependents-worksheet.line4a": 15750,
+            "dependents-worksheet.line4c": 17750,
+            "deductions.line-12e": 17750,
+            "schedule1a.line36a-taxpayer": 6000,
+            "schedule1a.line36b-spouse": 0,
+            "schedule1a.line37-enhanced-deduction-total": 6000
+          },
+          "questions": [],
+          "blocked_field_count": 0,
+          "asked_on": [],
+          "blocked_rules": []
+        },
+        "truthful@v88": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": 17750,
+            "form1040.line-13b": 6000,
+            "form1040.line-14": 23750,
+            "form1040.line-15": 26250,
+            "form1040.line-16": 2915,
+            "form1040.line-24": 2915,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 1585,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 1,
+            "dependents-worksheet.line3": 15750,
+            "dependents-worksheet.line4b": 2000,
+            "dependents-worksheet.line4a": 15750,
+            "dependents-worksheet.line4c": 17750,
+            "deductions.line-12e": 17750,
+            "schedule1a.line36a-taxpayer": 6000,
+            "schedule1a.line36b-spouse": 0,
+            "schedule1a.line37-enhanced-deduction-total": 6000
+          },
+          "questions": [],
+          "blocked_field_count": 0,
+          "asked_on": [],
+          "blocked_rules": []
+        },
+        "age-only@v88": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": "blocked",
+            "form1040.line-13b": 6000,
+            "form1040.line-14": "blocked",
+            "form1040.line-15": "blocked",
+            "form1040.line-16": "blocked",
+            "form1040.line-24": "blocked",
+            "form1040.line-33": "blocked",
+            "form1040.line-34": "blocked",
+            "form1040.line-37": "blocked"
+          },
+          "symbols": {
+            "dependents-worksheet.line3": 15750,
+            "dependents-worksheet.line4a": 15750,
+            "schedule1a.line36a-taxpayer": 6000,
+            "schedule1a.line36b-spouse": 0,
+            "schedule1a.line37-enhanced-deduction-total": 6000
+          },
+          "questions": [
+            "Were you totally blind on December 31, 2025, or do you have a statement certified by your eye doctor (ophthalmologist or optometrist) that you can't see better than 20/200 in your better eye with glasses or contact lenses, or that your field of vision is 20 degrees or less?"
+          ],
+          "blocked_field_count": 19,
+          "asked_on": [
+            "form.sch8812.line-14",
+            "form.sch8812.line-17",
+            "form.sch8812.worksheet-a.line-5",
+            "form1040.line-12e",
+            "form1040.line-14",
+            "form1040.line-15",
+            "form1040.line-16",
+            "form1040.line-19",
+            "form1040.line-20",
+            "form1040.line-24",
+            "form1040.line-28",
+            "form1040.line-32",
+            "form1040.line-33",
+            "form1040.line-34",
+            "form1040.line-35a",
+            "form1040.line-37",
+            "form1040.tax-after-credits",
+            "schedule3.line-1",
+            "schedule3.line-8"
+          ],
+          "blocked_rules": [
+            {
+              "rule": "dependents-worksheet-line-1",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "taxpayer_blind"
+              ]
+            },
+            {
+              "rule": "dependents-worksheet-line-4b",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "dependents-worksheet.line1-box-count"
+              ]
+            },
+            {
+              "rule": "dependents-worksheet-line-4c",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "dependents-worksheet.line4b"
+              ]
+            },
+            {
+              "rule": "form1040-standard-deduction",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "dependents-worksheet.line4c",
+                "dependents-worksheet.line4b"
+              ]
+            }
+          ]
+        }
+      },
+      "verdicts": {
+        "unanswered@v86": {
+          "silent_default": true,
+          "hand_mismatches_if_truthful_differs": [
+            "form1040.line-12e=15750",
+            "schedule1a.line36a-taxpayer=0",
+            "form1040.line-15=34250",
+            "form1040.line-16=3875"
+          ],
+          "asked": []
+        },
+        "unanswered@v87": {
+          "silent_default": true,
+          "hand_mismatches_if_truthful_differs": [
+            "form1040.line-12e=15750",
+            "schedule1a.line36a-taxpayer=0",
+            "form1040.line-15=34250",
+            "form1040.line-16=3875"
+          ],
+          "asked": []
+        },
+        "unanswered@v88": {
+          "asked": [
+            "taxpayer-blind",
+            "taxpayer-over-65"
+          ]
+        },
+        "truthful@v86": {
+          "hand_mismatches": [],
+          "asked": []
+        },
+        "truthful@v87": {
+          "hand_mismatches": [],
+          "asked": []
+        },
+        "truthful@v88": {
+          "hand_mismatches": [],
+          "asked": []
+        },
+        "age-only@v88": {
+          "asked": [
+            "taxpayer-blind"
+          ]
+        }
+      }
+    },
+    {
+      "id": "single-born-1961-01-02",
+      "says": "Single; born January 2, 1961; not blind. Not 65 until January 1, 2026.",
+      "status": "single",
+      "hand": {
+        "form1040.line-12e": 15750,
+        "schedule1a.line36a-taxpayer": 0,
+        "form1040.line-15": 34250,
+        "form1040.line-16": 3875
+      },
+      "basis": "standard deduction 15,750; no senior deduction; Tax Table 3,875",
+      "extra": {},
+      "truthful": {
+        "taxpayer-over-65": false,
+        "taxpayer-blind": false
+      },
+      "v88_only": {},
+      "recorded_on_v86": {},
+      "measured": {
+        "unanswered@v86": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": 15750,
+            "form1040.line-13b": 0,
+            "form1040.line-14": 15750,
+            "form1040.line-15": 34250,
+            "form1040.line-16": 3875,
+            "form1040.line-24": 3875,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 625,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 0,
+            "dependents-worksheet.line3": 15750,
+            "dependents-worksheet.line4b": 0,
+            "dependents-worksheet.line4a": 15750,
+            "dependents-worksheet.line4c": 15750,
+            "deductions.line-12e": 15750,
+            "schedule1a.line36a-taxpayer": 0,
+            "schedule1a.line36b-spouse": 0,
+            "schedule1a.line37-enhanced-deduction-total": 0
+          },
+          "questions": [],
+          "blocked_field_count": 0,
+          "asked_on": [],
+          "blocked_rules": []
+        },
+        "unanswered@v87": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": 15750,
+            "form1040.line-13b": 0,
+            "form1040.line-14": 15750,
+            "form1040.line-15": 34250,
+            "form1040.line-16": 3875,
+            "form1040.line-24": 3875,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 625,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 0,
+            "dependents-worksheet.line3": 15750,
+            "dependents-worksheet.line4b": 0,
+            "dependents-worksheet.line4a": 15750,
+            "dependents-worksheet.line4c": 15750,
+            "deductions.line-12e": 15750,
+            "schedule1a.line36a-taxpayer": 0,
+            "schedule1a.line36b-spouse": 0,
+            "schedule1a.line37-enhanced-deduction-total": 0
+          },
+          "questions": [],
+          "blocked_field_count": 0,
+          "asked_on": [],
+          "blocked_rules": []
+        },
+        "unanswered@v88": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": "blocked",
+            "form1040.line-13b": "blocked",
+            "form1040.line-14": "blocked",
+            "form1040.line-15": "blocked",
+            "form1040.line-16": "blocked",
+            "form1040.line-24": "blocked",
+            "form1040.line-33": "blocked",
+            "form1040.line-34": "blocked",
+            "form1040.line-37": "blocked"
+          },
+          "symbols": {
+            "dependents-worksheet.line3": 15750,
+            "dependents-worksheet.line4a": 15750,
+            "schedule1a.line36b-spouse": 0
+          },
+          "questions": [
+            "Were you born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday, so a birthday of January 1, 1961 counts and January 2, 1961 does not. If this return is for someone who died in 2025 before reaching age 65, answer no.",
+            "Were you totally blind on December 31, 2025, or do you have a statement certified by your eye doctor (ophthalmologist or optometrist) that you can't see better than 20/200 in your better eye with glasses or contact lenses, or that your field of vision is 20 degrees or less?"
+          ],
+          "blocked_field_count": 20,
+          "asked_on": [
+            "form.sch8812.line-14",
+            "form.sch8812.line-17",
+            "form.sch8812.worksheet-a.line-5",
+            "form1040.line-12e",
+            "form1040.line-13b",
+            "form1040.line-14",
+            "form1040.line-15",
+            "form1040.line-16",
+            "form1040.line-19",
+            "form1040.line-20",
+            "form1040.line-24",
+            "form1040.line-28",
+            "form1040.line-32",
+            "form1040.line-33",
+            "form1040.line-34",
+            "form1040.line-35a",
+            "form1040.line-37",
+            "form1040.tax-after-credits",
+            "schedule3.line-1",
+            "schedule3.line-8"
+          ],
+          "blocked_rules": [
+            {
+              "rule": "dependents-worksheet-line-1",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "taxpayer_over_65",
+                "taxpayer_blind"
+              ]
+            },
+            {
+              "rule": "dependents-worksheet-line-4b",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "dependents-worksheet.line1-box-count"
+              ]
+            },
+            {
+              "rule": "dependents-worksheet-line-4c",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "dependents-worksheet.line4b"
+              ]
+            },
+            {
+              "rule": "form1040-standard-deduction",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "dependents-worksheet.line4c",
+                "dependents-worksheet.line4b"
+              ]
+            },
+            {
+              "rule": "schedule1a-part-v-line-36a",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "taxpayer_over_65"
+              ]
+            },
+            {
+              "rule": "schedule1a-part-v-line-37",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "schedule1a.line36a-taxpayer"
+              ]
+            }
+          ]
+        },
+        "truthful@v86": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": 15750,
+            "form1040.line-13b": 0,
+            "form1040.line-14": 15750,
+            "form1040.line-15": 34250,
+            "form1040.line-16": 3875,
+            "form1040.line-24": 3875,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 625,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 0,
+            "dependents-worksheet.line3": 15750,
+            "dependents-worksheet.line4b": 0,
+            "dependents-worksheet.line4a": 15750,
+            "dependents-worksheet.line4c": 15750,
+            "deductions.line-12e": 15750,
+            "schedule1a.line36a-taxpayer": 0,
+            "schedule1a.line36b-spouse": 0,
+            "schedule1a.line37-enhanced-deduction-total": 0
+          },
+          "questions": [],
+          "blocked_field_count": 0,
+          "asked_on": [],
+          "blocked_rules": []
+        },
+        "truthful@v87": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": 15750,
+            "form1040.line-13b": 0,
+            "form1040.line-14": 15750,
+            "form1040.line-15": 34250,
+            "form1040.line-16": 3875,
+            "form1040.line-24": 3875,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 625,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 0,
+            "dependents-worksheet.line3": 15750,
+            "dependents-worksheet.line4b": 0,
+            "dependents-worksheet.line4a": 15750,
+            "dependents-worksheet.line4c": 15750,
+            "deductions.line-12e": 15750,
+            "schedule1a.line36a-taxpayer": 0,
+            "schedule1a.line36b-spouse": 0,
+            "schedule1a.line37-enhanced-deduction-total": 0
+          },
+          "questions": [],
+          "blocked_field_count": 0,
+          "asked_on": [],
+          "blocked_rules": []
+        },
+        "truthful@v88": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": 15750,
+            "form1040.line-13b": 0,
+            "form1040.line-14": 15750,
+            "form1040.line-15": 34250,
+            "form1040.line-16": 3875,
+            "form1040.line-24": 3875,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 625,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 0,
+            "dependents-worksheet.line3": 15750,
+            "dependents-worksheet.line4b": 0,
+            "dependents-worksheet.line4a": 15750,
+            "dependents-worksheet.line4c": 15750,
+            "deductions.line-12e": 15750,
+            "schedule1a.line36a-taxpayer": 0,
+            "schedule1a.line36b-spouse": 0,
+            "schedule1a.line37-enhanced-deduction-total": 0
+          },
+          "questions": [],
+          "blocked_field_count": 0,
+          "asked_on": [],
+          "blocked_rules": []
+        }
+      },
+      "verdicts": {
+        "unanswered@v86": {
+          "silent_default": true,
+          "hand_mismatches_if_truthful_differs": [],
+          "asked": []
+        },
+        "unanswered@v87": {
+          "silent_default": true,
+          "hand_mismatches_if_truthful_differs": [],
+          "asked": []
+        },
+        "unanswered@v88": {
+          "asked": [
+            "taxpayer-blind",
+            "taxpayer-over-65"
+          ]
+        },
+        "truthful@v86": {
+          "hand_mismatches": [],
+          "asked": []
+        },
+        "truthful@v87": {
+          "hand_mismatches": [],
+          "asked": []
+        },
+        "truthful@v88": {
+          "hand_mismatches": [],
+          "asked": []
+        }
+      }
+    },
+    {
+      "id": "single-born-1960-01-01-blind",
+      "says": "Single; born January 1, 1960; blind (certified 20/200).",
+      "status": "single",
+      "hand": {
+        "form1040.line-12e": 19750,
+        "schedule1a.line36a-taxpayer": 6000,
+        "form1040.line-15": 24250,
+        "form1040.line-16": 2675
+      },
+      "basis": "chart: single, 2 boxes 19,750; senior 6,000; 50,000 - 19,750 - 6,000 = 24,250; Tax Table (24,250-24,300 row) 2,675",
+      "extra": {
+        "senior-deduction.taxpayer-valid-ssn": "yes"
+      },
+      "truthful": {
+        "taxpayer-over-65": true,
+        "taxpayer-blind": true
+      },
+      "v88_only": {},
+      "recorded_on_v86": {},
+      "measured": {
+        "unanswered@v86": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": 15750,
+            "form1040.line-13b": 0,
+            "form1040.line-14": 15750,
+            "form1040.line-15": 34250,
+            "form1040.line-16": 3875,
+            "form1040.line-24": 3875,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 625,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 0,
+            "dependents-worksheet.line3": 15750,
+            "dependents-worksheet.line4b": 0,
+            "dependents-worksheet.line4a": 15750,
+            "dependents-worksheet.line4c": 15750,
+            "deductions.line-12e": 15750,
+            "schedule1a.line36a-taxpayer": 0,
+            "schedule1a.line36b-spouse": 0,
+            "schedule1a.line37-enhanced-deduction-total": 0
+          },
+          "questions": [],
+          "blocked_field_count": 0,
+          "asked_on": [],
+          "blocked_rules": []
+        },
+        "unanswered@v87": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": 15750,
+            "form1040.line-13b": 0,
+            "form1040.line-14": 15750,
+            "form1040.line-15": 34250,
+            "form1040.line-16": 3875,
+            "form1040.line-24": 3875,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 625,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 0,
+            "dependents-worksheet.line3": 15750,
+            "dependents-worksheet.line4b": 0,
+            "dependents-worksheet.line4a": 15750,
+            "dependents-worksheet.line4c": 15750,
+            "deductions.line-12e": 15750,
+            "schedule1a.line36a-taxpayer": 0,
+            "schedule1a.line36b-spouse": 0,
+            "schedule1a.line37-enhanced-deduction-total": 0
+          },
+          "questions": [],
+          "blocked_field_count": 0,
+          "asked_on": [],
+          "blocked_rules": []
+        },
+        "unanswered@v88": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": "blocked",
+            "form1040.line-13b": "blocked",
+            "form1040.line-14": "blocked",
+            "form1040.line-15": "blocked",
+            "form1040.line-16": "blocked",
+            "form1040.line-24": "blocked",
+            "form1040.line-33": "blocked",
+            "form1040.line-34": "blocked",
+            "form1040.line-37": "blocked"
+          },
+          "symbols": {
+            "dependents-worksheet.line3": 15750,
+            "dependents-worksheet.line4a": 15750,
+            "schedule1a.line36b-spouse": 0
+          },
+          "questions": [
+            "Were you born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday, so a birthday of January 1, 1961 counts and January 2, 1961 does not. If this return is for someone who died in 2025 before reaching age 65, answer no.",
+            "Were you totally blind on December 31, 2025, or do you have a statement certified by your eye doctor (ophthalmologist or optometrist) that you can't see better than 20/200 in your better eye with glasses or contact lenses, or that your field of vision is 20 degrees or less?"
+          ],
+          "blocked_field_count": 20,
+          "asked_on": [
+            "form.sch8812.line-14",
+            "form.sch8812.line-17",
+            "form.sch8812.worksheet-a.line-5",
+            "form1040.line-12e",
+            "form1040.line-13b",
+            "form1040.line-14",
+            "form1040.line-15",
+            "form1040.line-16",
+            "form1040.line-19",
+            "form1040.line-20",
+            "form1040.line-24",
+            "form1040.line-28",
+            "form1040.line-32",
+            "form1040.line-33",
+            "form1040.line-34",
+            "form1040.line-35a",
+            "form1040.line-37",
+            "form1040.tax-after-credits",
+            "schedule3.line-1",
+            "schedule3.line-8"
+          ],
+          "blocked_rules": [
+            {
+              "rule": "dependents-worksheet-line-1",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "taxpayer_over_65",
+                "taxpayer_blind"
+              ]
+            },
+            {
+              "rule": "dependents-worksheet-line-4b",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "dependents-worksheet.line1-box-count"
+              ]
+            },
+            {
+              "rule": "dependents-worksheet-line-4c",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "dependents-worksheet.line4b"
+              ]
+            },
+            {
+              "rule": "form1040-standard-deduction",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "dependents-worksheet.line4c",
+                "dependents-worksheet.line4b"
+              ]
+            },
+            {
+              "rule": "schedule1a-part-v-line-36a",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "taxpayer_over_65"
+              ]
+            },
+            {
+              "rule": "schedule1a-part-v-line-37",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "schedule1a.line36a-taxpayer"
+              ]
+            }
+          ]
+        },
+        "truthful@v86": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": 19750,
+            "form1040.line-13b": 6000,
+            "form1040.line-14": 25750,
+            "form1040.line-15": 24250,
+            "form1040.line-16": 2675,
+            "form1040.line-24": 2675,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 1825,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 2,
+            "dependents-worksheet.line3": 15750,
+            "dependents-worksheet.line4b": 4000,
+            "dependents-worksheet.line4a": 15750,
+            "dependents-worksheet.line4c": 19750,
+            "deductions.line-12e": 19750,
+            "schedule1a.line36a-taxpayer": 6000,
+            "schedule1a.line36b-spouse": 0,
+            "schedule1a.line37-enhanced-deduction-total": 6000
+          },
+          "questions": [],
+          "blocked_field_count": 0,
+          "asked_on": [],
+          "blocked_rules": []
+        },
+        "truthful@v87": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": 19750,
+            "form1040.line-13b": 6000,
+            "form1040.line-14": 25750,
+            "form1040.line-15": 24250,
+            "form1040.line-16": 2675,
+            "form1040.line-24": 2675,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 1825,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 2,
+            "dependents-worksheet.line3": 15750,
+            "dependents-worksheet.line4b": 4000,
+            "dependents-worksheet.line4a": 15750,
+            "dependents-worksheet.line4c": 19750,
+            "deductions.line-12e": 19750,
+            "schedule1a.line36a-taxpayer": 6000,
+            "schedule1a.line36b-spouse": 0,
+            "schedule1a.line37-enhanced-deduction-total": 6000
+          },
+          "questions": [],
+          "blocked_field_count": 0,
+          "asked_on": [],
+          "blocked_rules": []
+        },
+        "truthful@v88": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": 19750,
+            "form1040.line-13b": 6000,
+            "form1040.line-14": 25750,
+            "form1040.line-15": 24250,
+            "form1040.line-16": 2675,
+            "form1040.line-24": 2675,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 1825,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 2,
+            "dependents-worksheet.line3": 15750,
+            "dependents-worksheet.line4b": 4000,
+            "dependents-worksheet.line4a": 15750,
+            "dependents-worksheet.line4c": 19750,
+            "deductions.line-12e": 19750,
+            "schedule1a.line36a-taxpayer": 6000,
+            "schedule1a.line36b-spouse": 0,
+            "schedule1a.line37-enhanced-deduction-total": 6000
+          },
+          "questions": [],
+          "blocked_field_count": 0,
+          "asked_on": [],
+          "blocked_rules": []
+        },
+        "age-only@v88": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": "blocked",
+            "form1040.line-13b": 6000,
+            "form1040.line-14": "blocked",
+            "form1040.line-15": "blocked",
+            "form1040.line-16": "blocked",
+            "form1040.line-24": "blocked",
+            "form1040.line-33": "blocked",
+            "form1040.line-34": "blocked",
+            "form1040.line-37": "blocked"
+          },
+          "symbols": {
+            "dependents-worksheet.line3": 15750,
+            "dependents-worksheet.line4a": 15750,
+            "schedule1a.line36a-taxpayer": 6000,
+            "schedule1a.line36b-spouse": 0,
+            "schedule1a.line37-enhanced-deduction-total": 6000
+          },
+          "questions": [
+            "Were you totally blind on December 31, 2025, or do you have a statement certified by your eye doctor (ophthalmologist or optometrist) that you can't see better than 20/200 in your better eye with glasses or contact lenses, or that your field of vision is 20 degrees or less?"
+          ],
+          "blocked_field_count": 19,
+          "asked_on": [
+            "form.sch8812.line-14",
+            "form.sch8812.line-17",
+            "form.sch8812.worksheet-a.line-5",
+            "form1040.line-12e",
+            "form1040.line-14",
+            "form1040.line-15",
+            "form1040.line-16",
+            "form1040.line-19",
+            "form1040.line-20",
+            "form1040.line-24",
+            "form1040.line-28",
+            "form1040.line-32",
+            "form1040.line-33",
+            "form1040.line-34",
+            "form1040.line-35a",
+            "form1040.line-37",
+            "form1040.tax-after-credits",
+            "schedule3.line-1",
+            "schedule3.line-8"
+          ],
+          "blocked_rules": [
+            {
+              "rule": "dependents-worksheet-line-1",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "taxpayer_blind"
+              ]
+            },
+            {
+              "rule": "dependents-worksheet-line-4b",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "dependents-worksheet.line1-box-count"
+              ]
+            },
+            {
+              "rule": "dependents-worksheet-line-4c",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "dependents-worksheet.line4b"
+              ]
+            },
+            {
+              "rule": "form1040-standard-deduction",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "dependents-worksheet.line4c",
+                "dependents-worksheet.line4b"
+              ]
+            }
+          ]
+        }
+      },
+      "verdicts": {
+        "unanswered@v86": {
+          "silent_default": true,
+          "hand_mismatches_if_truthful_differs": [
+            "form1040.line-12e=15750",
+            "schedule1a.line36a-taxpayer=0",
+            "form1040.line-15=34250",
+            "form1040.line-16=3875"
+          ],
+          "asked": []
+        },
+        "unanswered@v87": {
+          "silent_default": true,
+          "hand_mismatches_if_truthful_differs": [
+            "form1040.line-12e=15750",
+            "schedule1a.line36a-taxpayer=0",
+            "form1040.line-15=34250",
+            "form1040.line-16=3875"
+          ],
+          "asked": []
+        },
+        "unanswered@v88": {
+          "asked": [
+            "taxpayer-blind",
+            "taxpayer-over-65"
+          ]
+        },
+        "truthful@v86": {
+          "hand_mismatches": [],
+          "asked": []
+        },
+        "truthful@v87": {
+          "hand_mismatches": [],
+          "asked": []
+        },
+        "truthful@v88": {
+          "hand_mismatches": [],
+          "asked": []
+        },
+        "age-only@v88": {
+          "asked": [
+            "taxpayer-blind"
+          ]
+        }
+      }
+    },
+    {
+      "id": "joint-one-spouse-65",
+      "says": "Joint; taxpayer born March 3, 1958; spouse born May 5, 1970; neither blind.",
+      "status": "married_filing_jointly",
+      "hand": {
+        "form1040.line-12e": 33100,
+        "schedule1a.line36a-taxpayer": 6000,
+        "schedule1a.line36b-spouse": 0,
+        "form1040.line-15": 10900,
+        "form1040.line-16": 1093
+      },
+      "basis": "chart: joint, 1 box 33,100; senior 6,000 for the taxpayer only (MAGI under 150,000); 50,000 - 33,100 - 6,000 = 10,900; Tax Table 1,093",
+      "extra": {
+        "senior-deduction.taxpayer-valid-ssn": "yes"
+      },
+      "truthful": {
+        "taxpayer-over-65": true,
+        "taxpayer-blind": false,
+        "spouse-over-65": false,
+        "spouse-blind": false
+      },
+      "v88_only": {},
+      "recorded_on_v86": {},
+      "measured": {
+        "unanswered@v86": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": 31500,
+            "form1040.line-13b": 0,
+            "form1040.line-14": 31500,
+            "form1040.line-15": 18500,
+            "form1040.line-16": 1853,
+            "form1040.line-24": 1853,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 2647,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 0,
+            "dependents-worksheet.line3": 31500,
+            "dependents-worksheet.line4b": 0,
+            "dependents-worksheet.line4a": 31500,
+            "dependents-worksheet.line4c": 31500,
+            "deductions.line-12e": 31500,
+            "schedule1a.line36a-taxpayer": 0,
+            "schedule1a.line36b-spouse": 0,
+            "schedule1a.line37-enhanced-deduction-total": 0
+          },
+          "questions": [],
+          "blocked_field_count": 0,
+          "asked_on": [],
+          "blocked_rules": []
+        },
+        "unanswered@v87": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": 31500,
+            "form1040.line-13b": 0,
+            "form1040.line-14": 31500,
+            "form1040.line-15": 18500,
+            "form1040.line-16": 1853,
+            "form1040.line-24": 1853,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 2647,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 0,
+            "dependents-worksheet.line3": 31500,
+            "dependents-worksheet.line4b": 0,
+            "dependents-worksheet.line4a": 31500,
+            "dependents-worksheet.line4c": 31500,
+            "deductions.line-12e": 31500,
+            "schedule1a.line36a-taxpayer": 0,
+            "schedule1a.line36b-spouse": 0,
+            "schedule1a.line37-enhanced-deduction-total": 0
+          },
+          "questions": [],
+          "blocked_field_count": 0,
+          "asked_on": [],
+          "blocked_rules": []
+        },
+        "unanswered@v88": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": "blocked",
+            "form1040.line-13b": "blocked",
+            "form1040.line-14": "blocked",
+            "form1040.line-15": "blocked",
+            "form1040.line-16": "blocked",
+            "form1040.line-24": "blocked",
+            "form1040.line-33": "blocked",
+            "form1040.line-34": "blocked",
+            "form1040.line-37": "blocked"
+          },
+          "symbols": {
+            "dependents-worksheet.line3": 31500,
+            "dependents-worksheet.line4a": 31500
+          },
+          "questions": [
+            "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+            "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less?",
+            "Were you born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday, so a birthday of January 1, 1961 counts and January 2, 1961 does not. If this return is for someone who died in 2025 before reaching age 65, answer no.",
+            "Were you totally blind on December 31, 2025, or do you have a statement certified by your eye doctor (ophthalmologist or optometrist) that you can't see better than 20/200 in your better eye with glasses or contact lenses, or that your field of vision is 20 degrees or less?"
+          ],
+          "blocked_field_count": 20,
+          "asked_on": [
+            "form.sch8812.line-14",
+            "form.sch8812.line-17",
+            "form.sch8812.worksheet-a.line-5",
+            "form1040.line-12e",
+            "form1040.line-13b",
+            "form1040.line-14",
+            "form1040.line-15",
+            "form1040.line-16",
+            "form1040.line-19",
+            "form1040.line-20",
+            "form1040.line-24",
+            "form1040.line-28",
+            "form1040.line-32",
+            "form1040.line-33",
+            "form1040.line-34",
+            "form1040.line-35a",
+            "form1040.line-37",
+            "form1040.tax-after-credits",
+            "schedule3.line-1",
+            "schedule3.line-8"
+          ],
+          "blocked_rules": [
+            {
+              "rule": "dependents-worksheet-line-1",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "taxpayer_over_65",
+                "taxpayer_blind",
+                "spouse_over_65",
+                "spouse_blind"
+              ]
+            },
+            {
+              "rule": "schedule1a-part-v-line-36b",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "spouse_over_65"
+              ]
+            },
+            {
+              "rule": "dependents-worksheet-line-4b",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "dependents-worksheet.line1-box-count"
+              ]
+            },
+            {
+              "rule": "dependents-worksheet-line-4c",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "dependents-worksheet.line4b"
+              ]
+            },
+            {
+              "rule": "form1040-standard-deduction",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "dependents-worksheet.line4c",
+                "dependents-worksheet.line4b"
+              ]
+            },
+            {
+              "rule": "schedule1a-part-v-line-36a",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "taxpayer_over_65"
+              ]
+            },
+            {
+              "rule": "schedule1a-part-v-line-37",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "schedule1a.line36a-taxpayer",
+                "schedule1a.line36b-spouse"
+              ]
+            }
+          ]
+        },
+        "truthful@v86": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": 33100,
+            "form1040.line-13b": 6000,
+            "form1040.line-14": 39100,
+            "form1040.line-15": 10900,
+            "form1040.line-16": 1093,
+            "form1040.line-24": 1093,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 3407,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 1,
+            "dependents-worksheet.line3": 31500,
+            "dependents-worksheet.line4b": 1600,
+            "dependents-worksheet.line4a": 31500,
+            "dependents-worksheet.line4c": 33100,
+            "deductions.line-12e": 33100,
+            "schedule1a.line36a-taxpayer": 6000,
+            "schedule1a.line36b-spouse": 0,
+            "schedule1a.line37-enhanced-deduction-total": 6000
+          },
+          "questions": [],
+          "blocked_field_count": 0,
+          "asked_on": [],
+          "blocked_rules": []
+        },
+        "truthful@v87": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": 33100,
+            "form1040.line-13b": 6000,
+            "form1040.line-14": 39100,
+            "form1040.line-15": 10900,
+            "form1040.line-16": 1093,
+            "form1040.line-24": 1093,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 3407,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 1,
+            "dependents-worksheet.line3": 31500,
+            "dependents-worksheet.line4b": 1600,
+            "dependents-worksheet.line4a": 31500,
+            "dependents-worksheet.line4c": 33100,
+            "deductions.line-12e": 33100,
+            "schedule1a.line36a-taxpayer": 6000,
+            "schedule1a.line36b-spouse": 0,
+            "schedule1a.line37-enhanced-deduction-total": 6000
+          },
+          "questions": [],
+          "blocked_field_count": 0,
+          "asked_on": [],
+          "blocked_rules": []
+        },
+        "truthful@v88": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": 33100,
+            "form1040.line-13b": 6000,
+            "form1040.line-14": 39100,
+            "form1040.line-15": 10900,
+            "form1040.line-16": 1093,
+            "form1040.line-24": 1093,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 3407,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 1,
+            "dependents-worksheet.line3": 31500,
+            "dependents-worksheet.line4b": 1600,
+            "dependents-worksheet.line4a": 31500,
+            "dependents-worksheet.line4c": 33100,
+            "deductions.line-12e": 33100,
+            "schedule1a.line36a-taxpayer": 6000,
+            "schedule1a.line36b-spouse": 0,
+            "schedule1a.line37-enhanced-deduction-total": 6000
+          },
+          "questions": [],
+          "blocked_field_count": 0,
+          "asked_on": [],
+          "blocked_rules": []
+        },
+        "taxpayer-only@v88": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": "blocked",
+            "form1040.line-13b": "blocked",
+            "form1040.line-14": "blocked",
+            "form1040.line-15": "blocked",
+            "form1040.line-16": "blocked",
+            "form1040.line-24": "blocked",
+            "form1040.line-33": "blocked",
+            "form1040.line-34": "blocked",
+            "form1040.line-37": "blocked"
+          },
+          "symbols": {
+            "dependents-worksheet.line3": 31500,
+            "dependents-worksheet.line4a": 31500,
+            "schedule1a.line36a-taxpayer": 6000
+          },
+          "questions": [
+            "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+            "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less?"
+          ],
+          "blocked_field_count": 20,
+          "asked_on": [
+            "form.sch8812.line-14",
+            "form.sch8812.line-17",
+            "form.sch8812.worksheet-a.line-5",
+            "form1040.line-12e",
+            "form1040.line-13b",
+            "form1040.line-14",
+            "form1040.line-15",
+            "form1040.line-16",
+            "form1040.line-19",
+            "form1040.line-20",
+            "form1040.line-24",
+            "form1040.line-28",
+            "form1040.line-32",
+            "form1040.line-33",
+            "form1040.line-34",
+            "form1040.line-35a",
+            "form1040.line-37",
+            "form1040.tax-after-credits",
+            "schedule3.line-1",
+            "schedule3.line-8"
+          ],
+          "blocked_rules": [
+            {
+              "rule": "dependents-worksheet-line-1",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "spouse_over_65",
+                "spouse_blind"
+              ]
+            },
+            {
+              "rule": "schedule1a-part-v-line-36b",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "spouse_over_65"
+              ]
+            },
+            {
+              "rule": "dependents-worksheet-line-4b",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "dependents-worksheet.line1-box-count"
+              ]
+            },
+            {
+              "rule": "dependents-worksheet-line-4c",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "dependents-worksheet.line4b"
+              ]
+            },
+            {
+              "rule": "form1040-standard-deduction",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "dependents-worksheet.line4c",
+                "dependents-worksheet.line4b"
+              ]
+            },
+            {
+              "rule": "schedule1a-part-v-line-37",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "schedule1a.line36b-spouse"
+              ]
+            }
+          ]
+        }
+      },
+      "verdicts": {
+        "unanswered@v86": {
+          "silent_default": true,
+          "hand_mismatches_if_truthful_differs": [
+            "form1040.line-12e=31500",
+            "schedule1a.line36a-taxpayer=0",
+            "form1040.line-15=18500",
+            "form1040.line-16=1853"
+          ],
+          "asked": []
+        },
+        "unanswered@v87": {
+          "silent_default": true,
+          "hand_mismatches_if_truthful_differs": [
+            "form1040.line-12e=31500",
+            "schedule1a.line36a-taxpayer=0",
+            "form1040.line-15=18500",
+            "form1040.line-16=1853"
+          ],
+          "asked": []
+        },
+        "unanswered@v88": {
+          "asked": [
+            "spouse-blind",
+            "spouse-over-65",
+            "taxpayer-blind",
+            "taxpayer-over-65"
+          ]
+        },
+        "truthful@v86": {
+          "hand_mismatches": [],
+          "asked": []
+        },
+        "truthful@v87": {
+          "hand_mismatches": [],
+          "asked": []
+        },
+        "truthful@v88": {
+          "hand_mismatches": [],
+          "asked": []
+        },
+        "taxpayer-only@v88": {
+          "asked": [
+            "spouse-blind",
+            "spouse-over-65"
+          ]
+        }
+      }
+    },
+    {
+      "id": "joint-spouse-died-2025-02-12",
+      "says": "Joint; taxpayer born May 5, 1970; spouse born February 14, 1960, died February 12, 2025 (not yet 65).",
+      "status": "married_filing_jointly",
+      "hand": {
+        "form1040.line-12e": 31500,
+        "schedule1a.line36b-spouse": 0,
+        "form1040.line-15": 18500,
+        "form1040.line-16": 1853
+      },
+      "basis": "line 12d death example: don't check the box; 31,500; no senior deduction; Tax Table 1,853",
+      "extra": {},
+      "truthful": {
+        "taxpayer-over-65": false,
+        "taxpayer-blind": false,
+        "spouse-over-65": false,
+        "spouse-blind": false
+      },
+      "v88_only": {},
+      "recorded_on_v86": {},
+      "measured": {
+        "unanswered@v86": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": 31500,
+            "form1040.line-13b": 0,
+            "form1040.line-14": 31500,
+            "form1040.line-15": 18500,
+            "form1040.line-16": 1853,
+            "form1040.line-24": 1853,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 2647,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 0,
+            "dependents-worksheet.line3": 31500,
+            "dependents-worksheet.line4b": 0,
+            "dependents-worksheet.line4a": 31500,
+            "dependents-worksheet.line4c": 31500,
+            "deductions.line-12e": 31500,
+            "schedule1a.line36a-taxpayer": 0,
+            "schedule1a.line36b-spouse": 0,
+            "schedule1a.line37-enhanced-deduction-total": 0
+          },
+          "questions": [],
+          "blocked_field_count": 0,
+          "asked_on": [],
+          "blocked_rules": []
+        },
+        "unanswered@v87": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": 31500,
+            "form1040.line-13b": 0,
+            "form1040.line-14": 31500,
+            "form1040.line-15": 18500,
+            "form1040.line-16": 1853,
+            "form1040.line-24": 1853,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 2647,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 0,
+            "dependents-worksheet.line3": 31500,
+            "dependents-worksheet.line4b": 0,
+            "dependents-worksheet.line4a": 31500,
+            "dependents-worksheet.line4c": 31500,
+            "deductions.line-12e": 31500,
+            "schedule1a.line36a-taxpayer": 0,
+            "schedule1a.line36b-spouse": 0,
+            "schedule1a.line37-enhanced-deduction-total": 0
+          },
+          "questions": [],
+          "blocked_field_count": 0,
+          "asked_on": [],
+          "blocked_rules": []
+        },
+        "unanswered@v88": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": "blocked",
+            "form1040.line-13b": "blocked",
+            "form1040.line-14": "blocked",
+            "form1040.line-15": "blocked",
+            "form1040.line-16": "blocked",
+            "form1040.line-24": "blocked",
+            "form1040.line-33": "blocked",
+            "form1040.line-34": "blocked",
+            "form1040.line-37": "blocked"
+          },
+          "symbols": {
+            "dependents-worksheet.line3": 31500,
+            "dependents-worksheet.line4a": 31500
+          },
+          "questions": [
+            "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+            "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less?",
+            "Were you born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday, so a birthday of January 1, 1961 counts and January 2, 1961 does not. If this return is for someone who died in 2025 before reaching age 65, answer no.",
+            "Were you totally blind on December 31, 2025, or do you have a statement certified by your eye doctor (ophthalmologist or optometrist) that you can't see better than 20/200 in your better eye with glasses or contact lenses, or that your field of vision is 20 degrees or less?"
+          ],
+          "blocked_field_count": 20,
+          "asked_on": [
+            "form.sch8812.line-14",
+            "form.sch8812.line-17",
+            "form.sch8812.worksheet-a.line-5",
+            "form1040.line-12e",
+            "form1040.line-13b",
+            "form1040.line-14",
+            "form1040.line-15",
+            "form1040.line-16",
+            "form1040.line-19",
+            "form1040.line-20",
+            "form1040.line-24",
+            "form1040.line-28",
+            "form1040.line-32",
+            "form1040.line-33",
+            "form1040.line-34",
+            "form1040.line-35a",
+            "form1040.line-37",
+            "form1040.tax-after-credits",
+            "schedule3.line-1",
+            "schedule3.line-8"
+          ],
+          "blocked_rules": [
+            {
+              "rule": "dependents-worksheet-line-1",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "taxpayer_over_65",
+                "taxpayer_blind",
+                "spouse_over_65",
+                "spouse_blind"
+              ]
+            },
+            {
+              "rule": "schedule1a-part-v-line-36b",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "spouse_over_65"
+              ]
+            },
+            {
+              "rule": "dependents-worksheet-line-4b",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "dependents-worksheet.line1-box-count"
+              ]
+            },
+            {
+              "rule": "dependents-worksheet-line-4c",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "dependents-worksheet.line4b"
+              ]
+            },
+            {
+              "rule": "form1040-standard-deduction",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "dependents-worksheet.line4c",
+                "dependents-worksheet.line4b"
+              ]
+            },
+            {
+              "rule": "schedule1a-part-v-line-36a",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "taxpayer_over_65"
+              ]
+            },
+            {
+              "rule": "schedule1a-part-v-line-37",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "schedule1a.line36a-taxpayer",
+                "schedule1a.line36b-spouse"
+              ]
+            }
+          ]
+        },
+        "truthful@v86": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": 31500,
+            "form1040.line-13b": 0,
+            "form1040.line-14": 31500,
+            "form1040.line-15": 18500,
+            "form1040.line-16": 1853,
+            "form1040.line-24": 1853,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 2647,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 0,
+            "dependents-worksheet.line3": 31500,
+            "dependents-worksheet.line4b": 0,
+            "dependents-worksheet.line4a": 31500,
+            "dependents-worksheet.line4c": 31500,
+            "deductions.line-12e": 31500,
+            "schedule1a.line36a-taxpayer": 0,
+            "schedule1a.line36b-spouse": 0,
+            "schedule1a.line37-enhanced-deduction-total": 0
+          },
+          "questions": [],
+          "blocked_field_count": 0,
+          "asked_on": [],
+          "blocked_rules": []
+        },
+        "truthful@v87": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": 31500,
+            "form1040.line-13b": 0,
+            "form1040.line-14": 31500,
+            "form1040.line-15": 18500,
+            "form1040.line-16": 1853,
+            "form1040.line-24": 1853,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 2647,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 0,
+            "dependents-worksheet.line3": 31500,
+            "dependents-worksheet.line4b": 0,
+            "dependents-worksheet.line4a": 31500,
+            "dependents-worksheet.line4c": 31500,
+            "deductions.line-12e": 31500,
+            "schedule1a.line36a-taxpayer": 0,
+            "schedule1a.line36b-spouse": 0,
+            "schedule1a.line37-enhanced-deduction-total": 0
+          },
+          "questions": [],
+          "blocked_field_count": 0,
+          "asked_on": [],
+          "blocked_rules": []
+        },
+        "truthful@v88": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": 31500,
+            "form1040.line-13b": 0,
+            "form1040.line-14": 31500,
+            "form1040.line-15": 18500,
+            "form1040.line-16": 1853,
+            "form1040.line-24": 1853,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 2647,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 0,
+            "dependents-worksheet.line3": 31500,
+            "dependents-worksheet.line4b": 0,
+            "dependents-worksheet.line4a": 31500,
+            "dependents-worksheet.line4c": 31500,
+            "deductions.line-12e": 31500,
+            "schedule1a.line36a-taxpayer": 0,
+            "schedule1a.line36b-spouse": 0,
+            "schedule1a.line37-enhanced-deduction-total": 0
+          },
+          "questions": [],
+          "blocked_field_count": 0,
+          "asked_on": [],
+          "blocked_rules": []
+        },
+        "taxpayer-only@v88": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": "blocked",
+            "form1040.line-13b": "blocked",
+            "form1040.line-14": "blocked",
+            "form1040.line-15": "blocked",
+            "form1040.line-16": "blocked",
+            "form1040.line-24": "blocked",
+            "form1040.line-33": "blocked",
+            "form1040.line-34": "blocked",
+            "form1040.line-37": "blocked"
+          },
+          "symbols": {
+            "dependents-worksheet.line3": 31500,
+            "dependents-worksheet.line4a": 31500,
+            "schedule1a.line36a-taxpayer": 0
+          },
+          "questions": [
+            "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+            "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less?"
+          ],
+          "blocked_field_count": 20,
+          "asked_on": [
+            "form.sch8812.line-14",
+            "form.sch8812.line-17",
+            "form.sch8812.worksheet-a.line-5",
+            "form1040.line-12e",
+            "form1040.line-13b",
+            "form1040.line-14",
+            "form1040.line-15",
+            "form1040.line-16",
+            "form1040.line-19",
+            "form1040.line-20",
+            "form1040.line-24",
+            "form1040.line-28",
+            "form1040.line-32",
+            "form1040.line-33",
+            "form1040.line-34",
+            "form1040.line-35a",
+            "form1040.line-37",
+            "form1040.tax-after-credits",
+            "schedule3.line-1",
+            "schedule3.line-8"
+          ],
+          "blocked_rules": [
+            {
+              "rule": "dependents-worksheet-line-1",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "spouse_over_65",
+                "spouse_blind"
+              ]
+            },
+            {
+              "rule": "schedule1a-part-v-line-36b",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "spouse_over_65"
+              ]
+            },
+            {
+              "rule": "dependents-worksheet-line-4b",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "dependents-worksheet.line1-box-count"
+              ]
+            },
+            {
+              "rule": "dependents-worksheet-line-4c",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "dependents-worksheet.line4b"
+              ]
+            },
+            {
+              "rule": "form1040-standard-deduction",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "dependents-worksheet.line4c",
+                "dependents-worksheet.line4b"
+              ]
+            },
+            {
+              "rule": "schedule1a-part-v-line-37",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "schedule1a.line36b-spouse"
+              ]
+            }
+          ]
+        }
+      },
+      "verdicts": {
+        "unanswered@v86": {
+          "silent_default": true,
+          "hand_mismatches_if_truthful_differs": [],
+          "asked": []
+        },
+        "unanswered@v87": {
+          "silent_default": true,
+          "hand_mismatches_if_truthful_differs": [],
+          "asked": []
+        },
+        "unanswered@v88": {
+          "asked": [
+            "spouse-blind",
+            "spouse-over-65",
+            "taxpayer-blind",
+            "taxpayer-over-65"
+          ]
+        },
+        "truthful@v86": {
+          "hand_mismatches": [],
+          "asked": []
+        },
+        "truthful@v87": {
+          "hand_mismatches": [],
+          "asked": []
+        },
+        "truthful@v88": {
+          "hand_mismatches": [],
+          "asked": []
+        },
+        "taxpayer-only@v88": {
+          "asked": [
+            "spouse-blind",
+            "spouse-over-65"
+          ]
+        }
+      }
+    },
+    {
+      "id": "joint-spouse-died-2025-02-13",
+      "says": "Joint; taxpayer born May 5, 1970; spouse born February 14, 1960, died February 13, 2025 (age 65 at death).",
+      "status": "married_filing_jointly",
+      "hand": {
+        "form1040.line-12e": 33100,
+        "schedule1a.line36b-spouse": 6000,
+        "form1040.line-15": 10900,
+        "form1040.line-16": 1093
+      },
+      "basis": "line 12d death example: check the spouse box; 33,100; senior 6,000 for the spouse; Tax Table 1,093",
+      "extra": {
+        "senior-deduction.spouse-valid-ssn": "yes"
+      },
+      "truthful": {
+        "taxpayer-over-65": false,
+        "taxpayer-blind": false,
+        "spouse-over-65": true,
+        "spouse-blind": false
+      },
+      "v88_only": {},
+      "recorded_on_v86": {},
+      "measured": {
+        "unanswered@v86": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": 31500,
+            "form1040.line-13b": 0,
+            "form1040.line-14": 31500,
+            "form1040.line-15": 18500,
+            "form1040.line-16": 1853,
+            "form1040.line-24": 1853,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 2647,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 0,
+            "dependents-worksheet.line3": 31500,
+            "dependents-worksheet.line4b": 0,
+            "dependents-worksheet.line4a": 31500,
+            "dependents-worksheet.line4c": 31500,
+            "deductions.line-12e": 31500,
+            "schedule1a.line36a-taxpayer": 0,
+            "schedule1a.line36b-spouse": 0,
+            "schedule1a.line37-enhanced-deduction-total": 0
+          },
+          "questions": [],
+          "blocked_field_count": 0,
+          "asked_on": [],
+          "blocked_rules": []
+        },
+        "unanswered@v87": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": 31500,
+            "form1040.line-13b": 0,
+            "form1040.line-14": 31500,
+            "form1040.line-15": 18500,
+            "form1040.line-16": 1853,
+            "form1040.line-24": 1853,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 2647,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 0,
+            "dependents-worksheet.line3": 31500,
+            "dependents-worksheet.line4b": 0,
+            "dependents-worksheet.line4a": 31500,
+            "dependents-worksheet.line4c": 31500,
+            "deductions.line-12e": 31500,
+            "schedule1a.line36a-taxpayer": 0,
+            "schedule1a.line36b-spouse": 0,
+            "schedule1a.line37-enhanced-deduction-total": 0
+          },
+          "questions": [],
+          "blocked_field_count": 0,
+          "asked_on": [],
+          "blocked_rules": []
+        },
+        "unanswered@v88": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": "blocked",
+            "form1040.line-13b": "blocked",
+            "form1040.line-14": "blocked",
+            "form1040.line-15": "blocked",
+            "form1040.line-16": "blocked",
+            "form1040.line-24": "blocked",
+            "form1040.line-33": "blocked",
+            "form1040.line-34": "blocked",
+            "form1040.line-37": "blocked"
+          },
+          "symbols": {
+            "dependents-worksheet.line3": 31500,
+            "dependents-worksheet.line4a": 31500
+          },
+          "questions": [
+            "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+            "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less?",
+            "Were you born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday, so a birthday of January 1, 1961 counts and January 2, 1961 does not. If this return is for someone who died in 2025 before reaching age 65, answer no.",
+            "Were you totally blind on December 31, 2025, or do you have a statement certified by your eye doctor (ophthalmologist or optometrist) that you can't see better than 20/200 in your better eye with glasses or contact lenses, or that your field of vision is 20 degrees or less?"
+          ],
+          "blocked_field_count": 20,
+          "asked_on": [
+            "form.sch8812.line-14",
+            "form.sch8812.line-17",
+            "form.sch8812.worksheet-a.line-5",
+            "form1040.line-12e",
+            "form1040.line-13b",
+            "form1040.line-14",
+            "form1040.line-15",
+            "form1040.line-16",
+            "form1040.line-19",
+            "form1040.line-20",
+            "form1040.line-24",
+            "form1040.line-28",
+            "form1040.line-32",
+            "form1040.line-33",
+            "form1040.line-34",
+            "form1040.line-35a",
+            "form1040.line-37",
+            "form1040.tax-after-credits",
+            "schedule3.line-1",
+            "schedule3.line-8"
+          ],
+          "blocked_rules": [
+            {
+              "rule": "dependents-worksheet-line-1",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "taxpayer_over_65",
+                "taxpayer_blind",
+                "spouse_over_65",
+                "spouse_blind"
+              ]
+            },
+            {
+              "rule": "schedule1a-part-v-line-36b",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "spouse_over_65"
+              ]
+            },
+            {
+              "rule": "dependents-worksheet-line-4b",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "dependents-worksheet.line1-box-count"
+              ]
+            },
+            {
+              "rule": "dependents-worksheet-line-4c",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "dependents-worksheet.line4b"
+              ]
+            },
+            {
+              "rule": "form1040-standard-deduction",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "dependents-worksheet.line4c",
+                "dependents-worksheet.line4b"
+              ]
+            },
+            {
+              "rule": "schedule1a-part-v-line-36a",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "taxpayer_over_65"
+              ]
+            },
+            {
+              "rule": "schedule1a-part-v-line-37",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "schedule1a.line36a-taxpayer",
+                "schedule1a.line36b-spouse"
+              ]
+            }
+          ]
+        },
+        "truthful@v86": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": 33100,
+            "form1040.line-13b": 6000,
+            "form1040.line-14": 39100,
+            "form1040.line-15": 10900,
+            "form1040.line-16": 1093,
+            "form1040.line-24": 1093,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 3407,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 1,
+            "dependents-worksheet.line3": 31500,
+            "dependents-worksheet.line4b": 1600,
+            "dependents-worksheet.line4a": 31500,
+            "dependents-worksheet.line4c": 33100,
+            "deductions.line-12e": 33100,
+            "schedule1a.line36a-taxpayer": 0,
+            "schedule1a.line36b-spouse": 6000,
+            "schedule1a.line37-enhanced-deduction-total": 6000
+          },
+          "questions": [],
+          "blocked_field_count": 0,
+          "asked_on": [],
+          "blocked_rules": []
+        },
+        "truthful@v87": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": 33100,
+            "form1040.line-13b": 6000,
+            "form1040.line-14": 39100,
+            "form1040.line-15": 10900,
+            "form1040.line-16": 1093,
+            "form1040.line-24": 1093,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 3407,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 1,
+            "dependents-worksheet.line3": 31500,
+            "dependents-worksheet.line4b": 1600,
+            "dependents-worksheet.line4a": 31500,
+            "dependents-worksheet.line4c": 33100,
+            "deductions.line-12e": 33100,
+            "schedule1a.line36a-taxpayer": 0,
+            "schedule1a.line36b-spouse": 6000,
+            "schedule1a.line37-enhanced-deduction-total": 6000
+          },
+          "questions": [],
+          "blocked_field_count": 0,
+          "asked_on": [],
+          "blocked_rules": []
+        },
+        "truthful@v88": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": 33100,
+            "form1040.line-13b": 6000,
+            "form1040.line-14": 39100,
+            "form1040.line-15": 10900,
+            "form1040.line-16": 1093,
+            "form1040.line-24": 1093,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 3407,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 1,
+            "dependents-worksheet.line3": 31500,
+            "dependents-worksheet.line4b": 1600,
+            "dependents-worksheet.line4a": 31500,
+            "dependents-worksheet.line4c": 33100,
+            "deductions.line-12e": 33100,
+            "schedule1a.line36a-taxpayer": 0,
+            "schedule1a.line36b-spouse": 6000,
+            "schedule1a.line37-enhanced-deduction-total": 6000
+          },
+          "questions": [],
+          "blocked_field_count": 0,
+          "asked_on": [],
+          "blocked_rules": []
+        },
+        "taxpayer-only@v88": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": "blocked",
+            "form1040.line-13b": "blocked",
+            "form1040.line-14": "blocked",
+            "form1040.line-15": "blocked",
+            "form1040.line-16": "blocked",
+            "form1040.line-24": "blocked",
+            "form1040.line-33": "blocked",
+            "form1040.line-34": "blocked",
+            "form1040.line-37": "blocked"
+          },
+          "symbols": {
+            "dependents-worksheet.line3": 31500,
+            "dependents-worksheet.line4a": 31500,
+            "schedule1a.line36a-taxpayer": 0
+          },
+          "questions": [
+            "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+            "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less?"
+          ],
+          "blocked_field_count": 20,
+          "asked_on": [
+            "form.sch8812.line-14",
+            "form.sch8812.line-17",
+            "form.sch8812.worksheet-a.line-5",
+            "form1040.line-12e",
+            "form1040.line-13b",
+            "form1040.line-14",
+            "form1040.line-15",
+            "form1040.line-16",
+            "form1040.line-19",
+            "form1040.line-20",
+            "form1040.line-24",
+            "form1040.line-28",
+            "form1040.line-32",
+            "form1040.line-33",
+            "form1040.line-34",
+            "form1040.line-35a",
+            "form1040.line-37",
+            "form1040.tax-after-credits",
+            "schedule3.line-1",
+            "schedule3.line-8"
+          ],
+          "blocked_rules": [
+            {
+              "rule": "dependents-worksheet-line-1",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "spouse_over_65",
+                "spouse_blind"
+              ]
+            },
+            {
+              "rule": "schedule1a-part-v-line-36b",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "spouse_over_65"
+              ]
+            },
+            {
+              "rule": "dependents-worksheet-line-4b",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "dependents-worksheet.line1-box-count"
+              ]
+            },
+            {
+              "rule": "dependents-worksheet-line-4c",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "dependents-worksheet.line4b"
+              ]
+            },
+            {
+              "rule": "form1040-standard-deduction",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "dependents-worksheet.line4c",
+                "dependents-worksheet.line4b"
+              ]
+            },
+            {
+              "rule": "schedule1a-part-v-line-37",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "schedule1a.line36b-spouse"
+              ]
+            }
+          ]
+        }
+      },
+      "verdicts": {
+        "unanswered@v86": {
+          "silent_default": true,
+          "hand_mismatches_if_truthful_differs": [
+            "form1040.line-12e=31500",
+            "schedule1a.line36b-spouse=0",
+            "form1040.line-15=18500",
+            "form1040.line-16=1853"
+          ],
+          "asked": []
+        },
+        "unanswered@v87": {
+          "silent_default": true,
+          "hand_mismatches_if_truthful_differs": [
+            "form1040.line-12e=31500",
+            "schedule1a.line36b-spouse=0",
+            "form1040.line-15=18500",
+            "form1040.line-16=1853"
+          ],
+          "asked": []
+        },
+        "unanswered@v88": {
+          "asked": [
+            "spouse-blind",
+            "spouse-over-65",
+            "taxpayer-blind",
+            "taxpayer-over-65"
+          ]
+        },
+        "truthful@v86": {
+          "hand_mismatches": [],
+          "asked": []
+        },
+        "truthful@v87": {
+          "hand_mismatches": [],
+          "asked": []
+        },
+        "truthful@v88": {
+          "hand_mismatches": [],
+          "asked": []
+        },
+        "taxpayer-only@v88": {
+          "asked": [
+            "spouse-blind",
+            "spouse-over-65"
+          ]
+        }
+      }
+    },
+    {
+      "id": "dependent-65",
+      "says": "Single; someone can claim the filer as a dependent; born March 3, 1950; not blind.",
+      "status": "single",
+      "hand": {
+        "dependents-worksheet.line1-box-count": 1,
+        "dependents-worksheet.line4b": 2000,
+        "form1040.line-12e": 17750,
+        "schedule1a.line36a-taxpayer": 6000,
+        "form1040.line-15": 26250,
+        "form1040.line-16": 2915
+      },
+      "basis": "dependents worksheet: line 2 50,450, line 3 15,750, 4a 15,750, 4b 1 x 2,000, 4c 17,750; senior 6,000 (Schedule 1-A Part V names no dependent exclusion); Tax Table 2,915",
+      "extra": {
+        "standard-deduction.can-be-claimed-as-dependent": "yes",
+        "senior-deduction.taxpayer-valid-ssn": "yes"
+      },
+      "truthful": {
+        "taxpayer-over-65": true,
+        "taxpayer-blind": false
+      },
+      "v88_only": {},
+      "recorded_on_v86": {},
+      "measured": {
+        "unanswered@v86": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": 15750,
+            "form1040.line-13b": 0,
+            "form1040.line-14": 15750,
+            "form1040.line-15": 34250,
+            "form1040.line-16": 3875,
+            "form1040.line-24": 3875,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 625,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 0,
+            "dependents-worksheet.line3": 15750,
+            "dependents-worksheet.line4b": 0,
+            "dependents-worksheet.line4a": 15750,
+            "dependents-worksheet.line4c": 15750,
+            "deductions.line-12e": 15750,
+            "schedule1a.line36a-taxpayer": 0,
+            "schedule1a.line36b-spouse": 0,
+            "schedule1a.line37-enhanced-deduction-total": 0
+          },
+          "questions": [],
+          "blocked_field_count": 0,
+          "asked_on": [],
+          "blocked_rules": []
+        },
+        "unanswered@v87": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": 15750,
+            "form1040.line-13b": 0,
+            "form1040.line-14": 15750,
+            "form1040.line-15": 34250,
+            "form1040.line-16": 3875,
+            "form1040.line-24": 3875,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 625,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 0,
+            "dependents-worksheet.line3": 15750,
+            "dependents-worksheet.line4b": 0,
+            "dependents-worksheet.line4a": 15750,
+            "dependents-worksheet.line4c": 15750,
+            "deductions.line-12e": 15750,
+            "schedule1a.line36a-taxpayer": 0,
+            "schedule1a.line36b-spouse": 0,
+            "schedule1a.line37-enhanced-deduction-total": 0
+          },
+          "questions": [],
+          "blocked_field_count": 0,
+          "asked_on": [],
+          "blocked_rules": []
+        },
+        "unanswered@v88": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": "blocked",
+            "form1040.line-13b": "blocked",
+            "form1040.line-14": "blocked",
+            "form1040.line-15": "blocked",
+            "form1040.line-16": "blocked",
+            "form1040.line-24": "blocked",
+            "form1040.line-33": "blocked",
+            "form1040.line-34": "blocked",
+            "form1040.line-37": "blocked"
+          },
+          "symbols": {
+            "dependents-worksheet.line3": 15750,
+            "dependents-worksheet.line4a": 15750,
+            "schedule1a.line36b-spouse": 0
+          },
+          "questions": [
+            "Were you born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday, so a birthday of January 1, 1961 counts and January 2, 1961 does not. If this return is for someone who died in 2025 before reaching age 65, answer no.",
+            "Were you totally blind on December 31, 2025, or do you have a statement certified by your eye doctor (ophthalmologist or optometrist) that you can't see better than 20/200 in your better eye with glasses or contact lenses, or that your field of vision is 20 degrees or less?"
+          ],
+          "blocked_field_count": 20,
+          "asked_on": [
+            "form.sch8812.line-14",
+            "form.sch8812.line-17",
+            "form.sch8812.worksheet-a.line-5",
+            "form1040.line-12e",
+            "form1040.line-13b",
+            "form1040.line-14",
+            "form1040.line-15",
+            "form1040.line-16",
+            "form1040.line-19",
+            "form1040.line-20",
+            "form1040.line-24",
+            "form1040.line-28",
+            "form1040.line-32",
+            "form1040.line-33",
+            "form1040.line-34",
+            "form1040.line-35a",
+            "form1040.line-37",
+            "form1040.tax-after-credits",
+            "schedule3.line-1",
+            "schedule3.line-8"
+          ],
+          "blocked_rules": [
+            {
+              "rule": "dependents-worksheet-line-1",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "taxpayer_over_65",
+                "taxpayer_blind"
+              ]
+            },
+            {
+              "rule": "dependents-worksheet-line-4b",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "dependents-worksheet.line1-box-count"
+              ]
+            },
+            {
+              "rule": "dependents-worksheet-line-4c",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "dependents-worksheet.line4b"
+              ]
+            },
+            {
+              "rule": "form1040-standard-deduction",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "dependents-worksheet.line4c",
+                "dependents-worksheet.line4b"
+              ]
+            },
+            {
+              "rule": "schedule1a-part-v-line-36a",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "taxpayer_over_65"
+              ]
+            },
+            {
+              "rule": "schedule1a-part-v-line-37",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "schedule1a.line36a-taxpayer"
+              ]
+            }
+          ]
+        },
+        "truthful@v86": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": 17750,
+            "form1040.line-13b": 6000,
+            "form1040.line-14": 23750,
+            "form1040.line-15": 26250,
+            "form1040.line-16": 2915,
+            "form1040.line-24": 2915,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 1585,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 1,
+            "dependents-worksheet.line3": 15750,
+            "dependents-worksheet.line4b": 2000,
+            "dependents-worksheet.line4a": 15750,
+            "dependents-worksheet.line4c": 17750,
+            "deductions.line-12e": 17750,
+            "schedule1a.line36a-taxpayer": 6000,
+            "schedule1a.line36b-spouse": 0,
+            "schedule1a.line37-enhanced-deduction-total": 6000
+          },
+          "questions": [],
+          "blocked_field_count": 0,
+          "asked_on": [],
+          "blocked_rules": []
+        },
+        "truthful@v87": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": 17750,
+            "form1040.line-13b": 6000,
+            "form1040.line-14": 23750,
+            "form1040.line-15": 26250,
+            "form1040.line-16": 2915,
+            "form1040.line-24": 2915,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 1585,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 1,
+            "dependents-worksheet.line3": 15750,
+            "dependents-worksheet.line4b": 2000,
+            "dependents-worksheet.line4a": 15750,
+            "dependents-worksheet.line4c": 17750,
+            "deductions.line-12e": 17750,
+            "schedule1a.line36a-taxpayer": 6000,
+            "schedule1a.line36b-spouse": 0,
+            "schedule1a.line37-enhanced-deduction-total": 6000
+          },
+          "questions": [],
+          "blocked_field_count": 0,
+          "asked_on": [],
+          "blocked_rules": []
+        },
+        "truthful@v88": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": 17750,
+            "form1040.line-13b": 6000,
+            "form1040.line-14": 23750,
+            "form1040.line-15": 26250,
+            "form1040.line-16": 2915,
+            "form1040.line-24": 2915,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 1585,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 1,
+            "dependents-worksheet.line3": 15750,
+            "dependents-worksheet.line4b": 2000,
+            "dependents-worksheet.line4a": 15750,
+            "dependents-worksheet.line4c": 17750,
+            "deductions.line-12e": 17750,
+            "schedule1a.line36a-taxpayer": 6000,
+            "schedule1a.line36b-spouse": 0,
+            "schedule1a.line37-enhanced-deduction-total": 6000
+          },
+          "questions": [],
+          "blocked_field_count": 0,
+          "asked_on": [],
+          "blocked_rules": []
+        },
+        "age-only@v88": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": "blocked",
+            "form1040.line-13b": 6000,
+            "form1040.line-14": "blocked",
+            "form1040.line-15": "blocked",
+            "form1040.line-16": "blocked",
+            "form1040.line-24": "blocked",
+            "form1040.line-33": "blocked",
+            "form1040.line-34": "blocked",
+            "form1040.line-37": "blocked"
+          },
+          "symbols": {
+            "dependents-worksheet.line3": 15750,
+            "dependents-worksheet.line4a": 15750,
+            "schedule1a.line36a-taxpayer": 6000,
+            "schedule1a.line36b-spouse": 0,
+            "schedule1a.line37-enhanced-deduction-total": 6000
+          },
+          "questions": [
+            "Were you totally blind on December 31, 2025, or do you have a statement certified by your eye doctor (ophthalmologist or optometrist) that you can't see better than 20/200 in your better eye with glasses or contact lenses, or that your field of vision is 20 degrees or less?"
+          ],
+          "blocked_field_count": 19,
+          "asked_on": [
+            "form.sch8812.line-14",
+            "form.sch8812.line-17",
+            "form.sch8812.worksheet-a.line-5",
+            "form1040.line-12e",
+            "form1040.line-14",
+            "form1040.line-15",
+            "form1040.line-16",
+            "form1040.line-19",
+            "form1040.line-20",
+            "form1040.line-24",
+            "form1040.line-28",
+            "form1040.line-32",
+            "form1040.line-33",
+            "form1040.line-34",
+            "form1040.line-35a",
+            "form1040.line-37",
+            "form1040.tax-after-credits",
+            "schedule3.line-1",
+            "schedule3.line-8"
+          ],
+          "blocked_rules": [
+            {
+              "rule": "dependents-worksheet-line-1",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "taxpayer_blind"
+              ]
+            },
+            {
+              "rule": "dependents-worksheet-line-4b",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "dependents-worksheet.line1-box-count"
+              ]
+            },
+            {
+              "rule": "dependents-worksheet-line-4c",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "dependents-worksheet.line4b"
+              ]
+            },
+            {
+              "rule": "form1040-standard-deduction",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "dependents-worksheet.line4c",
+                "dependents-worksheet.line4b"
+              ]
+            }
+          ]
+        }
+      },
+      "verdicts": {
+        "unanswered@v86": {
+          "silent_default": true,
+          "hand_mismatches_if_truthful_differs": [
+            "dependents-worksheet.line1-box-count=0",
+            "dependents-worksheet.line4b=0",
+            "form1040.line-12e=15750",
+            "schedule1a.line36a-taxpayer=0",
+            "form1040.line-15=34250",
+            "form1040.line-16=3875"
+          ],
+          "asked": []
+        },
+        "unanswered@v87": {
+          "silent_default": true,
+          "hand_mismatches_if_truthful_differs": [
+            "dependents-worksheet.line1-box-count=0",
+            "dependents-worksheet.line4b=0",
+            "form1040.line-12e=15750",
+            "schedule1a.line36a-taxpayer=0",
+            "form1040.line-15=34250",
+            "form1040.line-16=3875"
+          ],
+          "asked": []
+        },
+        "unanswered@v88": {
+          "asked": [
+            "taxpayer-blind",
+            "taxpayer-over-65"
+          ]
+        },
+        "truthful@v86": {
+          "hand_mismatches": [],
+          "asked": []
+        },
+        "truthful@v87": {
+          "hand_mismatches": [],
+          "asked": []
+        },
+        "truthful@v88": {
+          "hand_mismatches": [],
+          "asked": []
+        },
+        "age-only@v88": {
+          "asked": [
+            "taxpayer-blind"
+          ]
+        }
+      }
+    },
+    {
+      "id": "dependent-blind",
+      "says": "Single; someone can claim the filer as a dependent; born 1990; blind.",
+      "status": "single",
+      "hand": {
+        "dependents-worksheet.line1-box-count": 1,
+        "dependents-worksheet.line4b": 2000,
+        "form1040.line-12e": 17750,
+        "schedule1a.line36a-taxpayer": 0,
+        "form1040.line-15": 32250,
+        "form1040.line-16": 3635
+      },
+      "basis": "dependents worksheet 4a 15,750 + 4b 2,000 = 17,750; no senior deduction; Tax Table 3,635",
+      "extra": {
+        "standard-deduction.can-be-claimed-as-dependent": "yes"
+      },
+      "truthful": {
+        "taxpayer-over-65": false,
+        "taxpayer-blind": true
+      },
+      "v88_only": {},
+      "recorded_on_v86": {},
+      "measured": {
+        "unanswered@v86": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": 15750,
+            "form1040.line-13b": 0,
+            "form1040.line-14": 15750,
+            "form1040.line-15": 34250,
+            "form1040.line-16": 3875,
+            "form1040.line-24": 3875,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 625,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 0,
+            "dependents-worksheet.line3": 15750,
+            "dependents-worksheet.line4b": 0,
+            "dependents-worksheet.line4a": 15750,
+            "dependents-worksheet.line4c": 15750,
+            "deductions.line-12e": 15750,
+            "schedule1a.line36a-taxpayer": 0,
+            "schedule1a.line36b-spouse": 0,
+            "schedule1a.line37-enhanced-deduction-total": 0
+          },
+          "questions": [],
+          "blocked_field_count": 0,
+          "asked_on": [],
+          "blocked_rules": []
+        },
+        "unanswered@v87": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": 15750,
+            "form1040.line-13b": 0,
+            "form1040.line-14": 15750,
+            "form1040.line-15": 34250,
+            "form1040.line-16": 3875,
+            "form1040.line-24": 3875,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 625,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 0,
+            "dependents-worksheet.line3": 15750,
+            "dependents-worksheet.line4b": 0,
+            "dependents-worksheet.line4a": 15750,
+            "dependents-worksheet.line4c": 15750,
+            "deductions.line-12e": 15750,
+            "schedule1a.line36a-taxpayer": 0,
+            "schedule1a.line36b-spouse": 0,
+            "schedule1a.line37-enhanced-deduction-total": 0
+          },
+          "questions": [],
+          "blocked_field_count": 0,
+          "asked_on": [],
+          "blocked_rules": []
+        },
+        "unanswered@v88": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": "blocked",
+            "form1040.line-13b": "blocked",
+            "form1040.line-14": "blocked",
+            "form1040.line-15": "blocked",
+            "form1040.line-16": "blocked",
+            "form1040.line-24": "blocked",
+            "form1040.line-33": "blocked",
+            "form1040.line-34": "blocked",
+            "form1040.line-37": "blocked"
+          },
+          "symbols": {
+            "dependents-worksheet.line3": 15750,
+            "dependents-worksheet.line4a": 15750,
+            "schedule1a.line36b-spouse": 0
+          },
+          "questions": [
+            "Were you born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday, so a birthday of January 1, 1961 counts and January 2, 1961 does not. If this return is for someone who died in 2025 before reaching age 65, answer no.",
+            "Were you totally blind on December 31, 2025, or do you have a statement certified by your eye doctor (ophthalmologist or optometrist) that you can't see better than 20/200 in your better eye with glasses or contact lenses, or that your field of vision is 20 degrees or less?"
+          ],
+          "blocked_field_count": 20,
+          "asked_on": [
+            "form.sch8812.line-14",
+            "form.sch8812.line-17",
+            "form.sch8812.worksheet-a.line-5",
+            "form1040.line-12e",
+            "form1040.line-13b",
+            "form1040.line-14",
+            "form1040.line-15",
+            "form1040.line-16",
+            "form1040.line-19",
+            "form1040.line-20",
+            "form1040.line-24",
+            "form1040.line-28",
+            "form1040.line-32",
+            "form1040.line-33",
+            "form1040.line-34",
+            "form1040.line-35a",
+            "form1040.line-37",
+            "form1040.tax-after-credits",
+            "schedule3.line-1",
+            "schedule3.line-8"
+          ],
+          "blocked_rules": [
+            {
+              "rule": "dependents-worksheet-line-1",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "taxpayer_over_65",
+                "taxpayer_blind"
+              ]
+            },
+            {
+              "rule": "dependents-worksheet-line-4b",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "dependents-worksheet.line1-box-count"
+              ]
+            },
+            {
+              "rule": "dependents-worksheet-line-4c",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "dependents-worksheet.line4b"
+              ]
+            },
+            {
+              "rule": "form1040-standard-deduction",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "dependents-worksheet.line4c",
+                "dependents-worksheet.line4b"
+              ]
+            },
+            {
+              "rule": "schedule1a-part-v-line-36a",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "taxpayer_over_65"
+              ]
+            },
+            {
+              "rule": "schedule1a-part-v-line-37",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "schedule1a.line36a-taxpayer"
+              ]
+            }
+          ]
+        },
+        "truthful@v86": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": 17750,
+            "form1040.line-13b": 0,
+            "form1040.line-14": 17750,
+            "form1040.line-15": 32250,
+            "form1040.line-16": 3635,
+            "form1040.line-24": 3635,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 865,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 1,
+            "dependents-worksheet.line3": 15750,
+            "dependents-worksheet.line4b": 2000,
+            "dependents-worksheet.line4a": 15750,
+            "dependents-worksheet.line4c": 17750,
+            "deductions.line-12e": 17750,
+            "schedule1a.line36a-taxpayer": 0,
+            "schedule1a.line36b-spouse": 0,
+            "schedule1a.line37-enhanced-deduction-total": 0
+          },
+          "questions": [],
+          "blocked_field_count": 0,
+          "asked_on": [],
+          "blocked_rules": []
+        },
+        "truthful@v87": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": 17750,
+            "form1040.line-13b": 0,
+            "form1040.line-14": 17750,
+            "form1040.line-15": 32250,
+            "form1040.line-16": 3635,
+            "form1040.line-24": 3635,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 865,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 1,
+            "dependents-worksheet.line3": 15750,
+            "dependents-worksheet.line4b": 2000,
+            "dependents-worksheet.line4a": 15750,
+            "dependents-worksheet.line4c": 17750,
+            "deductions.line-12e": 17750,
+            "schedule1a.line36a-taxpayer": 0,
+            "schedule1a.line36b-spouse": 0,
+            "schedule1a.line37-enhanced-deduction-total": 0
+          },
+          "questions": [],
+          "blocked_field_count": 0,
+          "asked_on": [],
+          "blocked_rules": []
+        },
+        "truthful@v88": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": 17750,
+            "form1040.line-13b": 0,
+            "form1040.line-14": 17750,
+            "form1040.line-15": 32250,
+            "form1040.line-16": 3635,
+            "form1040.line-24": 3635,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 865,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 1,
+            "dependents-worksheet.line3": 15750,
+            "dependents-worksheet.line4b": 2000,
+            "dependents-worksheet.line4a": 15750,
+            "dependents-worksheet.line4c": 17750,
+            "deductions.line-12e": 17750,
+            "schedule1a.line36a-taxpayer": 0,
+            "schedule1a.line36b-spouse": 0,
+            "schedule1a.line37-enhanced-deduction-total": 0
+          },
+          "questions": [],
+          "blocked_field_count": 0,
+          "asked_on": [],
+          "blocked_rules": []
+        }
+      },
+      "verdicts": {
+        "unanswered@v86": {
+          "silent_default": true,
+          "hand_mismatches_if_truthful_differs": [
+            "dependents-worksheet.line1-box-count=0",
+            "dependents-worksheet.line4b=0",
+            "form1040.line-12e=15750",
+            "form1040.line-15=34250",
+            "form1040.line-16=3875"
+          ],
+          "asked": []
+        },
+        "unanswered@v87": {
+          "silent_default": true,
+          "hand_mismatches_if_truthful_differs": [
+            "dependents-worksheet.line1-box-count=0",
+            "dependents-worksheet.line4b=0",
+            "form1040.line-12e=15750",
+            "form1040.line-15=34250",
+            "form1040.line-16=3875"
+          ],
+          "asked": []
+        },
+        "unanswered@v88": {
+          "asked": [
+            "taxpayer-blind",
+            "taxpayer-over-65"
+          ]
+        },
+        "truthful@v86": {
+          "hand_mismatches": [],
+          "asked": []
+        },
+        "truthful@v87": {
+          "hand_mismatches": [],
+          "asked": []
+        },
+        "truthful@v88": {
+          "hand_mismatches": [],
+          "asked": []
+        }
+      }
+    },
+    {
+      "id": "separate-spouse-qualifies",
+      "says": "Married filing separately; taxpayer born 1970; spouse born 1955 with no income, not filing, and not claimable as a dependent.",
+      "status": "married_filing_separately",
+      "hand": {
+        "form1040.line-12e": 17350,
+        "schedule1a.line36b-spouse": 0,
+        "form1040.line-15": 32650,
+        "form1040.line-16": 3683
+      },
+      "basis": "chart: married filing separately, 1 box 17,350 (footnote: spouse with no income, not filing, not claimable); no senior deduction on a separate return; Tax Table 3,683",
+      "extra": {},
+      "truthful": {
+        "taxpayer-over-65": false,
+        "taxpayer-blind": false,
+        "spouse-over-65": true,
+        "spouse-blind": false
+      },
+      "v88_only": {
+        "standard-deduction.spouse-separate-condition": true
+      },
+      "recorded_on_v86": {},
+      "measured": {
+        "unanswered@v86": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": 15750,
+            "form1040.line-13b": 0,
+            "form1040.line-14": 15750,
+            "form1040.line-15": 34250,
+            "form1040.line-16": 3875,
+            "form1040.line-24": 3875,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 625,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 0,
+            "dependents-worksheet.line3": 15750,
+            "dependents-worksheet.line4b": 0,
+            "dependents-worksheet.line4a": 15750,
+            "dependents-worksheet.line4c": 15750,
+            "deductions.line-12e": 15750,
+            "schedule1a.line36a-taxpayer": 0,
+            "schedule1a.line36b-spouse": 0,
+            "schedule1a.line37-enhanced-deduction-total": 0
+          },
+          "questions": [],
+          "blocked_field_count": 2,
+          "asked_on": [],
+          "blocked_rules": []
+        },
+        "unanswered@v87": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": 15750,
+            "form1040.line-13b": 0,
+            "form1040.line-14": 15750,
+            "form1040.line-15": 34250,
+            "form1040.line-16": 3875,
+            "form1040.line-24": 3875,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 625,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 0,
+            "dependents-worksheet.line3": 15750,
+            "dependents-worksheet.line4b": 0,
+            "dependents-worksheet.line4a": 15750,
+            "dependents-worksheet.line4c": 15750,
+            "deductions.line-12e": 15750,
+            "schedule1a.line36a-taxpayer": 0,
+            "schedule1a.line36b-spouse": 0,
+            "schedule1a.line37-enhanced-deduction-total": 0
+          },
+          "questions": [],
+          "blocked_field_count": 2,
+          "asked_on": [],
+          "blocked_rules": []
+        },
+        "unanswered@v88": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": "blocked",
+            "form1040.line-13b": "blocked",
+            "form1040.line-14": "blocked",
+            "form1040.line-15": "blocked",
+            "form1040.line-16": "blocked",
+            "form1040.line-24": "blocked",
+            "form1040.line-33": "blocked",
+            "form1040.line-34": "blocked",
+            "form1040.line-37": "blocked"
+          },
+          "symbols": {
+            "dependents-worksheet.line3": 15750,
+            "dependents-worksheet.line4a": 15750,
+            "schedule1a.line36b-spouse": 0
+          },
+          "questions": [
+            "Answer yes if your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return.",
+            "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+            "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less?",
+            "Were you born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday, so a birthday of January 1, 1961 counts and January 2, 1961 does not. If this return is for someone who died in 2025 before reaching age 65, answer no.",
+            "Were you totally blind on December 31, 2025, or do you have a statement certified by your eye doctor (ophthalmologist or optometrist) that you can't see better than 20/200 in your better eye with glasses or contact lenses, or that your field of vision is 20 degrees or less?"
+          ],
+          "blocked_field_count": 22,
+          "asked_on": [
+            "form.sch8812.line-14",
+            "form.sch8812.line-17",
+            "form.sch8812.worksheet-a.line-5",
+            "form1040.line-12e",
+            "form1040.line-13b",
+            "form1040.line-14",
+            "form1040.line-15",
+            "form1040.line-16",
+            "form1040.line-19",
+            "form1040.line-20",
+            "form1040.line-24",
+            "form1040.line-28",
+            "form1040.line-32",
+            "form1040.line-33",
+            "form1040.line-34",
+            "form1040.line-35a",
+            "form1040.line-37",
+            "form1040.tax-after-credits",
+            "schedule3.line-1",
+            "schedule3.line-8"
+          ],
+          "blocked_rules": [
+            {
+              "rule": "dependents-worksheet-line-1",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "taxpayer_over_65",
+                "taxpayer_blind",
+                "spouse_over_65",
+                "spouse_blind",
+                "spouse_separate_condition"
+              ]
+            },
+            {
+              "rule": "dependents-worksheet-line-4b",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "dependents-worksheet.line1-box-count"
+              ]
+            },
+            {
+              "rule": "dependents-worksheet-line-4c",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "dependents-worksheet.line4b"
+              ]
+            },
+            {
+              "rule": "form1040-standard-deduction",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "dependents-worksheet.line4c",
+                "dependents-worksheet.line4b"
+              ]
+            },
+            {
+              "rule": "schedule1a-part-v-line-36a",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "taxpayer_over_65"
+              ]
+            },
+            {
+              "rule": "schedule1a-part-v-line-37",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "schedule1a.line36a-taxpayer"
+              ]
+            }
+          ]
+        },
+        "truthful@v86": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": 17350,
+            "form1040.line-13b": 0,
+            "form1040.line-14": 17350,
+            "form1040.line-15": 32650,
+            "form1040.line-16": 3683,
+            "form1040.line-24": 3683,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 817,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 1,
+            "dependents-worksheet.line3": 15750,
+            "dependents-worksheet.line4b": 1600,
+            "dependents-worksheet.line4a": 15750,
+            "dependents-worksheet.line4c": 17350,
+            "deductions.line-12e": 17350,
+            "schedule1a.line36a-taxpayer": 0,
+            "schedule1a.line36b-spouse": 0,
+            "schedule1a.line37-enhanced-deduction-total": 0
+          },
+          "questions": [],
+          "blocked_field_count": 2,
+          "asked_on": [],
+          "blocked_rules": []
+        },
+        "truthful@v87": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": 17350,
+            "form1040.line-13b": 0,
+            "form1040.line-14": 17350,
+            "form1040.line-15": 32650,
+            "form1040.line-16": 3683,
+            "form1040.line-24": 3683,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 817,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 1,
+            "dependents-worksheet.line3": 15750,
+            "dependents-worksheet.line4b": 1600,
+            "dependents-worksheet.line4a": 15750,
+            "dependents-worksheet.line4c": 17350,
+            "deductions.line-12e": 17350,
+            "schedule1a.line36a-taxpayer": 0,
+            "schedule1a.line36b-spouse": 0,
+            "schedule1a.line37-enhanced-deduction-total": 0
+          },
+          "questions": [],
+          "blocked_field_count": 2,
+          "asked_on": [],
+          "blocked_rules": []
+        },
+        "truthful@v88": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": 17350,
+            "form1040.line-13b": 0,
+            "form1040.line-14": 17350,
+            "form1040.line-15": 32650,
+            "form1040.line-16": 3683,
+            "form1040.line-24": 3683,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 817,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 1,
+            "dependents-worksheet.line3": 15750,
+            "dependents-worksheet.line4b": 1600,
+            "dependents-worksheet.line4a": 15750,
+            "dependents-worksheet.line4c": 17350,
+            "deductions.line-12e": 17350,
+            "schedule1a.line36a-taxpayer": 0,
+            "schedule1a.line36b-spouse": 0,
+            "schedule1a.line37-enhanced-deduction-total": 0
+          },
+          "questions": [],
+          "blocked_field_count": 2,
+          "asked_on": [],
+          "blocked_rules": []
+        },
+        "taxpayer-only@v88": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": "blocked",
+            "form1040.line-13b": 0,
+            "form1040.line-14": "blocked",
+            "form1040.line-15": "blocked",
+            "form1040.line-16": "blocked",
+            "form1040.line-24": "blocked",
+            "form1040.line-33": "blocked",
+            "form1040.line-34": "blocked",
+            "form1040.line-37": "blocked"
+          },
+          "symbols": {
+            "dependents-worksheet.line3": 15750,
+            "dependents-worksheet.line4a": 15750,
+            "schedule1a.line36a-taxpayer": 0,
+            "schedule1a.line36b-spouse": 0,
+            "schedule1a.line37-enhanced-deduction-total": 0
+          },
+          "questions": [
+            "Answer yes if your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return.",
+            "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+            "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less?"
+          ],
+          "blocked_field_count": 21,
+          "asked_on": [
+            "form.sch8812.line-14",
+            "form.sch8812.line-17",
+            "form.sch8812.worksheet-a.line-5",
+            "form1040.line-12e",
+            "form1040.line-14",
+            "form1040.line-15",
+            "form1040.line-16",
+            "form1040.line-19",
+            "form1040.line-20",
+            "form1040.line-24",
+            "form1040.line-28",
+            "form1040.line-32",
+            "form1040.line-33",
+            "form1040.line-34",
+            "form1040.line-35a",
+            "form1040.line-37",
+            "form1040.tax-after-credits",
+            "schedule3.line-1",
+            "schedule3.line-8"
+          ],
+          "blocked_rules": [
+            {
+              "rule": "dependents-worksheet-line-1",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "spouse_over_65",
+                "spouse_blind",
+                "spouse_separate_condition"
+              ]
+            },
+            {
+              "rule": "dependents-worksheet-line-4b",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "dependents-worksheet.line1-box-count"
+              ]
+            },
+            {
+              "rule": "dependents-worksheet-line-4c",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "dependents-worksheet.line4b"
+              ]
+            },
+            {
+              "rule": "form1040-standard-deduction",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "dependents-worksheet.line4c",
+                "dependents-worksheet.line4b"
+              ]
+            }
+          ]
+        }
+      },
+      "verdicts": {
+        "unanswered@v86": {
+          "silent_default": true,
+          "hand_mismatches_if_truthful_differs": [
+            "form1040.line-12e=15750",
+            "form1040.line-15=34250",
+            "form1040.line-16=3875"
+          ],
+          "asked": []
+        },
+        "unanswered@v87": {
+          "silent_default": true,
+          "hand_mismatches_if_truthful_differs": [
+            "form1040.line-12e=15750",
+            "form1040.line-15=34250",
+            "form1040.line-16=3875"
+          ],
+          "asked": []
+        },
+        "unanswered@v88": {
+          "asked": [
+            "spouse-blind",
+            "spouse-over-65",
+            "standard-deduction.spouse-separate-condition",
+            "taxpayer-blind",
+            "taxpayer-over-65"
+          ]
+        },
+        "truthful@v86": {
+          "hand_mismatches": [],
+          "asked": []
+        },
+        "truthful@v87": {
+          "hand_mismatches": [],
+          "asked": []
+        },
+        "truthful@v88": {
+          "hand_mismatches": [],
+          "asked": []
+        },
+        "taxpayer-only@v88": {
+          "asked": [
+            "spouse-blind",
+            "spouse-over-65",
+            "standard-deduction.spouse-separate-condition"
+          ]
+        }
+      }
+    },
+    {
+      "id": "head-of-household",
+      "says": "Head of household; taxpayer born 1970, not blind. The proposed core asks only the taxpayer's two questions.",
+      "status": "head_of_household",
+      "hand": {
+        "form1040.line-12e": 23625
+      },
+      "basis": "standard deduction 23,625; line 12d: no spouse boxes on head of household",
+      "extra": {},
+      "truthful": {
+        "taxpayer-over-65": false,
+        "taxpayer-blind": false
+      },
+      "v88_only": {},
+      "recorded_on_v86": {},
+      "measured": {
+        "unanswered@v86": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": 23625,
+            "form1040.line-13b": 0,
+            "form1040.line-14": 23625,
+            "form1040.line-15": 26375,
+            "form1040.line-16": 2825,
+            "form1040.line-24": 2825,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 1675,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 0,
+            "dependents-worksheet.line3": 23625,
+            "dependents-worksheet.line4b": 0,
+            "dependents-worksheet.line4a": 23625,
+            "dependents-worksheet.line4c": 23625,
+            "deductions.line-12e": 23625,
+            "schedule1a.line36a-taxpayer": 0,
+            "schedule1a.line36b-spouse": 0,
+            "schedule1a.line37-enhanced-deduction-total": 0
+          },
+          "questions": [],
+          "blocked_field_count": 0,
+          "asked_on": [],
+          "blocked_rules": []
+        },
+        "unanswered@v87": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": 23625,
+            "form1040.line-13b": 0,
+            "form1040.line-14": 23625,
+            "form1040.line-15": 26375,
+            "form1040.line-16": 2825,
+            "form1040.line-24": 2825,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 1675,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 0,
+            "dependents-worksheet.line3": 23625,
+            "dependents-worksheet.line4b": 0,
+            "dependents-worksheet.line4a": 23625,
+            "dependents-worksheet.line4c": 23625,
+            "deductions.line-12e": 23625,
+            "schedule1a.line36a-taxpayer": 0,
+            "schedule1a.line36b-spouse": 0,
+            "schedule1a.line37-enhanced-deduction-total": 0
+          },
+          "questions": [],
+          "blocked_field_count": 0,
+          "asked_on": [],
+          "blocked_rules": []
+        },
+        "unanswered@v88": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": "blocked",
+            "form1040.line-13b": "blocked",
+            "form1040.line-14": "blocked",
+            "form1040.line-15": "blocked",
+            "form1040.line-16": "blocked",
+            "form1040.line-24": "blocked",
+            "form1040.line-33": "blocked",
+            "form1040.line-34": "blocked",
+            "form1040.line-37": "blocked"
+          },
+          "symbols": {
+            "dependents-worksheet.line3": 23625,
+            "dependents-worksheet.line4a": 23625,
+            "schedule1a.line36b-spouse": 0
+          },
+          "questions": [
+            "Were you born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday, so a birthday of January 1, 1961 counts and January 2, 1961 does not. If this return is for someone who died in 2025 before reaching age 65, answer no.",
+            "Were you totally blind on December 31, 2025, or do you have a statement certified by your eye doctor (ophthalmologist or optometrist) that you can't see better than 20/200 in your better eye with glasses or contact lenses, or that your field of vision is 20 degrees or less?"
+          ],
+          "blocked_field_count": 20,
+          "asked_on": [
+            "form.sch8812.line-14",
+            "form.sch8812.line-17",
+            "form.sch8812.worksheet-a.line-5",
+            "form1040.line-12e",
+            "form1040.line-13b",
+            "form1040.line-14",
+            "form1040.line-15",
+            "form1040.line-16",
+            "form1040.line-19",
+            "form1040.line-20",
+            "form1040.line-24",
+            "form1040.line-28",
+            "form1040.line-32",
+            "form1040.line-33",
+            "form1040.line-34",
+            "form1040.line-35a",
+            "form1040.line-37",
+            "form1040.tax-after-credits",
+            "schedule3.line-1",
+            "schedule3.line-8"
+          ],
+          "blocked_rules": [
+            {
+              "rule": "dependents-worksheet-line-1",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "taxpayer_over_65",
+                "taxpayer_blind"
+              ]
+            },
+            {
+              "rule": "dependents-worksheet-line-4b",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "dependents-worksheet.line1-box-count"
+              ]
+            },
+            {
+              "rule": "dependents-worksheet-line-4c",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "dependents-worksheet.line4b"
+              ]
+            },
+            {
+              "rule": "form1040-standard-deduction",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "dependents-worksheet.line4c",
+                "dependents-worksheet.line4b"
+              ]
+            },
+            {
+              "rule": "schedule1a-part-v-line-36a",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "taxpayer_over_65"
+              ]
+            },
+            {
+              "rule": "schedule1a-part-v-line-37",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "schedule1a.line36a-taxpayer"
+              ]
+            }
+          ]
+        },
+        "truthful@v86": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": 23625,
+            "form1040.line-13b": 0,
+            "form1040.line-14": 23625,
+            "form1040.line-15": 26375,
+            "form1040.line-16": 2825,
+            "form1040.line-24": 2825,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 1675,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 0,
+            "dependents-worksheet.line3": 23625,
+            "dependents-worksheet.line4b": 0,
+            "dependents-worksheet.line4a": 23625,
+            "dependents-worksheet.line4c": 23625,
+            "deductions.line-12e": 23625,
+            "schedule1a.line36a-taxpayer": 0,
+            "schedule1a.line36b-spouse": 0,
+            "schedule1a.line37-enhanced-deduction-total": 0
+          },
+          "questions": [],
+          "blocked_field_count": 0,
+          "asked_on": [],
+          "blocked_rules": []
+        },
+        "truthful@v87": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": 23625,
+            "form1040.line-13b": 0,
+            "form1040.line-14": 23625,
+            "form1040.line-15": 26375,
+            "form1040.line-16": 2825,
+            "form1040.line-24": 2825,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 1675,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 0,
+            "dependents-worksheet.line3": 23625,
+            "dependents-worksheet.line4b": 0,
+            "dependents-worksheet.line4a": 23625,
+            "dependents-worksheet.line4c": 23625,
+            "deductions.line-12e": 23625,
+            "schedule1a.line36a-taxpayer": 0,
+            "schedule1a.line36b-spouse": 0,
+            "schedule1a.line37-enhanced-deduction-total": 0
+          },
+          "questions": [],
+          "blocked_field_count": 0,
+          "asked_on": [],
+          "blocked_rules": []
+        },
+        "truthful@v88": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": 23625,
+            "form1040.line-13b": 0,
+            "form1040.line-14": 23625,
+            "form1040.line-15": 26375,
+            "form1040.line-16": 2825,
+            "form1040.line-24": 2825,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 1675,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 0,
+            "dependents-worksheet.line3": 23625,
+            "dependents-worksheet.line4b": 0,
+            "dependents-worksheet.line4a": 23625,
+            "dependents-worksheet.line4c": 23625,
+            "deductions.line-12e": 23625,
+            "schedule1a.line36a-taxpayer": 0,
+            "schedule1a.line36b-spouse": 0,
+            "schedule1a.line37-enhanced-deduction-total": 0
+          },
+          "questions": [],
+          "blocked_field_count": 0,
+          "asked_on": [],
+          "blocked_rules": []
+        }
+      },
+      "verdicts": {
+        "unanswered@v86": {
+          "silent_default": true,
+          "hand_mismatches_if_truthful_differs": [],
+          "asked": []
+        },
+        "unanswered@v87": {
+          "silent_default": true,
+          "hand_mismatches_if_truthful_differs": [],
+          "asked": []
+        },
+        "unanswered@v88": {
+          "asked": [
+            "taxpayer-blind",
+            "taxpayer-over-65"
+          ]
+        },
+        "truthful@v86": {
+          "hand_mismatches": [],
+          "asked": []
+        },
+        "truthful@v87": {
+          "hand_mismatches": [],
+          "asked": []
+        },
+        "truthful@v88": {
+          "hand_mismatches": [],
+          "asked": []
+        }
+      }
+    },
+    {
+      "id": "qss-spouse-born-1955",
+      "says": "Qualifying surviving spouse; taxpayer born 1970; the spouse (died 2024) was born 1955. The chart counts at most 2 boxes for this status: only the taxpayer's.",
+      "status": "qualifying_surviving_spouse",
+      "hand": {
+        "form1040.line-12e": 31500
+      },
+      "basis": "chart: qualifying surviving spouse rows are 1 and 2 boxes only; with no taxpayer box the standard deduction is 31,500",
+      "extra": {},
+      "truthful": {
+        "taxpayer-over-65": false,
+        "taxpayer-blind": false
+      },
+      "v88_only": {},
+      "recorded_on_v86": {
+        "taxpayer-over-65": false,
+        "taxpayer-blind": false,
+        "spouse-over-65": true,
+        "spouse-blind": false
+      },
+      "measured": {
+        "unanswered@v86": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": 31500,
+            "form1040.line-13b": 0,
+            "form1040.line-14": 31500,
+            "form1040.line-15": 18500,
+            "form1040.line-16": 1853,
+            "form1040.line-24": 1853,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 2647,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 0,
+            "dependents-worksheet.line3": 31500,
+            "dependents-worksheet.line4b": 0,
+            "dependents-worksheet.line4a": 31500,
+            "dependents-worksheet.line4c": 31500,
+            "deductions.line-12e": 31500,
+            "schedule1a.line36a-taxpayer": 0,
+            "schedule1a.line36b-spouse": 0,
+            "schedule1a.line37-enhanced-deduction-total": 0
+          },
+          "questions": [],
+          "blocked_field_count": 0,
+          "asked_on": [],
+          "blocked_rules": []
+        },
+        "unanswered@v87": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": 31500,
+            "form1040.line-13b": 0,
+            "form1040.line-14": 31500,
+            "form1040.line-15": 18500,
+            "form1040.line-16": 1853,
+            "form1040.line-24": 1853,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 2647,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 0,
+            "dependents-worksheet.line3": 31500,
+            "dependents-worksheet.line4b": 0,
+            "dependents-worksheet.line4a": 31500,
+            "dependents-worksheet.line4c": 31500,
+            "deductions.line-12e": 31500,
+            "schedule1a.line36a-taxpayer": 0,
+            "schedule1a.line36b-spouse": 0,
+            "schedule1a.line37-enhanced-deduction-total": 0
+          },
+          "questions": [],
+          "blocked_field_count": 0,
+          "asked_on": [],
+          "blocked_rules": []
+        },
+        "unanswered@v88": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": "blocked",
+            "form1040.line-13b": "blocked",
+            "form1040.line-14": "blocked",
+            "form1040.line-15": "blocked",
+            "form1040.line-16": "blocked",
+            "form1040.line-24": "blocked",
+            "form1040.line-33": "blocked",
+            "form1040.line-34": "blocked",
+            "form1040.line-37": "blocked"
+          },
+          "symbols": {
+            "dependents-worksheet.line3": 31500,
+            "dependents-worksheet.line4a": 31500,
+            "schedule1a.line36b-spouse": 0
+          },
+          "questions": [
+            "Were you born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday, so a birthday of January 1, 1961 counts and January 2, 1961 does not. If this return is for someone who died in 2025 before reaching age 65, answer no.",
+            "Were you totally blind on December 31, 2025, or do you have a statement certified by your eye doctor (ophthalmologist or optometrist) that you can't see better than 20/200 in your better eye with glasses or contact lenses, or that your field of vision is 20 degrees or less?"
+          ],
+          "blocked_field_count": 20,
+          "asked_on": [
+            "form.sch8812.line-14",
+            "form.sch8812.line-17",
+            "form.sch8812.worksheet-a.line-5",
+            "form1040.line-12e",
+            "form1040.line-13b",
+            "form1040.line-14",
+            "form1040.line-15",
+            "form1040.line-16",
+            "form1040.line-19",
+            "form1040.line-20",
+            "form1040.line-24",
+            "form1040.line-28",
+            "form1040.line-32",
+            "form1040.line-33",
+            "form1040.line-34",
+            "form1040.line-35a",
+            "form1040.line-37",
+            "form1040.tax-after-credits",
+            "schedule3.line-1",
+            "schedule3.line-8"
+          ],
+          "blocked_rules": [
+            {
+              "rule": "dependents-worksheet-line-1",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "taxpayer_over_65",
+                "taxpayer_blind"
+              ]
+            },
+            {
+              "rule": "dependents-worksheet-line-4b",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "dependents-worksheet.line1-box-count"
+              ]
+            },
+            {
+              "rule": "dependents-worksheet-line-4c",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "dependents-worksheet.line4b"
+              ]
+            },
+            {
+              "rule": "form1040-standard-deduction",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "dependents-worksheet.line4c",
+                "dependents-worksheet.line4b"
+              ]
+            },
+            {
+              "rule": "schedule1a-part-v-line-36a",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "taxpayer_over_65"
+              ]
+            },
+            {
+              "rule": "schedule1a-part-v-line-37",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "schedule1a.line36a-taxpayer"
+              ]
+            }
+          ]
+        },
+        "truthful@v86": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": 31500,
+            "form1040.line-13b": 0,
+            "form1040.line-14": 31500,
+            "form1040.line-15": 18500,
+            "form1040.line-16": 1853,
+            "form1040.line-24": 1853,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 2647,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 0,
+            "dependents-worksheet.line3": 31500,
+            "dependents-worksheet.line4b": 0,
+            "dependents-worksheet.line4a": 31500,
+            "dependents-worksheet.line4c": 31500,
+            "deductions.line-12e": 31500,
+            "schedule1a.line36a-taxpayer": 0,
+            "schedule1a.line36b-spouse": 0,
+            "schedule1a.line37-enhanced-deduction-total": 0
+          },
+          "questions": [],
+          "blocked_field_count": 0,
+          "asked_on": [],
+          "blocked_rules": []
+        },
+        "truthful@v87": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": 31500,
+            "form1040.line-13b": 0,
+            "form1040.line-14": 31500,
+            "form1040.line-15": 18500,
+            "form1040.line-16": 1853,
+            "form1040.line-24": 1853,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 2647,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 0,
+            "dependents-worksheet.line3": 31500,
+            "dependents-worksheet.line4b": 0,
+            "dependents-worksheet.line4a": 31500,
+            "dependents-worksheet.line4c": 31500,
+            "deductions.line-12e": 31500,
+            "schedule1a.line36a-taxpayer": 0,
+            "schedule1a.line36b-spouse": 0,
+            "schedule1a.line37-enhanced-deduction-total": 0
+          },
+          "questions": [],
+          "blocked_field_count": 0,
+          "asked_on": [],
+          "blocked_rules": []
+        },
+        "truthful@v88": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": 31500,
+            "form1040.line-13b": 0,
+            "form1040.line-14": 31500,
+            "form1040.line-15": 18500,
+            "form1040.line-16": 1853,
+            "form1040.line-24": 1853,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 2647,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 0,
+            "dependents-worksheet.line3": 31500,
+            "dependents-worksheet.line4b": 0,
+            "dependents-worksheet.line4a": 31500,
+            "dependents-worksheet.line4c": 31500,
+            "deductions.line-12e": 31500,
+            "schedule1a.line36a-taxpayer": 0,
+            "schedule1a.line36b-spouse": 0,
+            "schedule1a.line37-enhanced-deduction-total": 0
+          },
+          "questions": [],
+          "blocked_field_count": 0,
+          "asked_on": [],
+          "blocked_rules": []
+        },
+        "spouse-recorded@v86": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": 33100,
+            "form1040.line-13b": 0,
+            "form1040.line-14": 33100,
+            "form1040.line-15": 16900,
+            "form1040.line-16": 1693,
+            "form1040.line-24": 1693,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 2807,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 1,
+            "dependents-worksheet.line3": 31500,
+            "dependents-worksheet.line4b": 1600,
+            "dependents-worksheet.line4a": 31500,
+            "dependents-worksheet.line4c": 33100,
+            "deductions.line-12e": 33100,
+            "schedule1a.line36a-taxpayer": 0,
+            "schedule1a.line36b-spouse": 0,
+            "schedule1a.line37-enhanced-deduction-total": 0
+          },
+          "questions": [],
+          "blocked_field_count": 0,
+          "asked_on": [],
+          "blocked_rules": []
+        },
+        "spouse-recorded@v88": {
+          "outcome": "success",
+          "stop": "saturated",
+          "lines": {
+            "form1040.line-12e": 31500,
+            "form1040.line-13b": 0,
+            "form1040.line-14": 31500,
+            "form1040.line-15": 18500,
+            "form1040.line-16": 1853,
+            "form1040.line-24": 1853,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 2647,
+            "form1040.line-37": 0
+          },
+          "symbols": {
+            "dependents-worksheet.line1-box-count": 0,
+            "dependents-worksheet.line3": 31500,
+            "dependents-worksheet.line4b": 0,
+            "dependents-worksheet.line4a": 31500,
+            "dependents-worksheet.line4c": 31500,
+            "deductions.line-12e": 31500,
+            "schedule1a.line36a-taxpayer": 0,
+            "schedule1a.line36b-spouse": 0,
+            "schedule1a.line37-enhanced-deduction-total": 0
+          },
+          "questions": [],
+          "blocked_field_count": 0,
+          "asked_on": [],
+          "blocked_rules": []
+        }
+      },
+      "verdicts": {
+        "unanswered@v86": {
+          "silent_default": true,
+          "hand_mismatches_if_truthful_differs": [],
+          "asked": []
+        },
+        "unanswered@v87": {
+          "silent_default": true,
+          "hand_mismatches_if_truthful_differs": [],
+          "asked": []
+        },
+        "unanswered@v88": {
+          "asked": [
+            "taxpayer-blind",
+            "taxpayer-over-65"
+          ]
+        },
+        "truthful@v86": {
+          "hand_mismatches": [],
+          "asked": []
+        },
+        "truthful@v87": {
+          "hand_mismatches": [],
+          "asked": []
+        },
+        "truthful@v88": {
+          "hand_mismatches": [],
+          "asked": []
+        },
+        "spouse-recorded@v86": {
+          "asked": []
+        },
+        "spouse-recorded@v88": {
+          "asked": []
+        }
+      }
+    }
+  ]
+}
