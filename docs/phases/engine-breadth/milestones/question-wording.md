@@ -227,3 +227,57 @@ blindness being asked is the next milestone
 asking nothing beside a recorded wash sale stays parked in the roadmap.
 Track 0 is accepted and Track 1 is chartered
 (`docs/reviews/question-wording/charter-track1.md`).
+
+## Track 1 result
+
+Charter: `docs/reviews/question-wording/charter-track1.md`. Builder,
+2026-11-11.
+
+- **Successors.** The seven members are in `packages/content/tax/2025/`,
+  generated from `prototype.artifacts` and byte-identical to it: the two
+  wash-sale adjustment closure mappings (v4), the Exception 1 only-box-2a
+  question (v3), the student-loan dependent question (v2), and the
+  exception1 (v2), sli-scope (v2) and vocabulary (v3) bundles. No published
+  citizen was edited.
+- **Core v87, registry v85, release v85** were made with
+  `python3 -m tools.package_successor` from v86, v84 and v84. Registry v85
+  only adds core v87 and the seven successors. `packages/tax/loader.py`
+  gives v87 v86's companion declaration and covered-flag refusal map; the
+  selection-collect switch is on from v86 by rank, so v87 carries it
+  unchanged. `tests/test_noncovered_sales_v78_switch.py` names v87 among
+  the cores with the refusal map, as v86's build did.
+- **Live module** (`tests/test_question_wording_v87.py`). The 16
+  authority cases, 13 matrix cases and 9 late steps reduce to 28 distinct
+  v87 act lists; each runs once on published core v87 through
+  `live_coordinate_run` and the presentation model, and every case sharing
+  it is judged on that run. A test proves no two runs share an act list.
+  All 38 cases and steps reach their hand values, written in the test from
+  track0.py's instruction values (and checked equal to them). The four
+  decided sentences are pinned exactly: each is shown where its question
+  is asked (a false wash-sale closure answer is asked again), and no v86
+  sentence is shown anywhere. With a recorded wash sale and the
+  adjustment family open, the page shows no wash-sale question, as
+  Decision 6 parks.
+- **298 recorded runs.** The 298 recorded v83 lists replay on published
+  v87 against `tests/fixtures/f1099b_backup_withholding_v83/expected.json`
+  in place: 207 as recorded and 91 restored with no-sale box 4
+  present=no, as the v86 module replays them. All 298 are identical to
+  their fixture pins.
+- **Run count.** The live module makes 326 `live_coordinate_run` calls
+  (28 + 298) in 329 tests; one local run of the module took 334 s wall.
+- **Package test** (`tests/test_question_wording_v87_package.py`, fast):
+  byte identity with the prototype, the decided words, each successor
+  differing from its predecessor only in words, titles and version, the
+  seven member edits, registry v85 add-only, release v85 pinning registry
+  v85, the v87 loader entries, and v86 and earlier unchanged.
+- **Checks.** Fast lane (`pytest -m "not live"`): 1801 passed, 8
+  skipped. Full suite, run as seven shards that cover `tests/` (sum):
+  6909 passed, 24 skipped, 4 failed. The four failures are in
+  `tests/test_explanation_saved_browser.py` (headless browser calls with a
+  40 s timeout) and occurred while two shards ran at once; the file passes
+  8 of 8 run alone. No file this track touches is involved. CI `verify` is
+  the gate of record. `python3 -m mypy`: no issues in 484 source files.
+  `python3 tools/envelope_scan.py --range github/main..HEAD`: clean.
+- **Deviations.** None from the charter. The covered-flag refusal test in
+  `tests/test_noncovered_sales_v78_switch.py` was extended to v87, as the
+  v86 build extended it to v86.
