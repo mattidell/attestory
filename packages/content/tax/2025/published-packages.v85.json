@@ -1221,7 +1221,7 @@
       "version": "v2"
     },
     {
-      "checksum": "c6234500d3c50e1b3f1a8d8b3660e9e5bbadde80f9efac46a82dbd3b66618df0",
+      "checksum": "92e2408d4e0ce0346c951003275ea961ee8fe9cd117c75897e4095860a37ae9a",
       "id": "tax.us.2025.core_calculations.vocabulary",
       "version": "v3"
     },
@@ -1291,7 +1291,7 @@
       "version": "v1"
     },
     {
-      "checksum": "1d313e8fe3f2698367c65e811074e1f7c2bd5a3d156fa06256d20e6483ba9276",
+      "checksum": "3e264a94515c10494417a35947483690297117d5899a8721191c29050a605b9a",
       "id": "tax.us.2025.exception1.vocabulary",
       "version": "v2"
     },
@@ -2616,7 +2616,7 @@
       "version": "v2"
     },
     {
-      "checksum": "a02988e3fc04574936adbc0913d192c0ef5cbc2bdf4641398bc21ee73723af1c",
+      "checksum": "048d76a0659dd9bb043d8d6893abac8dbc696cb711b13c67ee86255eab38b209",
       "id": "tax.us.2025.input-question.exception1-only-box2a-capital-gains",
       "version": "v3"
     },
