@@ -175,7 +175,7 @@ returns are identical on v86 and scratch v87.
    family open, the page asks no question; age and blindness are never
    asked and default to false.
 
-7. **Review repair** (foreman, 2026-11-11, on review 584aa65a).
+7. **Review repair** (foreman, 2026-11-11, on review (removed at closeout)).
    - F1: the Exception 1 v3 sale clause covers sales that need no Form
      8949 or Schedule D (personal-use losses, sales inside an IRA or
      401(k)), so a truthful filer answers no and is blocked with no

@@ -2,8 +2,8 @@
 
 Reviewer, fresh reader. Charter: `docs/reviews/question-wording/charter-review.md`.
 Object: `github/milestone/selection-keyed-collect-2025` (7fb81080) `..` HEAD
-80d1cf23 on `milestone/question-wording-2025`. Orientation block verified
-at 80d1cf23. Governance not read. Sources: the committed content, tests and
+(removed at closeout) on `milestone/question-wording-2025`. Orientation block verified
+at (removed at closeout). Governance not read. Sources: the committed content, tests and
 evidence, plus `law.json`'s 2025 IRS extracts and the public 2025
 instructions. No builder thread or summary was used as evidence.
 
@@ -260,7 +260,7 @@ single coordinator runs.
 ## Re-review
 
 Reviewer, fresh reader. Charter: `docs/reviews/question-wording/charter-rereview.md`.
-Orientation block verified at `a39d94d8`. Object: the repair after `584aa65a`,
+Orientation block verified at (removed at closeout). Object: the repair after (removed at closeout),
 diffed against `github/milestone/selection-keyed-collect-2025`. Governance
 not read. Sources: the committed citizens, `law.json`, the 2025 Form 1040,
 Form 8949 and Schedule D instructions, and coordinator runs on published
@@ -293,7 +293,7 @@ No builder thread was used as evidence.
 1. **F1, the four runs.** No sale, a personal item sold at a loss with no form, and sales inside an IRA only each answer yes and compute to 7a 0, 15 34,250, 16 3,875, with line 7b checked and the conclusion "no". The same personal-item loss with a Form 1099-K, answered as the words require, is the parked refusal above. The sentence matches the instruction for no form, for Form 1099-S, and for an IRA. It does not match the Form 1099-K rule (R1). The fact title has the same operative scope.
 2. **F2, F4, F5, against Decision 7.**
    - **F2 fixed.** `say` strips the earlier assertion. Each later Exception 1 step and each later student-loan step carries one assertion of that fact (340 acts on the Exception 1 replacement, 338 on each student-loan step). After `demo.*` ids are normalized, `late_sli_superseded/superseded_claimed` equals `alc_sli_claimed`, and `superseded_not_claimed` equals `alc_sli_not_claimed`. `track0-closure.md:80-90` and Decision 7 say that, and no longer say a supersession act was exercised.
-   - **F4 fixed.** `core_calculations.bundle.v3.json:82` and `:138` name December 31, 2025 on the eye-doctor test. From `584aa65a` to HEAD those two titles are the only change in that bundle.
+   - **F4 fixed.** `core_calculations.bundle.v3.json:82` and `:138` name December 31, 2025 on the eye-doctor test. From (removed at closeout) to HEAD those two titles are the only change in that bundle.
    - **F5 fixed.** `tests/test_question_wording_v87.py:151-156` judges the later student-loan answers on the sibling runs. The module lists 27 runs. The two id-only repeats are not among them.
 3. **Regeneration.** `prototype.artifacts(True)` matches all seven v87 members byte for byte, and each registry checksum matches `citizen_checksum`. Core v87's `package_checksum` matches `package_instance_checksum`. Against `published-packages.v84.json` on `github/milestone/selection-keyed-collect-2025`, registry v85 changes no old entry and adds the seven successors plus core v87. That v84 file is unchanged on this branch. Release v85's `package_registry_sha256` is the sha256 of the v85 registry bytes. `git diff --name-only` over `packages/schemas`, `packages/kernel` and `packages/derivation` for that range is empty.
 4. **Anything new.** R1. The harness now treats a sentence that contains a question mark as a question (`track0.py:207-208`). On the unanswered no-sale run the page shows the full v3 sentence, note included. The other question on a computed no-sale return is the existing box 4 question. No schema, kernel, or derivation file changed.
@@ -307,7 +307,7 @@ The suite was not run. No failing claim needed it. The five coordinator runs abo
 
 ## R1 check
 
-Reviewer. Object: `bc807dfe`..`edf2e404`. The v3 question
+Reviewer. Object: the R1 repair commits (removed at closeout). The v3 question
 (`input-question.exception1-only-box2a-capital-gains.v3.json:7`) and the
 exception1 v2 title (`exception1.bundle.v2.json:11`) now say a personal-item
 loss does not count unless the filer received a Form 1099-S or reports that
@@ -336,7 +336,7 @@ byte for byte, and the registry checksums match. Against v84 on
 old entry and adds the seven successors plus core v87. Release v85 pins
 the v85 registry bytes. The diff under `packages/schemas`,
 `packages/kernel`, and `packages/derivation` is empty.
-`envelope_scan.py` on `bc807dfe^..HEAD` and on
+`envelope_scan.py` on the R1 repair range (removed at closeout) and on
 `github/milestone/selection-keyed-collect-2025..HEAD` exits 0.
 
 Note: `law.json` reading still quotes the previous v3 phrase "unless you
