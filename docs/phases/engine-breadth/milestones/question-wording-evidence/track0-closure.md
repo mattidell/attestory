@@ -40,8 +40,8 @@ Repair: this unit added the two fact-title bundle successors to
 | Fact or claim | Meaning (v87 words) | Authority scope | Depends on | What invalidates it? |
 | --- | --- | --- | --- | --- |
 | `f1099b.covered-w-st-adjustment.source-closure` (and `-lt-`) | The filer has recorded the wash-sale adjustment of every covered sale with one | One family horizon of the adjustment family | The members recorded at that horizon | A member transition makes a new horizon, and the closure is no longer current: `late_wash_member`. Unanswered, the question is asked: `alc_wash_st_unanswered`, `alc_wash_lt_unanswered`. A false answer leaves the line blocked: `alc_wash_st_no`. A yes computes: `alc_wash_st_yes`, `alc_wash_lt_yes`. |
-| `exception1.only-box2a-capital-gains` | No capital gains other than box 2a, and no 2025 sale that must be reported on Form 8949 or Schedule D (sales inside an IRA or 401(k) and losses on personal items do not count) | The return | The filer's answer. It is read only through `schedule-d-required.conclusion`, and only while no sale is recorded | A later answer supersedes it: `late_exc1_sale_after_yes` step 3. Unanswered, it is asked with or without a sale: `alc_exc1_unanswered`, `alc_exc1_sale_unanswered`. No sale and yes: line 7b checked (`alc_exc1_yes`). A sale and no: line 7b `guard_inapplicable` (`alc_exc1_sale_no`). |
-| `sli-scope.not-claimed-as-dependent` | Neither the filer nor, on a joint return, the spouse is claimed | The return | The filer's answer; the page's "no" records yes | A later answer supersedes it: `late_sli_superseded`. Unanswered, it is asked: `alc_sli_unanswered`. Yes gives 500 (`alc_sli_not_claimed`); no gives the legal 0 (`alc_sli_claimed`). |
+| `exception1.only-box2a-capital-gains` | No capital gains other than box 2a, and no 2025 sale that must be reported on Form 8949 or Schedule D (sales inside an IRA or 401(k) and losses on personal items do not count) | The return | The filer's answer. It is read only through `schedule-d-required.conclusion`, and only while no sale is recorded | A later answer replaces it in the act list (`late_exc1_sale_after_yes` step 3; no supersession act is exercised). Unanswered, it is asked with or without a sale: `alc_exc1_unanswered`, `alc_exc1_sale_unanswered`. No sale and yes: line 7b checked (`alc_exc1_yes`). A sale and no: line 7b `guard_inapplicable` (`alc_exc1_sale_no`). |
+| `sli-scope.not-claimed-as-dependent` | Neither the filer nor, on a joint return, the spouse is claimed | The return | The filer's answer; the page's "no" records yes | A later answer replaces it in the act list (`late_sli_superseded`; no supersession act is exercised). Unanswered, it is asked: `alc_sli_unanswered`. Yes gives 500 (`alc_sli_not_claimed`); no gives the legal 0 (`alc_sli_claimed`). |
 | `taxpayer-over-65`, `spouse-over-65` (titles) | Born before January 2, 1961; age 65 is reached the day before the 65th birthday; a 2025 death before 65 is excluded | The return | The filer's boolean; it defaults to false and no question asks for it | A later boolean, or bundle re-adoption for the title. True: `alc_title_age` (17,750; senior 6,000), `alc_title_spouse_age` (joint 33,100; senior 6,000). The spouse who died February 12, 2025 stays false: `alc_title_spouse_died_before_65` (31,500, 0). |
 | `taxpayer-blind`, `spouse-blind` (titles) | As of December 31, 2025, totally blind, or 20/200 or a 20-degree field of vision as an eye doctor's certified statement says (review F4) | The return | The filer's boolean, as above | As above. `alc_title_blind` gives 17,750. |
 
@@ -72,13 +72,17 @@ the same act list on both cores publishes identical lines and symbols
 
 ## Item 3: late-member lifecycle
 
-`track0-late.json`: 3 traces, all steps pass on both cores.
+`track0-late.json`: 3 traces, all steps pass on both cores. Review F2: in the
+Exception 1 and student-loan traces each later answer replaces the earlier
+one in the act list (the harness's `say` strips the earlier assertion); no
+supersession act is exercised, so those steps show that a different answer
+computes its hand value, not that a superseded finding becomes non-current.
 
 | Trace | Before | Change | After | What became unusable |
 | --- | --- | --- | --- | --- |
 | `late_wash_member` | Plain covered sale, closure yes: 1b 0, 7a 200 | A covered wash sale (500, 700, 200) is added to its four families with no new closure answer | 1b and 7a blocked; the page asks the wash-sale family's closure question | Every closure on the earlier horizon, and the line 1b, 7a and 16 findings. Closing again at the new horizons gives 1a 200, 1b 0, column (g) 200, line 16 3,899. |
-| `late_exc1_sale_after_yes` | No sale, only-box-2a yes: conclusion no, line 7b checked | A gain sale is added and Exception 1 is left at yes | Line 7b `guard_inapplicable`, 7a 200, line 16 3,899 | The line 7b checked finding. See the note below this table on the stale yes. Superseding the answer to no (step 3) publishes conclusion yes and the same numbers. |
-| `late_sli_superseded` | Not claimed: 500 | Superseded to claimed, then back | 0, then 500 | Each earlier line 21 finding |
+| `late_exc1_sale_after_yes` | No sale, only-box-2a yes: conclusion no, line 7b checked | A gain sale is added and Exception 1 is left at yes | Line 7b `guard_inapplicable`, 7a 200, line 16 3,899 | The line 7b checked finding. See the note below this table on the stale yes. With the answer replaced by no in the act list (step 3), the run publishes conclusion yes and the same numbers. |
+| `late_sli_superseded` | Not claimed: 500 | The answer replaced by claimed, then by not claimed, in the act list | 0, then 500 | Not observed: each step carries one answer, so no earlier finding is shown non-current |
 
 **Stale "yes" beside a sale.** After a sale is recorded, only-box-2a "yes"
 still publishes conclusion "no". The proposition the gate cares about did

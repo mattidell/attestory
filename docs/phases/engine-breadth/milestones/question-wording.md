@@ -213,7 +213,9 @@ successors (seven members).
 - Late-member lifecycle: PASS. `track0-late.json` has 3 of 3 traces.
   - `late_wash_member`: a member added after the closure makes the closure
     non-current, and reclosing computes.
-  - `late_sli_superseded`: each superseding answer replaces the earlier one.
+  - `late_sli_superseded`: each later answer replaces the earlier one in
+    the act list, and computes its hand value. No supersession act is
+    exercised (review F2).
   - `late_exc1_sale_after_yes`: the stale yes is never read beside a sale,
     because all three readers of the conclusion, unchanged, take the
     Schedule D path first. The step reaches its hand values.
