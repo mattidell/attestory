@@ -174,6 +174,21 @@ returns are identical on v86 and scratch v87.
    family open, the page asks no question; age and blindness are never
    asked and default to false.
 
+7. **Review repair** (foreman, 2026-11-11, on review 584aa65a).
+   - F1: the Exception 1 v3 sale clause covers sales that need no Form
+     8949 or Schedule D (personal-use losses, sales inside an IRA or
+     401(k)), so a truthful filer answers no and is blocked with no
+     question. The clause is limited to sales that must be reported on
+     Form 8949 or Schedule D, with a short exclusion sentence, and the
+     fact title follows. The v87 members are regenerated in place: none
+     is on a ratified line yet.
+   - F2: the student-loan and Exception 1 late steps replace an answer;
+     they do not supersede one. The claim is reworded to what the
+     traces show.
+   - F4: the blindness title names December 31, 2025.
+   - F5: the two live runs that repeat a sibling are dropped.
+   - F3 stays a note.
+
 ## Track 0 adversarial closure
 
 Evidence: `question-wording-evidence/track0-closure.md` and the
