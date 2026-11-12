@@ -67,8 +67,9 @@ ONLY_BOX2A = (
     "Is it true that you had no capital gains in 2025 other than capital gain "
     "distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of "
     "stock, bonds, funds or other property that you must report on Form 8949 or "
-    "Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and "
-    "losses on personal items do not count."
+    "Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not "
+    "count, and neither does a loss on a personal item unless you received a Form "
+    "1099-K or 1099-S for it."
 )
 SLI = (
     "Is someone else claiming you (or your spouse, on a joint return) as a dependent "
@@ -116,7 +117,7 @@ def test_successor_titles_carry_the_repaired_scope() -> None:
     """Review F1: the Exception 1 title has the question's scope. Review F4: blindness is dated."""
     title = _title("exception1.bundle.v2.json", P + "exception1.only-box2a-capital-gains")
     assert "no 2025 sale of stock, bonds, funds or other property that must be reported on Form 8949 or Schedule D" in title
-    assert "sales inside an IRA or 401(k) and losses on personal-use property do not count" in title
+    assert "sales inside an IRA or 401(k) do not count, and neither does a loss on personal-use property unless a Form 1099-K or 1099-S was received for it" in title
     for fact in ("taxpayer-blind", "spouse-blind"):
         assert "or as of December 31, 2025 could not see better than 20/200" in _title(
             "core_calculations.bundle.v3.json", P + fact)

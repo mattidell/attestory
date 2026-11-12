@@ -62,8 +62,9 @@ WORDS = {
         "Is it true that you had no capital gains in 2025 other than capital gain "
         "distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of "
         "stock, bonds, funds or other property that you must report on Form 8949 or "
-        "Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and "
-        "losses on personal items do not count."),
+        "Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not "
+        "count, and neither does a loss on a personal item unless you received a Form "
+        "1099-K or 1099-S for it."),
     "sli": (
         "Is someone else claiming you (or your spouse, on a joint return) as a dependent "
         "on their 2025 return?"),
@@ -103,6 +104,10 @@ HAND: dict[str, dict[str, Any]] = {
     "m_exc1_nosale": {"form1040.line-7b": "published_categorical", **NOSALE},
     "m_exc1_personal_loss": {"form1040.line-7b": "published_categorical", "schedule-d-required.conclusion": "no",
                              **NOSALE},
+    "m_exc1_personal_loss_1099k": {
+        "schedule-d-required.conclusion": "yes", "form1040.line-7a": "blocked",
+        "form1040.line-7b": "guard_inapplicable", "form1040.line-13b": "blocked",
+        "form1040.line-15": "blocked", "form1040.line-16": "guard_inapplicable"},
     "m_exc1_zero": {"schedule-d.line-1a": 0, "form1040.line-7b": "guard_inapplicable", **NOSALE},
     "m_exc1_gain": {"schedule-d.line-1a": 200, "form1040.line-7b": "guard_inapplicable", **ST_200},
     "m_sli_single_not": {"schedule1.line-21": 500, "form1040.line-16": 3815},
@@ -140,6 +145,8 @@ RUNS: tuple[tuple[str, tuple[str, ...], tuple[str, ...]], ...] = (
     # Review F1: a personal item sold at a loss is recorded nowhere, so its
     # truthful yes is this act list.
     ("complete", ("alc_exc1_yes", "m_wash_none", "m_exc1_nosale", "m_exc1_personal_loss"), ()),
+    # F1 follow-up: 1099-K personal-item loss, truthful no, parked no-question refusal.
+    ("exc1_personal_loss_1099k", ("m_exc1_personal_loss_1099k",), ()),
     ("exc1_sale_unanswered", ("alc_exc1_sale_unanswered",), ("only_box2a",)),
     ("sli_unanswered", ("alc_sli_unanswered",), ("sli",)),
     # Review F5: the later student-loan answers differ from these lists only
@@ -245,7 +252,7 @@ def _digest(acts: list[dict[str, Any]]) -> str:
 def test_hand_values_are_track0s_instruction_values() -> None:
     track0 = load_track0()
     recorded = {spec["id"]: spec["hand"] for spec in track0.cases()}
-    assert len(recorded) == 30
+    assert len(recorded) == 31
     for trace in track0.late_traces():
         for step_id, _acts, hand in trace["steps"]():
             recorded[f"{trace['id']}/{step_id}"] = hand
@@ -268,7 +275,7 @@ def test_runs_are_the_distinct_v87_act_lists() -> None:
         group_digests = {_digest(acts[member]) for member in group}
         assert len(group_digests) == 1, group
         digests.append(group_digests.pop())
-    assert len(set(digests)) == len(RUNS) == 26
+    assert len(set(digests)) == len(RUNS) == 27
 
 
 @pytest.mark.parametrize("run_id,members,shown", RUNS, ids=[run[0] for run in RUNS])
