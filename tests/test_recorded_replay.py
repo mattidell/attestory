@@ -34,17 +34,13 @@ def _fake_per_list(
     return {"key": key, "val": val, "acts": len(acts)}
 
 
-@pytest.fixture(scope="module")
-def all_recorded_lists() -> list[tuple[str, list[dict[str, Any]]]]:
-    """Fixture to load recorded lists before test timing."""
-    return recorded_replay.recorded_lists()
-
-
-def test_recorded_lists_returns_775_keys_equal_to_committed(
-    all_recorded_lists: list[tuple[str, list[dict[str, Any]]]],
-) -> None:
-    assert len(all_recorded_lists) == 775
-    keys = [k for k, _ in all_recorded_lists]
+@pytest.mark.live
+def test_recorded_lists_returns_775_keys_equal_to_committed() -> None:
+    # Full fixture export and harness gathering takes ~45-70 s, so this integration test
+    # belongs in the live lane under tests/conftest.py.
+    lists = recorded_replay.recorded_lists()
+    assert len(lists) == 775
+    keys = [k for k, _ in lists]
     assert len(keys) == len(set(keys))
 
     committed = json.loads(COMMITTED_NEIGHBOUR.read_text(encoding="utf-8"))
@@ -78,7 +74,15 @@ def test_ordering_and_output_independent_of_workers_and_finish_order() -> None:
 def test_resume_skips_keys_in_part_file(tmp_path: Path) -> None:
     part_file = tmp_path / "part.json"
     cached_row = {"key": "item/1", "val": 999, "cached": True}
-    part_file.write_text(json.dumps({"item/1": cached_row}), encoding="utf-8")
+    # Part file includes cached row and an extra stale row not in the requested list set
+    part_payload = {
+        "_metadata": {"cores": []},
+        "results": {
+            "item/1": cached_row,
+            "extra_stale": {"key": "extra_stale", "cached": True},
+        },
+    }
+    part_file.write_text(json.dumps(part_payload), encoding="utf-8")
 
     items: list[tuple[str, list[dict[str, Any]]]] = [
         ("item/1", [{"a": 1}]),
@@ -92,10 +96,34 @@ def test_resume_skips_keys_in_part_file(tmp_path: Path) -> None:
     assert res["item/1"] == cached_row
     assert res["item/2"] == _fake_per_list("item/2", [{"b": 2}])
     assert res["item/3"] == _fake_per_list("item/3", [{"c": 3}])
+    # Extra key in part file must not be in returned dictionary
+    assert "extra_stale" not in res
 
-    # Verify part file on disk matches return value
+    # Verify part file on disk matches results
     on_disk = json.loads(part_file.read_text(encoding="utf-8"))
-    assert on_disk == res
+    assert on_disk["results"]["item/1"] == cached_row
+    assert on_disk["results"]["item/2"] == res["item/2"]
+    assert on_disk["results"]["item/3"] == res["item/3"]
+
+
+def test_stale_part_file_for_different_cores_is_refused(tmp_path: Path) -> None:
+    part_file = tmp_path / "part.json"
+    c85_meta = recorded_replay.core_fingerprint("v85")
+    c86_meta = recorded_replay.core_fingerprint("v86")
+    part_payload = {
+        "_metadata": {"cores": [c85_meta, c86_meta]},
+        "results": {"k1": {"class": "identical"}},
+    }
+    part_file.write_text(json.dumps(part_payload), encoding="utf-8")
+
+    with pytest.raises(ValueError, match="recorded for different cores"):
+        recorded_replay.replay(
+            [("k1", [])],
+            ("v86", "v87"),
+            _fake_per_list,
+            workers=1,
+            part=part_file,
+        )
 
 
 def test_no_absolute_path_in_any_written_file(tmp_path: Path) -> None:
@@ -129,3 +157,31 @@ def test_no_absolute_path_in_any_written_file(tmp_path: Path) -> None:
         content = path.read_text(encoding="utf-8")
         for needle in forbidden:
             assert needle not in content, f"{path.name} contained {needle}"
+
+
+def test_baseline_other_than_v86_records_identical_errors() -> None:
+    # Finding F3: Baseline other than v86 must record identical errors when both cores error
+    pin_err_1 = {"error": "SameTaxError", "lines": {}}
+    pin_err_2 = {"error": "SameTaxError", "lines": {}}
+
+    res = recorded_replay.classify(pin_err_1, pin_err_2, name_a="v87", name_b="v88")
+    assert res["class"] == "identical"
+    assert res["v87_error"] == "SameTaxError"
+    assert res["error"] == "SameTaxError"
+
+
+def test_summarize_rerun_from_replay_pins() -> None:
+    # Finding F4: summarize_rerun extracts pins from replay output and produces valid P0 rerun table
+    pin_v86 = {"lines": {"l1": 100}, "questions": {}, "reasons": {}, "blocked_reasons": {}}
+    pin_v87 = {"lines": {"l1": 100}, "questions": {}, "reasons": {}, "blocked_reasons": {}}
+    fake_results = {
+        "v83/track0/s0/b4_amount_no_answer": {
+            "class": "identical",
+            "pins": {"v86": pin_v86, "v87": pin_v87},
+        }
+    }
+    summary = recorded_replay.summarize_rerun(fake_results, baseline_version="v86", comparison_version="v87")
+    assert summary["runs"] == 1
+    assert summary["counts"] == {"identical": 1}
+    assert "track0/s0/b4_amount_no_answer" in summary["classes"]
+

@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "parallel-replay",
-  "status": "Open. Plan and Track 1 charter.",
+  "status": "Open. Track 1 built; review not ready; repair chartered.",
   "scope": [
     "one reusable tool replays the recorded act lists earlier milestones replay, on any set of cores, in parallel worker processes",
     "its results equal the existing single-process neighbour replay exactly for the same cores",
@@ -98,21 +98,98 @@ core v87 using `--workers 4` reproduced the committed
 ### Wall time comparison
 
 - **Single-process baseline:** 20 lists measured single-process took 349.68 s (17.48 s/list), extrapolating to **13,550.23 s** (225.8 min / 3.76 hr) for 775 lists.
-- **Parallel replay (4 workers):** The complete 775-list replay took **3,018.37 s** (50.31 min), a ~4.5x wall-time reduction on 4 worker processes while running concurrently with other milestones on a 10-CPU machine.
+- **Parallel replay (4 workers):** The complete 775-list replay took **2,559.48 s** (42.66 min), a ~5.3x wall-time reduction on 4 worker processes while running concurrently with other milestones on a 10-CPU machine.
 
 ### Tests
 
-Fast-lane suite `tests/test_recorded_replay.py` contains 4 tests passing in the fast lane:
-- `test_recorded_lists_returns_775_keys_equal_to_committed` (< 0.005 s call)
-- `test_ordering_and_output_independent_of_workers_and_finish_order` (0.32 s call)
-- `test_resume_skips_keys_in_part_file` (0.18 s call)
-- `test_no_absolute_path_in_any_written_file` (0.18 s call)
+Suite `tests/test_recorded_replay.py` contains 7 tests (6 in the fast lane, 1 marked `@pytest.mark.live`):
+- `test_recorded_lists_returns_775_keys_equal_to_committed` (live lane: full fixture extraction and core setup)
+- `test_ordering_and_output_independent_of_workers_and_finish_order` (fast lane)
+- `test_resume_skips_keys_in_part_file` (fast lane)
+- `test_stale_part_file_for_different_cores_is_refused` (fast lane)
+- `test_no_absolute_path_in_any_written_file` (fast lane)
+- `test_baseline_other_than_v86_records_identical_errors` (fast lane)
+- `test_summarize_rerun_from_replay_pins` (fast lane)
 
 ### How a milestone uses it
 
 A content milestone runs recorded return replay once using:
-`python3 tools/recorded_replay.py neighbour <baseline-core> <new-core> --workers N --part <scratch>/part.json --out <scratch>/track0-neighbour.json`
-Because the tool replays both the v83 P0 rerun subsets and the full neighbour
-fixture grid together, a single parallel replay produces both the P0 rerun
-table and the Track 0 neighbour dependency diff. The resumable part file
-protects long runs against interruption without duplicate execution.
+```sh
+python3 tools/recorded_replay.py neighbour <baseline-core> <new-core> --workers N --part <scratch>/part.json --out <scratch>/track0-neighbour.json
+```
+
+Because the part file stores both cores' pins per key (`row["pins"] = {core_a.version: pin_a, core_b.version: pin_b}`), the milestone can derive the P0 rerun table (`rerun-output.json`) directly from the same part file without executing any return a second time:
+```sh
+python3 tools/recorded_replay.py rerun --part <scratch>/part.json --baseline <baseline-core> --comparison <new-core> --out <scratch>/rerun-output.json
+```
+
+#### Core specifications
+
+`tools.recorded_replay.resolve_core()` accepts either:
+- **Published cores:** specified by version string (e.g. `"v86"`), resolving `registry` and `release_version` to `"v{N-2}"` (`"v84"`).
+- **Candidate / scratch cores:** specified by path to a JSON file (e.g. `<scratch>/core.json`) containing:
+  ```json
+  {
+    "version": "v87-dev",
+    "registry": "v85",
+    "release_version": "v85",
+    "content": "packages/content",
+    "releases": "packages/releases",
+    "loader_from": null,
+    "presence_pairs": []
+  }
+  ```
+
+#### Custom replay tasks with public helpers
+
+Milestones can implement custom parallel replays by defining a top-level, picklable `per_list` function using the public `pin_run` and `classify` helpers:
+
+```python
+from typing import Any
+from tools.recorded_replay import pin_run, classify, replay, recorded_lists, Acts
+
+def custom_per_list(key: str, acts: Acts, cores: tuple[Any, Any]) -> dict[str, Any]:
+    core_a, core_b = cores
+    run_id_a = f"demo.replay.{core_a.version}.{key}"
+    run_id_b = f"demo.replay.{core_b.version}.{key}"
+    pin_a = pin_run(core_a, acts, run_id_a)
+    pin_b = pin_run(core_b, acts, run_id_b)
+    row = classify(pin_a, pin_b, name_a=core_a.version, name_b=core_b.version)
+    row["pins"] = {core_a.version: pin_a, core_b.version: pin_b}
+    return row
+
+# Executed across worker processes with resumable checkpointing:
+results = replay(
+    recorded_lists(),
+    (core_a, core_b),
+    custom_per_list,
+    workers=4,
+    part=part_path,
+)
+```
+
+## Decisions on review
+
+Foreman, 2026-11-12, on `docs/reviews/parallel-replay/review.md`. Every
+finding is accepted.
+
+1. **F1.** Tests that call `recorded_lists()` (about 70 s) are
+   `@pytest.mark.live` with the measured reason; the fast lane keeps the
+   ordering, resume and path tests on a fake list set.
+2. **F2.** A part file records the identity of the cores it was run on
+   (package id, version and checksum of each). Resuming refuses a part
+   file for other cores, and results keep only keys in the requested list
+   set.
+3. **F3.** No core version is hard-coded; identical errors are recorded
+   for any baseline, only when both runs carry the same error.
+4. **F4.** The replay stores each list's pins once per core, and the
+   classification is derived from the stored pins. The tool exposes the
+   pin-run and classify helpers publicly, and the plan's "How a milestone
+   uses it" shows a P0 rerun table and a Track 0 neighbour table derived
+   from one replay, with a worked per-list function.
+5. **S1.** The comparison checks every key's class and error identity,
+   every change row, and the top-level `sets`, `distinct_lists`, `runs`
+   and `counts`.
+6. **S2.** Worker processes start with the `spawn` method;
+   `recorded_lists()` returns a copy.
+7. **N1.** The part-file writer applies the local-path check.

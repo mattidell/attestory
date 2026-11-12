@@ -14,6 +14,7 @@ import hashlib
 import importlib.util
 import inspect
 import json
+import multiprocessing
 import os
 from pathlib import Path
 import re
@@ -152,7 +153,7 @@ def recorded_lists() -> list[tuple[str, Acts]]:
     """
     global _RECORDED_LISTS_CACHE
     if _RECORDED_LISTS_CACHE is not None:
-        return _RECORDED_LISTS_CACHE
+        return list(_RECORDED_LISTS_CACHE)
     test = _get_test()
     harness = _get_harness()
     expected = json.loads((REPO / "tests/fixtures/f1099b_backup_withholding_v83/expected.json").read_text(encoding="utf-8"))
@@ -203,11 +204,19 @@ def recorded_lists() -> list[tuple[str, Acts]]:
     for name, mode in sfa.track0_keys(t):
         out.append((f"v82/{name}/{mode}", sfa.track0_acts(t, name, mode, core82)))
 
-    with tempfile.TemporaryDirectory() as tmp:
-        exported_81 = test.export_returns(Path(tmp))
     for group in ("case", "v80", "neighbour"):
-        for name in sorted(exported_81.get(group, {})):
-            out.append((f"v81/{group}/{name}", exported_81[group][name]))
+        for name in sorted(exported.get(group, {})):
+            out.append((f"v81/{group}/{name}", exported[group][name]))
+
+    # Release evidence loader owner if set to avoid leaking engine state
+    try:
+        from tests import evidence_loader
+
+        owner = evidence_loader.current_owner()
+        if owner:
+            evidence_loader.release(owner)
+    except (ImportError, AttributeError):
+        pass
 
     seen: dict[str, str] = {}
     unique: list[tuple[str, Acts]] = []
@@ -218,7 +227,7 @@ def recorded_lists() -> list[tuple[str, Acts]]:
         seen[digest] = key
         unique.append((key, acts))
     _RECORDED_LISTS_CACHE = unique
-    return unique
+    return list(unique)
 
 
 def _diff(left: Any, right: Any) -> list[str]:
@@ -259,7 +268,17 @@ def classify(
 ) -> dict[str, Any]:
     """Classify comparison between two pins."""
     if left_pin == right_pin:
-        return {"class": "identical"}
+        err = _scalar(left_pin.get("error")) if isinstance(left_pin, dict) else None
+        res: dict[str, Any] = {"class": "identical"}
+        if err is not None:
+            res["error"] = err
+            res[f"{name_a}_error"] = err
+            if name_a == "v86":
+                res["v86_error"] = err
+        elif name_a == "v86":
+            res["v86_error"] = None
+        return res
+
     number_fields = _diff(_view(left_pin, SENTENCE_FIELDS, False), _view(right_pin, SENTENCE_FIELDS, False))
     sentence_fields = _diff(_view(left_pin, SENTENCE_FIELDS, True), _view(right_pin, SENTENCE_FIELDS, True))
     if number_fields or "error" in left_pin or "error" in right_pin:
@@ -270,7 +289,7 @@ def classify(
             for name in sorted(set(left) | set(right)):
                 if left.get(name) != right.get(name):
                     lines.append({"line": name, name_a: _scalar(left.get(name)), name_b: _scalar(right.get(name))})
-        return {
+        res = {
             "class": "numbers_changed",
             "number_fields": number_fields[:40],
             "sentence_fields": sentence_fields[:40],
@@ -278,9 +297,18 @@ def classify(
             f"{name_a}_error": _scalar(left_pin.get("error")),
             f"{name_b}_error": _scalar(right_pin.get("error")),
         }
+        if name_a == "v86":
+            res["v86_error"] = _scalar(left_pin.get("error"))
+        return res
     if sentence_fields:
-        return {"class": "numbers_identical_sentences_changed", "sentence_fields": sentence_fields[:40]}
-    return {"class": "numbers_changed", "number_fields": ["unclassified"]}
+        res = {"class": "numbers_identical_sentences_changed", "sentence_fields": sentence_fields[:40]}
+        if name_a == "v86":
+            res["v86_error"] = None
+        return res
+    res = {"class": "numbers_changed", "number_fields": ["unclassified"]}
+    if name_a == "v86":
+        res["v86_error"] = None
+    return res
 
 
 def fake_per_list(key: str, acts: Acts, cores: Any = None) -> dict[str, Any]:
@@ -288,24 +316,28 @@ def fake_per_list(key: str, acts: Acts, cores: Any = None) -> dict[str, Any]:
     return {"key": key, "acts_count": len(acts)}
 
 
-def _pin_run(test: Any, core: Any, acts: Acts, run_id: str) -> dict[str, Any]:
+def pin_run(core: Any, acts: Acts, run_id: str) -> dict[str, Any]:
+    """Run a coordinate run against a core and return the projected pin."""
+    test = _get_test()
+    resolved_core = resolve_core(core)
     track = test.track0()
-    with track.h.loader_entries(core):
-        return test.pin(track.run_coordinate(core, acts, run_id))  # type: ignore[no-any-return]
+    with track.h.loader_entries(resolved_core):
+        return test.pin(track.run_coordinate(resolved_core, acts, run_id))  # type: ignore[no-any-return]
+
+
+_pin_run = pin_run
 
 
 def neighbour_classify_per_list(key: str, acts: Acts, cores: tuple[Any, Any]) -> dict[str, Any]:
     """Per-list classification for neighbour comparison between two cores."""
     core_a, core_b = cores
-    test = _get_test()
     slug = re.sub(r"[^A-Za-z0-9_.-]", ".", key)
     run_id_b = f"demo.qw.t0.nb.{core_b.version}.{slug}" if core_b.version == "v87" else f"demo.replay.nb.{core_b.version}.{slug}"
     run_id_a = f"demo.qw.t0.nb.{core_a.version}.{slug}" if core_a.version == "v86" else f"demo.replay.nb.{core_a.version}.{slug}"
-    pin_b = _pin_run(test, core_b, acts, run_id_b)
-    pin_a = _pin_run(test, core_a, acts, run_id_a)
+    pin_b = pin_run(core_b, acts, run_id_b)
+    pin_a = pin_run(core_a, acts, run_id_a)
     row = classify(pin_a, pin_b, name_a=core_a.version, name_b=core_b.version)
-    if "v86_error" not in row:
-        row["v86_error"] = pin_a.get("error") if isinstance(pin_a, dict) and core_a.version == "v86" else None
+    row["pins"] = {core_a.version: pin_a, core_b.version: pin_b}
     return row
 
 
@@ -341,8 +373,39 @@ def _worker_exec(per_list: Callable[..., Any], key: str, acts: Acts, cores: Any)
     return key, res
 
 
-def _write_part(part_path: Path, data: dict[str, Any]) -> None:
-    text = json.dumps(data, indent=1) + "\n"
+def core_fingerprint(core: Any) -> dict[str, Any]:
+    """Compute an identity fingerprint for a core."""
+    try:
+        resolved = resolve_core(core)
+    except Exception:
+        resolved = core
+
+    if not hasattr(resolved, "version"):
+        return {"repr": str(resolved)}
+
+    fp: dict[str, Any] = {
+        "version": resolved.version,
+        "registry": getattr(resolved, "registry", None),
+        "release_version": getattr(resolved, "release_version", None),
+        "loader_from": getattr(resolved, "loader_from", None),
+        "presence_pairs": list(getattr(resolved, "presence_pairs", ())),
+    }
+    pkg_path = getattr(resolved, "package_path", None)
+    if pkg_path and Path(pkg_path).exists():
+        fp["package_sha256"] = hashlib.sha256(Path(pkg_path).read_bytes()).hexdigest()
+    rel_path = getattr(resolved, "release_path", None)
+    if rel_path and Path(rel_path).exists():
+        fp["release_sha256"] = hashlib.sha256(Path(rel_path).read_bytes()).hexdigest()
+    return fp
+
+
+def _write_part(part_path: Path, data: dict[str, Any], metadata: dict[str, Any] | None = None) -> None:
+    payload = {
+        "_metadata": metadata or {},
+        "results": data,
+    }
+    text = json.dumps(payload, indent=1) + "\n"
+    _check_no_local_paths(text, str(part_path))
     tmp = part_path.with_name(f"{part_path.name}.tmp")
     tmp.write_text(text, encoding="utf-8")
     tmp.replace(part_path)
@@ -369,11 +432,29 @@ def replay(
     max_workers = workers if (workers is not None and workers > 0) else max(1, (os.cpu_count() or 2) - 1)
     part_path = Path(part) if part is not None else None
     found: dict[str, Any] = {}
+
+    cores_list = cores if isinstance(cores, (list, tuple)) else (cores,)
+    expected_fingerprint = [core_fingerprint(c) for c in cores_list] if cores not in ((), None) else []
+    metadata = {"cores": expected_fingerprint}
+
     if part_path is not None and part_path.exists():
         try:
             loaded = json.loads(part_path.read_text(encoding="utf-8"))
-            if isinstance(loaded, dict):
+            if isinstance(loaded, dict) and "_metadata" in loaded and "results" in loaded:
+                part_meta = loaded.get("_metadata") or {}
+                part_cores = part_meta.get("cores")
+                if expected_fingerprint and part_cores != expected_fingerprint:
+                    raise ValueError(
+                        f"Part file {part_path} was recorded for different cores: "
+                        f"{part_cores} != {expected_fingerprint}"
+                    )
+                found = loaded.get("results") or {}
+            elif isinstance(loaded, dict):
+                if expected_fingerprint:
+                    raise ValueError(f"Part file {part_path} does not match expected core metadata")
                 found = loaded
+        except ValueError:
+            raise
         except Exception:
             found = {}
 
@@ -381,18 +462,20 @@ def replay(
     if pending:
         total = len(lists)
         done = len(found)
-        with concurrent.futures.ProcessPoolExecutor(max_workers=max_workers) as pool:
+        ctx = multiprocessing.get_context("spawn")
+        with concurrent.futures.ProcessPoolExecutor(max_workers=max_workers, mp_context=ctx) as pool:
             futures = {pool.submit(_worker_exec, per_list, key, acts, cores): key for key, acts in pending}
             for future in concurrent.futures.as_completed(futures):
                 key, result = future.result()
                 found[key] = result
                 done += 1
                 if part_path is not None:
-                    _write_part(part_path, found)
+                    _write_part(part_path, found, metadata)
                 if done % 25 == 0 or done == total:
                     print(f"[{done}/{total}] {key} -> {result.get('class', 'ok') if isinstance(result, dict) else 'ok'}", flush=True)
 
-    return dict(sorted(found.items()))
+    requested_keys = {key for key, _ in lists}
+    return {k: found[k] for k in sorted(requested_keys) if k in found}
 
 
 def run_neighbour(
@@ -413,11 +496,16 @@ def run_neighbour(
     for key, row in results.items():
         prefix = key.split("/", 1)[0]
         by_set.setdefault(prefix, Counter())[row["class"]] += 1
-        err = row.get("v86_error") or row.get(f"{core_a.version}_error")
-        if err:
-            errors.setdefault(prefix, Counter())[str(err)] += 1
+        if row.get("class") == "identical":
+            err = row.get(f"{core_a.version}_error") or row.get("error") or row.get("v86_error")
+            if err:
+                errors.setdefault(prefix, Counter())[str(err)] += 1
 
-    changes = [{"id": key, **row} for key, row in sorted(results.items()) if row["class"] != "identical"]
+    changes = [
+        {"id": key, **{k: v for k, v in row.items() if k != "pins"}}
+        for key, row in sorted(results.items())
+        if row["class"] != "identical"
+    ]
     summary = {
         "sets": {
             "v83": "tests/fixtures/f1099b_backup_withholding_v83/expected.json: the 298 lists the v86 test replays",
@@ -443,6 +531,97 @@ def run_neighbour(
     return summary
 
 
+def recorded_pin_from_expected(expected: dict[str, Any], key: str) -> dict[str, Any]:
+    """Look up the recorded fixture pin for a key in v83 expected.json."""
+    group, _, name = key.partition("/")
+    if group == "track0":
+        return expected["track0"][name]  # type: ignore[no-any-return]
+    if group == "returns":
+        return expected["returns"][name]["v83"]  # type: ignore[no-any-return]
+    return expected["zero_sample"][name]["v83"]  # type: ignore[no-any-return]
+
+
+def summarize_rerun(
+    results: dict[str, Any],
+    baseline_version: str = "v86",
+    comparison_version: str = "v87",
+    expected_fixture: Path | dict[str, Any] | None = None,
+    neighbour_fixture: Path | dict[str, Any] | None = None,
+    out: Path | str | None = None,
+) -> dict[str, Any]:
+    """Derive P0 rerun-output summary from parallel replay results."""
+    if expected_fixture is None:
+        expected_fixture = REPO / "tests/fixtures/f1099b_backup_withholding_v83/expected.json"
+    if isinstance(expected_fixture, (str, Path)):
+        expected_data = json.loads(Path(expected_fixture).read_text(encoding="utf-8"))
+    else:
+        expected_data = expected_fixture
+
+    if neighbour_fixture is None:
+        neighbour_fixture = REPO / "docs/phases/engine-breadth/milestones/f1099b-box4-only-evidence/track0-neighbour.json"
+    if isinstance(neighbour_fixture, (str, Path)):
+        nb_data = json.loads(Path(neighbour_fixture).read_text(encoding="utf-8"))
+    else:
+        nb_data = neighbour_fixture
+    asks = set(nb_data.get("asks_no_sale_present_ids") or [])
+
+    v83_results: dict[str, Any] = {}
+    for key, row in sorted(results.items()):
+        if not key.startswith("v83/"):
+            continue
+        short_key = key.removeprefix("v83/")
+        pins = row.get("pins") or {}
+        pin_a = pins.get(baseline_version)
+
+        rerun_row: dict[str, Any] = {
+            "class": row["class"],
+        }
+        for field in ("number_fields", "sentence_fields", "lines", f"{baseline_version}_error", f"{comparison_version}_error"):
+            if field in row:
+                rerun_row[field] = row[field]
+
+        if pin_a is not None:
+            expected_pin = recorded_pin_from_expected(expected_data, short_key)
+            rerun_row[f"{baseline_version}_matches_fixture"] = (pin_a == expected_pin)
+        rerun_row["restored_present_no"] = (short_key in asks)
+        v83_results[short_key] = rerun_row
+
+    counts = dict(Counter(row["class"] for row in v83_results.values()))
+    changes = [{"id": k, **v} for k, v in sorted(v83_results.items()) if v["class"] != "identical"]
+    matches_count = sum(1 for row in v83_results.values() if row.get(f"{baseline_version}_matches_fixture"))
+    restored_count = sum(1 for row in v83_results.values() if row.get("restored_present_no"))
+
+    payload = {
+        "fixture": "tests/fixtures/f1099b_backup_withholding_v83/expected.json",
+        "replay": (
+            "298 act lists from tests/test_f1099b_selection_keyed_collect_v86.py: "
+            "207 as recorded, 91 restored with no-sale box 4 present=no"
+        ),
+        "cores": f"core {baseline_version} and core {comparison_version}, answered as recorded",
+        "classes_defined": {
+            "identical": f"the {baseline_version} and {comparison_version} pins are equal",
+            "numbers_identical_sentences_changed": "only questions, reasons or blocked reasons differ",
+            "numbers_changed": "a line, attachment, base or row differs, or one core errors",
+        },
+        "runs": len(v83_results),
+        "live_runs": len(v83_results) * 2,
+        "restored_present_no": restored_count,
+        f"{baseline_version}_matches_fixture": matches_count,
+        "counts": counts,
+        "classes": {k: v["class"] for k, v in sorted(v83_results.items())},
+        "changes": changes,
+        "change_count": len(changes),
+    }
+
+    if out is not None:
+        out_path = Path(out)
+        text = json.dumps(payload, indent=2) + "\n"
+        _check_no_local_paths(text, str(out_path))
+        out_path.write_text(text, encoding="utf-8")
+
+    return payload
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Replay recorded returns in parallel.")
     subparsers = parser.add_subparsers(dest="subcommand")
@@ -453,6 +632,12 @@ def main() -> None:
     nb_parser.add_argument("--workers", "-w", type=int, default=None, help="Worker count")
     nb_parser.add_argument("--part", type=Path, default=None, help="Resumable part file path")
     nb_parser.add_argument("--out", type=Path, default=None, help="Output JSON path")
+
+    rerun_parser = subparsers.add_parser("rerun", help="Derive P0 rerun summary from a replay part file.")
+    rerun_parser.add_argument("--part", required=True, type=Path, help="Part file path")
+    rerun_parser.add_argument("--out", type=Path, default=None, help="Output JSON path")
+    rerun_parser.add_argument("--baseline", default="v86", help="Baseline core version")
+    rerun_parser.add_argument("--comparison", default="v87", help="Comparison core version")
 
     args = parser.parse_args()
     if args.subcommand == "neighbour":
@@ -467,6 +652,26 @@ def main() -> None:
             "runs": summary["runs"],
             "counts": summary["counts"],
             "changes": len(summary["changes"]),
+        }, indent=2))
+    elif args.subcommand == "rerun":
+        loaded = json.loads(args.part.read_text(encoding="utf-8"))
+        results: dict[str, Any]
+        if isinstance(loaded, dict) and isinstance(loaded.get("results"), dict):
+            results = loaded["results"]
+        elif isinstance(loaded, dict):
+            results = loaded
+        else:
+            raise ValueError(f"Invalid part file format in {args.part}")
+        payload = summarize_rerun(
+            results,
+            baseline_version=args.baseline,
+            comparison_version=args.comparison,
+            out=args.out,
+        )
+        print(json.dumps({
+            "runs": payload["runs"],
+            "counts": payload["counts"],
+            f"{args.baseline}_matches_fixture": payload[f"{args.baseline}_matches_fixture"],
         }, indent=2))
     else:
         parser.print_help()

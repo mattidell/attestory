@@ -39,10 +39,25 @@ def compare(
     wall_time_s: float,
     workers: int = 4,
 ) -> dict[str, Any]:
-    """Compare replay output against committed data."""
+    """Compare replay output against committed data with strengthened S1 checks.
+
+    Checks:
+    - Top-level `sets`, `distinct_lists`, `runs`, `counts`, and `same_error_on_both_cores`.
+    - Every key's class in `classes`.
+    - Exact equality of the `changes` list and each change row (including error fields).
+    """
     mismatches: list[dict[str, Any]] = []
 
-    # Check key sets and classes
+    # 1. Check top-level metadata and counts
+    for top_field in ("sets", "distinct_lists", "runs", "counts", "same_error_on_both_cores"):
+        if replay_data.get(top_field) != committed_data.get(top_field):
+            mismatches.append({
+                "type": f"{top_field}_mismatch",
+                "replay": replay_data.get(top_field),
+                "committed": committed_data.get(top_field),
+            })
+
+    # 2. Check key sets and class per key
     replay_classes = replay_data.get("classes", {})
     committed_classes = committed_data.get("classes", {})
 
@@ -63,32 +78,37 @@ def compare(
                 "committed": committed_classes[key],
             })
 
-    # Check changes
-    replay_changes = {row["id"]: row for row in replay_data.get("changes", [])}
-    committed_changes = {row["id"]: row for row in committed_data.get("changes", [])}
-
-    if replay_changes != committed_changes:
+    # 3. Check every change row and change list ordering
+    replay_changes_list = replay_data.get("changes", [])
+    committed_changes_list = committed_data.get("changes", [])
+    if replay_changes_list != committed_changes_list:
         mismatches.append({
-            "type": "changes_mismatch",
-            "replay": replay_changes,
-            "committed": committed_changes,
+            "type": "changes_list_mismatch",
+            "replay": replay_changes_list,
+            "committed": committed_changes_list,
         })
 
-    # Check counts
-    if replay_data.get("counts") != committed_data.get("counts"):
-        mismatches.append({
-            "type": "counts_mismatch",
-            "replay": replay_data.get("counts"),
-            "committed": committed_data.get("counts"),
-        })
+    replay_changes_by_id = {row["id"]: row for row in replay_changes_list if isinstance(row, dict) and "id" in row}
+    committed_changes_by_id = {row["id"]: row for row in committed_changes_list if isinstance(row, dict) and "id" in row}
 
-    # Check errors
-    if replay_data.get("same_error_on_both_cores") != committed_data.get("same_error_on_both_cores"):
-        mismatches.append({
-            "type": "errors_mismatch",
-            "replay": replay_data.get("same_error_on_both_cores"),
-            "committed": committed_data.get("same_error_on_both_cores"),
-        })
+    missing_change_ids = sorted(set(committed_changes_by_id) - set(replay_changes_by_id))
+    extra_change_ids = sorted(set(replay_changes_by_id) - set(committed_changes_by_id))
+    if missing_change_ids:
+        mismatches.append({"type": "missing_change_ids", "ids": missing_change_ids})
+    if extra_change_ids:
+        mismatches.append({"type": "extra_change_ids", "ids": extra_change_ids})
+
+    for cid in sorted(committed_changes_by_id):
+        if cid in replay_changes_by_id:
+            c_row = committed_changes_by_id[cid]
+            r_row = replay_changes_by_id[cid]
+            if c_row != r_row:
+                mismatches.append({
+                    "type": "change_row_mismatch",
+                    "id": cid,
+                    "replay": r_row,
+                    "committed": c_row,
+                })
 
     return {
         "lists": len(committed_classes),
