@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.exception1.only-box2a-capital-gains",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.exception1-only-box2a-capital-gains",
+  "question": "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-S for it or you report it on Form 8949.",
+  "schema": "input-question.v1",
+  "version": "v3"
+}
