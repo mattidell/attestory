@@ -98,7 +98,7 @@
     "taxpayer-blind": "Were you totally blind on December 31, 2025, or do you have a statement certified by your eye doctor (ophthalmologist or optometrist) that you can't see better than 20/200 in your better eye with glasses or contact lenses, or that your field of vision is 20 degrees or less?",
     "spouse-over-65": "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
     "spouse-blind": "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less?",
-    "standard-deduction.spouse-separate-condition": "Answer yes if your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return."
+    "standard-deduction.spouse-separate-condition": "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
   },
   "rules": {
     "dependents-worksheet-line-1": {
@@ -118,7 +118,7 @@
     "id": "standard-deduction.spouse-separate-condition",
     "symbol": "spouse_separate_condition",
     "title": "The spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return.",
-    "question": "Answer yes if your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return.",
+    "question": "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?",
     "search_exact": [],
     "search_near": []
   },

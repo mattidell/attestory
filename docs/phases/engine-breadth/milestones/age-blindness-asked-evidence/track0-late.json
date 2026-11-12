@@ -165,7 +165,7 @@
                 "standard-deduction.spouse-separate-condition"
               ],
               "questions": [
-                "Answer yes if your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return."
+                "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
               ],
               "blocked_field_count": 21,
               "blocked_fields": [

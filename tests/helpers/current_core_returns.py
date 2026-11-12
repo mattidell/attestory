@@ -266,15 +266,56 @@ def _renumbered(acts: list[dict[str, object]]) -> list[dict[str, object]]:
 # --- the returns -----------------------------------------------------------------------
 
 
-def base_return() -> list[dict[str, object]]:
+def _states(acts: Sequence[Mapping[str, Any]], fact_type: str) -> bool:
+    prefix = fact_type + "|"
+    for act in acts:
+        payload = act.get("payload")
+        finding = payload.get("finding") if isinstance(payload, dict) else None
+        if isinstance(finding, dict) and str(finding.get("fact_id", "")).startswith(prefix):
+            return True
+    return False
+
+
+def state_taxpayer_facts(
+    acts: list[dict[str, object]], *, core: str | None = None,
+) -> list[dict[str, object]]:
+    """On v88, record the taxpayer's age and blindness as false when the list leaves them unstated.
+
+    Decision 6. Those two bindings are required on core v88, so a return that
+    does not state them blocks. Earlier cores, and a caller that omits
+    ``core``, get ``acts`` back unchanged. A fact the list already states is
+    left as recorded. Does not state the spouse's facts or the separate-return
+    condition.
+    """
+    if core != "v88":
+        return acts
+    missing = [
+        (fact, tag)
+        for fact, tag in (
+            (P + "taxpayer-over-65", "taxpayer-age"),
+            (P + "taxpayer-blind", "taxpayer-blind"),
+        )
+        if not _states(acts, fact)
+    ]
+    if not missing:
+        return acts
+    out = copy.deepcopy(acts)
+    for fact, tag in missing:
+        _assert(out, f"demo.ccr.{tag}", fact, (), False)
+    return _renumbered(out)
+
+
+def base_return(*, core: str | None = None) -> list[dict[str, object]]:
     """A complete return on the latest core with no statement of any family.
 
     Single filer, wages 50,000 and 4,500 withheld on one W-2, standard deduction, no
     dependents; every closure and absence answer the latest core asks is given, so a run
     publishes the bottom line (Form 1040 line 34) with no blocked rule.
+    ``core="v88"`` also states the taxpayer's two facts false (Decision 6).
+    Callers that omit ``core`` get the same act list as before.
     Asserts: ``test_base_return_publishes_with_nothing_blocked``.
     """
-    return w2g._w2g_return([])
+    return state_taxpayer_facts(w2g._w2g_return([]), core=core)
 
 
 def add_tax_exempt_interest_1099int(acts: list[dict[str, object]], amounts: Sequence[float]) -> list[dict[str, object]]:
@@ -349,7 +390,8 @@ def add_student_loan_interest_1098e(acts: list[dict[str, object]], amounts: Sequ
     return _record_members(acts, P + "f1098e.1", amounts, tag="sli", companions=companions)
 
 
-def part_ii_b_return(*, box4: float, box6: float, wages: float = 15000.0, children: int = 3) -> list[dict[str, object]]:
+def part_ii_b_return(*, box4: float, box6: float, wages: float = 15000.0, children: int = 3,
+                     core: str | None = None) -> list[dict[str, object]]:
     """A complete return on the latest core that reads Schedule 8812 Part II-B.
 
     Single filer with ``children`` qualifying children (three by default, the least that
@@ -378,7 +420,7 @@ def part_ii_b_return(*, box4: float, box6: float, wages: float = 15000.0, childr
     w2g._w2g(acts, [])
     slip = {"employer": W2_EMPLOYER, "w2-slip": W2_SLIP}
     acts = _record_members(acts, P + "w2-box4", [box4], tag="w4", entities=slip)
-    return _record_members(acts, P + "w2-box6", [box6], tag="w6", entities=slip)
+    return state_taxpayer_facts(_record_members(acts, P + "w2-box6", [box6], tag="w6", entities=slip), core=core)
 
 
 # --- gambling losses and the Form 1098 itemizer (core v67) -----------------------------------

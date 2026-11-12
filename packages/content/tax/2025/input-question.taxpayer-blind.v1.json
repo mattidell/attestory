@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.taxpayer-blind",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.taxpayer-blind",
+  "question": "Were you totally blind on December 31, 2025, or do you have a statement certified by your eye doctor (ophthalmologist or optometrist) that you can't see better than 20/200 in your better eye with glasses or contact lenses, or that your field of vision is 20 degrees or less?",
+  "schema": "input-question.v1",
+  "version": "v1"
+}

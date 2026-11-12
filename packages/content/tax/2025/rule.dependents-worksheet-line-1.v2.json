@@ -1,0 +1,285 @@
+{
+  "schema": "rule-artifact.v14",
+  "id": "tax.us.2025.rule.dependents-worksheet-line-1",
+  "version": "v2",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [
+    "filing_status"
+  ],
+  "pins": [
+    {
+      "role": "input",
+      "id": "tax.us.2025.filing-status",
+      "version": "v1",
+      "origin": "assertion"
+    },
+    {
+      "role": "input",
+      "id": "tax.us.2025.taxpayer-over-65",
+      "version": "v1",
+      "origin": "assertion"
+    },
+    {
+      "role": "input",
+      "id": "tax.us.2025.taxpayer-blind",
+      "version": "v1",
+      "origin": "assertion"
+    },
+    {
+      "role": "input",
+      "id": "tax.us.2025.spouse-over-65",
+      "version": "v1",
+      "origin": "assertion"
+    },
+    {
+      "role": "input",
+      "id": "tax.us.2025.spouse-blind",
+      "version": "v1",
+      "origin": "assertion"
+    }
+  ],
+  "when": true,
+  "value": {
+    "op": "choose",
+    "when": {
+      "op": "choose",
+      "when": {
+        "op": "categorical_compare",
+        "cmp": "eq",
+        "left": {
+          "op": "ref",
+          "name": "filing_status"
+        },
+        "right": {
+          "op": "category_literal",
+          "fact_type": {
+            "id": "tax.us.2025.filing-status",
+            "version": "v1"
+          },
+          "value": "married_filing_jointly"
+        }
+      },
+      "then": {
+        "op": "conditional_dependency_set",
+        "condition": true,
+        "members": [
+          {
+            "op": "ref",
+            "name": "taxpayer_over_65"
+          },
+          {
+            "op": "ref",
+            "name": "taxpayer_blind"
+          },
+          {
+            "op": "ref",
+            "name": "spouse_over_65"
+          },
+          {
+            "op": "ref",
+            "name": "spouse_blind"
+          }
+        ]
+      },
+      "else": {
+        "op": "choose",
+        "when": {
+          "op": "categorical_compare",
+          "cmp": "eq",
+          "left": {
+            "op": "ref",
+            "name": "filing_status"
+          },
+          "right": {
+            "op": "category_literal",
+            "fact_type": {
+              "id": "tax.us.2025.filing-status",
+              "version": "v1"
+            },
+            "value": "married_filing_separately"
+          }
+        },
+        "then": {
+          "op": "conditional_dependency_set",
+          "condition": true,
+          "members": [
+            {
+              "op": "ref",
+              "name": "taxpayer_over_65"
+            },
+            {
+              "op": "ref",
+              "name": "taxpayer_blind"
+            },
+            {
+              "op": "ref",
+              "name": "spouse_over_65"
+            },
+            {
+              "op": "ref",
+              "name": "spouse_blind"
+            },
+            {
+              "op": "ref",
+              "name": "spouse_separate_condition"
+            }
+          ]
+        },
+        "else": {
+          "op": "conditional_dependency_set",
+          "condition": true,
+          "members": [
+            {
+              "op": "ref",
+              "name": "taxpayer_over_65"
+            },
+            {
+              "op": "ref",
+              "name": "taxpayer_blind"
+            }
+          ]
+        }
+      }
+    },
+    "then": {
+      "op": "add",
+      "args": [
+        {
+          "op": "choose",
+          "when": {
+            "op": "ref",
+            "name": "taxpayer_over_65"
+          },
+          "then": 1,
+          "else": 0
+        },
+        {
+          "op": "choose",
+          "when": {
+            "op": "ref",
+            "name": "taxpayer_blind"
+          },
+          "then": 1,
+          "else": 0
+        },
+        {
+          "op": "choose",
+          "when": {
+            "op": "categorical_compare",
+            "cmp": "eq",
+            "left": {
+              "op": "ref",
+              "name": "filing_status"
+            },
+            "right": {
+              "op": "category_literal",
+              "fact_type": {
+                "id": "tax.us.2025.filing-status",
+                "version": "v1"
+              },
+              "value": "married_filing_jointly"
+            }
+          },
+          "then": {
+            "op": "add",
+            "args": [
+              {
+                "op": "choose",
+                "when": {
+                  "op": "ref",
+                  "name": "spouse_over_65"
+                },
+                "then": 1,
+                "else": 0
+              },
+              {
+                "op": "choose",
+                "when": {
+                  "op": "ref",
+                  "name": "spouse_blind"
+                },
+                "then": 1,
+                "else": 0
+              }
+            ]
+          },
+          "else": {
+            "op": "choose",
+            "when": {
+              "op": "categorical_compare",
+              "cmp": "eq",
+              "left": {
+                "op": "ref",
+                "name": "filing_status"
+              },
+              "right": {
+                "op": "category_literal",
+                "fact_type": {
+                  "id": "tax.us.2025.filing-status",
+                  "version": "v1"
+                },
+                "value": "married_filing_separately"
+              }
+            },
+            "then": {
+              "op": "choose",
+              "when": {
+                "op": "ref",
+                "name": "spouse_separate_condition"
+              },
+              "then": {
+                "op": "add",
+                "args": [
+                  {
+                    "op": "choose",
+                    "when": {
+                      "op": "ref",
+                      "name": "spouse_over_65"
+                    },
+                    "then": 1,
+                    "else": 0
+                  },
+                  {
+                    "op": "choose",
+                    "when": {
+                      "op": "ref",
+                      "name": "spouse_blind"
+                    },
+                    "then": 1,
+                    "else": 0
+                  }
+                ]
+              },
+              "else": 0
+            },
+            "else": 0
+          }
+        }
+      ]
+    },
+    "else": 0
+  },
+  "publishes": "tax.us.2025.dependents-worksheet.line1-box-count",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "filing_status",
+      "taxpayer_over_65",
+      "taxpayer_blind",
+      "spouse_over_65",
+      "spouse_blind"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.line-12e",
+      "version": "v1"
+    }
+  ],
+  "notes": "Standard Deduction Worksheet for Dependents, line 1, and the box count of the Standard Deduction Chart for People Who Were Born Before January 2, 1961, or Were Blind (i1040gi-2025, line 12d and line 12e). v2 successor to v1: the four age and blindness facts are required inputs with no default, so the count waits until they are answered. The taxpayer's two boxes are read on every return. The spouse's two count on a married filing jointly return. On a married filing separately return they count only when spouse_separate_condition is yes (the chart footnote: the spouse had no income, isn't filing a return, and can't be claimed as a dependent). That fact is asked only on a separate return. One always-active conditional_dependency_set per status names every missing answer together. Head of household (line 12d: don't check any boxes for your spouse) and qualifying surviving spouse (the chart stops at 2 boxes) count only the taxpayer's boxes; v1 also counted a spouse on a qualifying surviving spouse return."
+}

@@ -66,9 +66,11 @@ COND_TITLE = (
     "The spouse had no income, isn't filing a return, and can't be claimed as a dependent "
     "on another person's return."
 )
+# Decision 10. The same three conditions, in the "Is it true that" form the
+# Exception 1 questions use.
 COND_QUESTION = (
-    "Answer yes if your spouse had no income, isn't filing a return, and can't be claimed "
-    "as a dependent on another person's return."
+    "Is it true that your spouse had no income, isn't filing a return, and can't be claimed "
+    "as a dependent on another person's return?"
 )
 # Decision 4: optional_default stays on the four fact types; the binding mode decides.
 SPOUSE_FACTS = (P + "spouse-over-65", P + "spouse-blind")

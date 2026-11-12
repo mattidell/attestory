@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.spouse-over-65",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.spouse-over-65",
+  "question": "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+  "schema": "input-question.v1",
+  "version": "v1"
+}

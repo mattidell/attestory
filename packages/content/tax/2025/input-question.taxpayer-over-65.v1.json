@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.taxpayer-over-65",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.taxpayer-over-65",
+  "question": "Were you born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday, so a birthday of January 1, 1961 counts and January 2, 1961 does not. If this return is for someone who died in 2025 before reaching age 65, answer no.",
+  "schema": "input-question.v1",
+  "version": "v1"
+}

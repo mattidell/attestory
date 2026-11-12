@@ -251,3 +251,62 @@ apply recommended choices. Blindness at a 2025 death stays parked
 judged, so no hand value can be claimed. The other items change no number.
 Track 0 is accepted and Track 1 is chartered
 (`docs/reviews/age-blindness-asked/charter-track1.md`).
+
+## Track 1 result
+
+Charter: `docs/reviews/age-blindness-asked/charter-track1.md`. Builder,
+2026-11-12.
+
+- **Condition question.** Decision 10's sentence, verbatim: "Is it true
+  that your spouse had no income, isn't filing a return, and can't be
+  claimed as a dependent on another person's return?"
+- **Successors.** Eight members are in `packages/content/tax/2025/`,
+  generated from `prototype.py` and byte-identical to it: the four age
+  and blindness questions, the condition question, dependents worksheet
+  line 1 v2, Schedule 1-A line 36b v2, and vocabulary bundle v4. The
+  condition fact type lives in that bundle. No published citizen was
+  edited.
+- **Core v88, registry v86, release v86** were made with
+  `python3 -m tools.package_successor`. Registry v86 only adds the eight
+  citizens and core v88. `packages/tax/loader.py` gives v88 v87's
+  companion declaration and covered-flag refusal map.
+  `tests/test_noncovered_sales_v78_switch.py` names v88 among the cores
+  with that map.
+- **Taxpayer facts.** `state_taxpayer_facts` records the taxpayer's age
+  and blindness as false on core v88 when a list leaves them unstated.
+  Earlier cores, and a caller that omits the core, stay unchanged. The
+  helper leaves the spouse facts and the separate-return condition
+  unstated.
+- **Live module** (`tests/test_age_blindness_v88.py`). The 20 authority
+  cases, 35 matrix cases and 3 late traces (7 steps) reduce to 38
+  distinct act lists. Each runs once on published core v88 through
+  `live_coordinate_run` and the presentation model, and every spec that
+  shares the list is judged on that run. Hand values come from
+  `law.json` and `track0.py`, and each asked question is pinned to its
+  sentence. All 38 were judged clean. The check printed
+  `ABA_V88_CASES runs=38 wall_s=227.8 failed=0`.
+- **775 recorded runs.** Answered false as the record implies, against
+  the fixture files in place, on 4 workers. The check printed
+  `ABA_V88_RECORDED runs=775 wall_s=1333.4 workers=4 diffs=0 of=775
+  v81_earlier=104`. The v83 pins match their fixture. On v82, v84 and
+  v85 every number both sides publish matches, and a watched
+  standard-deduction number the fixture publishes is still a number.
+  No run asks an age, blindness, or condition sentence.
+- **Package test** (`tests/test_age_blindness_v88_package.py`, fast):
+  byte identity with the prototype, the eight member edits, registry
+  v86 add-only, release v86, the v88 loader entries, and v87 and
+  earlier unchanged.
+- **Checks.** `pytest` on `tests/test_age_blindness_v88.py`,
+  `tests/test_age_blindness_v88_package.py` and
+  `tests/test_noncovered_sales_v78_switch.py`: 16 passed in 1621.37 s.
+  Fast lane (`pytest -m "not live"`): 1810 passed, 8 skipped, 4256
+  subtests passed in 17.88 s. `python3 -m mypy`: no issues in 486
+  source files. `python3 tools/envelope_scan.py --range
+  github/main..HEAD`: clean.
+- **Deviation.** 104 uncorrected v81 lists block or refuse where the
+  v81 fixture published a number, because questions added after v81 are
+  unanswered. That is already how published v87 treats those lists.
+  `v81/case/a_bw` and `v81/case/m_q3_yes_nothing_beside_w` were
+  rechecked identical to published v87. No number both sides publish
+  differs. No kernel, derivation, or schema edit, and no recording
+  change.
