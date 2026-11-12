@@ -3,7 +3,8 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "question-wording",
-  "status": "Open. Track 0 closed; limitations disposed; Track 1 chartered.",
+  "status": "Closed 2026-11-11. Core v87 built, reviewed twice and repaired.",
+  "retrospective": "docs/milestone-retrospectives/2026-11-11-question-wording.md",
   "scope": [
     "each question in scope says exactly what its consuming rule reads, for the population it is asked of, per the 2025 instructions",
     "the successors are content only: question citizens, bundles, core v87, registry v85, release v85",
@@ -374,3 +375,25 @@ Decision 7). This updates the counts above.
 - **Harness.** The Track 0 harness now counts a page sentence as a
   question when it contains a question mark. The repaired words end with
   a note after the mark.
+
+## Review and repair
+
+Fresh-reader review: `docs/reviews/question-wording/review.md`, not ready.
+F1 (blocking): the Exception 1 v3 sale clause caught sales that need no
+Form 8949 or Schedule D, so a truthful filer answered no and was blocked
+with no question; the clause now counts only reportable sales (Decision 7).
+F2: the late traces replace an answer, and the plan now says so. F4: the
+blindness title names December 31, 2025. F5: two repeated live runs
+dropped. F3 stays a note. A follow-up named the forms that make a
+personal-item loss count. The re-review found R1 (blocking): a Form 1099-K
+personal-item loss reported on Schedule 1 still meets Exception 1; the
+words now count it only when reported on Form 8949, and Track 0 has both
+rows. The R1 check was ready, with one note (law.json's stale phrase),
+fixed by the foreman.
+
+## Closeout
+
+Closed 2026-11-11. Retrospective:
+`docs/milestone-retrospectives/2026-11-11-question-wording.md`. The two
+limitations of Decision 6 are parked in the roadmap; age and blindness
+being asked is the next milestone.
