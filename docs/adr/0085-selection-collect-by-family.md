@@ -1,6 +1,6 @@
 # ADR 0085 — A selection path collects its activity family without a symbol
 
-- Status: **proposed**
+- Status: **accepted** (owner, 2026-11-11, before PR #270 went ready)
 - Tier: 2 — a rule-language and schema-successor contract later rules are
   written against.
 - Date: 2026-11-10
