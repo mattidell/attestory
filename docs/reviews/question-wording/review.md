@@ -256,3 +256,51 @@ single coordinator runs.
 ## Verdict
 
 **Not ready.** Blocking: F1. Should-fix: F2. F3 to F5 are notes.
+
+## Re-review
+
+Reviewer, fresh reader. Charter: `docs/reviews/question-wording/charter-rereview.md`.
+Orientation block verified at `a39d94d8`. Object: the repair after `584aa65a`,
+diffed against `github/milestone/selection-keyed-collect-2025`. Governance
+not read. Sources: the committed citizens, `law.json`, the 2025 Form 1040,
+Form 8949 and Schedule D instructions, and coordinator runs on published
+core v87 through `question-wording-evidence/track0.py` (`live_coordinate_run`).
+No builder thread was used as evidence.
+
+### R1 (blocking). A Form 1099-K personal-item loss reported on Schedule 1 still meets Exception 1, and the v3 words say it does not
+
+- **Where.**
+  - `packages/content/tax/2025/input-question.exception1-only-box2a-capital-gains.v3.json:7`
+  - the same scope in `packages/content/tax/2025/exception1.bundle.v2.json:11`
+  - both generated from `question-wording-evidence/prototype.py:50-56` and `:85-96`
+  - the row that calls the blanket no the true answer: `question-wording-evidence/track0.py:461-463`
+- **Claim violated.** The question and the fact title have to be true of what `schedule-d-required.conclusion` reads, for everyone asked, per the 2025 instructions. The conclusion (`rule.schedule-d-required.conclusion.json:12-36`) is "no" only when all four Exception 1 components are yes. Component C1 is this fact. A "no" makes the conclusion "yes" (Schedule D required).
+- **What the instructions say.** Schedule D, Capital Assets Held for Personal Use (`law.json` `personal-use`): a personal-use loss is not deductible; a Form 1099-S loss on personal-use real estate must be reported on Form 8949; a Form 1099-K loss on personal property must be reported on Form 8949 or on Schedule 1. The 2025 Form 1040 instructions put a personal item sold at a loss in the entry space at the top of Schedule 1, and send a personal item sold at a gain to Form 8949 and Schedule D. The 2025 Form 8949 instructions say a personal-property loss generally should not be reported on Form 8949, and that a Form 1099-K loss may be zeroed on that Schedule 1 entry space or on Form 8949. The Schedule 1 path files neither Form 8949 nor Schedule D, so Exception 1 still holds when the only capital gains are box 2a.
+- **What the words say.** "Neither does a loss on a personal item unless you received a Form 1099-K or 1099-S for it." Any Form 1099-K loss defeats C1. The title's operative sentence says the same, then quotes the Schedule D sentence that allows Schedule 1. The quote and the operative sentence disagree.
+- **Consequence (semantic).** A filer who follows the Form 1040 instructions and reports the Form 1099-K loss on Schedule 1 is asked this question (nothing records that sale) and answers no. The conclusion becomes Schedule D required, and the return hits the parked refusal. The Form 1099-S half is consistent: that loss must be reported on Form 8949. The no-form personal loss and the IRA sale are consistent: both answer yes and compute.
+- **Reproduction** (published core v87, synthetic `demo.qw.rereview.*` ids):
+  ```python
+  t = <load question-wording-evidence/track0.py>
+  core = t.harness().Core("v87", "v85", "v85")
+  yes = t.complete()  # truthful C1 yes: no sale, personal-item loss with no form, or IRA sales only
+  no = t.say(t.complete(), t.ONLY2A, "no", "only2a-1099k")
+  ```
+  The personal-item loss with no form, and sales inside an IRA only, are the same act list as no sale: nothing records either one. All three yes runs: outcome success, conclusion "no", line 7b `published_categorical`, 7a 0, 13b 0, 15 34,250, 16 3,875. The Form 1099-K run answered no, as the v3 words require: outcome success, conclusion "yes", 7a blocked, 7b `guard_inapplicable`, 13b blocked, 15 blocked, 16 `guard_inapplicable`, and the Exception 1 sentence is not asked. With the fact unanswered, the page shows the whole v3 sentence, including the note after the question mark. The yes act list is what a Schedule 1 reporter should answer, and it computes.
+- **Fix.** In the question and the fact title, a personal-item loss counts only when it must be reported on Form 8949 or Schedule D. A Form 1099-S loss does. A Form 1099-K loss does only when the filer reports it on Form 8949; the Schedule 1 entry space does not. Rebuild those two citizens from `prototype.py` in place, and stop calling the blanket no the true answer. Leave the parked refusal after a true no as the engine gap it is.
+
+## Charter questions
+
+1. **F1, the four runs.** No sale, a personal item sold at a loss with no form, and sales inside an IRA only each answer yes and compute to 7a 0, 15 34,250, 16 3,875, with line 7b checked and the conclusion "no". The same personal-item loss with a Form 1099-K, answered as the words require, is the parked refusal above. The sentence matches the instruction for no form, for Form 1099-S, and for an IRA. It does not match the Form 1099-K rule (R1). The fact title has the same operative scope.
+2. **F2, F4, F5, against Decision 7.**
+   - **F2 fixed.** `say` strips the earlier assertion. Each later Exception 1 step and each later student-loan step carries one assertion of that fact (340 acts on the Exception 1 replacement, 338 on each student-loan step). After `demo.*` ids are normalized, `late_sli_superseded/superseded_claimed` equals `alc_sli_claimed`, and `superseded_not_claimed` equals `alc_sli_not_claimed`. `track0-closure.md:80-90` and Decision 7 say that, and no longer say a supersession act was exercised.
+   - **F4 fixed.** `core_calculations.bundle.v3.json:82` and `:138` name December 31, 2025 on the eye-doctor test. From `584aa65a` to HEAD those two titles are the only change in that bundle.
+   - **F5 fixed.** `tests/test_question_wording_v87.py:151-156` judges the later student-loan answers on the sibling runs. The module lists 27 runs. The two id-only repeats are not among them.
+3. **Regeneration.** `prototype.artifacts(True)` matches all seven v87 members byte for byte, and each registry checksum matches `citizen_checksum`. Core v87's `package_checksum` matches `package_instance_checksum`. Against `published-packages.v84.json` on `github/milestone/selection-keyed-collect-2025`, registry v85 changes no old entry and adds the seven successors plus core v87. That v84 file is unchanged on this branch. Release v85's `package_registry_sha256` is the sha256 of the v85 registry bytes. `git diff --name-only` over `packages/schemas`, `packages/kernel` and `packages/derivation` for that range is empty.
+4. **Anything new.** R1. The harness now treats a sentence that contains a question mark as a question (`track0.py:207-208`). On the unanswered no-sale run the page shows the full v3 sentence, note included. The other question on a computed no-sale return is the existing box 4 question. No schema, kernel, or derivation file changed.
+5. **Data safety.** `python3 tools/envelope_scan.py --range github/milestone/selection-keyed-collect-2025..HEAD` exits 0 and prints nothing. This section has no absolute path and no temp-directory path.
+
+The suite was not run. No failing claim needed it. The five coordinator runs above are the measurements.
+
+## Re-review verdict
+
+**Not ready.** Blocking: R1. F2, F4 and F5 are fixed as Decision 7 says. Regeneration and the substrate diff hold.
