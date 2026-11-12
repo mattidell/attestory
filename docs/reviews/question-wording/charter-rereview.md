@@ -4,7 +4,7 @@ Role: Reviewer. Source HEAD on milestone/question-wording-2025, diffed
 against `github/milestone/selection-keyed-collect-2025`. Read
 docs/reviews/question-wording/review.md (your predecessor's findings),
 Decision 7 in docs/phases/engine-breadth/milestones/question-wording.md,
-and the repair commits after 584aa65a. Do not read governance.
+and the repair commits after (removed at closeout). Do not read governance.
 
 ## Questions
 

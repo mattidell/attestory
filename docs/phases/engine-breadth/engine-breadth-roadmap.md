@@ -779,6 +779,23 @@ default. Core v86 retires the rule that published 0 under the Form 1099-B
 box 4 amount id and the box 4 subtotal's inert path. Every recorded return
 is identical; earlier cores are unchanged.
 
+## Bounded return — Questions Say What Their Rules Read (2025)
+
+[Plan](milestones/question-wording.md); retrospective:
+`docs/milestone-retrospectives/2026-11-11-question-wording.md`.
+
+Core v87 (registry v85, release v85) rewords four questions and three fact
+titles; no rule, engine, schema or recording surface changed. The two
+wash-sale adjustment amount questions ask only of covered sales with a
+wash-sale loss adjustment. The Exception 1 only-box-2a question counts only
+a sale that must be reported on Form 8949 or Schedule D: sales inside an IRA
+or 401(k) do not count, nor does a personal-item loss unless a Form 1099-S
+was received or the loss is reported on Form 8949. The student-loan
+dependent question names the spouse on a joint return. The age and
+blindness titles state the 2025 rules (born before January 2, 1961; the
+death-in-2025 rule; blindness as of December 31, 2025). The 298 recorded
+v83 runs are identical on v87.
+
 ## Parked work and open questions
 
 This is the single list of parked work and open owner-held questions for the
@@ -871,9 +888,10 @@ delivers an item removes it.
   record answered or which finding proved it (a schema).
 - Worksheet lines as presentation rows; `demo.*` ids on the correct
   capital-loss and Social Security amounts.
-- The age questions' wording (born before January 2, 1961; a death in 2025
-  before age 65), and the SLI dependent answer ("is claimed", filer only)
-  beside the new "can be claimed" answer.
+- Age and blindness are never asked: the four facts default to false with
+  no question, so a filer born before January 2, 1961 loses the additional
+  standard deduction and the senior deduction. Next milestone
+  (age-blindness-asked).
 - Exact question identification from saved outcomes, process-restart recovery,
   and broader internal-error guidance remain separate questions. Do not infer
   a missing answer from a derived symbol or treat them as delivered here.
@@ -884,9 +902,8 @@ delivers an item removes it.
   `tests/test_collect_closure_regression.py`.
 - A blocked line names the kind of statement short of its withholding
   answer, not the statement itself (keyed join).
-- The two Form 1099-B wash-sale adjustment questions ask for an amount "of
-  every covered sale"; their basis and proceeds siblings limit to sales with
-  an adjustment. Wording only.
+- With a recorded wash sale and only the wash-sale adjustment family open,
+  the page asks no question (an admission check with no question).
 - The core-v75 closure-question and core-v76 later-arm switches are keyed
   by package id and version in `packages/tax/loader.py`, which the runner
   imports; passing them into the run, or declaring them in package content,
@@ -913,9 +930,9 @@ delivers an item removes it.
   check to carry a subject; both are derivation changes.
 - The per-statement box 4 amount and box 7 questions do not name the
   statement.
-- A false Exception 1 "no" with no sale recorded refuses with no question,
-  and the v2 Exception 1 words still invite "yes" beside a zero-net sale
-  (no rule reads them there since line 7b v2).
+- A false Exception 1 "no" with no sale recorded refuses with no question.
+  Since core v87 a truthful "no" reaches it too: a personal-item loss
+  reported on Form 8949 with no sale recorded.
 - The unasked boundary answers (lines 18-19, QOF, Path B, no Form 8949).
 - Kernel reverse presence check: removing a sale checks only one of its
   amount rows (`packages/kernel/findings.py`), so a leftover row is
