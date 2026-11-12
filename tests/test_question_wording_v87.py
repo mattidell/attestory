@@ -64,7 +64,7 @@ WORDS = {
         "stock, bonds, funds or other property that you must report on Form 8949 or "
         "Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not "
         "count, and neither does a loss on a personal item unless you received a Form "
-        "1099-K or 1099-S for it."),
+        "1099-S for it or you report it on Form 8949."),
     "sli": (
         "Is someone else claiming you (or your spouse, on a joint return) as a dependent "
         "on their 2025 return?"),
@@ -104,7 +104,10 @@ HAND: dict[str, dict[str, Any]] = {
     "m_exc1_nosale": {"form1040.line-7b": "published_categorical", **NOSALE},
     "m_exc1_personal_loss": {"form1040.line-7b": "published_categorical", "schedule-d-required.conclusion": "no",
                              **NOSALE},
-    "m_exc1_personal_loss_1099k": {
+    "m_exc1_personal_loss_1099k_sch1": {
+        "form1040.line-7b": "published_categorical", "schedule-d-required.conclusion": "no",
+        **NOSALE},
+    "m_exc1_personal_loss_1099k_8949": {
         "schedule-d-required.conclusion": "yes", "form1040.line-7a": "blocked",
         "form1040.line-7b": "guard_inapplicable", "form1040.line-13b": "blocked",
         "form1040.line-15": "blocked", "form1040.line-16": "guard_inapplicable"},
@@ -144,9 +147,11 @@ RUNS: tuple[tuple[str, tuple[str, ...], tuple[str, ...]], ...] = (
     ("exc1_unanswered", ("alc_exc1_unanswered",), ("only_box2a",)),
     # Review F1: a personal item sold at a loss is recorded nowhere, so its
     # truthful yes is this act list.
-    ("complete", ("alc_exc1_yes", "m_wash_none", "m_exc1_nosale", "m_exc1_personal_loss"), ()),
-    # F1 follow-up: 1099-K personal-item loss, truthful no, parked no-question refusal.
-    ("exc1_personal_loss_1099k", ("m_exc1_personal_loss_1099k",), ()),
+    ("complete", ("alc_exc1_yes", "m_wash_none", "m_exc1_nosale", "m_exc1_personal_loss",
+                  "m_exc1_personal_loss_1099k_sch1"), ()),
+    # Review R1: Form 1099-K personal-item loss reported on Form 8949, truthful no,
+    # parked no-question refusal (engine gap).
+    ("exc1_personal_loss_1099k_8949", ("m_exc1_personal_loss_1099k_8949",), ()),
     ("exc1_sale_unanswered", ("alc_exc1_sale_unanswered",), ("only_box2a",)),
     ("sli_unanswered", ("alc_sli_unanswered",), ("sli",)),
     # Review F5: the later student-loan answers differ from these lists only
@@ -252,7 +257,7 @@ def _digest(acts: list[dict[str, Any]]) -> str:
 def test_hand_values_are_track0s_instruction_values() -> None:
     track0 = load_track0()
     recorded = {spec["id"]: spec["hand"] for spec in track0.cases()}
-    assert len(recorded) == 31
+    assert len(recorded) == 32
     for trace in track0.late_traces():
         for step_id, _acts, hand in trace["steps"]():
             recorded[f"{trace['id']}/{step_id}"] = hand
