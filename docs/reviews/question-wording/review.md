@@ -304,3 +304,45 @@ The suite was not run. No failing claim needed it. The five coordinator runs abo
 ## Re-review verdict
 
 **Not ready.** Blocking: R1. F2, F4 and F5 are fixed as Decision 7 says. Regeneration and the substrate diff hold.
+
+## R1 check
+
+Reviewer. Object: `bc807dfe`..`edf2e404`. The v3 question
+(`input-question.exception1-only-box2a-capital-gains.v3.json:7`) and the
+exception1 v2 title (`exception1.bundle.v2.json:11`) now say a personal-item
+loss does not count unless the filer received a Form 1099-S or reports that
+loss on Form 8949. Both are byte-identical to `prototype.py`.
+
+Published core v87, through `track0.execute`, synthetic `demo.qw.r1.*`:
+
+- No form, Form 1099-K on Schedule 1, and IRA-only sales. Truthful answer
+  yes. Those three share the no-sale act list. Each run: conclusion "no",
+  line 7b `published_categorical`, 7a 0, 13b 0, 15 34,250, 16 3,875.
+- Form 1099-S, and Form 1099-K reported on Form 8949. Truthful answer no.
+  Those two share one act list. Each run: conclusion "yes", 7a blocked, 7b
+  `guard_inapplicable`, 13b blocked, 15 blocked, 16 `guard_inapplicable`,
+  Exception 1 question not shown. That is the parked engine gap after a
+  true no.
+- Unanswered, the page shows the whole v3 sentence, including the note
+  after the question mark.
+
+Those five answers are what the 2025 Form 1040, Form 8949, and Schedule D
+instructions require of this fact. The conclusion reads the yes/no; yes
+computes Exception 1, and no means Schedule D is required.
+
+Regeneration holds. All seven v87 members match `prototype.artifacts(True)`
+byte for byte, and the registry checksums match. Against v84 on
+`github/milestone/selection-keyed-collect-2025`, registry v85 changes no
+old entry and adds the seven successors plus core v87. Release v85 pins
+the v85 registry bytes. The diff under `packages/schemas`,
+`packages/kernel`, and `packages/derivation` is empty.
+`envelope_scan.py` on `bc807dfe^..HEAD` and on
+`github/milestone/selection-keyed-collect-2025..HEAD` exits 0.
+
+Note: `law.json` reading still quotes the previous v3 phrase "unless you
+received a Form 1099-K or 1099-S". The IRS extracts in that file are
+unchanged. The citizens do not use that phrase.
+
+## R1 check verdict
+
+**Ready.** Blocking list: none.
