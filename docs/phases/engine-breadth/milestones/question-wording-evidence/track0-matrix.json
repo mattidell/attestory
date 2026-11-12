@@ -13,12 +13,12 @@
     "v87": {
       "wash_st": "Have you recorded the wash-sale loss adjustment amount of every covered short-term sale with a wash-sale loss adjustment (a loss disallowed because you bought the same investment within 30 days before or after the sale) on every Form 1099-B you or your spouse received for 2025?",
       "wash_lt": "Have you recorded the wash-sale loss adjustment amount of every covered long-term sale with a wash-sale loss adjustment (a loss disallowed because you bought the same investment within 30 days before or after the sale) on every Form 1099-B you or your spouse received for 2025?",
-      "only_box2a": "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-K or 1099-S for it.",
+      "only_box2a": "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-S for it or you report it on Form 8949.",
       "sli": "Is someone else claiming you (or your spouse, on a joint return) as a dependent on their 2025 return?"
     }
   },
-  "count": 15,
-  "passed": 15,
+  "count": 16,
+  "passed": 16,
   "cases": [
     {
       "id": "m_exc1_gain",
@@ -395,7 +395,7 @@
       "numbers_identical": true
     },
     {
-      "id": "m_exc1_personal_loss_1099k",
+      "id": "m_exc1_personal_loss_1099k_8949",
       "group": "matrix",
       "hand": {
         "schedule-d-required.conclusion": "yes",
@@ -406,7 +406,7 @@
         "form1040.line-16": "guard_inapplicable"
       },
       "asks": [],
-      "note": "No sale recorded; the filer had a loss on a personal item reported on a Form 1099-K (F1 follow-up). The instruction requires reporting it (law.json personal-use), so Exception 1 fails. v86 words ask about gains only: truthful yes, line 7b checked (counterexample). v87 words: truthful no. Nothing can record the personal sale, so the return reaches the parked no-question refusal: conclusion yes, lines 7a, 13b and 15 blocked with no Exception 1 question (an engine gap, not wording). The hand is that parked behavior, not a computed return.",
+      "note": "No sale recorded; the filer had a Form 1099-K personal-item loss and reported it on Form 8949 (review R1). Exception 1 fails. v86 words ask about gains only: truthful yes, line 7b checked. v87 words: truthful no. Nothing can record the personal sale, so the return reaches the parked no-question refusal: conclusion yes, lines 7a, 13b and 15 blocked with no Exception 1 question (an engine gap, not wording). The hand is that parked behavior, not a computed return.",
       "v86_hand": false,
       "same_acts": false,
       "v86": {
@@ -512,6 +512,131 @@
       "v87_ask_failures": [],
       "pass": true,
       "v86_counterexample_fixed": true
+    },
+    {
+      "id": "m_exc1_personal_loss_1099k_sch1",
+      "group": "matrix",
+      "hand": {
+        "form1040.line-7b": "published_categorical",
+        "schedule-d-required.conclusion": "no",
+        "form1040.line-7a": 0,
+        "form1040.line-15": 34250,
+        "form1040.line-16": 3875
+      },
+      "asks": [],
+      "note": "No sale recorded; the filer had a Form 1099-K personal-item loss and reported it on Schedule 1 (review R1). That path files no Form 8949 or Schedule D, so Exception 1 holds: truthful yes on both cores, line 7b checked, no-sale numbers. Nothing records the personal sale, so the act list is alc_exc1_yes's.",
+      "v86_hand": true,
+      "same_acts": true,
+      "v86": {
+        "outcome": "success",
+        "stop": "saturated",
+        "lines": {
+          "form1040.line-12e": 15750,
+          "form1040.line-13b": 0,
+          "form1040.line-15": 34250,
+          "form1040.line-16": 3875,
+          "form1040.line-7a": 0,
+          "form1040.line-7b": "published_categorical",
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": 0,
+          "schedule-d.line-1a": 0,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-7": 0,
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule1.line-21": 0
+        },
+        "symbols": {
+          "schedule-d-required.conclusion": "no",
+          "f1099b.covered-w-lt-adjustment-subtotal": 0,
+          "f1099b.covered-w-st-adjustment-subtotal": 0,
+          "schedule1.line21-sli-deduction": 0,
+          "schedule1a.line36a-taxpayer": 0,
+          "schedule1a.line36b-spouse": 0
+        },
+        "questions": [
+          "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+        ],
+        "asked_on": {
+          "form1040.line-25b": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-25d": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-33": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-34": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-35a": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-37": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ]
+        },
+        "titles_shown": {}
+      },
+      "v86_hand_failures": [],
+      "v86_ask_failures": [],
+      "v87": {
+        "outcome": "success",
+        "stop": "saturated",
+        "lines": {
+          "form1040.line-12e": 15750,
+          "form1040.line-13b": 0,
+          "form1040.line-15": 34250,
+          "form1040.line-16": 3875,
+          "form1040.line-7a": 0,
+          "form1040.line-7b": "published_categorical",
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": 0,
+          "schedule-d.line-1a": 0,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-7": 0,
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule1.line-21": 0
+        },
+        "symbols": {
+          "schedule-d-required.conclusion": "no",
+          "f1099b.covered-w-lt-adjustment-subtotal": 0,
+          "f1099b.covered-w-st-adjustment-subtotal": 0,
+          "schedule1.line21-sli-deduction": 0,
+          "schedule1a.line36a-taxpayer": 0,
+          "schedule1a.line36b-spouse": 0
+        },
+        "questions": [
+          "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+        ],
+        "asked_on": {
+          "form1040.line-25b": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-25d": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-33": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-34": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-35a": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ],
+          "form1040.line-37": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+          ]
+        },
+        "titles_shown": {}
+      },
+      "v87_hand_failures": [],
+      "v87_ask_failures": [],
+      "pass": true,
+      "numbers_identical": true
     },
     {
       "id": "m_exc1_zero",

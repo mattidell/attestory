@@ -13,7 +13,7 @@
     "v87": {
       "wash_st": "Have you recorded the wash-sale loss adjustment amount of every covered short-term sale with a wash-sale loss adjustment (a loss disallowed because you bought the same investment within 30 days before or after the sale) on every Form 1099-B you or your spouse received for 2025?",
       "wash_lt": "Have you recorded the wash-sale loss adjustment amount of every covered long-term sale with a wash-sale loss adjustment (a loss disallowed because you bought the same investment within 30 days before or after the sale) on every Form 1099-B you or your spouse received for 2025?",
-      "only_box2a": "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-K or 1099-S for it.",
+      "only_box2a": "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-S for it or you report it on Form 8949.",
       "sli": "Is someone else claiming you (or your spouse, on a joint return) as a dependent on their 2025 return?"
     }
   },
