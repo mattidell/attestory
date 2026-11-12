@@ -60,8 +60,10 @@ WORDS = {
         "your spouse received for 2025?"),
     "only_box2a": (
         "Is it true that you had no capital gains in 2025 other than capital gain "
-        "distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds "
-        "or other property in 2025 (even a sale with no gain or loss)?"),
+        "distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of "
+        "stock, bonds, funds or other property that you must report on Form 8949 or "
+        "Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and "
+        "losses on personal items do not count."),
     "sli": (
         "Is someone else claiming you (or your spouse, on a joint return) as a dependent "
         "on their 2025 return?"),
@@ -99,6 +101,8 @@ HAND: dict[str, dict[str, Any]] = {
     "m_wash_both": {"schedule-d.line-1a": 200, "schedule-d.line-1b": 0,
                     "f1099b.covered-w-st-adjustment-subtotal": 200, **ST_200},
     "m_exc1_nosale": {"form1040.line-7b": "published_categorical", **NOSALE},
+    "m_exc1_personal_loss": {"form1040.line-7b": "published_categorical", "schedule-d-required.conclusion": "no",
+                             **NOSALE},
     "m_exc1_zero": {"schedule-d.line-1a": 0, "form1040.line-7b": "guard_inapplicable", **NOSALE},
     "m_exc1_gain": {"schedule-d.line-1a": 200, "form1040.line-7b": "guard_inapplicable", **ST_200},
     "m_sli_single_not": {"schedule1.line-21": 500, "form1040.line-16": 3815},
@@ -133,11 +137,16 @@ RUNS: tuple[tuple[str, tuple[str, ...], tuple[str, ...]], ...] = (
     ("wash_lt_unanswered", ("alc_wash_lt_unanswered",), ("wash_lt",)),
     ("lt_gain_answered", ("alc_wash_lt_yes",), ()),
     ("exc1_unanswered", ("alc_exc1_unanswered",), ("only_box2a",)),
-    ("complete", ("alc_exc1_yes", "m_wash_none", "m_exc1_nosale"), ()),
+    # Review F1: a personal item sold at a loss is recorded nowhere, so its
+    # truthful yes is this act list.
+    ("complete", ("alc_exc1_yes", "m_wash_none", "m_exc1_nosale", "m_exc1_personal_loss"), ()),
     ("exc1_sale_unanswered", ("alc_exc1_sale_unanswered",), ("only_box2a",)),
     ("sli_unanswered", ("alc_sli_unanswered",), ("sli",)),
-    ("sli_not_claimed", ("alc_sli_not_claimed", "m_sli_single_not", "late_sli_superseded/not_claimed"), ()),
-    ("sli_claimed", ("alc_sli_claimed", "m_sli_single_claimed"), ()),
+    # Review F5: the later student-loan answers differ from these lists only
+    # in an answer id, so they are judged on these runs.
+    ("sli_not_claimed", ("alc_sli_not_claimed", "m_sli_single_not", "late_sli_superseded/not_claimed",
+                         "late_sli_superseded/superseded_not_claimed"), ()),
+    ("sli_claimed", ("alc_sli_claimed", "m_sli_single_claimed", "late_sli_superseded/superseded_claimed"), ()),
     ("title_age", ("alc_title_age",), ()),
     ("title_blind", ("alc_title_blind",), ()),
     ("title_spouse_age", ("alc_title_spouse_age",), ()),
@@ -153,8 +162,6 @@ RUNS: tuple[tuple[str, tuple[str, ...], tuple[str, ...]], ...] = (
     ("late_exc1_nosale_yes", ("late_exc1_sale_after_yes/nosale_yes",), ()),
     ("late_exc1_sale_added", ("late_exc1_sale_after_yes/sale_added_yes_kept",), ()),
     ("late_exc1_superseded_no", ("late_exc1_sale_after_yes/only2a_superseded_no",), ()),
-    ("late_sli_claimed", ("late_sli_superseded/superseded_claimed",), ()),
-    ("late_sli_not_claimed", ("late_sli_superseded/superseded_not_claimed",), ()),
 )
 
 
@@ -219,14 +226,26 @@ def _v87_acts(track0: ModuleType) -> dict[str, list[dict[str, Any]]]:
     return acts
 
 
+def _normalized(node: Any) -> Any:
+    """The act list with every synthetic demo.* id replaced by one placeholder."""
+    if isinstance(node, dict):
+        return {key: _normalized(value) for key, value in node.items()}
+    if isinstance(node, list):
+        return [_normalized(value) for value in node]
+    if isinstance(node, str) and node.startswith("demo."):
+        return "demo.*"
+    return node
+
+
 def _digest(acts: list[dict[str, Any]]) -> str:
-    return hashlib.sha256(json.dumps(acts, sort_keys=True, default=str).encode("utf-8")).hexdigest()
+    """Two act lists that differ only in demo.* ids have one digest (review F5)."""
+    return hashlib.sha256(json.dumps(_normalized(acts), sort_keys=True, default=str).encode("utf-8")).hexdigest()
 
 
 def test_hand_values_are_track0s_instruction_values() -> None:
     track0 = load_track0()
     recorded = {spec["id"]: spec["hand"] for spec in track0.cases()}
-    assert len(recorded) == 29
+    assert len(recorded) == 30
     for trace in track0.late_traces():
         for step_id, _acts, hand in trace["steps"]():
             recorded[f"{trace['id']}/{step_id}"] = hand
@@ -249,7 +268,7 @@ def test_runs_are_the_distinct_v87_act_lists() -> None:
         group_digests = {_digest(acts[member]) for member in group}
         assert len(group_digests) == 1, group
         digests.append(group_digests.pop())
-    assert len(set(digests)) == len(RUNS) == 28
+    assert len(set(digests)) == len(RUNS) == 26
 
 
 @pytest.mark.parametrize("run_id,members,shown", RUNS, ids=[run[0] for run in RUNS])
