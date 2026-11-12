@@ -301,3 +301,40 @@ Charter: `docs/reviews/question-wording/charter-track1.md`. Builder,
 - **Deviations.** None from the charter. The covered-flag refusal test in
   `tests/test_noncovered_sales_v78_switch.py` was extended to v87, as the
   v86 build extended it to v86.
+
+**Review repair** (charter `docs/reviews/question-wording/charter-repair.md`,
+Decision 7). This updates the counts above.
+
+- **F1.** The only-box-2a v3 question now reads: "Is it true that you had
+  no capital gains in 2025 other than capital gain distributions in box 2a
+  of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds
+  or other property that you must report on Form 8949 or Schedule D (even
+  one with no gain or loss)? Sales inside an IRA or 401(k) and losses on
+  personal items do not count." The exception1 fact title has the same
+  scope. `law.json` quotes the Schedule D personal-use instruction. The new
+  Track 0 row `m_exc1_personal_loss` passes on both cores: no sale is
+  recorded, the answer is yes, and the return computes 7a 0, 15 34,250, 16
+  3,875, with line 7b checked. Track 0 was rerun (cases, merge, reuse):
+  authority 16/16, matrix 14/14, late 3/3, surface 6/6, reuse pass. The
+  neighbour diff was not rerun: it replays recorded answers, which no
+  wording can move.
+- **F4.** The blindness titles put the eye-doctor test as of December 31,
+  2025 too.
+- **Regenerated in place.** The three affected branch-only members, plus
+  registry v85 and release v85, were regenerated. Core v87's member list
+  and checksum are unchanged. Registry v85 still only adds to v84 on
+  `milestone/selection-keyed-collect-2025`.
+- **F2.** The late-step claim is reworded: each later answer replaces the
+  earlier one in the act list. **F5.** The two repeated student-loan runs
+  are dropped. Act lists are compared with `demo.*` ids normalized.
+- **Live module.** 26 distinct v87 runs judge the 16 authority cases, 14
+  matrix cases and 9 late steps (39 rows), all at their hand values, plus
+  the 298 recorded runs, all identical. That is 324 `live_coordinate_run`
+  calls in 327 tests. The two v87 modules and the v78 switch test pass
+  341 of 341 in 335 s wall.
+- **Checks.** Fast lane: 1802 passed, 8 skipped. `python3 -m mypy`: no
+  issues. `envelope_scan.py --range
+  github/milestone/selection-keyed-collect-2025..HEAD`: clean.
+- **Harness.** The Track 0 harness now counts a page sentence as a
+  question when it contains a question mark. The repaired words end with
+  a note after the mark.
