@@ -796,6 +796,19 @@ blindness titles state the 2025 rules (born before January 2, 1961; the
 death-in-2025 rule; blindness as of December 31, 2025). The 298 recorded
 v83 runs are identical on v87.
 
+## Bounded return — Recorded Returns Replay in Parallel (tooling)
+
+[Plan](milestones/parallel-replay.md); retrospective:
+`docs/milestone-retrospectives/2026-11-12-parallel-replay.md`.
+
+`tools/recorded_replay.py` replays the 775 recorded act lists content
+milestones compare across cores in parallel worker processes: about 43
+minutes on 4 workers against about 3.8 hours single-process, with the
+same rows as question-wording's committed neighbour output. Each list's
+pins are stored once per core, so a P0 rerun table and a Track 0
+neighbour table come from one replay; a part file is bound to its cores
+and resumes. No package, schema or engine changed.
+
 ## Parked work and open questions
 
 This is the single list of parked work and open owner-held questions for the

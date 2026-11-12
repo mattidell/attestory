@@ -1,0 +1,45 @@
+{
+  "lists": 775,
+  "workers": 4,
+  "wall_time_s": 2559.48,
+  "single_process_time": {
+    "measured_lists": 20,
+    "measured_wall_time_s": 349.68,
+    "extrapolated_775_wall_time_s": 13550.23,
+    "extrapolated_hours": 3.76,
+    "method": "Measured 20 lists single-process on cores v86 and v87, extrapolated to 775 lists."
+  },
+  "counts": {
+    "v81": {
+      "identical": 206
+    },
+    "v82": {
+      "identical": 169,
+      "numbers_identical_sentences_changed": 1
+    },
+    "v83": {
+      "identical": 298
+    },
+    "v84": {
+      "identical": 58
+    },
+    "v85": {
+      "identical": 43
+    }
+  },
+  "same_error_on_both_cores": {
+    "v81": {
+      "FindingModelError": 66
+    },
+    "v82": {
+      "FindingModelError": 11,
+      "SourceAuthorityError": 1
+    },
+    "v83": {
+      "FindingModelError": 5,
+      "HorizonModelError": 1
+    }
+  },
+  "mismatches": [],
+  "equivalent": true
+}
