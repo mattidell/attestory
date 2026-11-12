@@ -3,7 +3,8 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "age-blindness-asked",
-  "status": "Open. Track 1 built; review ready with should-fix; repair chartered (Decision 11).",
+  "status": "Closed 2026-11-12. Core v88 built, reviewed and repaired.",
+  "retrospective": "docs/milestone-retrospectives/2026-11-12-age-blindness-asked.md",
   "scope": [
     "a return cannot publish the standard deduction, the additional amounts for age 65 or older and blindness, or the senior deduction while the filer's (and on a joint return the spouse's) age or blindness may be unasked",
     "each question says what its rule reads, per the 2025 instructions, including the day-before-the-birthday rule and a death in 2025",
@@ -41,8 +42,9 @@
 Milestone key: age-blindness-asked.
 Branch: milestone/age-blindness-asked-2025.
 Phase: Engine Breadth, bounded return. Opening plan: 2026-11-11.
-Starting point: `milestone/question-wording-2025` at `9dab3113`
-(PR #273, scratch core v87; stacked on PR #270, core v86).
+Starting point: `milestone/question-wording-2025` (removed at closeout;
+PR #273, scratch core v87; stacked on PR #270, core v86). Rebased onto
+main at `080d2758` after both merged.
 
 ## What we are trying to accomplish
 
@@ -360,3 +362,19 @@ Decision 11). This updates the live and recorded counts above.
   github/main..HEAD`: clean. No kernel, derivation, or schema edit, and
   no recording change. The branch-only v88 citizens were regenerated in
   place.
+
+## Review and repair
+
+Fresh-reader review: `docs/reviews/age-blindness-asked/review.md`, ready.
+F1 (should-fix): a separate return asked the spouse's age and blindness
+after the condition was no; they are now asked only when it is yes. F2:
+the live module replays the 298 v83 lists; the 775-list result stays in
+the committed evidence. F3: two line 16 values pinned. F4: the blindness
+questions quote the instructions' alternative statement. Decision 11
+records each.
+
+## Closeout
+
+Closed 2026-11-12. Retrospective:
+`docs/milestone-retrospectives/2026-11-12-age-blindness-asked.md`. Parked
+in the roadmap: blindness at a 2025 death; line 12d's boxes as form fields.

@@ -1,9 +1,9 @@
 # Review: age and blindness asked (core v88, registry v86, release v86)
 
 Reviewer, fresh reader. Charter: `docs/reviews/age-blindness-asked/charter-review.md`.
-Object: `github/main` (080d2758) `..` HEAD (`7f460a3f`) on
+Object: `github/main` (080d2758) `..` HEAD ((removed at closeout)) on
 `milestone/age-blindness-asked-2025`. Orientation block verified at
-`7f460a3f6f0e8184907d7f7eaa2ccf43e52bdcb2`. Governance not read.
+(removed at closeout). Governance not read.
 
 The box: five yes/no facts may enter (taxpayer age, taxpayer blindness,
 spouse age, spouse blindness, and the separate-return condition). Each is
