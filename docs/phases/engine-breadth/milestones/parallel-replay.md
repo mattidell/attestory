@@ -80,3 +80,39 @@ Dispatch: agy Gemini 3.8 Flash for the build (owner's standing dispatch
 plan, 2026-11-12), Argon for the review. The build's acceptance check is
 exact equality with a committed single-process output, which the tool
 cannot satisfy by construction.
+
+## Track 1 result
+
+Track 1 built `tools/recorded_replay.py`, providing `recorded_lists()`,
+`replay()`, and the `neighbour` command line.
+
+### Equivalence result
+
+Replay of all 775 recorded act lists on published core v86 and published
+core v87 using `--workers 4` reproduced the committed
+`question-wording-evidence/track0-neighbour.json` with exact equivalence:
+- 775 lists compared across all 5 fixture sets (v81: 206, v82: 170, v83: 298, v84: 58, v85: 43).
+- 0 mismatches: every list key and every classification row matched identically (774 identical, 1 sentence-change row `v82/m_empty_exc1_unanswered/honest`, 83 identical refusals).
+- Evidence recorded in `docs/phases/engine-breadth/milestones/parallel-replay-evidence/equivalence.json` via `compare_neighbour.py`.
+
+### Wall time comparison
+
+- **Single-process baseline:** 20 lists measured single-process took 349.68 s (17.48 s/list), extrapolating to **13,550.23 s** (225.8 min / 3.76 hr) for 775 lists.
+- **Parallel replay (4 workers):** The complete 775-list replay took **3,018.37 s** (50.31 min), a ~4.5x wall-time reduction on 4 worker processes while running concurrently with other milestones on a 10-CPU machine.
+
+### Tests
+
+Fast-lane suite `tests/test_recorded_replay.py` contains 4 tests passing in the fast lane:
+- `test_recorded_lists_returns_775_keys_equal_to_committed` (< 0.005 s call)
+- `test_ordering_and_output_independent_of_workers_and_finish_order` (0.32 s call)
+- `test_resume_skips_keys_in_part_file` (0.18 s call)
+- `test_no_absolute_path_in_any_written_file` (0.18 s call)
+
+### How a milestone uses it
+
+A content milestone runs recorded return replay once using:
+`python3 tools/recorded_replay.py neighbour <baseline-core> <new-core> --workers N --part <scratch>/part.json --out <scratch>/track0-neighbour.json`
+Because the tool replays both the v83 P0 rerun subsets and the full neighbour
+fixture grid together, a single parallel replay produces both the P0 rerun
+table and the Track 0 neighbour dependency diff. The resumable part file
+protects long runs against interruption without duplicate execution.
