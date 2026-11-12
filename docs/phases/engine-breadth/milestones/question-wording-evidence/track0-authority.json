@@ -13,7 +13,7 @@
     "v87": {
       "wash_st": "Have you recorded the wash-sale loss adjustment amount of every covered short-term sale with a wash-sale loss adjustment (a loss disallowed because you bought the same investment within 30 days before or after the sale) on every Form 1099-B you or your spouse received for 2025?",
       "wash_lt": "Have you recorded the wash-sale loss adjustment amount of every covered long-term sale with a wash-sale loss adjustment (a loss disallowed because you bought the same investment within 30 days before or after the sale) on every Form 1099-B you or your spouse received for 2025?",
-      "only_box2a": "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds or other property in 2025 (even a sale with no gain or loss)?",
+      "only_box2a": "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count.",
       "sli": "Is someone else claiming you (or your spouse, on a joint return) as a dependent on their 2025 return?"
     }
   },
@@ -55,13 +55,15 @@
         },
         "symbols": {
           "schedule-d-required.conclusion": "yes",
-          "f1099b.covered-w-lt-adjustment-subtotal": "0",
-          "f1099b.covered-w-st-adjustment-subtotal": "0",
-          "schedule1.line21-sli-deduction": "0",
-          "schedule1a.line36a-taxpayer": "0",
-          "schedule1a.line36b-spouse": "0"
+          "f1099b.covered-w-lt-adjustment-subtotal": 0,
+          "f1099b.covered-w-st-adjustment-subtotal": 0,
+          "schedule1.line21-sli-deduction": 0,
+          "schedule1a.line36a-taxpayer": 0,
+          "schedule1a.line36b-spouse": 0
         },
-        "questions": [],
+        "questions": [
+          "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+        ],
         "asked_on": {
           "form1040.line-25b": [
             "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
@@ -107,13 +109,15 @@
         },
         "symbols": {
           "schedule-d-required.conclusion": "yes",
-          "f1099b.covered-w-lt-adjustment-subtotal": "0",
-          "f1099b.covered-w-st-adjustment-subtotal": "0",
-          "schedule1.line21-sli-deduction": "0",
-          "schedule1a.line36a-taxpayer": "0",
-          "schedule1a.line36b-spouse": "0"
+          "f1099b.covered-w-lt-adjustment-subtotal": 0,
+          "f1099b.covered-w-st-adjustment-subtotal": 0,
+          "schedule1.line21-sli-deduction": 0,
+          "schedule1a.line36a-taxpayer": 0,
+          "schedule1a.line36b-spouse": 0
         },
-        "questions": [],
+        "questions": [
+          "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+        ],
         "asked_on": {
           "form1040.line-25b": [
             "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
@@ -173,11 +177,12 @@
           "schedule1.line-21": 0
         },
         "symbols": {
-          "f1099b.covered-w-lt-adjustment-subtotal": "0",
-          "f1099b.covered-w-st-adjustment-subtotal": "0",
-          "schedule1.line21-sli-deduction": "0"
+          "f1099b.covered-w-lt-adjustment-subtotal": 0,
+          "f1099b.covered-w-st-adjustment-subtotal": 0,
+          "schedule1.line21-sli-deduction": 0
         },
         "questions": [
+          "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale.",
           "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV (for example, no gain from selling stock, funds or other property)?"
         ],
         "asked_on": {
@@ -303,58 +308,59 @@
           "schedule1.line-21": 0
         },
         "symbols": {
-          "f1099b.covered-w-lt-adjustment-subtotal": "0",
-          "f1099b.covered-w-st-adjustment-subtotal": "0",
-          "schedule1.line21-sli-deduction": "0"
+          "f1099b.covered-w-lt-adjustment-subtotal": 0,
+          "f1099b.covered-w-st-adjustment-subtotal": 0,
+          "schedule1.line21-sli-deduction": 0
         },
         "questions": [
-          "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds or other property in 2025 (even a sale with no gain or loss)?"
+          "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale.",
+          "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
         ],
         "asked_on": {
           "form.eic-worksheet-a.line-3": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds or other property in 2025 (even a sale with no gain or loss)?"
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
           ],
           "form.eic-worksheet-a.line-5": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds or other property in 2025 (even a sale with no gain or loss)?"
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
           ],
           "form.eic-worksheet-a.line-6": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds or other property in 2025 (even a sale with no gain or loss)?"
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
           ],
           "form.sch8812.line-14": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds or other property in 2025 (even a sale with no gain or loss)?"
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
           ],
           "form.sch8812.line-17": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds or other property in 2025 (even a sale with no gain or loss)?"
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
           ],
           "form.sch8812.worksheet-a.line-5": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds or other property in 2025 (even a sale with no gain or loss)?"
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
           ],
           "form1040.line-11a": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds or other property in 2025 (even a sale with no gain or loss)?"
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
           ],
           "form1040.line-11b": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds or other property in 2025 (even a sale with no gain or loss)?"
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
           ],
           "form1040.line-13b": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds or other property in 2025 (even a sale with no gain or loss)?"
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
           ],
           "form1040.line-14": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds or other property in 2025 (even a sale with no gain or loss)?"
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
           ],
           "form1040.line-15": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds or other property in 2025 (even a sale with no gain or loss)?"
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
           ],
           "form1040.line-16": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds or other property in 2025 (even a sale with no gain or loss)?"
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
           ],
           "form1040.line-19": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds or other property in 2025 (even a sale with no gain or loss)?"
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
           ],
           "form1040.line-20": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds or other property in 2025 (even a sale with no gain or loss)?"
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
           ],
           "form1040.line-24": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds or other property in 2025 (even a sale with no gain or loss)?"
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
           ],
           "form1040.line-25b": [
             "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
@@ -363,50 +369,50 @@
             "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
           ],
           "form1040.line-27a": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds or other property in 2025 (even a sale with no gain or loss)?"
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
           ],
           "form1040.line-28": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds or other property in 2025 (even a sale with no gain or loss)?"
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
           ],
           "form1040.line-32": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds or other property in 2025 (even a sale with no gain or loss)?"
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
           ],
           "form1040.line-33": [
             "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale.",
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds or other property in 2025 (even a sale with no gain or loss)?"
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
           ],
           "form1040.line-34": [
             "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale.",
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds or other property in 2025 (even a sale with no gain or loss)?"
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
           ],
           "form1040.line-35a": [
             "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale.",
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds or other property in 2025 (even a sale with no gain or loss)?"
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
           ],
           "form1040.line-37": [
             "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale.",
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds or other property in 2025 (even a sale with no gain or loss)?"
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
           ],
           "form1040.line-6b": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds or other property in 2025 (even a sale with no gain or loss)?"
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
           ],
           "form1040.line-7a": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds or other property in 2025 (even a sale with no gain or loss)?"
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
           ],
           "form1040.line-7b": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds or other property in 2025 (even a sale with no gain or loss)?"
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
           ],
           "form1040.line-9": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds or other property in 2025 (even a sale with no gain or loss)?"
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
           ],
           "form1040.tax-after-credits": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds or other property in 2025 (even a sale with no gain or loss)?"
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
           ],
           "schedule3.line-1": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds or other property in 2025 (even a sale with no gain or loss)?"
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
           ],
           "schedule3.line-8": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds or other property in 2025 (even a sale with no gain or loss)?"
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
           ]
         },
         "titles_shown": {}
@@ -449,11 +455,12 @@
           "schedule1.line-21": 0
         },
         "symbols": {
-          "f1099b.covered-w-lt-adjustment-subtotal": "0",
-          "f1099b.covered-w-st-adjustment-subtotal": "0",
-          "schedule1.line21-sli-deduction": "0"
+          "f1099b.covered-w-lt-adjustment-subtotal": 0,
+          "f1099b.covered-w-st-adjustment-subtotal": 0,
+          "schedule1.line21-sli-deduction": 0
         },
         "questions": [
+          "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale.",
           "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV (for example, no gain from selling stock, funds or other property)?"
         ],
         "asked_on": {
@@ -579,58 +586,59 @@
           "schedule1.line-21": 0
         },
         "symbols": {
-          "f1099b.covered-w-lt-adjustment-subtotal": "0",
-          "f1099b.covered-w-st-adjustment-subtotal": "0",
-          "schedule1.line21-sli-deduction": "0"
+          "f1099b.covered-w-lt-adjustment-subtotal": 0,
+          "f1099b.covered-w-st-adjustment-subtotal": 0,
+          "schedule1.line21-sli-deduction": 0
         },
         "questions": [
-          "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds or other property in 2025 (even a sale with no gain or loss)?"
+          "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale.",
+          "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
         ],
         "asked_on": {
           "form.eic-worksheet-a.line-3": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds or other property in 2025 (even a sale with no gain or loss)?"
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
           ],
           "form.eic-worksheet-a.line-5": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds or other property in 2025 (even a sale with no gain or loss)?"
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
           ],
           "form.eic-worksheet-a.line-6": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds or other property in 2025 (even a sale with no gain or loss)?"
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
           ],
           "form.sch8812.line-14": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds or other property in 2025 (even a sale with no gain or loss)?"
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
           ],
           "form.sch8812.line-17": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds or other property in 2025 (even a sale with no gain or loss)?"
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
           ],
           "form.sch8812.worksheet-a.line-5": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds or other property in 2025 (even a sale with no gain or loss)?"
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
           ],
           "form1040.line-11a": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds or other property in 2025 (even a sale with no gain or loss)?"
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
           ],
           "form1040.line-11b": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds or other property in 2025 (even a sale with no gain or loss)?"
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
           ],
           "form1040.line-13b": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds or other property in 2025 (even a sale with no gain or loss)?"
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
           ],
           "form1040.line-14": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds or other property in 2025 (even a sale with no gain or loss)?"
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
           ],
           "form1040.line-15": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds or other property in 2025 (even a sale with no gain or loss)?"
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
           ],
           "form1040.line-16": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds or other property in 2025 (even a sale with no gain or loss)?"
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
           ],
           "form1040.line-19": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds or other property in 2025 (even a sale with no gain or loss)?"
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
           ],
           "form1040.line-20": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds or other property in 2025 (even a sale with no gain or loss)?"
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
           ],
           "form1040.line-24": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds or other property in 2025 (even a sale with no gain or loss)?"
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
           ],
           "form1040.line-25b": [
             "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
@@ -639,50 +647,50 @@
             "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
           ],
           "form1040.line-27a": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds or other property in 2025 (even a sale with no gain or loss)?"
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
           ],
           "form1040.line-28": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds or other property in 2025 (even a sale with no gain or loss)?"
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
           ],
           "form1040.line-32": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds or other property in 2025 (even a sale with no gain or loss)?"
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
           ],
           "form1040.line-33": [
             "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale.",
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds or other property in 2025 (even a sale with no gain or loss)?"
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
           ],
           "form1040.line-34": [
             "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale.",
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds or other property in 2025 (even a sale with no gain or loss)?"
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
           ],
           "form1040.line-35a": [
             "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale.",
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds or other property in 2025 (even a sale with no gain or loss)?"
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
           ],
           "form1040.line-37": [
             "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale.",
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds or other property in 2025 (even a sale with no gain or loss)?"
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
           ],
           "form1040.line-6b": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds or other property in 2025 (even a sale with no gain or loss)?"
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
           ],
           "form1040.line-7a": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds or other property in 2025 (even a sale with no gain or loss)?"
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
           ],
           "form1040.line-7b": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds or other property in 2025 (even a sale with no gain or loss)?"
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
           ],
           "form1040.line-9": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds or other property in 2025 (even a sale with no gain or loss)?"
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
           ],
           "form1040.tax-after-credits": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds or other property in 2025 (even a sale with no gain or loss)?"
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
           ],
           "schedule3.line-1": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds or other property in 2025 (even a sale with no gain or loss)?"
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
           ],
           "schedule3.line-8": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds or other property in 2025 (even a sale with no gain or loss)?"
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
           ]
         },
         "titles_shown": {}
@@ -727,13 +735,15 @@
         },
         "symbols": {
           "schedule-d-required.conclusion": "no",
-          "f1099b.covered-w-lt-adjustment-subtotal": "0",
-          "f1099b.covered-w-st-adjustment-subtotal": "0",
-          "schedule1.line21-sli-deduction": "0",
-          "schedule1a.line36a-taxpayer": "0",
-          "schedule1a.line36b-spouse": "0"
+          "f1099b.covered-w-lt-adjustment-subtotal": 0,
+          "f1099b.covered-w-st-adjustment-subtotal": 0,
+          "schedule1.line21-sli-deduction": 0,
+          "schedule1a.line36a-taxpayer": 0,
+          "schedule1a.line36b-spouse": 0
         },
-        "questions": [],
+        "questions": [
+          "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+        ],
         "asked_on": {
           "form1040.line-25b": [
             "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
@@ -779,13 +789,15 @@
         },
         "symbols": {
           "schedule-d-required.conclusion": "no",
-          "f1099b.covered-w-lt-adjustment-subtotal": "0",
-          "f1099b.covered-w-st-adjustment-subtotal": "0",
-          "schedule1.line21-sli-deduction": "0",
-          "schedule1a.line36a-taxpayer": "0",
-          "schedule1a.line36b-spouse": "0"
+          "f1099b.covered-w-lt-adjustment-subtotal": 0,
+          "f1099b.covered-w-st-adjustment-subtotal": 0,
+          "schedule1.line21-sli-deduction": 0,
+          "schedule1a.line36a-taxpayer": 0,
+          "schedule1a.line36b-spouse": 0
         },
-        "questions": [],
+        "questions": [
+          "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+        ],
         "asked_on": {
           "form1040.line-25b": [
             "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
@@ -846,13 +858,15 @@
         },
         "symbols": {
           "schedule-d-required.conclusion": "no",
-          "f1099b.covered-w-lt-adjustment-subtotal": "0",
-          "f1099b.covered-w-st-adjustment-subtotal": "0",
-          "schedule1.line21-sli-deduction": "0",
-          "schedule1a.line36a-taxpayer": "0",
-          "schedule1a.line36b-spouse": "0"
+          "f1099b.covered-w-lt-adjustment-subtotal": 0,
+          "f1099b.covered-w-st-adjustment-subtotal": 0,
+          "schedule1.line21-sli-deduction": 0,
+          "schedule1a.line36a-taxpayer": 0,
+          "schedule1a.line36b-spouse": 0
         },
-        "questions": [],
+        "questions": [
+          "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+        ],
         "asked_on": {
           "form1040.line-25b": [
             "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
@@ -898,13 +912,15 @@
         },
         "symbols": {
           "schedule-d-required.conclusion": "no",
-          "f1099b.covered-w-lt-adjustment-subtotal": "0",
-          "f1099b.covered-w-st-adjustment-subtotal": "0",
-          "schedule1.line21-sli-deduction": "0",
-          "schedule1a.line36a-taxpayer": "0",
-          "schedule1a.line36b-spouse": "0"
+          "f1099b.covered-w-lt-adjustment-subtotal": 0,
+          "f1099b.covered-w-st-adjustment-subtotal": 0,
+          "schedule1.line21-sli-deduction": 0,
+          "schedule1a.line36a-taxpayer": 0,
+          "schedule1a.line36b-spouse": 0
         },
-        "questions": [],
+        "questions": [
+          "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+        ],
         "asked_on": {
           "form1040.line-25b": [
             "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
@@ -965,13 +981,15 @@
         },
         "symbols": {
           "schedule-d-required.conclusion": "no",
-          "f1099b.covered-w-lt-adjustment-subtotal": "0",
-          "f1099b.covered-w-st-adjustment-subtotal": "0",
-          "schedule1.line21-sli-deduction": "500",
-          "schedule1a.line36a-taxpayer": "0",
-          "schedule1a.line36b-spouse": "0"
+          "f1099b.covered-w-lt-adjustment-subtotal": 0,
+          "f1099b.covered-w-st-adjustment-subtotal": 0,
+          "schedule1.line21-sli-deduction": 500,
+          "schedule1a.line36a-taxpayer": 0,
+          "schedule1a.line36b-spouse": 0
         },
-        "questions": [],
+        "questions": [
+          "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+        ],
         "asked_on": {
           "form1040.line-25b": [
             "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
@@ -1017,13 +1035,15 @@
         },
         "symbols": {
           "schedule-d-required.conclusion": "no",
-          "f1099b.covered-w-lt-adjustment-subtotal": "0",
-          "f1099b.covered-w-st-adjustment-subtotal": "0",
-          "schedule1.line21-sli-deduction": "500",
-          "schedule1a.line36a-taxpayer": "0",
-          "schedule1a.line36b-spouse": "0"
+          "f1099b.covered-w-lt-adjustment-subtotal": 0,
+          "f1099b.covered-w-st-adjustment-subtotal": 0,
+          "schedule1.line21-sli-deduction": 500,
+          "schedule1a.line36a-taxpayer": 0,
+          "schedule1a.line36b-spouse": 0
         },
-        "questions": [],
+        "questions": [
+          "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+        ],
         "asked_on": {
           "form1040.line-25b": [
             "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
@@ -1084,10 +1104,11 @@
         },
         "symbols": {
           "schedule-d-required.conclusion": "no",
-          "f1099b.covered-w-lt-adjustment-subtotal": "0",
-          "f1099b.covered-w-st-adjustment-subtotal": "0"
+          "f1099b.covered-w-lt-adjustment-subtotal": 0,
+          "f1099b.covered-w-st-adjustment-subtotal": 0
         },
         "questions": [
+          "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale.",
           "Is someone else claiming you as a dependent on their 2025 return?"
         ],
         "asked_on": {
@@ -1208,10 +1229,11 @@
         },
         "symbols": {
           "schedule-d-required.conclusion": "no",
-          "f1099b.covered-w-lt-adjustment-subtotal": "0",
-          "f1099b.covered-w-st-adjustment-subtotal": "0"
+          "f1099b.covered-w-lt-adjustment-subtotal": 0,
+          "f1099b.covered-w-st-adjustment-subtotal": 0
         },
         "questions": [
+          "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale.",
           "Is someone else claiming you (or your spouse, on a joint return) as a dependent on their 2025 return?"
         ],
         "asked_on": {
@@ -1347,13 +1369,15 @@
         },
         "symbols": {
           "schedule-d-required.conclusion": "no",
-          "f1099b.covered-w-lt-adjustment-subtotal": "0",
-          "f1099b.covered-w-st-adjustment-subtotal": "0",
-          "schedule1.line21-sli-deduction": "0",
-          "schedule1a.line36a-taxpayer": "6000.00",
-          "schedule1a.line36b-spouse": "0"
+          "f1099b.covered-w-lt-adjustment-subtotal": 0,
+          "f1099b.covered-w-st-adjustment-subtotal": 0,
+          "schedule1.line21-sli-deduction": 0,
+          "schedule1a.line36a-taxpayer": 6000,
+          "schedule1a.line36b-spouse": 0
         },
-        "questions": [],
+        "questions": [
+          "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+        ],
         "asked_on": {
           "form1040.line-25b": [
             "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
@@ -1399,13 +1423,15 @@
         },
         "symbols": {
           "schedule-d-required.conclusion": "no",
-          "f1099b.covered-w-lt-adjustment-subtotal": "0",
-          "f1099b.covered-w-st-adjustment-subtotal": "0",
-          "schedule1.line21-sli-deduction": "0",
-          "schedule1a.line36a-taxpayer": "6000.00",
-          "schedule1a.line36b-spouse": "0"
+          "f1099b.covered-w-lt-adjustment-subtotal": 0,
+          "f1099b.covered-w-st-adjustment-subtotal": 0,
+          "schedule1.line21-sli-deduction": 0,
+          "schedule1a.line36a-taxpayer": 6000,
+          "schedule1a.line36b-spouse": 0
         },
-        "questions": [],
+        "questions": [
+          "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+        ],
         "asked_on": {
           "form1040.line-25b": [
             "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
@@ -1465,13 +1491,15 @@
         },
         "symbols": {
           "schedule-d-required.conclusion": "no",
-          "f1099b.covered-w-lt-adjustment-subtotal": "0",
-          "f1099b.covered-w-st-adjustment-subtotal": "0",
-          "schedule1.line21-sli-deduction": "0",
-          "schedule1a.line36a-taxpayer": "0",
-          "schedule1a.line36b-spouse": "0"
+          "f1099b.covered-w-lt-adjustment-subtotal": 0,
+          "f1099b.covered-w-st-adjustment-subtotal": 0,
+          "schedule1.line21-sli-deduction": 0,
+          "schedule1a.line36a-taxpayer": 0,
+          "schedule1a.line36b-spouse": 0
         },
-        "questions": [],
+        "questions": [
+          "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+        ],
         "asked_on": {
           "form1040.line-25b": [
             "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
@@ -1517,13 +1545,15 @@
         },
         "symbols": {
           "schedule-d-required.conclusion": "no",
-          "f1099b.covered-w-lt-adjustment-subtotal": "0",
-          "f1099b.covered-w-st-adjustment-subtotal": "0",
-          "schedule1.line21-sli-deduction": "0",
-          "schedule1a.line36a-taxpayer": "0",
-          "schedule1a.line36b-spouse": "0"
+          "f1099b.covered-w-lt-adjustment-subtotal": 0,
+          "f1099b.covered-w-st-adjustment-subtotal": 0,
+          "schedule1.line21-sli-deduction": 0,
+          "schedule1a.line36a-taxpayer": 0,
+          "schedule1a.line36b-spouse": 0
         },
-        "questions": [],
+        "questions": [
+          "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+        ],
         "asked_on": {
           "form1040.line-25b": [
             "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
@@ -1584,13 +1614,15 @@
         },
         "symbols": {
           "schedule-d-required.conclusion": "no",
-          "f1099b.covered-w-lt-adjustment-subtotal": "0",
-          "f1099b.covered-w-st-adjustment-subtotal": "0",
-          "schedule1.line21-sli-deduction": "0",
-          "schedule1a.line36a-taxpayer": "0",
-          "schedule1a.line36b-spouse": "6000.00"
+          "f1099b.covered-w-lt-adjustment-subtotal": 0,
+          "f1099b.covered-w-st-adjustment-subtotal": 0,
+          "schedule1.line21-sli-deduction": 0,
+          "schedule1a.line36a-taxpayer": 0,
+          "schedule1a.line36b-spouse": 6000
         },
-        "questions": [],
+        "questions": [
+          "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+        ],
         "asked_on": {
           "form1040.line-25b": [
             "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
@@ -1636,13 +1668,15 @@
         },
         "symbols": {
           "schedule-d-required.conclusion": "no",
-          "f1099b.covered-w-lt-adjustment-subtotal": "0",
-          "f1099b.covered-w-st-adjustment-subtotal": "0",
-          "schedule1.line21-sli-deduction": "0",
-          "schedule1a.line36a-taxpayer": "0",
-          "schedule1a.line36b-spouse": "6000.00"
+          "f1099b.covered-w-lt-adjustment-subtotal": 0,
+          "f1099b.covered-w-st-adjustment-subtotal": 0,
+          "schedule1.line21-sli-deduction": 0,
+          "schedule1a.line36a-taxpayer": 0,
+          "schedule1a.line36b-spouse": 6000
         },
-        "questions": [],
+        "questions": [
+          "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+        ],
         "asked_on": {
           "form1040.line-25b": [
             "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
@@ -1703,13 +1737,15 @@
         },
         "symbols": {
           "schedule-d-required.conclusion": "no",
-          "f1099b.covered-w-lt-adjustment-subtotal": "0",
-          "f1099b.covered-w-st-adjustment-subtotal": "0",
-          "schedule1.line21-sli-deduction": "0",
-          "schedule1a.line36a-taxpayer": "0",
-          "schedule1a.line36b-spouse": "0"
+          "f1099b.covered-w-lt-adjustment-subtotal": 0,
+          "f1099b.covered-w-st-adjustment-subtotal": 0,
+          "schedule1.line21-sli-deduction": 0,
+          "schedule1a.line36a-taxpayer": 0,
+          "schedule1a.line36b-spouse": 0
         },
-        "questions": [],
+        "questions": [
+          "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+        ],
         "asked_on": {
           "form1040.line-25b": [
             "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
@@ -1755,13 +1791,15 @@
         },
         "symbols": {
           "schedule-d-required.conclusion": "no",
-          "f1099b.covered-w-lt-adjustment-subtotal": "0",
-          "f1099b.covered-w-st-adjustment-subtotal": "0",
-          "schedule1.line21-sli-deduction": "0",
-          "schedule1a.line36a-taxpayer": "0",
-          "schedule1a.line36b-spouse": "0"
+          "f1099b.covered-w-lt-adjustment-subtotal": 0,
+          "f1099b.covered-w-st-adjustment-subtotal": 0,
+          "schedule1.line21-sli-deduction": 0,
+          "schedule1a.line36a-taxpayer": 0,
+          "schedule1a.line36b-spouse": 0
         },
-        "questions": [],
+        "questions": [
+          "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+        ],
         "asked_on": {
           "form1040.line-25b": [
             "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
@@ -1822,10 +1860,11 @@
         },
         "symbols": {
           "schedule-d-required.conclusion": "yes",
-          "f1099b.covered-w-st-adjustment-subtotal": "0",
-          "schedule1.line21-sli-deduction": "0"
+          "f1099b.covered-w-st-adjustment-subtotal": 0,
+          "schedule1.line21-sli-deduction": 0
         },
         "questions": [
+          "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale.",
           "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered long-term sale on every Form 1099-B you or your spouse received for 2025?"
         ],
         "asked_on": {
@@ -1961,10 +2000,11 @@
         },
         "symbols": {
           "schedule-d-required.conclusion": "yes",
-          "f1099b.covered-w-st-adjustment-subtotal": "0",
-          "schedule1.line21-sli-deduction": "0"
+          "f1099b.covered-w-st-adjustment-subtotal": 0,
+          "schedule1.line21-sli-deduction": 0
         },
         "questions": [
+          "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale.",
           "Have you recorded the wash-sale loss adjustment amount of every covered long-term sale with a wash-sale loss adjustment (a loss disallowed because you bought the same investment within 30 days before or after the sale) on every Form 1099-B you or your spouse received for 2025?"
         ],
         "asked_on": {
@@ -2117,13 +2157,15 @@
         },
         "symbols": {
           "schedule-d-required.conclusion": "yes",
-          "f1099b.covered-w-lt-adjustment-subtotal": "0",
-          "f1099b.covered-w-st-adjustment-subtotal": "0",
-          "schedule1.line21-sli-deduction": "0",
-          "schedule1a.line36a-taxpayer": "0",
-          "schedule1a.line36b-spouse": "0"
+          "f1099b.covered-w-lt-adjustment-subtotal": 0,
+          "f1099b.covered-w-st-adjustment-subtotal": 0,
+          "schedule1.line21-sli-deduction": 0,
+          "schedule1a.line36a-taxpayer": 0,
+          "schedule1a.line36b-spouse": 0
         },
-        "questions": [],
+        "questions": [
+          "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+        ],
         "asked_on": {
           "form1040.line-25b": [
             "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
@@ -2169,13 +2211,15 @@
         },
         "symbols": {
           "schedule-d-required.conclusion": "yes",
-          "f1099b.covered-w-lt-adjustment-subtotal": "0",
-          "f1099b.covered-w-st-adjustment-subtotal": "0",
-          "schedule1.line21-sli-deduction": "0",
-          "schedule1a.line36a-taxpayer": "0",
-          "schedule1a.line36b-spouse": "0"
+          "f1099b.covered-w-lt-adjustment-subtotal": 0,
+          "f1099b.covered-w-st-adjustment-subtotal": 0,
+          "schedule1.line21-sli-deduction": 0,
+          "schedule1a.line36a-taxpayer": 0,
+          "schedule1a.line36b-spouse": 0
         },
-        "questions": [],
+        "questions": [
+          "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+        ],
         "asked_on": {
           "form1040.line-25b": [
             "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
@@ -2234,10 +2278,11 @@
         },
         "symbols": {
           "schedule-d-required.conclusion": "yes",
-          "f1099b.covered-w-lt-adjustment-subtotal": "0",
-          "schedule1.line21-sli-deduction": "0"
+          "f1099b.covered-w-lt-adjustment-subtotal": 0,
+          "schedule1.line21-sli-deduction": 0
         },
         "questions": [
+          "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale.",
           "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
         ],
         "asked_on": {
@@ -2373,10 +2418,11 @@
         },
         "symbols": {
           "schedule-d-required.conclusion": "yes",
-          "f1099b.covered-w-lt-adjustment-subtotal": "0",
-          "schedule1.line21-sli-deduction": "0"
+          "f1099b.covered-w-lt-adjustment-subtotal": 0,
+          "schedule1.line21-sli-deduction": 0
         },
         "questions": [
+          "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale.",
           "Have you recorded the wash-sale loss adjustment amount of every covered short-term sale with a wash-sale loss adjustment (a loss disallowed because you bought the same investment within 30 days before or after the sale) on every Form 1099-B you or your spouse received for 2025?"
         ],
         "asked_on": {
@@ -2527,10 +2573,11 @@
         },
         "symbols": {
           "schedule-d-required.conclusion": "yes",
-          "f1099b.covered-w-lt-adjustment-subtotal": "0",
-          "schedule1.line21-sli-deduction": "0"
+          "f1099b.covered-w-lt-adjustment-subtotal": 0,
+          "schedule1.line21-sli-deduction": 0
         },
         "questions": [
+          "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale.",
           "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?"
         ],
         "asked_on": {
@@ -2666,10 +2713,11 @@
         },
         "symbols": {
           "schedule-d-required.conclusion": "yes",
-          "f1099b.covered-w-lt-adjustment-subtotal": "0",
-          "schedule1.line21-sli-deduction": "0"
+          "f1099b.covered-w-lt-adjustment-subtotal": 0,
+          "schedule1.line21-sli-deduction": 0
         },
         "questions": [
+          "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale.",
           "Have you recorded the wash-sale loss adjustment amount of every covered short-term sale with a wash-sale loss adjustment (a loss disallowed because you bought the same investment within 30 days before or after the sale) on every Form 1099-B you or your spouse received for 2025?"
         ],
         "asked_on": {
@@ -2822,13 +2870,15 @@
         },
         "symbols": {
           "schedule-d-required.conclusion": "yes",
-          "f1099b.covered-w-lt-adjustment-subtotal": "0",
-          "f1099b.covered-w-st-adjustment-subtotal": "0",
-          "schedule1.line21-sli-deduction": "0",
-          "schedule1a.line36a-taxpayer": "0",
-          "schedule1a.line36b-spouse": "0"
+          "f1099b.covered-w-lt-adjustment-subtotal": 0,
+          "f1099b.covered-w-st-adjustment-subtotal": 0,
+          "schedule1.line21-sli-deduction": 0,
+          "schedule1a.line36a-taxpayer": 0,
+          "schedule1a.line36b-spouse": 0
         },
-        "questions": [],
+        "questions": [
+          "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+        ],
         "asked_on": {
           "form1040.line-25b": [
             "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
@@ -2874,13 +2924,15 @@
         },
         "symbols": {
           "schedule-d-required.conclusion": "yes",
-          "f1099b.covered-w-lt-adjustment-subtotal": "0",
-          "f1099b.covered-w-st-adjustment-subtotal": "0",
-          "schedule1.line21-sli-deduction": "0",
-          "schedule1a.line36a-taxpayer": "0",
-          "schedule1a.line36b-spouse": "0"
+          "f1099b.covered-w-lt-adjustment-subtotal": 0,
+          "f1099b.covered-w-st-adjustment-subtotal": 0,
+          "schedule1.line21-sli-deduction": 0,
+          "schedule1a.line36a-taxpayer": 0,
+          "schedule1a.line36b-spouse": 0
         },
-        "questions": [],
+        "questions": [
+          "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+        ],
         "asked_on": {
           "form1040.line-25b": [
             "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."

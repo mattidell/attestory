@@ -40,14 +40,14 @@ Repair: this unit added the two fact-title bundle successors to
 | Fact or claim | Meaning (v87 words) | Authority scope | Depends on | What invalidates it? |
 | --- | --- | --- | --- | --- |
 | `f1099b.covered-w-st-adjustment.source-closure` (and `-lt-`) | The filer has recorded the wash-sale adjustment of every covered sale with one | One family horizon of the adjustment family | The members recorded at that horizon | A member transition makes a new horizon, and the closure is no longer current: `late_wash_member`. Unanswered, the question is asked: `alc_wash_st_unanswered`, `alc_wash_lt_unanswered`. A false answer leaves the line blocked: `alc_wash_st_no`. A yes computes: `alc_wash_st_yes`, `alc_wash_lt_yes`. |
-| `exception1.only-box2a-capital-gains` | No capital gains other than box 2a, and no sale in 2025 | The return | The filer's answer. It is read only through `schedule-d-required.conclusion`, and only while no sale is recorded | A later answer supersedes it: `late_exc1_sale_after_yes` step 3. Unanswered, it is asked with or without a sale: `alc_exc1_unanswered`, `alc_exc1_sale_unanswered`. No sale and yes: line 7b checked (`alc_exc1_yes`). A sale and no: line 7b `guard_inapplicable` (`alc_exc1_sale_no`). |
+| `exception1.only-box2a-capital-gains` | No capital gains other than box 2a, and no 2025 sale that must be reported on Form 8949 or Schedule D (sales inside an IRA or 401(k) and losses on personal items do not count) | The return | The filer's answer. It is read only through `schedule-d-required.conclusion`, and only while no sale is recorded | A later answer supersedes it: `late_exc1_sale_after_yes` step 3. Unanswered, it is asked with or without a sale: `alc_exc1_unanswered`, `alc_exc1_sale_unanswered`. No sale and yes: line 7b checked (`alc_exc1_yes`). A sale and no: line 7b `guard_inapplicable` (`alc_exc1_sale_no`). |
 | `sli-scope.not-claimed-as-dependent` | Neither the filer nor, on a joint return, the spouse is claimed | The return | The filer's answer; the page's "no" records yes | A later answer supersedes it: `late_sli_superseded`. Unanswered, it is asked: `alc_sli_unanswered`. Yes gives 500 (`alc_sli_not_claimed`); no gives the legal 0 (`alc_sli_claimed`). |
 | `taxpayer-over-65`, `spouse-over-65` (titles) | Born before January 2, 1961; age 65 is reached the day before the 65th birthday; a 2025 death before 65 is excluded | The return | The filer's boolean; it defaults to false and no question asks for it | A later boolean, or bundle re-adoption for the title. True: `alc_title_age` (17,750; senior 6,000), `alc_title_spouse_age` (joint 33,100; senior 6,000). The spouse who died February 12, 2025 stays false: `alc_title_spouse_died_before_65` (31,500, 0). |
 | `taxpayer-blind`, `spouse-blind` (titles) | Totally blind on December 31, 2025, or the certified 20/200 or 20-degree statement | The return | The filer's boolean, as above | As above. `alc_title_blind` gives 17,750. |
 
 ## Item 2: empty/nonempty matrix
 
-`track0-matrix.json`: 13 cases, 13 pass on v87.
+`track0-matrix.json`: 14 cases, 14 pass on v87.
 
 | Family state | v86 words, truthful | v87 words, truthful | v87 result (hand) |
 | --- | --- | --- | --- |
@@ -57,6 +57,7 @@ Repair: this unit added the two fact-title bundle successors to
 | One covered wash sale only (`m_wash_one`) | yes | yes | 1b 0, column (g) 200 |
 | Both kinds (`m_wash_both`) | no: blocked (counterexample) | yes | 1a 200, 1b 0, column (g) 200, line 16 3,899 |
 | Exception 1, no sale (`m_exc1_nosale`) | yes | yes | line 7b checked, line 16 3,875 |
+| Exception 1, no sale recorded, only a personal item sold at a loss with no Form 1099-S or 1099-K (`m_exc1_personal_loss`, review F1) | yes | yes | line 7b checked, line 16 3,875 |
 | Exception 1, zero-net sale (`m_exc1_zero`) | yes | no | 7a 0, line 7b `guard_inapplicable`, line 16 3,875 on both |
 | Exception 1, gain sale (`m_exc1_gain`) | no | no | 7a 200, line 16 3,899 |
 | Student loan, single, not claimed / claimed (`m_sli_single_not`, `m_sli_single_claimed`) | no / yes | no / yes | 500 / 0 |

@@ -45,10 +45,14 @@ WASH = (
     "investment within 30 days before or after the sale) on every Form 1099-B you or "
     "your spouse received for 2025?"
 )
+# Review F1 (Decision 7): only a sale that must be reported on Form 8949 or
+# Schedule D defeats Exception 1.
 ONLY_BOX2A = (
     "Is it true that you had no capital gains in 2025 other than capital gain "
-    "distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds "
-    "or other property in 2025 (even a sale with no gain or loss)?"
+    "distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of "
+    "stock, bonds, funds or other property that you must report on Form 8949 or "
+    "Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and "
+    "losses on personal items do not count."
 )
 SLI = (
     "Is someone else claiming you (or your spouse, on a joint return) as a dependent "
@@ -79,9 +83,12 @@ SPOUSE_BLIND = (
 # Decision 2: the only-box-2a fact's title says what the v3 question asks.
 EXC1_TITLE = (
     "Exception 1 component C1 (ADR-0050): whether the return's only capital gains are Form "
-    "1099-DIV box-2a capital-gain distributions and the filer sold no stock, funds or other "
-    "property in 2025, including a sale with no gain or loss (Form 1040 instructions, line 7a: "
-    "\"If you sold a capital asset ... you must complete and attach Form 8949 and Schedule D\"). "
+    "1099-DIV box-2a capital-gain distributions and the filer had no 2025 sale of stock, bonds, "
+    "funds or other property that must be reported on Form 8949 or Schedule D, including one with "
+    "no gain or loss; sales inside an IRA or 401(k) and losses on personal-use property do not count "
+    "(Form 1040 instructions, line 7a: \"If you sold a capital asset ... you must complete and attach "
+    "Form 8949 and Schedule D\"; Schedule D instructions, Capital Assets Held for Personal Use: "
+    "\"Loss from the sale or exchange of a capital asset held for personal use isn't deductible\"). "
     "Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free "
     "supersession. Distinct from the checked schedule-d-required.conclusion."
 )

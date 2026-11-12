@@ -204,7 +204,8 @@ def summarize(outcome: Any) -> dict[str, Any]:
         short = str(pub.finding.get("symbol") or "").removeprefix(P)
         if short in SYMBOLS:
             symbols[short] = _num(pub.finding.get("value"))
-    questions = sorted({s for sentences in asked.values() for s in sentences if s.endswith("?")})
+    # A question may end with a short note after its question mark (the v87 only-box-2a words).
+    questions = sorted({s for sentences in asked.values() for s in sentences if "?" in s})
     return {
         "outcome": "success",
         "stop": report.get("stop_reason"),
@@ -447,6 +448,12 @@ def cases() -> list[dict[str, Any]]:
         case("m_exc1_zero", "matrix", lambda: sales(ZERO, only2a="yes"), lambda: sales(ZERO, only2a="no"),
              hand={"schedule-d.line-1a": 0, "form1040.line-7b": "guard_inapplicable", **NOSALE},
              note="Zero-net sale. v86 truthful yes/yes (conclusion no beside a sale); v87 truthful no/yes. Same numbers."),
+        case("m_exc1_personal_loss", "matrix", complete,
+             hand={"form1040.line-7b": "published_categorical", "schedule-d-required.conclusion": "no", **NOSALE},
+             note=("No sale recorded; the filer sold only a personal item at a loss, with no Form 1099-S or "
+                   "1099-K (review F1). Not deductible and not reported (law.json personal-use), so Exception 1 "
+                   "holds: truthful yes on both cores. Nothing records the personal sale, so the act list is "
+                   "alc_exc1_yes's.")),
         case("m_exc1_gain", "matrix", lambda: sales(ST_GAIN, only2a="no"),
              hand={"schedule-d.line-1a": 200, "form1040.line-7b": "guard_inapplicable", **ST_200},
              note="Gain sale: only-box-2a no on both cores."),

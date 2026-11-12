@@ -203,10 +203,13 @@ successors (seven members).
   reads the answer. Examples: `alc_wash_st_unanswered`, `alc_wash_st_no`,
   `alc_exc1_sale_unanswered`, `alc_sli_claimed`, and `alc_title_spouse_age`
   against `alc_title_spouse_died_before_65`.
-- Empty/nonempty authority matrix: PASS. `track0-matrix.json` has 13 of 13
+- Empty/nonempty authority matrix: PASS. `track0-matrix.json` has 14 of 14
   cases on v87. On v86 the words lead a truthful filer to three
   counterexamples, and the v87 words fix each one: `m_wash_plain`,
-  `m_wash_both` and `m_sli_joint_spouse_claimed`.
+  `m_wash_both` and `m_sli_joint_spouse_claimed`. After review F1,
+  `m_exc1_personal_loss` adds a filer with no recorded sale who sold only
+  a personal item at a loss: the repaired words are answered yes and the
+  return computes.
 - Late-member lifecycle: PASS. `track0-late.json` has 3 of 3 traces.
   - `late_wash_member`: a member added after the closure makes the closure
     non-current, and reclosing computes.
