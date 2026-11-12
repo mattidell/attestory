@@ -69,7 +69,7 @@
           ],
           "questions": [
             "Were you born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday, so a birthday of January 1, 1961 counts and January 2, 1961 does not. If this return is for someone who died in 2025 before reaching age 65, answer no.",
-            "Were you totally blind on December 31, 2025, or do you have a statement certified by your eye doctor (ophthalmologist or optometrist) that you can't see better than 20/200 in your better eye with glasses or contact lenses, or that your field of vision is 20 degrees or less?"
+            "Were you totally blind on December 31, 2025, or do you have a statement certified by your eye doctor (ophthalmologist or optometrist) that you can't see better than 20/200 in your better eye with glasses or contact lenses, or that your field of vision is 20 degrees or less? If your eye condition isn't likely to improve beyond the conditions listed above, you can get a statement certified by your eye doctor (ophthalmologist or optometrist) to this effect instead."
           ],
           "blocked_field_count": 20,
           "blocked_fields": [
@@ -435,9 +435,9 @@
           ],
           "questions": [
             "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
-            "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less?",
+            "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead.",
             "Were you born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday, so a birthday of January 1, 1961 counts and January 2, 1961 does not. If this return is for someone who died in 2025 before reaching age 65, answer no.",
-            "Were you totally blind on December 31, 2025, or do you have a statement certified by your eye doctor (ophthalmologist or optometrist) that you can't see better than 20/200 in your better eye with glasses or contact lenses, or that your field of vision is 20 degrees or less?"
+            "Were you totally blind on December 31, 2025, or do you have a statement certified by your eye doctor (ophthalmologist or optometrist) that you can't see better than 20/200 in your better eye with glasses or contact lenses, or that your field of vision is 20 degrees or less? If your eye condition isn't likely to improve beyond the conditions listed above, you can get a statement certified by your eye doctor (ophthalmologist or optometrist) to this effect instead."
           ],
           "blocked_field_count": 20,
           "blocked_fields": [
@@ -755,7 +755,7 @@
     },
     {
       "id": "m_separate_qualifies_unanswered",
-      "note": "separate, spouse has no income and is not filing or claimable; the age and blindness facts are unanswered",
+      "note": "separate, spouse has no income and is not filing or claimable; the taxpayer's age and blindness and the condition are unanswered; the spouse is not asked",
       "failures": [],
       "measured": {
         "v87": {
@@ -813,18 +813,14 @@
             "schedule1a.line36b-spouse": 0
           },
           "asked_slugs": [
-            "spouse-blind",
-            "spouse-over-65",
             "standard-deduction.spouse-separate-condition",
             "taxpayer-blind",
             "taxpayer-over-65"
           ],
           "questions": [
             "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?",
-            "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
-            "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less?",
             "Were you born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday, so a birthday of January 1, 1961 counts and January 2, 1961 does not. If this return is for someone who died in 2025 before reaching age 65, answer no.",
-            "Were you totally blind on December 31, 2025, or do you have a statement certified by your eye doctor (ophthalmologist or optometrist) that you can't see better than 20/200 in your better eye with glasses or contact lenses, or that your field of vision is 20 degrees or less?"
+            "Were you totally blind on December 31, 2025, or do you have a statement certified by your eye doctor (ophthalmologist or optometrist) that you can't see better than 20/200 in your better eye with glasses or contact lenses, or that your field of vision is 20 degrees or less? If your eye condition isn't likely to improve beyond the conditions listed above, you can get a statement certified by your eye doctor (ophthalmologist or optometrist) to this effect instead."
           ],
           "blocked_field_count": 22,
           "blocked_fields": [
@@ -856,8 +852,6 @@
             "dependents-worksheet.line4b",
             "dependents-worksheet.line4c",
             "schedule1a.line36a-taxpayer",
-            "spouse_blind",
-            "spouse_over_65",
             "spouse_separate_condition",
             "taxpayer_blind",
             "taxpayer_over_65"
@@ -869,8 +863,6 @@
               "missing": [
                 "taxpayer_over_65",
                 "taxpayer_blind",
-                "spouse_over_65",
-                "spouse_blind",
                 "spouse_separate_condition"
               ]
             },
@@ -1155,7 +1147,7 @@
     },
     {
       "id": "m_separate_has_income_unanswered",
-      "note": "separate, spouse has income; the age and blindness facts are unanswered",
+      "note": "separate, spouse has income; the taxpayer's age and blindness and the condition are unanswered; the spouse is not asked",
       "failures": [],
       "measured": {
         "v87": {
@@ -1213,18 +1205,14 @@
             "schedule1a.line36b-spouse": 0
           },
           "asked_slugs": [
-            "spouse-blind",
-            "spouse-over-65",
             "standard-deduction.spouse-separate-condition",
             "taxpayer-blind",
             "taxpayer-over-65"
           ],
           "questions": [
             "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?",
-            "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
-            "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less?",
             "Were you born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday, so a birthday of January 1, 1961 counts and January 2, 1961 does not. If this return is for someone who died in 2025 before reaching age 65, answer no.",
-            "Were you totally blind on December 31, 2025, or do you have a statement certified by your eye doctor (ophthalmologist or optometrist) that you can't see better than 20/200 in your better eye with glasses or contact lenses, or that your field of vision is 20 degrees or less?"
+            "Were you totally blind on December 31, 2025, or do you have a statement certified by your eye doctor (ophthalmologist or optometrist) that you can't see better than 20/200 in your better eye with glasses or contact lenses, or that your field of vision is 20 degrees or less? If your eye condition isn't likely to improve beyond the conditions listed above, you can get a statement certified by your eye doctor (ophthalmologist or optometrist) to this effect instead."
           ],
           "blocked_field_count": 22,
           "blocked_fields": [
@@ -1256,8 +1244,6 @@
             "dependents-worksheet.line4b",
             "dependents-worksheet.line4c",
             "schedule1a.line36a-taxpayer",
-            "spouse_blind",
-            "spouse_over_65",
             "spouse_separate_condition",
             "taxpayer_blind",
             "taxpayer_over_65"
@@ -1269,8 +1255,6 @@
               "missing": [
                 "taxpayer_over_65",
                 "taxpayer_blind",
-                "spouse_over_65",
-                "spouse_blind",
                 "spouse_separate_condition"
               ]
             },
@@ -1615,7 +1599,7 @@
           ],
           "questions": [
             "Were you born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday, so a birthday of January 1, 1961 counts and January 2, 1961 does not. If this return is for someone who died in 2025 before reaching age 65, answer no.",
-            "Were you totally blind on December 31, 2025, or do you have a statement certified by your eye doctor (ophthalmologist or optometrist) that you can't see better than 20/200 in your better eye with glasses or contact lenses, or that your field of vision is 20 degrees or less?"
+            "Were you totally blind on December 31, 2025, or do you have a statement certified by your eye doctor (ophthalmologist or optometrist) that you can't see better than 20/200 in your better eye with glasses or contact lenses, or that your field of vision is 20 degrees or less? If your eye condition isn't likely to improve beyond the conditions listed above, you can get a statement certified by your eye doctor (ophthalmologist or optometrist) to this effect instead."
           ],
           "blocked_field_count": 20,
           "blocked_fields": [
@@ -1980,7 +1964,7 @@
           ],
           "questions": [
             "Were you born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday, so a birthday of January 1, 1961 counts and January 2, 1961 does not. If this return is for someone who died in 2025 before reaching age 65, answer no.",
-            "Were you totally blind on December 31, 2025, or do you have a statement certified by your eye doctor (ophthalmologist or optometrist) that you can't see better than 20/200 in your better eye with glasses or contact lenses, or that your field of vision is 20 degrees or less?"
+            "Were you totally blind on December 31, 2025, or do you have a statement certified by your eye doctor (ophthalmologist or optometrist) that you can't see better than 20/200 in your better eye with glasses or contact lenses, or that your field of vision is 20 degrees or less? If your eye condition isn't likely to improve beyond the conditions listed above, you can get a statement certified by your eye doctor (ophthalmologist or optometrist) to this effect instead."
           ],
           "blocked_field_count": 20,
           "blocked_fields": [
@@ -2345,7 +2329,7 @@
           ],
           "questions": [
             "Were you born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday, so a birthday of January 1, 1961 counts and January 2, 1961 does not. If this return is for someone who died in 2025 before reaching age 65, answer no.",
-            "Were you totally blind on December 31, 2025, or do you have a statement certified by your eye doctor (ophthalmologist or optometrist) that you can't see better than 20/200 in your better eye with glasses or contact lenses, or that your field of vision is 20 degrees or less?"
+            "Were you totally blind on December 31, 2025, or do you have a statement certified by your eye doctor (ophthalmologist or optometrist) that you can't see better than 20/200 in your better eye with glasses or contact lenses, or that your field of vision is 20 degrees or less? If your eye condition isn't likely to improve beyond the conditions listed above, you can get a statement certified by your eye doctor (ophthalmologist or optometrist) to this effect instead."
           ],
           "blocked_field_count": 20,
           "blocked_fields": [

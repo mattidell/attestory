@@ -1,18 +1,15 @@
 """Published core v88 asks age, blindness, and the separate-return condition.
 
-Measured reason: the check run made 38 distinct authority, matrix and late
-live_coordinate_run calls in 227.8 s, then 775 recorded calls in 1333.4 s
-on 4 workers. That is outside the 3 second fast-lane budget.
+Measured reason: the check run made 39 distinct authority, matrix and late
+live_coordinate_run calls in 236.4 s, then 298 recorded v83 calls in
+558.2 s on 4 workers. That is outside the 3 second fast-lane budget.
+The 775-list result, including the v81 comparison, is the committed
+neighbour evidence (age-blindness-asked-evidence/track0-neighbour.json).
 
 Hand values are the chart arithmetic in the age Track 0 module (law.json
-anchors), never a number read off a run. Recorded returns are answered
-false as the record implies and read from the fixture files in place.
-A v83 fixture is the pin, so that pin must be identical. Earlier fixtures
-were recorded before later questions existed: every line both sides
-publish as a number must match, and a standard-deduction line the fixture
-publishes as a number must still be that number. The uncorrected v81
-exports are the exception: the published core blocks or refuses lists
-v81 computed, because questions added after v81 are unanswered. The
+anchors), never a number read off a run. The 298 recorded v83 returns are
+answered false as the record implies and read from the fixture file in
+place. A v83 fixture is the pin, so that pin must be identical. The
 recorded replay uses at most four worker processes.
 """
 
@@ -63,6 +60,8 @@ TAX = {
     ("married_filing_jointly", 18500): 1853,
     ("married_filing_jointly", 10900): 1093,
     ("married_filing_separately", 32650): 3683,
+    ("married_filing_separately", 34250): 3875,
+    ("qualifying_surviving_spouse", 18500): 1853,
     ("head_of_household", 26375): 2825,
 }
 TAXPAYER_AGE = (
@@ -75,7 +74,9 @@ TAXPAYER_BLIND = (
     "Were you totally blind on December 31, 2025, or do you have a statement certified "
     "by your eye doctor (ophthalmologist or optometrist) that you can't see better than "
     "20/200 in your better eye with glasses or contact lenses, or that your field of "
-    "vision is 20 degrees or less?"
+    "vision is 20 degrees or less? If your eye condition isn't likely to improve beyond "
+    "the conditions listed above, you can get a statement certified by your eye doctor "
+    "(ophthalmologist or optometrist) to this effect instead."
 )
 SPOUSE_AGE = (
     "Was your spouse born before January 2, 1961? A person reaches age 65 on the day "
@@ -86,7 +87,10 @@ SPOUSE_BLIND = (
     "Was your spouse totally blind on December 31, 2025, or does your spouse have a "
     "statement certified by an eye doctor (ophthalmologist or optometrist) that they "
     "can't see better than 20/200 in the better eye with glasses or contact lenses, or "
-    "that their field of vision is 20 degrees or less?"
+    "that their field of vision is 20 degrees or less? If your spouse's eye condition "
+    "isn't likely to improve beyond the conditions listed above, your spouse can get a "
+    "statement certified by an eye doctor (ophthalmologist or optometrist) to this "
+    "effect instead."
 )
 COND_QUESTION = (
     "Is it true that your spouse had no income, isn't filing a return, and can't be claimed "
@@ -153,7 +157,8 @@ def _authority_failures(track: ModuleType, spec: dict[str, Any], result: dict[st
         hand = track.hand_amounts(
             status, bits[0], bits[1], spouse[0], spouse[1],
             dependent=dependent, condition=bool(spec.get("condition", True)))
-    return list(track.judge_answered(measured, hand))
+    ask = spec["expect_ask"] if "expect_ask" in spec else None
+    return list(track.judge_answered(measured, hand, ask=ask))
 
 
 def _matrix_failures(track: ModuleType, spec: dict[str, Any], result: dict[str, Any]) -> list[str]:
@@ -213,7 +218,8 @@ def test_hand_anchors_are_the_chart(age_track0: ModuleType) -> None:
     separate_no = age_track0.hand_amounts(
         "married_filing_separately", False, False, True, False, condition=False)
     assert separate_no["form1040.line-12e"] == 15750
-    assert "form1040.line-16" not in separate_no
+    assert separate_no["form1040.line-15"] == 34250
+    assert separate_no["form1040.line-16"] == 3875
     separate_yes = age_track0.hand_amounts(
         "married_filing_separately", False, False, True, False, condition=True)
     assert separate_yes["form1040.line-12e"] == 17350
@@ -221,7 +227,7 @@ def test_hand_anchors_are_the_chart(age_track0: ModuleType) -> None:
     qss = age_track0.hand_amounts("qualifying_surviving_spouse", False, False, True, False)
     assert qss["form1040.line-12e"] == 31500
     assert qss["form1040.line-15"] == 18500
-    assert "form1040.line-16" not in qss
+    assert qss["form1040.line-16"] == 1853
     dependent = age_track0.hand_amounts("single", True, True, False, False, dependent=True)
     assert dependent["form1040.line-12e"] == 19750
     assert dependent["form1040.line-16"] == 2675
@@ -412,10 +418,15 @@ def _recorded_workers() -> int:
 def test_recorded_returns_match_their_fixtures() -> None:
     """The recorded lists, answered false, against the fixture files in place."""
     qw = evidence_loader.load(QW / "track0.py", "aba_t1_qw_track0")
-    work = cast(list[tuple[str, list[dict[str, Any]]]], qw.neighbour_tasks())
+    work = [
+        item for item in cast(list[tuple[str, list[dict[str, Any]]]], qw.neighbour_tasks())
+        if item[0].startswith("v83/")
+    ]
     only = {item for item in os.environ.get("ABA_V88_ONLY", "").split(",") if item}
     if only:
         work = [item for item in work if item[0] in only]
+    else:
+        assert len(work) == 298
     alias = _late_alias()
     workers = _recorded_workers()
     shards = [work[index::workers] for index in range(workers) if work[index::workers]]

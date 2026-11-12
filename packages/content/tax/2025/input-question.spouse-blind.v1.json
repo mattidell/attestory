@@ -4,7 +4,7 @@
     "version": "v1"
   },
   "id": "tax.us.2025.input-question.spouse-blind",
-  "question": "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less?",
+  "question": "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead.",
   "schema": "input-question.v1",
   "version": "v1"
 }

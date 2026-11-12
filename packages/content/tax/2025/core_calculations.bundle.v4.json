@@ -79,7 +79,7 @@
       "supersession": {
         "policy": "free"
       },
-      "title": "Taxpayer was totally blind as of December 31, 2025, or as of December 31, 2025 could not see better than 20/200 in the better eye with glasses or contact lenses, or had a field of vision of 20 degrees or less, as a statement certified by an eye doctor says.",
+      "title": "Taxpayer was totally blind as of December 31, 2025, or as of December 31, 2025 could not see better than 20/200 in the better eye with glasses or contact lenses, or had a field of vision of 20 degrees or less, as a statement certified by an eye doctor says. If your eye condition isn't likely to improve beyond the conditions listed above, you can get a statement certified by your eye doctor (ophthalmologist or optometrist) to this effect instead.",
       "value_schema": {
         "type": "boolean"
       },
@@ -135,7 +135,7 @@
       "supersession": {
         "policy": "free"
       },
-      "title": "Spouse was totally blind as of December 31, 2025, or as of December 31, 2025 could not see better than 20/200 in the better eye with glasses or contact lenses, or had a field of vision of 20 degrees or less, as a statement certified by an eye doctor says.",
+      "title": "Spouse was totally blind as of December 31, 2025, or as of December 31, 2025 could not see better than 20/200 in the better eye with glasses or contact lenses, or had a field of vision of 20 degrees or less, as a statement certified by an eye doctor says. If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead.",
       "value_schema": {
         "type": "boolean"
       },

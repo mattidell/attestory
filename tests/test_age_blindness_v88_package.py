@@ -67,7 +67,9 @@ TAXPAYER_BLIND = (
     "Were you totally blind on December 31, 2025, or do you have a statement certified "
     "by your eye doctor (ophthalmologist or optometrist) that you can't see better than "
     "20/200 in your better eye with glasses or contact lenses, or that your field of "
-    "vision is 20 degrees or less?"
+    "vision is 20 degrees or less? If your eye condition isn't likely to improve beyond "
+    "the conditions listed above, you can get a statement certified by your eye doctor "
+    "(ophthalmologist or optometrist) to this effect instead."
 )
 SPOUSE_AGE = (
     "Was your spouse born before January 2, 1961? A person reaches age 65 on the day "
@@ -78,7 +80,10 @@ SPOUSE_BLIND = (
     "Was your spouse totally blind on December 31, 2025, or does your spouse have a "
     "statement certified by an eye doctor (ophthalmologist or optometrist) that they "
     "can't see better than 20/200 in the better eye with glasses or contact lenses, or "
-    "that their field of vision is 20 degrees or less?"
+    "that their field of vision is 20 degrees or less? If your spouse's eye condition "
+    "isn't likely to improve beyond the conditions listed above, your spouse can get a "
+    "statement certified by an eye doctor (ophthalmologist or optometrist) to this "
+    "effect instead."
 )
 # Decision 10.
 COND_QUESTION = (
@@ -128,9 +133,13 @@ def test_successors_are_the_prototype_byte_for_byte(prototype: ModuleType) -> No
     published = {
         str(fact["id"]): str(fact["title"])
         for fact in _load_json(CONTENT / "core_calculations.bundle.v3.json")["fact_types"]
-        if fact["id"] in (P + "spouse-over-65", P + "spouse-blind")
     }
-    assert titles == published
+    assert titles[P + "spouse-over-65"] == published[P + "spouse-over-65"]
+    assert titles[P + "spouse-blind"] == published[P + "spouse-blind"] + " " + prototype.SPOUSE_BLIND_ALT
+    written = {str(fact["id"]): str(fact["title"]) for fact in bundle["fact_types"]}
+    assert written[P + "taxpayer-blind"] == published[P + "taxpayer-blind"] + " " + prototype.BLIND_ALT
+    assert prototype.BLIND_ALT in TAXPAYER_BLIND
+    assert prototype.SPOUSE_BLIND_ALT in SPOUSE_BLIND
 
 
 def test_questions_carry_the_decided_sentences() -> None:

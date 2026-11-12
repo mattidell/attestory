@@ -15,7 +15,7 @@
     "condition_binding_added": true,
     "other_readers_unchanged": true,
     "two_successors_differ": true,
-    "spouse_titles_unchanged": true,
+    "blindness_titles_add_the_alternative": true,
     "existing_facts_unchanged": true,
     "condition_fact_added": true,
     "live_composition": true
@@ -128,7 +128,10 @@
       "bytes_identical": false
     }
   ],
-  "title_changes": [],
+  "title_changes": [
+    "taxpayer-blind",
+    "spouse-blind"
+  ],
   "live": [
     {
       "id": "reuse_single_false",

@@ -1226,7 +1226,7 @@
       "version": "v3"
     },
     {
-      "checksum": "6a83d66c5bf9dce2a9abd7f37b9b11a6811f5dcf7ded7d25aa74202e0f3de048",
+      "checksum": "ba48cf7b0368ed8e9105d586b4609cfe03ed948e704429b20e3951bd2be977fb",
       "id": "tax.us.2025.core_calculations.vocabulary",
       "version": "v4"
     },
@@ -2991,7 +2991,7 @@
       "version": "v2"
     },
     {
-      "checksum": "19bfb944c566c1b147c6e7767a691453d0d009916c002ee86de2117a9a876bc9",
+      "checksum": "7316d8235aa3f01fdaba6414de1709f22181833035c68bd7c4203159ddd0c30c",
       "id": "tax.us.2025.input-question.spouse-blind",
       "version": "v1"
     },
@@ -3026,7 +3026,7 @@
       "version": "v1"
     },
     {
-      "checksum": "eb9658f6584603beb931efd7e3baa492cab834d39b18559fc27cf0213679921c",
+      "checksum": "19a7f2a66e1723a3ff5a0490f48e28d44acd07770f73f587c7874050784c86dc",
       "id": "tax.us.2025.input-question.taxpayer-blind",
       "version": "v1"
     },
@@ -3926,7 +3926,7 @@
       "version": "v1"
     },
     {
-      "checksum": "ece61ccd09cdafd9b8bc8cb226f95f56dd83bcae2cf85c497621ff04bb42fccc",
+      "checksum": "aeae73493e7c72c044f247615caa567132ce9c74a1bbee62c3c7fa3b5dbe40c6",
       "id": "tax.us.2025.rule.dependents-worksheet-line-1",
       "version": "v2"
     },

@@ -240,7 +240,8 @@
             "form1040.line-13b": 0,
             "form1040.line-15": 34250,
             "schedule1a.line36a-taxpayer": 0,
-            "schedule1a.line36b-spouse": 0
+            "schedule1a.line36b-spouse": 0,
+            "form1040.line-16": 3875
           },
           "line_12e": 15750,
           "spouse_age_still_yes": true,

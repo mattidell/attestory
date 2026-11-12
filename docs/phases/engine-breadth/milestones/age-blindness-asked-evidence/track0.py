@@ -58,14 +58,15 @@ WAGES = 50000
 TAXPAYER_Q = ["taxpayer-blind", "taxpayer-over-65"]
 SPOUSE_Q = ["spouse-blind", "spouse-over-65"]
 ALL_Q = SPOUSE_Q + TAXPAYER_Q
-MFS_Q = ALL_Q + [COND_SLUG]
+# Decision 11. On a separate return the spouse is asked only after the condition is yes.
+MFS_OPEN = TAXPAYER_Q + [COND_SLUG]
 ASKS = {
     "single": TAXPAYER_Q,
     "head_of_household": TAXPAYER_Q,
     "qualifying_surviving_spouse": TAXPAYER_Q,
     "dependent": TAXPAYER_Q,
     MFJ: ALL_Q,
-    MFS: MFS_Q,
+    MFS: MFS_OPEN,
 }
 # Chart anchors from law.json ``chart`` plus the 2025 base standard deduction
 # the P0 probes tie to that chart (one box is base + 2,000 or base + 1,600).
@@ -86,6 +87,8 @@ TAX = {
     (MFJ, 18500): 1853,
     (MFJ, 10900): 1093,
     (MFS, 32650): 3683,
+    (MFS, 34250): 3875,
+    (QSS, 18500): 1853,
     (HOH, 26375): 2825,
 }
 
@@ -203,14 +206,14 @@ def build_acts(status: str, answers: dict[str, Any], *, dependent: bool = False)
 
 def answers_for(status: str, t_age: bool | None, t_blind: bool | None,
                 s_age: bool | None, s_blind: bool | None, *, dependent: bool = False,
-                condition: bool | None = None) -> dict[str, Any]:
+                condition: bool | None = None, omit_spouse: bool = False) -> dict[str, Any]:
     """Facts a truthful filer records. None means the question is not answered."""
     found: dict[str, Any] = {}
     if t_age is not None:
         found[AGE] = t_age
     if t_blind is not None:
         found[BLIND] = t_blind
-    asks_spouse = status in (MFJ, MFS) and not dependent
+    asks_spouse = status in (MFJ, MFS) and not dependent and not omit_spouse
     if asks_spouse:
         if s_age is not None:
             found[S_AGE] = s_age
@@ -411,6 +414,10 @@ def authority_specs() -> list[dict[str, Any]]:
         {"id": "alc_spouse_separate_has_income", "note": "Separate return. Spouse born 1955, so age is yes, and the spouse has income, so the condition is no. v87 still counts the age box.",
          "status": MFS, "bits": (False, False, True, False), "condition": False,
          "hand_v87": hand_amounts(MFS, False, False, True, False, condition=True)},
+        {"id": "alc_separate_condition_no_spouse_unanswered",
+         "note": "Separate return. The condition is no and the spouse's age and blindness are unanswered. Line 12e is 15,750 and the spouse is not asked.",
+         "status": MFS, "bits": (False, False, False, False), "condition": False,
+         "omit_spouse": True, "expect_ask": []},
         {"id": "alc_spouse_not_on_hoh", "note": "Head of household. Line 12d says not to check a spouse box. Only the taxpayer is asked.",
          "open": True, "status": HOH, "ask": TAXPAYER_Q, "silent": hand_amounts(HOH, False, False, False, False),
          "missing": ["taxpayer_over_65", "taxpayer_blind"]},
@@ -419,7 +426,14 @@ def authority_specs() -> list[dict[str, Any]]:
          "missing": ["taxpayer_over_65", "taxpayer_blind"]},
         {"id": "alc_qss_ignores_recorded_spouse", "note": "Qualifying surviving spouse with spouse age recorded true. v88 does not count it; v87 does.",
          "status": QSS, "bits": (False, False, True, False), "record_spouse": True,
-         "hand_v87": hand_amounts(QSS, False, False, True, False) | {"form1040.line-12e": 33100, "form1040.line-15": WAGES - 33100}},
+         "hand_v87": {
+             key: value
+             for key, value in (
+                 hand_amounts(QSS, False, False, True, False)
+                 | {"form1040.line-12e": 33100, "form1040.line-15": WAGES - 33100}
+             ).items()
+             if key != "form1040.line-16"
+         }},
         {"id": "alc_dependent_unanswered", "note": "A filer who can be claimed, nothing else recorded. The worksheet waits on the taxpayer's two answers.",
          "open": True, "status": "dependent", "dependent": True, "ask": TAXPAYER_Q,
          "silent": hand_amounts("single", False, False, False, False, dependent=True),
@@ -429,9 +443,9 @@ def authority_specs() -> list[dict[str, Any]]:
         {"id": "alc_joint_unanswered", "note": "Joint, nothing recorded. All four questions are asked, and line 36b waits on the spouse's age.",
          "open": True, "status": MFJ, "ask": ALL_Q, "silent": silent_joint,
          "missing": ["taxpayer_over_65", "taxpayer_blind", "spouse_over_65", "spouse_blind"]},
-        {"id": "alc_separate_unanswered", "note": "Separate return, nothing recorded. The four age and blindness questions and the condition are asked. Line 36b publishes 0.",
-         "open": True, "status": MFS, "ask": MFS_Q, "silent": hand_amounts(MFS, False, False, False, False),
-         "missing": ["taxpayer_over_65", "taxpayer_blind", "spouse_over_65", "spouse_blind", COND_SYMBOL]},
+        {"id": "alc_separate_unanswered", "note": "Separate return, nothing recorded. The taxpayer's two questions and the condition are asked. The spouse is not asked until the condition is yes. Line 36b publishes 0.",
+         "open": True, "status": MFS, "ask": MFS_OPEN, "silent": hand_amounts(MFS, False, False, False, False),
+         "missing": ["taxpayer_over_65", "taxpayer_blind", COND_SYMBOL]},
     ]
     return specs
 
@@ -447,7 +461,7 @@ def authority_table() -> list[dict[str, Any]]:
          "cases": ["alc_taxpayer_age_unanswered", "alc_taxpayer_age_jan1", "alc_taxpayer_age_jan2",
                    "alc_taxpayer_died_before", "alc_taxpayer_died_on_day", "alc_dependent_age_yes"]},
         {"fact": "taxpayer-blind",
-         "meaning": "On December 31, 2025 the filer was totally blind, or an eye doctor's certified statement says 20/200 or a 20-degree field.",
+         "meaning": "On December 31, 2025 the filer was totally blind, or an eye doctor's certified statement says 20/200 or a 20-degree field, or a statement that the condition is not likely to improve beyond those limits.",
          "who_is_asked": "Every return.",
          "what_answers_it": "The filer's yes or no to input-question.taxpayer-blind.",
          "rule": "dependents-worksheet-line-1 v2. The senior deduction does not read it.",
@@ -455,20 +469,22 @@ def authority_table() -> list[dict[str, Any]]:
          "cases": ["alc_taxpayer_age_unanswered", "alc_taxpayer_blind_yes", "alc_taxpayer_age_jan2"]},
         {"fact": "spouse-over-65",
          "meaning": "The spouse was born before January 2, 1961 under the same birthday and 2025-death test. The answer is the spouse's age, on every status that asks it.",
-         "who_is_asked": "A joint or separate return. Not a single, head of household, qualifying surviving spouse, or dependent return.",
+         "who_is_asked": "A joint return, and a separate return only when the condition is yes. Not a single, head of household, qualifying surviving spouse, or dependent return.",
          "what_answers_it": "The filer's yes or no to input-question.spouse-over-65. The v4 title is the v3 age title.",
          "rule": "dependents-worksheet-line-1 v2 on a joint return, and on a separate return only when the condition fact is yes. schedule1a-part-v-line-36b v2 on a joint return only.",
          "what_replaces_it": "A later answer (late_answer_replaced). A filing-status change leaves the answer in place (late_joint_to_separate, late_joint_to_hoh).",
          "cases": ["alc_joint_unanswered", "alc_spouse_age_joint_yes", "alc_spouse_died_before", "alc_spouse_died_on_day",
-                   "alc_spouse_separate_qualifies", "alc_spouse_separate_has_income", "alc_spouse_not_on_hoh",
+                   "alc_spouse_separate_qualifies", "alc_spouse_separate_has_income",
+                   "alc_separate_condition_no_spouse_unanswered", "alc_spouse_not_on_hoh",
                    "alc_spouse_not_on_qss", "alc_qss_ignores_recorded_spouse"]},
         {"fact": "spouse-blind",
-         "meaning": "The spouse meets the December 31, 2025 blindness test. The answer is blindness only.",
-         "who_is_asked": "A joint or separate return. Not the other statuses.",
-         "what_answers_it": "The filer's yes or no to input-question.spouse-blind. The v4 title is the v3 blindness title.",
+         "meaning": "The spouse meets the December 31, 2025 blindness test, including a statement that the condition is not likely to improve. The answer is blindness only.",
+         "who_is_asked": "A joint return, and a separate return only when the condition is yes. Not the other statuses.",
+         "what_answers_it": "The filer's yes or no to input-question.spouse-blind. The v4 title adds the instructions' alternative to the v3 blindness title.",
          "rule": "dependents-worksheet-line-1 v2 on a joint return, and on a separate return only when the condition fact is yes. Line 36b does not read blindness.",
          "what_replaces_it": "A later answer. The same parked death question as the taxpayer's blindness.",
-         "cases": ["alc_joint_unanswered", "alc_spouse_blind_joint_yes", "alc_separate_unanswered", "alc_spouse_not_on_hoh"]},
+         "cases": ["alc_joint_unanswered", "alc_spouse_blind_joint_yes", "alc_separate_unanswered",
+                   "alc_separate_condition_no_spouse_unanswered", "alc_spouse_not_on_hoh"]},
         {"fact": COND_SLUG,
          "meaning": "The spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return.",
          "who_is_asked": "A separate return only. Not joint, single, head of household, qualifying surviving spouse, or a dependent filer.",
@@ -476,7 +492,7 @@ def authority_table() -> list[dict[str, Any]]:
          "rule": "dependents-worksheet-line-1 v2, and only on a separate return. A yes lets the spouse's two boxes count.",
          "what_replaces_it": "A later answer. While it is unanswered on a separate return, line 12e blocks (alc_separate_unanswered, late_joint_to_separate).",
          "cases": ["alc_separate_unanswered", "alc_spouse_separate_qualifies", "alc_spouse_separate_has_income",
-                   "alc_joint_unanswered"]},
+                   "alc_separate_condition_no_spouse_unanswered", "alc_joint_unanswered"]},
     ]
 
 
@@ -486,7 +502,8 @@ def acts_of(spec: dict[str, Any]) -> Acts:
     else:
         bits = spec.get("bits") or (None, None, None, None)
         answers = answers_for(spec["status"] if spec["status"] != "dependent" else "single", *bits,
-                              dependent=bool(spec.get("dependent")), condition=spec.get("condition"))
+                              dependent=bool(spec.get("dependent")), condition=spec.get("condition"),
+                              omit_spouse=bool(spec.get("omit_spouse")))
     if spec.get("record_spouse"):
         answers[S_AGE] = True
         answers[S_BLIND] = False
@@ -518,7 +535,8 @@ def run_authority(core_path: Path, only: str | None) -> None:
             else:
                 hand = hand_amounts(status, bits[0], bits[1], spouse[0], spouse[1], dependent=dependent,
                                     condition=condition)
-            failures = judge_answered(measured, hand, hand_v87=spec.get("hand_v87"))
+            ask = spec["expect_ask"] if "expect_ask" in spec else None
+            failures = judge_answered(measured, hand, hand_v87=spec.get("hand_v87"), ask=ask)
         rows.append({"id": spec["id"], "note": spec["note"], "failures": failures, "measured": keep(measured)})
     finish("track0-authority.json", rows, table=authority_table())
 
@@ -556,6 +574,8 @@ def matrix_specs() -> list[dict[str, Any]]:
                 "born_jan1": "born January 1, 1961 and not blind",
             }[variant]
             condition = None
+            if status == MFS and variant == "unanswered":
+                note = "the taxpayer's age and blindness and the condition are unanswered; the spouse is not asked"
             if status == MFS and variant != "unanswered":
                 # Qualifying spouse: the condition is yes except where every answer is no.
                 # Spouse with income: the condition is no, and age and blindness stay what they are.
@@ -839,7 +859,7 @@ def run_reuse(core_path: Path, only: str | None) -> None:
         and all(row["v88"] == "required" for row in added_rows),
         "other_readers_unchanged": all(row["bytes_identical"] and row["v87"] == row["v88"] for row in readers if row["id"] not in allowed_rule_diff),
         "two_successors_differ": all(not row["bytes_identical"] and row["v88"] == "v2" for row in readers if row["id"] in allowed_rule_diff),
-        "spouse_titles_unchanged": title_changes == [],
+        "blindness_titles_add_the_alternative": sorted(title_changes) == ["spouse-blind", "taxpayer-blind"],
         "existing_facts_unchanged": identity_same,
         "condition_fact_added": {fact["id"] for fact in v4["fact_types"]} - {fact["id"] for fact in v3["fact_types"]} == {COND},
     }
@@ -989,7 +1009,7 @@ def surface_specs() -> list[dict[str, Any]]:
     return [
         {"id": "surface_single", "status": "single", "ask": TAXPAYER_Q},
         {"id": "surface_joint", "status": MFJ, "ask": ALL_Q},
-        {"id": "surface_separate", "status": MFS, "ask": MFS_Q},
+        {"id": "surface_separate", "status": MFS, "ask": MFS_OPEN},
         {"id": "surface_hoh", "status": HOH, "ask": TAXPAYER_Q},
         {"id": "surface_qss", "status": QSS, "ask": TAXPAYER_Q},
         {"id": "surface_dependent", "status": "single", "dependent": True, "ask": TAXPAYER_Q},

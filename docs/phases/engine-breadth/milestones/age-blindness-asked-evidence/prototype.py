@@ -12,16 +12,19 @@ top of it in the same scratch tree:
   unanswered fact is absent instead of the declared default false;
 - four ``input-question`` members, one per fact, are added (and named as
   entry points, as every other input question is);
-- ``rule.dependents-worksheet-line-1`` v2 reads the spouse's two facts only on
-  a joint or separate return, so a single, head of household or qualifying
-  surviving spouse return is not asked about a spouse; an always-active
-  ``conditional_dependency_set`` names every missing answer at once;
+- ``rule.dependents-worksheet-line-1`` v2 reads the spouse's two facts on a
+  joint return, and on a separate return only when the condition fact is yes,
+  so a single, head of household or qualifying surviving spouse return is not
+  asked about a spouse. On a separate return the taxpayer's two facts and the
+  condition stay in an always-active set, and the spouse facts sit in a set
+  whose condition is the condition fact (Decision 11, review F1);
 - ``rule.schedule1a-part-v-line-36b`` v2 reads the spouse's age only on a
   joint return.
 
-Vocabulary bundle v4, built on question-wording's v3, keeps the two spouse
-titles as v3 wrote them (Decision 9 drops the separate-return sentence
-Decision 3 had added). One new return-level fact carries that condition,
+Vocabulary bundle v4, built on question-wording's v3, keeps the spouse age
+title as v3 wrote it (Decision 9 drops the separate-return sentence Decision 3
+had added). Both blindness titles add the instructions' alternative statement
+(Decision 11, review F4). One new return-level fact carries that condition,
 asked only on a separate return. Fact type ids, versions and the unused
 ``default-false`` on the four age and blindness facts stay (Decision 4).
 No schema, expression operation, selection or recording surface changes.
@@ -72,6 +75,33 @@ COND_QUESTION = (
     "Is it true that your spouse had no income, isn't filing a return, and can't be claimed "
     "as a dependent on another person's return?"
 )
+
+
+def _blindness_alternative() -> str:
+    """The instructions' alternative certificate, quoted from law.json ``blindness``."""
+    quotes = json.loads((HERE / "law.json").read_text(encoding="utf-8"))["quotes"]
+    text = next(row["text"] for row in quotes if row["id"] == "blindness")
+    start = text.index("If your eye condition isn't likely to improve")
+    end = text.index(" You must keep the statement")
+    sentence = text[start:end].strip()
+    if sentence != (
+        "If your eye condition isn't likely to improve beyond the conditions listed above, "
+        "you can get a statement certified by your eye doctor (ophthalmologist or optometrist) "
+        "to this effect instead."
+    ):
+        raise SystemExit("law.json blindness alternative is not the sentence this prototype quotes")
+    return sentence
+
+
+# Decision 11, review F4. The taxpayer sentence is the law.json quote. The spouse
+# sentence is that quote with the same person-shift the spouse question already uses.
+BLIND_ALT = _blindness_alternative()
+SPOUSE_BLIND_ALT = BLIND_ALT.replace(
+    "If your eye condition", "If your spouse's eye condition",
+).replace(
+    "you can get a statement certified by your eye doctor",
+    "your spouse can get a statement certified by an eye doctor",
+)
 # Decision 4: optional_default stays on the four fact types; the binding mode decides.
 SPOUSE_FACTS = (P + "spouse-over-65", P + "spouse-blind")
 QUESTIONS = {
@@ -85,7 +115,7 @@ QUESTIONS = {
         "Were you totally blind on December 31, 2025, or do you have a statement certified "
         "by your eye doctor (ophthalmologist or optometrist) that you can't see better than "
         "20/200 in your better eye with glasses or contact lenses, or that your field of "
-        "vision is 20 degrees or less?"
+        "vision is 20 degrees or less? " + BLIND_ALT
     ),
     "spouse-over-65": (
         "Was your spouse born before January 2, 1961? A person reaches age 65 on the day "
@@ -96,7 +126,7 @@ QUESTIONS = {
         "Was your spouse totally blind on December 31, 2025, or does your spouse have a "
         "statement certified by an eye doctor (ophthalmologist or optometrist) that they "
         "can't see better than 20/200 in the better eye with glasses or contact lenses, or "
-        "that their field of vision is 20 degrees or less?"
+        "that their field of vision is 20 degrees or less? " + SPOUSE_BLIND_ALT
     ),
     COND_SLUG: COND_QUESTION,
 }
@@ -146,9 +176,23 @@ def question(slug: str) -> dict[str, Any]:
     }
 
 
-def _ask(names: list[str]) -> dict[str, Any]:
-    """A conditional_dependency_set that is always active: every absent name is named together."""
-    return {"op": "conditional_dependency_set", "condition": True, "members": [_ref(n) for n in names]}
+def _ask(names: list[str], *, condition: Any = True) -> dict[str, Any]:
+    """A conditional_dependency_set. A true condition names every absent member together."""
+    return {"op": "conditional_dependency_set", "condition": condition, "members": [_ref(n) for n in names]}
+
+
+def _separate_ask() -> dict[str, Any]:
+    """On a separate return the spouse facts are asked only when the condition fact is yes.
+
+    The taxpayer's two facts and the condition stay required. A no publishes the
+    box count without reading the spouse facts (review F1, Decision 11).
+    """
+    return {
+        "op": "choose",
+        "when": _ask(["taxpayer_over_65", "taxpayer_blind", COND_SYMBOL]),
+        "then": _ask(["spouse_over_65", "spouse_blind"], condition=_ref(COND_SYMBOL)),
+        "else": 0,
+    }
 
 
 def line1(content: Path) -> dict[str, Any]:
@@ -169,7 +213,7 @@ def line1(content: Path) -> dict[str, Any]:
             "else": {
                 "op": "choose",
                 "when": _status_is(MFS),
-                "then": _ask(taxpayer + spouse + [COND_SYMBOL]),
+                "then": _separate_ask(),
                 "else": _ask(taxpayer),
             },
         },
@@ -207,9 +251,12 @@ def line1(content: Path) -> dict[str, Any]:
         "filing jointly return. On a married filing separately return they count only when "
         "spouse_separate_condition is yes (the chart footnote: the spouse had no income, isn't "
         "filing a return, and can't be claimed as a dependent). That fact is asked only on a "
-        "separate return. One always-active conditional_dependency_set per status names every "
-        "missing answer together. Head of household (line 12d: don't check any boxes for your "
-        "spouse) and qualifying surviving spouse (the chart stops at 2 boxes) count only the "
+        "separate return. The separate-return set keeps the taxpayer's two facts and "
+        "spouse_separate_condition always active, and nests the spouse's two facts in a set "
+        "whose condition is that fact, so a no publishes the count without them. Joint and "
+        "every other status keep one always-active set. Head of household (line 12d: don't "
+        "check any boxes for your spouse) and qualifying surviving spouse (the chart stops "
+        "at 2 boxes) count only the "
         "taxpayer's boxes; v1 also counted a spouse on a qualifying surviving spouse return."
     )
     return body
@@ -250,7 +297,7 @@ def _condition_fact() -> dict[str, Any]:
 
 
 def vocabulary_v4(content: Path) -> tuple[dict[str, Any], dict[str, str]]:
-    """Bundle v4: v3's fact types, titles unchanged, plus the separate-return condition fact."""
+    """Bundle v4: v3's fact types, plus the condition fact and the blindness alternative."""
     body = json.loads((content / "core_calculations.bundle.v3.json").read_text(encoding="utf-8"))
     if body.get("version") != "v3" or body.get("id") != P + "core_calculations.vocabulary":
         raise SystemExit("scratch v87 vocabulary bundle is not core_calculations.vocabulary v3")
@@ -268,6 +315,13 @@ def vocabulary_v4(content: Path) -> tuple[dict[str, Any], dict[str, str]]:
             raise SystemExit("spouse fact lost its unused default-false")
         titles[str(fact["id"])] = title
         insert_at = index + 1
+    for fact in body["fact_types"]:
+        addition = {P + "taxpayer-blind": BLIND_ALT, P + "spouse-blind": SPOUSE_BLIND_ALT}.get(fact.get("id"))
+        if addition is None:
+            continue
+        fact["title"] = str(fact["title"]).rstrip() + " " + addition
+        if fact["id"] in titles:
+            titles[str(fact["id"])] = str(fact["title"])
     if set(titles) != set(SPOUSE_FACTS) or insert_at is None:
         raise SystemExit("vocabulary bundle v3 is missing a spouse fact")
     if any(fact.get("id") == P + COND_SLUG for fact in body["fact_types"]):
@@ -295,8 +349,22 @@ def find_existing_condition() -> dict[str, Any]:
     """A published fact is reusable only when its own text states the whole condition."""
     exact: list[str] = []
     near: list[str] = []
+    # These files are this prototype's own statement of the condition. Searching
+    # them would refuse the rebuild that Decision 11 requires.
+    own = {
+        "input-question.taxpayer-over-65.v1.json",
+        "input-question.taxpayer-blind.v1.json",
+        "input-question.spouse-over-65.v1.json",
+        "input-question.spouse-blind.v1.json",
+        "input-question.standard-deduction.spouse-separate-condition.v1.json",
+        "rule.dependents-worksheet-line-1.v2.json",
+        "rule.schedule1a-part-v-line-36b.v2.json",
+        "core_calculations.bundle.v4.json",
+    }
     published = REPO / "packages/content/tax/2025"
     for path in sorted(published.glob("*.json")):
+        if path.name in own:
+            continue
         try:
             body = json.loads(path.read_text(encoding="utf-8"))
         except (OSError, json.JSONDecodeError):
@@ -359,8 +427,9 @@ def build(scratch: Path) -> dict[str, Any]:
     written.append(("core_calculations.bundle.v4.json", bundle))
     for name, body in written:
         path = content / name
-        if path.exists():
-            raise SystemExit(f"{name} already exists")
+        # A rebuild finds these successors already in the published tree. They are
+        # this prototype's own files, so the scratch copy is replaced. A file this
+        # prototype does not write is still left alone.
         path.write_text(json.dumps(body, indent=2) + "\n", encoding="utf-8")
 
     members: list[dict[str, Any]] = []
@@ -451,7 +520,8 @@ def build(scratch: Path) -> dict[str, Any]:
             "from": "v3",
             "version": "v4",
             "spouse_titles": {fact_id.removeprefix(P): title for fact_id, title in spouse_titles.items()},
-            "spouse_titles_unchanged": True,
+            "spouse_age_title_unchanged": "separate return" not in spouse_titles[P + "spouse-over-65"].lower(),
+            "blindness_alternative": BLIND_ALT,
             "optional_default_kept": True,
         },
     }

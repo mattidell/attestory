@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "age-blindness-asked",
-  "status": "Open. Track 0 closed (Decisions 9-10); Track 1 chartered.",
+  "status": "Open. Track 1 built; review ready with should-fix; repair chartered (Decision 11).",
   "scope": [
     "a return cannot publish the standard deduction, the additional amounts for age 65 or older and blindness, or the senior deduction while the filer's (and on a joint return the spouse's) age or blindness may be unasked",
     "each question says what its rule reads, per the 2025 instructions, including the day-before-the-birthday rule and a death in 2025",
@@ -177,6 +177,22 @@ Foreman, 2026-11-11, on P0. Each is the P0 recommendation.
     conditions the 2025 instructions state. Track 1 builds it; nothing
     else in Decision 9 changes.
 
+11. **Review repair** (foreman, 2026-11-12, on
+    `docs/reviews/age-blindness-asked/review.md`, verdict ready). The v88
+    members are branch-only, so they are regenerated in place.
+    - F1: on a separate return the spouse's age and blindness are asked
+      only when the condition is yes; a no publishes the box count without
+      them. This narrows Decision 9's always-asked set to the three facts
+      that can move a number.
+    - F2: the live module replays the 298 v83 lists, as earlier milestones
+      do; the 775-list replay stays in the committed evidence
+      (`tools/recorded_replay.py` reproduces it on demand).
+    - F3: pin line 16 for the qualifying surviving spouse and the
+      separate-with-income cases.
+    - F4: both blindness questions and titles add the instructions'
+      alternative, a statement that the condition is not likely to improve
+      beyond those limits. Blindness at a 2025 death stays parked.
+
 ## Track 0 adversarial closure
 
 Evidence: `age-blindness-asked-evidence/track0-closure.md` and the
@@ -310,3 +326,37 @@ Charter: `docs/reviews/age-blindness-asked/charter-track1.md`. Builder,
   rechecked identical to published v87. No number both sides publish
   differs. No kernel, derivation, or schema edit, and no recording
   change.
+
+**Review repair** (charter `docs/reviews/age-blindness-asked/charter-repair.md`,
+Decision 11). This updates the live and recorded counts above.
+
+- **F1.** On a separate return the spouse's age and blindness are asked
+  only when the condition is yes. `alc_separate_condition_no_spouse_unanswered`
+  answers the condition no and leaves the spouse unanswered: line 12e is
+  15,750, line 16 is 3,875, and nothing is asked about the spouse.
+  `alc_separate_unanswered` asks the taxpayer's two questions and the
+  condition, and does not ask the spouse.
+- **F4.** Both blindness questions and both titles add the instructions'
+  alternative, quoted from `law.json` `blindness`: "If your eye condition
+  isn't likely to improve beyond the conditions listed above, you can get
+  a statement certified by your eye doctor (ophthalmologist or
+  optometrist) to this effect instead." The spouse sentence uses the same
+  words with the spouse as the person. Blindness at a 2025 death stays
+  parked.
+- **F3.** Line 16 is pinned at 3,875 for a separate return with taxable
+  income 34,250, and at 1,853 for a qualifying surviving spouse with
+  taxable income 18,500.
+- **F2.** The live module replays the 298 v83 lists. The 775-list result
+  stays in `age-blindness-asked-evidence/track0-neighbour.json`.
+- **Run count.** The check printed `ABA_V88_CASES runs=39 wall_s=236.4
+  failed=0` and `ABA_V88_RECORDED runs=298 wall_s=558.2 workers=4
+  diffs=0 of=298 v81_earlier=0`. The 39 lists are the previous 38 plus
+  the F1 case. All 298 v83 pins match their fixture.
+- **Checks.** `pytest` on `tests/test_age_blindness_v88.py` and
+  `tests/test_age_blindness_v88_package.py`: 11 passed in 855.22 s.
+  Fast lane (`pytest -m "not live"`): 1810 passed, 8 skipped, 4256
+  subtests passed in 17.70 s. `python3 -m mypy`: no issues in 486
+  source files. `python3 tools/envelope_scan.py --range
+  github/main..HEAD`: clean. No kernel, derivation, or schema edit, and
+  no recording change. The branch-only v88 citizens were regenerated in
+  place.

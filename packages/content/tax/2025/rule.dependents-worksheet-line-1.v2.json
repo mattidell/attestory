@@ -105,30 +105,43 @@
           }
         },
         "then": {
-          "op": "conditional_dependency_set",
-          "condition": true,
-          "members": [
-            {
-              "op": "ref",
-              "name": "taxpayer_over_65"
-            },
-            {
-              "op": "ref",
-              "name": "taxpayer_blind"
-            },
-            {
-              "op": "ref",
-              "name": "spouse_over_65"
-            },
-            {
-              "op": "ref",
-              "name": "spouse_blind"
-            },
-            {
+          "op": "choose",
+          "when": {
+            "op": "conditional_dependency_set",
+            "condition": true,
+            "members": [
+              {
+                "op": "ref",
+                "name": "taxpayer_over_65"
+              },
+              {
+                "op": "ref",
+                "name": "taxpayer_blind"
+              },
+              {
+                "op": "ref",
+                "name": "spouse_separate_condition"
+              }
+            ]
+          },
+          "then": {
+            "op": "conditional_dependency_set",
+            "condition": {
               "op": "ref",
               "name": "spouse_separate_condition"
-            }
-          ]
+            },
+            "members": [
+              {
+                "op": "ref",
+                "name": "spouse_over_65"
+              },
+              {
+                "op": "ref",
+                "name": "spouse_blind"
+              }
+            ]
+          },
+          "else": 0
         },
         "else": {
           "op": "conditional_dependency_set",
@@ -281,5 +294,5 @@
       "version": "v1"
     }
   ],
-  "notes": "Standard Deduction Worksheet for Dependents, line 1, and the box count of the Standard Deduction Chart for People Who Were Born Before January 2, 1961, or Were Blind (i1040gi-2025, line 12d and line 12e). v2 successor to v1: the four age and blindness facts are required inputs with no default, so the count waits until they are answered. The taxpayer's two boxes are read on every return. The spouse's two count on a married filing jointly return. On a married filing separately return they count only when spouse_separate_condition is yes (the chart footnote: the spouse had no income, isn't filing a return, and can't be claimed as a dependent). That fact is asked only on a separate return. One always-active conditional_dependency_set per status names every missing answer together. Head of household (line 12d: don't check any boxes for your spouse) and qualifying surviving spouse (the chart stops at 2 boxes) count only the taxpayer's boxes; v1 also counted a spouse on a qualifying surviving spouse return."
+  "notes": "Standard Deduction Worksheet for Dependents, line 1, and the box count of the Standard Deduction Chart for People Who Were Born Before January 2, 1961, or Were Blind (i1040gi-2025, line 12d and line 12e). v2 successor to v1: the four age and blindness facts are required inputs with no default, so the count waits until they are answered. The taxpayer's two boxes are read on every return. The spouse's two count on a married filing jointly return. On a married filing separately return they count only when spouse_separate_condition is yes (the chart footnote: the spouse had no income, isn't filing a return, and can't be claimed as a dependent). That fact is asked only on a separate return. The separate-return set keeps the taxpayer's two facts and spouse_separate_condition always active, and nests the spouse's two facts in a set whose condition is that fact, so a no publishes the count without them. Joint and every other status keep one always-active set. Head of household (line 12d: don't check any boxes for your spouse) and qualifying surviving spouse (the chart stops at 2 boxes) count only the taxpayer's boxes; v1 also counted a spouse on a qualifying surviving spouse return."
 }
