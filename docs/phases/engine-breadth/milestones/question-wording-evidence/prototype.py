@@ -53,7 +53,7 @@ ONLY_BOX2A = (
     "stock, bonds, funds or other property that you must report on Form 8949 or "
     "Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not "
     "count, and neither does a loss on a personal item unless you received a Form "
-    "1099-K or 1099-S for it."
+    "1099-S for it or you report it on Form 8949."
 )
 SLI = (
     "Is someone else claiming you (or your spouse, on a joint return) as a dependent "
@@ -87,7 +87,8 @@ EXC1_TITLE = (
     "1099-DIV box-2a capital-gain distributions and the filer had no 2025 sale of stock, bonds, "
     "funds or other property that must be reported on Form 8949 or Schedule D, including one with "
     "no gain or loss; sales inside an IRA or 401(k) do not count, and neither does a loss on "
-    "personal-use property unless a Form 1099-K or 1099-S was received for it (Form 1040 instructions, "
+    "personal-use property unless a Form 1099-S was received for it or it is reported on Form 8949 "
+    "(Form 1040 instructions, "
     "line 7a: \"If you sold a capital asset ... you must complete and attach Form 8949 and Schedule "
     "D\"; Schedule D instructions, Capital Assets Held for Personal Use: \"Loss from the sale or "
     "exchange of a capital asset held for personal use isn't deductible. But if you had a loss ... for "
