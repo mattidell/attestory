@@ -53,6 +53,9 @@ class EvalBlocked(Exception):
         # that only read category and missing are unchanged.
         self.from_count = False
         self.later_refs: list[str] = []
+        # True only for ``op == "block"``. A when-guard collect or ref block
+        # is not a declaring block.missing.
+        self.from_declaring_block = False
         super().__init__(f"{category}: {', '.join(missing)}")
 
 
@@ -383,6 +386,7 @@ def _any_recording_later_refs(expr: dict[str, Any], env: Environment, access: Ac
                             merged_missing.append(name)
                     raised = EvalBlocked(exc.category, merged_missing)
                     raised.from_count = True
+                    raised.from_declaring_block = exc.from_declaring_block
                     raised.later_refs = merged_later
                     raise raised from None
             raise
@@ -505,7 +509,9 @@ def _evaluate(expr: Any, env: Environment, access: AccessLog) -> Any:
         return len(rows)
 
     if op == "block":
-        raise EvalBlocked(expr["code"], [])
+        blocked = EvalBlocked(expr["code"], list(expr.get("missing", [])))
+        blocked.from_declaring_block = True
+        raise blocked
 
     if op == "parameter":
         param_id = expr["parameter_id"]

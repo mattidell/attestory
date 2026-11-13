@@ -1,0 +1,113 @@
+{
+  "schema": "rule-artifact.v17",
+  "id": "tax.us.2025.rule.f8949.no1099b-st-txn.amounts-check",
+  "version": "v2",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [],
+  "pins": [],
+  "when": true,
+  "selection": {
+    "mode": "exclusive_presence",
+    "conflict": "refuse",
+    "paths": [
+      {
+        "id": "sales",
+        "activity": {
+          "kind": "source_nonempty",
+          "source_family": {
+            "id": "tax.us.2025.f8949.no1099b-st",
+            "version": "v1"
+          },
+          "member_fact_types": [
+            {
+              "id": "tax.us.2025.f8949.no1099b-st-txn",
+              "version": "v1"
+            }
+          ]
+        },
+        "reads_subject_results": [
+          {
+            "symbol": "tax.us.2025.f8949.no1099b-st-txn.amounts-agree",
+            "subject": {
+              "id": "tax.us.2025.f8949.no1099b-st-txn",
+              "version": "v1"
+            }
+          }
+        ],
+        "requires": [],
+        "pins": [],
+        "when": true,
+        "value": {
+          "op": "choose",
+          "when": {
+            "op": "collect_categorical_all_equal",
+            "name": "tax.us.2025.f8949.no1099b-st-txn.amounts-agree",
+            "value": {
+              "op": "category_literal",
+              "fact_type": {
+                "id": "tax.us.2025.f8949.no1099b-st-txn.amounts-agree",
+                "version": "v1"
+              },
+              "value": "agree"
+            }
+          },
+          "then": 0,
+          "else": {
+            "op": "block",
+            "code": "DEPENDENCY_INVALID",
+            "missing": [
+              "tax.us.2025.f8949.no1099b-st-txn.basis"
+            ]
+          }
+        }
+      },
+      {
+        "id": "inert",
+        "activity": {
+          "kind": "source_nonempty",
+          "member_fact_types": [
+            {
+              "id": "tax.us.2025.f8949.no1099b-st-txn.amounts-check-inert-path-unwritten",
+              "version": "v1"
+            }
+          ]
+        },
+        "reads_subject_results": [],
+        "requires": [],
+        "pins": [],
+        "when": true,
+        "value": {
+          "op": "block",
+          "code": "DEPENDENCY_ABSENT"
+        }
+      }
+    ],
+    "default": {
+      "id": "neither",
+      "reads_subject_results": [],
+      "requires": [],
+      "pins": [],
+      "when": true,
+      "value": 0
+    },
+    "refusal": {
+      "code": "DEPENDENCY_INVALID",
+      "missing": [
+        "f8949.no1099b-st-txn-amounts-check-conflict"
+      ],
+      "pins": []
+    }
+  },
+  "publishes": "tax.us.2025.f8949.no1099b-st-txn.amounts-check",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": []
+  },
+  "citations": [],
+  "notes": "Track 0: blocks unless every recorded sale's amount rows equal the sale's own amounts."
+}

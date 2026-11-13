@@ -1896,6 +1896,8 @@ class C8bCandidateAgainstCurrentPackageValidation(unittest.TestCase):
                 "artifact-package.v41.schema.json",
                 # v42 is v41 plus rule-artifact.v16 only (selection-keyed-collect).
                 "artifact-package.v42.schema.json",
+                # v43 is v42 plus rule-artifact.v17 only (declared block names).
+                "artifact-package.v43.schema.json",
             ],
         )
 

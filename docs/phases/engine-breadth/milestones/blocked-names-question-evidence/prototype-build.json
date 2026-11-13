@@ -1,0 +1,31 @@
+{
+  "from": {
+    "package": "v87",
+    "registry": "v85",
+    "release": "v85"
+  },
+  "to": {
+    "package": "v88",
+    "registry": "v86",
+    "release": "v86"
+  },
+  "package": "v88",
+  "added_questions": 2,
+  "rule_successors": 11,
+  "prototype_carrier": "copied current rule schema with additive block.missing validation shim",
+  "production_contract": "new rule-artifact successor whose block expression permits missing names",
+  "case_count": 14,
+  "cases_with_questions": [
+    "codeb_amounts_disagree",
+    "codeb_sale_beside_8949_yes",
+    "codeb_yes_nothing",
+    "exception1_personal_loss_8949",
+    "sd_8949_no_unadmitted",
+    "sd_amounts_disagree",
+    "sd_path_b_unanswered",
+    "sd_sale_beside_8949_yes",
+    "sd_yes_nothing",
+    "wash_adjustment_open"
+  ],
+  "errors": {}
+}

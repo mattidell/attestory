@@ -3,15 +3,15 @@
   "entries": [
     {
       "rule_id": "tax.us.2025.rule.form1040-line16",
-      "version": "v7",
+      "version": "v8",
       "symbol": "filing_status",
-      "reason": "Over-declared. The rule's expression reads filing status only through the worksheet rules whose results it reads, so the symbol appears in its runtime pins but not in its own expression. Recorded, not corrected; P0 found no hazard in this row. v7 is the core v82 successor of the same over-declaration (the sale family audit adds only the sale counts)."
+      "reason": "Over-declared. The rule's expression reads filing status only through the worksheet rules whose results it reads, so the symbol appears in its runtime pins but not in its own expression. Recorded, not corrected; P0 found no hazard in this row. v8 is the core v89 successor of the same over-declaration; it only declares names on an existing block."
     },
     {
       "rule_id": "tax.us.2025.rule.form1040-line16",
-      "version": "v7",
+      "version": "v8",
       "symbol": "tax.us.2025.income.taxable-income",
-      "reason": "Over-declared. The rule's expression reads taxable income only through the worksheet rules whose results it reads, so the symbol appears in its runtime pins but not in its own expression. Recorded, not corrected; P0 found no hazard in this row. v7 is the core v82 successor of the same over-declaration (the sale family audit adds only the sale counts)."
+      "reason": "Over-declared. The rule's expression reads taxable income only through the worksheet rules whose results it reads, so the symbol appears in its runtime pins but not in its own expression. Recorded, not corrected; P0 found no hazard in this row. v8 is the core v89 successor of the same over-declaration; it only declares names on an existing block."
     },
     {
       "rule_id": "tax.us.2025.rule.schedule-d-line1a-gain",
@@ -87,15 +87,15 @@
     },
     {
       "rule_id": "tax.us.2025.rule.schedule-d-line3",
-      "version": "v2",
+      "version": "v3",
       "symbol": "tax.us.2025.f8949.no1099b-st-txn.amounts-check",
-      "reason": "Amount-agreement witness required so the line blocks when a recorded sale's amount rows differ from the sale. The witness publishes 0 or blocks; the expression does not read its value (core v80, Track 0 repair amounts_agree). v2 is the core v81 successor of the same requirement."
+      "reason": "Amount-agreement witness required so the line blocks when a recorded sale's amount rows differ from the sale. The witness publishes 0 or blocks; the expression does not read its value (core v80, Track 0 repair amounts_agree). v3 is the core v89 successor of the same requirement; it only declares names on an existing block."
     },
     {
       "rule_id": "tax.us.2025.rule.schedule-d-line10",
-      "version": "v2",
+      "version": "v3",
       "symbol": "tax.us.2025.f8949.no1099b-lt-txn.amounts-check",
-      "reason": "Amount-agreement witness required so the line blocks when a recorded sale's amount rows differ from the sale. The witness publishes 0 or blocks; the expression does not read its value (core v80, Track 0 repair amounts_agree). v2 is the core v81 successor of the same requirement."
+      "reason": "Amount-agreement witness required so the line blocks when a recorded sale's amount rows differ from the sale. The witness publishes 0 or blocks; the expression does not read its value (core v80, Track 0 repair amounts_agree). v3 is the core v89 successor of the same requirement; it only declares names on an existing block."
     },
     {
       "rule_id": "tax.us.2025.rule.schedule-d-line1a-gain",
@@ -123,15 +123,15 @@
     },
     {
       "rule_id": "tax.us.2025.rule.f1099b-code-b-st-gain",
-      "version": "v1",
+      "version": "v2",
       "symbol": "tax.us.2025.f1099b.code-b-st-txn.amounts-check",
-      "reason": "Amount-agreement witness required so column (h) blocks when a code B sale's rows differ from the sale or its column (g) row is not the worksheet result. The witness publishes 0 or blocks; the expression does not read its value (core v81)."
+      "reason": "Amount-agreement witness required so column (h) blocks when a code B sale's rows differ from the sale or its column (g) row is not the worksheet result. The witness publishes 0 or blocks; the expression does not read its value (core v81). v2 is the core v89 successor of the same requirement; it only declares names on an existing block."
     },
     {
       "rule_id": "tax.us.2025.rule.f1099b-code-b-lt-gain",
-      "version": "v1",
+      "version": "v2",
       "symbol": "tax.us.2025.f1099b.code-b-lt-txn.amounts-check",
-      "reason": "Amount-agreement witness required so column (h) blocks when a code B sale's rows differ from the sale or its column (g) row is not the worksheet result. The witness publishes 0 or blocks; the expression does not read its value (core v81)."
+      "reason": "Amount-agreement witness required so column (h) blocks when a code B sale's rows differ from the sale or its column (g) row is not the worksheet result. The witness publishes 0 or blocks; the expression does not read its value (core v81). v2 is the core v89 successor of the same requirement; it only declares names on an existing block."
     },
     {
       "rule_id": "tax.us.2025.rule.schedule-d-line16",

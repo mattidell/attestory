@@ -1,0 +1,10 @@
+{
+  "schema": "input-question.v1",
+  "id": "tax.us.2025.input-question.schedule-d-boundary-no-form8949-sources",
+  "version": "v1",
+  "fact_type": {
+    "id": "tax.us.2025.schedule-d-boundary.no-form8949-sources",
+    "version": "v1"
+  },
+  "question": "Is it true that you had no transaction or adjustment to report on Form 8949?"
+}

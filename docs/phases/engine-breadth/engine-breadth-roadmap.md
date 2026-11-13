@@ -825,6 +825,24 @@ surviving spouse counts only the filer's boxes, as the 2025 chart does.
 Content only. The 775 recorded lists, answered as their records imply,
 compute the same numbers.
 
+## Bounded return — Blocked Lines Name Their Question (2025)
+
+[Plan](milestones/blocked-names-question.md); retrospective:
+`docs/milestone-retrospectives/2026-11-13-blocked-names-question.md`.
+Contract: ADR 0086.
+
+`rule-artifact.v17` (admitted by `artifact-package.v43`) lets an
+expression `block` declare the names it waits on, and the evaluator and
+runner carry them, so the page can show the question. Core v89 (registry
+v87, release v87) uses it in eleven rule successors, adds the two Schedule
+D boundary questions, and asks the wash-sale adjustment question before
+per-sale pairing. The dead ends this closed: refused Schedule D and code B
+paths, a Form 8949 "no" nothing admits, disagreeing amounts, an unanswered
+Path B, an Exception 1 "no" for a personal-item loss reported on Form 8949
+with no sale, and a recorded wash sale with the adjustment family open.
+The 775 recorded lists compute the same numbers; no computing return is
+newly asked a question.
+
 ## Parked work and open questions
 
 This is the single list of parked work and open owner-held questions for the
@@ -851,16 +869,9 @@ delivers an item removes it.
 - Per-row Form 8949 column (f) code letters: B on a box B/E row with a
   wrong reported basis, and BW on combined rows. Today the code shows only
   in the part label.
-- On core v81 the refused code B paths also block with a true reason but
-  no question (Decision 7). They wait on the same rule-artifact successor.
-- On core v80 a blocked Schedule D line can show a true reason but no
-  question in several refused paths. These include a "yes" with nothing
-  recorded, a Form 8949 "no" nothing admits, a sale beside a Form 8949
-  "yes", a shared or disagreeing sale record, and a box C or F return
-  with the ADR-0061 Path B unanswered (line 7a). A rule-artifact
-  successor whose block names the question it waits on would fix them.
-  Making Path B optional for box C/F-only returns changes when the
-  ADR-0061 answer is required, which is the owner's call.
+- Making ADR-0061 Path B optional for box C/F-only returns changes when
+  that answer is required, which is the owner's call. (Since core v89 the
+  unanswered Path B is asked rather than blocking with no question.)
 - A sale entered both on a Form 1099-B family and as a no-1099-B sale is
   refused only by the in-class answer ("entered only once"); the two are
   keyed differently, so content cannot see it.
@@ -932,8 +943,6 @@ delivers an item removes it.
   `tests/test_collect_closure_regression.py`.
 - A blocked line names the kind of statement short of its withholding
   answer, not the statement itself (keyed join).
-- With a recorded wash sale and only the wash-sale adjustment family open,
-  the page asks no question (an admission check with no question).
 - The core-v75 closure-question and core-v76 later-arm switches are keyed
   by package id and version in `packages/tax/loader.py`, which the runner
   imports; passing them into the run, or declaring them in package content,
@@ -960,10 +969,13 @@ delivers an item removes it.
   check to carry a subject; both are derivation changes.
 - The per-statement box 4 amount and box 7 questions do not name the
   statement.
-- A false Exception 1 "no" with no sale recorded refuses with no question.
-  Since core v87 a truthful "no" reaches it too: a personal-item loss
-  reported on Form 8949 with no sale recorded.
-- The unasked boundary answers (lines 18-19, QOF, Path B, no Form 8949).
+- On four recorded returns with a Schedule D "required" conclusion and no
+  sale, Form 1040 lines 24, 33 and 37 block with no field-level question
+  because `capital-gains.selected-preferential-base` is inapplicable; line
+  16 and the page name the questions, and answering them unblocks every
+  line (blocked-names-question review note BNQ-R7).
+- The unasked boundary answers (lines 18-19, QOF). Since core v89 Path B
+  and "no Form 8949" are asked.
 - Kernel reverse presence check: removing a sale checks only one of its
   amount rows (`packages/kernel/findings.py`), so a leftover row is
   refused by the run, not at entry. Nothing publishes.

@@ -1,0 +1,5072 @@
+{
+  "core": {
+    "package": "v87",
+    "registry": "v85",
+    "release": "v85"
+  },
+  "case_count": 14,
+  "cases": {
+    "sd_yes_nothing": {
+      "group": "schedule-d-refused",
+      "note": "Truthful yes that a box B/E sale exists, before that sale is recorded.",
+      "outcome": "success",
+      "stop": "saturated",
+      "lines": {
+        "form1040.line-11a": "blocked",
+        "form1040.line-15": "blocked",
+        "form1040.line-16": "blocked",
+        "form1040.line-19": "blocked",
+        "form1040.line-24": "blocked",
+        "form1040.line-2a": 0,
+        "form1040.line-2b": 0,
+        "form1040.line-33": "blocked",
+        "form1040.line-37": "blocked",
+        "form1040.line-7a": "blocked",
+        "form1040.line-7b": "published_categorical",
+        "form1040.line-9": "blocked",
+        "schedule-d.line-10": "blocked",
+        "schedule-d.line-15": "blocked",
+        "schedule-d.line-16": "blocked",
+        "schedule-d.line-1a": 0,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-2": 0,
+        "schedule-d.line-21": "blocked",
+        "schedule-d.line-3": "blocked",
+        "schedule-d.line-7": "blocked",
+        "schedule-d.line-8a": 0,
+        "schedule-d.line-8b": 0,
+        "schedule-d.line-9": 0
+      },
+      "questions": [],
+      "silent_blocked": [
+        "form.eic-worksheet-a.line-3",
+        "form.eic-worksheet-a.line-5",
+        "form.eic-worksheet-a.line-6",
+        "form.sch8812.line-14",
+        "form.sch8812.line-17",
+        "form.sch8812.worksheet-a.line-5",
+        "form1040.line-11a",
+        "form1040.line-11b",
+        "form1040.line-13b",
+        "form1040.line-14",
+        "form1040.line-15",
+        "form1040.line-16",
+        "form1040.line-19",
+        "form1040.line-20",
+        "form1040.line-24",
+        "form1040.line-27a",
+        "form1040.line-28",
+        "form1040.line-32",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37",
+        "form1040.line-6b",
+        "form1040.line-7a",
+        "form1040.line-9",
+        "form1040.tax-after-credits",
+        "schedule-d.line-10",
+        "schedule-d.line-15",
+        "schedule-d.line-16",
+        "schedule-d.line-21",
+        "schedule-d.line-3",
+        "schedule-d.line-7",
+        "schedule3.line-1",
+        "schedule3.line-8"
+      ],
+      "reason_no_question": [],
+      "blocked": [
+        {
+          "fields": [
+            "form.eic-worksheet-a.line-3"
+          ],
+          "artifact": "eic-worksheet-a.line-3",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "income.agi"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form.eic-worksheet-a.line-5"
+          ],
+          "artifact": "eic-worksheet-a.line-5",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "eic.worksheet-a.line-3"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form.eic-worksheet-a.line-6"
+          ],
+          "artifact": "eic-worksheet-a.line-6",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "eic.worksheet-a.line-3"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form.sch8812.line-14"
+          ],
+          "artifact": "ctc-sch8812-line-14",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "ctc.sch8812.line-12",
+            "ctc.sch8812.line-13"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form.sch8812.line-17"
+          ],
+          "artifact": "ctc-sch8812-line-17",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "ctc.sch8812.line-16a"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form.sch8812.worksheet-a.line-5"
+          ],
+          "artifact": "ctc-worksheet-a.line-5",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "ctc.sch8812.worksheet-a.line-3"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-11a",
+            "form1040.line-11b"
+          ],
+          "artifact": "form1040-line11",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "income.total-income"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-13b"
+          ],
+          "artifact": "form1040-line13b",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule1a.line37-enhanced-deduction-total"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-14"
+          ],
+          "artifact": "form1040-line14",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "deductions.schedule-1a"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-15"
+          ],
+          "artifact": "form1040-line15",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "income.agi",
+            "deductions.line-14"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-16"
+          ],
+          "artifact": "form1040-line16",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "income.taxable-income",
+            "capital-gains.selected-preferential-base",
+            "qdcg-worksheet.line-24",
+            "qdcg-worksheet.line-25"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-19"
+          ],
+          "artifact": "ctc-form1040-line19",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "ctc.sch8812.line-14"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-20"
+          ],
+          "artifact": "form1040-line20",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule3.line8-total"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-24"
+          ],
+          "artifact": "form1040-line24",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.after-nonrefundable-credits"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-27a"
+          ],
+          "artifact": "form1040-line27a",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "eic.eligibility-result"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-28"
+          ],
+          "artifact": "ctc-sch8812-line-27",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "ctc.sch8812.line-17",
+            "ctc.sch8812.part-ii-b-needed"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-32"
+          ],
+          "artifact": "form1040-line32",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.lines27-31-total"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-33"
+          ],
+          "artifact": "form1040-line33",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line32"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-34"
+          ],
+          "artifact": "form1040-line34",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line33",
+            "tax.line24-total-tax"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-35a"
+          ],
+          "artifact": "form1040-line35a",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line34-overpaid",
+            "payments.line36-applied-to-2026"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-37"
+          ],
+          "artifact": "form1040-line37",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.line24-total-tax",
+            "payments.line33"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-6b"
+          ],
+          "artifact": "ss-benefits-worksheet",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "capital-gains.line7a-total"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-7a"
+          ],
+          "artifact": "form1040-line7a",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule-d.line-16",
+            "schedule-d.line-21",
+            "capital-gains.selected-preferential-base",
+            "schedule-d.line-3",
+            "schedule-d.line-10"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-9"
+          ],
+          "artifact": "form1040-line9",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "capital-gains.line7a-total",
+            "social-security.line6b"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.tax-after-credits"
+          ],
+          "artifact": "form1040-tax-after-credits",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.total-tax",
+            "credits.form1040-line20",
+            "ctc.form1040-line19"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "schedule-d.line-10"
+          ],
+          "artifact": "schedule-d-line10",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "schedule-d.line-15"
+          ],
+          "artifact": "schedule-d-line15",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule-d.line-10"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "schedule-d.line-16"
+          ],
+          "artifact": "schedule-d-line16",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule-d.line-7",
+            "schedule-d.line-15"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "schedule-d.line-21"
+          ],
+          "artifact": "schedule-d-line21",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule-d.line-16"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "schedule-d.line-3"
+          ],
+          "artifact": "schedule-d-line3",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "schedule-d.line-7"
+          ],
+          "artifact": "schedule-d-line7",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule-d.line-3"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "schedule3.line-1"
+          ],
+          "artifact": "schedule3-line1-direct-ftc",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.total-tax"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "schedule3.line-8"
+          ],
+          "artifact": "schedule3-line8",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule3.line1-direct-ftc"
+          ],
+          "reasons": [],
+          "questions": []
+        }
+      ],
+      "root_blocks": [
+        {
+          "artifact": "schedule-d-line10",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": []
+        },
+        {
+          "artifact": "schedule-d-line3",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": []
+        }
+      ],
+      "source_set_blocks": []
+    },
+    "sd_8949_no_unadmitted": {
+      "group": "schedule-d-refused",
+      "note": "Truthful Form 8949 no for work outside every admitted recorded family.",
+      "outcome": "success",
+      "stop": "saturated",
+      "lines": {
+        "form1040.line-11a": "blocked",
+        "form1040.line-15": "blocked",
+        "form1040.line-16": "blocked",
+        "form1040.line-19": "blocked",
+        "form1040.line-24": "blocked",
+        "form1040.line-2a": 0,
+        "form1040.line-2b": 0,
+        "form1040.line-33": "blocked",
+        "form1040.line-37": "blocked",
+        "form1040.line-7a": "blocked",
+        "form1040.line-7b": "published_categorical",
+        "form1040.line-9": "blocked",
+        "schedule-d.line-10": "blocked",
+        "schedule-d.line-15": "blocked",
+        "schedule-d.line-16": "blocked",
+        "schedule-d.line-1a": 0,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-2": 0,
+        "schedule-d.line-21": "blocked",
+        "schedule-d.line-3": "blocked",
+        "schedule-d.line-7": "blocked",
+        "schedule-d.line-8a": 0,
+        "schedule-d.line-8b": 0,
+        "schedule-d.line-9": 0
+      },
+      "questions": [],
+      "silent_blocked": [
+        "form.eic-worksheet-a.line-3",
+        "form.eic-worksheet-a.line-5",
+        "form.eic-worksheet-a.line-6",
+        "form.sch8812.line-14",
+        "form.sch8812.line-17",
+        "form.sch8812.worksheet-a.line-5",
+        "form1040.line-11a",
+        "form1040.line-11b",
+        "form1040.line-13b",
+        "form1040.line-14",
+        "form1040.line-15",
+        "form1040.line-16",
+        "form1040.line-19",
+        "form1040.line-20",
+        "form1040.line-24",
+        "form1040.line-27a",
+        "form1040.line-28",
+        "form1040.line-32",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37",
+        "form1040.line-6b",
+        "form1040.line-7a",
+        "form1040.line-9",
+        "form1040.tax-after-credits",
+        "schedule-d.line-10",
+        "schedule-d.line-15",
+        "schedule-d.line-16",
+        "schedule-d.line-21",
+        "schedule-d.line-3",
+        "schedule-d.line-7",
+        "schedule3.line-1",
+        "schedule3.line-8"
+      ],
+      "reason_no_question": [],
+      "blocked": [
+        {
+          "fields": [
+            "form.eic-worksheet-a.line-3"
+          ],
+          "artifact": "eic-worksheet-a.line-3",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "income.agi"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form.eic-worksheet-a.line-5"
+          ],
+          "artifact": "eic-worksheet-a.line-5",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "eic.worksheet-a.line-3"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form.eic-worksheet-a.line-6"
+          ],
+          "artifact": "eic-worksheet-a.line-6",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "eic.worksheet-a.line-3"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form.sch8812.line-14"
+          ],
+          "artifact": "ctc-sch8812-line-14",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "ctc.sch8812.line-12",
+            "ctc.sch8812.line-13"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form.sch8812.line-17"
+          ],
+          "artifact": "ctc-sch8812-line-17",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "ctc.sch8812.line-16a"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form.sch8812.worksheet-a.line-5"
+          ],
+          "artifact": "ctc-worksheet-a.line-5",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "ctc.sch8812.worksheet-a.line-3"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-11a",
+            "form1040.line-11b"
+          ],
+          "artifact": "form1040-line11",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "income.total-income"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-13b"
+          ],
+          "artifact": "form1040-line13b",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule1a.line37-enhanced-deduction-total"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-14"
+          ],
+          "artifact": "form1040-line14",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "deductions.schedule-1a"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-15"
+          ],
+          "artifact": "form1040-line15",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "income.agi",
+            "deductions.line-14"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-16"
+          ],
+          "artifact": "form1040-line16",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "income.taxable-income",
+            "capital-gains.selected-preferential-base",
+            "qdcg-worksheet.line-24",
+            "qdcg-worksheet.line-25"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-19"
+          ],
+          "artifact": "ctc-form1040-line19",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "ctc.sch8812.line-14"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-20"
+          ],
+          "artifact": "form1040-line20",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule3.line8-total"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-24"
+          ],
+          "artifact": "form1040-line24",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.after-nonrefundable-credits"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-27a"
+          ],
+          "artifact": "form1040-line27a",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "eic.eligibility-result"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-28"
+          ],
+          "artifact": "ctc-sch8812-line-27",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "ctc.sch8812.line-17",
+            "ctc.sch8812.part-ii-b-needed"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-32"
+          ],
+          "artifact": "form1040-line32",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.lines27-31-total"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-33"
+          ],
+          "artifact": "form1040-line33",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line32"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-34"
+          ],
+          "artifact": "form1040-line34",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line33",
+            "tax.line24-total-tax"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-35a"
+          ],
+          "artifact": "form1040-line35a",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line34-overpaid",
+            "payments.line36-applied-to-2026"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-37"
+          ],
+          "artifact": "form1040-line37",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.line24-total-tax",
+            "payments.line33"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-6b"
+          ],
+          "artifact": "ss-benefits-worksheet",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "capital-gains.line7a-total"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-7a"
+          ],
+          "artifact": "form1040-line7a",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule-d.line-16",
+            "schedule-d.line-21",
+            "capital-gains.selected-preferential-base",
+            "schedule-d.line-3",
+            "schedule-d.line-10"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-9"
+          ],
+          "artifact": "form1040-line9",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "capital-gains.line7a-total",
+            "social-security.line6b"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.tax-after-credits"
+          ],
+          "artifact": "form1040-tax-after-credits",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.total-tax",
+            "credits.form1040-line20",
+            "ctc.form1040-line19"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "schedule-d.line-10"
+          ],
+          "artifact": "schedule-d-line10",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "schedule-d.line-15"
+          ],
+          "artifact": "schedule-d-line15",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule-d.line-10"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "schedule-d.line-16"
+          ],
+          "artifact": "schedule-d-line16",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule-d.line-7",
+            "schedule-d.line-15"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "schedule-d.line-21"
+          ],
+          "artifact": "schedule-d-line21",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule-d.line-16"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "schedule-d.line-3"
+          ],
+          "artifact": "schedule-d-line3",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "schedule-d.line-7"
+          ],
+          "artifact": "schedule-d-line7",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule-d.line-3"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "schedule3.line-1"
+          ],
+          "artifact": "schedule3-line1-direct-ftc",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.total-tax"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "schedule3.line-8"
+          ],
+          "artifact": "schedule3-line8",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule3.line1-direct-ftc"
+          ],
+          "reasons": [],
+          "questions": []
+        }
+      ],
+      "root_blocks": [
+        {
+          "artifact": "schedule-d-line10",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": []
+        },
+        {
+          "artifact": "schedule-d-line3",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": []
+        }
+      ],
+      "source_set_blocks": []
+    },
+    "sd_sale_beside_8949_yes": {
+      "group": "schedule-d-refused",
+      "note": "A box C sale added after the earlier no-Form-8949 answer.",
+      "outcome": "success",
+      "stop": "saturated",
+      "lines": {
+        "form1040.line-11a": "blocked",
+        "form1040.line-15": "blocked",
+        "form1040.line-16": "blocked",
+        "form1040.line-19": "blocked",
+        "form1040.line-24": "blocked",
+        "form1040.line-2a": 0,
+        "form1040.line-2b": 0,
+        "form1040.line-33": "blocked",
+        "form1040.line-37": "blocked",
+        "form1040.line-7a": "blocked",
+        "form1040.line-7b": "guard_inapplicable",
+        "form1040.line-9": "blocked",
+        "schedule-d.line-10": 0,
+        "schedule-d.line-15": 0,
+        "schedule-d.line-16": "blocked",
+        "schedule-d.line-1a": 0,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-2": 0,
+        "schedule-d.line-21": "blocked",
+        "schedule-d.line-3": "blocked",
+        "schedule-d.line-7": "blocked",
+        "schedule-d.line-8a": 0,
+        "schedule-d.line-8b": 0,
+        "schedule-d.line-9": 0
+      },
+      "questions": [],
+      "silent_blocked": [
+        "form.eic-worksheet-a.line-3",
+        "form.eic-worksheet-a.line-5",
+        "form.eic-worksheet-a.line-6",
+        "form.sch8812.line-14",
+        "form.sch8812.line-17",
+        "form.sch8812.worksheet-a.line-5",
+        "form1040.line-11a",
+        "form1040.line-11b",
+        "form1040.line-13b",
+        "form1040.line-14",
+        "form1040.line-15",
+        "form1040.line-16",
+        "form1040.line-19",
+        "form1040.line-20",
+        "form1040.line-24",
+        "form1040.line-27a",
+        "form1040.line-28",
+        "form1040.line-32",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37",
+        "form1040.line-6b",
+        "form1040.line-7a",
+        "form1040.line-9",
+        "form1040.tax-after-credits",
+        "schedule-d.line-16",
+        "schedule-d.line-21",
+        "schedule-d.line-3",
+        "schedule-d.line-7",
+        "schedule3.line-1",
+        "schedule3.line-8"
+      ],
+      "reason_no_question": [],
+      "blocked": [
+        {
+          "fields": [
+            "form.eic-worksheet-a.line-3"
+          ],
+          "artifact": "eic-worksheet-a.line-3",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "income.agi"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form.eic-worksheet-a.line-5"
+          ],
+          "artifact": "eic-worksheet-a.line-5",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "eic.worksheet-a.line-3"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form.eic-worksheet-a.line-6"
+          ],
+          "artifact": "eic-worksheet-a.line-6",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "eic.worksheet-a.line-3"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form.sch8812.line-14"
+          ],
+          "artifact": "ctc-sch8812-line-14",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "ctc.sch8812.line-12",
+            "ctc.sch8812.line-13"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form.sch8812.line-17"
+          ],
+          "artifact": "ctc-sch8812-line-17",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "ctc.sch8812.line-16a"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form.sch8812.worksheet-a.line-5"
+          ],
+          "artifact": "ctc-worksheet-a.line-5",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "ctc.sch8812.worksheet-a.line-3"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-11a",
+            "form1040.line-11b"
+          ],
+          "artifact": "form1040-line11",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "income.total-income"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-13b"
+          ],
+          "artifact": "form1040-line13b",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule1a.line37-enhanced-deduction-total"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-14"
+          ],
+          "artifact": "form1040-line14",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "deductions.schedule-1a"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-15"
+          ],
+          "artifact": "form1040-line15",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "income.agi",
+            "deductions.line-14"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-16"
+          ],
+          "artifact": "form1040-line16",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "income.taxable-income",
+            "capital-gains.selected-preferential-base",
+            "qdcg-worksheet.line-24",
+            "qdcg-worksheet.line-25"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-19"
+          ],
+          "artifact": "ctc-form1040-line19",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "ctc.sch8812.line-14"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-20"
+          ],
+          "artifact": "form1040-line20",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule3.line8-total"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-24"
+          ],
+          "artifact": "form1040-line24",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.after-nonrefundable-credits"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-27a"
+          ],
+          "artifact": "form1040-line27a",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "eic.eligibility-result"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-28"
+          ],
+          "artifact": "ctc-sch8812-line-27",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "ctc.sch8812.line-17",
+            "ctc.sch8812.part-ii-b-needed"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-32"
+          ],
+          "artifact": "form1040-line32",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.lines27-31-total"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-33"
+          ],
+          "artifact": "form1040-line33",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line32"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-34"
+          ],
+          "artifact": "form1040-line34",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line33",
+            "tax.line24-total-tax"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-35a"
+          ],
+          "artifact": "form1040-line35a",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line34-overpaid",
+            "payments.line36-applied-to-2026"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-37"
+          ],
+          "artifact": "form1040-line37",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.line24-total-tax",
+            "payments.line33"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-6b"
+          ],
+          "artifact": "ss-benefits-worksheet",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "capital-gains.line7a-total"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-7a"
+          ],
+          "artifact": "form1040-line7a",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule-d.line-16",
+            "schedule-d.line-21",
+            "capital-gains.selected-preferential-base",
+            "schedule-d.line-3"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-9"
+          ],
+          "artifact": "form1040-line9",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "capital-gains.line7a-total",
+            "social-security.line6b"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.tax-after-credits"
+          ],
+          "artifact": "form1040-tax-after-credits",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.total-tax",
+            "credits.form1040-line20",
+            "ctc.form1040-line19"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "schedule-d.line-16"
+          ],
+          "artifact": "schedule-d-line16",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule-d.line-7"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "schedule-d.line-21"
+          ],
+          "artifact": "schedule-d-line21",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule-d.line-16"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "schedule-d.line-3"
+          ],
+          "artifact": "schedule-d-line3",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "schedule-d.line-7"
+          ],
+          "artifact": "schedule-d-line7",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule-d.line-3"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "schedule3.line-1"
+          ],
+          "artifact": "schedule3-line1-direct-ftc",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.total-tax"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "schedule3.line-8"
+          ],
+          "artifact": "schedule3-line8",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule3.line1-direct-ftc"
+          ],
+          "reasons": [],
+          "questions": []
+        }
+      ],
+      "root_blocks": [
+        {
+          "artifact": "schedule-d-line3",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": []
+        }
+      ],
+      "source_set_blocks": []
+    },
+    "sd_amounts_disagree": {
+      "group": "schedule-d-refused",
+      "note": "The sale object says basis 8000 while its scalar row says 2000.",
+      "outcome": "success",
+      "stop": "saturated",
+      "lines": {
+        "form1040.line-11a": "blocked",
+        "form1040.line-15": "blocked",
+        "form1040.line-16": "blocked",
+        "form1040.line-19": "blocked",
+        "form1040.line-24": "blocked",
+        "form1040.line-2a": 0,
+        "form1040.line-2b": 0,
+        "form1040.line-33": "blocked",
+        "form1040.line-37": "blocked",
+        "form1040.line-7a": "blocked",
+        "form1040.line-7b": "guard_inapplicable",
+        "form1040.line-9": "blocked",
+        "schedule-d.line-10": 0,
+        "schedule-d.line-15": 0,
+        "schedule-d.line-16": "blocked",
+        "schedule-d.line-1a": 0,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-2": 0,
+        "schedule-d.line-21": "blocked",
+        "schedule-d.line-3": "blocked",
+        "schedule-d.line-7": "blocked",
+        "schedule-d.line-8a": 0,
+        "schedule-d.line-8b": 0,
+        "schedule-d.line-9": 0
+      },
+      "questions": [],
+      "silent_blocked": [
+        "form.eic-worksheet-a.line-3",
+        "form.eic-worksheet-a.line-5",
+        "form.eic-worksheet-a.line-6",
+        "form.sch8812.line-14",
+        "form.sch8812.line-17",
+        "form.sch8812.worksheet-a.line-5",
+        "form1040.line-11a",
+        "form1040.line-11b",
+        "form1040.line-13b",
+        "form1040.line-14",
+        "form1040.line-15",
+        "form1040.line-16",
+        "form1040.line-19",
+        "form1040.line-20",
+        "form1040.line-24",
+        "form1040.line-27a",
+        "form1040.line-28",
+        "form1040.line-32",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37",
+        "form1040.line-6b",
+        "form1040.line-7a",
+        "form1040.line-9",
+        "form1040.tax-after-credits",
+        "schedule-d.line-16",
+        "schedule-d.line-21",
+        "schedule-d.line-3",
+        "schedule-d.line-7",
+        "schedule3.line-1",
+        "schedule3.line-8"
+      ],
+      "reason_no_question": [],
+      "blocked": [
+        {
+          "fields": [
+            "form.eic-worksheet-a.line-3"
+          ],
+          "artifact": "eic-worksheet-a.line-3",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "income.agi"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form.eic-worksheet-a.line-5"
+          ],
+          "artifact": "eic-worksheet-a.line-5",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "eic.worksheet-a.line-3"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form.eic-worksheet-a.line-6"
+          ],
+          "artifact": "eic-worksheet-a.line-6",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "eic.worksheet-a.line-3"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form.sch8812.line-14"
+          ],
+          "artifact": "ctc-sch8812-line-14",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "ctc.sch8812.line-12",
+            "ctc.sch8812.line-13"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form.sch8812.line-17"
+          ],
+          "artifact": "ctc-sch8812-line-17",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "ctc.sch8812.line-16a"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form.sch8812.worksheet-a.line-5"
+          ],
+          "artifact": "ctc-worksheet-a.line-5",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "ctc.sch8812.worksheet-a.line-3"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-11a",
+            "form1040.line-11b"
+          ],
+          "artifact": "form1040-line11",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "income.total-income"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-13b"
+          ],
+          "artifact": "form1040-line13b",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule1a.line37-enhanced-deduction-total"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-14"
+          ],
+          "artifact": "form1040-line14",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "deductions.schedule-1a"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-15"
+          ],
+          "artifact": "form1040-line15",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "income.agi",
+            "deductions.line-14"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-16"
+          ],
+          "artifact": "form1040-line16",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "income.taxable-income",
+            "capital-gains.selected-preferential-base",
+            "qdcg-worksheet.line-24",
+            "qdcg-worksheet.line-25"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-19"
+          ],
+          "artifact": "ctc-form1040-line19",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "ctc.sch8812.line-14"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-20"
+          ],
+          "artifact": "form1040-line20",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule3.line8-total"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-24"
+          ],
+          "artifact": "form1040-line24",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.after-nonrefundable-credits"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-27a"
+          ],
+          "artifact": "form1040-line27a",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "eic.eligibility-result"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-28"
+          ],
+          "artifact": "ctc-sch8812-line-27",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "ctc.sch8812.line-17",
+            "ctc.sch8812.part-ii-b-needed"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-32"
+          ],
+          "artifact": "form1040-line32",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.lines27-31-total"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-33"
+          ],
+          "artifact": "form1040-line33",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line32"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-34"
+          ],
+          "artifact": "form1040-line34",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line33",
+            "tax.line24-total-tax"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-35a"
+          ],
+          "artifact": "form1040-line35a",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line34-overpaid",
+            "payments.line36-applied-to-2026"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-37"
+          ],
+          "artifact": "form1040-line37",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.line24-total-tax",
+            "payments.line33"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-6b"
+          ],
+          "artifact": "ss-benefits-worksheet",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "capital-gains.line7a-total"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-7a"
+          ],
+          "artifact": "form1040-line7a",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule-d.line-16",
+            "schedule-d.line-21",
+            "capital-gains.selected-preferential-base",
+            "schedule-d.line-3"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-9"
+          ],
+          "artifact": "form1040-line9",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "capital-gains.line7a-total",
+            "social-security.line6b"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.tax-after-credits"
+          ],
+          "artifact": "form1040-tax-after-credits",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.total-tax",
+            "credits.form1040-line20",
+            "ctc.form1040-line19"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "schedule-d.line-16"
+          ],
+          "artifact": "schedule-d-line16",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule-d.line-7"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "schedule-d.line-21"
+          ],
+          "artifact": "schedule-d-line21",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule-d.line-16"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "schedule-d.line-3"
+          ],
+          "artifact": "schedule-d-line3",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "f8949.no1099b-st-txn.amounts-check"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "schedule-d.line-7"
+          ],
+          "artifact": "schedule-d-line7",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule-d.line-3"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "schedule3.line-1"
+          ],
+          "artifact": "schedule3-line1-direct-ftc",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.total-tax"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "schedule3.line-8"
+          ],
+          "artifact": "schedule3-line8",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule3.line1-direct-ftc"
+          ],
+          "reasons": [],
+          "questions": []
+        }
+      ],
+      "root_blocks": [
+        {
+          "artifact": "f8949.no1099b-st-txn.amounts-check",
+          "code": "DEPENDENCY_INVALID",
+          "missing": []
+        }
+      ],
+      "source_set_blocks": []
+    },
+    "sd_path_b_unanswered": {
+      "group": "schedule-d-refused",
+      "note": "A complete box C sale with the ADR-0061 Path B answer withheld.",
+      "outcome": "success",
+      "stop": "saturated",
+      "lines": {
+        "form1040.line-11a": "blocked",
+        "form1040.line-15": "blocked",
+        "form1040.line-16": "blocked",
+        "form1040.line-19": "blocked",
+        "form1040.line-24": "blocked",
+        "form1040.line-2a": 0,
+        "form1040.line-2b": 0,
+        "form1040.line-33": "blocked",
+        "form1040.line-37": "blocked",
+        "form1040.line-7a": "blocked",
+        "form1040.line-7b": "guard_inapplicable",
+        "form1040.line-9": "blocked",
+        "schedule-d.line-10": 0,
+        "schedule-d.line-15": 0,
+        "schedule-d.line-16": -6000,
+        "schedule-d.line-1a": 0,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-2": 0,
+        "schedule-d.line-21": 3000,
+        "schedule-d.line-3": -6000,
+        "schedule-d.line-7": -6000,
+        "schedule-d.line-8a": 0,
+        "schedule-d.line-8b": 0,
+        "schedule-d.line-9": 0
+      },
+      "questions": [],
+      "silent_blocked": [
+        "form.eic-worksheet-a.line-3",
+        "form.eic-worksheet-a.line-5",
+        "form.eic-worksheet-a.line-6",
+        "form.sch8812.line-14",
+        "form.sch8812.line-17",
+        "form.sch8812.worksheet-a.line-5",
+        "form1040.line-11a",
+        "form1040.line-11b",
+        "form1040.line-13b",
+        "form1040.line-14",
+        "form1040.line-15",
+        "form1040.line-16",
+        "form1040.line-19",
+        "form1040.line-20",
+        "form1040.line-24",
+        "form1040.line-27a",
+        "form1040.line-28",
+        "form1040.line-32",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37",
+        "form1040.line-6b",
+        "form1040.line-7a",
+        "form1040.line-9",
+        "form1040.tax-after-credits",
+        "schedule3.line-1",
+        "schedule3.line-8"
+      ],
+      "reason_no_question": [],
+      "blocked": [
+        {
+          "fields": [
+            "form.eic-worksheet-a.line-3"
+          ],
+          "artifact": "eic-worksheet-a.line-3",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "income.agi"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form.eic-worksheet-a.line-5"
+          ],
+          "artifact": "eic-worksheet-a.line-5",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "eic.worksheet-a.line-3"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form.eic-worksheet-a.line-6"
+          ],
+          "artifact": "eic-worksheet-a.line-6",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "eic.worksheet-a.line-3"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form.sch8812.line-14"
+          ],
+          "artifact": "ctc-sch8812-line-14",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "ctc.sch8812.line-12",
+            "ctc.sch8812.line-13"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form.sch8812.line-17"
+          ],
+          "artifact": "ctc-sch8812-line-17",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "ctc.sch8812.line-16a"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form.sch8812.worksheet-a.line-5"
+          ],
+          "artifact": "ctc-worksheet-a.line-5",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "ctc.sch8812.worksheet-a.line-3"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-11a",
+            "form1040.line-11b"
+          ],
+          "artifact": "form1040-line11",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "income.total-income"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-13b"
+          ],
+          "artifact": "form1040-line13b",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule1a.line37-enhanced-deduction-total"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-14"
+          ],
+          "artifact": "form1040-line14",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "deductions.schedule-1a"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-15"
+          ],
+          "artifact": "form1040-line15",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "income.agi",
+            "deductions.line-14"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-16"
+          ],
+          "artifact": "form1040-line16",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "income.taxable-income",
+            "capital-gains.selected-preferential-base",
+            "qdcg-worksheet.line-24",
+            "qdcg-worksheet.line-25"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-19"
+          ],
+          "artifact": "ctc-form1040-line19",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "ctc.sch8812.line-14"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-20"
+          ],
+          "artifact": "form1040-line20",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule3.line8-total"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-24"
+          ],
+          "artifact": "form1040-line24",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.after-nonrefundable-credits"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-27a"
+          ],
+          "artifact": "form1040-line27a",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "eic.eligibility-result"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-28"
+          ],
+          "artifact": "ctc-sch8812-line-27",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "ctc.sch8812.line-17",
+            "ctc.sch8812.part-ii-b-needed"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-32"
+          ],
+          "artifact": "form1040-line32",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.lines27-31-total"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-33"
+          ],
+          "artifact": "form1040-line33",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line32"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-34"
+          ],
+          "artifact": "form1040-line34",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line33",
+            "tax.line24-total-tax"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-35a"
+          ],
+          "artifact": "form1040-line35a",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line34-overpaid",
+            "payments.line36-applied-to-2026"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-37"
+          ],
+          "artifact": "form1040-line37",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.line24-total-tax",
+            "payments.line33"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-6b"
+          ],
+          "artifact": "ss-benefits-worksheet",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "capital-gains.line7a-total"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-7a"
+          ],
+          "artifact": "form1040-line7a",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "capital-gains.selected-preferential-base"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-9"
+          ],
+          "artifact": "form1040-line9",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "capital-gains.line7a-total",
+            "social-security.line6b"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.tax-after-credits"
+          ],
+          "artifact": "form1040-tax-after-credits",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.total-tax",
+            "credits.form1040-line20",
+            "ctc.form1040-line19"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "schedule3.line-1"
+          ],
+          "artifact": "schedule3-line1-direct-ftc",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.total-tax"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "schedule3.line-8"
+          ],
+          "artifact": "schedule3-line8",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule3.line1-direct-ftc"
+          ],
+          "reasons": [],
+          "questions": []
+        }
+      ],
+      "root_blocks": [
+        {
+          "artifact": "selected-preferential-base",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule-d-boundary.no-other-form8949-adjustments"
+          ]
+        }
+      ],
+      "source_set_blocks": []
+    },
+    "codeb_yes_nothing": {
+      "group": "code-b-refused",
+      "note": "Truthful yes that a code B sale exists, before that sale is recorded.",
+      "outcome": "success",
+      "stop": "saturated",
+      "lines": {
+        "form1040.line-11a": "blocked",
+        "form1040.line-15": "blocked",
+        "form1040.line-16": "blocked",
+        "form1040.line-19": "blocked",
+        "form1040.line-24": "blocked",
+        "form1040.line-2a": 0,
+        "form1040.line-2b": 0,
+        "form1040.line-33": "blocked",
+        "form1040.line-37": "blocked",
+        "form1040.line-7a": "blocked",
+        "form1040.line-7b": "published_categorical",
+        "form1040.line-9": "blocked",
+        "schedule-d.line-10": 0,
+        "schedule-d.line-15": "blocked",
+        "schedule-d.line-16": "blocked",
+        "schedule-d.line-1a": 0,
+        "schedule-d.line-1b": "blocked",
+        "schedule-d.line-2": 0,
+        "schedule-d.line-21": "blocked",
+        "schedule-d.line-3": 0,
+        "schedule-d.line-7": "blocked",
+        "schedule-d.line-8a": 0,
+        "schedule-d.line-8b": "blocked",
+        "schedule-d.line-9": 0
+      },
+      "questions": [],
+      "silent_blocked": [
+        "form.eic-worksheet-a.line-3",
+        "form.eic-worksheet-a.line-5",
+        "form.eic-worksheet-a.line-6",
+        "form.sch8812.line-14",
+        "form.sch8812.line-17",
+        "form.sch8812.worksheet-a.line-5",
+        "form1040.line-11a",
+        "form1040.line-11b",
+        "form1040.line-13b",
+        "form1040.line-14",
+        "form1040.line-15",
+        "form1040.line-16",
+        "form1040.line-19",
+        "form1040.line-20",
+        "form1040.line-24",
+        "form1040.line-27a",
+        "form1040.line-28",
+        "form1040.line-32",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37",
+        "form1040.line-6b",
+        "form1040.line-7a",
+        "form1040.line-9",
+        "form1040.tax-after-credits",
+        "schedule-d.line-15",
+        "schedule-d.line-16",
+        "schedule-d.line-1b",
+        "schedule-d.line-21",
+        "schedule-d.line-7",
+        "schedule-d.line-8b",
+        "schedule3.line-1",
+        "schedule3.line-8"
+      ],
+      "reason_no_question": [],
+      "blocked": [
+        {
+          "fields": [
+            "form.eic-worksheet-a.line-3"
+          ],
+          "artifact": "eic-worksheet-a.line-3",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "income.agi"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form.eic-worksheet-a.line-5"
+          ],
+          "artifact": "eic-worksheet-a.line-5",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "eic.worksheet-a.line-3"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form.eic-worksheet-a.line-6"
+          ],
+          "artifact": "eic-worksheet-a.line-6",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "eic.worksheet-a.line-3"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form.sch8812.line-14"
+          ],
+          "artifact": "ctc-sch8812-line-14",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "ctc.sch8812.line-12",
+            "ctc.sch8812.line-13"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form.sch8812.line-17"
+          ],
+          "artifact": "ctc-sch8812-line-17",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "ctc.sch8812.line-16a"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form.sch8812.worksheet-a.line-5"
+          ],
+          "artifact": "ctc-worksheet-a.line-5",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "ctc.sch8812.worksheet-a.line-3"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-11a",
+            "form1040.line-11b"
+          ],
+          "artifact": "form1040-line11",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "income.total-income"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-13b"
+          ],
+          "artifact": "form1040-line13b",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule1a.line37-enhanced-deduction-total"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-14"
+          ],
+          "artifact": "form1040-line14",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "deductions.schedule-1a"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-15"
+          ],
+          "artifact": "form1040-line15",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "income.agi",
+            "deductions.line-14"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-16"
+          ],
+          "artifact": "form1040-line16",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "income.taxable-income",
+            "capital-gains.selected-preferential-base",
+            "qdcg-worksheet.line-24",
+            "qdcg-worksheet.line-25"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-19"
+          ],
+          "artifact": "ctc-form1040-line19",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "ctc.sch8812.line-14"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-20"
+          ],
+          "artifact": "form1040-line20",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule3.line8-total"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-24"
+          ],
+          "artifact": "form1040-line24",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.after-nonrefundable-credits"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-27a"
+          ],
+          "artifact": "form1040-line27a",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "eic.eligibility-result"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-28"
+          ],
+          "artifact": "ctc-sch8812-line-27",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "ctc.sch8812.line-17",
+            "ctc.sch8812.part-ii-b-needed"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-32"
+          ],
+          "artifact": "form1040-line32",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.lines27-31-total"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-33"
+          ],
+          "artifact": "form1040-line33",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line32"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-34"
+          ],
+          "artifact": "form1040-line34",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line33",
+            "tax.line24-total-tax"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-35a"
+          ],
+          "artifact": "form1040-line35a",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line34-overpaid",
+            "payments.line36-applied-to-2026"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-37"
+          ],
+          "artifact": "form1040-line37",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.line24-total-tax",
+            "payments.line33"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-6b"
+          ],
+          "artifact": "ss-benefits-worksheet",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "capital-gains.line7a-total"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-7a"
+          ],
+          "artifact": "form1040-line7a",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule-d.line-16",
+            "schedule-d.line-21",
+            "capital-gains.selected-preferential-base",
+            "schedule-d.line-1b",
+            "schedule-d.line-8b"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-9"
+          ],
+          "artifact": "form1040-line9",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "capital-gains.line7a-total",
+            "social-security.line6b"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.tax-after-credits"
+          ],
+          "artifact": "form1040-tax-after-credits",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.total-tax",
+            "credits.form1040-line20",
+            "ctc.form1040-line19"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "schedule-d.line-15"
+          ],
+          "artifact": "schedule-d-line15",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule-d.line-8b"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "schedule-d.line-16"
+          ],
+          "artifact": "schedule-d-line16",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule-d.line-7",
+            "schedule-d.line-15"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "schedule-d.line-1b"
+          ],
+          "artifact": "schedule-d-line1b",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "f1099b.code-b-st-gain"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "schedule-d.line-21"
+          ],
+          "artifact": "schedule-d-line21",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule-d.line-16"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "schedule-d.line-7"
+          ],
+          "artifact": "schedule-d-line7",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule-d.line-1b"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "schedule-d.line-8b"
+          ],
+          "artifact": "schedule-d-line8b",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "f1099b.code-b-lt-gain"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "schedule3.line-1"
+          ],
+          "artifact": "schedule3-line1-direct-ftc",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.total-tax"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "schedule3.line-8"
+          ],
+          "artifact": "schedule3-line8",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule3.line1-direct-ftc"
+          ],
+          "reasons": [],
+          "questions": []
+        }
+      ],
+      "root_blocks": [
+        {
+          "artifact": "f1099b-code-b-lt-gain",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": []
+        },
+        {
+          "artifact": "f1099b-code-b-st-gain",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": []
+        }
+      ],
+      "source_set_blocks": []
+    },
+    "codeb_sale_beside_8949_yes": {
+      "group": "code-b-refused",
+      "note": "A code B sale added after the earlier no-Form-8949 answer.",
+      "outcome": "success",
+      "stop": "saturated",
+      "lines": {
+        "form1040.line-11a": "blocked",
+        "form1040.line-15": "blocked",
+        "form1040.line-16": "blocked",
+        "form1040.line-19": "blocked",
+        "form1040.line-24": "blocked",
+        "form1040.line-2a": 0,
+        "form1040.line-2b": 0,
+        "form1040.line-33": "blocked",
+        "form1040.line-37": "blocked",
+        "form1040.line-7a": "blocked",
+        "form1040.line-7b": "guard_inapplicable",
+        "form1040.line-9": "blocked",
+        "schedule-d.line-10": 0,
+        "schedule-d.line-15": 0,
+        "schedule-d.line-16": "blocked",
+        "schedule-d.line-1a": 0,
+        "schedule-d.line-1b": "blocked",
+        "schedule-d.line-2": 0,
+        "schedule-d.line-21": "blocked",
+        "schedule-d.line-3": 0,
+        "schedule-d.line-7": "blocked",
+        "schedule-d.line-8a": 0,
+        "schedule-d.line-8b": 0,
+        "schedule-d.line-9": 0
+      },
+      "questions": [],
+      "silent_blocked": [
+        "form.eic-worksheet-a.line-3",
+        "form.eic-worksheet-a.line-5",
+        "form.eic-worksheet-a.line-6",
+        "form.sch8812.line-14",
+        "form.sch8812.line-17",
+        "form.sch8812.worksheet-a.line-5",
+        "form1040.line-11a",
+        "form1040.line-11b",
+        "form1040.line-13b",
+        "form1040.line-14",
+        "form1040.line-15",
+        "form1040.line-16",
+        "form1040.line-19",
+        "form1040.line-20",
+        "form1040.line-24",
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-27a",
+        "form1040.line-28",
+        "form1040.line-32",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37",
+        "form1040.line-6b",
+        "form1040.line-7a",
+        "form1040.line-9",
+        "form1040.tax-after-credits",
+        "schedule-d.line-16",
+        "schedule-d.line-1b",
+        "schedule-d.line-21",
+        "schedule-d.line-7",
+        "schedule3.line-1",
+        "schedule3.line-8"
+      ],
+      "reason_no_question": [
+        "form1040.line-25b",
+        "form1040.line-25d"
+      ],
+      "blocked": [
+        {
+          "fields": [
+            "form.eic-worksheet-a.line-3"
+          ],
+          "artifact": "eic-worksheet-a.line-3",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "income.agi"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form.eic-worksheet-a.line-5"
+          ],
+          "artifact": "eic-worksheet-a.line-5",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "eic.worksheet-a.line-3"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form.eic-worksheet-a.line-6"
+          ],
+          "artifact": "eic-worksheet-a.line-6",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "eic.worksheet-a.line-3"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form.sch8812.line-14"
+          ],
+          "artifact": "ctc-sch8812-line-14",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "ctc.sch8812.line-12",
+            "ctc.sch8812.line-13"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form.sch8812.line-17"
+          ],
+          "artifact": "ctc-sch8812-line-17",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "ctc.sch8812.line-16a"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form.sch8812.worksheet-a.line-5"
+          ],
+          "artifact": "ctc-worksheet-a.line-5",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "ctc.sch8812.worksheet-a.line-3"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-11a",
+            "form1040.line-11b"
+          ],
+          "artifact": "form1040-line11",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "income.total-income"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-13b"
+          ],
+          "artifact": "form1040-line13b",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule1a.line37-enhanced-deduction-total"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-14"
+          ],
+          "artifact": "form1040-line14",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "deductions.schedule-1a"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-15"
+          ],
+          "artifact": "form1040-line15",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "income.agi",
+            "deductions.line-14"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-16"
+          ],
+          "artifact": "form1040-line16",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "income.taxable-income",
+            "capital-gains.selected-preferential-base",
+            "qdcg-worksheet.line-24",
+            "qdcg-worksheet.line-25"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-19"
+          ],
+          "artifact": "ctc-form1040-line19",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "ctc.sch8812.line-14"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-20"
+          ],
+          "artifact": "form1040-line20",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule3.line8-total"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-24"
+          ],
+          "artifact": "form1040-line24",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.after-nonrefundable-credits"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-25b"
+          ],
+          "artifact": "form1040-line25b",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "f1099b.statement-box4-withholding"
+          ],
+          "reasons": [
+            "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+          ],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-25d"
+          ],
+          "artifact": "form1040-line25d",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line25b"
+          ],
+          "reasons": [
+            "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+          ],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-27a"
+          ],
+          "artifact": "form1040-line27a",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "eic.eligibility-result"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-28"
+          ],
+          "artifact": "ctc-sch8812-line-27",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "ctc.sch8812.line-17",
+            "ctc.sch8812.part-ii-b-needed"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-32"
+          ],
+          "artifact": "form1040-line32",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.lines27-31-total"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-33"
+          ],
+          "artifact": "form1040-line33",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line25d",
+            "payments.line32"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-34"
+          ],
+          "artifact": "form1040-line34",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line33",
+            "tax.line24-total-tax"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-35a"
+          ],
+          "artifact": "form1040-line35a",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line34-overpaid",
+            "payments.line36-applied-to-2026"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-37"
+          ],
+          "artifact": "form1040-line37",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.line24-total-tax",
+            "payments.line33"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-6b"
+          ],
+          "artifact": "ss-benefits-worksheet",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "capital-gains.line7a-total"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-7a"
+          ],
+          "artifact": "form1040-line7a",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule-d.line-16",
+            "schedule-d.line-21",
+            "capital-gains.selected-preferential-base",
+            "schedule-d.line-1b"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-9"
+          ],
+          "artifact": "form1040-line9",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "capital-gains.line7a-total",
+            "social-security.line6b"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.tax-after-credits"
+          ],
+          "artifact": "form1040-tax-after-credits",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.total-tax",
+            "credits.form1040-line20",
+            "ctc.form1040-line19"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "schedule-d.line-16"
+          ],
+          "artifact": "schedule-d-line16",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule-d.line-7"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "schedule-d.line-1b"
+          ],
+          "artifact": "schedule-d-line1b",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "f1099b.code-b-st-gain"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "schedule-d.line-21"
+          ],
+          "artifact": "schedule-d-line21",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule-d.line-16"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "schedule-d.line-7"
+          ],
+          "artifact": "schedule-d-line7",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule-d.line-1b"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "schedule3.line-1"
+          ],
+          "artifact": "schedule3-line1-direct-ftc",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.total-tax"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "schedule3.line-8"
+          ],
+          "artifact": "schedule3-line8",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule3.line1-direct-ftc"
+          ],
+          "reasons": [],
+          "questions": []
+        }
+      ],
+      "root_blocks": [
+        {
+          "artifact": "f1099b-code-b-st-gain",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": []
+        },
+        {
+          "artifact": "form1040-line25b",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "f1099b.statement-box4-withholding"
+          ]
+        }
+      ],
+      "source_set_blocks": []
+    },
+    "codeb_amounts_disagree": {
+      "group": "code-b-refused",
+      "note": "The code B worksheet calls for 3000 while its adjustment row says 2000.",
+      "outcome": "success",
+      "stop": "saturated",
+      "lines": {
+        "form1040.line-11a": "blocked",
+        "form1040.line-15": "blocked",
+        "form1040.line-16": "blocked",
+        "form1040.line-19": "blocked",
+        "form1040.line-24": "blocked",
+        "form1040.line-2a": 0,
+        "form1040.line-2b": 0,
+        "form1040.line-33": "blocked",
+        "form1040.line-37": "blocked",
+        "form1040.line-7a": "blocked",
+        "form1040.line-7b": "guard_inapplicable",
+        "form1040.line-9": "blocked",
+        "schedule-d.line-10": 0,
+        "schedule-d.line-15": 0,
+        "schedule-d.line-16": "blocked",
+        "schedule-d.line-1a": 0,
+        "schedule-d.line-1b": "blocked",
+        "schedule-d.line-2": 0,
+        "schedule-d.line-21": "blocked",
+        "schedule-d.line-3": 0,
+        "schedule-d.line-7": "blocked",
+        "schedule-d.line-8a": 0,
+        "schedule-d.line-8b": 0,
+        "schedule-d.line-9": 0
+      },
+      "questions": [],
+      "silent_blocked": [
+        "form.eic-worksheet-a.line-3",
+        "form.eic-worksheet-a.line-5",
+        "form.eic-worksheet-a.line-6",
+        "form.sch8812.line-14",
+        "form.sch8812.line-17",
+        "form.sch8812.worksheet-a.line-5",
+        "form1040.line-11a",
+        "form1040.line-11b",
+        "form1040.line-13b",
+        "form1040.line-14",
+        "form1040.line-15",
+        "form1040.line-16",
+        "form1040.line-19",
+        "form1040.line-20",
+        "form1040.line-24",
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-27a",
+        "form1040.line-28",
+        "form1040.line-32",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37",
+        "form1040.line-6b",
+        "form1040.line-7a",
+        "form1040.line-9",
+        "form1040.tax-after-credits",
+        "schedule-d.line-16",
+        "schedule-d.line-1b",
+        "schedule-d.line-21",
+        "schedule-d.line-7",
+        "schedule3.line-1",
+        "schedule3.line-8"
+      ],
+      "reason_no_question": [
+        "form1040.line-25b",
+        "form1040.line-25d"
+      ],
+      "blocked": [
+        {
+          "fields": [
+            "form.eic-worksheet-a.line-3"
+          ],
+          "artifact": "eic-worksheet-a.line-3",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "income.agi"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form.eic-worksheet-a.line-5"
+          ],
+          "artifact": "eic-worksheet-a.line-5",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "eic.worksheet-a.line-3"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form.eic-worksheet-a.line-6"
+          ],
+          "artifact": "eic-worksheet-a.line-6",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "eic.worksheet-a.line-3"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form.sch8812.line-14"
+          ],
+          "artifact": "ctc-sch8812-line-14",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "ctc.sch8812.line-12",
+            "ctc.sch8812.line-13"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form.sch8812.line-17"
+          ],
+          "artifact": "ctc-sch8812-line-17",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "ctc.sch8812.line-16a"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form.sch8812.worksheet-a.line-5"
+          ],
+          "artifact": "ctc-worksheet-a.line-5",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "ctc.sch8812.worksheet-a.line-3"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-11a",
+            "form1040.line-11b"
+          ],
+          "artifact": "form1040-line11",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "income.total-income"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-13b"
+          ],
+          "artifact": "form1040-line13b",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule1a.line37-enhanced-deduction-total"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-14"
+          ],
+          "artifact": "form1040-line14",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "deductions.schedule-1a"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-15"
+          ],
+          "artifact": "form1040-line15",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "income.agi",
+            "deductions.line-14"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-16"
+          ],
+          "artifact": "form1040-line16",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "income.taxable-income",
+            "capital-gains.selected-preferential-base",
+            "qdcg-worksheet.line-24",
+            "qdcg-worksheet.line-25"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-19"
+          ],
+          "artifact": "ctc-form1040-line19",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "ctc.sch8812.line-14"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-20"
+          ],
+          "artifact": "form1040-line20",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule3.line8-total"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-24"
+          ],
+          "artifact": "form1040-line24",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.after-nonrefundable-credits"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-25b"
+          ],
+          "artifact": "form1040-line25b",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "f1099b.statement-box4-withholding"
+          ],
+          "reasons": [
+            "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+          ],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-25d"
+          ],
+          "artifact": "form1040-line25d",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line25b"
+          ],
+          "reasons": [
+            "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+          ],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-27a"
+          ],
+          "artifact": "form1040-line27a",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "eic.eligibility-result"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-28"
+          ],
+          "artifact": "ctc-sch8812-line-27",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "ctc.sch8812.line-17",
+            "ctc.sch8812.part-ii-b-needed"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-32"
+          ],
+          "artifact": "form1040-line32",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.lines27-31-total"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-33"
+          ],
+          "artifact": "form1040-line33",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line25d",
+            "payments.line32"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-34"
+          ],
+          "artifact": "form1040-line34",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line33",
+            "tax.line24-total-tax"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-35a"
+          ],
+          "artifact": "form1040-line35a",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line34-overpaid",
+            "payments.line36-applied-to-2026"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-37"
+          ],
+          "artifact": "form1040-line37",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.line24-total-tax",
+            "payments.line33"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-6b"
+          ],
+          "artifact": "ss-benefits-worksheet",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "capital-gains.line7a-total"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-7a"
+          ],
+          "artifact": "form1040-line7a",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule-d.line-16",
+            "schedule-d.line-21",
+            "capital-gains.selected-preferential-base",
+            "schedule-d.line-1b"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-9"
+          ],
+          "artifact": "form1040-line9",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "capital-gains.line7a-total",
+            "social-security.line6b"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.tax-after-credits"
+          ],
+          "artifact": "form1040-tax-after-credits",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.total-tax",
+            "credits.form1040-line20",
+            "ctc.form1040-line19"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "schedule-d.line-16"
+          ],
+          "artifact": "schedule-d-line16",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule-d.line-7"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "schedule-d.line-1b"
+          ],
+          "artifact": "schedule-d-line1b",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "f1099b.code-b-st-gain"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "schedule-d.line-21"
+          ],
+          "artifact": "schedule-d-line21",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule-d.line-16"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "schedule-d.line-7"
+          ],
+          "artifact": "schedule-d-line7",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule-d.line-1b"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "schedule3.line-1"
+          ],
+          "artifact": "schedule3-line1-direct-ftc",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.total-tax"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "schedule3.line-8"
+          ],
+          "artifact": "schedule3-line8",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule3.line1-direct-ftc"
+          ],
+          "reasons": [],
+          "questions": []
+        }
+      ],
+      "root_blocks": [
+        {
+          "artifact": "f1099b.code-b-st-txn.amounts-check",
+          "code": "DEPENDENCY_INVALID",
+          "missing": []
+        },
+        {
+          "artifact": "form1040-line25b",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "f1099b.statement-box4-withholding"
+          ]
+        }
+      ],
+      "source_set_blocks": []
+    },
+    "exception1_personal_loss_8949": {
+      "group": "exception1-no",
+      "note": "A personal-item loss reported on Form 8949, with no representable sale record.",
+      "outcome": "success",
+      "stop": "saturated",
+      "lines": {
+        "form1040.line-11a": "blocked",
+        "form1040.line-15": "blocked",
+        "form1040.line-16": "guard_inapplicable",
+        "form1040.line-19": "blocked",
+        "form1040.line-24": "blocked",
+        "form1040.line-2a": 0,
+        "form1040.line-2b": 0,
+        "form1040.line-33": "blocked",
+        "form1040.line-37": "blocked",
+        "form1040.line-7a": "blocked",
+        "form1040.line-7b": "guard_inapplicable",
+        "form1040.line-9": "blocked",
+        "schedule-d.line-10": "blocked",
+        "schedule-d.line-15": "blocked",
+        "schedule-d.line-16": "blocked",
+        "schedule-d.line-1a": 0,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-2": 0,
+        "schedule-d.line-21": "blocked",
+        "schedule-d.line-3": "blocked",
+        "schedule-d.line-7": "blocked",
+        "schedule-d.line-8a": 0,
+        "schedule-d.line-8b": 0,
+        "schedule-d.line-9": 0
+      },
+      "questions": [],
+      "silent_blocked": [
+        "form.eic-worksheet-a.line-3",
+        "form.eic-worksheet-a.line-5",
+        "form.eic-worksheet-a.line-6",
+        "form.sch8812.line-14",
+        "form.sch8812.line-17",
+        "form.sch8812.worksheet-a.line-5",
+        "form1040.line-11a",
+        "form1040.line-11b",
+        "form1040.line-13b",
+        "form1040.line-14",
+        "form1040.line-15",
+        "form1040.line-19",
+        "form1040.line-20",
+        "form1040.line-24",
+        "form1040.line-27a",
+        "form1040.line-28",
+        "form1040.line-32",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37",
+        "form1040.line-6b",
+        "form1040.line-7a",
+        "form1040.line-9",
+        "form1040.tax-after-credits",
+        "schedule-d.line-10",
+        "schedule-d.line-15",
+        "schedule-d.line-16",
+        "schedule-d.line-21",
+        "schedule-d.line-3",
+        "schedule-d.line-7",
+        "schedule3.line-1",
+        "schedule3.line-8"
+      ],
+      "reason_no_question": [],
+      "blocked": [
+        {
+          "fields": [
+            "form.eic-worksheet-a.line-3"
+          ],
+          "artifact": "eic-worksheet-a.line-3",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "income.agi"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form.eic-worksheet-a.line-5"
+          ],
+          "artifact": "eic-worksheet-a.line-5",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "eic.worksheet-a.line-3"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form.eic-worksheet-a.line-6"
+          ],
+          "artifact": "eic-worksheet-a.line-6",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "eic.worksheet-a.line-3"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form.sch8812.line-14"
+          ],
+          "artifact": "ctc-sch8812-line-14",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "ctc.sch8812.line-12",
+            "ctc.sch8812.line-13"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form.sch8812.line-17"
+          ],
+          "artifact": "ctc-sch8812-line-17",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "ctc.sch8812.line-16a"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form.sch8812.worksheet-a.line-5"
+          ],
+          "artifact": "ctc-worksheet-a.line-5",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "ctc.sch8812.worksheet-a.line-3"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-11a",
+            "form1040.line-11b"
+          ],
+          "artifact": "form1040-line11",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "income.total-income"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-13b"
+          ],
+          "artifact": "form1040-line13b",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule1a.line37-enhanced-deduction-total"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-14"
+          ],
+          "artifact": "form1040-line14",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "deductions.schedule-1a"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-15"
+          ],
+          "artifact": "form1040-line15",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "income.agi",
+            "deductions.line-14"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-19"
+          ],
+          "artifact": "ctc-form1040-line19",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "ctc.sch8812.line-14"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-20"
+          ],
+          "artifact": "form1040-line20",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule3.line8-total"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-24"
+          ],
+          "artifact": "form1040-line24",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.after-nonrefundable-credits"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-27a"
+          ],
+          "artifact": "form1040-line27a",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "eic.eligibility-result"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-28"
+          ],
+          "artifact": "ctc-sch8812-line-27",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "ctc.sch8812.line-17",
+            "ctc.sch8812.part-ii-b-needed"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-32"
+          ],
+          "artifact": "form1040-line32",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.lines27-31-total"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-33"
+          ],
+          "artifact": "form1040-line33",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line32"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-34"
+          ],
+          "artifact": "form1040-line34",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line33",
+            "tax.line24-total-tax"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-35a"
+          ],
+          "artifact": "form1040-line35a",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line34-overpaid",
+            "payments.line36-applied-to-2026"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-37"
+          ],
+          "artifact": "form1040-line37",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.line24-total-tax",
+            "payments.line33"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-6b"
+          ],
+          "artifact": "ss-benefits-worksheet",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "capital-gains.line7a-total"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-7a"
+          ],
+          "artifact": "form1040-line7a",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule-d.line-16",
+            "schedule-d.line-21",
+            "capital-gains.selected-preferential-base",
+            "schedule-d.line-3",
+            "schedule-d.line-10"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-9"
+          ],
+          "artifact": "form1040-line9",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "capital-gains.line7a-total",
+            "social-security.line6b"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.tax-after-credits"
+          ],
+          "artifact": "form1040-tax-after-credits",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.total-tax",
+            "credits.form1040-line20",
+            "ctc.form1040-line19"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "schedule-d.line-10"
+          ],
+          "artifact": "schedule-d-line10",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "schedule-d.line-15"
+          ],
+          "artifact": "schedule-d-line15",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule-d.line-10"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "schedule-d.line-16"
+          ],
+          "artifact": "schedule-d-line16",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule-d.line-7",
+            "schedule-d.line-15"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "schedule-d.line-21"
+          ],
+          "artifact": "schedule-d-line21",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule-d.line-16"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "schedule-d.line-3"
+          ],
+          "artifact": "schedule-d-line3",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "schedule-d.line-7"
+          ],
+          "artifact": "schedule-d-line7",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule-d.line-3"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "schedule3.line-1"
+          ],
+          "artifact": "schedule3-line1-direct-ftc",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.total-tax"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "schedule3.line-8"
+          ],
+          "artifact": "schedule3-line8",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule3.line1-direct-ftc"
+          ],
+          "reasons": [],
+          "questions": []
+        }
+      ],
+      "root_blocks": [
+        {
+          "artifact": "ctc-worksheet-a.line-1",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.total-tax"
+          ]
+        },
+        {
+          "artifact": "form1040-tax-after-credits",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.total-tax"
+          ]
+        },
+        {
+          "artifact": "schedule-d-line10",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": []
+        },
+        {
+          "artifact": "schedule-d-line3",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": []
+        },
+        {
+          "artifact": "schedule3-line1-direct-ftc",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.total-tax"
+          ]
+        }
+      ],
+      "source_set_blocks": []
+    },
+    "wash_adjustment_open": {
+      "group": "wash-admission",
+      "note": "A recorded wash sale with only its adjustment family closure removed.",
+      "outcome": "success",
+      "stop": "saturated",
+      "lines": {
+        "form1040.line-11a": "blocked",
+        "form1040.line-15": "blocked",
+        "form1040.line-16": "blocked",
+        "form1040.line-19": "blocked",
+        "form1040.line-24": "blocked",
+        "form1040.line-2a": 0,
+        "form1040.line-2b": 0,
+        "form1040.line-33": "blocked",
+        "form1040.line-37": "blocked",
+        "form1040.line-7a": "blocked",
+        "form1040.line-7b": "guard_inapplicable",
+        "form1040.line-9": "blocked",
+        "schedule-d.line-10": 0,
+        "schedule-d.line-15": 0,
+        "schedule-d.line-16": "blocked",
+        "schedule-d.line-1a": 0,
+        "schedule-d.line-1b": "blocked",
+        "schedule-d.line-2": 0,
+        "schedule-d.line-21": "blocked",
+        "schedule-d.line-3": 0,
+        "schedule-d.line-7": "blocked",
+        "schedule-d.line-8a": 0,
+        "schedule-d.line-8b": 0,
+        "schedule-d.line-9": 0
+      },
+      "questions": [],
+      "silent_blocked": [
+        "form.eic-worksheet-a.line-3",
+        "form.eic-worksheet-a.line-5",
+        "form.eic-worksheet-a.line-6",
+        "form.sch8812.line-14",
+        "form.sch8812.line-17",
+        "form.sch8812.worksheet-a.line-5",
+        "form1040.line-11a",
+        "form1040.line-11b",
+        "form1040.line-13b",
+        "form1040.line-14",
+        "form1040.line-15",
+        "form1040.line-16",
+        "form1040.line-19",
+        "form1040.line-20",
+        "form1040.line-24",
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-27a",
+        "form1040.line-28",
+        "form1040.line-32",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37",
+        "form1040.line-6b",
+        "form1040.line-7a",
+        "form1040.line-9",
+        "form1040.tax-after-credits",
+        "schedule-d.line-16",
+        "schedule-d.line-1b",
+        "schedule-d.line-21",
+        "schedule-d.line-7",
+        "schedule3.line-1",
+        "schedule3.line-8"
+      ],
+      "reason_no_question": [
+        "form1040.line-25b",
+        "form1040.line-25d"
+      ],
+      "blocked": [
+        {
+          "fields": [
+            "form.eic-worksheet-a.line-3"
+          ],
+          "artifact": "eic-worksheet-a.line-3",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "income.agi"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form.eic-worksheet-a.line-5"
+          ],
+          "artifact": "eic-worksheet-a.line-5",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "eic.worksheet-a.line-3"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form.eic-worksheet-a.line-6"
+          ],
+          "artifact": "eic-worksheet-a.line-6",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "eic.worksheet-a.line-3"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form.sch8812.line-14"
+          ],
+          "artifact": "ctc-sch8812-line-14",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "ctc.sch8812.line-12",
+            "ctc.sch8812.line-13"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form.sch8812.line-17"
+          ],
+          "artifact": "ctc-sch8812-line-17",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "ctc.sch8812.line-16a"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form.sch8812.worksheet-a.line-5"
+          ],
+          "artifact": "ctc-worksheet-a.line-5",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "ctc.sch8812.worksheet-a.line-3"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-11a",
+            "form1040.line-11b"
+          ],
+          "artifact": "form1040-line11",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "income.total-income"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-13b"
+          ],
+          "artifact": "form1040-line13b",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule1a.line37-enhanced-deduction-total"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-14"
+          ],
+          "artifact": "form1040-line14",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "deductions.schedule-1a"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-15"
+          ],
+          "artifact": "form1040-line15",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "income.agi",
+            "deductions.line-14"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-16"
+          ],
+          "artifact": "form1040-line16",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "income.taxable-income",
+            "capital-gains.selected-preferential-base",
+            "qdcg-worksheet.line-24",
+            "qdcg-worksheet.line-25"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-19"
+          ],
+          "artifact": "ctc-form1040-line19",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "ctc.sch8812.line-14"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-20"
+          ],
+          "artifact": "form1040-line20",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule3.line8-total"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-24"
+          ],
+          "artifact": "form1040-line24",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.after-nonrefundable-credits"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-25b"
+          ],
+          "artifact": "form1040-line25b",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "f1099b.statement-box4-withholding"
+          ],
+          "reasons": [
+            "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+          ],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-25d"
+          ],
+          "artifact": "form1040-line25d",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line25b"
+          ],
+          "reasons": [
+            "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+          ],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-27a"
+          ],
+          "artifact": "form1040-line27a",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "eic.eligibility-result"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-28"
+          ],
+          "artifact": "ctc-sch8812-line-27",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "ctc.sch8812.line-17",
+            "ctc.sch8812.part-ii-b-needed"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-32"
+          ],
+          "artifact": "form1040-line32",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.lines27-31-total"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-33"
+          ],
+          "artifact": "form1040-line33",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line25d",
+            "payments.line32"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-34"
+          ],
+          "artifact": "form1040-line34",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line33",
+            "tax.line24-total-tax"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-35a"
+          ],
+          "artifact": "form1040-line35a",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line34-overpaid",
+            "payments.line36-applied-to-2026"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-37"
+          ],
+          "artifact": "form1040-line37",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.line24-total-tax",
+            "payments.line33"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-6b"
+          ],
+          "artifact": "ss-benefits-worksheet",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "capital-gains.line7a-total"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-7a"
+          ],
+          "artifact": "form1040-line7a",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule-d.line-16",
+            "schedule-d.line-21",
+            "capital-gains.selected-preferential-base",
+            "schedule-d.line-1b"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.line-9"
+          ],
+          "artifact": "form1040-line9",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "capital-gains.line7a-total",
+            "social-security.line6b"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "form1040.tax-after-credits"
+          ],
+          "artifact": "form1040-tax-after-credits",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.total-tax",
+            "credits.form1040-line20",
+            "ctc.form1040-line19"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "schedule-d.line-16"
+          ],
+          "artifact": "schedule-d-line16",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule-d.line-7"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "schedule-d.line-1b"
+          ],
+          "artifact": "schedule-d-line1b",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "f1099b.covered-w-st-adjustment-subtotal",
+            "f1099b.covered-w-st-txn.admission-check"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "schedule-d.line-21"
+          ],
+          "artifact": "schedule-d-line21",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule-d.line-16"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "schedule-d.line-7"
+          ],
+          "artifact": "schedule-d-line7",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule-d.line-1b"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "schedule3.line-1"
+          ],
+          "artifact": "schedule3-line1-direct-ftc",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.total-tax"
+          ],
+          "reasons": [],
+          "questions": []
+        },
+        {
+          "fields": [
+            "schedule3.line-8"
+          ],
+          "artifact": "schedule3-line8",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "schedule3.line1-direct-ftc"
+          ],
+          "reasons": [],
+          "questions": []
+        }
+      ],
+      "root_blocks": [
+        {
+          "artifact": "closure-check.f1099b-covered-w-st-adjustment",
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "f1099b.covered-w-st-adjustment"
+          ]
+        },
+        {
+          "artifact": "f1099b.covered-w-st-txn.admission-check",
+          "code": "DEPENDENCY_INVALID",
+          "missing": [
+            "f1099b.covered-w-st-txn|broker=demo.sfa.bnq-sale.broker,statement=demo.sfa.bnq-sale.statement,transaction=demo.sfa.bnq-sale.transaction,tax-year=2025"
+          ]
+        },
+        {
+          "artifact": "form1040-line25b",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "f1099b.statement-box4-withholding"
+          ]
+        }
+      ],
+      "source_set_blocks": [
+        {
+          "artifact": "closure-check.f1099b-covered-w-st-adjustment",
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "f1099b.covered-w-st-adjustment"
+          ]
+        },
+        {
+          "artifact": "f1099b.covered-w-st-txn.admission",
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "f1099b.covered-w-st-adjustment"
+          ]
+        }
+      ]
+    },
+    "internal_f1099int_b8": {
+      "group": "internal-subtotal",
+      "note": "Only the Form 1099-INT box 8 family is open.",
+      "outcome": "success",
+      "stop": "saturated",
+      "lines": {
+        "form1040.line-11a": 50000,
+        "form1040.line-15": 34250,
+        "form1040.line-16": 3875,
+        "form1040.line-19": 0,
+        "form1040.line-24": 3875,
+        "form1040.line-2a": 0,
+        "form1040.line-2b": 0,
+        "form1040.line-33": 4500,
+        "form1040.line-37": 0,
+        "form1040.line-7a": 0,
+        "form1040.line-7b": "published_categorical",
+        "form1040.line-9": 50000,
+        "schedule-d.line-10": 0,
+        "schedule-d.line-15": 0,
+        "schedule-d.line-16": 0,
+        "schedule-d.line-1a": 0,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-2": 0,
+        "schedule-d.line-21": 0,
+        "schedule-d.line-3": 0,
+        "schedule-d.line-7": 0,
+        "schedule-d.line-8a": 0,
+        "schedule-d.line-8b": 0,
+        "schedule-d.line-9": 0
+      },
+      "questions": [],
+      "silent_blocked": [],
+      "reason_no_question": [],
+      "blocked": [],
+      "root_blocks": [],
+      "source_set_blocks": [
+        {
+          "artifact": "f1099int-b8-subtotal",
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "f1099int.b8"
+          ]
+        }
+      ]
+    },
+    "internal_nominee": {
+      "group": "internal-subtotal",
+      "note": "Only the Schedule B nominee-adjustment family is open.",
+      "outcome": "success",
+      "stop": "saturated",
+      "lines": {
+        "form1040.line-11a": 50000,
+        "form1040.line-15": 34250,
+        "form1040.line-16": 3875,
+        "form1040.line-19": 0,
+        "form1040.line-24": 3875,
+        "form1040.line-2a": 0,
+        "form1040.line-2b": 0,
+        "form1040.line-33": 4500,
+        "form1040.line-37": 0,
+        "form1040.line-7a": 0,
+        "form1040.line-7b": "published_categorical",
+        "form1040.line-9": 50000,
+        "schedule-d.line-10": 0,
+        "schedule-d.line-15": 0,
+        "schedule-d.line-16": 0,
+        "schedule-d.line-1a": 0,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-2": 0,
+        "schedule-d.line-21": 0,
+        "schedule-d.line-3": 0,
+        "schedule-d.line-7": 0,
+        "schedule-d.line-8a": 0,
+        "schedule-d.line-8b": 0,
+        "schedule-d.line-9": 0
+      },
+      "questions": [],
+      "silent_blocked": [],
+      "reason_no_question": [],
+      "blocked": [],
+      "root_blocks": [],
+      "source_set_blocks": [
+        {
+          "artifact": "scheduleb-adjustment.nominee-subtotal",
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "scheduleb.adjustment.nominee"
+          ]
+        }
+      ]
+    },
+    "internal_odc_child": {
+      "group": "internal-subtotal",
+      "note": "Only the other-dependent child roster is open.",
+      "outcome": "success",
+      "stop": "saturated",
+      "lines": {
+        "form1040.line-11a": 50000,
+        "form1040.line-15": 34250,
+        "form1040.line-16": 3875,
+        "form1040.line-19": 0,
+        "form1040.line-24": 3875,
+        "form1040.line-2a": 0,
+        "form1040.line-2b": 0,
+        "form1040.line-33": 4500,
+        "form1040.line-37": 0,
+        "form1040.line-7a": 0,
+        "form1040.line-7b": "published_categorical",
+        "form1040.line-9": 50000,
+        "schedule-d.line-10": 0,
+        "schedule-d.line-15": 0,
+        "schedule-d.line-16": 0,
+        "schedule-d.line-1a": 0,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-2": 0,
+        "schedule-d.line-21": 0,
+        "schedule-d.line-3": 0,
+        "schedule-d.line-7": 0,
+        "schedule-d.line-8a": 0,
+        "schedule-d.line-8b": 0,
+        "schedule-d.line-9": 0
+      },
+      "questions": [],
+      "silent_blocked": [],
+      "reason_no_question": [],
+      "blocked": [],
+      "root_blocks": [],
+      "source_set_blocks": [
+        {
+          "artifact": "odc-child-count",
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "odc.child-roster"
+          ]
+        }
+      ]
+    },
+    "internal_odc_relative": {
+      "group": "internal-subtotal",
+      "note": "Only the other-dependent relative roster is open.",
+      "outcome": "success",
+      "stop": "saturated",
+      "lines": {
+        "form1040.line-11a": 50000,
+        "form1040.line-15": 34250,
+        "form1040.line-16": 3875,
+        "form1040.line-19": 0,
+        "form1040.line-24": 3875,
+        "form1040.line-2a": 0,
+        "form1040.line-2b": 0,
+        "form1040.line-33": 4500,
+        "form1040.line-37": 0,
+        "form1040.line-7a": 0,
+        "form1040.line-7b": "published_categorical",
+        "form1040.line-9": 50000,
+        "schedule-d.line-10": 0,
+        "schedule-d.line-15": 0,
+        "schedule-d.line-16": 0,
+        "schedule-d.line-1a": 0,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-2": 0,
+        "schedule-d.line-21": 0,
+        "schedule-d.line-3": 0,
+        "schedule-d.line-7": 0,
+        "schedule-d.line-8a": 0,
+        "schedule-d.line-8b": 0,
+        "schedule-d.line-9": 0
+      },
+      "questions": [],
+      "silent_blocked": [],
+      "reason_no_question": [],
+      "blocked": [],
+      "root_blocks": [],
+      "source_set_blocks": [
+        {
+          "artifact": "odc-relative-count",
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "odc.relative-roster"
+          ]
+        }
+      ]
+    }
+  }
+}
