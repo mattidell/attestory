@@ -3,7 +3,8 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "blocked-names-question",
-  "status": "Open. Track 1 built; review not ready; repair chartered (Decisions 7-12).",
+  "status": "Closed 2026-11-13. Core v89 on rule-artifact.v17 built, reviewed and repaired.",
+  "retrospective": "docs/milestone-retrospectives/2026-11-13-blocked-names-question.md",
   "scope": [
     "no truthful filer reaches a blocked line that shows a reason and asks nothing",
     "when a line blocks waiting on an answer, the page names the question that answer comes from",
@@ -243,3 +244,20 @@ Foreman, 2026-11-13, on `docs/reviews/blocked-names-question/review.md`
     including inside worker processes (activate the loader per worker),
     and no test module is left in `sys.modules`.
 12. **BNQ-R6** stays a note: no v89 rule declares a covered sale family.
+
+## Review and repair
+
+Fresh-reader review: `docs/reviews/blocked-names-question/review.md`, not
+ready. BNQ-R1 (blocking): the runner's `finalize_unattempted` discarded a
+`when` guard's declared names, so line 16 and the lines below stayed
+reasonless on 4 recorded returns. BNQ-R2 (blocking): three cases missed
+their hand values, hidden by a test that skipped the check whenever any
+question (since core v88, age and blindness) remained. Both were repaired
+with tests that fail on the pre-repair code, with BNQ-R3 to R5 (Decisions
+7-12); the 775-list replay was rerun (0 number changes) and the full suite
+passed. The re-review was ready, with note BNQ-R7 parked in the roadmap.
+
+## Closeout
+
+Closed 2026-11-13. Retrospective:
+`docs/milestone-retrospectives/2026-11-13-blocked-names-question.md`.

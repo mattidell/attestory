@@ -1,7 +1,7 @@
 # Review: `blocked-names-question` (Core v89 / Rule Artifact v17)
 
 - **Branch:** `milestone/blocked-names-question-2025`
-- **Reviewed commit:** `c59d3d03aada96b6b26a4c4e439d970dacfa5b5c` (`c59d3d03`)
+- **Reviewed commit:** the Track 1 head (removed at closeout)
 - **Comparison base:** `github/main` (`080d27585dc0ef90910f32e70d6ff76e8618bb6b`)
 - **Charter:** `docs/reviews/blocked-names-question/charter-review.md` (`4657bbd9c3e7956ee464ef3776efc47938e402b1`)
 - **Verdict:** **not ready** — blocked by `BNQ-R1` and `BNQ-R2`
@@ -271,9 +271,9 @@ On the 4 recorded returns in `docs/phases/engine-breadth/milestones/blocked-name
 
 ---
 
-## Re-review (`ac149b2d..34d868a2`)
+## Re-review (the repair commits, removed at closeout)
 
-- **Reviewed range:** `ac149b2d..34d868a2` (`HEAD` `34d868a2328d9a9794a01ff28a9cf340435881a6`)
+- **Reviewed range:** the repair commits (removed at closeout)
 - **Controlling decisions:** Decisions 7–12 in `docs/phases/engine-breadth/milestones/blocked-names-question.md`
 - **Re-review verdict:** **`ready`**
 
