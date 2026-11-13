@@ -519,11 +519,16 @@ def summarize(outcome: Any) -> dict[str, Any]:
 
 
 def run(core: Core, acts: Acts, run_id: str) -> dict[str, Any]:
-    """Adopt ``core`` on ``acts`` and run them through the real coordinator."""
+    """Adopt ``core`` on ``acts`` and run them through the real coordinator.
+
+    On v88 the taxpayer's two facts are stated false when the list leaves
+    them unstated (Decision 6). Earlier cores run ``acts`` unchanged.
+    """
     surface = core.surface()
+    prepared = ccr.state_taxpayer_facts(acts, core=core.version)
     with loader_entries(core):
         try:
-            finished = _handover(_finish(copy.deepcopy(acts), package_path=core.package_path,
+            finished = _handover(_finish(copy.deepcopy(prepared), package_path=core.package_path,
                                          package_version=core.version, release_path=core.release_path,
                                          release_version=core.release_version, note=run_id),
                                  surface=surface, reconfirm=True)

@@ -809,6 +809,22 @@ pins are stored once per core, so a P0 rerun table and a Track 0
 neighbour table come from one replay; a part file is bound to its cores
 and resumes. No package, schema or engine changed.
 
+## Bounded return — Age and Blindness Are Asked (2025)
+
+[Plan](milestones/age-blindness-asked.md); retrospective:
+`docs/milestone-retrospectives/2026-11-12-age-blindness-asked.md`.
+
+Core v88 (registry v86, release v86) asks the filer's age and blindness,
+and on a joint return the spouse's, instead of defaulting them to false:
+born before January 2, 1961 (the day-before-the-birthday rule; a 2025
+death before 65 answers no), and blind on December 31, 2025 or by an eye
+doctor's certified statement. On a separate return one question asks
+whether the spouse had no income, isn't filing and can't be claimed as a
+dependent; only a yes asks the spouse's age and blindness. A qualifying
+surviving spouse counts only the filer's boxes, as the 2025 chart does.
+Content only. The 775 recorded lists, answered as their records imply,
+compute the same numbers.
+
 ## Parked work and open questions
 
 This is the single list of parked work and open owner-held questions for the
@@ -901,10 +917,11 @@ delivers an item removes it.
   record answered or which finding proved it (a schema).
 - Worksheet lines as presentation rows; `demo.*` ids on the correct
   capital-loss and Social Security amounts.
-- Age and blindness are never asked: the four facts default to false with
-  no question, so a filer born before January 2, 1961 loses the additional
-  standard deduction and the senior deduction. Next milestone
-  (age-blindness-asked).
+- Blindness for someone who died in 2025: neither the Form 1040
+  instructions nor Publication 501 says how it is judged, and the
+  blindness questions state December 31, 2025 on every return.
+- Line 12d's four boxes are not form fields; the page shows the answers
+  only through line 12e.
 - Exact question identification from saved outcomes, process-restart recovery,
   and broader internal-error guidance remain separate questions. Do not infer
   a missing answer from a derived symbol or treat them as delivered here.

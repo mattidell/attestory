@@ -206,7 +206,7 @@ def named_covered_flag_refusal_maps() -> dict[tuple[str, str], dict[str, str]]:
     """Packages whose companion declaration names the covered-flag refusal.
 
     Core v79 is the first package that names it, and cores v80, v81, v82, v83,
-    v84, v85, v86 and v87 name the same map. Core v78 and earlier are
+    v84, v85, v86, v87 and v88 name the same map. Core v78 and earlier are
     absent, so their runs never consult the map. The map is a sibling of the
     companion declaration: the kernel declaration only carries presence pairs
     and value domains.
@@ -236,6 +236,9 @@ def named_covered_flag_refusal_maps() -> dict[tuple[str, str], dict[str, str]]:
         # Core v87 changes only question words and fact titles. It adds no
         # covered sale object, so the map is v86's.
         ("tax.us.2025.package.core-calculations", "v87"): dict(COVERED_FLAG_REFUSAL_OBJECTS),
+        # Core v88 asks age, blindness, and the separate-return spouse
+        # condition. It adds no covered sale object, so the map is v87's.
+        ("tax.us.2025.package.core-calculations", "v88"): dict(COVERED_FLAG_REFUSAL_OBJECTS),
     }
 
 
@@ -610,6 +613,21 @@ def domain_package_companion_declarations() -> dict[tuple[str, str], dict[str, A
         # pair and value domain v86 carries. Without this entry, v87 would
         # fall back to the global maps and refuse amounts v86 admits.
         ("tax.us.2025.package.core-calculations", "v87"): {
+            "presence_pairs": {
+                **gambling["presence_pairs"],
+                **noncovered_scalar_presence_pairs(),
+                **no1099b_scalar_presence_pairs(),
+                **code_b_scalar_presence_pairs(),
+                **covered_scalar_presence_pairs(),
+            },
+            "value_domains": dict(gambling["value_domains"]),
+        },
+        # Core v88 asks age, blindness, and the separate-return spouse
+        # condition. It adds no sale object or amount pair, so v88 carries
+        # every scalar presence pair and value domain v87 carries. Without
+        # this entry, v88 would fall back to the global maps and refuse
+        # amounts v87 admits.
+        ("tax.us.2025.package.core-calculations", "v88"): {
             "presence_pairs": {
                 **gambling["presence_pairs"],
                 **noncovered_scalar_presence_pairs(),

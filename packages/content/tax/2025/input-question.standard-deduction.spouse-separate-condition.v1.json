@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.standard-deduction.spouse-separate-condition",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.standard-deduction.spouse-separate-condition",
+  "question": "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?",
+  "schema": "input-question.v1",
+  "version": "v1"
+}

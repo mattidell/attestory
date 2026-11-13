@@ -166,12 +166,14 @@ def say_b7_reported(acts: list[dict[str, Any]], core: Any, statement: str, value
 # ---- Runner -----------------------------------------------------------------------
 
 def run_coordinate(core: Any, acts: list[dict[str, Any]], run_id: str) -> dict[str, Any]:
+    # v88 requires the taxpayer's two facts (Decision 6). Earlier cores keep the list.
+    prepared = h.ccr.state_taxpayer_facts(acts, core=core.version)
     with h.loader_entries(core):
         surface = core.surface()
         try:
             finished = h._handover(
                 h._finish(
-                    copy.deepcopy(acts),
+                    copy.deepcopy(prepared),
                     package_path=core.package_path,
                     package_version=core.version,
                     release_path=core.release_path,

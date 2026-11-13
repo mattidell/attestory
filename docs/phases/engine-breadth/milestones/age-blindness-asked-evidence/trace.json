@@ -1,0 +1,977 @@
+{
+  "cores": {
+    "v86": {
+      "package": "v86",
+      "facts": {
+        "taxpayer-over-65": {
+          "binding": {
+            "symbol": "taxpayer_over_65",
+            "mode": "optional_default",
+            "fact_type_version": "v1"
+          },
+          "declared_in": "core_calculations.vocabulary v2",
+          "fact_type_version": "v1",
+          "value_schema": {
+            "type": "boolean"
+          },
+          "title": "Taxpayer is over 65 years of age for 2025",
+          "declared_default": "parameter.default-false v1",
+          "default_value": false,
+          "default_applies": true,
+          "input_questions": []
+        },
+        "taxpayer-blind": {
+          "binding": {
+            "symbol": "taxpayer_blind",
+            "mode": "optional_default",
+            "fact_type_version": "v1"
+          },
+          "declared_in": "core_calculations.vocabulary v2",
+          "fact_type_version": "v1",
+          "value_schema": {
+            "type": "boolean"
+          },
+          "title": "Taxpayer is blind for 2025",
+          "declared_default": "parameter.default-false v1",
+          "default_value": false,
+          "default_applies": true,
+          "input_questions": []
+        },
+        "spouse-over-65": {
+          "binding": {
+            "symbol": "spouse_over_65",
+            "mode": "optional_default",
+            "fact_type_version": "v1"
+          },
+          "declared_in": "core_calculations.vocabulary v2",
+          "fact_type_version": "v1",
+          "value_schema": {
+            "type": "boolean"
+          },
+          "title": "Spouse is over 65 years of age for 2025",
+          "declared_default": "parameter.default-false v1",
+          "default_value": false,
+          "default_applies": true,
+          "input_questions": []
+        },
+        "spouse-blind": {
+          "binding": {
+            "symbol": "spouse_blind",
+            "mode": "optional_default",
+            "fact_type_version": "v1"
+          },
+          "declared_in": "core_calculations.vocabulary v2",
+          "fact_type_version": "v1",
+          "value_schema": {
+            "type": "boolean"
+          },
+          "title": "Spouse is blind for 2025",
+          "declared_default": "parameter.default-false v1",
+          "default_value": false,
+          "default_applies": true,
+          "input_questions": []
+        }
+      },
+      "readers": [
+        {
+          "id": "rule.dependents-worksheet-line-1",
+          "version": "v1",
+          "publishes": "dependents-worksheet.line1-box-count",
+          "names": [
+            "spouse_blind",
+            "spouse_over_65",
+            "tax.us.2025.spouse-blind",
+            "tax.us.2025.spouse-over-65",
+            "tax.us.2025.taxpayer-blind",
+            "tax.us.2025.taxpayer-over-65",
+            "taxpayer_blind",
+            "taxpayer_over_65"
+          ],
+          "requires": [
+            "spouse_blind",
+            "spouse_over_65",
+            "taxpayer_blind",
+            "taxpayer_over_65"
+          ],
+          "conditional_dependency_set_members": [],
+          "read_in_expression": [
+            "spouse_blind",
+            "spouse_over_65",
+            "taxpayer_blind",
+            "taxpayer_over_65"
+          ]
+        },
+        {
+          "id": "rule.schedule1a-part-v-line-36a",
+          "version": "v1",
+          "publishes": "schedule1a.line36a-taxpayer",
+          "names": [
+            "tax.us.2025.taxpayer-over-65",
+            "taxpayer_over_65"
+          ],
+          "requires": [
+            "taxpayer_over_65"
+          ],
+          "conditional_dependency_set_members": [],
+          "read_in_expression": [
+            "taxpayer_over_65"
+          ]
+        },
+        {
+          "id": "rule.schedule1a-part-v-line-36b",
+          "version": "v1",
+          "publishes": "schedule1a.line36b-spouse",
+          "names": [
+            "spouse_over_65",
+            "tax.us.2025.spouse-over-65"
+          ],
+          "requires": [
+            "spouse_over_65"
+          ],
+          "conditional_dependency_set_members": [],
+          "read_in_expression": [
+            "spouse_over_65"
+          ]
+        }
+      ],
+      "downstream_rule_count": 61,
+      "downstream_sample": [
+        "credits.form1040-line20",
+        "ctc.form1040-line19",
+        "ctc.form1040-line28",
+        "ctc.sch8812.line-13",
+        "ctc.sch8812.line-14",
+        "ctc.sch8812.line-16a",
+        "ctc.sch8812.line-17",
+        "ctc.sch8812.line-21",
+        "ctc.sch8812.line-22",
+        "ctc.sch8812.line-23",
+        "ctc.sch8812.line-24",
+        "ctc.sch8812.line-25",
+        "ctc.sch8812.line-26",
+        "ctc.sch8812.part-ii-b-needed",
+        "ctc.sch8812.worksheet-a.line-1",
+        "ctc.sch8812.worksheet-a.line-2",
+        "ctc.sch8812.worksheet-a.line-3",
+        "ctc.sch8812.worksheet-a.line-5",
+        "deductions.line-12e",
+        "deductions.line-14",
+        "deductions.schedule-1a",
+        "demo.form1040.standard_deduction",
+        "dependents-worksheet.line4b",
+        "dependents-worksheet.line4c",
+        "income.taxable-income",
+        "payments.line32",
+        "payments.line33",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded",
+        "payments.line36-applied-to-2026",
+        "payments.line37-amount-owed",
+        "payments.lines27-31-total",
+        "payments.lines28-31",
+        "qdcg-worksheet.line-10",
+        "qdcg-worksheet.line-11",
+        "qdcg-worksheet.line-12",
+        "qdcg-worksheet.line-14",
+        "qdcg-worksheet.line-15",
+        "qdcg-worksheet.line-16",
+        "qdcg-worksheet.line-17",
+        "qdcg-worksheet.line-18",
+        "qdcg-worksheet.line-19",
+        "qdcg-worksheet.line-20",
+        "qdcg-worksheet.line-21",
+        "qdcg-worksheet.line-22",
+        "qdcg-worksheet.line-23",
+        "qdcg-worksheet.line-24",
+        "qdcg-worksheet.line-25",
+        "qdcg-worksheet.line-5",
+        "qdcg-worksheet.line-7",
+        "qdcg-worksheet.line-8",
+        "qdcg-worksheet.line-9",
+        "schedule-a.excess-over-standard",
+        "schedule1a.line37-enhanced-deduction-total",
+        "schedule3.line1-direct-ftc",
+        "schedule3.line8-total",
+        "tax.after-nonrefundable-credits",
+        "tax.line24-total-tax",
+        "tax.total-tax",
+        "w2.box4-total"
+      ],
+      "form_fields": [
+        {
+          "id": "form.sch8812.line-14",
+          "binds": "ctc.sch8812.line-14",
+          "direct": false
+        },
+        {
+          "id": "form.sch8812.line-17",
+          "binds": "ctc.sch8812.line-17",
+          "direct": false
+        },
+        {
+          "id": "form.sch8812.worksheet-a.line-5",
+          "binds": "ctc.sch8812.worksheet-a.line-5",
+          "direct": false
+        },
+        {
+          "id": "form1040.line-12e",
+          "binds": "deductions.line-12e",
+          "direct": false
+        },
+        {
+          "id": "form1040.line-13b",
+          "binds": "deductions.schedule-1a",
+          "direct": false
+        },
+        {
+          "id": "form1040.line-14",
+          "binds": "deductions.line-14",
+          "direct": false
+        },
+        {
+          "id": "form1040.line-15",
+          "binds": "income.taxable-income",
+          "direct": false
+        },
+        {
+          "id": "form1040.line-16",
+          "binds": "tax.total-tax",
+          "direct": false
+        },
+        {
+          "id": "form1040.line-19",
+          "binds": "ctc.form1040-line19",
+          "direct": false
+        },
+        {
+          "id": "form1040.line-20",
+          "binds": "credits.form1040-line20",
+          "direct": false
+        },
+        {
+          "id": "form1040.line-24",
+          "binds": "tax.line24-total-tax",
+          "direct": false
+        },
+        {
+          "id": "form1040.line-28",
+          "binds": "ctc.form1040-line28",
+          "direct": false
+        },
+        {
+          "id": "form1040.line-32",
+          "binds": "payments.line32",
+          "direct": false
+        },
+        {
+          "id": "form1040.line-33",
+          "binds": "payments.line33",
+          "direct": false
+        },
+        {
+          "id": "form1040.line-34",
+          "binds": "payments.line34-overpaid",
+          "direct": false
+        },
+        {
+          "id": "form1040.line-35a",
+          "binds": "payments.line35a-refunded",
+          "direct": false
+        },
+        {
+          "id": "form1040.line-37",
+          "binds": "payments.line37-amount-owed",
+          "direct": false
+        },
+        {
+          "id": "form1040.tax-after-credits",
+          "binds": "tax.after-nonrefundable-credits",
+          "direct": false
+        },
+        {
+          "id": "schedule3.line-1",
+          "binds": "schedule3.line1-direct-ftc",
+          "direct": false
+        },
+        {
+          "id": "schedule3.line-8",
+          "binds": "schedule3.line8-total",
+          "direct": false
+        }
+      ],
+      "form_fields_showing_a_fact_or_reader": []
+    },
+    "v87": {
+      "package": "v87",
+      "facts": {
+        "taxpayer-over-65": {
+          "binding": {
+            "symbol": "taxpayer_over_65",
+            "mode": "optional_default",
+            "fact_type_version": "v1"
+          },
+          "declared_in": "core_calculations.vocabulary v3",
+          "fact_type_version": "v1",
+          "value_schema": {
+            "type": "boolean"
+          },
+          "title": "Taxpayer was born before January 2, 1961. A person reaches age 65 on the day before the 65th birthday. A taxpayer who was born before January 2, 1961 but died in 2025 before reaching age 65 is not included.",
+          "declared_default": "parameter.default-false v1",
+          "default_value": false,
+          "default_applies": true,
+          "input_questions": []
+        },
+        "taxpayer-blind": {
+          "binding": {
+            "symbol": "taxpayer_blind",
+            "mode": "optional_default",
+            "fact_type_version": "v1"
+          },
+          "declared_in": "core_calculations.vocabulary v3",
+          "fact_type_version": "v1",
+          "value_schema": {
+            "type": "boolean"
+          },
+          "title": "Taxpayer was totally blind as of December 31, 2025, or has a statement certified by an eye doctor that the taxpayer cannot see better than 20/200 in the better eye with glasses or contact lenses, or that the field of vision is 20 degrees or less.",
+          "declared_default": "parameter.default-false v1",
+          "default_value": false,
+          "default_applies": true,
+          "input_questions": []
+        },
+        "spouse-over-65": {
+          "binding": {
+            "symbol": "spouse_over_65",
+            "mode": "optional_default",
+            "fact_type_version": "v1"
+          },
+          "declared_in": "core_calculations.vocabulary v3",
+          "fact_type_version": "v1",
+          "value_schema": {
+            "type": "boolean"
+          },
+          "title": "Spouse was born before January 2, 1961. A person reaches age 65 on the day before the 65th birthday. A spouse who was born before January 2, 1961 but died in 2025 before reaching age 65 is not included.",
+          "declared_default": "parameter.default-false v1",
+          "default_value": false,
+          "default_applies": true,
+          "input_questions": []
+        },
+        "spouse-blind": {
+          "binding": {
+            "symbol": "spouse_blind",
+            "mode": "optional_default",
+            "fact_type_version": "v1"
+          },
+          "declared_in": "core_calculations.vocabulary v3",
+          "fact_type_version": "v1",
+          "value_schema": {
+            "type": "boolean"
+          },
+          "title": "Spouse was totally blind as of December 31, 2025, or has a statement certified by an eye doctor that the spouse cannot see better than 20/200 in the better eye with glasses or contact lenses, or that the field of vision is 20 degrees or less.",
+          "declared_default": "parameter.default-false v1",
+          "default_value": false,
+          "default_applies": true,
+          "input_questions": []
+        }
+      },
+      "readers": [
+        {
+          "id": "rule.dependents-worksheet-line-1",
+          "version": "v1",
+          "publishes": "dependents-worksheet.line1-box-count",
+          "names": [
+            "spouse_blind",
+            "spouse_over_65",
+            "tax.us.2025.spouse-blind",
+            "tax.us.2025.spouse-over-65",
+            "tax.us.2025.taxpayer-blind",
+            "tax.us.2025.taxpayer-over-65",
+            "taxpayer_blind",
+            "taxpayer_over_65"
+          ],
+          "requires": [
+            "spouse_blind",
+            "spouse_over_65",
+            "taxpayer_blind",
+            "taxpayer_over_65"
+          ],
+          "conditional_dependency_set_members": [],
+          "read_in_expression": [
+            "spouse_blind",
+            "spouse_over_65",
+            "taxpayer_blind",
+            "taxpayer_over_65"
+          ]
+        },
+        {
+          "id": "rule.schedule1a-part-v-line-36a",
+          "version": "v1",
+          "publishes": "schedule1a.line36a-taxpayer",
+          "names": [
+            "tax.us.2025.taxpayer-over-65",
+            "taxpayer_over_65"
+          ],
+          "requires": [
+            "taxpayer_over_65"
+          ],
+          "conditional_dependency_set_members": [],
+          "read_in_expression": [
+            "taxpayer_over_65"
+          ]
+        },
+        {
+          "id": "rule.schedule1a-part-v-line-36b",
+          "version": "v1",
+          "publishes": "schedule1a.line36b-spouse",
+          "names": [
+            "spouse_over_65",
+            "tax.us.2025.spouse-over-65"
+          ],
+          "requires": [
+            "spouse_over_65"
+          ],
+          "conditional_dependency_set_members": [],
+          "read_in_expression": [
+            "spouse_over_65"
+          ]
+        }
+      ],
+      "downstream_rule_count": 61,
+      "downstream_sample": [
+        "credits.form1040-line20",
+        "ctc.form1040-line19",
+        "ctc.form1040-line28",
+        "ctc.sch8812.line-13",
+        "ctc.sch8812.line-14",
+        "ctc.sch8812.line-16a",
+        "ctc.sch8812.line-17",
+        "ctc.sch8812.line-21",
+        "ctc.sch8812.line-22",
+        "ctc.sch8812.line-23",
+        "ctc.sch8812.line-24",
+        "ctc.sch8812.line-25",
+        "ctc.sch8812.line-26",
+        "ctc.sch8812.part-ii-b-needed",
+        "ctc.sch8812.worksheet-a.line-1",
+        "ctc.sch8812.worksheet-a.line-2",
+        "ctc.sch8812.worksheet-a.line-3",
+        "ctc.sch8812.worksheet-a.line-5",
+        "deductions.line-12e",
+        "deductions.line-14",
+        "deductions.schedule-1a",
+        "demo.form1040.standard_deduction",
+        "dependents-worksheet.line4b",
+        "dependents-worksheet.line4c",
+        "income.taxable-income",
+        "payments.line32",
+        "payments.line33",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded",
+        "payments.line36-applied-to-2026",
+        "payments.line37-amount-owed",
+        "payments.lines27-31-total",
+        "payments.lines28-31",
+        "qdcg-worksheet.line-10",
+        "qdcg-worksheet.line-11",
+        "qdcg-worksheet.line-12",
+        "qdcg-worksheet.line-14",
+        "qdcg-worksheet.line-15",
+        "qdcg-worksheet.line-16",
+        "qdcg-worksheet.line-17",
+        "qdcg-worksheet.line-18",
+        "qdcg-worksheet.line-19",
+        "qdcg-worksheet.line-20",
+        "qdcg-worksheet.line-21",
+        "qdcg-worksheet.line-22",
+        "qdcg-worksheet.line-23",
+        "qdcg-worksheet.line-24",
+        "qdcg-worksheet.line-25",
+        "qdcg-worksheet.line-5",
+        "qdcg-worksheet.line-7",
+        "qdcg-worksheet.line-8",
+        "qdcg-worksheet.line-9",
+        "schedule-a.excess-over-standard",
+        "schedule1a.line37-enhanced-deduction-total",
+        "schedule3.line1-direct-ftc",
+        "schedule3.line8-total",
+        "tax.after-nonrefundable-credits",
+        "tax.line24-total-tax",
+        "tax.total-tax",
+        "w2.box4-total"
+      ],
+      "form_fields": [
+        {
+          "id": "form.sch8812.line-14",
+          "binds": "ctc.sch8812.line-14",
+          "direct": false
+        },
+        {
+          "id": "form.sch8812.line-17",
+          "binds": "ctc.sch8812.line-17",
+          "direct": false
+        },
+        {
+          "id": "form.sch8812.worksheet-a.line-5",
+          "binds": "ctc.sch8812.worksheet-a.line-5",
+          "direct": false
+        },
+        {
+          "id": "form1040.line-12e",
+          "binds": "deductions.line-12e",
+          "direct": false
+        },
+        {
+          "id": "form1040.line-13b",
+          "binds": "deductions.schedule-1a",
+          "direct": false
+        },
+        {
+          "id": "form1040.line-14",
+          "binds": "deductions.line-14",
+          "direct": false
+        },
+        {
+          "id": "form1040.line-15",
+          "binds": "income.taxable-income",
+          "direct": false
+        },
+        {
+          "id": "form1040.line-16",
+          "binds": "tax.total-tax",
+          "direct": false
+        },
+        {
+          "id": "form1040.line-19",
+          "binds": "ctc.form1040-line19",
+          "direct": false
+        },
+        {
+          "id": "form1040.line-20",
+          "binds": "credits.form1040-line20",
+          "direct": false
+        },
+        {
+          "id": "form1040.line-24",
+          "binds": "tax.line24-total-tax",
+          "direct": false
+        },
+        {
+          "id": "form1040.line-28",
+          "binds": "ctc.form1040-line28",
+          "direct": false
+        },
+        {
+          "id": "form1040.line-32",
+          "binds": "payments.line32",
+          "direct": false
+        },
+        {
+          "id": "form1040.line-33",
+          "binds": "payments.line33",
+          "direct": false
+        },
+        {
+          "id": "form1040.line-34",
+          "binds": "payments.line34-overpaid",
+          "direct": false
+        },
+        {
+          "id": "form1040.line-35a",
+          "binds": "payments.line35a-refunded",
+          "direct": false
+        },
+        {
+          "id": "form1040.line-37",
+          "binds": "payments.line37-amount-owed",
+          "direct": false
+        },
+        {
+          "id": "form1040.tax-after-credits",
+          "binds": "tax.after-nonrefundable-credits",
+          "direct": false
+        },
+        {
+          "id": "schedule3.line-1",
+          "binds": "schedule3.line1-direct-ftc",
+          "direct": false
+        },
+        {
+          "id": "schedule3.line-8",
+          "binds": "schedule3.line8-total",
+          "direct": false
+        }
+      ],
+      "form_fields_showing_a_fact_or_reader": []
+    },
+    "v88": {
+      "package": "v88",
+      "facts": {
+        "taxpayer-over-65": {
+          "binding": {
+            "symbol": "taxpayer_over_65",
+            "mode": "required",
+            "fact_type_version": "v1"
+          },
+          "declared_in": "core_calculations.vocabulary v3",
+          "fact_type_version": "v1",
+          "value_schema": {
+            "type": "boolean"
+          },
+          "title": "Taxpayer was born before January 2, 1961. A person reaches age 65 on the day before the 65th birthday. A taxpayer who was born before January 2, 1961 but died in 2025 before reaching age 65 is not included.",
+          "declared_default": "parameter.default-false v1",
+          "default_value": false,
+          "default_applies": false,
+          "input_questions": [
+            {
+              "id": "input-question.taxpayer-over-65",
+              "version": "v1",
+              "question": "Were you born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday, so a birthday of January 1, 1961 counts and January 2, 1961 does not. If this return is for someone who died in 2025 before reaching age 65, answer no."
+            }
+          ]
+        },
+        "taxpayer-blind": {
+          "binding": {
+            "symbol": "taxpayer_blind",
+            "mode": "required",
+            "fact_type_version": "v1"
+          },
+          "declared_in": "core_calculations.vocabulary v3",
+          "fact_type_version": "v1",
+          "value_schema": {
+            "type": "boolean"
+          },
+          "title": "Taxpayer was totally blind as of December 31, 2025, or has a statement certified by an eye doctor that the taxpayer cannot see better than 20/200 in the better eye with glasses or contact lenses, or that the field of vision is 20 degrees or less.",
+          "declared_default": "parameter.default-false v1",
+          "default_value": false,
+          "default_applies": false,
+          "input_questions": [
+            {
+              "id": "input-question.taxpayer-blind",
+              "version": "v1",
+              "question": "Were you totally blind on December 31, 2025, or do you have a statement certified by your eye doctor (ophthalmologist or optometrist) that you can't see better than 20/200 in your better eye with glasses or contact lenses, or that your field of vision is 20 degrees or less?"
+            }
+          ]
+        },
+        "spouse-over-65": {
+          "binding": {
+            "symbol": "spouse_over_65",
+            "mode": "required",
+            "fact_type_version": "v1"
+          },
+          "declared_in": "core_calculations.vocabulary v3",
+          "fact_type_version": "v1",
+          "value_schema": {
+            "type": "boolean"
+          },
+          "title": "Spouse was born before January 2, 1961. A person reaches age 65 on the day before the 65th birthday. A spouse who was born before January 2, 1961 but died in 2025 before reaching age 65 is not included.",
+          "declared_default": "parameter.default-false v1",
+          "default_value": false,
+          "default_applies": false,
+          "input_questions": [
+            {
+              "id": "input-question.spouse-over-65",
+              "version": "v1",
+              "question": "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no. On a separate return, answer yes only if your spouse also had no income, isn't filing a return, and can't be claimed as a dependent on another person's return."
+            }
+          ]
+        },
+        "spouse-blind": {
+          "binding": {
+            "symbol": "spouse_blind",
+            "mode": "required",
+            "fact_type_version": "v1"
+          },
+          "declared_in": "core_calculations.vocabulary v3",
+          "fact_type_version": "v1",
+          "value_schema": {
+            "type": "boolean"
+          },
+          "title": "Spouse was totally blind as of December 31, 2025, or has a statement certified by an eye doctor that the spouse cannot see better than 20/200 in the better eye with glasses or contact lenses, or that the field of vision is 20 degrees or less.",
+          "declared_default": "parameter.default-false v1",
+          "default_value": false,
+          "default_applies": false,
+          "input_questions": [
+            {
+              "id": "input-question.spouse-blind",
+              "version": "v1",
+              "question": "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? On a separate return, answer yes only if your spouse also had no income, isn't filing a return, and can't be claimed as a dependent on another person's return."
+            }
+          ]
+        }
+      },
+      "readers": [
+        {
+          "id": "rule.dependents-worksheet-line-1",
+          "version": "v2",
+          "publishes": "dependents-worksheet.line1-box-count",
+          "names": [
+            "spouse_blind",
+            "spouse_over_65",
+            "tax.us.2025.spouse-blind",
+            "tax.us.2025.spouse-over-65",
+            "tax.us.2025.taxpayer-blind",
+            "tax.us.2025.taxpayer-over-65",
+            "taxpayer_blind",
+            "taxpayer_over_65"
+          ],
+          "requires": [],
+          "conditional_dependency_set_members": [
+            "spouse_blind",
+            "spouse_over_65",
+            "taxpayer_blind",
+            "taxpayer_over_65"
+          ],
+          "read_in_expression": [
+            "spouse_blind",
+            "spouse_over_65",
+            "taxpayer_blind",
+            "taxpayer_over_65"
+          ]
+        },
+        {
+          "id": "rule.schedule1a-part-v-line-36a",
+          "version": "v1",
+          "publishes": "schedule1a.line36a-taxpayer",
+          "names": [
+            "tax.us.2025.taxpayer-over-65",
+            "taxpayer_over_65"
+          ],
+          "requires": [
+            "taxpayer_over_65"
+          ],
+          "conditional_dependency_set_members": [],
+          "read_in_expression": [
+            "taxpayer_over_65"
+          ]
+        },
+        {
+          "id": "rule.schedule1a-part-v-line-36b",
+          "version": "v2",
+          "publishes": "schedule1a.line36b-spouse",
+          "names": [
+            "spouse_over_65",
+            "tax.us.2025.spouse-over-65"
+          ],
+          "requires": [],
+          "conditional_dependency_set_members": [],
+          "read_in_expression": [
+            "spouse_over_65"
+          ]
+        }
+      ],
+      "downstream_rule_count": 61,
+      "downstream_sample": [
+        "credits.form1040-line20",
+        "ctc.form1040-line19",
+        "ctc.form1040-line28",
+        "ctc.sch8812.line-13",
+        "ctc.sch8812.line-14",
+        "ctc.sch8812.line-16a",
+        "ctc.sch8812.line-17",
+        "ctc.sch8812.line-21",
+        "ctc.sch8812.line-22",
+        "ctc.sch8812.line-23",
+        "ctc.sch8812.line-24",
+        "ctc.sch8812.line-25",
+        "ctc.sch8812.line-26",
+        "ctc.sch8812.part-ii-b-needed",
+        "ctc.sch8812.worksheet-a.line-1",
+        "ctc.sch8812.worksheet-a.line-2",
+        "ctc.sch8812.worksheet-a.line-3",
+        "ctc.sch8812.worksheet-a.line-5",
+        "deductions.line-12e",
+        "deductions.line-14",
+        "deductions.schedule-1a",
+        "demo.form1040.standard_deduction",
+        "dependents-worksheet.line4b",
+        "dependents-worksheet.line4c",
+        "income.taxable-income",
+        "payments.line32",
+        "payments.line33",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded",
+        "payments.line36-applied-to-2026",
+        "payments.line37-amount-owed",
+        "payments.lines27-31-total",
+        "payments.lines28-31",
+        "qdcg-worksheet.line-10",
+        "qdcg-worksheet.line-11",
+        "qdcg-worksheet.line-12",
+        "qdcg-worksheet.line-14",
+        "qdcg-worksheet.line-15",
+        "qdcg-worksheet.line-16",
+        "qdcg-worksheet.line-17",
+        "qdcg-worksheet.line-18",
+        "qdcg-worksheet.line-19",
+        "qdcg-worksheet.line-20",
+        "qdcg-worksheet.line-21",
+        "qdcg-worksheet.line-22",
+        "qdcg-worksheet.line-23",
+        "qdcg-worksheet.line-24",
+        "qdcg-worksheet.line-25",
+        "qdcg-worksheet.line-5",
+        "qdcg-worksheet.line-7",
+        "qdcg-worksheet.line-8",
+        "qdcg-worksheet.line-9",
+        "schedule-a.excess-over-standard",
+        "schedule1a.line37-enhanced-deduction-total",
+        "schedule3.line1-direct-ftc",
+        "schedule3.line8-total",
+        "tax.after-nonrefundable-credits",
+        "tax.line24-total-tax",
+        "tax.total-tax",
+        "w2.box4-total"
+      ],
+      "form_fields": [
+        {
+          "id": "form.sch8812.line-14",
+          "binds": "ctc.sch8812.line-14",
+          "direct": false
+        },
+        {
+          "id": "form.sch8812.line-17",
+          "binds": "ctc.sch8812.line-17",
+          "direct": false
+        },
+        {
+          "id": "form.sch8812.worksheet-a.line-5",
+          "binds": "ctc.sch8812.worksheet-a.line-5",
+          "direct": false
+        },
+        {
+          "id": "form1040.line-12e",
+          "binds": "deductions.line-12e",
+          "direct": false
+        },
+        {
+          "id": "form1040.line-13b",
+          "binds": "deductions.schedule-1a",
+          "direct": false
+        },
+        {
+          "id": "form1040.line-14",
+          "binds": "deductions.line-14",
+          "direct": false
+        },
+        {
+          "id": "form1040.line-15",
+          "binds": "income.taxable-income",
+          "direct": false
+        },
+        {
+          "id": "form1040.line-16",
+          "binds": "tax.total-tax",
+          "direct": false
+        },
+        {
+          "id": "form1040.line-19",
+          "binds": "ctc.form1040-line19",
+          "direct": false
+        },
+        {
+          "id": "form1040.line-20",
+          "binds": "credits.form1040-line20",
+          "direct": false
+        },
+        {
+          "id": "form1040.line-24",
+          "binds": "tax.line24-total-tax",
+          "direct": false
+        },
+        {
+          "id": "form1040.line-28",
+          "binds": "ctc.form1040-line28",
+          "direct": false
+        },
+        {
+          "id": "form1040.line-32",
+          "binds": "payments.line32",
+          "direct": false
+        },
+        {
+          "id": "form1040.line-33",
+          "binds": "payments.line33",
+          "direct": false
+        },
+        {
+          "id": "form1040.line-34",
+          "binds": "payments.line34-overpaid",
+          "direct": false
+        },
+        {
+          "id": "form1040.line-35a",
+          "binds": "payments.line35a-refunded",
+          "direct": false
+        },
+        {
+          "id": "form1040.line-37",
+          "binds": "payments.line37-amount-owed",
+          "direct": false
+        },
+        {
+          "id": "form1040.tax-after-credits",
+          "binds": "tax.after-nonrefundable-credits",
+          "direct": false
+        },
+        {
+          "id": "schedule3.line-1",
+          "binds": "schedule3.line1-direct-ftc",
+          "direct": false
+        },
+        {
+          "id": "schedule3.line-8",
+          "binds": "schedule3.line8-total",
+          "direct": false
+        }
+      ],
+      "form_fields_showing_a_fact_or_reader": []
+    }
+  },
+  "recording": {
+    "python_modules_naming_a_fact": [],
+    "test_modules_naming_a_fact": [
+      "tests/tax/test_track3_core_conditions.py",
+      "tests/test_refund_or_amount_owed_track2.py",
+      "tests/test_senior_and_dependent_deductions_presentation.py",
+      "tests/test_senior_and_dependent_deductions_track1.py",
+      "tests/test_senior_and_dependent_deductions_track2.py",
+      "tests/test_tax_on_taxable_income_track1.py"
+    ],
+    "sample_data_files_naming_a_fact": 23,
+    "sample_data_files_recording_a_value": [],
+    "sample_data_files_supplying_a_symbol_input": [
+      "packages/sample_data/derivation/explanation_sharing/presentation-model.exact-pins.v2.json",
+      "packages/sample_data/derivation/explanation_sharing/presentation-model.v2.json",
+      "packages/sample_data/k1_interest_breadth/schema/examples/artifact-package.v6.json",
+      "packages/sample_data/k1_interest_breadth/schema/negatives/artifact-package.v6.attachment-not-admitted.json",
+      "packages/sample_data/k1_interest_breadth/schema/negatives/artifact-package.v6.attachment-wrong-role.json",
+      "packages/sample_data/tax/scenarios/acm_a1_unpinned_content/expected/report.json",
+      "packages/sample_data/tax/scenarios/itemized_deduction_override/expected/report.json",
+      "packages/sample_data/tax/scenarios/mfj_standard_deduction/expected/report.json",
+      "packages/sample_data/tax/scenarios/single_standard_deduction/expected/report.json",
+      "packages/sample_data/tax/scenarios/standard_deduction_age_blind/expected/report.json",
+      "packages/sample_data/tax/scenarios/standard_deduction_age_blind/scenario.json",
+      "packages/sample_data/tax/scenarios/tax_bracket_boundaries/expected/report.json",
+      "packages/sample_data/tax/scenarios/unclosed_interest_composition/expected/report.json"
+    ]
+  },
+  "introduced_by": {
+    "core_calculations.bundle.json": [
+      "571f0cf8 content: implement Track 3 core tax calculations, rules, and tests"
+    ],
+    "core_calculations.bundle.v2.json": [
+      "c5e35446 repair: publish v3 live-run inputs and closure mapping"
+    ],
+    "rule.dependents-worksheet-line-1.json": [
+      "56d648d4 Track 2: a dependent's standard deduction and the v51 presentations"
+    ],
+    "rule.schedule1a-part-v-line-36a.json": [
+      "5eea5ee7 Track 1: the 2025 enhanced deduction for seniors on core v51"
+    ],
+    "rule.schedule1a-part-v-line-36b.json": [
+      "5eea5ee7 Track 1: the 2025 enhanced deduction for seniors on core v51"
+    ],
+    "rule.form1040-standard-deduction.v3.json": [
+      "56d648d4 Track 2: a dependent's standard deduction and the v51 presentations"
+    ]
+  }
+}
