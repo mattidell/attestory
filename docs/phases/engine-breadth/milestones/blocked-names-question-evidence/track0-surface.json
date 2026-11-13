@@ -1,0 +1,215 @@
+{
+  "cases": [
+    {
+      "id": "sd_yes_nothing.unanswered",
+      "question_sentences_shown": [
+        "Did you sell any securities whose basis was not reported to the IRS?",
+        "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+        "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+        "Is it true that you had no transaction or adjustment to report on Form 8949?"
+      ],
+      "blocked_field_count": 34,
+      "blocked_fields_without_question": [],
+      "blocked_fields_without_reason": [],
+      "pass": true
+    },
+    {
+      "id": "sd_yes_nothing.truthful_answer",
+      "question_sentences_shown": [],
+      "blocked_field_count": 0,
+      "blocked_fields_without_question": [],
+      "blocked_fields_without_reason": [],
+      "pass": true
+    },
+    {
+      "id": "sd_8949_no_unadmitted.unanswered",
+      "question_sentences_shown": [
+        "Did you sell any securities whose basis was not reported to the IRS?",
+        "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+        "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+        "Is it true that you had no transaction or adjustment to report on Form 8949?"
+      ],
+      "blocked_field_count": 34,
+      "blocked_fields_without_question": [],
+      "blocked_fields_without_reason": [],
+      "pass": true
+    },
+    {
+      "id": "sd_8949_no_unadmitted.truthful_answer",
+      "question_sentences_shown": [],
+      "blocked_field_count": 0,
+      "blocked_fields_without_question": [],
+      "blocked_fields_without_reason": [],
+      "pass": true
+    },
+    {
+      "id": "sd_sale_beside_8949_yes.unanswered",
+      "question_sentences_shown": [
+        "Each sale on your Form 8949 should be one of two kinds. (1) A sale your broker reported to the IRS with its basis, with no adjustment other than a wash-sale loss or a correction of that basis. (2) A sale of stocks or other securities, entered only once and in the one box its statement gives it, with a basis you supply (the correct basis, even if your Form 1099-B showed a different one), net proceeds you supply when you got no Form 1099-B, and no adjustment other than a wash-sale loss. Is every sale on your Form 8949 one of these two kinds?",
+        "Is every sale on your Form 8949 either a sale your broker reported with its basis and no adjustment other than a wash-sale loss, or a sale of stocks or other securities, entered only once, with a basis you supply (and net proceeds you supply when you got no Form 1099-B) and no adjustment other than a wash-sale loss?",
+        "Is it true that you had no transaction or adjustment to report on Form 8949?"
+      ],
+      "blocked_field_count": 32,
+      "blocked_fields_without_question": [],
+      "blocked_fields_without_reason": [],
+      "pass": true
+    },
+    {
+      "id": "sd_sale_beside_8949_yes.truthful_answer",
+      "question_sentences_shown": [
+        "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?"
+      ],
+      "blocked_field_count": 28,
+      "blocked_fields_without_question": [],
+      "blocked_fields_without_reason": [],
+      "pass": true
+    },
+    {
+      "id": "sd_amounts_disagree.unanswered",
+      "question_sentences_shown": [
+        "What is the basis of each short-term sale you recorded without a Form 1099-B?"
+      ],
+      "blocked_field_count": 32,
+      "blocked_fields_without_question": [],
+      "blocked_fields_without_reason": [],
+      "pass": true
+    },
+    {
+      "id": "sd_amounts_disagree.truthful_answer",
+      "question_sentences_shown": [],
+      "blocked_field_count": 0,
+      "blocked_fields_without_question": [],
+      "blocked_fields_without_reason": [],
+      "pass": true
+    },
+    {
+      "id": "sd_path_b_unanswered.unanswered",
+      "question_sentences_shown": [
+        "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?"
+      ],
+      "blocked_field_count": 28,
+      "blocked_fields_without_question": [],
+      "blocked_fields_without_reason": [],
+      "pass": true
+    },
+    {
+      "id": "sd_path_b_unanswered.truthful_answer",
+      "question_sentences_shown": [],
+      "blocked_field_count": 0,
+      "blocked_fields_without_question": [],
+      "blocked_fields_without_reason": [],
+      "pass": true
+    },
+    {
+      "id": "codeb_yes_nothing.unanswered",
+      "question_sentences_shown": [
+        "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?"
+      ],
+      "blocked_field_count": 34,
+      "blocked_fields_without_question": [],
+      "blocked_fields_without_reason": [],
+      "pass": true
+    },
+    {
+      "id": "codeb_yes_nothing.truthful_answer",
+      "question_sentences_shown": [],
+      "blocked_field_count": 0,
+      "blocked_fields_without_question": [],
+      "blocked_fields_without_reason": [],
+      "pass": true
+    },
+    {
+      "id": "codeb_sale_beside_8949_yes.unanswered",
+      "question_sentences_shown": [
+        "Each sale on your Form 8949 should be one of two kinds. (1) A sale your broker reported to the IRS with its basis, with no adjustment other than a wash-sale loss or a correction of that basis. (2) A sale of stocks or other securities, entered only once and in the one box its statement gives it, with a basis you supply (the correct basis, even if your Form 1099-B showed a different one), net proceeds you supply when you got no Form 1099-B, and no adjustment other than a wash-sale loss. Is every sale on your Form 8949 one of these two kinds?",
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0.",
+        "Is it true that you had no transaction or adjustment to report on Form 8949?"
+      ],
+      "blocked_field_count": 34,
+      "blocked_fields_without_question": [],
+      "blocked_fields_without_reason": [],
+      "pass": true
+    },
+    {
+      "id": "codeb_sale_beside_8949_yes.truthful_answer",
+      "question_sentences_shown": [
+        "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?"
+      ],
+      "blocked_field_count": 28,
+      "blocked_fields_without_question": [],
+      "blocked_fields_without_reason": [],
+      "pass": true
+    },
+    {
+      "id": "codeb_amounts_disagree.unanswered",
+      "question_sentences_shown": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0.",
+        "What is the column (g) adjustment for each short-term sale you recorded whose reported basis is wrong: the basis shown minus the correct basis, plus any wash-sale loss disallowed?"
+      ],
+      "blocked_field_count": 34,
+      "blocked_fields_without_question": [],
+      "blocked_fields_without_reason": [],
+      "pass": true
+    },
+    {
+      "id": "codeb_amounts_disagree.truthful_answer",
+      "question_sentences_shown": [],
+      "blocked_field_count": 0,
+      "blocked_fields_without_question": [],
+      "blocked_fields_without_reason": [],
+      "pass": true
+    },
+    {
+      "id": "exception1_personal_loss_8949.unanswered",
+      "question_sentences_shown": [
+        "Did you sell any securities whose basis was not reported to the IRS?",
+        "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+        "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+        "Is it true that you had no transaction or adjustment to report on Form 8949?"
+      ],
+      "blocked_field_count": 34,
+      "blocked_fields_without_question": [],
+      "blocked_fields_without_reason": [],
+      "pass": true
+    },
+    {
+      "id": "exception1_personal_loss_8949.truthful_answer",
+      "question_sentences_shown": [
+        "Did you sell any securities whose basis was not reported to the IRS?",
+        "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+        "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+        "Is it true that you had no transaction or adjustment to report on Form 8949?"
+      ],
+      "blocked_field_count": 34,
+      "blocked_fields_without_question": [],
+      "blocked_fields_without_reason": [],
+      "pass": true
+    },
+    {
+      "id": "wash_adjustment_open.unanswered",
+      "question_sentences_shown": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0.",
+        "Have you recorded the wash-sale loss adjustment amount of every covered short-term sale with a wash-sale loss adjustment (a loss disallowed because you bought the same investment within 30 days before or after the sale) on every Form 1099-B you or your spouse received for 2025?"
+      ],
+      "blocked_field_count": 34,
+      "blocked_fields_without_question": [],
+      "blocked_fields_without_reason": [],
+      "pass": true
+    },
+    {
+      "id": "wash_adjustment_open.truthful_answer",
+      "question_sentences_shown": [],
+      "blocked_field_count": 0,
+      "blocked_fields_without_question": [],
+      "blocked_fields_without_reason": [],
+      "pass": true
+    }
+  ],
+  "checks": {
+    "twenty_case_states": true,
+    "every_blocked_case_shows_exact_question_sentences": true,
+    "every_reason_sentence_that_is_a_question_uses_a_declared_citizen": true,
+    "every_blocked_field_names_question": true
+  },
+  "verdict": "PASS"
+}

@@ -1,0 +1,79 @@
+{
+  "root": {
+    "unexplainable_rules": [
+      "ctc-worksheet-a.line-1",
+      "form1040-tax-after-credits",
+      "schedule3-line1-direct-ftc"
+    ],
+    "missing_name_without_question_citizen": "tax.total-tax",
+    "producer": "form1040-line16",
+    "predecessor_disposition": "inapplicable"
+  },
+  "repair": {
+    "rule": "rule.form1040-line16",
+    "predecessor": "v7",
+    "successor": "v8",
+    "mechanism": "the false guard branch blocks and declares existing boundary-question names",
+    "missing": [
+      "tax.us.2025.f1099b.noncovered-sold.source-closure",
+      "tax.us.2025.f8949.no1099b-sold.source-closure",
+      "tax.us.2025.schedule-d-boundary.no-form8949-sources",
+      "tax.us.2025.schedule-d-boundary.no-other-form8949-adjustments"
+    ],
+    "presentation_change": false,
+    "kernel_change": false,
+    "numeric_values_changed": false
+  },
+  "prototype": {
+    "rule_successors": 11,
+    "target_questions": [
+      "Did you sell any securities whose basis was not reported to the IRS?",
+      "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+      "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+      "Is it true that you had no transaction or adjustment to report on Form 8949?"
+    ],
+    "target_silent_blocked": [],
+    "target_line16_disposition": "blocked"
+  },
+  "tables": {
+    "matrix": {
+      "verdict": "PASS",
+      "checks": {
+        "ten_cases": true,
+        "twenty_scratch_states": true,
+        "no_zero_question_terminal": true,
+        "all_cases_pass": true
+      }
+    },
+    "surface": {
+      "verdict": "PASS",
+      "checks": {
+        "twenty_case_states": true,
+        "every_blocked_case_shows_exact_question_sentences": true,
+        "every_reason_sentence_that_is_a_question_uses_a_declared_citizen": true,
+        "every_blocked_field_names_question": true
+      }
+    },
+    "reuse": {
+      "verdict": "PASS",
+      "checks": {
+        "eleven_successors": true,
+        "declared_names_add_no_read_pin_dependency_or_answer_change": true,
+        "two_wash_prechecks_separately_normalized": true,
+        "line16_dead_end_guard_separately_normalized": true,
+        "ten_live_inputs_on_both_cores": true,
+        "numeric_values_unchanged": true
+      }
+    },
+    "neighbour": {
+      "verdict": "PASS",
+      "checks": {
+        "all_775_classified": true,
+        "no_numbers_changed": true,
+        "no_new_question_on_computed": true,
+        "compares_v87_to_one_scratch_successor": true
+      }
+    }
+  },
+  "verdict": "PASS"
+}
