@@ -47,12 +47,17 @@ HAND: dict[str, dict[str, Any]] = {
                          "schedule-d.line-21": 3000},
     "sd_8949_no_unadmitted": {"schedule-d.line-3": -6000, "schedule-d.line-7": -6000,
                                 "schedule-d.line-21": 3000},
-    "sd_sale_beside_8949_yes": {"schedule-d.line-3": -6000},
+    "sd_sale_beside_8949_yes": {"schedule-d.line-3": -6000, "form1040.line-7a": -3000,
+                                 "form1040.line-11a": 47000},
     "sd_amounts_disagree": {"schedule-d.line-3": -6000},
     "sd_path_b_unanswered": {"schedule-d.line-3": -6000, "schedule-d.line-21": 3000},
     "codeb_yes_nothing": {"schedule-d.line-1b": 6000},
-    "codeb_sale_beside_8949_yes": {"schedule-d.line-1b": 6000},
+    "codeb_sale_beside_8949_yes": {"schedule-d.line-1b": 6000, "form1040.line-7a": 6000,
+                                    "form1040.line-11a": 56000},
     "codeb_amounts_disagree": {"schedule-d.line-1b": 6000},
+    "exception1_personal_loss_8949": {"schedule-d.line-3": -6000, "schedule-d.line-7": -6000,
+                                       "schedule-d.line-21": 3000, "form1040.line-7a": -3000,
+                                       "form1040.line-11a": 47000},
     "wash_adjustment_open": {"schedule-d.line-1b": -5000},
 }
 
@@ -152,6 +157,7 @@ def resolved(case_id: str, core_path: Path) -> Acts:
         return add_sale(acts, "no1099b", "st", "resolved-sd-unadmitted")
     if case_id in {"sd_sale_beside_8949_yes", "codeb_sale_beside_8949_yes"}:
         acts = answer(acts, NO_8949, "no", case_id + "-no8949", core_path)
+        acts = answer(acts, PATH_B, "no", case_id + "-pathb", core_path)
         return statement_box4_zero(acts)
     if case_id == "sd_amounts_disagree":
         return correct_member(acts, "f8949.no1099b-st-txn.basis|", 8000, "correct-basis")
@@ -163,7 +169,7 @@ def resolved(case_id: str, core_path: Path) -> Acts:
         return statement_box4_zero(correct_member(
             acts, "f1099b.code-b-st-txn.adjustment|", 3000, "correct-adjustment"))
     if case_id == "exception1_personal_loss_8949":
-        return answer(acts, PATH_B, "no", "personal-loss-path-b", core_path)
+        return statement_box4_zero(add_sale(acts, "no1099b", "st", "resolved-personal-loss"))
     if case_id == "wash_adjustment_open":
         return statement_box4_zero(close_family(
             acts, P + "f1099b.covered-w-st-adjustment", "wash-resolved"))

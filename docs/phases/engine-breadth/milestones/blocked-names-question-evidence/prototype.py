@@ -123,10 +123,48 @@ def node(body: dict[str, Any], path: str) -> dict[str, Any]:
     return current
 
 
+def _cat(name: str, cmp: str, value: str) -> dict[str, Any]:
+    return {
+        "op": "categorical_compare",
+        "cmp": cmp,
+        "left": {"op": "ref", "name": name},
+        "right": {
+            "op": "category_literal",
+            "fact_type": {"id": name, "version": "v1"},
+            "value": value,
+        },
+    }
+
+
+def _named_block(names: list[str]) -> dict[str, Any]:
+    return {"op": "block", "code": "DEPENDENCY_ABSENT", "missing": names}
+
+
+def _choose(when: dict[str, Any], then: dict[str, Any], otherwise: dict[str, Any]) -> dict[str, Any]:
+    return {"op": "choose", "when": when, "then": then, "else": otherwise}
+
+
+def applicable_boundary_block() -> dict[str, Any]:
+    """Name only the boundary question that applies to the recorded sales."""
+    return _choose(
+        _cat(NO_8949, "eq", "yes"),
+        _named_block([NO_8949]),
+        _choose(
+            {"op": "all", "args": [_cat(Q2, "eq", "yes"), _cat(IC80, "ne", "yes")]},
+            _named_block([IC80]),
+            _choose(
+                {"op": "all", "args": [_cat(Q3, "eq", "yes"), _cat(IC81, "ne", "yes")]},
+                _named_block([IC81]),
+                _named_block([NO_8949, IC80, IC81]),
+            ),
+        ),
+    )
+
+
 def inject(body: dict[str, Any]) -> None:
     rid = body["id"]
     if rid in (P + "rule.schedule-d-line3", P + "rule.schedule-d-line10"):
-        node(body, "value/then/else")["missing"] = [NO_8949, IC80, IC81]
+        body["value"]["then"]["else"] = applicable_boundary_block()
         node(body, "value/else/else")["missing"] = [Q1, Q2, NO_8949, PATH_B]
     elif rid == P + "rule.form1040-line16":
         body["when"] = {

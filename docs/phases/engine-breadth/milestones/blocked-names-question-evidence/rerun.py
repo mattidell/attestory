@@ -11,7 +11,6 @@ repository; only the compact merged classification is committed.
 from __future__ import annotations
 
 import contextlib
-import importlib.util
 import json
 import os
 import re
@@ -35,14 +34,11 @@ QW_TRACK0 = REPO / "docs/phases/engine-breadth/milestones/question-wording-evide
 
 
 def module(name: str, path: Path) -> Any:
-    found = sys.modules.get(name)
-    if found is None:
-        spec = importlib.util.spec_from_file_location(name, path)
-        assert spec is not None and spec.loader is not None
-        found = importlib.util.module_from_spec(spec)
-        sys.modules[name] = found
-        spec.loader.exec_module(found)
-    return found
+    from tests import evidence_loader
+
+    if evidence_loader.current_owner() is None:
+        evidence_loader.activate("bnq_evidence")
+    return evidence_loader.load(path, name)
 
 
 def predecessor() -> Any:

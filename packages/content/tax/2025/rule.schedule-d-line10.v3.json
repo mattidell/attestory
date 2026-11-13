@@ -192,13 +192,133 @@
         ]
       },
       "else": {
-        "op": "block",
-        "code": "DEPENDENCY_ABSENT",
-        "missing": [
-          "tax.us.2025.schedule-d-boundary.no-form8949-sources",
-          "tax.us.2025.schedule-d-boundary.form8949-in-class",
-          "tax.us.2025.schedule-d-boundary.form8949-code-b-in-class"
-        ]
+        "op": "choose",
+        "when": {
+          "op": "categorical_compare",
+          "cmp": "eq",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.schedule-d-boundary.no-form8949-sources"
+          },
+          "right": {
+            "op": "category_literal",
+            "fact_type": {
+              "id": "tax.us.2025.schedule-d-boundary.no-form8949-sources",
+              "version": "v1"
+            },
+            "value": "yes"
+          }
+        },
+        "then": {
+          "op": "block",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d-boundary.no-form8949-sources"
+          ]
+        },
+        "else": {
+          "op": "choose",
+          "when": {
+            "op": "all",
+            "args": [
+              {
+                "op": "categorical_compare",
+                "cmp": "eq",
+                "left": {
+                  "op": "ref",
+                  "name": "tax.us.2025.f8949.no1099b-sold.source-closure"
+                },
+                "right": {
+                  "op": "category_literal",
+                  "fact_type": {
+                    "id": "tax.us.2025.f8949.no1099b-sold.source-closure",
+                    "version": "v1"
+                  },
+                  "value": "yes"
+                }
+              },
+              {
+                "op": "categorical_compare",
+                "cmp": "ne",
+                "left": {
+                  "op": "ref",
+                  "name": "tax.us.2025.schedule-d-boundary.form8949-in-class"
+                },
+                "right": {
+                  "op": "category_literal",
+                  "fact_type": {
+                    "id": "tax.us.2025.schedule-d-boundary.form8949-in-class",
+                    "version": "v1"
+                  },
+                  "value": "yes"
+                }
+              }
+            ]
+          },
+          "then": {
+            "op": "block",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "tax.us.2025.schedule-d-boundary.form8949-in-class"
+            ]
+          },
+          "else": {
+            "op": "choose",
+            "when": {
+              "op": "all",
+              "args": [
+                {
+                  "op": "categorical_compare",
+                  "cmp": "eq",
+                  "left": {
+                    "op": "ref",
+                    "name": "tax.us.2025.f1099b.code-b-sold.source-closure"
+                  },
+                  "right": {
+                    "op": "category_literal",
+                    "fact_type": {
+                      "id": "tax.us.2025.f1099b.code-b-sold.source-closure",
+                      "version": "v1"
+                    },
+                    "value": "yes"
+                  }
+                },
+                {
+                  "op": "categorical_compare",
+                  "cmp": "ne",
+                  "left": {
+                    "op": "ref",
+                    "name": "tax.us.2025.schedule-d-boundary.form8949-code-b-in-class"
+                  },
+                  "right": {
+                    "op": "category_literal",
+                    "fact_type": {
+                      "id": "tax.us.2025.schedule-d-boundary.form8949-code-b-in-class",
+                      "version": "v1"
+                    },
+                    "value": "yes"
+                  }
+                }
+              ]
+            },
+            "then": {
+              "op": "block",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.schedule-d-boundary.form8949-code-b-in-class"
+              ]
+            },
+            "else": {
+              "op": "block",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.schedule-d-boundary.no-form8949-sources",
+                "tax.us.2025.schedule-d-boundary.form8949-in-class",
+                "tax.us.2025.schedule-d-boundary.form8949-code-b-in-class"
+              ]
+            }
+          }
+        }
       }
     },
     "else": {

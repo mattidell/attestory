@@ -3054,6 +3054,15 @@ class _Run:
             # and a blocked count inside any contributes its later-arm refs.
             missing = [req for req in rule["requires"] if req not in self.symbols]
             if missing:
+                if (
+                    guard_blocked is not None
+                    and guard_blocked.from_declaring_block
+                    and guard_blocked.missing
+                ):
+                    self._record_blocked(
+                        rule, guard_access, guard_blocked.category, list(guard_blocked.missing)
+                    )
+                    continue
                 if guard_blocked is not None and self._later_any_arm_refs_while_count_blocked():
                     if _is_closure_check_witness(rule):
                         self._record_blocked(

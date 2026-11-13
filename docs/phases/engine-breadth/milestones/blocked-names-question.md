@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "blocked-names-question",
-  "status": "Open. Track 0 PASS; ADR 0086 accepted; Track 1 chartered.",
+  "status": "Open. Track 1 built; review not ready; repair chartered (Decisions 7-12).",
   "scope": [
     "no truthful filer reaches a blocked line that shows a reason and asks nothing",
     "when a line blocks waiting on an answer, the page names the question that answer comes from",
@@ -190,3 +190,56 @@ advanced without changing behavior; the six failed nodes then passed in 3.22
 seconds. The suite was not repeated after that deterministic repair. The
 schema registry test passes 14 tests, mypy reports no issues in 492 files, and
 the envelope scan of `github/main..HEAD` is clean.
+
+Post-review repair (Decisions 7–12): `finalize_unreached` records a selected
+`block.missing` from the when-guard and leaves a collect or ref guard on the
+requires-derived list. The four recorded `v82/*` returns name questions on
+line 16 and on the page; lines 24, 33, and 37 stay blocked. The three named
+cases reach their 2025-instruction values once age, blindness, and the path
+answers are stated: `exception1_personal_loss_8949` schedule D line 3 −6000,
+line 7 −6000, line 21 3000, Form 1040 line 7a −3000, line 11a 47000;
+`sd_sale_beside_8949_yes` schedule D line 3 −6000, Form 1040 line 7a −3000,
+line 11a 47000; `codeb_sale_beside_8949_yes` schedule D line 1b 6000, Form
+1040 line 7a 6000, line 11a 56000. Schedule D lines 3 and 10 name only the
+applicable boundary question. Two of the six extra live runs stayed after
+those cases became distinct; the recorded module builds the 298 v83 lists
+through `rerun.tasks`. Evidence helpers load through `tests/evidence_loader.py`
+and workers activate the owner. BNQ-R6 remains a note.
+
+The 775-list neighbour of published v88 and repaired v89, with age and
+blindness stated, ran in 2,714.809 seconds (1,550 live runs, four workers):
+677 identical, 69 blocked-row metadata only, 4 disposition only, 25 sentence
+only, zero numeric line changes, and zero new questions on a computing
+return. The post-repair full suite completed in 3,992.76 seconds: 6,945
+passed, 24 skipped. Schema registry 14 passed, mypy reports no issues in 492
+files, and the envelope scan of `github/main..HEAD` is clean.
+
+## Decisions on review
+
+Foreman, 2026-11-13, on `docs/reviews/blocked-names-question/review.md`
+(not ready).
+
+7. **BNQ-R1 (blocking).** When a rule's `when` guard raises a block with
+   declared names in `finalize_unattempted`, the runner records those
+   names, as ADR 0086 requires of every selected declaring block. A block
+   with no declared names keeps today's `requires`-derived list, so v16
+   and earlier stay unchanged. A test reproduces the 4 recorded `v82/*`
+   returns: line 16 and the lines below it name their questions.
+8. **BNQ-R2 (blocking).** Since core v88 every return asks the filer's
+   age and blindness. The Track 1 cases state the taxpayer's two facts
+   (the shared helper from age-blindness-asked), and the live module
+   checks hand values on every case: a remaining question never excuses a
+   hand-value miss. The three cases named (`exception1_personal_loss_8949`,
+   `sd_sale_beside_8949_yes`, `codeb_sale_beside_8949_yes`) must reach
+   their 2025-instruction values, or the cause is reported.
+9. **BNQ-R3.** Schedule D lines 3 and 10 declare only the boundary
+   questions that apply to the sales recorded (no code B question without
+   a code B sale; no box C/F question with only a code B sale), as rule
+   successors regenerated in place (branch-only).
+10. **BNQ-R4.** Drop the six redundant or assertion-free live runs; the
+    recorded module replays only the v83 lists without building and
+    discarding the rest.
+11. **BNQ-R5.** Evidence files load only through tests/evidence_loader.py,
+    including inside worker processes (activate the loader per worker),
+    and no test module is left in `sys.modules`.
+12. **BNQ-R6** stays a note: no v89 rule declares a covered sale family.

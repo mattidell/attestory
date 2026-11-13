@@ -56,10 +56,20 @@ def _numeric_diffs(expected: dict[str, Any], actual: dict[str, Any]) -> list[str
 
 
 def _recorded_shard(work: list[tuple[str, list[dict[str, Any]]]]) -> dict[str, Any]:
+    owner = "tests.test_blocked_names_question_v89_recorded"
+    evidence_loader.activate(owner)
+    try:
+        return _recorded_shard_body(work)
+    finally:
+        evidence_loader.finish(owner)
+
+
+def _recorded_shard_body(work: list[tuple[str, list[dict[str, Any]]]]) -> dict[str, Any]:
+    import tests.test_f1099b_backup_withholding_v83 as v83_test
+
     qw_rerun = evidence_loader.load(QW / "rerun.py", "bnq_t1_qw_rerun")
     age = evidence_loader.load(AGE / "rerun.py", "bnq_t1_age_rerun")
-    test = qw_rerun.load_test()
-    harness = test.track0().h
+    harness = v83_test.track0().h
     core89 = harness.Core("v89", "v87", "v87")
     core88 = harness.Core("v88", "v86", "v86")
     expected = json.loads(qw_rerun.EXPECTED.read_text(encoding="utf-8"))
@@ -68,7 +78,8 @@ def _recorded_shard(work: list[tuple[str, list[dict[str, Any]]]]) -> dict[str, A
         fixture_key = key.removeprefix("v83/")
         prepared = age.adopt_v88(core88, age.answered(acts, age.implied(acts)))
         pin = cast(dict[str, Any], qw_rerun._pin_run(
-            test, core89, prepared, "demo.bnq.t1.v89.recorded." + fixture_key.replace("/", ".")))
+            v83_test, core89, prepared,
+            "demo.bnq.t1.v89.recorded." + fixture_key.replace("/", ".")))
         bad = _numeric_diffs(qw_rerun.recorded_pin(expected, fixture_key), pin)
         if bad:
             failures.append({"id": fixture_key, "diffs": bad[:12]})
@@ -76,10 +87,21 @@ def _recorded_shard(work: list[tuple[str, list[dict[str, Any]]]]) -> dict[str, A
 
 
 def test_recorded_v83_numbers_on_v89() -> None:
-    qw = evidence_loader.load(QW / "track0.py", "bnq_t1_qw_track0")
+    import tests.test_f1099b_backup_withholding_v83 as v83_test
+
+    qw_rerun = evidence_loader.load(QW / "rerun.py", "bnq_t1_qw_rerun")
+    harness = evidence_loader.load(
+        REPO / "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/audit_harness.py",
+        "bnq_t1_audit_harness",
+    )
+    expected = json.loads(qw_rerun.EXPECTED.read_text(encoding="utf-8"))
+    asks = set(json.loads(
+        (REPO / "docs/phases/engine-breadth/milestones/f1099b-box4-only-evidence/track0-neighbour.json"
+         ).read_text(encoding="utf-8")
+    )["asks_no_sale_present_ids"])
     work = [
-        item for item in cast(list[tuple[str, list[dict[str, Any]]]], qw.neighbour_tasks())
-        if item[0].startswith("v83/")
+        (f"v83/{key}", acts)
+        for key, acts in qw_rerun.tasks(v83_test, harness, expected, asks)
     ]
     only = {item for item in os.environ.get("BNQ_V89_RECORDED_ONLY", "").split(",") if item}
     if only:
