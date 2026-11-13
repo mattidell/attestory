@@ -505,7 +505,7 @@ def _evaluate(expr: Any, env: Environment, access: AccessLog) -> Any:
         return len(rows)
 
     if op == "block":
-        raise EvalBlocked(expr["code"], [])
+        raise EvalBlocked(expr["code"], list(expr.get("missing", [])))
 
     if op == "parameter":
         param_id = expr["parameter_id"]

@@ -1,0 +1,10 @@
+{
+  "schema": "input-question.v1",
+  "id": "tax.us.2025.input-question.schedule-d-boundary-no-other-form8949-adjustments",
+  "version": "v1",
+  "fact_type": {
+    "id": "tax.us.2025.schedule-d-boundary.no-other-form8949-adjustments",
+    "version": "v1"
+  },
+  "question": "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?"
+}

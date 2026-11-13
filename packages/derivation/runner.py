@@ -244,7 +244,7 @@ SELECTION_PATH_PIN_CONTRACT_INVALID = "selection-path-pin-contract-invalid"
 def is_v13_selection_rule(rule: dict[str, Any]) -> bool:
     """A ``rule-artifact.v13`` (or ``v14``, ADR 0078) rule declaring ``selection``
     (ADR 0077 Part 4). v14 carries the same ``selection`` shape unchanged."""
-    return rule.get("schema") in ("rule-artifact.v13", "rule-artifact.v14", "rule-artifact.v15", "rule-artifact.v16") and "selection" in rule
+    return rule.get("schema") in ("rule-artifact.v13", "rule-artifact.v14", "rule-artifact.v15", "rule-artifact.v16", "rule-artifact.v17") and "selection" in rule
 
 
 def _never_ordinary(rule: dict[str, Any]) -> bool:
@@ -469,7 +469,7 @@ class _Run:
                 "rule-artifact.v11",
                 "rule-artifact.v12",
                 "rule-artifact.v13",
-                "rule-artifact.v14", "rule-artifact.v15", "rule-artifact.v16",
+                "rule-artifact.v14", "rule-artifact.v15", "rule-artifact.v16", "rule-artifact.v17",
             }
             for rule in ctx.rules
         ) or _uses_attachment_machinery(ctx.rules)
@@ -3273,7 +3273,7 @@ def run_and_record(
             "rule-artifact.v11",
             "rule-artifact.v12",
             "rule-artifact.v13",
-            "rule-artifact.v14", "rule-artifact.v15", "rule-artifact.v16",
+            "rule-artifact.v14", "rule-artifact.v15", "rule-artifact.v16", "rule-artifact.v17",
         }
         for rule in ctx.rules
     ) or _uses_attachment_machinery(ctx.rules)

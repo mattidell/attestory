@@ -174,3 +174,19 @@ on owner acceptance of proposed ADR 0086 and implementation and review of the
 11 rule successors, two citizens, and publication successors. The replay
 covers the existing 2025 synthetic neighbor set, not broader tax-domain
 coverage.
+
+## Track 1 result
+
+Track 1 publishes `rule-artifact.v17`, `artifact-package.v43`, the eleven rule
+successors and two boundary questions, and core v89 with registry and release
+v87. The 31 de-duplicated Track 0 act lists pass on published v89 in 72.18
+seconds. All 298 recorded v83 lists preserve every numeric fixture value in
+652.01 seconds. The fast publication test passes all five checks.
+
+The full suite's single run completed in 4,023.92 seconds: 6,937 passed, 24
+skipped, and six successor-enumeration checks failed. The schema-history list,
+covered-refusal core list, and required-versus-read version witnesses were
+advanced without changing behavior; the six failed nodes then passed in 3.22
+seconds. The suite was not repeated after that deterministic repair. The
+schema registry test passes 14 tests, mypy reports no issues in 492 files, and
+the envelope scan of `github/main..HEAD` is clean.
