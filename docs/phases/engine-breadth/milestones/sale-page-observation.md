@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "sale-page-observation",
-  "status": "Closed. Ten synthetic core-v79 saved pages have live Chrome regressions; all ten were reobserved on v80 after main synchronization. Chrome uses a short owned temp root; rendering findings remain explicitly bounded, not claimed repaired.",
+  "status": "Closed. Ten synthetic saved pages were observed in Chrome on core v89, with v79/v80 retained as historical evidence. The ten-case browser test is opt-in because its CI stall remains unexplained.",
   "retrospective": "docs/milestone-retrospectives/2026-11-06-sale-page-observation.md",
   "scope": [
     "observe six synthetic current-core return classes on the actual saved citation-walk page",
@@ -209,6 +209,22 @@ retained actual ten-case capture without repeating Chrome or broad suites.
 
 ## Outcome and verification
 
+Owner review verified all ten v89 captures, including explicit age and blindness
+answers. The carry exposed repeated wrong-basis and box 7 questions and a stale
+answer with no row-local reason. See the exact counts and fixture limits in
+[saved-page evidence](sale-page-observation-evidence/v89-reobservation.md).
+The review distinguished runtime version checks from the release ID verified
+in the captures.
+
+Twenty serial and four concurrent local observer replays did not reproduce the
+CI stall. The 240-second watchdog and safe stage diagnostics remain. The
+ten-case live fixture is opt-in via `SALE_PAGE_OBSERVATION_BROWSER=1` and
+excluded from default merge verification. Its explicit run passed in 67.56s.
+The nominee test retains six validations and uses two touched-entry checks
+with a full key-set guard. Independent review verified read-only access, and
+Linux quick measured 0.788s against the unchanged 3s budget.
+
+
 Subsequent Linux run 42719255831 passed all four full-suite shards and required
 verify, including the real short-temp Chrome route. Its quick job failed only
 the integration-checkpoint test's 7.2-second call. The bounded follow-up profile
@@ -232,6 +248,17 @@ Collection confirmed 30 live and 26 fast cases in the affected modules. All
 eight skips and no budget failures in 15.96 seconds; mypy passed 487 files.
 The earlier red timings remain historical observations in the cost account,
 not waived failures or a green claim for the final Linux head.
+
+After the v87 rebase, Linux quick run 43161978728 measured the nominee
+test at 4.5 seconds against its 3-second budget. The unfinished full-suite
+shards were cancelled. A local profile attributed 2.658 of 3.267 profiled
+seconds to six deep copies. The repair retains the complete corpus, copies
+the mapping for each validation and checks shared values against one deep
+snapshot. Independent review compared all six mutations in both orders with
+deep-isolated validation and found identical results with unchanged inputs.
+The target passed locally in 2.32 seconds, all 19 module tests passed, the
+fast lane passed 1,772 tests with eight skipped, and mypy passed 489 files.
+The v88 rebase preserves upstream roadmap entries. Fresh Linux CI is required.
 
 The November 9 repair rebased onto main after the v80 through v82 successors,
 preserving upstream content and the lattice test's live-lane correction. Old

@@ -843,6 +843,20 @@ with no sale, and a recorded wash sale with the adjustment family open.
 The 775 recorded lists compute the same numbers; no computing return is
 newly asked a question.
 
+## Saved-page observation — Mortgage and Sales (2025)
+
+[Plan](milestones/sale-page-observation.md); retrospective:
+`docs/milestone-retrospectives/2026-11-06-sale-page-observation.md`.
+
+Ten synthetic mortgage and sale pages were observed on published core v89
+through the actual coordinator, saved citation-walk renderer and Chrome.
+The v79/v80 captures are historical. The v89 carry exposes repeated wrong-basis
+questions (6–39 times per page), box 7 questions on the sale pages, and no
+row-local reason on the stale-answer Schedule D line 9. The observation item
+is retired. Specific rendering and question findings remain parked. The
+ten-case fixture is opt-in because a post-launch CI stall remains unexplained.
+The separate short owned temp-root regression remains in the live suite.
+
 ## Parked work and open questions
 
 This is the single list of parked work and open owner-held questions for the
@@ -885,7 +899,20 @@ delivers an item removes it.
 - A v1 Form 1099-K workspace re-answers its completeness question under the
   successor package; recovery for a log with two current family versions; a
   full pre-save fold for every act kind.
-- Browser observation of the mortgage and sale pages.
+- Saved-page content successor work: line 6c supplies
+  `not_elected` where the categorical renderer accepts `checked`, and the
+  Schedule 1 top-entry field lacks a citation. Both display safe-render alerts
+  on the observed v79 and v80 returns; no published bytes were changed here.
+- Shared-question display on the saved citation-walk page: unanswered/stale
+  noncovered-sale questions repeat on line-local blocked-reason lists. Ask once
+  without losing each line's reason/connection; a page change is not selected
+  by the observation milestone.
+- Schedule A8a display/itemization: the special mortgage explanation shows
+  the amount and a complete-scope itemizer's attachment publishes, but the
+  observed v79 page has no ordinary line-8a row or Schedule A subtotal.
+  V80 reobservation shows the complete Schedule A subtotal of 20,000; do not
+  carry that subtotal absence forward as a v80 defect. Establish the intended
+  ordinary-row display before choosing a production repair.
 - Multiple Form 1098 support, interest allocation above the debt limit,
   second-home extension, mixed-use amounts, refinancing and the mortgage credit.
 - When a Schedule 1 Part I absence answer is also missing, line 10 names the
