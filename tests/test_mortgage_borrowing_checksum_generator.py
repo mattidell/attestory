@@ -7,6 +7,7 @@ import shutil
 import tempfile
 import unittest
 from pathlib import Path
+import pytest
 
 from tools.generate_mortgage_borrowing_consumer_successors import (
     BASE_PACKAGE_REL,
@@ -92,6 +93,7 @@ class MortgagePackageRebuildTests(unittest.TestCase):
         with self.assertRaisesRegex(GenerationGuardError, "44-addition"):
             _merge_package(base, delta)
 
+    @pytest.mark.live(reason="copies the complete current-year corpus and rebuilds the candidate")
     def test_build_is_independent_of_git_history_and_guards_base_bytes(self) -> None:
         source_root = Path(__file__).resolve().parents[1]
         with tempfile.TemporaryDirectory() as temporary:
