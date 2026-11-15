@@ -255,7 +255,7 @@ def field(box: dict[str, str], *, checked: bool) -> dict[str, Any]:
             "guard_inapplicable": {
                 "render": "",
                 "explain": (
-                    "This line 12d box is not checked on this return's filing status."
+                    "This line 12d box does not apply to this return, or the box is the other checked/not-checked state."
                     if box["who"] == "spouse"
                     else "This line 12d box is the other checked/not-checked state."
                 ),

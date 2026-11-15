@@ -172,7 +172,6 @@ def _cases(track: ModuleType) -> list[dict[str, Any]]:
 
     add("auth_you_age_yes", "single", {age: True, blind: no})
     add("auth_you_blind_yes", "single", {age: no, blind: True})
-    add("auth_you_unanswered", "single", {})
     add("auth_spouse_age_joint", joint, {age: no, blind: no, spouse_age: True, spouse_blind: no})
     add("auth_spouse_blind_joint", joint, {age: no, blind: no, spouse_age: no, spouse_blind: True})
     add("auth_spouse_separate_yes", separate, {age: no, blind: no, spouse_age: no, spouse_blind: True, condition: True})
@@ -192,6 +191,9 @@ def _cases(track: ModuleType) -> list[dict[str, Any]]:
     for name, status, cond, dependent in variants:
         spouse_asked = status in (joint, separate) and not dependent
         for answer in ("true", "false", "unanswered"):
+            # N1: without a spouse question, "unanswered" is the false-answer run.
+            if answer == "unanswered" and not spouse_asked:
+                continue
             answers: dict[str, Any] = {}
             if answer != "unanswered":
                 value = answer == "true"
@@ -346,7 +348,7 @@ def test_instructions_quote_the_chart(track: ModuleType) -> None:
 def test_authority_matrix_and_late_on_published_v90(track: ModuleType) -> None:
     """Each distinct act list runs once, through the presentation model."""
     rows = _cases(track)
-    assert len(rows) == 39
+    assert len(rows) == 34
     groups: dict[str, dict[str, Any]] = {}
     order: list[str] = []
     for row in rows:
@@ -442,6 +444,48 @@ def test_drawn_page_shows_each_box_text(track: ModuleType) -> None:
     blocked_text = _section(separate_dom, spouse_age)
     assert BLOCKED in blocked_text
     assert ALERT not in blocked_text
+
+
+def _question(name: str) -> str:
+    body = cast(dict[str, Any], json.loads((CONTENT / name).read_text(encoding="utf-8")))
+    return str(body["question"])
+
+
+def test_unanswered_taxpayer_age_and_blindness_block(track: ModuleType) -> None:
+    """A single return that leaves age and blindness unstated blocks both You boxes.
+
+    The case does not call the shared helper and does not default those facts.
+    The drawn section shows the blocked copy and the question, not "not checked".
+    """
+    module = cast(Any, track)
+    acts = cast(list[dict[str, Any]], module.build("single", {}))
+    stated = _fact_values(acts)
+    assert module.pr.AGE not in stated
+    assert module.pr.BLIND not in stated
+    core = _published(track)
+    root = _new_owned_chrome_tempdir()
+    try:
+        page_out = root / "pages"
+        result = cast(dict[str, Any], module.run(
+            core, acts, "demo.l12d.repair.unanswered", pages={"product": REPO}, page_out=page_out,
+        ))
+        dom = _dump(page_out / "demo.l12d.repair.unanswered.product.html", root / "profile")
+    finally:
+        shutil.rmtree(root, ignore_errors=True)
+    assert result.get("outcome") == "success"
+    boxes = cast(dict[str, str], result["boxes"])
+    assert boxes["you_age"] == "blocked"
+    assert boxes["you_blind"] == "blocked"
+    assert result.get("form1040.line-12e") == "blocked"
+    age = _section(dom, _label("form1040.line-12d-you-age.form-field.json"))
+    blind = _section(dom, _label("form1040.line-12d-you-blind.form-field.json"))
+    age_question = _question("input-question.taxpayer-over-65.v1.json")
+    blind_question = _question("input-question.taxpayer-blind.v1.json")
+    for section, question in ((age, age_question), (blind, blind_question)):
+        assert BLOCKED in section
+        assert question in html.unescape(section)
+        assert ">not checked</p>" not in section
+        assert ": not checked\"" not in section
 
 
 def test_v83_recorded_lists_keep_their_numbers() -> None:

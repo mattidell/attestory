@@ -267,3 +267,46 @@ files, 90 passed and 9 subtests in 446 s. Fast lane `pytest -m "not live"`:
 1,801 passed, 8 skipped, 4,292 subtests, 16.52 s. `python3 -m mypy`:
 499 source files, no issues. `python3 tools/envelope_scan.py --range
 github/main..HEAD`: clean. The full suite remains the CI `verify` gate.
+
+## Repair result
+
+The four spouse form fields share one inapplicable explain. It now
+reads "This line 12d box does not apply to this return, or the box is
+the other checked/not-checked state." That sentence stays true when the
+box does not apply and when the section is only the other state. The
+You fields still say "This line 12d box is the other checked/not-checked
+state." Limitation 2 above records the Track 0 twin wording; the spouse
+twins now use the combined sentence. `prototype.py` builds the same
+bytes. Registry v88's four spouse citizen checksums and release v88's
+`package_registry_sha256` were regenerated. Core v90's package checksum
+does not include citizen bytes; recomputing it matched the stored
+value, so the package file was left as it was. v89 and earlier were
+not edited.
+
+`test_unanswered_taxpayer_age_and_blindness_block` runs one single
+return that leaves taxpayer age and blindness unstated. It does not
+call `state_taxpayer_facts` and does not default those facts. Both You
+boxes and line 12e are blocked. Each drawn You section shows "No value
+published — cannot compute." and the input question, and it does not
+say the box is not checked. The names that were the false-answer run
+are gone: `auth_you_unanswered`, `m_single_unanswered`,
+`m_hoh_unanswered`, `m_qss_unanswered`, and `m_dependent_unanswered`.
+The helper matrix is 34 rows. The 31 distinct act lists are unchanged.
+`m_joint_unanswered`, `m_separate_yes_unanswered`, and
+`m_separate_no_unanswered` remain, because those runs leave a spouse
+fact unstated. The late-start names that share an earlier list were
+left as they are.
+
+`track0-closure.md` and `track0-surface.json` still quote the old
+sentence, "This line 12d box is not checked on this return's filing
+status." They are the Track 0 record and were not regenerated. The
+Track 0 surface bullet above quotes that sentence as history and was
+left. `rerun-output.json` records dispositions and values, not that
+sentence, and the 775-list replay was not run again.
+
+Checks on this tree: `tests/test_line12d_boxes_v90.py` and
+`tests/test_line12d_boxes_v90_package.py`, 10 passed in 414.22 s. Fast
+lane `pytest -m "not live"`: 1,801 passed, 8 skipped, 4,292 subtests,
+16.22 s. `python3 -m mypy`: 499 source files, no issues.
+`python3 tools/envelope_scan.py --range github/main..HEAD`: clean. The
+full suite remains the CI `verify` gate.

@@ -41,7 +41,7 @@
     },
     "guard_inapplicable": {
       "render": "",
-      "explain": "This line 12d box is not checked on this return's filing status."
+      "explain": "This line 12d box does not apply to this return, or the box is the other checked/not-checked state."
     }
   }
 }
