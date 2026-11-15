@@ -2,7 +2,7 @@
 
 Reviewer: fresh reader, author-independent.
 Charter: `docs/reviews/line12d-boxes/charter-review.md`.
-Object: `milestone/line12d-boxes-2025` at `1983aed63d0f77401c7d4620d1c3bb03e231f6ad`.
+Object: `milestone/line12d-boxes-2025` at the Track 1 head (commit removed at closeout).
 The Orientation Block SHA matches `git rev-parse HEAD` on that tree. It is
 diffed against `github/main`. After `git fetch`: 0 behind, 25 ahead. PR #277
 is open as a draft and has not merged. This worktree is not spent.

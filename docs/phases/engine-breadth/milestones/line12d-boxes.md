@@ -3,7 +3,8 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "line12d-boxes",
-  "status": "Open. Track 0 closed on a sample replay; Track 1 chartered (full replay inside).",
+  "status": "Closed 2026-11-15. Core v90, registry v88, release v88.",
+  "retrospective": "docs/milestone-retrospectives/2026-11-15-line12d-boxes.md",
   "scope": [
     "the filer's page shows Form 1040 line 12d's four boxes (you: born before January 2, 1961 / blind; spouse: born before January 2, 1961 / blind) as checked or not, from the recorded answers",
     "each box shows only where the 2025 instructions check it (the spouse's boxes on a joint return, or a separate return whose spouse condition is yes)",
@@ -310,3 +311,26 @@ lane `pytest -m "not live"`: 1,801 passed, 8 skipped, 4,292 subtests,
 16.22 s. `python3 -m mypy`: 499 source files, no issues.
 `python3 tools/envelope_scan.py --range github/main..HEAD`: clean. The
 full suite remains the CI `verify` gate.
+
+## Review and repair
+
+Fresh-reader review: `docs/reviews/line12d-boxes/review.md`, ready, with
+no blocking defect. From 90 live runs made without the test helper it
+found every box true to the 2025 instructions on every filing status, and
+no stale spouse answer drawing a box after a change from joint. S1
+(should-fix): the spouse fields' one inapplicable sentence named filing
+status even beside a box the return shows. S2 (should-fix): the shared
+helper states an unstated taxpayer age or blindness as false, so the rows
+named "unanswered" ran the false-answer case. Both were repaired
+(`docs/reviews/line12d-boxes/charter-repair.md`, "Repair result" above).
+The repair changed one sentence and tests, so no re-review was chartered.
+
+## Closeout
+
+Closed 2026-11-15. Retrospective:
+`docs/milestone-retrospectives/2026-11-15-line12d-boxes.md`.
+
+Parked for the owner: one section per box in place of the twin "Not
+applicable." section, with its own words for a hidden spouse box; line
+6c's `not_elected`; repeated questions on an unanswered return. The Track
+0 evidence files keep the pre-repair spouse sentence as their record.
