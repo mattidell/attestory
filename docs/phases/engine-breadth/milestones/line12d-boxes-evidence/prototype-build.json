@@ -1,0 +1,138 @@
+{
+  "from": {
+    "package": "v89",
+    "registry": "v87",
+    "release": "v87"
+  },
+  "to": {
+    "package": "v90",
+    "registry": "v88",
+    "release": "v88"
+  },
+  "package": "v90",
+  "registry": "v88",
+  "release": "v88",
+  "members_added": [
+    [
+      "citation",
+      "citation.form1040.line-12d",
+      "v1"
+    ],
+    [
+      "computation",
+      "rule.form1040-line12d-you-age",
+      "v1"
+    ],
+    [
+      "form-field",
+      "form1040.line-12d-you-age",
+      "v1"
+    ],
+    [
+      "computation",
+      "rule.form1040-line12d-you-age-not-checked",
+      "v1"
+    ],
+    [
+      "form-field",
+      "form1040.line-12d-you-age-not-checked",
+      "v1"
+    ],
+    [
+      "computation",
+      "rule.form1040-line12d-you-blind",
+      "v1"
+    ],
+    [
+      "form-field",
+      "form1040.line-12d-you-blind",
+      "v1"
+    ],
+    [
+      "computation",
+      "rule.form1040-line12d-you-blind-not-checked",
+      "v1"
+    ],
+    [
+      "form-field",
+      "form1040.line-12d-you-blind-not-checked",
+      "v1"
+    ],
+    [
+      "computation",
+      "rule.form1040-line12d-spouse-age",
+      "v1"
+    ],
+    [
+      "form-field",
+      "form1040.line-12d-spouse-age",
+      "v1"
+    ],
+    [
+      "computation",
+      "rule.form1040-line12d-spouse-age-not-checked",
+      "v1"
+    ],
+    [
+      "form-field",
+      "form1040.line-12d-spouse-age-not-checked",
+      "v1"
+    ],
+    [
+      "computation",
+      "rule.form1040-line12d-spouse-blind",
+      "v1"
+    ],
+    [
+      "form-field",
+      "form1040.line-12d-spouse-blind",
+      "v1"
+    ],
+    [
+      "computation",
+      "rule.form1040-line12d-spouse-blind-not-checked",
+      "v1"
+    ],
+    [
+      "form-field",
+      "form1040.line-12d-spouse-blind-not-checked",
+      "v1"
+    ]
+  ],
+  "inherited_inconsistencies": [],
+  "boxes": [
+    {
+      "key": "you_age",
+      "checked_field": "form1040.line-12d-you-age",
+      "not_checked_field": "form1040.line-12d-you-age-not-checked",
+      "line": "12d-you-born-before-1961",
+      "who": "you",
+      "symbol": "taxpayer_over_65"
+    },
+    {
+      "key": "you_blind",
+      "checked_field": "form1040.line-12d-you-blind",
+      "not_checked_field": "form1040.line-12d-you-blind-not-checked",
+      "line": "12d-you-blind",
+      "who": "you",
+      "symbol": "taxpayer_blind"
+    },
+    {
+      "key": "spouse_age",
+      "checked_field": "form1040.line-12d-spouse-age",
+      "not_checked_field": "form1040.line-12d-spouse-age-not-checked",
+      "line": "12d-spouse-born-before-1961",
+      "who": "spouse",
+      "symbol": "spouse_over_65"
+    },
+    {
+      "key": "spouse_blind",
+      "checked_field": "form1040.line-12d-spouse-blind",
+      "not_checked_field": "form1040.line-12d-spouse-blind-not-checked",
+      "line": "12d-spouse-blind",
+      "who": "spouse",
+      "symbol": "spouse_blind"
+    }
+  ],
+  "design": "Eight form-field.v3 citizens and eight rule-artifact.v3 publishers, plus citation.form1040.line-12d. Content only: no engine, schema, projection or renderer change."
+}

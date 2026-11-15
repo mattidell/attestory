@@ -1,0 +1,26 @@
+{
+  "diff": "track0-page.diff",
+  "applies_to": "packages/presentation/pages/citation-walk.v1.html",
+  "product_page_sha256": "4e3da156aa28803f6fc94b48c13462e2d4df4a0661f9547e6fd68bba18a0dbf9",
+  "scratch_page_sha256": "6ed39a9e564e2616e0e6327cec911f1944cb0d22defc0303a2291fb9e7f1ee00",
+  "categorical_branch_after": [
+    "  if (disposition === \"published_categorical\") {",
+    "    // The declared field instruction is the only affirmative display source.",
+    "    // Never read resolved.act.finding.value: categorical source values remain",
+    "    // redacted even if a malformed model tries to smuggle one alongside it.",
+    "    // Only a declared render string listed here draws; any other is an error.",
+    "    const shown = Object.freeze({ __proto__: null, checked: \"checked\", not_checked: \"not checked\" })[instruction.render];",
+    "    if (typeof shown !== \"string\") throw new SectionError(\"missing-instruction\");",
+    "    container.appendChild(el(\"p\", { class: \"line-value\", role: \"status\", \"aria-label\": field.label + \": \" + shown }, [shown]));",
+    "    container.appendChild(el(\"p\", { class: \"explain\" }, [instruction.explain]));",
+    "    container.appendChild(renderFieldCitation(fieldCitationSiteId(section.id), field));",
+    "    return;",
+    "  }"
+  ],
+  "reads_finding_value": false,
+  "changed_outside_categorical_branch": false,
+  "harness_copy": {
+    "path": "tools/presentation_harness/examples/pages/citation-walk.v1.html",
+    "carries_same_branch": true
+  }
+}

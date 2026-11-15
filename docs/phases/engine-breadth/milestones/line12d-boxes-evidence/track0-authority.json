@@ -1,0 +1,382 @@
+{
+  "cores": [
+    "v89 published",
+    "v90 scratch"
+  ],
+  "cases": 9,
+  "pass": 9,
+  "fail": [],
+  "rows": [
+    {
+      "id": "auth_you_age_yes",
+      "says": "Single; born before January 2, 1961; not blind.",
+      "status": "single",
+      "answers": {
+        "taxpayer-over-65": true,
+        "taxpayer-blind": false
+      },
+      "boxes_expected": {
+        "you_age": "checked",
+        "you_blind": "not_checked",
+        "spouse_age": "hidden",
+        "spouse_blind": "hidden"
+      },
+      "hand_12e": 17750,
+      "boxes_v90": {
+        "you_age": "checked",
+        "you_blind": "not_checked",
+        "spouse_age": "hidden",
+        "spouse_blind": "hidden"
+      },
+      "line12e_v89": 17750,
+      "line12e_v90": 17750,
+      "v89_sections_unchanged_on_v90": true,
+      "v90_added_sections": [
+        "line-12d-spouse-age",
+        "line-12d-spouse-age-not-checked",
+        "line-12d-spouse-blind",
+        "line-12d-spouse-blind-not-checked",
+        "line-12d-you-age",
+        "line-12d-you-age-not-checked",
+        "line-12d-you-blind",
+        "line-12d-you-blind-not-checked"
+      ],
+      "outcome": [
+        "success",
+        "success"
+      ],
+      "pass": true
+    },
+    {
+      "id": "auth_you_blind_yes",
+      "says": "Single; not 65; blind.",
+      "status": "single",
+      "answers": {
+        "taxpayer-over-65": false,
+        "taxpayer-blind": true
+      },
+      "boxes_expected": {
+        "you_age": "not_checked",
+        "you_blind": "checked",
+        "spouse_age": "hidden",
+        "spouse_blind": "hidden"
+      },
+      "hand_12e": 17750,
+      "boxes_v90": {
+        "you_age": "not_checked",
+        "you_blind": "checked",
+        "spouse_age": "hidden",
+        "spouse_blind": "hidden"
+      },
+      "line12e_v89": 17750,
+      "line12e_v90": 17750,
+      "v89_sections_unchanged_on_v90": true,
+      "v90_added_sections": [
+        "line-12d-spouse-age",
+        "line-12d-spouse-age-not-checked",
+        "line-12d-spouse-blind",
+        "line-12d-spouse-blind-not-checked",
+        "line-12d-you-age",
+        "line-12d-you-age-not-checked",
+        "line-12d-you-blind",
+        "line-12d-you-blind-not-checked"
+      ],
+      "outcome": [
+        "success",
+        "success"
+      ],
+      "pass": true
+    },
+    {
+      "id": "auth_you_unanswered",
+      "says": "Single; neither question answered.",
+      "status": "single",
+      "answers": {},
+      "boxes_expected": {
+        "you_age": "blocked",
+        "you_blind": "blocked",
+        "spouse_age": "hidden",
+        "spouse_blind": "hidden"
+      },
+      "hand_12e": "blocked",
+      "boxes_v90": {
+        "you_age": "blocked",
+        "you_blind": "blocked",
+        "spouse_age": "hidden",
+        "spouse_blind": "hidden"
+      },
+      "line12e_v89": "blocked",
+      "line12e_v90": "blocked",
+      "v89_sections_unchanged_on_v90": true,
+      "v90_added_sections": [
+        "line-12d-spouse-age",
+        "line-12d-spouse-age-not-checked",
+        "line-12d-spouse-blind",
+        "line-12d-spouse-blind-not-checked",
+        "line-12d-you-age",
+        "line-12d-you-age-not-checked",
+        "line-12d-you-blind",
+        "line-12d-you-blind-not-checked"
+      ],
+      "outcome": [
+        "success",
+        "success"
+      ],
+      "pass": true
+    },
+    {
+      "id": "auth_spouse_age_joint",
+      "says": "Joint; only the spouse born before January 2, 1961.",
+      "status": "married_filing_jointly",
+      "answers": {
+        "taxpayer-over-65": false,
+        "taxpayer-blind": false,
+        "spouse-over-65": true,
+        "spouse-blind": false
+      },
+      "boxes_expected": {
+        "you_age": "not_checked",
+        "you_blind": "not_checked",
+        "spouse_age": "checked",
+        "spouse_blind": "not_checked"
+      },
+      "hand_12e": 33100,
+      "boxes_v90": {
+        "you_age": "not_checked",
+        "you_blind": "not_checked",
+        "spouse_age": "checked",
+        "spouse_blind": "not_checked"
+      },
+      "line12e_v89": 33100,
+      "line12e_v90": 33100,
+      "v89_sections_unchanged_on_v90": true,
+      "v90_added_sections": [
+        "line-12d-spouse-age",
+        "line-12d-spouse-age-not-checked",
+        "line-12d-spouse-blind",
+        "line-12d-spouse-blind-not-checked",
+        "line-12d-you-age",
+        "line-12d-you-age-not-checked",
+        "line-12d-you-blind",
+        "line-12d-you-blind-not-checked"
+      ],
+      "outcome": [
+        "success",
+        "success"
+      ],
+      "pass": true
+    },
+    {
+      "id": "auth_spouse_blind_joint",
+      "says": "Joint; only the spouse blind.",
+      "status": "married_filing_jointly",
+      "answers": {
+        "taxpayer-over-65": false,
+        "taxpayer-blind": false,
+        "spouse-over-65": false,
+        "spouse-blind": true
+      },
+      "boxes_expected": {
+        "you_age": "not_checked",
+        "you_blind": "not_checked",
+        "spouse_age": "not_checked",
+        "spouse_blind": "checked"
+      },
+      "hand_12e": 33100,
+      "boxes_v90": {
+        "you_age": "not_checked",
+        "you_blind": "not_checked",
+        "spouse_age": "not_checked",
+        "spouse_blind": "checked"
+      },
+      "line12e_v89": 33100,
+      "line12e_v90": 33100,
+      "v89_sections_unchanged_on_v90": true,
+      "v90_added_sections": [
+        "line-12d-spouse-age",
+        "line-12d-spouse-age-not-checked",
+        "line-12d-spouse-blind",
+        "line-12d-spouse-blind-not-checked",
+        "line-12d-you-age",
+        "line-12d-you-age-not-checked",
+        "line-12d-you-blind",
+        "line-12d-you-blind-not-checked"
+      ],
+      "outcome": [
+        "success",
+        "success"
+      ],
+      "pass": true
+    },
+    {
+      "id": "auth_spouse_separate_yes",
+      "says": "Separate; spouse blind; condition yes.",
+      "status": "married_filing_separately",
+      "answers": {
+        "taxpayer-over-65": false,
+        "taxpayer-blind": false,
+        "spouse-over-65": false,
+        "spouse-blind": true,
+        "standard-deduction.spouse-separate-condition": true
+      },
+      "boxes_expected": {
+        "you_age": "not_checked",
+        "you_blind": "not_checked",
+        "spouse_age": "not_checked",
+        "spouse_blind": "checked"
+      },
+      "hand_12e": 17350,
+      "boxes_v90": {
+        "you_age": "not_checked",
+        "you_blind": "not_checked",
+        "spouse_age": "not_checked",
+        "spouse_blind": "checked"
+      },
+      "line12e_v89": 17350,
+      "line12e_v90": 17350,
+      "v89_sections_unchanged_on_v90": true,
+      "v90_added_sections": [
+        "line-12d-spouse-age",
+        "line-12d-spouse-age-not-checked",
+        "line-12d-spouse-blind",
+        "line-12d-spouse-blind-not-checked",
+        "line-12d-you-age",
+        "line-12d-you-age-not-checked",
+        "line-12d-you-blind",
+        "line-12d-you-blind-not-checked"
+      ],
+      "outcome": [
+        "success",
+        "success"
+      ],
+      "pass": true
+    },
+    {
+      "id": "auth_spouse_separate_no",
+      "says": "Separate; spouse blind recorded; condition no.",
+      "status": "married_filing_separately",
+      "answers": {
+        "taxpayer-over-65": false,
+        "taxpayer-blind": false,
+        "spouse-over-65": false,
+        "spouse-blind": true,
+        "standard-deduction.spouse-separate-condition": false
+      },
+      "boxes_expected": {
+        "you_age": "not_checked",
+        "you_blind": "not_checked",
+        "spouse_age": "hidden",
+        "spouse_blind": "hidden"
+      },
+      "hand_12e": 15750,
+      "boxes_v90": {
+        "you_age": "not_checked",
+        "you_blind": "not_checked",
+        "spouse_age": "hidden",
+        "spouse_blind": "hidden"
+      },
+      "line12e_v89": 15750,
+      "line12e_v90": 15750,
+      "v89_sections_unchanged_on_v90": true,
+      "v90_added_sections": [
+        "line-12d-spouse-age",
+        "line-12d-spouse-age-not-checked",
+        "line-12d-spouse-blind",
+        "line-12d-spouse-blind-not-checked",
+        "line-12d-you-age",
+        "line-12d-you-age-not-checked",
+        "line-12d-you-blind",
+        "line-12d-you-blind-not-checked"
+      ],
+      "outcome": [
+        "success",
+        "success"
+      ],
+      "pass": true
+    },
+    {
+      "id": "auth_spouse_recorded_on_hoh",
+      "says": "Head of household; spouse facts recorded true.",
+      "status": "head_of_household",
+      "answers": {
+        "taxpayer-over-65": false,
+        "taxpayer-blind": false,
+        "spouse-over-65": true,
+        "spouse-blind": true
+      },
+      "boxes_expected": {
+        "you_age": "not_checked",
+        "you_blind": "not_checked",
+        "spouse_age": "hidden",
+        "spouse_blind": "hidden"
+      },
+      "hand_12e": 23625,
+      "boxes_v90": {
+        "you_age": "not_checked",
+        "you_blind": "not_checked",
+        "spouse_age": "hidden",
+        "spouse_blind": "hidden"
+      },
+      "line12e_v89": 23625,
+      "line12e_v90": 23625,
+      "v89_sections_unchanged_on_v90": true,
+      "v90_added_sections": [
+        "line-12d-spouse-age",
+        "line-12d-spouse-age-not-checked",
+        "line-12d-spouse-blind",
+        "line-12d-spouse-blind-not-checked",
+        "line-12d-you-age",
+        "line-12d-you-age-not-checked",
+        "line-12d-you-blind",
+        "line-12d-you-blind-not-checked"
+      ],
+      "outcome": [
+        "success",
+        "success"
+      ],
+      "pass": true
+    },
+    {
+      "id": "auth_spouse_recorded_on_qss",
+      "says": "Qualifying surviving spouse; spouse facts recorded true.",
+      "status": "qualifying_surviving_spouse",
+      "answers": {
+        "taxpayer-over-65": false,
+        "taxpayer-blind": false,
+        "spouse-over-65": true,
+        "spouse-blind": true
+      },
+      "boxes_expected": {
+        "you_age": "not_checked",
+        "you_blind": "not_checked",
+        "spouse_age": "hidden",
+        "spouse_blind": "hidden"
+      },
+      "hand_12e": 31500,
+      "boxes_v90": {
+        "you_age": "not_checked",
+        "you_blind": "not_checked",
+        "spouse_age": "hidden",
+        "spouse_blind": "hidden"
+      },
+      "line12e_v89": 31500,
+      "line12e_v90": 31500,
+      "v89_sections_unchanged_on_v90": true,
+      "v90_added_sections": [
+        "line-12d-spouse-age",
+        "line-12d-spouse-age-not-checked",
+        "line-12d-spouse-blind",
+        "line-12d-spouse-blind-not-checked",
+        "line-12d-you-age",
+        "line-12d-you-age-not-checked",
+        "line-12d-you-blind",
+        "line-12d-you-blind-not-checked"
+      ],
+      "outcome": [
+        "success",
+        "success"
+      ],
+      "pass": true
+    }
+  ]
+}
