@@ -1,0 +1,148 @@
+{
+  "package": "v89",
+  "law": {
+    "path": "docs/phases/engine-breadth/milestones/age-blindness-asked-evidence/law.json",
+    "sha256": "1d9bdf9e628ec0f3df58a47b487dc17d517f01cb0266e1332db27d2437ea8bc5",
+    "quotes": {
+      "form1040-line12d": {
+        "source": "2025 Form 1040: Form 1040 (2025), page 1, lines 12a and 12d",
+        "extract_lines": "87-92",
+        "text": "12a Someone can claim: You as a dependent; Your spouse as a dependent. d You: Were born before January 2, 1961; Are blind. Spouse: Was born before January 2, 1961; Is blind."
+      },
+      "age-65": {
+        "source": "2025 Instructions for Form 1040: Instructions for Form 1040, Line 12d",
+        "extract_lines": "2183-2195",
+        "text": "If you or your spouse (if you are married and filing a joint return) were born before January 2, 1961, or were blind at the end of 2025, check the appropriate box(es) on line 12d. Don't check any boxes for your spouse if your filing status is head of household."
+      },
+      "separate-return-spouse": {
+        "source": "2025 Instructions for Form 1040: Instructions for Form 1040, Line 12d (continued)",
+        "extract_lines": "2117-2127",
+        "text": "If your filing status is married filing separately and your spouse was born before January 2, 1961, or was blind at the end of 2025, you can check the appropriate box(es) on line 12d if your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return."
+      },
+      "chart": {
+        "source": "2025 Instructions for Form 1040: Instructions for Form 1040, Standard Deduction Chart for People Who Were Born Before January 2, 1961, or Were Blind",
+        "extract_lines": "2319-2350",
+        "text": "Don't use this chart if someone can claim you, or your spouse if filing jointly, as a dependent. Instead, use the worksheet above. [Boxes: You were born before January 2, 1961; You are blind; Spouse was born before January 2, 1961; Spouse is blind.] Single: 1 $17,750, 2 19,750. Married filing jointly: 1 $33,100, 2 34,700, 3 36,300, 4 37,900. Qualifying surviving spouse: 1 $33,100, 2 34,700. Married filing separately*: 1 $17,350, 2 18,950, 3 20,550, 4 22,150. Head of household: 1 $25,625, 2 27,625. * You can check the boxes for spouse if your filing status is married filing separately and your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return."
+      }
+    },
+    "reading_spouse_boxes": "Spouse boxes: on a joint return; on a separate return only if the spouse had no income, isn't filing and can't be claimed as a dependent (the chart footnote and line 12d); never on head of household (line 12d). The chart's qualifying surviving spouse rows stop at 2 boxes, so only the taxpayer's boxes count on that status."
+  },
+  "example": {
+    "why": "Form 1040 line 6d is a checkbox. The package publishes the checked state and the not-checked state as two fields, each bound to a rule whose finding value is the field's published_value.render string.",
+    "checked_field": {
+      "id": "form1040.line-6d",
+      "schema": "form-field.v3",
+      "binds_symbol": "social-security.line6d-indicator",
+      "line": "6d",
+      "render": "checked",
+      "cite": {
+        "file": "packages/content/tax/2025/form1040.line-6d.form-field.json",
+        "lines": "1-47"
+      }
+    },
+    "not_checked_field": {
+      "id": "form1040.line-6d-not-checked",
+      "binds_symbol": "social-security.line6d-not-checked",
+      "line": "6d-not-checked",
+      "render": "not_checked",
+      "cite": {
+        "file": "packages/content/tax/2025/form1040.line-6d-not-checked.form-field.json",
+        "lines": "1-47"
+      }
+    },
+    "checked_rule": {
+      "id": "rule.form1040-line6d",
+      "schema": "rule-artifact.v3",
+      "role": "computation",
+      "publishes": "social-security.line6d-indicator",
+      "value": "checked",
+      "cite": {
+        "file": "packages/content/tax/2025/rule.form1040-line6d.json",
+        "lines": "1-100"
+      }
+    },
+    "not_checked_rule": {
+      "id": "rule.form1040-line6d-not-checked",
+      "publishes": "social-security.line6d-not-checked",
+      "value": "not_checked",
+      "cite": {
+        "file": "packages/content/tax/2025/rule.form1040-line6d-not-checked.json",
+        "lines": "1-100"
+      }
+    },
+    "section_id_is_line": {
+      "file": "packages/derivation/presentation_projection.py",
+      "lines": "3956-3957"
+    },
+    "two_fields_need_two_line_values": "The presentation section id is 'line-' plus field.line, so the checked and not-checked fields use line '6d' and '6d-not-checked'."
+  },
+  "pipeline": {
+    "declare": {
+      "schema": "form-field.v3",
+      "cite": {
+        "file": "packages/schemas/tax/form-field.v3.schema.json",
+        "lines": "1-6"
+      },
+      "binds_symbol": "A field names one binds_symbol. Package validation accepts a symbol a member rule publishes, or an input binding.",
+      "validation_cite": {
+        "file": "packages/derivation/package_validation.py",
+        "lines": "2595-2601"
+      },
+      "reachability": "Every form-field member is a reachability root, so the rule it binds is reached without listing the field as an entrypoint.",
+      "reachability_cite": {
+        "file": "packages/derivation/package_validation.py",
+        "lines": "3378-3383"
+      }
+    },
+    "publish": {
+      "rule_role": "Line 6d's publishers are computation rules (rule-artifact.v3), not field-mapping. field-mapping is the wages-to-line-1a role. A categorical checkbox uses a fixed string value equal to the field's published_value.render.",
+      "wages_field_mapping": {
+        "id": "rule.w2-box1-to-line1a",
+        "role": "field-mapping",
+        "cite": {
+          "file": "packages/content/tax/2025/package.core-calculations.v89.json",
+          "lines": "5897-5901"
+        }
+      }
+    },
+    "project": {
+      "cite": {
+        "file": "packages/derivation/presentation_projection.py",
+        "lines": "771-806"
+      },
+      "numeric": "published_value.render '{value}' copies the numeric finding.",
+      "categorical": "Any other render string is the affirmative checkbox form: the finding value must be that same string, and the source value is not copied onto the model. Disposition is published_categorical.",
+      "boolean_fact_cannot_bind_directly": "taxpayer_over_65 is a boolean input. Binding a form field to it fails projection: the finding value is not the render string. A publishing rule is required.",
+      "one_field_one_render": "published_value.render is one string, so one field shows one state. Line 6d therefore uses two fields for checked and not_checked."
+    },
+    "render": {
+      "cite": {
+        "file": "packages/presentation/pages/citation-walk.v1.html",
+        "lines": "1014-1022"
+      },
+      "accepts": "checked",
+      "saved_page_observation": {
+        "file": "docs/phases/engine-breadth/milestones/sale-page-observation-evidence/p0-observation.md",
+        "lines": "62-66"
+      },
+      "note": "The saved citation-walk page draws published_categorical only when render is 'checked'. Line 6c's not_elected and line 6d's not_checked hit missing-instruction on the page. The presentation model still carries those states."
+    }
+  },
+  "line12d_today": {
+    "package": "v89",
+    "form_fields_named_12d": [],
+    "line_12e": {
+      "id": "form1040.line-12e",
+      "binds": "deductions.line-12e",
+      "render": "{value}"
+    },
+    "age_blind_bindings": {
+      "spouse_blind": "required",
+      "spouse_over_65": "required",
+      "taxpayer_blind": "required",
+      "taxpayer_over_65": "required",
+      "spouse_separate_condition": "required"
+    },
+    "finding": "No form field shows a line 12d box. The four age and blindness facts are required inputs; the page shows them through line 12e's amount and through the input questions while they are open."
+  }
+}

@@ -1,0 +1,1346 @@
+{
+  "cores": {
+    "v89": "published",
+    "v90": "prototype.py (scratch)"
+  },
+  "law": "docs/phases/engine-breadth/milestones/age-blindness-asked-evidence/law.json",
+  "base_return": "question-wording harness wage return: wages 50,000, 4,500 withheld, every other question answered, no-sale box 4 present=no",
+  "cases": [
+    {
+      "id": "single-age-yes-blind-no",
+      "says": "Single; born before January 2, 1961; not blind.",
+      "status": "single",
+      "truthful": {
+        "taxpayer-over-65": true,
+        "taxpayer-blind": false
+      },
+      "boxes_expected": {
+        "you_age": "checked",
+        "you_blind": "not_checked",
+        "spouse_age": "hidden",
+        "spouse_blind": "hidden"
+      },
+      "hand_12e": 17750,
+      "measured": {
+        "unanswered@v89": {
+          "outcome": "success",
+          "stop": "saturated",
+          "boxes": {
+            "you_age": "absent",
+            "you_blind": "absent",
+            "spouse_age": "absent",
+            "spouse_blind": "absent"
+          },
+          "boxes_shown": {},
+          "form1040.line-12e": "blocked"
+        },
+        "unanswered@v90": {
+          "outcome": "success",
+          "stop": "saturated",
+          "boxes": {
+            "you_age": "blocked",
+            "you_blind": "blocked",
+            "spouse_age": "hidden",
+            "spouse_blind": "hidden"
+          },
+          "boxes_shown": {},
+          "form1040.line-12e": "blocked"
+        },
+        "truthful@v89": {
+          "outcome": "success",
+          "stop": "saturated",
+          "boxes": {
+            "you_age": "absent",
+            "you_blind": "absent",
+            "spouse_age": "absent",
+            "spouse_blind": "absent"
+          },
+          "boxes_shown": {},
+          "form1040.line-12e": 17750
+        },
+        "truthful@v90": {
+          "outcome": "success",
+          "stop": "saturated",
+          "boxes": {
+            "you_age": "checked",
+            "you_blind": "not_checked",
+            "spouse_age": "hidden",
+            "spouse_blind": "hidden"
+          },
+          "boxes_shown": {
+            "you_age": "checked",
+            "you_blind": "not_checked"
+          },
+          "form1040.line-12e": 17750
+        }
+      },
+      "verdicts": {
+        "unanswered@v89": {
+          "boxes_shown": {},
+          "boxes_got": {
+            "you_age": "absent",
+            "you_blind": "absent",
+            "spouse_age": "absent",
+            "spouse_blind": "absent"
+          },
+          "boxes_expected": {
+            "you_age": "absent",
+            "you_blind": "absent",
+            "spouse_age": "absent",
+            "spouse_blind": "absent"
+          },
+          "pass": true,
+          "form1040.line-12e": "blocked",
+          "line12e_matches_hand": null
+        },
+        "unanswered@v90": {
+          "boxes_shown": {},
+          "boxes_got": {
+            "you_age": "blocked",
+            "you_blind": "blocked",
+            "spouse_age": "hidden",
+            "spouse_blind": "hidden"
+          },
+          "boxes_expected": {
+            "you_age": "blocked",
+            "you_blind": "blocked",
+            "spouse_age": "hidden",
+            "spouse_blind": "hidden"
+          },
+          "pass": true,
+          "form1040.line-12e": "blocked",
+          "line12e_matches_hand": null
+        },
+        "truthful@v89": {
+          "boxes_shown": {},
+          "boxes_got": {
+            "you_age": "absent",
+            "you_blind": "absent",
+            "spouse_age": "absent",
+            "spouse_blind": "absent"
+          },
+          "boxes_expected": {
+            "you_age": "absent",
+            "you_blind": "absent",
+            "spouse_age": "absent",
+            "spouse_blind": "absent"
+          },
+          "pass": true,
+          "form1040.line-12e": 17750,
+          "line12e_matches_hand": true
+        },
+        "truthful@v90": {
+          "boxes_shown": {
+            "you_age": "checked",
+            "you_blind": "not_checked"
+          },
+          "boxes_got": {
+            "you_age": "checked",
+            "you_blind": "not_checked",
+            "spouse_age": "hidden",
+            "spouse_blind": "hidden"
+          },
+          "boxes_expected": {
+            "you_age": "checked",
+            "you_blind": "not_checked",
+            "spouse_age": "hidden",
+            "spouse_blind": "hidden"
+          },
+          "pass": true,
+          "form1040.line-12e": 17750,
+          "line12e_matches_hand": true
+        }
+      }
+    },
+    {
+      "id": "single-both-no",
+      "says": "Single; not 65; not blind.",
+      "status": "single",
+      "truthful": {
+        "taxpayer-over-65": false,
+        "taxpayer-blind": false
+      },
+      "boxes_expected": {
+        "you_age": "not_checked",
+        "you_blind": "not_checked",
+        "spouse_age": "hidden",
+        "spouse_blind": "hidden"
+      },
+      "hand_12e": 15750,
+      "measured": {
+        "unanswered@v89": {
+          "outcome": "success",
+          "stop": "saturated",
+          "boxes": {
+            "you_age": "absent",
+            "you_blind": "absent",
+            "spouse_age": "absent",
+            "spouse_blind": "absent"
+          },
+          "boxes_shown": {},
+          "form1040.line-12e": "blocked"
+        },
+        "unanswered@v90": {
+          "outcome": "success",
+          "stop": "saturated",
+          "boxes": {
+            "you_age": "blocked",
+            "you_blind": "blocked",
+            "spouse_age": "hidden",
+            "spouse_blind": "hidden"
+          },
+          "boxes_shown": {},
+          "form1040.line-12e": "blocked"
+        },
+        "truthful@v89": {
+          "outcome": "success",
+          "stop": "saturated",
+          "boxes": {
+            "you_age": "absent",
+            "you_blind": "absent",
+            "spouse_age": "absent",
+            "spouse_blind": "absent"
+          },
+          "boxes_shown": {},
+          "form1040.line-12e": 15750
+        },
+        "truthful@v90": {
+          "outcome": "success",
+          "stop": "saturated",
+          "boxes": {
+            "you_age": "not_checked",
+            "you_blind": "not_checked",
+            "spouse_age": "hidden",
+            "spouse_blind": "hidden"
+          },
+          "boxes_shown": {
+            "you_age": "not_checked",
+            "you_blind": "not_checked"
+          },
+          "form1040.line-12e": 15750
+        }
+      },
+      "verdicts": {
+        "unanswered@v89": {
+          "boxes_shown": {},
+          "boxes_got": {
+            "you_age": "absent",
+            "you_blind": "absent",
+            "spouse_age": "absent",
+            "spouse_blind": "absent"
+          },
+          "boxes_expected": {
+            "you_age": "absent",
+            "you_blind": "absent",
+            "spouse_age": "absent",
+            "spouse_blind": "absent"
+          },
+          "pass": true,
+          "form1040.line-12e": "blocked",
+          "line12e_matches_hand": null
+        },
+        "unanswered@v90": {
+          "boxes_shown": {},
+          "boxes_got": {
+            "you_age": "blocked",
+            "you_blind": "blocked",
+            "spouse_age": "hidden",
+            "spouse_blind": "hidden"
+          },
+          "boxes_expected": {
+            "you_age": "blocked",
+            "you_blind": "blocked",
+            "spouse_age": "hidden",
+            "spouse_blind": "hidden"
+          },
+          "pass": true,
+          "form1040.line-12e": "blocked",
+          "line12e_matches_hand": null
+        },
+        "truthful@v89": {
+          "boxes_shown": {},
+          "boxes_got": {
+            "you_age": "absent",
+            "you_blind": "absent",
+            "spouse_age": "absent",
+            "spouse_blind": "absent"
+          },
+          "boxes_expected": {
+            "you_age": "absent",
+            "you_blind": "absent",
+            "spouse_age": "absent",
+            "spouse_blind": "absent"
+          },
+          "pass": true,
+          "form1040.line-12e": 15750,
+          "line12e_matches_hand": true
+        },
+        "truthful@v90": {
+          "boxes_shown": {
+            "you_age": "not_checked",
+            "you_blind": "not_checked"
+          },
+          "boxes_got": {
+            "you_age": "not_checked",
+            "you_blind": "not_checked",
+            "spouse_age": "hidden",
+            "spouse_blind": "hidden"
+          },
+          "boxes_expected": {
+            "you_age": "not_checked",
+            "you_blind": "not_checked",
+            "spouse_age": "hidden",
+            "spouse_blind": "hidden"
+          },
+          "pass": true,
+          "form1040.line-12e": 15750,
+          "line12e_matches_hand": true
+        }
+      }
+    },
+    {
+      "id": "joint-spouse-age-yes",
+      "says": "Joint; taxpayer not 65; spouse born before January 2, 1961; neither blind.",
+      "status": "married_filing_jointly",
+      "truthful": {
+        "taxpayer-over-65": false,
+        "taxpayer-blind": false,
+        "spouse-over-65": true,
+        "spouse-blind": false
+      },
+      "boxes_expected": {
+        "you_age": "not_checked",
+        "you_blind": "not_checked",
+        "spouse_age": "checked",
+        "spouse_blind": "not_checked"
+      },
+      "hand_12e": 33100,
+      "measured": {
+        "unanswered@v89": {
+          "outcome": "success",
+          "stop": "saturated",
+          "boxes": {
+            "you_age": "absent",
+            "you_blind": "absent",
+            "spouse_age": "absent",
+            "spouse_blind": "absent"
+          },
+          "boxes_shown": {},
+          "form1040.line-12e": "blocked"
+        },
+        "unanswered@v90": {
+          "outcome": "success",
+          "stop": "saturated",
+          "boxes": {
+            "you_age": "blocked",
+            "you_blind": "blocked",
+            "spouse_age": "blocked",
+            "spouse_blind": "blocked"
+          },
+          "boxes_shown": {},
+          "form1040.line-12e": "blocked"
+        },
+        "truthful@v89": {
+          "outcome": "success",
+          "stop": "saturated",
+          "boxes": {
+            "you_age": "absent",
+            "you_blind": "absent",
+            "spouse_age": "absent",
+            "spouse_blind": "absent"
+          },
+          "boxes_shown": {},
+          "form1040.line-12e": 33100
+        },
+        "truthful@v90": {
+          "outcome": "success",
+          "stop": "saturated",
+          "boxes": {
+            "you_age": "not_checked",
+            "you_blind": "not_checked",
+            "spouse_age": "checked",
+            "spouse_blind": "not_checked"
+          },
+          "boxes_shown": {
+            "you_age": "not_checked",
+            "you_blind": "not_checked",
+            "spouse_age": "checked",
+            "spouse_blind": "not_checked"
+          },
+          "form1040.line-12e": 33100
+        }
+      },
+      "verdicts": {
+        "unanswered@v89": {
+          "boxes_shown": {},
+          "boxes_got": {
+            "you_age": "absent",
+            "you_blind": "absent",
+            "spouse_age": "absent",
+            "spouse_blind": "absent"
+          },
+          "boxes_expected": {
+            "you_age": "absent",
+            "you_blind": "absent",
+            "spouse_age": "absent",
+            "spouse_blind": "absent"
+          },
+          "pass": true,
+          "form1040.line-12e": "blocked",
+          "line12e_matches_hand": null
+        },
+        "unanswered@v90": {
+          "boxes_shown": {},
+          "boxes_got": {
+            "you_age": "blocked",
+            "you_blind": "blocked",
+            "spouse_age": "blocked",
+            "spouse_blind": "blocked"
+          },
+          "boxes_expected": {
+            "you_age": "blocked",
+            "you_blind": "blocked",
+            "spouse_age": "blocked",
+            "spouse_blind": "blocked"
+          },
+          "pass": true,
+          "form1040.line-12e": "blocked",
+          "line12e_matches_hand": null
+        },
+        "truthful@v89": {
+          "boxes_shown": {},
+          "boxes_got": {
+            "you_age": "absent",
+            "you_blind": "absent",
+            "spouse_age": "absent",
+            "spouse_blind": "absent"
+          },
+          "boxes_expected": {
+            "you_age": "absent",
+            "you_blind": "absent",
+            "spouse_age": "absent",
+            "spouse_blind": "absent"
+          },
+          "pass": true,
+          "form1040.line-12e": 33100,
+          "line12e_matches_hand": true
+        },
+        "truthful@v90": {
+          "boxes_shown": {
+            "you_age": "not_checked",
+            "you_blind": "not_checked",
+            "spouse_age": "checked",
+            "spouse_blind": "not_checked"
+          },
+          "boxes_got": {
+            "you_age": "not_checked",
+            "you_blind": "not_checked",
+            "spouse_age": "checked",
+            "spouse_blind": "not_checked"
+          },
+          "boxes_expected": {
+            "you_age": "not_checked",
+            "you_blind": "not_checked",
+            "spouse_age": "checked",
+            "spouse_blind": "not_checked"
+          },
+          "pass": true,
+          "form1040.line-12e": 33100,
+          "line12e_matches_hand": true
+        }
+      }
+    },
+    {
+      "id": "joint-both-blind",
+      "says": "Joint; both blind; neither 65.",
+      "status": "married_filing_jointly",
+      "truthful": {
+        "taxpayer-over-65": false,
+        "taxpayer-blind": true,
+        "spouse-over-65": false,
+        "spouse-blind": true
+      },
+      "boxes_expected": {
+        "you_age": "not_checked",
+        "you_blind": "checked",
+        "spouse_age": "not_checked",
+        "spouse_blind": "checked"
+      },
+      "hand_12e": 34700,
+      "measured": {
+        "unanswered@v89": {
+          "outcome": "success",
+          "stop": "saturated",
+          "boxes": {
+            "you_age": "absent",
+            "you_blind": "absent",
+            "spouse_age": "absent",
+            "spouse_blind": "absent"
+          },
+          "boxes_shown": {},
+          "form1040.line-12e": "blocked"
+        },
+        "unanswered@v90": {
+          "outcome": "success",
+          "stop": "saturated",
+          "boxes": {
+            "you_age": "blocked",
+            "you_blind": "blocked",
+            "spouse_age": "blocked",
+            "spouse_blind": "blocked"
+          },
+          "boxes_shown": {},
+          "form1040.line-12e": "blocked"
+        },
+        "truthful@v89": {
+          "outcome": "success",
+          "stop": "saturated",
+          "boxes": {
+            "you_age": "absent",
+            "you_blind": "absent",
+            "spouse_age": "absent",
+            "spouse_blind": "absent"
+          },
+          "boxes_shown": {},
+          "form1040.line-12e": 34700
+        },
+        "truthful@v90": {
+          "outcome": "success",
+          "stop": "saturated",
+          "boxes": {
+            "you_age": "not_checked",
+            "you_blind": "checked",
+            "spouse_age": "not_checked",
+            "spouse_blind": "checked"
+          },
+          "boxes_shown": {
+            "you_age": "not_checked",
+            "you_blind": "checked",
+            "spouse_age": "not_checked",
+            "spouse_blind": "checked"
+          },
+          "form1040.line-12e": 34700
+        }
+      },
+      "verdicts": {
+        "unanswered@v89": {
+          "boxes_shown": {},
+          "boxes_got": {
+            "you_age": "absent",
+            "you_blind": "absent",
+            "spouse_age": "absent",
+            "spouse_blind": "absent"
+          },
+          "boxes_expected": {
+            "you_age": "absent",
+            "you_blind": "absent",
+            "spouse_age": "absent",
+            "spouse_blind": "absent"
+          },
+          "pass": true,
+          "form1040.line-12e": "blocked",
+          "line12e_matches_hand": null
+        },
+        "unanswered@v90": {
+          "boxes_shown": {},
+          "boxes_got": {
+            "you_age": "blocked",
+            "you_blind": "blocked",
+            "spouse_age": "blocked",
+            "spouse_blind": "blocked"
+          },
+          "boxes_expected": {
+            "you_age": "blocked",
+            "you_blind": "blocked",
+            "spouse_age": "blocked",
+            "spouse_blind": "blocked"
+          },
+          "pass": true,
+          "form1040.line-12e": "blocked",
+          "line12e_matches_hand": null
+        },
+        "truthful@v89": {
+          "boxes_shown": {},
+          "boxes_got": {
+            "you_age": "absent",
+            "you_blind": "absent",
+            "spouse_age": "absent",
+            "spouse_blind": "absent"
+          },
+          "boxes_expected": {
+            "you_age": "absent",
+            "you_blind": "absent",
+            "spouse_age": "absent",
+            "spouse_blind": "absent"
+          },
+          "pass": true,
+          "form1040.line-12e": 34700,
+          "line12e_matches_hand": true
+        },
+        "truthful@v90": {
+          "boxes_shown": {
+            "you_age": "not_checked",
+            "you_blind": "checked",
+            "spouse_age": "not_checked",
+            "spouse_blind": "checked"
+          },
+          "boxes_got": {
+            "you_age": "not_checked",
+            "you_blind": "checked",
+            "spouse_age": "not_checked",
+            "spouse_blind": "checked"
+          },
+          "boxes_expected": {
+            "you_age": "not_checked",
+            "you_blind": "checked",
+            "spouse_age": "not_checked",
+            "spouse_blind": "checked"
+          },
+          "pass": true,
+          "form1040.line-12e": 34700,
+          "line12e_matches_hand": true
+        }
+      }
+    },
+    {
+      "id": "separate-condition-yes",
+      "says": "Separate; spouse 65; condition yes (no income, not filing, not claimable).",
+      "status": "married_filing_separately",
+      "truthful": {
+        "taxpayer-over-65": false,
+        "taxpayer-blind": false,
+        "spouse-over-65": true,
+        "spouse-blind": false,
+        "standard-deduction.spouse-separate-condition": true
+      },
+      "boxes_expected": {
+        "you_age": "not_checked",
+        "you_blind": "not_checked",
+        "spouse_age": "checked",
+        "spouse_blind": "not_checked"
+      },
+      "hand_12e": 17350,
+      "measured": {
+        "unanswered@v89": {
+          "outcome": "success",
+          "stop": "saturated",
+          "boxes": {
+            "you_age": "absent",
+            "you_blind": "absent",
+            "spouse_age": "absent",
+            "spouse_blind": "absent"
+          },
+          "boxes_shown": {},
+          "form1040.line-12e": "blocked"
+        },
+        "unanswered@v90": {
+          "outcome": "success",
+          "stop": "saturated",
+          "boxes": {
+            "you_age": "blocked",
+            "you_blind": "blocked",
+            "spouse_age": "blocked",
+            "spouse_blind": "blocked"
+          },
+          "boxes_shown": {},
+          "form1040.line-12e": "blocked"
+        },
+        "truthful@v89": {
+          "outcome": "success",
+          "stop": "saturated",
+          "boxes": {
+            "you_age": "absent",
+            "you_blind": "absent",
+            "spouse_age": "absent",
+            "spouse_blind": "absent"
+          },
+          "boxes_shown": {},
+          "form1040.line-12e": 17350
+        },
+        "truthful@v90": {
+          "outcome": "success",
+          "stop": "saturated",
+          "boxes": {
+            "you_age": "not_checked",
+            "you_blind": "not_checked",
+            "spouse_age": "checked",
+            "spouse_blind": "not_checked"
+          },
+          "boxes_shown": {
+            "you_age": "not_checked",
+            "you_blind": "not_checked",
+            "spouse_age": "checked",
+            "spouse_blind": "not_checked"
+          },
+          "form1040.line-12e": 17350
+        }
+      },
+      "verdicts": {
+        "unanswered@v89": {
+          "boxes_shown": {},
+          "boxes_got": {
+            "you_age": "absent",
+            "you_blind": "absent",
+            "spouse_age": "absent",
+            "spouse_blind": "absent"
+          },
+          "boxes_expected": {
+            "you_age": "absent",
+            "you_blind": "absent",
+            "spouse_age": "absent",
+            "spouse_blind": "absent"
+          },
+          "pass": true,
+          "form1040.line-12e": "blocked",
+          "line12e_matches_hand": null
+        },
+        "unanswered@v90": {
+          "boxes_shown": {},
+          "boxes_got": {
+            "you_age": "blocked",
+            "you_blind": "blocked",
+            "spouse_age": "blocked",
+            "spouse_blind": "blocked"
+          },
+          "boxes_expected": {
+            "you_age": "blocked",
+            "you_blind": "blocked",
+            "spouse_age": "blocked",
+            "spouse_blind": "blocked"
+          },
+          "pass": true,
+          "form1040.line-12e": "blocked",
+          "line12e_matches_hand": null
+        },
+        "truthful@v89": {
+          "boxes_shown": {},
+          "boxes_got": {
+            "you_age": "absent",
+            "you_blind": "absent",
+            "spouse_age": "absent",
+            "spouse_blind": "absent"
+          },
+          "boxes_expected": {
+            "you_age": "absent",
+            "you_blind": "absent",
+            "spouse_age": "absent",
+            "spouse_blind": "absent"
+          },
+          "pass": true,
+          "form1040.line-12e": 17350,
+          "line12e_matches_hand": true
+        },
+        "truthful@v90": {
+          "boxes_shown": {
+            "you_age": "not_checked",
+            "you_blind": "not_checked",
+            "spouse_age": "checked",
+            "spouse_blind": "not_checked"
+          },
+          "boxes_got": {
+            "you_age": "not_checked",
+            "you_blind": "not_checked",
+            "spouse_age": "checked",
+            "spouse_blind": "not_checked"
+          },
+          "boxes_expected": {
+            "you_age": "not_checked",
+            "you_blind": "not_checked",
+            "spouse_age": "checked",
+            "spouse_blind": "not_checked"
+          },
+          "pass": true,
+          "form1040.line-12e": 17350,
+          "line12e_matches_hand": true
+        }
+      }
+    },
+    {
+      "id": "separate-condition-no",
+      "says": "Separate; spouse 65 recorded; condition no. Spouse boxes are not shown.",
+      "status": "married_filing_separately",
+      "truthful": {
+        "taxpayer-over-65": false,
+        "taxpayer-blind": false,
+        "spouse-over-65": true,
+        "spouse-blind": false,
+        "standard-deduction.spouse-separate-condition": false
+      },
+      "boxes_expected": {
+        "you_age": "not_checked",
+        "you_blind": "not_checked",
+        "spouse_age": "hidden",
+        "spouse_blind": "hidden"
+      },
+      "hand_12e": 15750,
+      "measured": {
+        "unanswered@v89": {
+          "outcome": "success",
+          "stop": "saturated",
+          "boxes": {
+            "you_age": "absent",
+            "you_blind": "absent",
+            "spouse_age": "absent",
+            "spouse_blind": "absent"
+          },
+          "boxes_shown": {},
+          "form1040.line-12e": "blocked"
+        },
+        "unanswered@v90": {
+          "outcome": "success",
+          "stop": "saturated",
+          "boxes": {
+            "you_age": "blocked",
+            "you_blind": "blocked",
+            "spouse_age": "blocked",
+            "spouse_blind": "blocked"
+          },
+          "boxes_shown": {},
+          "form1040.line-12e": "blocked"
+        },
+        "truthful@v89": {
+          "outcome": "success",
+          "stop": "saturated",
+          "boxes": {
+            "you_age": "absent",
+            "you_blind": "absent",
+            "spouse_age": "absent",
+            "spouse_blind": "absent"
+          },
+          "boxes_shown": {},
+          "form1040.line-12e": 15750
+        },
+        "truthful@v90": {
+          "outcome": "success",
+          "stop": "saturated",
+          "boxes": {
+            "you_age": "not_checked",
+            "you_blind": "not_checked",
+            "spouse_age": "hidden",
+            "spouse_blind": "hidden"
+          },
+          "boxes_shown": {
+            "you_age": "not_checked",
+            "you_blind": "not_checked"
+          },
+          "form1040.line-12e": 15750
+        }
+      },
+      "verdicts": {
+        "unanswered@v89": {
+          "boxes_shown": {},
+          "boxes_got": {
+            "you_age": "absent",
+            "you_blind": "absent",
+            "spouse_age": "absent",
+            "spouse_blind": "absent"
+          },
+          "boxes_expected": {
+            "you_age": "absent",
+            "you_blind": "absent",
+            "spouse_age": "absent",
+            "spouse_blind": "absent"
+          },
+          "pass": true,
+          "form1040.line-12e": "blocked",
+          "line12e_matches_hand": null
+        },
+        "unanswered@v90": {
+          "boxes_shown": {},
+          "boxes_got": {
+            "you_age": "blocked",
+            "you_blind": "blocked",
+            "spouse_age": "blocked",
+            "spouse_blind": "blocked"
+          },
+          "boxes_expected": {
+            "you_age": "blocked",
+            "you_blind": "blocked",
+            "spouse_age": "blocked",
+            "spouse_blind": "blocked"
+          },
+          "pass": true,
+          "form1040.line-12e": "blocked",
+          "line12e_matches_hand": null
+        },
+        "truthful@v89": {
+          "boxes_shown": {},
+          "boxes_got": {
+            "you_age": "absent",
+            "you_blind": "absent",
+            "spouse_age": "absent",
+            "spouse_blind": "absent"
+          },
+          "boxes_expected": {
+            "you_age": "absent",
+            "you_blind": "absent",
+            "spouse_age": "absent",
+            "spouse_blind": "absent"
+          },
+          "pass": true,
+          "form1040.line-12e": 15750,
+          "line12e_matches_hand": true
+        },
+        "truthful@v90": {
+          "boxes_shown": {
+            "you_age": "not_checked",
+            "you_blind": "not_checked"
+          },
+          "boxes_got": {
+            "you_age": "not_checked",
+            "you_blind": "not_checked",
+            "spouse_age": "hidden",
+            "spouse_blind": "hidden"
+          },
+          "boxes_expected": {
+            "you_age": "not_checked",
+            "you_blind": "not_checked",
+            "spouse_age": "hidden",
+            "spouse_blind": "hidden"
+          },
+          "pass": true,
+          "form1040.line-12e": 15750,
+          "line12e_matches_hand": true
+        }
+      }
+    },
+    {
+      "id": "head-of-household",
+      "says": "Head of household; not 65; not blind. Spouse boxes are not shown.",
+      "status": "head_of_household",
+      "truthful": {
+        "taxpayer-over-65": false,
+        "taxpayer-blind": false
+      },
+      "boxes_expected": {
+        "you_age": "not_checked",
+        "you_blind": "not_checked",
+        "spouse_age": "hidden",
+        "spouse_blind": "hidden"
+      },
+      "hand_12e": 23625,
+      "measured": {
+        "unanswered@v89": {
+          "outcome": "success",
+          "stop": "saturated",
+          "boxes": {
+            "you_age": "absent",
+            "you_blind": "absent",
+            "spouse_age": "absent",
+            "spouse_blind": "absent"
+          },
+          "boxes_shown": {},
+          "form1040.line-12e": "blocked"
+        },
+        "unanswered@v90": {
+          "outcome": "success",
+          "stop": "saturated",
+          "boxes": {
+            "you_age": "blocked",
+            "you_blind": "blocked",
+            "spouse_age": "hidden",
+            "spouse_blind": "hidden"
+          },
+          "boxes_shown": {},
+          "form1040.line-12e": "blocked"
+        },
+        "truthful@v89": {
+          "outcome": "success",
+          "stop": "saturated",
+          "boxes": {
+            "you_age": "absent",
+            "you_blind": "absent",
+            "spouse_age": "absent",
+            "spouse_blind": "absent"
+          },
+          "boxes_shown": {},
+          "form1040.line-12e": 23625
+        },
+        "truthful@v90": {
+          "outcome": "success",
+          "stop": "saturated",
+          "boxes": {
+            "you_age": "not_checked",
+            "you_blind": "not_checked",
+            "spouse_age": "hidden",
+            "spouse_blind": "hidden"
+          },
+          "boxes_shown": {
+            "you_age": "not_checked",
+            "you_blind": "not_checked"
+          },
+          "form1040.line-12e": 23625
+        }
+      },
+      "verdicts": {
+        "unanswered@v89": {
+          "boxes_shown": {},
+          "boxes_got": {
+            "you_age": "absent",
+            "you_blind": "absent",
+            "spouse_age": "absent",
+            "spouse_blind": "absent"
+          },
+          "boxes_expected": {
+            "you_age": "absent",
+            "you_blind": "absent",
+            "spouse_age": "absent",
+            "spouse_blind": "absent"
+          },
+          "pass": true,
+          "form1040.line-12e": "blocked",
+          "line12e_matches_hand": null
+        },
+        "unanswered@v90": {
+          "boxes_shown": {},
+          "boxes_got": {
+            "you_age": "blocked",
+            "you_blind": "blocked",
+            "spouse_age": "hidden",
+            "spouse_blind": "hidden"
+          },
+          "boxes_expected": {
+            "you_age": "blocked",
+            "you_blind": "blocked",
+            "spouse_age": "hidden",
+            "spouse_blind": "hidden"
+          },
+          "pass": true,
+          "form1040.line-12e": "blocked",
+          "line12e_matches_hand": null
+        },
+        "truthful@v89": {
+          "boxes_shown": {},
+          "boxes_got": {
+            "you_age": "absent",
+            "you_blind": "absent",
+            "spouse_age": "absent",
+            "spouse_blind": "absent"
+          },
+          "boxes_expected": {
+            "you_age": "absent",
+            "you_blind": "absent",
+            "spouse_age": "absent",
+            "spouse_blind": "absent"
+          },
+          "pass": true,
+          "form1040.line-12e": 23625,
+          "line12e_matches_hand": true
+        },
+        "truthful@v90": {
+          "boxes_shown": {
+            "you_age": "not_checked",
+            "you_blind": "not_checked"
+          },
+          "boxes_got": {
+            "you_age": "not_checked",
+            "you_blind": "not_checked",
+            "spouse_age": "hidden",
+            "spouse_blind": "hidden"
+          },
+          "boxes_expected": {
+            "you_age": "not_checked",
+            "you_blind": "not_checked",
+            "spouse_age": "hidden",
+            "spouse_blind": "hidden"
+          },
+          "pass": true,
+          "form1040.line-12e": 23625,
+          "line12e_matches_hand": true
+        }
+      }
+    },
+    {
+      "id": "qualifying-surviving-spouse",
+      "says": "Qualifying surviving spouse; not 65; not blind. Spouse boxes are not shown.",
+      "status": "qualifying_surviving_spouse",
+      "truthful": {
+        "taxpayer-over-65": false,
+        "taxpayer-blind": false
+      },
+      "boxes_expected": {
+        "you_age": "not_checked",
+        "you_blind": "not_checked",
+        "spouse_age": "hidden",
+        "spouse_blind": "hidden"
+      },
+      "hand_12e": 31500,
+      "measured": {
+        "unanswered@v89": {
+          "outcome": "success",
+          "stop": "saturated",
+          "boxes": {
+            "you_age": "absent",
+            "you_blind": "absent",
+            "spouse_age": "absent",
+            "spouse_blind": "absent"
+          },
+          "boxes_shown": {},
+          "form1040.line-12e": "blocked"
+        },
+        "unanswered@v90": {
+          "outcome": "success",
+          "stop": "saturated",
+          "boxes": {
+            "you_age": "blocked",
+            "you_blind": "blocked",
+            "spouse_age": "hidden",
+            "spouse_blind": "hidden"
+          },
+          "boxes_shown": {},
+          "form1040.line-12e": "blocked"
+        },
+        "truthful@v89": {
+          "outcome": "success",
+          "stop": "saturated",
+          "boxes": {
+            "you_age": "absent",
+            "you_blind": "absent",
+            "spouse_age": "absent",
+            "spouse_blind": "absent"
+          },
+          "boxes_shown": {},
+          "form1040.line-12e": 31500
+        },
+        "truthful@v90": {
+          "outcome": "success",
+          "stop": "saturated",
+          "boxes": {
+            "you_age": "not_checked",
+            "you_blind": "not_checked",
+            "spouse_age": "hidden",
+            "spouse_blind": "hidden"
+          },
+          "boxes_shown": {
+            "you_age": "not_checked",
+            "you_blind": "not_checked"
+          },
+          "form1040.line-12e": 31500
+        }
+      },
+      "verdicts": {
+        "unanswered@v89": {
+          "boxes_shown": {},
+          "boxes_got": {
+            "you_age": "absent",
+            "you_blind": "absent",
+            "spouse_age": "absent",
+            "spouse_blind": "absent"
+          },
+          "boxes_expected": {
+            "you_age": "absent",
+            "you_blind": "absent",
+            "spouse_age": "absent",
+            "spouse_blind": "absent"
+          },
+          "pass": true,
+          "form1040.line-12e": "blocked",
+          "line12e_matches_hand": null
+        },
+        "unanswered@v90": {
+          "boxes_shown": {},
+          "boxes_got": {
+            "you_age": "blocked",
+            "you_blind": "blocked",
+            "spouse_age": "hidden",
+            "spouse_blind": "hidden"
+          },
+          "boxes_expected": {
+            "you_age": "blocked",
+            "you_blind": "blocked",
+            "spouse_age": "hidden",
+            "spouse_blind": "hidden"
+          },
+          "pass": true,
+          "form1040.line-12e": "blocked",
+          "line12e_matches_hand": null
+        },
+        "truthful@v89": {
+          "boxes_shown": {},
+          "boxes_got": {
+            "you_age": "absent",
+            "you_blind": "absent",
+            "spouse_age": "absent",
+            "spouse_blind": "absent"
+          },
+          "boxes_expected": {
+            "you_age": "absent",
+            "you_blind": "absent",
+            "spouse_age": "absent",
+            "spouse_blind": "absent"
+          },
+          "pass": true,
+          "form1040.line-12e": 31500,
+          "line12e_matches_hand": true
+        },
+        "truthful@v90": {
+          "boxes_shown": {
+            "you_age": "not_checked",
+            "you_blind": "not_checked"
+          },
+          "boxes_got": {
+            "you_age": "not_checked",
+            "you_blind": "not_checked",
+            "spouse_age": "hidden",
+            "spouse_blind": "hidden"
+          },
+          "boxes_expected": {
+            "you_age": "not_checked",
+            "you_blind": "not_checked",
+            "spouse_age": "hidden",
+            "spouse_blind": "hidden"
+          },
+          "pass": true,
+          "form1040.line-12e": 31500,
+          "line12e_matches_hand": true
+        }
+      }
+    },
+    {
+      "id": "dependent-65",
+      "says": "Single dependent filer; born before January 2, 1961; not blind.",
+      "status": "single",
+      "truthful": {
+        "taxpayer-over-65": true,
+        "taxpayer-blind": false
+      },
+      "boxes_expected": {
+        "you_age": "checked",
+        "you_blind": "not_checked",
+        "spouse_age": "hidden",
+        "spouse_blind": "hidden"
+      },
+      "hand_12e": 17750,
+      "measured": {
+        "unanswered@v89": {
+          "outcome": "success",
+          "stop": "saturated",
+          "boxes": {
+            "you_age": "absent",
+            "you_blind": "absent",
+            "spouse_age": "absent",
+            "spouse_blind": "absent"
+          },
+          "boxes_shown": {},
+          "form1040.line-12e": "blocked"
+        },
+        "unanswered@v90": {
+          "outcome": "success",
+          "stop": "saturated",
+          "boxes": {
+            "you_age": "blocked",
+            "you_blind": "blocked",
+            "spouse_age": "hidden",
+            "spouse_blind": "hidden"
+          },
+          "boxes_shown": {},
+          "form1040.line-12e": "blocked"
+        },
+        "truthful@v89": {
+          "outcome": "success",
+          "stop": "saturated",
+          "boxes": {
+            "you_age": "absent",
+            "you_blind": "absent",
+            "spouse_age": "absent",
+            "spouse_blind": "absent"
+          },
+          "boxes_shown": {},
+          "form1040.line-12e": 17750
+        },
+        "truthful@v90": {
+          "outcome": "success",
+          "stop": "saturated",
+          "boxes": {
+            "you_age": "checked",
+            "you_blind": "not_checked",
+            "spouse_age": "hidden",
+            "spouse_blind": "hidden"
+          },
+          "boxes_shown": {
+            "you_age": "checked",
+            "you_blind": "not_checked"
+          },
+          "form1040.line-12e": 17750
+        }
+      },
+      "verdicts": {
+        "unanswered@v89": {
+          "boxes_shown": {},
+          "boxes_got": {
+            "you_age": "absent",
+            "you_blind": "absent",
+            "spouse_age": "absent",
+            "spouse_blind": "absent"
+          },
+          "boxes_expected": {
+            "you_age": "absent",
+            "you_blind": "absent",
+            "spouse_age": "absent",
+            "spouse_blind": "absent"
+          },
+          "pass": true,
+          "form1040.line-12e": "blocked",
+          "line12e_matches_hand": null
+        },
+        "unanswered@v90": {
+          "boxes_shown": {},
+          "boxes_got": {
+            "you_age": "blocked",
+            "you_blind": "blocked",
+            "spouse_age": "hidden",
+            "spouse_blind": "hidden"
+          },
+          "boxes_expected": {
+            "you_age": "blocked",
+            "you_blind": "blocked",
+            "spouse_age": "hidden",
+            "spouse_blind": "hidden"
+          },
+          "pass": true,
+          "form1040.line-12e": "blocked",
+          "line12e_matches_hand": null
+        },
+        "truthful@v89": {
+          "boxes_shown": {},
+          "boxes_got": {
+            "you_age": "absent",
+            "you_blind": "absent",
+            "spouse_age": "absent",
+            "spouse_blind": "absent"
+          },
+          "boxes_expected": {
+            "you_age": "absent",
+            "you_blind": "absent",
+            "spouse_age": "absent",
+            "spouse_blind": "absent"
+          },
+          "pass": true,
+          "form1040.line-12e": 17750,
+          "line12e_matches_hand": true
+        },
+        "truthful@v90": {
+          "boxes_shown": {
+            "you_age": "checked",
+            "you_blind": "not_checked"
+          },
+          "boxes_got": {
+            "you_age": "checked",
+            "you_blind": "not_checked",
+            "spouse_age": "hidden",
+            "spouse_blind": "hidden"
+          },
+          "boxes_expected": {
+            "you_age": "checked",
+            "you_blind": "not_checked",
+            "spouse_age": "hidden",
+            "spouse_blind": "hidden"
+          },
+          "pass": true,
+          "form1040.line-12e": 17750,
+          "line12e_matches_hand": true
+        }
+      }
+    }
+  ]
+}

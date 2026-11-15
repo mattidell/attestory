@@ -843,6 +843,20 @@ with no sale, and a recorded wash sale with the adjustment family open.
 The 775 recorded lists compute the same numbers; no computing return is
 newly asked a question.
 
+## Bounded return — Line 12d's Boxes Are Shown (2025)
+
+[Plan](milestones/line12d-boxes.md); retrospective:
+`docs/milestone-retrospectives/2026-11-15-line12d-boxes.md`.
+
+Core v90 (registry v88, release v88) adds Form 1040 line 12d's four boxes
+as form fields: you and your spouse, born before January 2, 1961, and
+blind. Each box is drawn checked or not checked from the recorded answer,
+and is blocked with its question while the answer is missing. The spouse
+boxes show on a joint return, or on a separate return whose spouse
+condition is yes. The saved citation-walk page now draws a `not_checked`
+box as "not checked"; line 6d's alert clears and line 6c's `not_elected`
+alert stays. The 775 recorded lists compute the same numbers.
+
 ## Saved-page observation — Mortgage and Sales (2025)
 
 [Plan](milestones/sale-page-observation.md); retrospective:
@@ -958,8 +972,10 @@ delivers an item removes it.
 - Blindness for someone who died in 2025: neither the Form 1040
   instructions nor Publication 501 says how it is judged, and the
   blindness questions state December 31, 2025 on every return.
-- Line 12d's four boxes are not form fields; the page shows the answers
-  only through line 12e.
+- Line 12d draws each box as two sections, one always "Not applicable."
+  (the line 6d pattern). Showing one section per box, with its own words
+  for a spouse box the return does not show, is a page-design decision
+  for the owner.
 - Exact question identification from saved outcomes, process-restart recovery,
   and broader internal-error guidance remain separate questions. Do not infer
   a missing answer from a derived symbol or treat them as delivered here.

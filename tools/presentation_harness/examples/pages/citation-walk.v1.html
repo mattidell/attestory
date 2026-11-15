@@ -290,8 +290,10 @@ function renderLine(container, section) {
     // The declared field instruction is the only affirmative display source.
     // Never read resolved.act.finding.value: categorical source values remain
     // redacted even if a malformed model tries to smuggle one alongside it.
-    if (instruction.render !== "checked") throw new SectionError("missing-instruction");
-    container.appendChild(el("p", { class: "line-value", role: "status", "aria-label": field.label + ": checked" }, ["checked"]));
+    // Only a declared render string listed here draws; any other is an error.
+    const shown = Object.freeze({ __proto__: null, checked: "checked", not_checked: "not checked" })[instruction.render];
+    if (typeof shown !== "string") throw new SectionError("missing-instruction");
+    container.appendChild(el("p", { class: "line-value", role: "status", "aria-label": field.label + ": " + shown }, [shown]));
     container.appendChild(el("p", { class: "explain" }, [instruction.explain]));
     container.appendChild(renderFieldCitation(fieldCitationSiteId(section.id), field));
     return;

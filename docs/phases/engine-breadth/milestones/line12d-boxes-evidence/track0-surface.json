@@ -1,0 +1,1837 @@
+{
+  "browser": "Chrome/157.0.8103.78",
+  "node": "22.23.2",
+  "browser_wall_s": 4.4,
+  "pages": "rendered by packages.derivation.live_session._render_page from each run's presentation model; 'scratch' is the product page with track0-page.diff applied, 'unmodified' is the product page",
+  "cases": {
+    "s_single_both_false": {
+      "says": "Single; not 65; not blind.",
+      "status": "single",
+      "core": "v90",
+      "boxes_expected": {
+        "you_age": "not_checked",
+        "you_blind": "not_checked",
+        "spouse_age": "hidden",
+        "spouse_blind": "hidden"
+      },
+      "model_boxes": {
+        "you_age": "not_checked",
+        "you_blind": "not_checked",
+        "spouse_age": "hidden",
+        "spouse_blind": "hidden"
+      },
+      "outcome": "success"
+    },
+    "s_single_age_true": {
+      "says": "Single; born before January 2, 1961; not blind.",
+      "status": "single",
+      "core": "v90",
+      "boxes_expected": {
+        "you_age": "checked",
+        "you_blind": "not_checked",
+        "spouse_age": "hidden",
+        "spouse_blind": "hidden"
+      },
+      "model_boxes": {
+        "you_age": "checked",
+        "you_blind": "not_checked",
+        "spouse_age": "hidden",
+        "spouse_blind": "hidden"
+      },
+      "outcome": "success"
+    },
+    "s_joint_spouse_age": {
+      "says": "Joint; only the spouse born before January 2, 1961.",
+      "status": "married_filing_jointly",
+      "core": "v90",
+      "boxes_expected": {
+        "you_age": "not_checked",
+        "you_blind": "not_checked",
+        "spouse_age": "checked",
+        "spouse_blind": "not_checked"
+      },
+      "model_boxes": {
+        "you_age": "not_checked",
+        "you_blind": "not_checked",
+        "spouse_age": "checked",
+        "spouse_blind": "not_checked"
+      },
+      "outcome": "success"
+    },
+    "s_separate_condition_no": {
+      "says": "Separate; spouse blind recorded; condition no.",
+      "status": "married_filing_separately",
+      "core": "v90",
+      "boxes_expected": {
+        "you_age": "not_checked",
+        "you_blind": "not_checked",
+        "spouse_age": "hidden",
+        "spouse_blind": "hidden"
+      },
+      "model_boxes": {
+        "you_age": "not_checked",
+        "you_blind": "not_checked",
+        "spouse_age": "hidden",
+        "spouse_blind": "hidden"
+      },
+      "outcome": "success"
+    },
+    "s_separate_lived_with_spouse": {
+      "says": "Separate; condition no; lived with the spouse during 2025, so line 6d publishes not_checked.",
+      "status": "married_filing_separately",
+      "core": "v90",
+      "boxes_expected": {
+        "you_age": "not_checked",
+        "you_blind": "not_checked",
+        "spouse_age": "hidden",
+        "spouse_blind": "hidden"
+      },
+      "model_boxes": {
+        "you_age": "not_checked",
+        "you_blind": "not_checked",
+        "spouse_age": "hidden",
+        "spouse_blind": "hidden"
+      },
+      "outcome": "success"
+    },
+    "s_hoh": {
+      "says": "Head of household; not 65; not blind.",
+      "status": "head_of_household",
+      "core": "v90",
+      "boxes_expected": {
+        "you_age": "not_checked",
+        "you_blind": "not_checked",
+        "spouse_age": "hidden",
+        "spouse_blind": "hidden"
+      },
+      "model_boxes": {
+        "you_age": "not_checked",
+        "you_blind": "not_checked",
+        "spouse_age": "hidden",
+        "spouse_blind": "hidden"
+      },
+      "outcome": "success"
+    },
+    "s_single_unanswered": {
+      "says": "Single; age and blindness unanswered.",
+      "status": "single",
+      "core": "v90",
+      "boxes_expected": {
+        "you_age": "blocked",
+        "you_blind": "blocked",
+        "spouse_age": "hidden",
+        "spouse_blind": "hidden"
+      },
+      "model_boxes": {
+        "you_age": "blocked",
+        "you_blind": "blocked",
+        "spouse_age": "hidden",
+        "spouse_blind": "hidden"
+      },
+      "outcome": "success"
+    },
+    "v89_s_single_both_false": {
+      "says": "Single; not 65; not blind.",
+      "status": "single",
+      "core": "v89",
+      "outcome": "success"
+    }
+  },
+  "verdicts": {
+    "s_single_both_false": {
+      "drawn": {
+        "you_age": "not_checked",
+        "you_blind": "not_checked",
+        "spouse_age": "hidden",
+        "spouse_blind": "hidden"
+      },
+      "expected": {
+        "you_age": "not_checked",
+        "you_blind": "not_checked",
+        "spouse_age": "hidden",
+        "spouse_blind": "hidden"
+      },
+      "line12d_alerts_scratch_page": [],
+      "line12d_alerts_unmodified_page": [
+        "line-12d-you-born-before-1961-not-checked",
+        "line-12d-you-blind-not-checked"
+      ],
+      "pass": true
+    },
+    "s_single_age_true": {
+      "drawn": {
+        "you_age": "checked",
+        "you_blind": "not_checked",
+        "spouse_age": "hidden",
+        "spouse_blind": "hidden"
+      },
+      "expected": {
+        "you_age": "checked",
+        "you_blind": "not_checked",
+        "spouse_age": "hidden",
+        "spouse_blind": "hidden"
+      },
+      "line12d_alerts_scratch_page": [],
+      "line12d_alerts_unmodified_page": [
+        "line-12d-you-blind-not-checked"
+      ],
+      "pass": true
+    },
+    "s_joint_spouse_age": {
+      "drawn": {
+        "you_age": "not_checked",
+        "you_blind": "not_checked",
+        "spouse_age": "checked",
+        "spouse_blind": "not_checked"
+      },
+      "expected": {
+        "you_age": "not_checked",
+        "you_blind": "not_checked",
+        "spouse_age": "checked",
+        "spouse_blind": "not_checked"
+      },
+      "line12d_alerts_scratch_page": [],
+      "line12d_alerts_unmodified_page": [
+        "line-12d-spouse-blind-not-checked",
+        "line-12d-you-born-before-1961-not-checked",
+        "line-12d-you-blind-not-checked"
+      ],
+      "pass": true
+    },
+    "s_separate_condition_no": {
+      "drawn": {
+        "you_age": "not_checked",
+        "you_blind": "not_checked",
+        "spouse_age": "hidden",
+        "spouse_blind": "hidden"
+      },
+      "expected": {
+        "you_age": "not_checked",
+        "you_blind": "not_checked",
+        "spouse_age": "hidden",
+        "spouse_blind": "hidden"
+      },
+      "line12d_alerts_scratch_page": [],
+      "line12d_alerts_unmodified_page": [
+        "line-12d-you-born-before-1961-not-checked",
+        "line-12d-you-blind-not-checked"
+      ],
+      "pass": true
+    },
+    "s_separate_lived_with_spouse": {
+      "drawn": {
+        "you_age": "not_checked",
+        "you_blind": "not_checked",
+        "spouse_age": "hidden",
+        "spouse_blind": "hidden"
+      },
+      "expected": {
+        "you_age": "not_checked",
+        "you_blind": "not_checked",
+        "spouse_age": "hidden",
+        "spouse_blind": "hidden"
+      },
+      "line12d_alerts_scratch_page": [],
+      "line12d_alerts_unmodified_page": [
+        "line-12d-you-born-before-1961-not-checked",
+        "line-12d-you-blind-not-checked"
+      ],
+      "pass": true
+    },
+    "s_hoh": {
+      "drawn": {
+        "you_age": "not_checked",
+        "you_blind": "not_checked",
+        "spouse_age": "hidden",
+        "spouse_blind": "hidden"
+      },
+      "expected": {
+        "you_age": "not_checked",
+        "you_blind": "not_checked",
+        "spouse_age": "hidden",
+        "spouse_blind": "hidden"
+      },
+      "line12d_alerts_scratch_page": [],
+      "line12d_alerts_unmodified_page": [
+        "line-12d-you-born-before-1961-not-checked",
+        "line-12d-you-blind-not-checked"
+      ],
+      "pass": true
+    },
+    "s_single_unanswered": {
+      "drawn": {
+        "you_age": "blocked",
+        "you_blind": "blocked",
+        "spouse_age": "hidden",
+        "spouse_blind": "hidden"
+      },
+      "expected": {
+        "you_age": "blocked",
+        "you_blind": "blocked",
+        "spouse_age": "hidden",
+        "spouse_blind": "hidden"
+      },
+      "line12d_alerts_scratch_page": [],
+      "line12d_alerts_unmodified_page": [],
+      "pass": true
+    }
+  },
+  "v89_page_identical_on_scratch_and_unmodified": true,
+  "pass": true,
+  "observed": {
+    "s_single_both_false@v90.scratch": {
+      "section_count": 85,
+      "non_loopback_request": false,
+      "alerts": [
+        {
+          "id": "line-6c",
+          "text": "This line is missing its rendering instruction for the declared disposition."
+        },
+        {
+          "id": "line-sch1-top",
+          "text": "This line published a value with no citation attached. No value can be shown safely."
+        }
+      ],
+      "line12d_sections": {
+        "line-12d-spouse-born-before-1961": {
+          "heading": "Spouse was born before January 2, 1961 (Line 12d-spouse-born-before-1961) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is not checked on this return's filing status.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-spouse-born-before-1961-not-checked": {
+          "heading": "Spouse was born before January 2, 1961 (not checked) (Line 12d-spouse-born-before-1961-not-checked) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is not checked on this return's filing status.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-spouse-blind": {
+          "heading": "Spouse is blind (Line 12d-spouse-blind) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is not checked on this return's filing status.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-spouse-blind-not-checked": {
+          "heading": "Spouse is blind (not checked) (Line 12d-spouse-blind-not-checked) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is not checked on this return's filing status.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-you-born-before-1961": {
+          "heading": "You were born before January 2, 1961 (Line 12d-you-born-before-1961) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is the other checked/not-checked state.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-you-born-before-1961-not-checked": {
+          "heading": "You were born before January 2, 1961 (not checked) (Line 12d-you-born-before-1961-not-checked) PUBLISHED CATEGORICAL",
+          "badge": "PUBLISHED CATEGORICAL",
+          "value": "not checked",
+          "value_aria_label": "You were born before January 2, 1961 (not checked): not checked",
+          "explain": "Line 12d You were born before January 2, 1961: the box is not checked.",
+          "section_error": "",
+          "citation_buttons": 1
+        },
+        "line-12d-you-blind": {
+          "heading": "You are blind (Line 12d-you-blind) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is the other checked/not-checked state.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-you-blind-not-checked": {
+          "heading": "You are blind (not checked) (Line 12d-you-blind-not-checked) PUBLISHED CATEGORICAL",
+          "badge": "PUBLISHED CATEGORICAL",
+          "value": "not checked",
+          "value_aria_label": "You are blind (not checked): not checked",
+          "explain": "Line 12d You are blind: the box is not checked.",
+          "section_error": "",
+          "citation_buttons": 1
+        }
+      },
+      "line6": {
+        "line-6c": {
+          "value": "",
+          "section_error": "This line is missing its rendering instruction for the declared disposition."
+        },
+        "line-6d": {
+          "value": "Not applicable.",
+          "section_error": ""
+        },
+        "line-6d-not-checked": {
+          "value": "Not applicable.",
+          "section_error": ""
+        }
+      },
+      "sections_text_sha256": "50ed5d13d4cbeceffb3bbda9218fd5162992b0880c9d649838c1fd93a38abffb"
+    },
+    "s_single_both_false@v90.unmodified": {
+      "section_count": 85,
+      "non_loopback_request": false,
+      "alerts": [
+        {
+          "id": "line-12d-you-born-before-1961-not-checked",
+          "text": "This line is missing its rendering instruction for the declared disposition."
+        },
+        {
+          "id": "line-12d-you-blind-not-checked",
+          "text": "This line is missing its rendering instruction for the declared disposition."
+        },
+        {
+          "id": "line-6c",
+          "text": "This line is missing its rendering instruction for the declared disposition."
+        },
+        {
+          "id": "line-sch1-top",
+          "text": "This line published a value with no citation attached. No value can be shown safely."
+        }
+      ],
+      "line12d_sections": {
+        "line-12d-spouse-born-before-1961": {
+          "heading": "Spouse was born before January 2, 1961 (Line 12d-spouse-born-before-1961) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is not checked on this return's filing status.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-spouse-born-before-1961-not-checked": {
+          "heading": "Spouse was born before January 2, 1961 (not checked) (Line 12d-spouse-born-before-1961-not-checked) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is not checked on this return's filing status.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-spouse-blind": {
+          "heading": "Spouse is blind (Line 12d-spouse-blind) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is not checked on this return's filing status.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-spouse-blind-not-checked": {
+          "heading": "Spouse is blind (not checked) (Line 12d-spouse-blind-not-checked) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is not checked on this return's filing status.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-you-born-before-1961": {
+          "heading": "You were born before January 2, 1961 (Line 12d-you-born-before-1961) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is the other checked/not-checked state.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-you-born-before-1961-not-checked": {
+          "heading": "You were born before January 2, 1961 (not checked)",
+          "badge": "",
+          "value": "",
+          "value_aria_label": null,
+          "explain": "",
+          "section_error": "This line is missing its rendering instruction for the declared disposition.",
+          "citation_buttons": 0
+        },
+        "line-12d-you-blind": {
+          "heading": "You are blind (Line 12d-you-blind) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is the other checked/not-checked state.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-you-blind-not-checked": {
+          "heading": "You are blind (not checked)",
+          "badge": "",
+          "value": "",
+          "value_aria_label": null,
+          "explain": "",
+          "section_error": "This line is missing its rendering instruction for the declared disposition.",
+          "citation_buttons": 0
+        }
+      },
+      "line6": {
+        "line-6c": {
+          "value": "",
+          "section_error": "This line is missing its rendering instruction for the declared disposition."
+        },
+        "line-6d": {
+          "value": "Not applicable.",
+          "section_error": ""
+        },
+        "line-6d-not-checked": {
+          "value": "Not applicable.",
+          "section_error": ""
+        }
+      },
+      "sections_text_sha256": "4bf05581ae8ed6a9705d18f6629b3de1827ac9d1934e73679a9cf0c1b8f43c31"
+    },
+    "s_single_age_true@v90.scratch": {
+      "section_count": 85,
+      "non_loopback_request": false,
+      "alerts": [
+        {
+          "id": "line-6c",
+          "text": "This line is missing its rendering instruction for the declared disposition."
+        },
+        {
+          "id": "line-sch1-top",
+          "text": "This line published a value with no citation attached. No value can be shown safely."
+        }
+      ],
+      "line12d_sections": {
+        "line-12d-spouse-born-before-1961": {
+          "heading": "Spouse was born before January 2, 1961 (Line 12d-spouse-born-before-1961) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is not checked on this return's filing status.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-spouse-born-before-1961-not-checked": {
+          "heading": "Spouse was born before January 2, 1961 (not checked) (Line 12d-spouse-born-before-1961-not-checked) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is not checked on this return's filing status.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-spouse-blind": {
+          "heading": "Spouse is blind (Line 12d-spouse-blind) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is not checked on this return's filing status.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-spouse-blind-not-checked": {
+          "heading": "Spouse is blind (not checked) (Line 12d-spouse-blind-not-checked) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is not checked on this return's filing status.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-you-born-before-1961": {
+          "heading": "You were born before January 2, 1961 (Line 12d-you-born-before-1961) PUBLISHED CATEGORICAL",
+          "badge": "PUBLISHED CATEGORICAL",
+          "value": "checked",
+          "value_aria_label": "You were born before January 2, 1961: checked",
+          "explain": "Line 12d You were born before January 2, 1961: the box is checked.",
+          "section_error": "",
+          "citation_buttons": 1
+        },
+        "line-12d-you-born-before-1961-not-checked": {
+          "heading": "You were born before January 2, 1961 (not checked) (Line 12d-you-born-before-1961-not-checked) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is the other checked/not-checked state.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-you-blind": {
+          "heading": "You are blind (Line 12d-you-blind) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is the other checked/not-checked state.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-you-blind-not-checked": {
+          "heading": "You are blind (not checked) (Line 12d-you-blind-not-checked) PUBLISHED CATEGORICAL",
+          "badge": "PUBLISHED CATEGORICAL",
+          "value": "not checked",
+          "value_aria_label": "You are blind (not checked): not checked",
+          "explain": "Line 12d You are blind: the box is not checked.",
+          "section_error": "",
+          "citation_buttons": 1
+        }
+      },
+      "line6": {
+        "line-6c": {
+          "value": "",
+          "section_error": "This line is missing its rendering instruction for the declared disposition."
+        },
+        "line-6d": {
+          "value": "Not applicable.",
+          "section_error": ""
+        },
+        "line-6d-not-checked": {
+          "value": "Not applicable.",
+          "section_error": ""
+        }
+      },
+      "sections_text_sha256": "1a4ec30646b2ae55cd010045bfb94f952886fbccde046a0969220a20da5e2caa"
+    },
+    "s_single_age_true@v90.unmodified": {
+      "section_count": 85,
+      "non_loopback_request": false,
+      "alerts": [
+        {
+          "id": "line-12d-you-blind-not-checked",
+          "text": "This line is missing its rendering instruction for the declared disposition."
+        },
+        {
+          "id": "line-6c",
+          "text": "This line is missing its rendering instruction for the declared disposition."
+        },
+        {
+          "id": "line-sch1-top",
+          "text": "This line published a value with no citation attached. No value can be shown safely."
+        }
+      ],
+      "line12d_sections": {
+        "line-12d-spouse-born-before-1961": {
+          "heading": "Spouse was born before January 2, 1961 (Line 12d-spouse-born-before-1961) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is not checked on this return's filing status.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-spouse-born-before-1961-not-checked": {
+          "heading": "Spouse was born before January 2, 1961 (not checked) (Line 12d-spouse-born-before-1961-not-checked) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is not checked on this return's filing status.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-spouse-blind": {
+          "heading": "Spouse is blind (Line 12d-spouse-blind) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is not checked on this return's filing status.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-spouse-blind-not-checked": {
+          "heading": "Spouse is blind (not checked) (Line 12d-spouse-blind-not-checked) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is not checked on this return's filing status.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-you-born-before-1961": {
+          "heading": "You were born before January 2, 1961 (Line 12d-you-born-before-1961) PUBLISHED CATEGORICAL",
+          "badge": "PUBLISHED CATEGORICAL",
+          "value": "checked",
+          "value_aria_label": "You were born before January 2, 1961: checked",
+          "explain": "Line 12d You were born before January 2, 1961: the box is checked.",
+          "section_error": "",
+          "citation_buttons": 1
+        },
+        "line-12d-you-born-before-1961-not-checked": {
+          "heading": "You were born before January 2, 1961 (not checked) (Line 12d-you-born-before-1961-not-checked) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is the other checked/not-checked state.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-you-blind": {
+          "heading": "You are blind (Line 12d-you-blind) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is the other checked/not-checked state.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-you-blind-not-checked": {
+          "heading": "You are blind (not checked)",
+          "badge": "",
+          "value": "",
+          "value_aria_label": null,
+          "explain": "",
+          "section_error": "This line is missing its rendering instruction for the declared disposition.",
+          "citation_buttons": 0
+        }
+      },
+      "line6": {
+        "line-6c": {
+          "value": "",
+          "section_error": "This line is missing its rendering instruction for the declared disposition."
+        },
+        "line-6d": {
+          "value": "Not applicable.",
+          "section_error": ""
+        },
+        "line-6d-not-checked": {
+          "value": "Not applicable.",
+          "section_error": ""
+        }
+      },
+      "sections_text_sha256": "8e612a3bb6c233261ce900f89ecda743e0ad6daae00030db62699703a8149531"
+    },
+    "s_joint_spouse_age@v90.scratch": {
+      "section_count": 85,
+      "non_loopback_request": false,
+      "alerts": [
+        {
+          "id": "line-6c",
+          "text": "This line is missing its rendering instruction for the declared disposition."
+        },
+        {
+          "id": "line-sch1-top",
+          "text": "This line published a value with no citation attached. No value can be shown safely."
+        }
+      ],
+      "line12d_sections": {
+        "line-12d-spouse-born-before-1961": {
+          "heading": "Spouse was born before January 2, 1961 (Line 12d-spouse-born-before-1961) PUBLISHED CATEGORICAL",
+          "badge": "PUBLISHED CATEGORICAL",
+          "value": "checked",
+          "value_aria_label": "Spouse was born before January 2, 1961: checked",
+          "explain": "Line 12d Spouse was born before January 2, 1961: the box is checked.",
+          "section_error": "",
+          "citation_buttons": 1
+        },
+        "line-12d-spouse-born-before-1961-not-checked": {
+          "heading": "Spouse was born before January 2, 1961 (not checked) (Line 12d-spouse-born-before-1961-not-checked) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is not checked on this return's filing status.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-spouse-blind": {
+          "heading": "Spouse is blind (Line 12d-spouse-blind) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is not checked on this return's filing status.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-spouse-blind-not-checked": {
+          "heading": "Spouse is blind (not checked) (Line 12d-spouse-blind-not-checked) PUBLISHED CATEGORICAL",
+          "badge": "PUBLISHED CATEGORICAL",
+          "value": "not checked",
+          "value_aria_label": "Spouse is blind (not checked): not checked",
+          "explain": "Line 12d Spouse is blind: the box is not checked.",
+          "section_error": "",
+          "citation_buttons": 1
+        },
+        "line-12d-you-born-before-1961": {
+          "heading": "You were born before January 2, 1961 (Line 12d-you-born-before-1961) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is the other checked/not-checked state.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-you-born-before-1961-not-checked": {
+          "heading": "You were born before January 2, 1961 (not checked) (Line 12d-you-born-before-1961-not-checked) PUBLISHED CATEGORICAL",
+          "badge": "PUBLISHED CATEGORICAL",
+          "value": "not checked",
+          "value_aria_label": "You were born before January 2, 1961 (not checked): not checked",
+          "explain": "Line 12d You were born before January 2, 1961: the box is not checked.",
+          "section_error": "",
+          "citation_buttons": 1
+        },
+        "line-12d-you-blind": {
+          "heading": "You are blind (Line 12d-you-blind) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is the other checked/not-checked state.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-you-blind-not-checked": {
+          "heading": "You are blind (not checked) (Line 12d-you-blind-not-checked) PUBLISHED CATEGORICAL",
+          "badge": "PUBLISHED CATEGORICAL",
+          "value": "not checked",
+          "value_aria_label": "You are blind (not checked): not checked",
+          "explain": "Line 12d You are blind: the box is not checked.",
+          "section_error": "",
+          "citation_buttons": 1
+        }
+      },
+      "line6": {
+        "line-6c": {
+          "value": "",
+          "section_error": "This line is missing its rendering instruction for the declared disposition."
+        },
+        "line-6d": {
+          "value": "Not applicable.",
+          "section_error": ""
+        },
+        "line-6d-not-checked": {
+          "value": "Not applicable.",
+          "section_error": ""
+        }
+      },
+      "sections_text_sha256": "307c7a92e7f1139e6e5b41e0e1ed0956bc4b0789a2f72c0602ab1dfb3de3529a"
+    },
+    "s_joint_spouse_age@v90.unmodified": {
+      "section_count": 85,
+      "non_loopback_request": false,
+      "alerts": [
+        {
+          "id": "line-12d-spouse-blind-not-checked",
+          "text": "This line is missing its rendering instruction for the declared disposition."
+        },
+        {
+          "id": "line-12d-you-born-before-1961-not-checked",
+          "text": "This line is missing its rendering instruction for the declared disposition."
+        },
+        {
+          "id": "line-12d-you-blind-not-checked",
+          "text": "This line is missing its rendering instruction for the declared disposition."
+        },
+        {
+          "id": "line-6c",
+          "text": "This line is missing its rendering instruction for the declared disposition."
+        },
+        {
+          "id": "line-sch1-top",
+          "text": "This line published a value with no citation attached. No value can be shown safely."
+        }
+      ],
+      "line12d_sections": {
+        "line-12d-spouse-born-before-1961": {
+          "heading": "Spouse was born before January 2, 1961 (Line 12d-spouse-born-before-1961) PUBLISHED CATEGORICAL",
+          "badge": "PUBLISHED CATEGORICAL",
+          "value": "checked",
+          "value_aria_label": "Spouse was born before January 2, 1961: checked",
+          "explain": "Line 12d Spouse was born before January 2, 1961: the box is checked.",
+          "section_error": "",
+          "citation_buttons": 1
+        },
+        "line-12d-spouse-born-before-1961-not-checked": {
+          "heading": "Spouse was born before January 2, 1961 (not checked) (Line 12d-spouse-born-before-1961-not-checked) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is not checked on this return's filing status.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-spouse-blind": {
+          "heading": "Spouse is blind (Line 12d-spouse-blind) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is not checked on this return's filing status.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-spouse-blind-not-checked": {
+          "heading": "Spouse is blind (not checked)",
+          "badge": "",
+          "value": "",
+          "value_aria_label": null,
+          "explain": "",
+          "section_error": "This line is missing its rendering instruction for the declared disposition.",
+          "citation_buttons": 0
+        },
+        "line-12d-you-born-before-1961": {
+          "heading": "You were born before January 2, 1961 (Line 12d-you-born-before-1961) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is the other checked/not-checked state.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-you-born-before-1961-not-checked": {
+          "heading": "You were born before January 2, 1961 (not checked)",
+          "badge": "",
+          "value": "",
+          "value_aria_label": null,
+          "explain": "",
+          "section_error": "This line is missing its rendering instruction for the declared disposition.",
+          "citation_buttons": 0
+        },
+        "line-12d-you-blind": {
+          "heading": "You are blind (Line 12d-you-blind) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is the other checked/not-checked state.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-you-blind-not-checked": {
+          "heading": "You are blind (not checked)",
+          "badge": "",
+          "value": "",
+          "value_aria_label": null,
+          "explain": "",
+          "section_error": "This line is missing its rendering instruction for the declared disposition.",
+          "citation_buttons": 0
+        }
+      },
+      "line6": {
+        "line-6c": {
+          "value": "",
+          "section_error": "This line is missing its rendering instruction for the declared disposition."
+        },
+        "line-6d": {
+          "value": "Not applicable.",
+          "section_error": ""
+        },
+        "line-6d-not-checked": {
+          "value": "Not applicable.",
+          "section_error": ""
+        }
+      },
+      "sections_text_sha256": "697ab856db75b02317676be86334042e1a30360e06ae672e9a9fd6281a17cd11"
+    },
+    "s_separate_condition_no@v90.scratch": {
+      "section_count": 85,
+      "non_loopback_request": false,
+      "alerts": [
+        {
+          "id": "line-6c",
+          "text": "This line is missing its rendering instruction for the declared disposition."
+        },
+        {
+          "id": "line-sch1-top",
+          "text": "This line published a value with no citation attached. No value can be shown safely."
+        }
+      ],
+      "line12d_sections": {
+        "line-12d-spouse-born-before-1961": {
+          "heading": "Spouse was born before January 2, 1961 (Line 12d-spouse-born-before-1961) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is not checked on this return's filing status.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-spouse-born-before-1961-not-checked": {
+          "heading": "Spouse was born before January 2, 1961 (not checked) (Line 12d-spouse-born-before-1961-not-checked) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is not checked on this return's filing status.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-spouse-blind": {
+          "heading": "Spouse is blind (Line 12d-spouse-blind) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is not checked on this return's filing status.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-spouse-blind-not-checked": {
+          "heading": "Spouse is blind (not checked) (Line 12d-spouse-blind-not-checked) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is not checked on this return's filing status.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-you-born-before-1961": {
+          "heading": "You were born before January 2, 1961 (Line 12d-you-born-before-1961) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is the other checked/not-checked state.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-you-born-before-1961-not-checked": {
+          "heading": "You were born before January 2, 1961 (not checked) (Line 12d-you-born-before-1961-not-checked) PUBLISHED CATEGORICAL",
+          "badge": "PUBLISHED CATEGORICAL",
+          "value": "not checked",
+          "value_aria_label": "You were born before January 2, 1961 (not checked): not checked",
+          "explain": "Line 12d You were born before January 2, 1961: the box is not checked.",
+          "section_error": "",
+          "citation_buttons": 1
+        },
+        "line-12d-you-blind": {
+          "heading": "You are blind (Line 12d-you-blind) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is the other checked/not-checked state.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-you-blind-not-checked": {
+          "heading": "You are blind (not checked) (Line 12d-you-blind-not-checked) PUBLISHED CATEGORICAL",
+          "badge": "PUBLISHED CATEGORICAL",
+          "value": "not checked",
+          "value_aria_label": "You are blind (not checked): not checked",
+          "explain": "Line 12d You are blind: the box is not checked.",
+          "section_error": "",
+          "citation_buttons": 1
+        }
+      },
+      "line6": {
+        "line-6c": {
+          "value": "",
+          "section_error": "This line is missing its rendering instruction for the declared disposition."
+        },
+        "line-6d": {
+          "value": "No value published \u2014 cannot compute.",
+          "section_error": ""
+        },
+        "line-6d-not-checked": {
+          "value": "No value published \u2014 cannot compute.",
+          "section_error": ""
+        }
+      },
+      "sections_text_sha256": "1bf6a2744f63fb34b2e6c9b5d669b1d9af8249cf6a5eb5d394e0613d1c67d407"
+    },
+    "s_separate_condition_no@v90.unmodified": {
+      "section_count": 85,
+      "non_loopback_request": false,
+      "alerts": [
+        {
+          "id": "line-12d-you-born-before-1961-not-checked",
+          "text": "This line is missing its rendering instruction for the declared disposition."
+        },
+        {
+          "id": "line-12d-you-blind-not-checked",
+          "text": "This line is missing its rendering instruction for the declared disposition."
+        },
+        {
+          "id": "line-6c",
+          "text": "This line is missing its rendering instruction for the declared disposition."
+        },
+        {
+          "id": "line-sch1-top",
+          "text": "This line published a value with no citation attached. No value can be shown safely."
+        }
+      ],
+      "line12d_sections": {
+        "line-12d-spouse-born-before-1961": {
+          "heading": "Spouse was born before January 2, 1961 (Line 12d-spouse-born-before-1961) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is not checked on this return's filing status.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-spouse-born-before-1961-not-checked": {
+          "heading": "Spouse was born before January 2, 1961 (not checked) (Line 12d-spouse-born-before-1961-not-checked) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is not checked on this return's filing status.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-spouse-blind": {
+          "heading": "Spouse is blind (Line 12d-spouse-blind) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is not checked on this return's filing status.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-spouse-blind-not-checked": {
+          "heading": "Spouse is blind (not checked) (Line 12d-spouse-blind-not-checked) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is not checked on this return's filing status.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-you-born-before-1961": {
+          "heading": "You were born before January 2, 1961 (Line 12d-you-born-before-1961) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is the other checked/not-checked state.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-you-born-before-1961-not-checked": {
+          "heading": "You were born before January 2, 1961 (not checked)",
+          "badge": "",
+          "value": "",
+          "value_aria_label": null,
+          "explain": "",
+          "section_error": "This line is missing its rendering instruction for the declared disposition.",
+          "citation_buttons": 0
+        },
+        "line-12d-you-blind": {
+          "heading": "You are blind (Line 12d-you-blind) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is the other checked/not-checked state.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-you-blind-not-checked": {
+          "heading": "You are blind (not checked)",
+          "badge": "",
+          "value": "",
+          "value_aria_label": null,
+          "explain": "",
+          "section_error": "This line is missing its rendering instruction for the declared disposition.",
+          "citation_buttons": 0
+        }
+      },
+      "line6": {
+        "line-6c": {
+          "value": "",
+          "section_error": "This line is missing its rendering instruction for the declared disposition."
+        },
+        "line-6d": {
+          "value": "No value published \u2014 cannot compute.",
+          "section_error": ""
+        },
+        "line-6d-not-checked": {
+          "value": "No value published \u2014 cannot compute.",
+          "section_error": ""
+        }
+      },
+      "sections_text_sha256": "030958b348e7baa498bc8113f8e332e1ab638e07b89a8d4f946a0788f5b10fee"
+    },
+    "s_separate_lived_with_spouse@v90.scratch": {
+      "section_count": 85,
+      "non_loopback_request": false,
+      "alerts": [
+        {
+          "id": "line-6c",
+          "text": "This line is missing its rendering instruction for the declared disposition."
+        },
+        {
+          "id": "line-sch1-top",
+          "text": "This line published a value with no citation attached. No value can be shown safely."
+        }
+      ],
+      "line12d_sections": {
+        "line-12d-spouse-born-before-1961": {
+          "heading": "Spouse was born before January 2, 1961 (Line 12d-spouse-born-before-1961) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is not checked on this return's filing status.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-spouse-born-before-1961-not-checked": {
+          "heading": "Spouse was born before January 2, 1961 (not checked) (Line 12d-spouse-born-before-1961-not-checked) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is not checked on this return's filing status.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-spouse-blind": {
+          "heading": "Spouse is blind (Line 12d-spouse-blind) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is not checked on this return's filing status.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-spouse-blind-not-checked": {
+          "heading": "Spouse is blind (not checked) (Line 12d-spouse-blind-not-checked) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is not checked on this return's filing status.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-you-born-before-1961": {
+          "heading": "You were born before January 2, 1961 (Line 12d-you-born-before-1961) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is the other checked/not-checked state.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-you-born-before-1961-not-checked": {
+          "heading": "You were born before January 2, 1961 (not checked) (Line 12d-you-born-before-1961-not-checked) PUBLISHED CATEGORICAL",
+          "badge": "PUBLISHED CATEGORICAL",
+          "value": "not checked",
+          "value_aria_label": "You were born before January 2, 1961 (not checked): not checked",
+          "explain": "Line 12d You were born before January 2, 1961: the box is not checked.",
+          "section_error": "",
+          "citation_buttons": 1
+        },
+        "line-12d-you-blind": {
+          "heading": "You are blind (Line 12d-you-blind) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is the other checked/not-checked state.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-you-blind-not-checked": {
+          "heading": "You are blind (not checked) (Line 12d-you-blind-not-checked) PUBLISHED CATEGORICAL",
+          "badge": "PUBLISHED CATEGORICAL",
+          "value": "not checked",
+          "value_aria_label": "You are blind (not checked): not checked",
+          "explain": "Line 12d You are blind: the box is not checked.",
+          "section_error": "",
+          "citation_buttons": 1
+        }
+      },
+      "line6": {
+        "line-6c": {
+          "value": "",
+          "section_error": "This line is missing its rendering instruction for the declared disposition."
+        },
+        "line-6d": {
+          "value": "Not applicable.",
+          "section_error": ""
+        },
+        "line-6d-not-checked": {
+          "value": "not checked",
+          "section_error": ""
+        }
+      },
+      "sections_text_sha256": "9f8d377e2eb874b77af1c7b3b1ca50262c9a68aa5dc07a640869ba15b6964c88"
+    },
+    "s_separate_lived_with_spouse@v90.unmodified": {
+      "section_count": 85,
+      "non_loopback_request": false,
+      "alerts": [
+        {
+          "id": "line-12d-you-born-before-1961-not-checked",
+          "text": "This line is missing its rendering instruction for the declared disposition."
+        },
+        {
+          "id": "line-12d-you-blind-not-checked",
+          "text": "This line is missing its rendering instruction for the declared disposition."
+        },
+        {
+          "id": "line-6c",
+          "text": "This line is missing its rendering instruction for the declared disposition."
+        },
+        {
+          "id": "line-6d-not-checked",
+          "text": "This line is missing its rendering instruction for the declared disposition."
+        },
+        {
+          "id": "line-sch1-top",
+          "text": "This line published a value with no citation attached. No value can be shown safely."
+        }
+      ],
+      "line12d_sections": {
+        "line-12d-spouse-born-before-1961": {
+          "heading": "Spouse was born before January 2, 1961 (Line 12d-spouse-born-before-1961) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is not checked on this return's filing status.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-spouse-born-before-1961-not-checked": {
+          "heading": "Spouse was born before January 2, 1961 (not checked) (Line 12d-spouse-born-before-1961-not-checked) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is not checked on this return's filing status.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-spouse-blind": {
+          "heading": "Spouse is blind (Line 12d-spouse-blind) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is not checked on this return's filing status.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-spouse-blind-not-checked": {
+          "heading": "Spouse is blind (not checked) (Line 12d-spouse-blind-not-checked) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is not checked on this return's filing status.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-you-born-before-1961": {
+          "heading": "You were born before January 2, 1961 (Line 12d-you-born-before-1961) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is the other checked/not-checked state.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-you-born-before-1961-not-checked": {
+          "heading": "You were born before January 2, 1961 (not checked)",
+          "badge": "",
+          "value": "",
+          "value_aria_label": null,
+          "explain": "",
+          "section_error": "This line is missing its rendering instruction for the declared disposition.",
+          "citation_buttons": 0
+        },
+        "line-12d-you-blind": {
+          "heading": "You are blind (Line 12d-you-blind) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is the other checked/not-checked state.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-you-blind-not-checked": {
+          "heading": "You are blind (not checked)",
+          "badge": "",
+          "value": "",
+          "value_aria_label": null,
+          "explain": "",
+          "section_error": "This line is missing its rendering instruction for the declared disposition.",
+          "citation_buttons": 0
+        }
+      },
+      "line6": {
+        "line-6c": {
+          "value": "",
+          "section_error": "This line is missing its rendering instruction for the declared disposition."
+        },
+        "line-6d": {
+          "value": "Not applicable.",
+          "section_error": ""
+        },
+        "line-6d-not-checked": {
+          "value": "",
+          "section_error": "This line is missing its rendering instruction for the declared disposition."
+        }
+      },
+      "sections_text_sha256": "00b5b969b7554ed1ba25826c9ef0bce01353901ffbb2cccec10ccc6b1413df3f"
+    },
+    "s_hoh@v90.scratch": {
+      "section_count": 85,
+      "non_loopback_request": false,
+      "alerts": [
+        {
+          "id": "line-6c",
+          "text": "This line is missing its rendering instruction for the declared disposition."
+        },
+        {
+          "id": "line-sch1-top",
+          "text": "This line published a value with no citation attached. No value can be shown safely."
+        }
+      ],
+      "line12d_sections": {
+        "line-12d-spouse-born-before-1961": {
+          "heading": "Spouse was born before January 2, 1961 (Line 12d-spouse-born-before-1961) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is not checked on this return's filing status.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-spouse-born-before-1961-not-checked": {
+          "heading": "Spouse was born before January 2, 1961 (not checked) (Line 12d-spouse-born-before-1961-not-checked) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is not checked on this return's filing status.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-spouse-blind": {
+          "heading": "Spouse is blind (Line 12d-spouse-blind) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is not checked on this return's filing status.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-spouse-blind-not-checked": {
+          "heading": "Spouse is blind (not checked) (Line 12d-spouse-blind-not-checked) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is not checked on this return's filing status.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-you-born-before-1961": {
+          "heading": "You were born before January 2, 1961 (Line 12d-you-born-before-1961) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is the other checked/not-checked state.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-you-born-before-1961-not-checked": {
+          "heading": "You were born before January 2, 1961 (not checked) (Line 12d-you-born-before-1961-not-checked) PUBLISHED CATEGORICAL",
+          "badge": "PUBLISHED CATEGORICAL",
+          "value": "not checked",
+          "value_aria_label": "You were born before January 2, 1961 (not checked): not checked",
+          "explain": "Line 12d You were born before January 2, 1961: the box is not checked.",
+          "section_error": "",
+          "citation_buttons": 1
+        },
+        "line-12d-you-blind": {
+          "heading": "You are blind (Line 12d-you-blind) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is the other checked/not-checked state.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-you-blind-not-checked": {
+          "heading": "You are blind (not checked) (Line 12d-you-blind-not-checked) PUBLISHED CATEGORICAL",
+          "badge": "PUBLISHED CATEGORICAL",
+          "value": "not checked",
+          "value_aria_label": "You are blind (not checked): not checked",
+          "explain": "Line 12d You are blind: the box is not checked.",
+          "section_error": "",
+          "citation_buttons": 1
+        }
+      },
+      "line6": {
+        "line-6c": {
+          "value": "",
+          "section_error": "This line is missing its rendering instruction for the declared disposition."
+        },
+        "line-6d": {
+          "value": "Not applicable.",
+          "section_error": ""
+        },
+        "line-6d-not-checked": {
+          "value": "Not applicable.",
+          "section_error": ""
+        }
+      },
+      "sections_text_sha256": "4f0fc254a26a74e340e08438c7804340c0cbcc8343346f83210fb9810fc94e71"
+    },
+    "s_hoh@v90.unmodified": {
+      "section_count": 85,
+      "non_loopback_request": false,
+      "alerts": [
+        {
+          "id": "line-12d-you-born-before-1961-not-checked",
+          "text": "This line is missing its rendering instruction for the declared disposition."
+        },
+        {
+          "id": "line-12d-you-blind-not-checked",
+          "text": "This line is missing its rendering instruction for the declared disposition."
+        },
+        {
+          "id": "line-6c",
+          "text": "This line is missing its rendering instruction for the declared disposition."
+        },
+        {
+          "id": "line-sch1-top",
+          "text": "This line published a value with no citation attached. No value can be shown safely."
+        }
+      ],
+      "line12d_sections": {
+        "line-12d-spouse-born-before-1961": {
+          "heading": "Spouse was born before January 2, 1961 (Line 12d-spouse-born-before-1961) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is not checked on this return's filing status.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-spouse-born-before-1961-not-checked": {
+          "heading": "Spouse was born before January 2, 1961 (not checked) (Line 12d-spouse-born-before-1961-not-checked) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is not checked on this return's filing status.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-spouse-blind": {
+          "heading": "Spouse is blind (Line 12d-spouse-blind) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is not checked on this return's filing status.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-spouse-blind-not-checked": {
+          "heading": "Spouse is blind (not checked) (Line 12d-spouse-blind-not-checked) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is not checked on this return's filing status.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-you-born-before-1961": {
+          "heading": "You were born before January 2, 1961 (Line 12d-you-born-before-1961) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is the other checked/not-checked state.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-you-born-before-1961-not-checked": {
+          "heading": "You were born before January 2, 1961 (not checked)",
+          "badge": "",
+          "value": "",
+          "value_aria_label": null,
+          "explain": "",
+          "section_error": "This line is missing its rendering instruction for the declared disposition.",
+          "citation_buttons": 0
+        },
+        "line-12d-you-blind": {
+          "heading": "You are blind (Line 12d-you-blind) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is the other checked/not-checked state.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-you-blind-not-checked": {
+          "heading": "You are blind (not checked)",
+          "badge": "",
+          "value": "",
+          "value_aria_label": null,
+          "explain": "",
+          "section_error": "This line is missing its rendering instruction for the declared disposition.",
+          "citation_buttons": 0
+        }
+      },
+      "line6": {
+        "line-6c": {
+          "value": "",
+          "section_error": "This line is missing its rendering instruction for the declared disposition."
+        },
+        "line-6d": {
+          "value": "Not applicable.",
+          "section_error": ""
+        },
+        "line-6d-not-checked": {
+          "value": "Not applicable.",
+          "section_error": ""
+        }
+      },
+      "sections_text_sha256": "397cdb0cf61616620824595f1626c8017f2e9a0d060d7a58b0afb16c8db410d4"
+    },
+    "s_single_unanswered@v90.scratch": {
+      "section_count": 85,
+      "non_loopback_request": false,
+      "alerts": [
+        {
+          "id": "line-6c",
+          "text": "This line is missing its rendering instruction for the declared disposition."
+        },
+        {
+          "id": "line-sch1-top",
+          "text": "This line published a value with no citation attached. No value can be shown safely."
+        }
+      ],
+      "line12d_sections": {
+        "line-12d-spouse-born-before-1961": {
+          "heading": "Spouse was born before January 2, 1961 (Line 12d-spouse-born-before-1961) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is not checked on this return's filing status.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-spouse-born-before-1961-not-checked": {
+          "heading": "Spouse was born before January 2, 1961 (not checked) (Line 12d-spouse-born-before-1961-not-checked) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is not checked on this return's filing status.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-spouse-blind": {
+          "heading": "Spouse is blind (Line 12d-spouse-blind) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is not checked on this return's filing status.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-spouse-blind-not-checked": {
+          "heading": "Spouse is blind (not checked) (Line 12d-spouse-blind-not-checked) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is not checked on this return's filing status.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-you-born-before-1961": {
+          "heading": "You were born before January 2, 1961 (Line 12d-you-born-before-1961) BLOCKED",
+          "badge": "BLOCKED",
+          "value": "No value published \u2014 cannot compute.",
+          "value_aria_label": null,
+          "explain": "",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-you-born-before-1961-not-checked": {
+          "heading": "You were born before January 2, 1961 (not checked) (Line 12d-you-born-before-1961-not-checked) BLOCKED",
+          "badge": "BLOCKED",
+          "value": "No value published \u2014 cannot compute.",
+          "value_aria_label": null,
+          "explain": "",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-you-blind": {
+          "heading": "You are blind (Line 12d-you-blind) BLOCKED",
+          "badge": "BLOCKED",
+          "value": "No value published \u2014 cannot compute.",
+          "value_aria_label": null,
+          "explain": "",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-you-blind-not-checked": {
+          "heading": "You are blind (not checked) (Line 12d-you-blind-not-checked) BLOCKED",
+          "badge": "BLOCKED",
+          "value": "No value published \u2014 cannot compute.",
+          "value_aria_label": null,
+          "explain": "",
+          "section_error": "",
+          "citation_buttons": 0
+        }
+      },
+      "line6": {
+        "line-6c": {
+          "value": "",
+          "section_error": "This line is missing its rendering instruction for the declared disposition."
+        },
+        "line-6d": {
+          "value": "Not applicable.",
+          "section_error": ""
+        },
+        "line-6d-not-checked": {
+          "value": "Not applicable.",
+          "section_error": ""
+        }
+      },
+      "sections_text_sha256": "37c23bd6a0626cd6db75f7014cea9fc8b2294c8eb08283d5ee3a0b31ccb68b4e"
+    },
+    "s_single_unanswered@v90.unmodified": {
+      "section_count": 85,
+      "non_loopback_request": false,
+      "alerts": [
+        {
+          "id": "line-6c",
+          "text": "This line is missing its rendering instruction for the declared disposition."
+        },
+        {
+          "id": "line-sch1-top",
+          "text": "This line published a value with no citation attached. No value can be shown safely."
+        }
+      ],
+      "line12d_sections": {
+        "line-12d-spouse-born-before-1961": {
+          "heading": "Spouse was born before January 2, 1961 (Line 12d-spouse-born-before-1961) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is not checked on this return's filing status.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-spouse-born-before-1961-not-checked": {
+          "heading": "Spouse was born before January 2, 1961 (not checked) (Line 12d-spouse-born-before-1961-not-checked) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is not checked on this return's filing status.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-spouse-blind": {
+          "heading": "Spouse is blind (Line 12d-spouse-blind) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is not checked on this return's filing status.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-spouse-blind-not-checked": {
+          "heading": "Spouse is blind (not checked) (Line 12d-spouse-blind-not-checked) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "value": "Not applicable.",
+          "value_aria_label": null,
+          "explain": "This line 12d box is not checked on this return's filing status.",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-you-born-before-1961": {
+          "heading": "You were born before January 2, 1961 (Line 12d-you-born-before-1961) BLOCKED",
+          "badge": "BLOCKED",
+          "value": "No value published \u2014 cannot compute.",
+          "value_aria_label": null,
+          "explain": "",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-you-born-before-1961-not-checked": {
+          "heading": "You were born before January 2, 1961 (not checked) (Line 12d-you-born-before-1961-not-checked) BLOCKED",
+          "badge": "BLOCKED",
+          "value": "No value published \u2014 cannot compute.",
+          "value_aria_label": null,
+          "explain": "",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-you-blind": {
+          "heading": "You are blind (Line 12d-you-blind) BLOCKED",
+          "badge": "BLOCKED",
+          "value": "No value published \u2014 cannot compute.",
+          "value_aria_label": null,
+          "explain": "",
+          "section_error": "",
+          "citation_buttons": 0
+        },
+        "line-12d-you-blind-not-checked": {
+          "heading": "You are blind (not checked) (Line 12d-you-blind-not-checked) BLOCKED",
+          "badge": "BLOCKED",
+          "value": "No value published \u2014 cannot compute.",
+          "value_aria_label": null,
+          "explain": "",
+          "section_error": "",
+          "citation_buttons": 0
+        }
+      },
+      "line6": {
+        "line-6c": {
+          "value": "",
+          "section_error": "This line is missing its rendering instruction for the declared disposition."
+        },
+        "line-6d": {
+          "value": "Not applicable.",
+          "section_error": ""
+        },
+        "line-6d-not-checked": {
+          "value": "Not applicable.",
+          "section_error": ""
+        }
+      },
+      "sections_text_sha256": "37c23bd6a0626cd6db75f7014cea9fc8b2294c8eb08283d5ee3a0b31ccb68b4e"
+    },
+    "v89_s_single_both_false@v89.scratch": {
+      "section_count": 77,
+      "non_loopback_request": false,
+      "alerts": [
+        {
+          "id": "line-6c",
+          "text": "This line is missing its rendering instruction for the declared disposition."
+        },
+        {
+          "id": "line-sch1-top",
+          "text": "This line published a value with no citation attached. No value can be shown safely."
+        }
+      ],
+      "line12d_sections": {},
+      "line6": {
+        "line-6c": {
+          "value": "",
+          "section_error": "This line is missing its rendering instruction for the declared disposition."
+        },
+        "line-6d": {
+          "value": "Not applicable.",
+          "section_error": ""
+        },
+        "line-6d-not-checked": {
+          "value": "Not applicable.",
+          "section_error": ""
+        }
+      },
+      "sections_text_sha256": "3ba2895565b275c822183be7194a446db9d9248d9754cf0be74de72911f52a50"
+    },
+    "v89_s_single_both_false@v89.unmodified": {
+      "section_count": 77,
+      "non_loopback_request": false,
+      "alerts": [
+        {
+          "id": "line-6c",
+          "text": "This line is missing its rendering instruction for the declared disposition."
+        },
+        {
+          "id": "line-sch1-top",
+          "text": "This line published a value with no citation attached. No value can be shown safely."
+        }
+      ],
+      "line12d_sections": {},
+      "line6": {
+        "line-6c": {
+          "value": "",
+          "section_error": "This line is missing its rendering instruction for the declared disposition."
+        },
+        "line-6d": {
+          "value": "Not applicable.",
+          "section_error": ""
+        },
+        "line-6d-not-checked": {
+          "value": "Not applicable.",
+          "section_error": ""
+        }
+      },
+      "sections_text_sha256": "3ba2895565b275c822183be7194a446db9d9248d9754cf0be74de72911f52a50"
+    }
+  }
+}

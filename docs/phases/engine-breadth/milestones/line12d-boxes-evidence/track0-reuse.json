@@ -1,0 +1,155 @@
+{
+  "v89_members_unchanged_in_v90": true,
+  "v89_member_count": 1005,
+  "v90_added_members": [
+    [
+      "citation.form1040.line-12d",
+      "v1"
+    ],
+    [
+      "form1040.line-12d-spouse-age",
+      "v1"
+    ],
+    [
+      "form1040.line-12d-spouse-age-not-checked",
+      "v1"
+    ],
+    [
+      "form1040.line-12d-spouse-blind",
+      "v1"
+    ],
+    [
+      "form1040.line-12d-spouse-blind-not-checked",
+      "v1"
+    ],
+    [
+      "form1040.line-12d-you-age",
+      "v1"
+    ],
+    [
+      "form1040.line-12d-you-age-not-checked",
+      "v1"
+    ],
+    [
+      "form1040.line-12d-you-blind",
+      "v1"
+    ],
+    [
+      "form1040.line-12d-you-blind-not-checked",
+      "v1"
+    ],
+    [
+      "rule.form1040-line12d-spouse-age",
+      "v1"
+    ],
+    [
+      "rule.form1040-line12d-spouse-age-not-checked",
+      "v1"
+    ],
+    [
+      "rule.form1040-line12d-spouse-blind",
+      "v1"
+    ],
+    [
+      "rule.form1040-line12d-spouse-blind-not-checked",
+      "v1"
+    ],
+    [
+      "rule.form1040-line12d-you-age",
+      "v1"
+    ],
+    [
+      "rule.form1040-line12d-you-age-not-checked",
+      "v1"
+    ],
+    [
+      "rule.form1040-line12d-you-blind",
+      "v1"
+    ],
+    [
+      "rule.form1040-line12d-you-blind-not-checked",
+      "v1"
+    ]
+  ],
+  "new_symbols": [
+    "form1040.line12d.spouse-age",
+    "form1040.line12d.spouse-age-not-checked",
+    "form1040.line12d.spouse-blind",
+    "form1040.line12d.spouse-blind-not-checked",
+    "form1040.line12d.you-age",
+    "form1040.line12d.you-age-not-checked",
+    "form1040.line12d.you-blind",
+    "form1040.line12d.you-blind-not-checked"
+  ],
+  "new_symbols_read_by_existing_content": {},
+  "new_rules": {
+    "rule.form1040-line12d-you-age": {
+      "reads": [
+        "taxpayer_over_65"
+      ],
+      "publishes": "form1040.line12d.you-age"
+    },
+    "rule.form1040-line12d-you-age-not-checked": {
+      "reads": [
+        "taxpayer_over_65"
+      ],
+      "publishes": "form1040.line12d.you-age-not-checked"
+    },
+    "rule.form1040-line12d-you-blind": {
+      "reads": [
+        "taxpayer_blind"
+      ],
+      "publishes": "form1040.line12d.you-blind"
+    },
+    "rule.form1040-line12d-you-blind-not-checked": {
+      "reads": [
+        "taxpayer_blind"
+      ],
+      "publishes": "form1040.line12d.you-blind-not-checked"
+    },
+    "rule.form1040-line12d-spouse-age": {
+      "reads": [
+        "filing_status",
+        "spouse_over_65",
+        "spouse_separate_condition"
+      ],
+      "publishes": "form1040.line12d.spouse-age"
+    },
+    "rule.form1040-line12d-spouse-age-not-checked": {
+      "reads": [
+        "filing_status",
+        "spouse_over_65",
+        "spouse_separate_condition"
+      ],
+      "publishes": "form1040.line12d.spouse-age-not-checked"
+    },
+    "rule.form1040-line12d-spouse-blind": {
+      "reads": [
+        "filing_status",
+        "spouse_blind",
+        "spouse_separate_condition"
+      ],
+      "publishes": "form1040.line12d.spouse-blind"
+    },
+    "rule.form1040-line12d-spouse-blind-not-checked": {
+      "reads": [
+        "filing_status",
+        "spouse_blind",
+        "spouse_separate_condition"
+      ],
+      "publishes": "form1040.line12d.spouse-blind-not-checked"
+    }
+  },
+  "new_fields_bind": {
+    "form1040.line-12d-you-age": "form1040.line12d.you-age",
+    "form1040.line-12d-you-age-not-checked": "form1040.line12d.you-age-not-checked",
+    "form1040.line-12d-you-blind": "form1040.line12d.you-blind",
+    "form1040.line-12d-you-blind-not-checked": "form1040.line12d.you-blind-not-checked",
+    "form1040.line-12d-spouse-age": "form1040.line12d.spouse-age",
+    "form1040.line-12d-spouse-age-not-checked": "form1040.line12d.spouse-age-not-checked",
+    "form1040.line-12d-spouse-blind": "form1040.line12d.spouse-blind",
+    "form1040.line-12d-spouse-blind-not-checked": "form1040.line12d.spouse-blind-not-checked"
+  },
+  "matrix_line12e_equal_on_v89_and_v90": "21 of 21",
+  "pass": true
+}
