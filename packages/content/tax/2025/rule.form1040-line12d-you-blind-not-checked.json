@@ -1,0 +1,59 @@
+{
+  "schema": "rule-artifact.v3",
+  "id": "tax.us.2025.rule.form1040-line12d-you-blind-not-checked",
+  "version": "v1",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "role": "computation",
+  "requires": [
+    "taxpayer_blind"
+  ],
+  "pins": [
+    {
+      "role": "input",
+      "id": "tax.us.2025.taxpayer-blind",
+      "version": "v1",
+      "origin": "assertion"
+    }
+  ],
+  "when": {
+    "op": "all",
+    "args": [
+      {
+        "op": "conditional_dependency_set",
+        "condition": true,
+        "members": [
+          {
+            "op": "ref",
+            "name": "taxpayer_blind"
+          }
+        ]
+      },
+      {
+        "op": "not",
+        "value": {
+          "op": "ref",
+          "name": "taxpayer_blind"
+        }
+      }
+    ]
+  },
+  "value": "not_checked",
+  "publishes": "tax.us.2025.form1040.line12d.you-blind-not-checked",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "taxpayer_blind"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.line-12d",
+      "version": "v1"
+    }
+  ],
+  "notes": "Form 1040 line 12d, the You box (You are blind). Publishes 'not_checked' from the recorded taxpayer_blind answer. The 2025 instructions check this box on every filing status."
+}

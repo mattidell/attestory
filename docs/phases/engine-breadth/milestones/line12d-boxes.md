@@ -196,8 +196,13 @@ the page; nothing under `packages/` was edited.
     Line 6c's stays (Decision 3).
   - A v89 page draws identically on the unmodified and scratch pages.
 - Known limitations affecting correctness: owner disposition required.
-  1. The full 775-list replay is owed before the PR goes ready (Decision
-     5).
+  1. The full 775-list replay is complete. Published v89 and published
+     v90, 8 workers, wall time 1,335.9 s, 1,550 live runs
+     (`line12d-boxes-evidence/rerun-output.json`). 691 lists have
+     identical numbers with only the line 12d sections added. 84 error
+     identically on both cores and add no section. 0 have any other
+     change. Line 6c still alerts on both cores; no line 12d section
+     alerts.
   2. Each box draws as two sections, and the twin always reads "Not
      applicable." For an applicable box the twin's sentence is "This line
      12d box is the other checked/not-checked state." This is the line 6d
@@ -228,3 +233,37 @@ apply recommended choices; the owner may reverse any before merge.
 
 Track 0 is accepted and Track 1 is chartered
 (`docs/reviews/line12d-boxes/charter-track1.md`).
+
+## Track 1 result
+
+Both citation-walk pages draw a declared `checked` or `not_checked`
+render. `not_elected` still alerts. No page-reading test needed an edit.
+The harness baseline manifests stayed green.
+
+The 17 line 12d citizens match the prototype. Core v90, registry v88 and
+release v88 are successors. The v90 loader entries carry v89's maps. The
+covered-flag test names v90. The required-versus-read allowlist and the
+later-year basis test needed no new row.
+
+The full replay is limitation 1 above: 775 lists, 8 workers, 1,335.9 s,
+1,550 live runs. 691 keep identical numbers and add only the line 12d
+sections. 84 error the same way on both cores. Nothing else changes.
+
+`tests/test_line12d_boxes_v90.py` is live. It runs the Track 0 authority,
+matrix and late rows as 31 distinct act lists (203 s) through the
+presentation model. Box states and line 12e come from the 2025
+instructions. The shared helper states an unstated taxpayer age or
+blindness as false, and the case is held to that value when a spouse box
+is still blocked. The drawn page (27 s, 2 runs) shows checked, not
+checked, "Not applicable." and "No value published — cannot compute.",
+and line 6c still alerts. The 298 v83 lists (397 s, 8 workers) keep the
+fixture's line numbers. A row check may name a dependency the fixture
+left blank; that list is not a number. `tests/test_line12d_boxes_v90_package.py`
+checks byte identity, the member additions, registry v88 add-only, the
+release and the loader, with v89 and earlier unchanged.
+
+Item 6, on this tree: the new modules and the eight page-reading test
+files, 90 passed and 9 subtests in 446 s. Fast lane `pytest -m "not live"`:
+1,801 passed, 8 skipped, 4,292 subtests, 16.52 s. `python3 -m mypy`:
+499 source files, no issues. `python3 tools/envelope_scan.py --range
+github/main..HEAD`: clean. The full suite remains the CI `verify` gate.

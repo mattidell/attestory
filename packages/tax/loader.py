@@ -206,7 +206,7 @@ def named_covered_flag_refusal_maps() -> dict[tuple[str, str], dict[str, str]]:
     """Packages whose companion declaration names the covered-flag refusal.
 
     Core v79 is the first package that names it, and cores v80, v81, v82, v83,
-    v84, v85, v86, v87, v88 and v89 name the same map. Core v78 and earlier are
+    v84, v85, v86, v87, v88, v89 and v90 name the same map. Core v78 and earlier are
     absent, so their runs never consult the map. The map is a sibling of the
     companion declaration: the kernel declaration only carries presence pairs
     and value domains.
@@ -242,6 +242,9 @@ def named_covered_flag_refusal_maps() -> dict[tuple[str, str], dict[str, str]]:
         # Core v89 adds explanation routing only. It adds no covered sale
         # object, so the map is v88's.
         ("tax.us.2025.package.core-calculations", "v89"): dict(COVERED_FLAG_REFUSAL_OBJECTS),
+        # Core v90 shows line 12d's four boxes. It adds no covered sale
+        # object, so the map is v89's.
+        ("tax.us.2025.package.core-calculations", "v90"): dict(COVERED_FLAG_REFUSAL_OBJECTS),
     }
 
 
@@ -645,6 +648,19 @@ def domain_package_companion_declarations() -> dict[tuple[str, str], dict[str, A
         # Without this entry, v89 would fall back to the global maps and refuse
         # amounts v88 admits.
         ("tax.us.2025.package.core-calculations", "v89"): {
+            "presence_pairs": {
+                **gambling["presence_pairs"],
+                **noncovered_scalar_presence_pairs(),
+                **no1099b_scalar_presence_pairs(),
+                **code_b_scalar_presence_pairs(),
+                **covered_scalar_presence_pairs(),
+            },
+            "value_domains": dict(gambling["value_domains"]),
+        },
+        # Core v90 shows line 12d's four boxes. It adds no sale object or
+        # amount pair, so it carries v89's declaration. Without this entry,
+        # v90 would fall back to the global maps and refuse amounts v89 admits.
+        ("tax.us.2025.package.core-calculations", "v90"): {
             "presence_pairs": {
                 **gambling["presence_pairs"],
                 **noncovered_scalar_presence_pairs(),

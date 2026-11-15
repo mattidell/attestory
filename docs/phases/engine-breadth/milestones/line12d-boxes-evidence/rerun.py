@@ -6,7 +6,7 @@ Charter: docs/reviews/line12d-boxes/charter-p0.md.
 The lists are ``tools.recorded_replay.recorded_lists()``: every distinct act
 list earlier milestones replay (the v81, v82, v83, v84 and v85 fixtures).
 Each list runs once on each core, in parallel through
-``tools.recorded_replay.replay`` (at most 4 workers, resumable part file in a
+``tools.recorded_replay.replay`` (at most 8 workers, resumable part file in a
 scratch directory outside the repository).
 
 Answer rule. No recorded list states an age or blindness fact; each relied on
@@ -29,9 +29,9 @@ Two comparisons per list:
 For each list the v90 line 12d box states are read from the dispositions
 (checked / not_checked / hidden / blocked), and every published_categorical
 section is checked against the saved citation-walk renderer's rule
-(packages/presentation/pages/citation-walk.v1.html, ``renderLine``): only a
-field whose published_value.render is "checked" draws; any other render
-string is a "missing-instruction" alert on the page.
+(packages/presentation/pages/citation-walk.v1.html, ``renderLine``): a field
+whose published_value.render is "checked" or "not_checked" draws; any other
+render string is a "missing-instruction" alert on the page.
 
     python3 rerun.py <scratch>/core.json [--workers N]
 """
@@ -88,9 +88,10 @@ def _page(core: Any, result: dict[str, Any]) -> dict[str, Any]:
     dispositions = result.get("dispositions") or {}
     values = result.get("lines") or {}
     sections = {fid: [disp, values.get(fid)] for fid, disp in sorted(dispositions.items())}
+    drawn = {"checked", "not_checked"}
     alerts = sorted(
         fid for fid, disp in dispositions.items()
-        if disp == "published_categorical" and _render(str(core.content), fid) != "checked"
+        if disp == "published_categorical" and _render(str(core.content), fid) not in drawn
     )
     return {"sections": sections, "categorical_alerts": alerts}
 
@@ -169,8 +170,8 @@ def main() -> None:
         help="summarize the lists already in the part file; run nothing",
     )
     args = parser.parse_args()
-    if args.workers > 4:
-        raise SystemExit("at most 4 workers")
+    if args.workers > 8:
+        raise SystemExit("at most 8 workers")
     core_b = rr.resolve_core(args.core)
     core_a = rr.resolve_core("v89")
     lists = rr.recorded_lists()
@@ -217,7 +218,7 @@ def main() -> None:
 
     counts = Counter(row["final"] for row in results.values())
     payload = {
-        "cores": {"v89": "published", "v90": "prototype.py (scratch, built outside the repository)"},
+        "cores": {"v89": "published", "v90": "published"},
         "lists": "tools.recorded_replay.recorded_lists(): every distinct recorded act list",
         "answer_rule": (
             "tests/helpers/current_core_returns.state_taxpayer_facts(acts, core='v88') on both "
