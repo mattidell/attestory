@@ -1,0 +1,389 @@
+{
+  "offered_missing_fields": [
+    {
+      "box": "Box 1",
+      "document": "Form W-2",
+      "id": "w2-box1",
+      "label": "W-2 from Demo Workshop \u2014 Box 1 wages",
+      "target": "w2-box1"
+    }
+  ],
+  "positive_control": {
+    "http_status": 200,
+    "accepted": true,
+    "revision_increased": true
+  },
+  "core_profile_attempts": [
+    {
+      "core": "v91",
+      "refusal": "entry-core-profile-unsupported"
+    },
+    {
+      "core": "v92",
+      "refusal": "entry-core-profile-unsupported"
+    }
+  ],
+  "attempts": [
+    {
+      "question_id": "tax.us.2025.input-question.ss-benefits-scope-no-unsupported-line1-entries",
+      "fact_type": {
+        "id": "tax.us.2025.ss-benefits-scope.no-unsupported-line1-entries",
+        "version": "v1"
+      },
+      "filer_answer": "yes",
+      "expected_fact_value": "no",
+      "http_status": 422,
+      "response": {
+        "error": "The contribution was not accepted. No entry was changed."
+      },
+      "revision_before": 47,
+      "revision_after": 47,
+      "recorded_fact_values": [],
+      "line6b_after_answer": null,
+      "outcome": "FAIL: answer not offered or admitted; no line-6b answer run can follow"
+    },
+    {
+      "question_id": "tax.us.2025.input-question.ss-benefits-scope-no-unsupported-line1-entries",
+      "fact_type": {
+        "id": "tax.us.2025.ss-benefits-scope.no-unsupported-line1-entries",
+        "version": "v1"
+      },
+      "filer_answer": "no",
+      "expected_fact_value": "yes",
+      "http_status": 422,
+      "response": {
+        "error": "The contribution was not accepted. No entry was changed."
+      },
+      "revision_before": 47,
+      "revision_after": 47,
+      "recorded_fact_values": [],
+      "line6b_after_answer": null,
+      "outcome": "FAIL: answer not offered or admitted; no line-6b answer run can follow"
+    },
+    {
+      "question_id": "tax.us.2025.input-question.ss-benefits-scope-no-pension-annuity-line5b",
+      "fact_type": {
+        "id": "tax.us.2025.ss-benefits-scope.no-pension-annuity-line5b",
+        "version": "v1"
+      },
+      "filer_answer": "yes",
+      "expected_fact_value": "no",
+      "http_status": 422,
+      "response": {
+        "error": "The contribution was not accepted. No entry was changed."
+      },
+      "revision_before": 47,
+      "revision_after": 47,
+      "recorded_fact_values": [],
+      "line6b_after_answer": null,
+      "outcome": "FAIL: answer not offered or admitted; no line-6b answer run can follow"
+    },
+    {
+      "question_id": "tax.us.2025.input-question.ss-benefits-scope-no-pension-annuity-line5b",
+      "fact_type": {
+        "id": "tax.us.2025.ss-benefits-scope.no-pension-annuity-line5b",
+        "version": "v1"
+      },
+      "filer_answer": "no",
+      "expected_fact_value": "yes",
+      "http_status": 422,
+      "response": {
+        "error": "The contribution was not accepted. No entry was changed."
+      },
+      "revision_before": 47,
+      "revision_after": 47,
+      "recorded_fact_values": [],
+      "line6b_after_answer": null,
+      "outcome": "FAIL: answer not offered or admitted; no line-6b answer run can follow"
+    },
+    {
+      "question_id": "tax.us.2025.input-question.ss-benefits-scope-no-traditional-ira-deduction",
+      "fact_type": {
+        "id": "tax.us.2025.ss-benefits-scope.no-traditional-ira-deduction",
+        "version": "v1"
+      },
+      "filer_answer": "yes",
+      "expected_fact_value": "no",
+      "http_status": 422,
+      "response": {
+        "error": "The contribution was not accepted. No entry was changed."
+      },
+      "revision_before": 47,
+      "revision_after": 47,
+      "recorded_fact_values": [],
+      "line6b_after_answer": null,
+      "outcome": "FAIL: answer not offered or admitted; no line-6b answer run can follow"
+    },
+    {
+      "question_id": "tax.us.2025.input-question.ss-benefits-scope-no-traditional-ira-deduction",
+      "fact_type": {
+        "id": "tax.us.2025.ss-benefits-scope.no-traditional-ira-deduction",
+        "version": "v1"
+      },
+      "filer_answer": "no",
+      "expected_fact_value": "yes",
+      "http_status": 422,
+      "response": {
+        "error": "The contribution was not accepted. No entry was changed."
+      },
+      "revision_before": 47,
+      "revision_after": 47,
+      "recorded_fact_values": [],
+      "line6b_after_answer": null,
+      "outcome": "FAIL: answer not offered or admitted; no line-6b answer run can follow"
+    },
+    {
+      "question_id": "tax.us.2025.input-question.ss-benefits-scope-no-form-2555",
+      "fact_type": {
+        "id": "tax.us.2025.ss-benefits-scope.no-form-2555",
+        "version": "v1"
+      },
+      "filer_answer": "yes",
+      "expected_fact_value": "no",
+      "http_status": 422,
+      "response": {
+        "error": "The contribution was not accepted. No entry was changed."
+      },
+      "revision_before": 47,
+      "revision_after": 47,
+      "recorded_fact_values": [],
+      "line6b_after_answer": null,
+      "outcome": "FAIL: answer not offered or admitted; no line-6b answer run can follow"
+    },
+    {
+      "question_id": "tax.us.2025.input-question.ss-benefits-scope-no-form-2555",
+      "fact_type": {
+        "id": "tax.us.2025.ss-benefits-scope.no-form-2555",
+        "version": "v1"
+      },
+      "filer_answer": "no",
+      "expected_fact_value": "yes",
+      "http_status": 422,
+      "response": {
+        "error": "The contribution was not accepted. No entry was changed."
+      },
+      "revision_before": 47,
+      "revision_after": 47,
+      "recorded_fact_values": [],
+      "line6b_after_answer": null,
+      "outcome": "FAIL: answer not offered or admitted; no line-6b answer run can follow"
+    },
+    {
+      "question_id": "tax.us.2025.input-question.ss-benefits-scope-no-form-4563",
+      "fact_type": {
+        "id": "tax.us.2025.ss-benefits-scope.no-form-4563",
+        "version": "v1"
+      },
+      "filer_answer": "yes",
+      "expected_fact_value": "no",
+      "http_status": 422,
+      "response": {
+        "error": "The contribution was not accepted. No entry was changed."
+      },
+      "revision_before": 47,
+      "revision_after": 47,
+      "recorded_fact_values": [],
+      "line6b_after_answer": null,
+      "outcome": "FAIL: answer not offered or admitted; no line-6b answer run can follow"
+    },
+    {
+      "question_id": "tax.us.2025.input-question.ss-benefits-scope-no-form-4563",
+      "fact_type": {
+        "id": "tax.us.2025.ss-benefits-scope.no-form-4563",
+        "version": "v1"
+      },
+      "filer_answer": "no",
+      "expected_fact_value": "yes",
+      "http_status": 422,
+      "response": {
+        "error": "The contribution was not accepted. No entry was changed."
+      },
+      "revision_before": 47,
+      "revision_after": 47,
+      "recorded_fact_values": [],
+      "line6b_after_answer": null,
+      "outcome": "FAIL: answer not offered or admitted; no line-6b answer run can follow"
+    },
+    {
+      "question_id": "tax.us.2025.input-question.ss-benefits-scope-no-form-8815",
+      "fact_type": {
+        "id": "tax.us.2025.ss-benefits-scope.no-form-8815",
+        "version": "v1"
+      },
+      "filer_answer": "yes",
+      "expected_fact_value": "no",
+      "http_status": 422,
+      "response": {
+        "error": "The contribution was not accepted. No entry was changed."
+      },
+      "revision_before": 47,
+      "revision_after": 47,
+      "recorded_fact_values": [],
+      "line6b_after_answer": null,
+      "outcome": "FAIL: answer not offered or admitted; no line-6b answer run can follow"
+    },
+    {
+      "question_id": "tax.us.2025.input-question.ss-benefits-scope-no-form-8815",
+      "fact_type": {
+        "id": "tax.us.2025.ss-benefits-scope.no-form-8815",
+        "version": "v1"
+      },
+      "filer_answer": "no",
+      "expected_fact_value": "yes",
+      "http_status": 422,
+      "response": {
+        "error": "The contribution was not accepted. No entry was changed."
+      },
+      "revision_before": 47,
+      "revision_after": 47,
+      "recorded_fact_values": [],
+      "line6b_after_answer": null,
+      "outcome": "FAIL: answer not offered or admitted; no line-6b answer run can follow"
+    },
+    {
+      "question_id": "tax.us.2025.input-question.ss-benefits-scope-no-excluded-adoption-benefits",
+      "fact_type": {
+        "id": "tax.us.2025.ss-benefits-scope.no-excluded-adoption-benefits",
+        "version": "v1"
+      },
+      "filer_answer": "yes",
+      "expected_fact_value": "no",
+      "http_status": 422,
+      "response": {
+        "error": "The contribution was not accepted. No entry was changed."
+      },
+      "revision_before": 47,
+      "revision_after": 47,
+      "recorded_fact_values": [],
+      "line6b_after_answer": null,
+      "outcome": "FAIL: answer not offered or admitted; no line-6b answer run can follow"
+    },
+    {
+      "question_id": "tax.us.2025.input-question.ss-benefits-scope-no-excluded-adoption-benefits",
+      "fact_type": {
+        "id": "tax.us.2025.ss-benefits-scope.no-excluded-adoption-benefits",
+        "version": "v1"
+      },
+      "filer_answer": "no",
+      "expected_fact_value": "yes",
+      "http_status": 422,
+      "response": {
+        "error": "The contribution was not accepted. No entry was changed."
+      },
+      "revision_before": 47,
+      "revision_after": 47,
+      "recorded_fact_values": [],
+      "line6b_after_answer": null,
+      "outcome": "FAIL: answer not offered or admitted; no line-6b answer run can follow"
+    },
+    {
+      "question_id": "tax.us.2025.input-question.ss-benefits-scope-no-puerto-rico-or-samoa-income",
+      "fact_type": {
+        "id": "tax.us.2025.ss-benefits-scope.no-puerto-rico-or-samoa-income",
+        "version": "v1"
+      },
+      "filer_answer": "yes",
+      "expected_fact_value": "no",
+      "http_status": 422,
+      "response": {
+        "error": "The contribution was not accepted. No entry was changed."
+      },
+      "revision_before": 47,
+      "revision_after": 47,
+      "recorded_fact_values": [],
+      "line6b_after_answer": null,
+      "outcome": "FAIL: answer not offered or admitted; no line-6b answer run can follow"
+    },
+    {
+      "question_id": "tax.us.2025.input-question.ss-benefits-scope-no-puerto-rico-or-samoa-income",
+      "fact_type": {
+        "id": "tax.us.2025.ss-benefits-scope.no-puerto-rico-or-samoa-income",
+        "version": "v1"
+      },
+      "filer_answer": "no",
+      "expected_fact_value": "yes",
+      "http_status": 422,
+      "response": {
+        "error": "The contribution was not accepted. No entry was changed."
+      },
+      "revision_before": 47,
+      "revision_after": 47,
+      "recorded_fact_values": [],
+      "line6b_after_answer": null,
+      "outcome": "FAIL: answer not offered or admitted; no line-6b answer run can follow"
+    },
+    {
+      "question_id": "tax.us.2025.input-question.schedule1-adjustments-scope-no-line24z-writein",
+      "fact_type": {
+        "id": "tax.us.2025.schedule1-adjustments-scope.no-line24z-writein",
+        "version": "v1"
+      },
+      "filer_answer": "yes",
+      "expected_fact_value": "no",
+      "http_status": 422,
+      "response": {
+        "error": "The contribution was not accepted. No entry was changed."
+      },
+      "revision_before": 47,
+      "revision_after": 47,
+      "recorded_fact_values": [],
+      "line6b_after_answer": null,
+      "outcome": "FAIL: answer not offered or admitted; no line-6b answer run can follow"
+    },
+    {
+      "question_id": "tax.us.2025.input-question.schedule1-adjustments-scope-no-line24z-writein",
+      "fact_type": {
+        "id": "tax.us.2025.schedule1-adjustments-scope.no-line24z-writein",
+        "version": "v1"
+      },
+      "filer_answer": "no",
+      "expected_fact_value": "yes",
+      "http_status": 422,
+      "response": {
+        "error": "The contribution was not accepted. No entry was changed."
+      },
+      "revision_before": 47,
+      "revision_after": 47,
+      "recorded_fact_values": [],
+      "line6b_after_answer": null,
+      "outcome": "FAIL: answer not offered or admitted; no line-6b answer run can follow"
+    },
+    {
+      "question_id": "tax.us.2025.input-question.mfs-lived-apart-all-year",
+      "fact_type": {
+        "id": "tax.us.2025.mfs-lived-apart-all-year",
+        "version": "v1"
+      },
+      "filer_answer": "yes",
+      "expected_fact_value": "yes",
+      "http_status": 422,
+      "response": {
+        "error": "The contribution was not accepted. No entry was changed."
+      },
+      "revision_before": 47,
+      "revision_after": 47,
+      "recorded_fact_values": [],
+      "line6b_after_answer": null,
+      "outcome": "FAIL: answer not offered or admitted; no line-6b answer run can follow"
+    },
+    {
+      "question_id": "tax.us.2025.input-question.mfs-lived-apart-all-year",
+      "fact_type": {
+        "id": "tax.us.2025.mfs-lived-apart-all-year",
+        "version": "v1"
+      },
+      "filer_answer": "no",
+      "expected_fact_value": "no",
+      "http_status": 422,
+      "response": {
+        "error": "The contribution was not accepted. No entry was changed."
+      },
+      "revision_before": 47,
+      "revision_after": 47,
+      "recorded_fact_values": [],
+      "line6b_after_answer": null,
+      "outcome": "FAIL: answer not offered or admitted; no line-6b answer run can follow"
+    }
+  ],
+  "stop": "Question entry support is absent; changing question words cannot add a handler, controls, or answer mapping."
+}

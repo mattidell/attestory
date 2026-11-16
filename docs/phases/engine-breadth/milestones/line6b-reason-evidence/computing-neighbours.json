@@ -1,0 +1,156 @@
+{
+  "workers": 9,
+  "wall_time_s": 31.201,
+  "cases": [
+    {
+      "id": "single.no-ssa",
+      "changed_fields": [],
+      "added_reasons": {},
+      "stop_v91": "saturated",
+      "stop_v92": "saturated",
+      "line6b": [
+        "computed_zero",
+        0
+      ],
+      "line34": [
+        "published_value",
+        625
+      ],
+      "line37": [
+        "computed_zero",
+        0
+      ],
+      "question_field_changes": []
+    },
+    {
+      "id": "single.ssa",
+      "changed_fields": [],
+      "added_reasons": {},
+      "stop_v91": "saturated",
+      "stop_v92": "saturated",
+      "line6b": [
+        "published_value",
+        10200
+      ],
+      "line34": [
+        "blocked",
+        null
+      ],
+      "line37": [
+        "blocked",
+        null
+      ],
+      "question_field_changes": []
+    },
+    {
+      "id": "jointly.no-ssa",
+      "changed_fields": [],
+      "added_reasons": {},
+      "stop_v91": "saturated",
+      "stop_v92": "saturated",
+      "line6b": [
+        "computed_zero",
+        0
+      ],
+      "line34": [
+        "published_value",
+        2647
+      ],
+      "line37": [
+        "computed_zero",
+        0
+      ],
+      "question_field_changes": []
+    },
+    {
+      "id": "jointly.ssa",
+      "changed_fields": [],
+      "added_reasons": {},
+      "stop_v91": "saturated",
+      "stop_v92": "saturated",
+      "line6b": [
+        "published_value",
+        10200
+      ],
+      "line34": [
+        "blocked",
+        null
+      ],
+      "line37": [
+        "blocked",
+        null
+      ],
+      "question_field_changes": []
+    },
+    {
+      "id": "separately.no-ssa",
+      "changed_fields": [],
+      "added_reasons": {},
+      "stop_v91": "saturated",
+      "stop_v92": "saturated",
+      "line6b": [
+        "computed_zero",
+        0
+      ],
+      "line34": [
+        "published_value",
+        625
+      ],
+      "line37": [
+        "computed_zero",
+        0
+      ],
+      "question_field_changes": []
+    },
+    {
+      "id": "separately.no-ssa.living-unanswered",
+      "changed_fields": [],
+      "added_reasons": {
+        "form1040.line-6d": [
+          "If you are married filing separately, did you live apart from your spouse for all of 2025?"
+        ],
+        "form1040.line-6d-not-checked": [
+          "If you are married filing separately, did you live apart from your spouse for all of 2025?"
+        ]
+      },
+      "stop_v91": "saturated",
+      "stop_v92": "saturated",
+      "line6b": [
+        "computed_zero",
+        0
+      ],
+      "line34": [
+        "published_value",
+        625
+      ],
+      "line37": [
+        "computed_zero",
+        0
+      ],
+      "question_field_changes": [
+        "form1040.line-6d",
+        "form1040.line-6d-not-checked"
+      ]
+    },
+    {
+      "id": "separately.ssa",
+      "changed_fields": [],
+      "added_reasons": {},
+      "stop_v91": "saturated",
+      "stop_v92": "saturated",
+      "line6b": [
+        "published_value",
+        10200
+      ],
+      "line34": [
+        "blocked",
+        null
+      ],
+      "line37": [
+        "blocked",
+        null
+      ],
+      "question_field_changes": []
+    }
+  ]
+}

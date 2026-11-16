@@ -1,0 +1,64 @@
+{
+  "status": "stopped",
+  "source_commit": "b7ee457f7de01a1f43f95e1a742241aaface5a96",
+  "table": {
+    "1_question_meaning": "PASS \u2014 ten question/fact/source reviews and twenty convention-based yes/no cases; no mixed polarity and no changed words.",
+    "2_placement": "PASS \u2014 all 168 P0 cases and seven computing neighbours audited field by field; all 2,084 added-question certificates in that required set reach existing blocked facts.",
+    "3_each_root_and_pairs": "FAIL \u2014 ten isolated roots and 36 scope/scope pairs satisfy line 6b; nine MFS/scope pairs show both questions on the page but only the scope question on line 6b.",
+    "4_neighbours": "PASS \u2014 every field value, disposition, code and ledger row agrees across 253 comparisons, including three fully computing SSA controls and unchanged actual-election refusals.",
+    "5_drawn_page": "PASS \u2014 two headless Chrome pages cover all 29 gaining fields (56 field observations), with exact questions, no generic remedy/explanation, and no non-parked alerts.",
+    "6_replay_reuse": "PASS \u2014 the ten scratch citizen bytes and core fingerprints are unchanged; the retained 775-list replay is reused without rerunning."
+  },
+  "fails": [
+    {
+      "id": "F1_paired_conditional_frontier",
+      "item": "3_each_root_and_pairs",
+      "case_count": 9,
+      "cases": [
+        "pair/schedule1-adjustments-scope.no-line24z-writein+mfs-lived-apart-all-year",
+        "pair/ss-benefits-scope.no-excluded-adoption-benefits+mfs-lived-apart-all-year",
+        "pair/ss-benefits-scope.no-form-2555+mfs-lived-apart-all-year",
+        "pair/ss-benefits-scope.no-form-4563+mfs-lived-apart-all-year",
+        "pair/ss-benefits-scope.no-form-8815+mfs-lived-apart-all-year",
+        "pair/ss-benefits-scope.no-pension-annuity-line5b+mfs-lived-apart-all-year",
+        "pair/ss-benefits-scope.no-puerto-rico-or-samoa-income+mfs-lived-apart-all-year",
+        "pair/ss-benefits-scope.no-traditional-ira-deduction+mfs-lived-apart-all-year",
+        "pair/ss-benefits-scope.no-unsupported-line1-entries+mfs-lived-apart-all-year"
+      ],
+      "finding": "In each separate-filing pair with one absent scope fact and the absent living-arrangement fact, line 6b names and asks only the scope fact; the two existing line-6d fields ask the living-arrangement question. Both questions appear on the page, but the strict line-6b paired-question assertion fails.",
+      "trace": "rule.ss-benefits-worksheet v4 when.args[1] checks 22 conditional scope members and raises before the later MFS dependency set at when.args[3].args[1].args[22].",
+      "proposed_fix": "Foreman disposition: explicitly accept page-level paired coverage with each field asking only its currently named roots, or charter a rule-level missing-cause aggregation design that preserves current guard/inapplicability precedence, required answers, empty-route behavior, numbers and refusal codes. Question words alone cannot change the recorded missing-name frontier."
+    }
+  ],
+  "proposed_question_words": {},
+  "stop_reason": "The strict item-3 requirement for both questions on line 6b fails in nine cross-gate pairs. Repairing that field-level frontier needs a rule change rather than new words, or an explicit foreman restatement accepting the already-measured page-level coverage. The charter stops rule changes here.",
+  "decisions_for_foreman": [
+    "Disposition the nine cross-gate pair cases: accept both questions on the page and active-root-only questions per field, or charter a rule-level aggregation investigation before build.",
+    "Do not add the MFS fact unconditionally to the earlier dependency set: preserve existing scope-no guard/inapplicability precedence and the closed-empty route.",
+    "Retain the ten original positive-form question sentences. No wording correction is recommended under Decision 8, and the prior negative-form suggestions were never applied.",
+    "Items 1, 2, 4, 5 and 6 now pass under Decisions 8 and 9. The earlier entry-path and parked-alert objections are superseded, not current FAILs.",
+    "Reuse the recorded parity result with its 84 matching errors and zero-computing-list limitation; the new full SSA controls separately establish current computing parity.",
+    "Use the next free publication versions after page-alerts when a build is authorized; this remains the original P0 scratch v92 on published v91."
+  ],
+  "measurement": {
+    "cases": 253,
+    "coordinate_attempts": 506,
+    "workers": 9,
+    "wall_time_s": 756.572,
+    "classifications": {
+      "identical": 160,
+      "questions_only": 90,
+      "same_admission_refusal": 3
+    },
+    "placement_certificates": 4561,
+    "placement_failures": 0,
+    "meaning_cases_passed": 20,
+    "isolated_roots_passed": 10,
+    "scope_pairs_line6b_passed": 36,
+    "cross_gate_pairs_page_passed": 9,
+    "cross_gate_pairs_line6b_failed": 9,
+    "distinct_gaining_fields_drawn": 29,
+    "drawn_field_observations": 56,
+    "recorded_replay_rerun": false
+  }
+}
