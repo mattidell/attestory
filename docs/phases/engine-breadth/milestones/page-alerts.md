@@ -184,3 +184,40 @@ Alert census on published v92, 9 workers: 691 computing returns, 0 with an alert
 Checks: `pytest` on `tests/test_page_alerts_v92.py`, `tests/test_page_alerts_v92_package.py`, and `tests/test_noncovered_sales_v78_switch.py` — 13 passed in 45.55s. `pytest -m "not live"` — 1811 passed, 8 skipped, 4303 subtests passed in 16.11s. `python3 -m mypy` — Success: no issues found in 503 source files. `python3 tools/envelope_scan.py --range github/main..HEAD` — exit 0, no findings. The full suite remains the CI `verify` gate.
 
 Deviation: the Track 0 checked field says "The checked lump-sum election disposition does not apply." The not-checked successor in the P0 prototype keeps "line 6c disposition is inapplicable for the current class." The saved page still draws the line value "Not applicable." from its own text, and this track does not edit the page. Both fields' `guard_inapplicable` explain is "This line 6c box does not apply to this return, or the box is the other checked/not-checked state." Every other byte of the six citizens matches the P0 prototype or the Track 0 sibling. Line 6b's empty blocked reason and the citation button labels stay parked (Decisions 8 and 9).
+
+## Review and repair
+
+Fresh-reader review: `docs/reviews/page-alerts/review.md`, verdict
+blocking on one finding. Foreman dispositions, 2026-11-16:
+
+- **PA-1 (blocking), repair.** The top entry's zero sentence, "No Form
+  1099-K statements were received for 2025.", is not what the closed
+  empty personal-item family establishes. Field v1 already carried it
+  behind the alert; clearing the alert makes it the text a filer reads.
+  The v2 field (not yet on main) gets a sentence bounded by the closure
+  question, and the test requires that sentence.
+- **PA-2 (should-fix), repair in content and park the rest.** The two
+  line 6c fields get labels that say they are the two states of one
+  checkbox. The inactive section's value "Not applicable." is drawn by
+  the page; changing it is the same page-design question as one section
+  per line 12d box and stays with the owner.
+- **PA-3 (note), repair in the test.** The Chrome test also draws the
+  election-made page and the personal-item-loss page and counts every
+  `section-error` in the DOM, attachments and groups included. The
+  census stays as evidence of the two parked alerts only.
+- **PA-4 (note), accepted.** The replay pin does not hold field explain
+  or categorical render text; the live test asserts those.
+- **PA-5 (note), parked and now reproduced** on v91 and v92: line 6b on
+  a benefit statement blocks with no reason sentence.
+- **PA-6 (note), accepted.** The Form 1099-K probe's `reclose` flag
+  defaults to the old behaviour.
+
+Repair is chartered (`docs/reviews/page-alerts/charter-repair.md`).
+
+Repair result. The top entry's `closure_backed_zero` explain is "No gross payment amount in box 1a of a Form 1099-K for personal items you sold was recorded for 2025." The closure question asks whether every gross payment amount in box 1a of every Form 1099-K for personal items sold was recorded, and the default path publishes 0 when that family is closed and the count of those amounts is 0. A Form 1099-K for something else is outside that count, so the sentence stays true on such a return. The other explains hold against that standard. "This sale resulted in a nondeductible personal loss whose Box 1a gross amount is entered at the top of Schedule 1." is the supported-loss publication. "No personal item sale loss entry." names only that entry. "Form 1099-K loss entry cannot be computed." is the blocked state. "Not evaluated." makes no claim about forms received, and this review found no return that draws `guard_inapplicable` for the field.
+
+The line 6c label is "Lump-sum election (not checked)" and the line 6c-checked label is "Lump-sum election", the line 12d pattern of one checkbox with the clear state marked "(not checked)". The page still draws "Not applicable."
+
+Core v92, registry v90, and release v90 were rebuilt from the v91 predecessor with `package_successor`. The package file is byte-identical: its checksum covers member pins. Registry v90 changes the checksums of the three edited citizens. Release v90 changes the registry hash. v91 and earlier package bytes are unchanged. Published Form 1099-K content is the personal-item family. A recorded member leaves the closed-empty path, so published content reaches no return that has a Form 1099-K for something else and still draws the zero sentence. The wage return requires the new sentence.
+
+Checks: `pytest` on `tests/test_page_alerts_v92.py` and `tests/test_page_alerts_v92_package.py` — 8 passed in 45.75s. `pytest -m "not live"` — 1811 passed, 8 skipped, 4303 subtests passed in 15.46s. `python3 -m mypy` — Success: no issues found in 503 source files. `python3 tools/envelope_scan.py --range github/main..HEAD` — exit 0, no findings. No replay.

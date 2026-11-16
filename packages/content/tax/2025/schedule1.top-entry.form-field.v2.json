@@ -22,7 +22,7 @@
       "render": "{value}"
     },
     "closure_backed_zero": {
-      "explain": "No Form 1099-K statements were received for 2025.",
+      "explain": "No gross payment amount in box 1a of a Form 1099-K for personal items you sold was recorded for 2025.",
       "render": "{value}"
     },
     "blocked": {

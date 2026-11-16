@@ -40,7 +40,7 @@
     "tax_year": 2025
   },
   "id": "tax.us.2025.form1040.line-6c",
-  "label": "Lump-sum election",
+  "label": "Lump-sum election (not checked)",
   "line": "6c",
   "schema": "form-field.v3",
   "version": "v2"

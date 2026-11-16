@@ -1,14 +1,14 @@
 """Core v92 publishes the line 6c words and the Schedule 1 top-entry citation.
 
-Static checks: byte identity with the prototype, the six member additions or
-successors, registry v90 add-only, release v90, and the loader entries. v91
-and earlier stay as they were. The coordinate runs live in
-tests/test_page_alerts_v92.py.
+Static checks: byte identity with the prototype except the named differences,
+the six member additions or successors, registry v90 add-only, release v90,
+and the loader entries. v91 and earlier stay as they were. The coordinate
+runs live in tests/test_page_alerts_v92.py.
 
-The two line 6c fields say why they do not apply in one sentence that stays
-true when the other box is the one that applies. That sentence is the only
-difference from the Track 0 sibling text. The prototype is loaded under a
-name no other module uses, and no attribute of it is assigned.
+The named differences from the prototype and the Track 0 sibling are the
+line 6c inapplicable sentence, the top-entry zero sentence, and the two
+line 6c labels. The prototype is loaded under a name no other module uses,
+and no attribute of it is assigned.
 """
 
 from __future__ import annotations
@@ -41,6 +41,15 @@ INAPPLICABLE = (
     "This line 6c box does not apply to this return, or the box is the "
     "other checked/not-checked state."
 )
+ZERO = (
+    "No gross payment amount in box 1a of a Form 1099-K for personal items "
+    "you sold was recorded for 2025."
+)
+PROTOTYPE_ZERO = "No Form 1099-K statements were received for 2025."
+LABEL_NOT_CHECKED = "Lump-sum election (not checked)"
+LABEL_CHECKED = "Lump-sum election"
+PROTOTYPE_LABEL = "Lump-sum election"
+PROTOTYPE_CHECKED_LABEL = "Lump-sum election checked"
 EARLIER = ("v91", "v90", "v89", "v88", "v87", "v86", "v85", "v84")
 REPLACED = (
     P + "rule.form1040-line6c",
@@ -75,13 +84,8 @@ def _sibling() -> ModuleType:
     return evidence_loader.load(EVIDENCE / "track0.py", "pa_t1_v92_package_track0")
 
 
-def _with_sentence(body: dict[str, Any]) -> dict[str, Any]:
-    copied = copy.deepcopy(body)
-    copied["dispositions"]["guard_inapplicable"]["explain"] = INAPPLICABLE
-    return copied
-
-
-def test_citizens_match_the_prototype_except_the_inapplicable_sentence() -> None:
+def test_citizens_match_the_prototype_except_the_named_differences() -> None:
+    """Inapplicable sentence, zero sentence, and both labels are the differences."""
     prototype = _prototype()
     sibling = _sibling()
     written = cast(list[tuple[str, dict[str, Any]]], prototype.artifacts())
@@ -96,7 +100,14 @@ def test_citizens_match_the_prototype_except_the_inapplicable_sentence() -> None
             assert source["dispositions"]["guard_inapplicable"]["explain"] == (
                 "line 6c disposition is inapplicable for the current class"
             )
-            source = _with_sentence(source)
+            assert source["label"] == PROTOTYPE_LABEL
+            source = copy.deepcopy(source)
+            source["dispositions"]["guard_inapplicable"]["explain"] = INAPPLICABLE
+            source["label"] = LABEL_NOT_CHECKED
+        elif name == "schedule1.top-entry.form-field.v2.json":
+            assert source["dispositions"]["closure_backed_zero"]["explain"] == PROTOTYPE_ZERO
+            source = copy.deepcopy(source)
+            source["dispositions"]["closure_backed_zero"]["explain"] = ZERO
         assert (CONTENT / name).read_bytes() == _bytes(source)
 
     rule = cast(dict[str, Any], sibling._checked_rule())
@@ -104,10 +115,12 @@ def test_citizens_match_the_prototype_except_the_inapplicable_sentence() -> None
     assert field["dispositions"]["guard_inapplicable"]["explain"] == (
         "The checked lump-sum election disposition does not apply."
     )
+    assert field["label"] == PROTOTYPE_CHECKED_LABEL
+    revised = copy.deepcopy(field)
+    revised["dispositions"]["guard_inapplicable"]["explain"] = INAPPLICABLE
+    revised["label"] = LABEL_CHECKED
     assert (CONTENT / "rule.form1040-line6c-checked.json").read_bytes() == _bytes(rule)
-    assert (CONTENT / "form1040.line-6c-checked.form-field.json").read_bytes() == _bytes(
-        _with_sentence(field)
-    )
+    assert (CONTENT / "form1040.line-6c-checked.form-field.json").read_bytes() == _bytes(revised)
 
 
 def test_core_v92_moves_exactly_the_six_members() -> None:

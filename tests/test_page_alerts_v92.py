@@ -1,9 +1,10 @@
 """Published core v92 draws line 6c and cites the Schedule 1 top entry.
 
 Measured reason: five distinct act lists and the SSA-1099 guard each call
-the live coordinate run, and one saved page is drawn in headless Chrome.
-The first run of this module took 45 seconds. The Chrome draw alone took
-21 seconds. Both are outside the 3 second fast-lane budget.
+the live coordinate run, and three saved pages are drawn in headless Chrome.
+The first run of this module took 45 seconds, and one Chrome draw took 21
+seconds. Both are outside the 3 second fast-lane budget, so the two added
+draws stay in this module.
 
 Line 12e comes from the 2025 instructions through the line 12d hand value.
 Line 1a is the recorded Form W-2 box 1 total, which the line 1a field states
@@ -55,6 +56,14 @@ LINE_12E = "form1040.line-12e"
 INAPPLICABLE = (
     "This line 6c box does not apply to this return, or the box is the "
     "other checked/not-checked state."
+)
+ZERO = (
+    "No gross payment amount in box 1a of a Form 1099-K for personal items "
+    "you sold was recorded for 2025."
+)
+LOSS = (
+    "This sale resulted in a nondeductible personal loss whose "
+    "Box 1a gross amount is entered at the top of Schedule 1."
 )
 ALERT_CAUSES = ("missing-instruction", "missing-field-citation")
 SAFE_RENDER = (
@@ -279,7 +288,14 @@ def _dump(page: Path, profile: Path) -> str:
 
 
 def test_line_6c_and_the_top_entry_on_published_v92() -> None:
-    """Each distinct act list once, through the projection and the saved page."""
+    """Each distinct act list once, through the projection and the saved page.
+
+    The wage return draws the zero sentence. Published Form 1099-K content
+    is the personal-item family in closure-mapping.f1099k.v3.json. A recorded
+    member leaves the closed-empty path, so published content does not reach
+    a return that has a Form 1099-K for something else and still draws this
+    sentence.
+    """
     probe = _probe()
     census = _census()
     line_12e = _hand(_boxes())
@@ -348,7 +364,7 @@ def test_line_6c_and_the_top_entry_on_published_v92() -> None:
                         disposition="closure_backed_zero",
                         value=0,
                         render="{value}",
-                        explain="No Form 1099-K statements were received for 2025.",
+                        explain=ZERO,
                         citation_id="citation.schedule1.top-entry",
                     )
                 elif name == "election-made":
@@ -387,10 +403,7 @@ def test_line_6c_and_the_top_entry_on_published_v92() -> None:
                         disposition="published_value",
                         value=880,
                         render="{value}",
-                        explain=(
-                            "This sale resulted in a nondeductible personal loss whose "
-                            "Box 1a gross amount is entered at the top of Schedule 1."
-                        ),
+                        explain=LOSS,
                         citation_id="citation.schedule1.top-entry",
                     )
                 elif name == "top-blocked":
@@ -413,30 +426,48 @@ def test_line_6c_and_the_top_entry_on_published_v92() -> None:
 
 
 def test_drawn_page_shows_not_checked_without_a_safe_render_alert() -> None:
-    """A saved v92 wage page in Chrome shows not checked on line 6c."""
+    """Chrome draws the wage, election-made, and personal-item-loss pages."""
     probe = _probe()
     module = cast(Any, probe)
     wage = cast(list[dict[str, Any]], module.wage())
-    label = str(json.loads((CONTENT / "form1040.line-6c.form-field.v2.json").read_text(encoding="utf-8"))["label"])
+    made = cast(list[dict[str, Any]], module.with_benefits(wage, 12000.0, election="no"))
+    loss = cast(list[dict[str, Any]], module.with_1099k(wage))
+    fields = CONTENT
+    not_checked = str(json.loads((fields / "form1040.line-6c.form-field.v2.json").read_text(encoding="utf-8"))["label"])
+    checked = str(json.loads((fields / "form1040.line-6c-checked.form-field.json").read_text(encoding="utf-8"))["label"])
+    top = str(json.loads((fields / "schedule1.top-entry.form-field.v2.json").read_text(encoding="utf-8"))["label"])
     core = _core(probe)
     root = _new_owned_chrome_tempdir()
+    drawn: dict[str, str] = {}
     started = time.perf_counter()
     try:
-        result = _run(probe, core, wage, "demo.pa.t1.v92.page", root / "pages", reconfirm=True)
-        assert result.get("outcome") == "success"
-        dom = _dump(cast(Path, result["page"]), root / "profile")
+        for name, acts in (
+            ("wage", wage),
+            ("election-made", made),
+            ("personal-item-loss", loss),
+        ):
+            result = _run(probe, core, acts, f"demo.pa.t1.v92.page.{name}", root / "pages", reconfirm=True)
+            assert result.get("outcome") == "success", name
+            drawn[name] = _dump(cast(Path, result["page"]), root / "profile")
     finally:
         wall = time.perf_counter() - started
-        print(f"PA_T1_PAGE runs=1 wall_s={wall:.1f}", flush=True)
+        print(f"PA_T1_PAGE runs=3 wall_s={wall:.1f}", flush=True)
         shutil.rmtree(root, ignore_errors=True)
-    section = _section(dom, label)
-    assert f'aria-label="{label}: not checked"' in section
+    for name, dom in drawn.items():
+        # The page script names the alert class. A drawn alert is an element.
+        assert 'class="section-error"' not in dom, name
+    section = _section(drawn["wage"], not_checked)
+    assert f'aria-label="{not_checked}: not checked"' in section
     assert ">not checked</p>" in section
     assert "The lump-sum election checkbox is not checked." in section
     for sentence in SAFE_RENDER:
         assert sentence not in section
-    # The page script names the alert class. A drawn alert is an element.
-    assert 'class="section-error"' not in dom
+    made_section = _section(drawn["election-made"], checked)
+    assert "checked" in made_section
+    assert ">checked</p>" in made_section
+    assert "The lump-sum election checkbox is checked." in made_section
+    loss_section = _section(drawn["personal-item-loss"], top)
+    assert LOSS in loss_section
 
 
 def test_closure_left_on_the_old_horizon_blocks_line_6a() -> None:
