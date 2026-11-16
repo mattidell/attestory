@@ -206,7 +206,7 @@ def named_covered_flag_refusal_maps() -> dict[tuple[str, str], dict[str, str]]:
     """Packages whose companion declaration names the covered-flag refusal.
 
     Core v79 is the first package that names it, and cores v80, v81, v82, v83,
-    v84, v85, v86, v87, v88, v89, v90, v91 and v92 name the same map. Core v78 and earlier are
+    v84, v85, v86, v87, v88, v89, v90, v91, v92 and v93 name the same map. Core v78 and earlier are
     absent, so their runs never consult the map. The map is a sibling of the
     companion declaration: the kernel declaration only carries presence pairs
     and value domains.
@@ -251,6 +251,9 @@ def named_covered_flag_refusal_maps() -> dict[tuple[str, str], dict[str, str]]:
         # Core v92 draws line 6c and cites the Schedule 1 top entry. It adds
         # no covered sale object, so the map is v91's.
         ("tax.us.2025.package.core-calculations", "v92"): dict(COVERED_FLAG_REFUSAL_OBJECTS),
+        # Core v93 names the SSA worksheet questions. It adds no covered
+        # sale object, so the map is v92's.
+        ("tax.us.2025.package.core-calculations", "v93"): dict(COVERED_FLAG_REFUSAL_OBJECTS),
     }
 
 
@@ -694,6 +697,17 @@ def domain_package_companion_declarations() -> dict[tuple[str, str], dict[str, A
         # Without this entry, v92 would fall back to the global maps and refuse
         # amounts v91 admits.
         ("tax.us.2025.package.core-calculations", "v92"): {
+            "presence_pairs": {
+                **gambling["presence_pairs"],
+                **noncovered_scalar_presence_pairs(),
+                **no1099b_scalar_presence_pairs(),
+                **code_b_scalar_presence_pairs(),
+                **covered_scalar_presence_pairs(),
+            },
+            "value_domains": dict(gambling["value_domains"]),
+        },
+        # Core v93 adds question citizens only and carries v92's declaration.
+        ("tax.us.2025.package.core-calculations", "v93"): {
             "presence_pairs": {
                 **gambling["presence_pairs"],
                 **noncovered_scalar_presence_pairs(),

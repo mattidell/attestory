@@ -1,0 +1,10 @@
+{
+  "schema": "input-question.v1",
+  "id": "tax.us.2025.input-question.schedule1-adjustments-scope-no-line24z-writein",
+  "version": "v1",
+  "fact_type": {
+    "id": "tax.us.2025.schedule1-adjustments-scope.no-line24z-writein",
+    "version": "v1"
+  },
+  "question": "Do you have a Schedule 1 line 24z write-in adjustment that must be figured before completing the Social Security Benefits Worksheet for 2025?"
+}

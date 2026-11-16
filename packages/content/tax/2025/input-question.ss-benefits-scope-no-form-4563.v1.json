@@ -1,0 +1,10 @@
+{
+  "schema": "input-question.v1",
+  "id": "tax.us.2025.input-question.ss-benefits-scope-no-form-4563",
+  "version": "v1",
+  "fact_type": {
+    "id": "tax.us.2025.ss-benefits-scope.no-form-4563",
+    "version": "v1"
+  },
+  "question": "Are you filing Form 4563 for 2025?"
+}

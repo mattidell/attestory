@@ -222,3 +222,53 @@ property-level fix:
     release v91, the ten citizens as P0 built them.
 
 Track 1 is chartered (`docs/reviews/line6b-reason/charter-track1.md`).
+
+
+## Track 1 result
+
+Track 1 is complete on rebased source `1680a36d`; items 1-5 pass. Ten new
+input-question citizens are byte-identical to P0. Core v93, registry v91
+and release v91 were generated with `python3 -m tools.package_successor`
+from published v92, with the ten added as members and entrypoints. V93's
+loader declarations copy v92 unchanged; the covered-flag enumeration now
+includes v93. No prior published file was changed.
+
+The v92 base repairs line 6c rendering and Schedule 1 top-entry citation.
+It does not change the ten fact declarations, the v4 SSA worksheet or input
+bindings assumed by the prototype. The former parked alerts are therefore
+resolved on the build base; no prototype assumption needed a repair.
+Item 3 passes on the published pair. A fresh 775-list replay is entirely
+identical (1,371.583 seconds, nine workers), including 691 successful runs
+and 84 matching errors per core. The interrupted earlier part was discarded
+as evidence. Track 0's 253 neighbours are 160 identical, 90 questions-only
+and three unchanged admission refusals (424.987 seconds, nine workers).
+There are zero value, disposition, required-answer, code, ledger or placement
+changes. All 20 meaning and 55 isolated/pair checks pass under Decisions 8
+and 10. Two Chrome pages cover all 29 gaining fields with zero alerts on
+v93.
+
+Item 4 adds tests/test_line6b_reason_v93.py (15 live tests: the fourteen
+required distinct lists and a distinct joint-filing Chrome list) and
+tests/test_line6b_reason_v93_package.py (five fast tests). Every run uses
+published v93, projection and the saved page model; the omitted facts are
+absent before and after handover. The fully answered case checks the 2025
+worksheet hand value of 10,200; the no-benefits separate filer still refunds
+625 while line 6d asks living apart. The browser draws line 6b's question
+and no safe-render alert anywhere.
+
+Both new modules and the touched core-enumeration module pass: 25 tests,
+29.38 seconds, with unrelated page-alerts evidence first on PYTHONPATH.
+Live calls measured 6.67-21.12 seconds (Chrome 7.21), justifying the explicit
+module live marker. The slowest new fast check is 0.11 seconds.
+
+Item 5 checks: the fast lane passes with 1,816 passed and eight skipped in
+16.38 seconds; mypy passes all 505 source files; the envelope scan of
+`github/main..HEAD` passes. Mypy initially required explicit non-None checks
+for the test outcome paths already read by the passing live tests; those
+checks are now present. CI `verify` remains the full-suite gate of record.
+No scope deviations, recording changes or edits to kernel, derivation,
+schemas or presentation were needed. No push was made. The build is ready
+for the chartered fresh review, not milestone closeout.
+
+The committed Track 1 replay and neighbour JSON retain classifications and
+field-level certificates; external part files retain the complete raw runs.

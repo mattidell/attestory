@@ -11,6 +11,7 @@ import copy
 import hashlib
 import importlib.util
 import json
+import os
 from pathlib import Path
 import subprocess
 import sys
@@ -222,11 +223,28 @@ def case_grid():
     return rows
 
 
-def page_pin(result):
+@lru_cache(maxsize=4)
+def producer_symbols(package_path, content):
+    result = {}
+    for member in read(package_path)["members"]:
+        if member["role"] != "computation":
+            continue
+        slug = member["id"].removeprefix(probe.P)
+        for path in (content / f"{slug}.{member['version']}.json", content / f"{slug}.json"):
+            if path.is_file():
+                body = read(path)
+                if body.get("id") == member["id"] and body.get("version") == member["version"]:
+                    if isinstance(body.get("publishes"), str):
+                        result[member["id"]] = body["publishes"]
+                    break
+    return result
+
+
+def page_pin(result, core):
     if result["outcome"] != "success":
         return result
     by_symbol = {}
-    symbols = probe.producer_symbols()
+    symbols = producer_symbols(core.package_path, core.content)
     ledger = []
     for row in result["report"]["dispositions"]:
         symbol = row.get("symbol") or symbols.get(row["artifact_id"])
@@ -277,7 +295,7 @@ def capture(core, acts, run_id, reconfirm=True, page=None):
             if page:
                 page.parent.mkdir(exist_ok=True)
                 page.write_bytes(_render_page(REPO, cap, outcome.presentation_path))
-    return page_pin(result)
+    return page_pin(result, core)
 
 
 def matrix_run(key, acts, cores):
@@ -286,10 +304,10 @@ def matrix_run(key, acts, cores):
     reconfirm = not (key.endswith(".ssa-open") or key.endswith(".no-benefits-open"))
     token = hashlib.sha256(key.encode()).hexdigest()[:16]
     output = {}
-    for label, core in (("v91", a), ("successor", b)):
+    for label, core in (("baseline", a), ("successor", b)):
         try:
             output[label] = capture(core, acts, "demo.l6b.t0b." + label + "." + token, reconfirm,
-                b.content.parent / "track0b-pages" / ("demo." + token + ".html") if label == "successor" else None)
+                Path(os.environ["DEMO_LINE6B_NEIGHBOUR_PAGES"]) / ("demo." + token + ".html") if label == "successor" else None)
         except Exception as exc:
             output[label] = {"outcome": "error", "error": type(exc).__name__,
                 "message": re.sub(r"/(?:Users|private|tmp|var)/\S+", "<path>", str(exc))[:600]}
@@ -297,10 +315,10 @@ def matrix_run(key, acts, cores):
 
 
 def analyse(key, raw, meta, questions):
-    a, b = raw["v91"], raw["successor"]
+    a, b = raw.get("baseline", raw.get("v91")), raw["successor"]
     row = {k: v for k, v in meta.items() if k != "acts"}
     if a["outcome"] != "success" or b["outcome"] != "success":
-        return {**row, "classification": "same_admission_refusal" if a == b else "unexpected_outcome_change", "v91": a, "successor": b}
+        return {**row, "classification": "same_admission_refusal" if a == b else "unexpected_outcome_change", "baseline": a, "successor": b}
     af, bf = a["fields"], b["fields"]
     # A blocked row may name a package binding symbol rather than a fact id.
     # Normalize all declared aliases, not a special case for one spouse fact.
@@ -330,14 +348,14 @@ def analyse(key, raw, meta, questions):
                 certificates.append(certificate)
                 if not ok:
                     violations.append({"field": fid, **certificate})
-            gains.append({"field": fid, "v91_disposition": before["disposition"], "v91_value": before["value"],
-                "v91_missing": before["missing"], "v91_terminal_missing": before["terminal_missing"],
+            gains.append({"field": fid, "baseline_disposition": before["disposition"], "baseline_value": before["value"],
+                "baseline_missing": before["missing"], "baseline_terminal_missing": before["terminal_missing"],
                 "added": certificates})
     row.update({"classification": "state_change" if state_changes or a["ledger"] != b["ledger"] else "questions_only" if changes else "identical",
                 "state_changes": state_changes, "ledger_equal": a["ledger"] == b["ledger"],
                 "question_changes": changes, "gains": gains, "placement_failures": violations,
-                "line6b": {"v91": af[probe.P + "form1040.line-6b"], "successor": bf[probe.P + "form1040.line-6b"]},
-                "balances": {"v91": {fid: af.get(probe.P + fid) for fid in ("form1040.line-34", "form1040.line-37")},
+                "line6b": {"baseline": af[probe.P + "form1040.line-6b"], "successor": bf[probe.P + "form1040.line-6b"]},
+                "balances": {"baseline": {fid: af.get(probe.P + fid) for fid in ("form1040.line-34", "form1040.line-37")},
                              "successor": {fid: bf.get(probe.P + fid) for fid in ("form1040.line-34", "form1040.line-37")}}})
     if row["group"] == "meaning":
         negative = row["fact"].rsplit(".", 1)[-1].startswith("no-")
@@ -361,7 +379,7 @@ def analyse(key, raw, meta, questions):
             "line6b_shows_all_requested_questions": expected_qids <= set(row["line6b"]["successor"]["questions"]),
             "active_fields_only_expected_questions": all(f["pass"] for f in blocked),
             "blocked_fields": blocked,
-            "pass": expected_qids <= set(row["line6b"]["successor"]["questions"]) and all(f["pass"] for f in blocked)}
+            "pass": expected_qids <= all_shown and all(f["pass"] for f in blocked)}
     return row
 
 
@@ -416,7 +434,7 @@ try {
 '''
 
 
-def draw(core, rows, raw_results, questions):
+def draw(core, rows, raw_results, questions, folder):
     gaining = {g["field"] for r in rows for g in r.get("gains", [])}
     selected = []
     # Required reproduced scope and separate-filing samples, then cover every
@@ -429,7 +447,6 @@ def draw(core, rows, raw_results, questions):
         assert choice not in selected
         selected.append(choice)
         covered.update(g["field"] for g in choice["gains"])
-    folder = core.content.parent / "track0b-pages"
     config_cases = []
     for row in selected:
         fields = raw_results[row["id"]]["successor"]["fields"]
@@ -445,7 +462,7 @@ def draw(core, rows, raw_results, questions):
     script.write_text(DRAW_JS)
     subprocess.run(["node", str(script), str(REPO), str(config), str(output)], check=True, timeout=240)
     result = read(output)
-    parked = {"line-6c", "line-sch1-top"}
+    parked = {"line-6c", "line-sch1-top"} if int(core.version[1:]) < 92 else set()
     result["gaining_fields"] = sorted(gaining)
     result["covered_fields"] = sorted(covered)
     result["failures"] = [{"case": c["id"], **f} for c in result["cases"] for f in c["fields"]
@@ -460,11 +477,26 @@ def main():
     import os
     import time
     parser = argparse.ArgumentParser()
-    parser.add_argument("core", type=Path)
+    parser.add_argument("core")
+    parser.add_argument("--baseline", default="v91")
+    parser.add_argument("--work", type=Path)
+    parser.add_argument("--output-prefix", default="track0")
     parser.add_argument("--instructions", required=True, type=Path)
     parser.add_argument("--summarize-only", action="store_true")
     args = parser.parse_args()
     core = rr.resolve_core(args.core)
+    baseline = rr.resolve_core(args.baseline)
+    work = args.work.resolve() if args.work else Path(args.core).resolve().parent
+    if work == REPO or REPO in work.parents:
+        raise SystemExit("work directory must be outside the repository")
+    work.mkdir(parents=True, exist_ok=True)
+    pages = work / "pages"
+    pages.mkdir(exist_ok=True)
+    os.environ["DEMO_LINE6B_NEIGHBOUR_PAGES"] = str(pages)
+    if not args.output_prefix.replace("-", "").isalnum():
+        raise SystemExit("output prefix must contain letters, digits and hyphens only")
+    def output(kind):
+        return HERE / (args.output_prefix + "-" + kind + ".json")
     data = catalog(core, args.instructions)
     questions = question_index(core)
     examples = [row for row in questions.values() if any(c["id"].endswith(s) for c in row["citizens"] for s in (
@@ -472,16 +504,17 @@ def main():
     data["decision"] = "Decision 8: display only; synthetic facts are set by the published positive-question or assertion-question convention, not through an entry path."
     data["published_sibling_examples"] = examples
     data["proposed_question_words"] = {}
-    probe.write_json(HERE / "track0-questions.json", data)
-    probe.write_json(HERE / "track0-replay.json", reuse(core, args.core))
+    probe.write_json(output("questions"), data)
+    if args.baseline == "v91" and Path(args.core).is_file():
+        probe.write_json(output("replay"), reuse(core, Path(args.core)))
     grid = case_grid()
     meta = {row["id"]: row for row in grid}
     from tests import evidence_loader
     owner = evidence_loader.current_owner()
     if owner:
         evidence_loader.release(owner)
-    part = args.core.parent / "track0b-part.json"
-    clock = args.core.parent / "track0b-wall.json"
+    part = work / "neighbours-part.json"
+    clock = work / "neighbours-wall.json"
     spent = read(clock) if clock.is_file() else []
     workers = max(1, (os.cpu_count() or 2) - 1)
     if args.summarize_only:
@@ -490,27 +523,33 @@ def main():
         start = time.monotonic()
         try:
             raw_results = rr.replay([(r["id"], r["acts"]) for r in grid],
-                (rr.resolve_core("v91"), core), matrix_run, workers=workers, part=part)
+                (baseline, core), matrix_run, workers=workers, part=part)
         finally:
             spent.append(round(time.monotonic() - start, 3))
             clock.write_text(json.dumps(spent) + "\n")
+    assert set(raw_results) == set(meta), "incomplete neighbour part"
     rows = [analyse(key, raw, meta[key], questions) for key, raw in sorted(raw_results.items())]
-    matrix = {"workers": workers, "cases": len(rows), "live_attempts": 2*len(rows), "wall_time_s": round(sum(spent), 3),
+    matrix = {"baseline": baseline.version, "successor": core.version, "workers": workers, "cases": len(rows), "live_attempts": 2*len(rows), "wall_time_s": round(sum(spent), 3),
         "counts": dict(Counter(r["classification"] for r in rows)), "input_binding_aliases": binding_facts(),
         "questions": questions, "results": rows}
-    probe.write_json(HERE / "track0-matrix.json", matrix)
+    probe.write_json(output("matrix"), matrix)
     roots = [r for r in rows if r["group"] in {"single-root", "pair"}]
-    probe.write_json(HERE / "track0-roots.json", {"cases": len(roots), "results": [
+    probe.write_json(output("roots"), {"cases": len(roots), "results": [
         {"id": r["id"], "unanswered": r["unanswered"], **r.get("root_check", {"pass": False})} for r in roots]})
     meaning = [r for r in rows if r["group"] == "meaning"]
-    probe.write_json(HERE / "track0-meaning.json", {"convention": data["decision"], "results": [
+    probe.write_json(output("meaning"), {"convention": data["decision"], "results": [
         {k: r.get(k) for k in ("id", "fact", "spoken_answer", "fact_value", "line6b", "meaning_pass")} for r in meaning]})
-    if args.summarize_only and (HERE / "track0-drawn.json").is_file():
-        drawn = read(HERE / "track0-drawn.json")
+    if args.summarize_only and (output("drawn")).is_file():
+        drawn = read(output("drawn"))
         assert set(drawn["covered_fields"]) == {g["field"] for r in rows for g in r.get("gains", [])}
     else:
-        drawn = draw(core, rows, raw_results, questions)
-        probe.write_json(HERE / "track0-drawn.json", drawn)
+        drawn = draw(core, rows, raw_results, questions, pages)
+        probe.write_json(output("drawn"), drawn)
+    assert not any(r.get("state_changes") or not r.get("ledger_equal", True) or r.get("placement_failures") for r in rows)
+    assert all(r.get("meaning_pass") for r in meaning)
+    assert all(r.get("root_check", {}).get("pass") for r in roots)
+    assert drawn["pass"]
+    assert set(matrix["counts"]) <= {"identical", "questions_only", "same_admission_refusal"}
     print(json.dumps({"counts": matrix["counts"], "wall_time_s": matrix["wall_time_s"],
         "placement_failures": sum(len(r.get("placement_failures", [])) for r in rows),
         "meaning_passes": sum(r.get("meaning_pass", False) for r in meaning),

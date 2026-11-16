@@ -1,0 +1,10 @@
+{
+  "schema": "input-question.v1",
+  "id": "tax.us.2025.input-question.mfs-lived-apart-all-year",
+  "version": "v1",
+  "fact_type": {
+    "id": "tax.us.2025.mfs-lived-apart-all-year",
+    "version": "v1"
+  },
+  "question": "If you are married filing separately, did you live apart from your spouse for all of 2025?"
+}
