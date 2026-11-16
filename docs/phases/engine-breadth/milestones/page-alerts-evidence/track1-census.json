@@ -1,0 +1,26 @@
+{
+  "core": {
+    "package": "v92",
+    "registry": "v90",
+    "release": "v90"
+  },
+  "lists": 775,
+  "workers": 9,
+  "wall_time_s": 650.1,
+  "outcomes": {
+    "success": 691,
+    "error": 84
+  },
+  "error_types": {
+    "FindingModelError": 82,
+    "SourceAuthorityError": 1,
+    "HorizonModelError": 1
+  },
+  "stops": {
+    "saturated": 691
+  },
+  "computing": 691,
+  "with_alert": 0,
+  "alerts_per_field": {},
+  "verdict": "PASS"
+}

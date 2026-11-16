@@ -172,3 +172,15 @@ Foreman, 2026-11-16, on Track 0 and its follow-up.
    the worksheet's scope questions, so this may be another case shape.
 
 Track 1 is chartered (`docs/reviews/page-alerts/charter-track1.md`).
+
+## Track 1 result
+
+Published core v92, registry v90, and release v90. Six citizens: `rule.form1040-line6c` v2 and `form1040.line-6c` v2 succeed v1; `citation.schedule1.top-entry` v1 and `rule.form1040-line6c-checked` v1 and `form1040.line-6c-checked` v1 are new; `schedule1.top-entry.form-field` v2 succeeds v1. The publishing rule for the top entry stays v3. v91 and earlier package bytes are unchanged. The loader entries for v92 carry v91's covered-flag map and companion declaration.
+
+Replay of the 775 recorded lists, published v91 against published v92, 9 workers: 775 identical, 0 changes, 1354.6 seconds. Evidence: `page-alerts-evidence/track1-replay.json`.
+
+Alert census on published v92, 9 workers: 691 computing returns, 0 with an alert, 84 errors, 650.1 seconds. Evidence: `page-alerts-evidence/track1-census.json`.
+
+Checks: `pytest` on `tests/test_page_alerts_v92.py`, `tests/test_page_alerts_v92_package.py`, and `tests/test_noncovered_sales_v78_switch.py` — 13 passed in 45.55s. `pytest -m "not live"` — 1811 passed, 8 skipped, 4303 subtests passed in 16.11s. `python3 -m mypy` — Success: no issues found in 503 source files. `python3 tools/envelope_scan.py --range github/main..HEAD` — exit 0, no findings. The full suite remains the CI `verify` gate.
+
+Deviation: the Track 0 checked field says "The checked lump-sum election disposition does not apply." The not-checked successor in the P0 prototype keeps "line 6c disposition is inapplicable for the current class." The saved page still draws the line value "Not applicable." from its own text, and this track does not edit the page. Both fields' `guard_inapplicable` explain is "This line 6c box does not apply to this return, or the box is the other checked/not-checked state." Every other byte of the six citizens matches the P0 prototype or the Track 0 sibling. Line 6b's empty blocked reason and the citation button labels stay parked (Decisions 8 and 9).

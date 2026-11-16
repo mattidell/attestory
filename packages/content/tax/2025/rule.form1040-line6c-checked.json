@@ -1,0 +1,53 @@
+{
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.ss-benefits-scope.no-lump-sum-election"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.line-6c",
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.rule.form1040-line6c-checked",
+  "notes": "Line 6c checked disposition. When the lump-sum election is made, no-lump-sum-election is no and this rule publishes checked on its own symbol. The not-checked rule keeps line6c-indicator.",
+  "pins": [
+    {
+      "id": "tax.us.2025.ss-benefits-scope.no-lump-sum-election",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    }
+  ],
+  "publishes": "tax.us.2025.social-security.line6c-checked",
+  "requires": [
+    "tax.us.2025.ss-benefits-scope.no-lump-sum-election"
+  ],
+  "role": "computation",
+  "schema": "rule-artifact.v3",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "value": "checked",
+  "version": "v1",
+  "when": {
+    "cmp": "eq",
+    "left": {
+      "name": "tax.us.2025.ss-benefits-scope.no-lump-sum-election",
+      "op": "ref"
+    },
+    "op": "categorical_compare",
+    "right": {
+      "fact_type": {
+        "id": "tax.us.2025.ss-benefits-scope.no-lump-sum-election",
+        "version": "v1"
+      },
+      "op": "category_literal",
+      "value": "no"
+    }
+  }
+}
