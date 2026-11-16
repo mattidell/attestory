@@ -1,0 +1,227 @@
+{
+  "cores": "published core v90 and the recommended scratch successor",
+  "lists": 775,
+  "workers": 9,
+  "wall_time_s": 1355.95,
+  "counts": {
+    "identical": 771,
+    "numbers_changed": 4
+  },
+  "by_set": {
+    "v81": {
+      "identical": 206
+    },
+    "v82": {
+      "identical": 166,
+      "numbers_changed": 4
+    },
+    "v83": {
+      "identical": 298
+    },
+    "v84": {
+      "identical": 58
+    },
+    "v85": {
+      "identical": 43
+    }
+  },
+  "numbers_changed": [
+    {
+      "id": "v82/m_2a_only_exc1_only2a_no/honest",
+      "number_fields": [
+        "rows.selected-preferential-base"
+      ],
+      "line_diffs": [],
+      "changed_rows": [
+        "selected-preferential-base"
+      ],
+      "v90_preferential": [
+        "inapplicable",
+        null,
+        []
+      ],
+      "v91_preferential": [
+        "blocked",
+        "DEPENDENCY_ABSENT",
+        [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments",
+          "exception1.only-box2a-capital-gains",
+          "exception1.no-capital-losses",
+          "exception1.no-qof-deferral",
+          "exception1.no-boxes-2b-2c-2d"
+        ]
+      ],
+      "questions_added": [
+        "Is it true that none of your 2025 Forms 1099-DIV or substitute statements shows an amount in box 2b, 2c or 2d?",
+        "Is it true that you did not defer any capital gain in 2025 by investing in a qualified opportunity fund?",
+        "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-S for it or you report it on Form 8949.",
+        "Is it true that you had no capital losses in 2025 (for example, no loss from selling stock, funds or other property)?"
+      ],
+      "questions_removed": []
+    },
+    {
+      "id": "v82/m_empty_exc1_nolosses_no/honest",
+      "number_fields": [
+        "rows.selected-preferential-base"
+      ],
+      "line_diffs": [],
+      "changed_rows": [
+        "selected-preferential-base"
+      ],
+      "v90_preferential": [
+        "inapplicable",
+        null,
+        []
+      ],
+      "v91_preferential": [
+        "blocked",
+        "DEPENDENCY_ABSENT",
+        [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments",
+          "exception1.only-box2a-capital-gains",
+          "exception1.no-capital-losses",
+          "exception1.no-qof-deferral",
+          "exception1.no-boxes-2b-2c-2d"
+        ]
+      ],
+      "questions_added": [
+        "Is it true that none of your 2025 Forms 1099-DIV or substitute statements shows an amount in box 2b, 2c or 2d?",
+        "Is it true that you did not defer any capital gain in 2025 by investing in a qualified opportunity fund?",
+        "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-S for it or you report it on Form 8949.",
+        "Is it true that you had no capital losses in 2025 (for example, no loss from selling stock, funds or other property)?"
+      ],
+      "questions_removed": []
+    },
+    {
+      "id": "v82/m_empty_exc1_only2a_no/honest",
+      "number_fields": [
+        "rows.selected-preferential-base"
+      ],
+      "line_diffs": [],
+      "changed_rows": [
+        "selected-preferential-base"
+      ],
+      "v90_preferential": [
+        "inapplicable",
+        null,
+        []
+      ],
+      "v91_preferential": [
+        "blocked",
+        "DEPENDENCY_ABSENT",
+        [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments",
+          "exception1.only-box2a-capital-gains",
+          "exception1.no-capital-losses",
+          "exception1.no-qof-deferral",
+          "exception1.no-boxes-2b-2c-2d"
+        ]
+      ],
+      "questions_added": [
+        "Is it true that none of your 2025 Forms 1099-DIV or substitute statements shows an amount in box 2b, 2c or 2d?",
+        "Is it true that you did not defer any capital gain in 2025 by investing in a qualified opportunity fund?",
+        "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-S for it or you report it on Form 8949.",
+        "Is it true that you had no capital losses in 2025 (for example, no loss from selling stock, funds or other property)?"
+      ],
+      "questions_removed": []
+    },
+    {
+      "id": "v82/t4_s1_removed/honest",
+      "number_fields": [
+        "rows.selected-preferential-base"
+      ],
+      "line_diffs": [],
+      "changed_rows": [
+        "selected-preferential-base"
+      ],
+      "v90_preferential": [
+        "inapplicable",
+        null,
+        []
+      ],
+      "v91_preferential": [
+        "blocked",
+        "DEPENDENCY_ABSENT",
+        [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments",
+          "exception1.only-box2a-capital-gains",
+          "exception1.no-capital-losses",
+          "exception1.no-qof-deferral",
+          "exception1.no-boxes-2b-2c-2d"
+        ]
+      ],
+      "questions_added": [
+        "Is it true that none of your 2025 Forms 1099-DIV or substitute statements shows an amount in box 2b, 2c or 2d?",
+        "Is it true that you did not defer any capital gain in 2025 by investing in a qualified opportunity fund?",
+        "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-S for it or you report it on Form 8949.",
+        "Is it true that you had no capital losses in 2025 (for example, no loss from selling stock, funds or other property)?"
+      ],
+      "questions_removed": []
+    }
+  ],
+  "question_diffs": [
+    {
+      "id": "v82/m_empty_exc1_only2a_no/honest",
+      "added": [
+        "Is it true that none of your 2025 Forms 1099-DIV or substitute statements shows an amount in box 2b, 2c or 2d?",
+        "Is it true that you did not defer any capital gain in 2025 by investing in a qualified opportunity fund?",
+        "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-S for it or you report it on Form 8949.",
+        "Is it true that you had no capital losses in 2025 (for example, no loss from selling stock, funds or other property)?"
+      ],
+      "removed": []
+    },
+    {
+      "id": "v82/m_empty_exc1_nolosses_no/honest",
+      "added": [
+        "Is it true that none of your 2025 Forms 1099-DIV or substitute statements shows an amount in box 2b, 2c or 2d?",
+        "Is it true that you did not defer any capital gain in 2025 by investing in a qualified opportunity fund?",
+        "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-S for it or you report it on Form 8949.",
+        "Is it true that you had no capital losses in 2025 (for example, no loss from selling stock, funds or other property)?"
+      ],
+      "removed": []
+    },
+    {
+      "id": "v82/m_2a_only_exc1_only2a_no/honest",
+      "added": [
+        "Is it true that none of your 2025 Forms 1099-DIV or substitute statements shows an amount in box 2b, 2c or 2d?",
+        "Is it true that you did not defer any capital gain in 2025 by investing in a qualified opportunity fund?",
+        "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-S for it or you report it on Form 8949.",
+        "Is it true that you had no capital losses in 2025 (for example, no loss from selling stock, funds or other property)?"
+      ],
+      "removed": []
+    },
+    {
+      "id": "v82/t4_s1_removed/honest",
+      "added": [
+        "Is it true that none of your 2025 Forms 1099-DIV or substitute statements shows an amount in box 2b, 2c or 2d?",
+        "Is it true that you did not defer any capital gain in 2025 by investing in a qualified opportunity fund?",
+        "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-S for it or you report it on Form 8949.",
+        "Is it true that you had no capital losses in 2025 (for example, no loss from selling stock, funds or other property)?"
+      ],
+      "removed": []
+    }
+  ],
+  "line_value_changes": [],
+  "newly_asked_on_computing_return": [],
+  "questions_removed_on_computing_return": [],
+  "checks": {
+    "lists": true,
+    "no_line_value_changed": true,
+    "no_computing_return_gained_a_question": true,
+    "no_computing_return_lost_a_question": true,
+    "question_changes_only_on_the_changed_lists": true
+  },
+  "verdict": "PASS"
+}

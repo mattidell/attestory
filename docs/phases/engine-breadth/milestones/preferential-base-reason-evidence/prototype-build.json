@@ -1,0 +1,22 @@
+{
+  "from": {
+    "package": "v90",
+    "registry": "v88",
+    "release": "v88"
+  },
+  "to": {
+    "package": "v91",
+    "registry": "v89",
+    "release": "v89"
+  },
+  "package": "v91",
+  "successor": "rule.selected-preferential-base.v11.json",
+  "schema": "rule-artifact.v17",
+  "named_questions": [
+    "f1099b.noncovered-sold.source-closure",
+    "f8949.no1099b-sold.source-closure",
+    "schedule-d-boundary.no-form8949-sources",
+    "schedule-d-boundary.no-other-form8949-adjustments"
+  ],
+  "guard": "no recorded sale and Schedule D required blocks with those names; Schedule D not required still publishes"
+}
