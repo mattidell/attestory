@@ -56,6 +56,14 @@ session. About $53.
 - The alert census reads form sections only, and the replay pin does not
   hold explain or categorical render text. Say what an instrument cannot
   see when quoting its zero.
+- The first exact-head `verify` failed on three shards: the new tests
+  loaded a harness that imports the line 12d `probe` by bare name, and a
+  worker that had another evidence directory earlier on `sys.path` got a
+  different `probe`. A test that loads a harness with bare imports binds
+  those names by path first, and is run once with a foreign evidence
+  directory ahead on `PYTHONPATH` before the PR goes ready.
+  `tests/test_line12d_boxes_v90.py` has the same exposure and was left
+  alone.
 
 ## Follow-ups
 

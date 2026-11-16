@@ -79,15 +79,26 @@ CLOSURE_QUESTION = (
 OLD_HORIZON = "demo.ssa.h0"
 
 
+def _line12d_names() -> None:
+    # The line 12d harness is imported by bare name. Bind those names to this
+    # owner's copies by path, so another evidence directory earlier on
+    # sys.path cannot supply a different ``probe``.
+    evidence_loader.load(L12D / "prototype.py", "prototype")
+    evidence_loader.load(L12D / "probe.py", "probe")
+
+
 def _probe() -> ModuleType:
+    _line12d_names()
     return evidence_loader.load(EVIDENCE / "probe.py", "pa_t1_v92_probe")
 
 
 def _census() -> ModuleType:
+    _line12d_names()
     return evidence_loader.load(EVIDENCE / "census.py", "pa_t1_v92_census")
 
 
 def _boxes() -> ModuleType:
+    _line12d_names()
     return evidence_loader.load(L12D / "track0.py", "pa_t1_v92_line12d")
 
 

@@ -34,6 +34,7 @@ REPO = Path(__file__).resolve().parents[1]
 CONTENT = REPO / "packages/content/tax/2025"
 RELEASES = REPO / "packages/sample_data/student_loan_worksheet_integration/publication_surface/releases"
 EVIDENCE = REPO / "docs/phases/engine-breadth/milestones/page-alerts-evidence"
+L12D = REPO / "docs/phases/engine-breadth/milestones/line12d-boxes-evidence"
 CORE = "tax.us.2025.package.core-calculations"
 P = "tax.us.2025."
 RELEASE_STEM = "demo.release.sli-worksheet-integration.2025"
@@ -80,7 +81,16 @@ def _prototype() -> ModuleType:
     return evidence_loader.load(EVIDENCE / "prototype.py", "pa_t1_v92_package_prototype")
 
 
+def _line12d_names() -> None:
+    # The line 12d harness is imported by bare name. Bind those names to this
+    # owner's copies by path, so another evidence directory earlier on
+    # sys.path cannot supply a different ``probe``.
+    evidence_loader.load(L12D / "prototype.py", "prototype")
+    evidence_loader.load(L12D / "probe.py", "probe")
+
+
 def _sibling() -> ModuleType:
+    _line12d_names()
     return evidence_loader.load(EVIDENCE / "track0.py", "pa_t1_v92_package_track0")
 
 
