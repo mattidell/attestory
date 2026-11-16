@@ -3,7 +3,8 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "box4-amount-asked",
-  "status": "Open 2026-11-15. P0 chartered.",
+  "status": "Closed 2026-11-15 on P0. Published core v91 already asks for the Form 1099-B box 4 amount on lines 25b and 25d; the parked finding came from a probe that kept only sentences with a question mark. Nothing published.",
+  "retrospective": "docs/milestone-retrospectives/2026-11-15-box4-amount-asked.md",
   "scope": [
     "a return whose Form 1099-B statement reports box 4 withholding and records no amount shows, on Form 1040 lines 25b and 25d and every line blocked through them, the question that asks for the amount",
     "answering it truthfully reaches the 2025-instruction hand values",
@@ -110,3 +111,22 @@ citizen is a different fact, and the three recorded lists had already
 answered it "no". No content successor, and no engine, schema, projection,
 page, or kernel change. Evidence:
 `box4-amount-asked-evidence/p0.md`.
+
+## Decision
+
+1. **Close on P0. Nothing is published.** Lines 25b and 25d, and every
+   line blocked through them, already show the published amount prompt
+   ("Enter the federal income tax withheld in box 4 of each Form 1099-B
+   …"). A second citizen for the same fact, a rule successor naming it,
+   or a projection change would each repeat what the page already shows.
+2. **No recorded replay.** There is no successor to compare.
+3. **The parked item is removed** from the roadmap and replaced by what
+   P0 did find: the per-statement prompt is one sentence for all
+   statements (already parked) and is still shown to a filer who
+   answered the box 4 yes/no "no" until they enter $0.
+
+## Closeout
+
+Closed 2026-11-15 on P0. One grok builder turn (high effort, $11.66).
+Core, registry and release stay at v91, v89 and v89. Retrospective:
+`docs/milestone-retrospectives/2026-11-15-box4-amount-asked.md`.
