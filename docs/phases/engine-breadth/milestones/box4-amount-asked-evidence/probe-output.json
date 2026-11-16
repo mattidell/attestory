@@ -1,0 +1,1615 @@
+{
+  "core": {
+    "package": "v91",
+    "registry": "v89",
+    "release": "v89"
+  },
+  "workers": 9,
+  "wall_time_s": 29.8,
+  "amount_sentence": "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0.",
+  "cases": {
+    "codeb_amounts_disagree": {
+      "box4": {
+        "reported": [
+          "no"
+        ],
+        "amount": [],
+        "present": "no",
+        "return_amount": null
+      },
+      "outcome": "success",
+      "stop": "saturated",
+      "lines": {
+        "form1040.line-11a": "blocked",
+        "form1040.line-15": "blocked",
+        "form1040.line-16": "blocked",
+        "form1040.line-24": "blocked",
+        "form1040.line-25a": 4500,
+        "form1040.line-25b": "blocked",
+        "form1040.line-25c": 0,
+        "form1040.line-25d": "blocked",
+        "form1040.line-33": "blocked",
+        "form1040.line-34": "blocked",
+        "form1040.line-37": "blocked",
+        "form1040.line-7a": "blocked",
+        "schedule-d.line-16": "blocked",
+        "schedule-d.line-1b": "blocked",
+        "schedule-d.line-7": "blocked"
+      },
+      "amount_fields": [
+        {
+          "field": "form1040.line-25b",
+          "artifact": "form1040-line25b",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "f1099b.statement-box4-withholding"
+          ],
+          "amount_sentence": true,
+          "reason_count": 1,
+          "only_amount_sentence": true
+        },
+        {
+          "field": "form1040.line-25d",
+          "artifact": "form1040-line25d",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line25b"
+          ],
+          "amount_sentence": true,
+          "reason_count": 1,
+          "only_amount_sentence": true
+        },
+        {
+          "field": "form1040.line-33",
+          "artifact": "form1040-line33",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line25d",
+            "payments.line32"
+          ],
+          "amount_sentence": true,
+          "reason_count": 2,
+          "only_amount_sentence": false
+        },
+        {
+          "field": "form1040.line-34",
+          "artifact": "form1040-line34",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line33",
+            "tax.line24-total-tax"
+          ],
+          "amount_sentence": true,
+          "reason_count": 2,
+          "only_amount_sentence": false
+        },
+        {
+          "field": "form1040.line-35a",
+          "artifact": "form1040-line35a",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line34-overpaid",
+            "payments.line36-applied-to-2026"
+          ],
+          "amount_sentence": true,
+          "reason_count": 2,
+          "only_amount_sentence": false
+        },
+        {
+          "field": "form1040.line-37",
+          "artifact": "form1040-line37",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.line24-total-tax",
+            "payments.line33"
+          ],
+          "amount_sentence": true,
+          "reason_count": 2,
+          "only_amount_sentence": false
+        }
+      ],
+      "page_has_amount_sentence": true,
+      "focus": {
+        "payments.line25b": {
+          "artifact": "form1040-line25b",
+          "disposition": "blocked",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "f1099b.statement-box4-withholding"
+          ]
+        },
+        "payments.line25d": {
+          "artifact": "form1040-line25d",
+          "disposition": "blocked",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line25b"
+          ]
+        },
+        "payments.line25a": {
+          "artifact": "form1040-line25a",
+          "disposition": "published",
+          "code": null,
+          "missing": []
+        }
+      },
+      "amount_fact_blocked_rows": 0,
+      "note": "Recorded code B sale. Reported no. Amount absent."
+    },
+    "sale_box4_no_amount0": {
+      "box4": {
+        "reported": [
+          "no"
+        ],
+        "amount": [
+          0
+        ],
+        "present": "no",
+        "return_amount": null
+      },
+      "outcome": "success",
+      "stop": "saturated",
+      "lines": {
+        "form1040.line-11a": 51000,
+        "form1040.line-15": 35250,
+        "form1040.line-16": 3995,
+        "form1040.line-24": 3995,
+        "form1040.line-25a": 4500,
+        "form1040.line-25b": 0,
+        "form1040.line-25c": 0,
+        "form1040.line-25d": 4500,
+        "form1040.line-33": 4500,
+        "form1040.line-34": 505,
+        "form1040.line-37": 0,
+        "form1040.line-7a": 1000,
+        "schedule-d.line-16": 1000,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-7": 1000
+      },
+      "amount_fields": [],
+      "page_has_amount_sentence": false,
+      "focus": {
+        "payments.line25b": {
+          "artifact": "form1040-line25b",
+          "disposition": "published",
+          "code": null,
+          "missing": []
+        },
+        "payments.line25d": {
+          "artifact": "form1040-line25d",
+          "disposition": "published",
+          "code": null,
+          "missing": []
+        },
+        "payments.line25a": {
+          "artifact": "form1040-line25a",
+          "disposition": "published",
+          "code": null,
+          "missing": []
+        }
+      },
+      "amount_fact_blocked_rows": 0,
+      "note": "Reported no and amount 0."
+    },
+    "codeb_amounts_disagree_amount0": {
+      "box4": {
+        "reported": [
+          "no"
+        ],
+        "amount": [
+          0
+        ],
+        "present": "no",
+        "return_amount": null
+      },
+      "outcome": "success",
+      "stop": "saturated",
+      "lines": {
+        "form1040.line-11a": "blocked",
+        "form1040.line-15": "blocked",
+        "form1040.line-16": "blocked",
+        "form1040.line-24": "blocked",
+        "form1040.line-25a": 4500,
+        "form1040.line-25b": 0,
+        "form1040.line-25c": 0,
+        "form1040.line-25d": 4500,
+        "form1040.line-33": "blocked",
+        "form1040.line-34": "blocked",
+        "form1040.line-37": "blocked",
+        "form1040.line-7a": "blocked",
+        "schedule-d.line-16": "blocked",
+        "schedule-d.line-1b": "blocked",
+        "schedule-d.line-7": "blocked"
+      },
+      "amount_fields": [],
+      "page_has_amount_sentence": false,
+      "focus": {
+        "payments.line25b": {
+          "artifact": "form1040-line25b",
+          "disposition": "published",
+          "code": null,
+          "missing": []
+        },
+        "payments.line25d": {
+          "artifact": "form1040-line25d",
+          "disposition": "published",
+          "code": null,
+          "missing": []
+        },
+        "payments.line25a": {
+          "artifact": "form1040-line25a",
+          "disposition": "published",
+          "code": null,
+          "missing": []
+        }
+      },
+      "amount_fact_blocked_rows": 0,
+      "note": "Same list with amount 0."
+    },
+    "sale_box4_unanswered": {
+      "box4": {
+        "reported": [],
+        "amount": [],
+        "present": "no",
+        "return_amount": null
+      },
+      "outcome": "success",
+      "stop": "saturated",
+      "lines": {
+        "form1040.line-11a": 51000,
+        "form1040.line-15": 35250,
+        "form1040.line-16": 3995,
+        "form1040.line-24": 3995,
+        "form1040.line-25a": 4500,
+        "form1040.line-25b": "blocked",
+        "form1040.line-25c": 0,
+        "form1040.line-25d": "blocked",
+        "form1040.line-33": "blocked",
+        "form1040.line-34": "blocked",
+        "form1040.line-37": "blocked",
+        "form1040.line-7a": 1000,
+        "schedule-d.line-16": 1000,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-7": 1000
+      },
+      "amount_fields": [
+        {
+          "field": "form1040.line-25b",
+          "artifact": "form1040-line25b",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "f1099b.statement-box4-withholding"
+          ],
+          "amount_sentence": true,
+          "reason_count": 1,
+          "only_amount_sentence": true
+        },
+        {
+          "field": "form1040.line-25d",
+          "artifact": "form1040-line25d",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line25b"
+          ],
+          "amount_sentence": true,
+          "reason_count": 1,
+          "only_amount_sentence": true
+        },
+        {
+          "field": "form1040.line-33",
+          "artifact": "form1040-line33",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line25d"
+          ],
+          "amount_sentence": true,
+          "reason_count": 1,
+          "only_amount_sentence": true
+        },
+        {
+          "field": "form1040.line-34",
+          "artifact": "form1040-line34",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line33"
+          ],
+          "amount_sentence": true,
+          "reason_count": 1,
+          "only_amount_sentence": true
+        },
+        {
+          "field": "form1040.line-35a",
+          "artifact": "form1040-line35a",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line34-overpaid",
+            "payments.line36-applied-to-2026"
+          ],
+          "amount_sentence": true,
+          "reason_count": 1,
+          "only_amount_sentence": true
+        },
+        {
+          "field": "form1040.line-37",
+          "artifact": "form1040-line37",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line33"
+          ],
+          "amount_sentence": true,
+          "reason_count": 1,
+          "only_amount_sentence": true
+        }
+      ],
+      "page_has_amount_sentence": true,
+      "focus": {
+        "payments.line25b": {
+          "artifact": "form1040-line25b",
+          "disposition": "blocked",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "f1099b.statement-box4-withholding"
+          ]
+        },
+        "payments.line25d": {
+          "artifact": "form1040-line25d",
+          "disposition": "blocked",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line25b"
+          ]
+        },
+        "payments.line25a": {
+          "artifact": "form1040-line25a",
+          "disposition": "published",
+          "code": null,
+          "missing": []
+        }
+      },
+      "amount_fact_blocked_rows": 0,
+      "note": "One covered sale. Reported and amount both absent."
+    },
+    "codeb_sale_beside_8949_yes": {
+      "box4": {
+        "reported": [
+          "no"
+        ],
+        "amount": [],
+        "present": "no",
+        "return_amount": null
+      },
+      "outcome": "success",
+      "stop": "saturated",
+      "lines": {
+        "form1040.line-11a": "blocked",
+        "form1040.line-15": "blocked",
+        "form1040.line-16": "blocked",
+        "form1040.line-24": "blocked",
+        "form1040.line-25a": 4500,
+        "form1040.line-25b": "blocked",
+        "form1040.line-25c": 0,
+        "form1040.line-25d": "blocked",
+        "form1040.line-33": "blocked",
+        "form1040.line-34": "blocked",
+        "form1040.line-37": "blocked",
+        "form1040.line-7a": "blocked",
+        "schedule-d.line-16": "blocked",
+        "schedule-d.line-1b": "blocked",
+        "schedule-d.line-7": "blocked"
+      },
+      "amount_fields": [
+        {
+          "field": "form1040.line-25b",
+          "artifact": "form1040-line25b",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "f1099b.statement-box4-withholding"
+          ],
+          "amount_sentence": true,
+          "reason_count": 1,
+          "only_amount_sentence": true
+        },
+        {
+          "field": "form1040.line-25d",
+          "artifact": "form1040-line25d",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line25b"
+          ],
+          "amount_sentence": true,
+          "reason_count": 1,
+          "only_amount_sentence": true
+        },
+        {
+          "field": "form1040.line-33",
+          "artifact": "form1040-line33",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line25d",
+            "payments.line32"
+          ],
+          "amount_sentence": true,
+          "reason_count": 3,
+          "only_amount_sentence": false
+        },
+        {
+          "field": "form1040.line-34",
+          "artifact": "form1040-line34",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line33",
+            "tax.line24-total-tax"
+          ],
+          "amount_sentence": true,
+          "reason_count": 3,
+          "only_amount_sentence": false
+        },
+        {
+          "field": "form1040.line-35a",
+          "artifact": "form1040-line35a",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line34-overpaid",
+            "payments.line36-applied-to-2026"
+          ],
+          "amount_sentence": true,
+          "reason_count": 3,
+          "only_amount_sentence": false
+        },
+        {
+          "field": "form1040.line-37",
+          "artifact": "form1040-line37",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.line24-total-tax",
+            "payments.line33"
+          ],
+          "amount_sentence": true,
+          "reason_count": 3,
+          "only_amount_sentence": false
+        }
+      ],
+      "page_has_amount_sentence": true,
+      "focus": {
+        "payments.line25b": {
+          "artifact": "form1040-line25b",
+          "disposition": "blocked",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "f1099b.statement-box4-withholding"
+          ]
+        },
+        "payments.line25d": {
+          "artifact": "form1040-line25d",
+          "disposition": "blocked",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line25b"
+          ]
+        },
+        "payments.line25a": {
+          "artifact": "form1040-line25a",
+          "disposition": "published",
+          "code": null,
+          "missing": []
+        }
+      },
+      "amount_fact_blocked_rows": 0,
+      "note": "Recorded code B sale. Path B open. Amount absent."
+    },
+    "two_statements_one_amount": {
+      "box4": {
+        "reported": [
+          "yes",
+          "yes"
+        ],
+        "amount": [
+          150
+        ],
+        "present": "no",
+        "return_amount": null
+      },
+      "outcome": "success",
+      "stop": "saturated",
+      "lines": {
+        "form1040.line-11a": 52000,
+        "form1040.line-15": 36250,
+        "form1040.line-16": 4115,
+        "form1040.line-24": 4115,
+        "form1040.line-25a": 4500,
+        "form1040.line-25b": "blocked",
+        "form1040.line-25c": 0,
+        "form1040.line-25d": "blocked",
+        "form1040.line-33": "blocked",
+        "form1040.line-34": "blocked",
+        "form1040.line-37": "blocked",
+        "form1040.line-7a": 2000,
+        "schedule-d.line-16": 2000,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-7": 2000
+      },
+      "amount_fields": [
+        {
+          "field": "form1040.line-25b",
+          "artifact": "form1040-line25b",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "f1099b.statement-box4-withholding"
+          ],
+          "amount_sentence": true,
+          "reason_count": 1,
+          "only_amount_sentence": true
+        },
+        {
+          "field": "form1040.line-25d",
+          "artifact": "form1040-line25d",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line25b"
+          ],
+          "amount_sentence": true,
+          "reason_count": 1,
+          "only_amount_sentence": true
+        },
+        {
+          "field": "form1040.line-33",
+          "artifact": "form1040-line33",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line25d"
+          ],
+          "amount_sentence": true,
+          "reason_count": 1,
+          "only_amount_sentence": true
+        },
+        {
+          "field": "form1040.line-34",
+          "artifact": "form1040-line34",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line33"
+          ],
+          "amount_sentence": true,
+          "reason_count": 1,
+          "only_amount_sentence": true
+        },
+        {
+          "field": "form1040.line-35a",
+          "artifact": "form1040-line35a",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line34-overpaid",
+            "payments.line36-applied-to-2026"
+          ],
+          "amount_sentence": true,
+          "reason_count": 1,
+          "only_amount_sentence": true
+        },
+        {
+          "field": "form1040.line-37",
+          "artifact": "form1040-line37",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line33"
+          ],
+          "amount_sentence": true,
+          "reason_count": 1,
+          "only_amount_sentence": true
+        }
+      ],
+      "page_has_amount_sentence": true,
+      "focus": {
+        "payments.line25b": {
+          "artifact": "form1040-line25b",
+          "disposition": "blocked",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "f1099b.statement-box4-withholding"
+          ]
+        },
+        "payments.line25d": {
+          "artifact": "form1040-line25d",
+          "disposition": "blocked",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line25b"
+          ]
+        },
+        "payments.line25a": {
+          "artifact": "form1040-line25a",
+          "disposition": "published",
+          "code": null,
+          "missing": []
+        }
+      },
+      "amount_fact_blocked_rows": 0,
+      "note": "Two sales. s1 amount 150. s2 amount absent."
+    },
+    "codeb_sale_beside_8949_yes_amount0": {
+      "box4": {
+        "reported": [
+          "no"
+        ],
+        "amount": [
+          0
+        ],
+        "present": "no",
+        "return_amount": null
+      },
+      "outcome": "success",
+      "stop": "saturated",
+      "lines": {
+        "form1040.line-11a": "blocked",
+        "form1040.line-15": "blocked",
+        "form1040.line-16": "blocked",
+        "form1040.line-24": "blocked",
+        "form1040.line-25a": 4500,
+        "form1040.line-25b": 0,
+        "form1040.line-25c": 0,
+        "form1040.line-25d": 4500,
+        "form1040.line-33": "blocked",
+        "form1040.line-34": "blocked",
+        "form1040.line-37": "blocked",
+        "form1040.line-7a": "blocked",
+        "schedule-d.line-16": "blocked",
+        "schedule-d.line-1b": "blocked",
+        "schedule-d.line-7": "blocked"
+      },
+      "amount_fields": [],
+      "page_has_amount_sentence": false,
+      "focus": {
+        "payments.line25b": {
+          "artifact": "form1040-line25b",
+          "disposition": "published",
+          "code": null,
+          "missing": []
+        },
+        "payments.line25d": {
+          "artifact": "form1040-line25d",
+          "disposition": "published",
+          "code": null,
+          "missing": []
+        },
+        "payments.line25a": {
+          "artifact": "form1040-line25a",
+          "disposition": "published",
+          "code": null,
+          "missing": []
+        }
+      },
+      "amount_fact_blocked_rows": 0,
+      "note": "Same list with amount 0."
+    },
+    "two_statements_both": {
+      "box4": {
+        "reported": [
+          "yes",
+          "yes"
+        ],
+        "amount": [
+          150,
+          40
+        ],
+        "present": "no",
+        "return_amount": null
+      },
+      "outcome": "success",
+      "stop": "saturated",
+      "lines": {
+        "form1040.line-11a": 52000,
+        "form1040.line-15": 36250,
+        "form1040.line-16": 4115,
+        "form1040.line-24": 4115,
+        "form1040.line-25a": 4500,
+        "form1040.line-25b": 190,
+        "form1040.line-25c": 0,
+        "form1040.line-25d": 4690,
+        "form1040.line-33": 4690,
+        "form1040.line-34": 575,
+        "form1040.line-37": 0,
+        "form1040.line-7a": 2000,
+        "schedule-d.line-16": 2000,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-7": 2000
+      },
+      "amount_fields": [],
+      "page_has_amount_sentence": false,
+      "focus": {
+        "payments.line25b": {
+          "artifact": "form1040-line25b",
+          "disposition": "published",
+          "code": null,
+          "missing": []
+        },
+        "payments.line25d": {
+          "artifact": "form1040-line25d",
+          "disposition": "published",
+          "code": null,
+          "missing": []
+        },
+        "payments.line25a": {
+          "artifact": "form1040-line25a",
+          "disposition": "published",
+          "code": null,
+          "missing": []
+        }
+      },
+      "amount_fact_blocked_rows": 0,
+      "note": "Amounts 150 and 40."
+    },
+    "wash_adjustment_open": {
+      "box4": {
+        "reported": [
+          "no"
+        ],
+        "amount": [],
+        "present": "no",
+        "return_amount": null
+      },
+      "outcome": "success",
+      "stop": "saturated",
+      "lines": {
+        "form1040.line-11a": "blocked",
+        "form1040.line-15": "blocked",
+        "form1040.line-16": "blocked",
+        "form1040.line-24": "blocked",
+        "form1040.line-25a": 4500,
+        "form1040.line-25b": "blocked",
+        "form1040.line-25c": 0,
+        "form1040.line-25d": "blocked",
+        "form1040.line-33": "blocked",
+        "form1040.line-34": "blocked",
+        "form1040.line-37": "blocked",
+        "form1040.line-7a": "blocked",
+        "schedule-d.line-16": "blocked",
+        "schedule-d.line-1b": "blocked",
+        "schedule-d.line-7": "blocked"
+      },
+      "amount_fields": [
+        {
+          "field": "form1040.line-25b",
+          "artifact": "form1040-line25b",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "f1099b.statement-box4-withholding"
+          ],
+          "amount_sentence": true,
+          "reason_count": 1,
+          "only_amount_sentence": true
+        },
+        {
+          "field": "form1040.line-25d",
+          "artifact": "form1040-line25d",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line25b"
+          ],
+          "amount_sentence": true,
+          "reason_count": 1,
+          "only_amount_sentence": true
+        },
+        {
+          "field": "form1040.line-33",
+          "artifact": "form1040-line33",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line25d",
+            "payments.line32"
+          ],
+          "amount_sentence": true,
+          "reason_count": 2,
+          "only_amount_sentence": false
+        },
+        {
+          "field": "form1040.line-34",
+          "artifact": "form1040-line34",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line33",
+            "tax.line24-total-tax"
+          ],
+          "amount_sentence": true,
+          "reason_count": 2,
+          "only_amount_sentence": false
+        },
+        {
+          "field": "form1040.line-35a",
+          "artifact": "form1040-line35a",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line34-overpaid",
+            "payments.line36-applied-to-2026"
+          ],
+          "amount_sentence": true,
+          "reason_count": 2,
+          "only_amount_sentence": false
+        },
+        {
+          "field": "form1040.line-37",
+          "artifact": "form1040-line37",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.line24-total-tax",
+            "payments.line33"
+          ],
+          "amount_sentence": true,
+          "reason_count": 2,
+          "only_amount_sentence": false
+        }
+      ],
+      "page_has_amount_sentence": true,
+      "focus": {
+        "payments.line25b": {
+          "artifact": "form1040-line25b",
+          "disposition": "blocked",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "f1099b.statement-box4-withholding"
+          ]
+        },
+        "payments.line25d": {
+          "artifact": "form1040-line25d",
+          "disposition": "blocked",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line25b"
+          ]
+        },
+        "payments.line25a": {
+          "artifact": "form1040-line25a",
+          "disposition": "published",
+          "code": null,
+          "missing": []
+        }
+      },
+      "amount_fact_blocked_rows": 0,
+      "note": "Recorded wash sale. Adjustment family open. Amount absent."
+    },
+    "beside_return_level": {
+      "box4": {
+        "reported": [
+          "yes"
+        ],
+        "amount": [
+          200
+        ],
+        "present": "yes",
+        "return_amount": 150
+      },
+      "outcome": "success",
+      "stop": "saturated",
+      "lines": {
+        "form1040.line-11a": 51000,
+        "form1040.line-15": 35250,
+        "form1040.line-16": 3995,
+        "form1040.line-24": 3995,
+        "form1040.line-25a": 4500,
+        "form1040.line-25b": 350,
+        "form1040.line-25c": 0,
+        "form1040.line-25d": 4850,
+        "form1040.line-33": 4850,
+        "form1040.line-34": 855,
+        "form1040.line-37": 0,
+        "form1040.line-7a": 1000,
+        "schedule-d.line-16": 1000,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-7": 1000
+      },
+      "amount_fields": [],
+      "page_has_amount_sentence": false,
+      "focus": {
+        "payments.line25b": {
+          "artifact": "form1040-line25b",
+          "disposition": "published",
+          "code": null,
+          "missing": []
+        },
+        "payments.line25d": {
+          "artifact": "form1040-line25d",
+          "disposition": "published",
+          "code": null,
+          "missing": []
+        },
+        "payments.line25a": {
+          "artifact": "form1040-line25a",
+          "disposition": "published",
+          "code": null,
+          "missing": []
+        }
+      },
+      "amount_fact_blocked_rows": 0,
+      "note": "Sale amount 200 beside return-level 150."
+    },
+    "wash_adjustment_open_amount0": {
+      "box4": {
+        "reported": [
+          "no"
+        ],
+        "amount": [
+          0
+        ],
+        "present": "no",
+        "return_amount": null
+      },
+      "outcome": "success",
+      "stop": "saturated",
+      "lines": {
+        "form1040.line-11a": "blocked",
+        "form1040.line-15": "blocked",
+        "form1040.line-16": "blocked",
+        "form1040.line-24": "blocked",
+        "form1040.line-25a": 4500,
+        "form1040.line-25b": 0,
+        "form1040.line-25c": 0,
+        "form1040.line-25d": 4500,
+        "form1040.line-33": "blocked",
+        "form1040.line-34": "blocked",
+        "form1040.line-37": "blocked",
+        "form1040.line-7a": "blocked",
+        "schedule-d.line-16": "blocked",
+        "schedule-d.line-1b": "blocked",
+        "schedule-d.line-7": "blocked"
+      },
+      "amount_fields": [],
+      "page_has_amount_sentence": false,
+      "focus": {
+        "payments.line25b": {
+          "artifact": "form1040-line25b",
+          "disposition": "published",
+          "code": null,
+          "missing": []
+        },
+        "payments.line25d": {
+          "artifact": "form1040-line25d",
+          "disposition": "published",
+          "code": null,
+          "missing": []
+        },
+        "payments.line25a": {
+          "artifact": "form1040-line25a",
+          "disposition": "published",
+          "code": null,
+          "missing": []
+        }
+      },
+      "amount_fact_blocked_rows": 0,
+      "note": "Same list with amount 0."
+    },
+    "orphan_beside_return_zero": {
+      "box4": {
+        "reported": [
+          "no"
+        ],
+        "amount": [
+          200,
+          150
+        ],
+        "present": "yes",
+        "return_amount": 0
+      },
+      "outcome": "success",
+      "stop": "saturated",
+      "lines": {
+        "form1040.line-11a": 51000,
+        "form1040.line-15": 35250,
+        "form1040.line-16": 3995,
+        "form1040.line-24": 3995,
+        "form1040.line-25a": 4500,
+        "form1040.line-25b": 350,
+        "form1040.line-25c": 0,
+        "form1040.line-25d": 4850,
+        "form1040.line-33": 4850,
+        "form1040.line-34": 855,
+        "form1040.line-37": 0,
+        "form1040.line-7a": 1000,
+        "schedule-d.line-16": 1000,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-7": 1000
+      },
+      "amount_fields": [],
+      "page_has_amount_sentence": false,
+      "focus": {
+        "payments.line25b": {
+          "artifact": "form1040-line25b",
+          "disposition": "published",
+          "code": null,
+          "missing": []
+        },
+        "payments.line25d": {
+          "artifact": "form1040-line25d",
+          "disposition": "published",
+          "code": null,
+          "missing": []
+        },
+        "payments.line25a": {
+          "artifact": "form1040-line25a",
+          "disposition": "published",
+          "code": null,
+          "missing": []
+        }
+      },
+      "amount_fact_blocked_rows": 0,
+      "note": "Sale 200 and a no-sale statement 150. Return-level 0."
+    },
+    "sale_box4_yes_no_amount": {
+      "box4": {
+        "reported": [
+          "yes"
+        ],
+        "amount": [],
+        "present": "no",
+        "return_amount": null
+      },
+      "outcome": "success",
+      "stop": "saturated",
+      "lines": {
+        "form1040.line-11a": 51000,
+        "form1040.line-15": 35250,
+        "form1040.line-16": 3995,
+        "form1040.line-24": 3995,
+        "form1040.line-25a": 4500,
+        "form1040.line-25b": "blocked",
+        "form1040.line-25c": 0,
+        "form1040.line-25d": "blocked",
+        "form1040.line-33": "blocked",
+        "form1040.line-34": "blocked",
+        "form1040.line-37": "blocked",
+        "form1040.line-7a": 1000,
+        "schedule-d.line-16": 1000,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-7": 1000
+      },
+      "amount_fields": [
+        {
+          "field": "form1040.line-25b",
+          "artifact": "form1040-line25b",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "f1099b.statement-box4-withholding"
+          ],
+          "amount_sentence": true,
+          "reason_count": 1,
+          "only_amount_sentence": true
+        },
+        {
+          "field": "form1040.line-25d",
+          "artifact": "form1040-line25d",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line25b"
+          ],
+          "amount_sentence": true,
+          "reason_count": 1,
+          "only_amount_sentence": true
+        },
+        {
+          "field": "form1040.line-33",
+          "artifact": "form1040-line33",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line25d"
+          ],
+          "amount_sentence": true,
+          "reason_count": 1,
+          "only_amount_sentence": true
+        },
+        {
+          "field": "form1040.line-34",
+          "artifact": "form1040-line34",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line33"
+          ],
+          "amount_sentence": true,
+          "reason_count": 1,
+          "only_amount_sentence": true
+        },
+        {
+          "field": "form1040.line-35a",
+          "artifact": "form1040-line35a",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line34-overpaid",
+            "payments.line36-applied-to-2026"
+          ],
+          "amount_sentence": true,
+          "reason_count": 1,
+          "only_amount_sentence": true
+        },
+        {
+          "field": "form1040.line-37",
+          "artifact": "form1040-line37",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line33"
+          ],
+          "amount_sentence": true,
+          "reason_count": 1,
+          "only_amount_sentence": true
+        }
+      ],
+      "page_has_amount_sentence": true,
+      "focus": {
+        "payments.line25b": {
+          "artifact": "form1040-line25b",
+          "disposition": "blocked",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "f1099b.statement-box4-withholding"
+          ]
+        },
+        "payments.line25d": {
+          "artifact": "form1040-line25d",
+          "disposition": "blocked",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line25b"
+          ]
+        },
+        "payments.line25a": {
+          "artifact": "form1040-line25a",
+          "disposition": "published",
+          "code": null,
+          "missing": []
+        }
+      },
+      "amount_fact_blocked_rows": 0,
+      "note": "One covered sale. Reported yes. Amount absent."
+    },
+    "no_1099b": {
+      "box4": {
+        "reported": [],
+        "amount": [],
+        "present": "no",
+        "return_amount": null
+      },
+      "outcome": "success",
+      "stop": "saturated",
+      "lines": {
+        "form1040.line-11a": 50000,
+        "form1040.line-15": 34250,
+        "form1040.line-16": 3875,
+        "form1040.line-24": 3875,
+        "form1040.line-25a": 4500,
+        "form1040.line-25b": 0,
+        "form1040.line-25c": 0,
+        "form1040.line-25d": 4500,
+        "form1040.line-33": 4500,
+        "form1040.line-34": 625,
+        "form1040.line-37": 0,
+        "form1040.line-7a": 0,
+        "schedule-d.line-16": 0,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-7": 0
+      },
+      "amount_fields": [],
+      "page_has_amount_sentence": false,
+      "focus": {
+        "payments.line25b": {
+          "artifact": "form1040-line25b",
+          "disposition": "published",
+          "code": null,
+          "missing": []
+        },
+        "payments.line25d": {
+          "artifact": "form1040-line25d",
+          "disposition": "published",
+          "code": null,
+          "missing": []
+        },
+        "payments.line25a": {
+          "artifact": "form1040-line25a",
+          "disposition": "published",
+          "code": null,
+          "missing": []
+        }
+      },
+      "amount_fact_blocked_rows": 0,
+      "note": "No Form 1099-B. Present no."
+    },
+    "sale_box4_yes_amount200": {
+      "box4": {
+        "reported": [
+          "yes"
+        ],
+        "amount": [
+          200
+        ],
+        "present": "no",
+        "return_amount": null
+      },
+      "outcome": "success",
+      "stop": "saturated",
+      "lines": {
+        "form1040.line-11a": 51000,
+        "form1040.line-15": 35250,
+        "form1040.line-16": 3995,
+        "form1040.line-24": 3995,
+        "form1040.line-25a": 4500,
+        "form1040.line-25b": 200,
+        "form1040.line-25c": 0,
+        "form1040.line-25d": 4700,
+        "form1040.line-33": 4700,
+        "form1040.line-34": 705,
+        "form1040.line-37": 0,
+        "form1040.line-7a": 1000,
+        "schedule-d.line-16": 1000,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-7": 1000
+      },
+      "amount_fields": [],
+      "page_has_amount_sentence": false,
+      "focus": {
+        "payments.line25b": {
+          "artifact": "form1040-line25b",
+          "disposition": "published",
+          "code": null,
+          "missing": []
+        },
+        "payments.line25d": {
+          "artifact": "form1040-line25d",
+          "disposition": "published",
+          "code": null,
+          "missing": []
+        },
+        "payments.line25a": {
+          "artifact": "form1040-line25a",
+          "disposition": "published",
+          "code": null,
+          "missing": []
+        }
+      },
+      "amount_fact_blocked_rows": 0,
+      "note": "Same sale with amount 200."
+    },
+    "w2_box2_stripped": {
+      "box4": {
+        "reported": [],
+        "amount": [],
+        "present": "no",
+        "return_amount": null
+      },
+      "outcome": "success",
+      "stop": "saturated",
+      "lines": {
+        "form1040.line-11a": 50000,
+        "form1040.line-15": 34250,
+        "form1040.line-16": 3875,
+        "form1040.line-24": 3875,
+        "form1040.line-25a": "blocked",
+        "form1040.line-25b": 0,
+        "form1040.line-25c": 0,
+        "form1040.line-25d": "blocked",
+        "form1040.line-33": "blocked",
+        "form1040.line-34": "blocked",
+        "form1040.line-37": "blocked",
+        "form1040.line-7a": 0,
+        "schedule-d.line-16": 0,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-7": 0
+      },
+      "amount_fields": [
+        {
+          "field": "form1040.line-25a",
+          "artifact": "form1040-line25a",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "w2.box2-withholding"
+          ],
+          "amount_sentence": false,
+          "reason_count": 1,
+          "only_amount_sentence": false
+        },
+        {
+          "field": "form1040.line-25d",
+          "artifact": "form1040-line25d",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line25a"
+          ],
+          "amount_sentence": false,
+          "reason_count": 1,
+          "only_amount_sentence": false
+        },
+        {
+          "field": "form1040.line-33",
+          "artifact": "form1040-line33",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line25d"
+          ],
+          "amount_sentence": false,
+          "reason_count": 1,
+          "only_amount_sentence": false
+        },
+        {
+          "field": "form1040.line-34",
+          "artifact": "form1040-line34",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line33"
+          ],
+          "amount_sentence": false,
+          "reason_count": 1,
+          "only_amount_sentence": false
+        },
+        {
+          "field": "form1040.line-35a",
+          "artifact": "form1040-line35a",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line34-overpaid",
+            "payments.line36-applied-to-2026"
+          ],
+          "amount_sentence": false,
+          "reason_count": 1,
+          "only_amount_sentence": false
+        },
+        {
+          "field": "form1040.line-37",
+          "artifact": "form1040-line37",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line33"
+          ],
+          "amount_sentence": false,
+          "reason_count": 1,
+          "only_amount_sentence": false
+        }
+      ],
+      "page_has_amount_sentence": false,
+      "focus": {
+        "payments.line25b": {
+          "artifact": "form1040-line25b",
+          "disposition": "published",
+          "code": null,
+          "missing": []
+        },
+        "payments.line25d": {
+          "artifact": "form1040-line25d",
+          "disposition": "blocked",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line25a"
+          ]
+        },
+        "payments.line25a": {
+          "artifact": "form1040-line25a",
+          "disposition": "blocked",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "w2.box2-withholding"
+          ]
+        }
+      },
+      "amount_fact_blocked_rows": 0,
+      "note": "Contrast: W-2 box 2 amount removed."
+    },
+    "sale_box4_no_no_amount": {
+      "box4": {
+        "reported": [
+          "no"
+        ],
+        "amount": [],
+        "present": "no",
+        "return_amount": null
+      },
+      "outcome": "success",
+      "stop": "saturated",
+      "lines": {
+        "form1040.line-11a": 51000,
+        "form1040.line-15": 35250,
+        "form1040.line-16": 3995,
+        "form1040.line-24": 3995,
+        "form1040.line-25a": 4500,
+        "form1040.line-25b": "blocked",
+        "form1040.line-25c": 0,
+        "form1040.line-25d": "blocked",
+        "form1040.line-33": "blocked",
+        "form1040.line-34": "blocked",
+        "form1040.line-37": "blocked",
+        "form1040.line-7a": 1000,
+        "schedule-d.line-16": 1000,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-7": 1000
+      },
+      "amount_fields": [
+        {
+          "field": "form1040.line-25b",
+          "artifact": "form1040-line25b",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "f1099b.statement-box4-withholding"
+          ],
+          "amount_sentence": true,
+          "reason_count": 1,
+          "only_amount_sentence": true
+        },
+        {
+          "field": "form1040.line-25d",
+          "artifact": "form1040-line25d",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line25b"
+          ],
+          "amount_sentence": true,
+          "reason_count": 1,
+          "only_amount_sentence": true
+        },
+        {
+          "field": "form1040.line-33",
+          "artifact": "form1040-line33",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line25d"
+          ],
+          "amount_sentence": true,
+          "reason_count": 1,
+          "only_amount_sentence": true
+        },
+        {
+          "field": "form1040.line-34",
+          "artifact": "form1040-line34",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line33"
+          ],
+          "amount_sentence": true,
+          "reason_count": 1,
+          "only_amount_sentence": true
+        },
+        {
+          "field": "form1040.line-35a",
+          "artifact": "form1040-line35a",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line34-overpaid",
+            "payments.line36-applied-to-2026"
+          ],
+          "amount_sentence": true,
+          "reason_count": 1,
+          "only_amount_sentence": true
+        },
+        {
+          "field": "form1040.line-37",
+          "artifact": "form1040-line37",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line33"
+          ],
+          "amount_sentence": true,
+          "reason_count": 1,
+          "only_amount_sentence": true
+        }
+      ],
+      "page_has_amount_sentence": true,
+      "focus": {
+        "payments.line25b": {
+          "artifact": "form1040-line25b",
+          "disposition": "blocked",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "f1099b.statement-box4-withholding"
+          ]
+        },
+        "payments.line25d": {
+          "artifact": "form1040-line25d",
+          "disposition": "blocked",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "payments.line25b"
+          ]
+        },
+        "payments.line25a": {
+          "artifact": "form1040-line25a",
+          "disposition": "published",
+          "code": null,
+          "missing": []
+        }
+      },
+      "amount_fact_blocked_rows": 0,
+      "note": "One covered sale. Reported no. Amount absent."
+    }
+  },
+  "shapes": {
+    "amount_question_published": true,
+    "reported_question_is_different_fact": true,
+    "paired_withholding": [
+      {
+        "rule": "form1040-line25a.v3",
+        "publishes": "payments.line25a",
+        "fields": [
+          "form1040.line-25a"
+        ],
+        "key": "w2-slip",
+        "withholding": "w2.box2-withholding",
+        "input_question": true,
+        "closure": true
+      },
+      {
+        "rule": "form1040-line25b.v8",
+        "publishes": "payments.line25b",
+        "fields": [
+          "form1040.line-25b"
+        ],
+        "key": "statement",
+        "withholding": "f1099int.box4-withholding",
+        "input_question": true,
+        "closure": true
+      },
+      {
+        "rule": "form1040-line25b.v8",
+        "publishes": "payments.line25b",
+        "fields": [
+          "form1040.line-25b"
+        ],
+        "key": "statement",
+        "withholding": "f1099div.box4-withholding",
+        "input_question": true,
+        "closure": true
+      },
+      {
+        "rule": "form1040-line25b.v8",
+        "publishes": "payments.line25b",
+        "fields": [
+          "form1040.line-25b"
+        ],
+        "key": "statement",
+        "withholding": "f1099r.ira-box4-withholding",
+        "input_question": true,
+        "closure": true
+      },
+      {
+        "rule": "form1040-line25b.v8",
+        "publishes": "payments.line25b",
+        "fields": [
+          "form1040.line-25b"
+        ],
+        "key": "statement",
+        "withholding": "f1099g.box4-withholding",
+        "input_question": true,
+        "closure": true
+      },
+      {
+        "rule": "form1040-line25b.v8",
+        "publishes": "payments.line25b",
+        "fields": [
+          "form1040.line-25b"
+        ],
+        "key": "statement",
+        "withholding": "ssa1099.box6-voluntary-withholding",
+        "input_question": true,
+        "closure": true
+      },
+      {
+        "rule": "form1040-line25b.v8",
+        "publishes": "payments.line25b",
+        "fields": [
+          "form1040.line-25b"
+        ],
+        "key": "statement",
+        "withholding": "f1099b.statement-box4-withholding",
+        "input_question": true,
+        "closure": false
+      }
+    ],
+    "paired_without_question_and_closure": [],
+    "w2g_box4": {
+      "input_question": false,
+      "closure_question": "Have you recorded every federal income tax withheld amount in box 4 of every Form W-2G you or your spouse received for 2025?",
+      "subtotal_when": "require_closed",
+      "line_25c_fields": [
+        "form1040.line-25c"
+      ]
+    },
+    "f1099k_box4": {
+      "input_question": false,
+      "closure": false,
+      "rules": [
+        "f1099k-statement-loss-reason.v4"
+      ],
+      "form_fields": [],
+      "one_hop_form_fields": []
+    }
+  }
+}

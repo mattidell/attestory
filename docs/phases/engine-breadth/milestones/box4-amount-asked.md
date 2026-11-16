@@ -96,4 +96,17 @@ whether a successor asks any computing return a new question.
 
 ## P0 result
 
-(To be filled by P0.)
+Published core v91 already asks for the amount. `probe.py` ran the plan
+cases through `live_coordinate_run` and the presentation projection.
+Lines 25b and 25d, and every line blocked through them, show the published
+amount prompt. Entering the amount publishes the 2025-instruction hands,
+including line 25b 350, line 25d 4850, tax 3995, and refund 855 when a
+$200 sale amount sits beside the return-level $150. A return with no Form
+1099-B is not asked the per-statement amount.
+
+The earlier empty question list kept sentences that contain `?`. The
+amount prompt is an imperative and has no question mark. The yes/no
+citizen is a different fact, and the three recorded lists had already
+answered it "no". No content successor, and no engine, schema, projection,
+page, or kernel change. Evidence:
+`box4-amount-asked-evidence/p0.md`.
