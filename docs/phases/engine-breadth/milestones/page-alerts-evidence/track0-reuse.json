@@ -1,0 +1,421 @@
+{
+  "table": "claim reuse",
+  "verdict": "PASS",
+  "counts": {
+    "v92_member_changes": 4,
+    "v92_entrypoint_changes": 2,
+    "sibling_member_changes": 2,
+    "sibling_entrypoint_changes": 1,
+    "named_cases": 5,
+    "new_question_cores": 0
+  },
+  "failing_case_ids": [],
+  "v92_member_changes": [
+    {
+      "id": "citation.schedule1.top-entry",
+      "change": "added",
+      "version": "v1",
+      "role": "citation",
+      "schema": "citation.v1"
+    },
+    {
+      "id": "form1040.line-6c",
+      "change": "replaced",
+      "from": "v1",
+      "to": "v2",
+      "role": "form-field",
+      "schema": "form-field.v3"
+    },
+    {
+      "id": "rule.form1040-line6c",
+      "change": "replaced",
+      "from": "v1",
+      "to": "v2",
+      "role": "computation",
+      "schema": "rule-artifact.v3"
+    },
+    {
+      "id": "schedule1.top-entry.form-field",
+      "change": "replaced",
+      "from": "v1",
+      "to": "v2",
+      "role": "form-field",
+      "schema": "form-field.v3"
+    }
+  ],
+  "v92_entrypoint_changes": [
+    {
+      "id": "rule.form1040-line6c",
+      "change": "replaced",
+      "from": "v1",
+      "to": "v2"
+    },
+    {
+      "id": "schedule1.top-entry.form-field",
+      "change": "replaced",
+      "from": "v1",
+      "to": "v2"
+    }
+  ],
+  "sibling_member_changes": [
+    {
+      "id": "form1040.line-6c-checked",
+      "change": "added",
+      "version": "v1",
+      "role": "form-field",
+      "schema": "form-field.v3"
+    },
+    {
+      "id": "rule.form1040-line6c-checked",
+      "change": "added",
+      "version": "v1",
+      "role": "computation",
+      "schema": "rule-artifact.v3"
+    }
+  ],
+  "sibling_entrypoint_changes": [
+    {
+      "id": "rule.form1040-line6c-checked",
+      "change": "added",
+      "version": "v1"
+    }
+  ],
+  "bodies": [
+    {
+      "id": "rule.form1040-line6c",
+      "from": "v1",
+      "to": "v2",
+      "dependency_unchanged": true,
+      "value_before": "not_elected",
+      "value_after": "not_checked",
+      "render_before": null,
+      "render_after": null,
+      "citation_before": null,
+      "citation_after": null,
+      "publishes": "tax.us.2025.social-security.line6c-indicator"
+    },
+    {
+      "id": "form1040.line-6c",
+      "from": "v1",
+      "to": "v2",
+      "dependency_unchanged": true,
+      "value_before": null,
+      "value_after": null,
+      "render_before": "not_elected",
+      "render_after": "not_checked",
+      "citation_before": {
+        "id": "tax.us.2025.citation.form1040.line-6c",
+        "version": "v1"
+      },
+      "citation_after": {
+        "id": "tax.us.2025.citation.form1040.line-6c",
+        "version": "v1"
+      },
+      "publishes": "tax.us.2025.social-security.line6c-indicator"
+    },
+    {
+      "id": "schedule1.top-entry.form-field",
+      "from": "v1",
+      "to": "v2",
+      "dependency_unchanged": true,
+      "value_before": null,
+      "value_after": null,
+      "render_before": "{value}",
+      "render_after": "{value}",
+      "citation_before": null,
+      "citation_after": {
+        "id": "tax.us.2025.citation.schedule1.top-entry",
+        "version": "v1"
+      },
+      "publishes": "tax.us.2025.schedule1.top-entry"
+    },
+    {
+      "id": "rule.schedule1-top-entry",
+      "from": "v3",
+      "to": "v3",
+      "dependency_unchanged": true,
+      "value_before": null,
+      "value_after": null,
+      "render_before": null,
+      "render_after": null,
+      "citation_before": null,
+      "citation_after": null,
+      "publishes": "tax.us.2025.schedule1.top-entry"
+    }
+  ],
+  "new_citation_requires": null,
+  "new_citation_pins": null,
+  "sibling_rule": {
+    "publishes": "social-security.line6c-checked",
+    "pins": [
+      "ss-benefits-scope.no-lump-sum-election"
+    ],
+    "requires": [
+      "ss-benefits-scope.no-lump-sum-election"
+    ],
+    "when_value": "no",
+    "value": "checked",
+    "blocked_missing": [
+      "tax.us.2025.ss-benefits-scope.no-lump-sum-election"
+    ]
+  },
+  "sibling_field": {
+    "binds_symbol": "social-security.line6c-checked",
+    "render": "checked",
+    "citation": "citation.form1040.line-6c"
+  },
+  "named_case": [
+    {
+      "core": "v91",
+      "case_id": "wages-only",
+      "outcome": "success",
+      "error": null,
+      "question_count": 0,
+      "questions_not_on_v91": [],
+      "questions_on_v91_only": [],
+      "line_diff_count": 0,
+      "line_diffs": []
+    },
+    {
+      "core": "v92",
+      "case_id": "wages-only",
+      "outcome": "success",
+      "error": null,
+      "question_count": 0,
+      "questions_not_on_v91": [],
+      "questions_on_v91_only": [],
+      "line_diff_count": 0,
+      "line_diffs": []
+    },
+    {
+      "core": "v93",
+      "case_id": "wages-only",
+      "outcome": "success",
+      "error": null,
+      "question_count": 0,
+      "questions_not_on_v91": [],
+      "questions_on_v91_only": [],
+      "line_diff_count": 0,
+      "line_diffs": []
+    },
+    {
+      "core": "v90",
+      "case_id": "wages-only",
+      "outcome": "success",
+      "error": null,
+      "question_count": 0,
+      "questions_not_on_v91": [],
+      "questions_on_v91_only": [],
+      "line_diff_count": 0,
+      "line_diffs": [],
+      "page_outcome": "success",
+      "page_stop": "saturated",
+      "page_error": null,
+      "model_focus": {
+        "form.f1099k.unresolved.form-field": {
+          "disposition": "guard_inapplicable",
+          "value": null,
+          "render": "",
+          "reasons": []
+        },
+        "form1040.line-12e": {
+          "disposition": "published_value",
+          "value": 15750,
+          "render": "{value}",
+          "reasons": []
+        },
+        "form1040.line-6a": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "render": "0",
+          "reasons": []
+        },
+        "form1040.line-6b": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "render": "0",
+          "reasons": []
+        },
+        "form1040.line-6c": {
+          "disposition": "published_categorical",
+          "value": null,
+          "render": "not_elected",
+          "reasons": []
+        },
+        "form1040.line-6d": {
+          "disposition": "guard_inapplicable",
+          "value": null,
+          "render": "",
+          "reasons": []
+        },
+        "form1040.line-6d-not-checked": {
+          "disposition": "guard_inapplicable",
+          "value": null,
+          "render": "",
+          "reasons": []
+        },
+        "schedule1.top-entry.form-field": {
+          "disposition": "closure_backed_zero",
+          "value": 0,
+          "render": "{value}",
+          "reasons": []
+        }
+      },
+      "drawn": {
+        "page_alert_count": 2,
+        "alerts": [
+          {
+            "id": "line-6c",
+            "text": "This line is missing its rendering instruction for the declared disposition."
+          },
+          {
+            "id": "line-sch1-top",
+            "text": "This line published a value with no citation attached. No value can be shown safely."
+          }
+        ],
+        "sections": {
+          "line-6a": {
+            "heading": "Social Security benefits (Line 6a) COMPUTED ZERO",
+            "value": "0",
+            "section_error": "",
+            "citation_buttons": 2,
+            "citation_button_labels": [
+              "demo.cgd.t2.finding.rounding@v1",
+              "tax.us.2025.citation.form1040.line-6a@v1"
+            ]
+          },
+          "line-6c": {
+            "heading": "Lump-sum election",
+            "value": "",
+            "section_error": "This line is missing its rendering instruction for the declared disposition.",
+            "citation_buttons": 0,
+            "citation_button_labels": []
+          },
+          "line-sch1-top": {
+            "heading": "Form 1099-K personal item sale loss gross payment amount (Schedule 1 top entry)",
+            "value": "",
+            "section_error": "This line published a value with no citation attached. No value can be shown safely.",
+            "citation_buttons": 0,
+            "citation_button_labels": []
+          }
+        }
+      }
+    },
+    {
+      "core": "v79",
+      "case_id": "wages-only",
+      "outcome": "success",
+      "error": null,
+      "question_count": 0,
+      "questions_not_on_v91": [],
+      "questions_on_v91_only": [],
+      "line_diff_count": 2,
+      "line_diffs": [
+        {
+          "line": "schedule-d.line-10",
+          "v91": 0,
+          "other": null
+        },
+        {
+          "line": "schedule-d.line-3",
+          "v91": 0,
+          "other": null
+        }
+      ],
+      "page_outcome": "success",
+      "page_stop": "saturated",
+      "page_error": null,
+      "model_focus": {
+        "form.f1099k.unresolved.form-field": {
+          "disposition": "guard_inapplicable",
+          "value": null,
+          "render": "",
+          "reasons": []
+        },
+        "form1040.line-12e": {
+          "disposition": "published_value",
+          "value": 15750,
+          "render": "{value}",
+          "reasons": []
+        },
+        "form1040.line-6a": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "render": "0",
+          "reasons": []
+        },
+        "form1040.line-6b": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "render": "0",
+          "reasons": []
+        },
+        "form1040.line-6c": {
+          "disposition": "published_categorical",
+          "value": null,
+          "render": "not_elected",
+          "reasons": []
+        },
+        "form1040.line-6d": {
+          "disposition": "guard_inapplicable",
+          "value": null,
+          "render": "",
+          "reasons": []
+        },
+        "form1040.line-6d-not-checked": {
+          "disposition": "guard_inapplicable",
+          "value": null,
+          "render": "",
+          "reasons": []
+        },
+        "schedule1.top-entry.form-field": {
+          "disposition": "closure_backed_zero",
+          "value": 0,
+          "render": "{value}",
+          "reasons": []
+        }
+      },
+      "drawn": {
+        "page_alert_count": 2,
+        "alerts": [
+          {
+            "id": "line-6c",
+            "text": "This line is missing its rendering instruction for the declared disposition."
+          },
+          {
+            "id": "line-sch1-top",
+            "text": "This line published a value with no citation attached. No value can be shown safely."
+          }
+        ],
+        "sections": {
+          "line-6a": {
+            "heading": "Social Security benefits (Line 6a) COMPUTED ZERO",
+            "value": "0",
+            "section_error": "",
+            "citation_buttons": 2,
+            "citation_button_labels": [
+              "demo.cgd.t2.finding.rounding@v1",
+              "tax.us.2025.citation.form1040.line-6a@v1"
+            ]
+          },
+          "line-6c": {
+            "heading": "Lump-sum election",
+            "value": "",
+            "section_error": "This line is missing its rendering instruction for the declared disposition.",
+            "citation_buttons": 0,
+            "citation_button_labels": []
+          },
+          "line-sch1-top": {
+            "heading": "Form 1099-K personal item sale loss gross payment amount (Schedule 1 top entry)",
+            "value": "",
+            "section_error": "This line published a value with no citation attached. No value can be shown safely.",
+            "citation_buttons": 0,
+            "citation_button_labels": []
+          }
+        }
+      }
+    }
+  ],
+  "browser": "Chrome/157.0.8103.78",
+  "node": "22.23.2"
+}

@@ -1,0 +1,310 @@
+{
+  "table": "empty/nonempty authority",
+  "verdict": "PASS",
+  "failing_case_ids": [],
+  "rows": [
+    {
+      "family": "ssa1099",
+      "state": "closed empty",
+      "case_id": "ssa-closed-empty",
+      "feature": {
+        "case_id": "ssa-closed-empty",
+        "disposition": "published_categorical",
+        "value": null,
+        "render": "not_checked",
+        "drawn_value": "not checked",
+        "section_error": "",
+        "reasons": [],
+        "citation_buttons": 1,
+        "active_codes": []
+      },
+      "feature_checked": {
+        "case_id": "ssa-closed-empty",
+        "disposition": "guard_inapplicable",
+        "value": null,
+        "render": "",
+        "drawn_value": "Not applicable.",
+        "section_error": "",
+        "reasons": [],
+        "citation_buttons": 0,
+        "active_codes": []
+      },
+      "neighbor_line_6a": {
+        "case_id": "ssa-closed-empty",
+        "disposition": "computed_zero",
+        "value": 0,
+        "render": "0",
+        "drawn_value": "0",
+        "section_error": "",
+        "reasons": [],
+        "citation_buttons": 2,
+        "active_codes": []
+      },
+      "neighbor_line_6b": {
+        "case_id": "ssa-closed-empty",
+        "disposition": "computed_zero",
+        "value": 0,
+        "render": "0",
+        "drawn_value": "0",
+        "section_error": "",
+        "reasons": [],
+        "citation_buttons": 2,
+        "active_codes": []
+      }
+    },
+    {
+      "family": "ssa1099",
+      "state": "closed empty, closure missing, then harness reconfirm",
+      "case_id": "ssa-closure-missing",
+      "feature": {
+        "case_id": "ssa-closure-missing",
+        "disposition": "published_categorical",
+        "value": null,
+        "render": "not_checked",
+        "drawn_value": "not checked",
+        "section_error": "",
+        "reasons": [],
+        "citation_buttons": 1,
+        "active_codes": []
+      },
+      "neighbor_line_6a": {
+        "case_id": "ssa-closure-missing",
+        "disposition": "computed_zero",
+        "value": 0,
+        "render": "0",
+        "drawn_value": "0",
+        "section_error": "",
+        "reasons": [],
+        "citation_buttons": 2,
+        "active_codes": []
+      },
+      "neighbor_line_6b": {
+        "case_id": "ssa-closure-missing",
+        "disposition": "computed_zero",
+        "value": 0,
+        "render": "0",
+        "drawn_value": "0",
+        "section_error": "",
+        "reasons": [],
+        "citation_buttons": 2,
+        "active_codes": []
+      },
+      "measurement_class": "harness-reconfirm",
+      "corrected_by": "wage-no-reconfirm",
+      "corrected_neighbor_line_6a": {
+        "case_id": "wage-no-reconfirm",
+        "disposition": "blocked",
+        "value": null,
+        "active_codes": [
+          "DEPENDENCY_ABSENT"
+        ],
+        "reasons": [
+          "Have you recorded every Form SSA-1099 you or your spouse received for 2025 (not counting a lump-sum election, and not a Form RRB-1099), with its box 3, box 4 and box 5 amounts?"
+        ],
+        "subtotal": {
+          "artifact_id": "tax.us.2025.rule.ssa1099-benefits-subtotal",
+          "disposition": "blocked",
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "tax.us.2025.ssa1099.benefits"
+          ]
+        },
+        "line6a_rule": {
+          "artifact_id": "tax.us.2025.rule.form1040-line6a",
+          "disposition": "blocked",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.ssa1099.benefits.box5-subtotal"
+          ]
+        }
+      }
+    },
+    {
+      "family": "ssa1099",
+      "state": "nonempty eligible",
+      "case_id": "ssa-reclosed",
+      "feature": {
+        "case_id": "ssa-reclosed",
+        "disposition": "published_categorical",
+        "value": null,
+        "render": "not_checked",
+        "drawn_value": "not checked",
+        "section_error": "",
+        "reasons": [],
+        "citation_buttons": 1,
+        "active_codes": []
+      },
+      "neighbor_line_6a": {
+        "case_id": "ssa-reclosed",
+        "disposition": "published_value",
+        "value": 12000,
+        "render": "{value}",
+        "drawn_value": "12000",
+        "section_error": "",
+        "reasons": [],
+        "citation_buttons": 8,
+        "active_codes": []
+      },
+      "neighbor_line_6b": {
+        "case_id": "ssa-reclosed",
+        "disposition": "blocked",
+        "value": null,
+        "render": "",
+        "drawn_value": "No value published \u2014 cannot compute.",
+        "section_error": "",
+        "reasons": [],
+        "citation_buttons": 0,
+        "active_codes": [
+          "DEPENDENCY_ABSENT"
+        ]
+      }
+    },
+    {
+      "family": "ssa1099",
+      "state": "election made",
+      "case_id": "ssa-election-made",
+      "feature": {
+        "case_id": "ssa-election-made",
+        "disposition": "guard_inapplicable",
+        "value": null,
+        "render": "",
+        "drawn_value": "Not applicable.",
+        "section_error": "",
+        "reasons": [],
+        "citation_buttons": 0,
+        "active_codes": []
+      },
+      "feature_checked": {
+        "case_id": "ssa-election-made",
+        "disposition": "published_categorical",
+        "value": null,
+        "render": "checked",
+        "drawn_value": "checked",
+        "section_error": "",
+        "reasons": [],
+        "citation_buttons": 1,
+        "active_codes": []
+      },
+      "neighbor_line_6a": {
+        "case_id": "ssa-election-made",
+        "disposition": "published_value",
+        "value": 12000,
+        "render": "{value}",
+        "drawn_value": "12000",
+        "section_error": "",
+        "reasons": [],
+        "citation_buttons": 8,
+        "active_codes": []
+      },
+      "neighbor_line_6b": {
+        "case_id": "ssa-election-made",
+        "disposition": "blocked",
+        "value": null,
+        "render": "",
+        "drawn_value": "No value published \u2014 cannot compute.",
+        "section_error": "",
+        "reasons": [],
+        "citation_buttons": 0,
+        "active_codes": [
+          "DEPENDENCY_ABSENT"
+        ]
+      }
+    },
+    {
+      "family": "f1099k",
+      "state": "closed empty",
+      "case_id": "k-closed-empty",
+      "feature": {
+        "case_id": "k-closed-empty",
+        "disposition": "closure_backed_zero",
+        "value": 0,
+        "render": "{value}",
+        "drawn_value": "0",
+        "section_error": "",
+        "reasons": [],
+        "citation_buttons": 1,
+        "active_codes": []
+      },
+      "attachment": [
+        {
+          "id": "rule.attachment.schedule-1",
+          "title": "Schedule 1 (Additional Income and Adjustments to Income) v5",
+          "disposition": "guard_inapplicable"
+        }
+      ]
+    },
+    {
+      "family": "f1099k",
+      "state": "closed empty, closure missing",
+      "case_id": "k-closure-missing",
+      "feature": {
+        "case_id": "k-closure-missing",
+        "disposition": "blocked",
+        "value": null,
+        "render": "",
+        "drawn_value": "No value published \u2014 cannot compute.",
+        "section_error": "",
+        "reasons": [
+          "Have you recorded every gross payment amount in box 1a of every Form 1099-K you or your spouse received for 2025 for personal items you sold?"
+        ],
+        "citation_buttons": 0,
+        "active_codes": [
+          "SOURCE_SET_UNCLOSED"
+        ]
+      }
+    },
+    {
+      "family": "f1099k",
+      "state": "nonempty eligible",
+      "case_id": "k-reclosed",
+      "feature": {
+        "case_id": "k-reclosed",
+        "disposition": "published_value",
+        "value": 880,
+        "render": "{value}",
+        "drawn_value": "880",
+        "section_error": "",
+        "reasons": [],
+        "citation_buttons": 18,
+        "active_codes": []
+      },
+      "attachment": [
+        {
+          "id": "rule.attachment.schedule-1",
+          "title": "Schedule 1 (Additional Income and Adjustments to Income) v5",
+          "disposition": "published"
+        }
+      ]
+    },
+    {
+      "family": "f1099k",
+      "state": "nonempty ineligible",
+      "case_id": "k-unresolved",
+      "feature": {
+        "case_id": "k-unresolved",
+        "disposition": "blocked",
+        "value": null,
+        "render": "",
+        "drawn_value": "No value published \u2014 cannot compute.",
+        "section_error": "",
+        "reasons": [
+          "The question regarding single item sale scope has no current answer."
+        ],
+        "citation_buttons": 0,
+        "active_codes": [
+          "DEPENDENCY_ABSENT"
+        ]
+      },
+      "choice": "blocked",
+      "attachment": [
+        {
+          "id": "rule.attachment.schedule-1",
+          "title": "Schedule 1 (Additional Income and Adjustments to Income) v5",
+          "disposition": "blocked"
+        }
+      ]
+    }
+  ],
+  "settlement": "CASE ARTIFACT",
+  "settlement_record": "page-alerts-evidence/track0-ssa-guard.json"
+}

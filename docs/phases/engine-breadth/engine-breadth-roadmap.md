@@ -887,6 +887,21 @@ the instruction values. The finding came from a probe that kept only
 sentences with a question mark. Nothing was published; core v91, registry
 v89 and release v89 stand.
 
+## Bounded return — Saved Pages Without Alerts on Line 6c and Schedule 1 (2025)
+
+[Plan](milestones/page-alerts.md); retrospective:
+`docs/milestone-retrospectives/2026-11-16-page-alerts.md`.
+
+Core v92 (registry v90, release v90) clears the two safe-render alerts
+every computing return's saved page showed. Form 1040 line 6c is drawn
+"not checked" where the lump-sum election was not made and, on a new
+sibling field, "checked" where it was; an unanswered election blocks both
+with its question. The Schedule 1 top entry has a citation, so its value
+shows: 0 with "No gross payment amount in box 1a of a Form 1099-K for
+personal items you sold was recorded for 2025.", or the personal-item
+loss amount. All 691 computing recorded returns draw neither alert, and
+the 775 recorded lists compute the same numbers. The page is unchanged.
+
 ## Saved-page observation — Mortgage and Sales (2025)
 
 [Plan](milestones/sale-page-observation.md); retrospective:
@@ -943,10 +958,6 @@ delivers an item removes it.
 - A v1 Form 1099-K workspace re-answers its completeness question under the
   successor package; recovery for a log with two current family versions; a
   full pre-save fold for every act kind.
-- Saved-page content successor work: line 6c supplies
-  `not_elected` where the categorical renderer accepts `checked`, and the
-  Schedule 1 top-entry field lacks a citation. Both display safe-render alerts
-  on the observed v79 and v80 returns; no published bytes were changed here.
 - Shared-question display on the saved citation-walk page: unanswered/stale
   noncovered-sale questions repeat on line-local blocked-reason lists. Ask once
   without losing each line's reason/connection; a page change is not selected
@@ -985,7 +996,7 @@ delivers an item removes it.
 - A rule still names only its first cause when it blocks. Since core v78
   every line a filer sees has a plain text; the page hides a blocked
   line's own text when it shows questions, and shows nothing for a numeric
-  line with no citation (the Schedule 1 top entry). Several kept texts
+  line with no citation (none remains since core v92). Several kept texts
   still say "derived finding" or "closed-empty".
 - Two answers the record proves are still asked: line 2a Form 1099-INT
   tax-exempt interest (a closed box 8 above 0) and the other-dependent answer
@@ -1003,9 +1014,18 @@ delivers an item removes it.
   instructions nor Publication 501 says how it is judged, and the
   blindness questions state December 31, 2025 on every return.
 - Line 12d draws each box as two sections, one always "Not applicable."
-  (the line 6d pattern). Showing one section per box, with its own words
-  for a spouse box the return does not show, is a page-design decision
-  for the owner.
+  (the line 6d pattern), and since core v92 line 6c does too. Showing one
+  section per box, with its own words for a spouse box the return does
+  not show, is a page-design decision for the owner.
+- Every citation button on the saved page shows `id@version`; the page
+  takes a readable label only from a source fact's evidence label. A
+  label for a field citation is a projection or page change.
+- On a return with a Form SSA-1099 benefit statement, Form 1040 line 6b
+  blocks `DEPENDENCY_ABSENT` with no reason sentence (reproduced on cores
+  v91 and v92 by the page-alerts review).
+- The page-alerts alert census reads form sections only, and the
+  recorded-replay pin does not hold field explain or categorical render
+  text; neither can show that a sentence stayed put.
 - Exact question identification from saved outcomes, process-restart recovery,
   and broader internal-error guidance remain separate questions. Do not infer
   a missing answer from a derived symbol or treat them as delivered here.

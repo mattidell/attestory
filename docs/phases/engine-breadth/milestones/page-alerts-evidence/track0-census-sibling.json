@@ -1,0 +1,46 @@
+{
+  "core": {
+    "package": "v93",
+    "registry": "v91",
+    "release": "v91"
+  },
+  "lists": 775,
+  "workers": 9,
+  "wall_time_s": 650.3,
+  "outcomes": {
+    "success": 691,
+    "error": 84
+  },
+  "error_types": {
+    "FindingModelError": 82,
+    "SourceAuthorityError": 1,
+    "HorizonModelError": 1
+  },
+  "stops": {
+    "saturated": 691
+  },
+  "computing_returns": 691,
+  "computing_with_only_parked_alerts": 0,
+  "computing_with_no_alert": 691,
+  "alerts_per_field": {},
+  "causes": {},
+  "extra_alert_returns": 0,
+  "extra_examples": [],
+  "published_v91": {
+    "source": "census.json",
+    "lists": 775,
+    "computing_returns": 691,
+    "alerts_per_field": {
+      "form1040.line-6c": {
+        "missing-instruction": 691
+      },
+      "schedule1.top-entry.form-field": {
+        "missing-field-citation": 691
+      }
+    },
+    "extra_alert_returns": 0,
+    "wall_time_s": 645.8,
+    "workers": 9
+  },
+  "resume_wall_time_s": 0.0
+}

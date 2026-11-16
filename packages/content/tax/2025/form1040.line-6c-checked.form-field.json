@@ -1,0 +1,47 @@
+{
+  "binds_symbol": "tax.us.2025.social-security.line6c-checked",
+  "citation": {
+    "id": "tax.us.2025.citation.form1040.line-6c",
+    "version": "v1"
+  },
+  "description": "Lump-sum election checkbox when the election is made. A separate symbol, on the line 6d pattern.",
+  "dispositions": {
+    "blocked": {
+      "codes": [
+        "DEPENDENCY_ABSENT",
+        "DEPENDENCY_INVALID",
+        "CATEGORICAL_DOMAIN_MISMATCH",
+        "SOURCE_SET_UNCLOSED"
+      ],
+      "explain": "The checked lump-sum election disposition is blocked because the election answer is missing.",
+      "render": ""
+    },
+    "closure_backed_zero": {
+      "explain": "Not used for the line 6c checked disposition.",
+      "render": ""
+    },
+    "computed_zero": {
+      "explain": "Not used for the line 6c checked disposition.",
+      "render": ""
+    },
+    "guard_inapplicable": {
+      "explain": "This line 6c box does not apply to this return, or the box is the other checked/not-checked state.",
+      "render": ""
+    },
+    "published_value": {
+      "explain": "The lump-sum election checkbox is checked.",
+      "render": "checked"
+    }
+  },
+  "form": {
+    "authority": "IRS",
+    "form_id": "1040",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "id": "tax.us.2025.form1040.line-6c-checked",
+  "label": "Lump-sum election",
+  "line": "6c-checked",
+  "schema": "form-field.v3",
+  "version": "v1"
+}

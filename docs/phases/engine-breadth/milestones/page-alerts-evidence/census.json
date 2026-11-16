@@ -1,0 +1,45 @@
+{
+  "core": {
+    "package": "v91",
+    "registry": "v89",
+    "release": "v89"
+  },
+  "lists": 775,
+  "workers": 9,
+  "wall_time_s": 645.8,
+  "outcomes": {
+    "success": 691,
+    "error": 84
+  },
+  "stops": {
+    "saturated": 691
+  },
+  "computing_returns": 691,
+  "computing_with_only_parked_alerts": 691,
+  "computing_with_no_alert": 0,
+  "alerts_per_field": {
+    "form1040.line-6c": {
+      "missing-instruction": 691
+    },
+    "schedule1.top-entry.form-field": {
+      "missing-field-citation": 691
+    }
+  },
+  "causes": {
+    "form1040.line-6c": {
+      "render not_elected": 691
+    },
+    "schedule1.top-entry.form-field": {
+      "disposition closure_backed_zero has no field citation": 691
+    }
+  },
+  "extra_alert_returns": 0,
+  "extra_examples": [],
+  "noncomputing_with_alerts": 0,
+  "noncomputing_examples": [],
+  "error_types": {
+    "FindingModelError": 82,
+    "HorizonModelError": 1,
+    "SourceAuthorityError": 1
+  }
+}

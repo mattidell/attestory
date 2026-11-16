@@ -1,0 +1,171 @@
+{
+  "table": "late-member lifecycle",
+  "verdict": "PASS",
+  "failing_case_ids": [],
+  "traces": [
+    {
+      "family": "ssa1099",
+      "steps": [
+        {
+          "step": "attest and close, then compute",
+          "case_id": "ssa-closed-empty",
+          "line_6a": {
+            "case_id": "ssa-closed-empty",
+            "disposition": "computed_zero",
+            "value": 0,
+            "render": "0",
+            "drawn_value": "0",
+            "section_error": "",
+            "reasons": [],
+            "citation_buttons": 2,
+            "active_codes": []
+          }
+        },
+        {
+          "step": "remove the closure",
+          "case_id": "ssa-closure-missing",
+          "line_6a": {
+            "case_id": "ssa-closure-missing",
+            "disposition": "computed_zero",
+            "value": 0,
+            "render": "0",
+            "drawn_value": "0",
+            "section_error": "",
+            "reasons": [],
+            "citation_buttons": 2,
+            "active_codes": []
+          },
+          "measurement_class": "harness-reconfirm",
+          "corrected_line_6a": {
+            "case_id": "wage-no-reconfirm",
+            "disposition": "blocked",
+            "value": null,
+            "active_codes": [
+              "DEPENDENCY_ABSENT"
+            ],
+            "reasons": [
+              "Have you recorded every Form SSA-1099 you or your spouse received for 2025 (not counting a lump-sum election, and not a Form RRB-1099), with its box 3, box 4 and box 5 amounts?"
+            ]
+          }
+        },
+        {
+          "step": "add a member and do not reclose",
+          "case_id": "ssa-member-before-reclose",
+          "line_6a": {
+            "case_id": "ssa-member-before-reclose",
+            "disposition": "published_value",
+            "value": 12000,
+            "render": "{value}",
+            "drawn_value": "12000",
+            "section_error": "",
+            "reasons": [],
+            "citation_buttons": 8,
+            "active_codes": []
+          },
+          "measurement_class": "harness-reconfirm",
+          "corrected_line_6a": {
+            "case_id": "stale-no-reconfirm",
+            "disposition": "blocked",
+            "value": null,
+            "active_codes": [
+              "SOURCE_SET_UNCLOSED"
+            ],
+            "reasons": [
+              "Have you recorded every Form SSA-1099 you or your spouse received for 2025 (not counting a lump-sum election, and not a Form RRB-1099), with its box 3, box 4 and box 5 amounts?"
+            ],
+            "closure_finding": "demo.ssa.closure",
+            "closure_horizon": "demo.ssa.h0",
+            "member_successor": "demo.pa.ssa.h1",
+            "current_horizon": "demo.ssa.handover.h75"
+          }
+        },
+        {
+          "step": "reclose and recompute",
+          "case_id": "ssa-reclosed",
+          "line_6a": {
+            "case_id": "ssa-reclosed",
+            "disposition": "published_value",
+            "value": 12000,
+            "render": "{value}",
+            "drawn_value": "12000",
+            "section_error": "",
+            "reasons": [],
+            "citation_buttons": 8,
+            "active_codes": []
+          }
+        }
+      ]
+    },
+    {
+      "family": "f1099k",
+      "steps": [
+        {
+          "step": "attest and close, then compute",
+          "case_id": "k-closed-empty",
+          "top_entry": {
+            "case_id": "k-closed-empty",
+            "disposition": "closure_backed_zero",
+            "value": 0,
+            "render": "{value}",
+            "drawn_value": "0",
+            "section_error": "",
+            "reasons": [],
+            "citation_buttons": 1,
+            "active_codes": []
+          }
+        },
+        {
+          "step": "remove the closure",
+          "case_id": "k-closure-missing",
+          "top_entry": {
+            "case_id": "k-closure-missing",
+            "disposition": "blocked",
+            "value": null,
+            "render": "",
+            "drawn_value": "No value published \u2014 cannot compute.",
+            "section_error": "",
+            "reasons": [
+              "Have you recorded every gross payment amount in box 1a of every Form 1099-K you or your spouse received for 2025 for personal items you sold?"
+            ],
+            "citation_buttons": 0,
+            "active_codes": [
+              "SOURCE_SET_UNCLOSED"
+            ]
+          }
+        },
+        {
+          "step": "add a member and do not reclose",
+          "case_id": "k-member-before-reclose",
+          "top_entry": {
+            "case_id": "k-member-before-reclose",
+            "disposition": null,
+            "value": null,
+            "render": null,
+            "drawn_value": null,
+            "section_error": null,
+            "reasons": null,
+            "citation_buttons": null,
+            "active_codes": null
+          }
+        },
+        {
+          "step": "reclose and recompute",
+          "case_id": "k-reclosed",
+          "top_entry": {
+            "case_id": "k-reclosed",
+            "disposition": "published_value",
+            "value": 880,
+            "render": "{value}",
+            "drawn_value": "880",
+            "section_error": "",
+            "reasons": [],
+            "citation_buttons": 18,
+            "active_codes": []
+          }
+        }
+      ]
+    }
+  ],
+  "settlement": "CASE ARTIFACT",
+  "settlement_record": "page-alerts-evidence/track0-ssa-guard.json"
+}

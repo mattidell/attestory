@@ -1,0 +1,70 @@
+{
+  "in_local_sources": true,
+  "locator": "i1040gi-2025.txt:6366",
+  "heading_locator": "i1040gi-2025.txt:6338",
+  "passage": "If, for tax year 2025, you received a Form(s) 1099-K that shows payments that were included in error (for example, money for gifts or reimbursements) or for personal items that you sold at a loss (for example, an old refrigerator), enter the amount that was included in error or for personal items sold at a loss in the entry space at the top of Schedule 1.",
+  "heading": "Instructions for Schedule 1",
+  "citizen": {
+    "id": "citation.schedule1.top-entry",
+    "schema": "citation.v1",
+    "version": "v1",
+    "keys": [
+      "authority",
+      "id",
+      "schema",
+      "version"
+    ],
+    "authority": {
+      "family": "irs-instructions",
+      "form_id": "1040-SCH-1",
+      "tax_year": 2025
+    }
+  },
+  "siblings": [
+    {
+      "sibling": "line-6c",
+      "id": "citation.form1040.line-6c",
+      "keys": [
+        "authority",
+        "id",
+        "schema",
+        "version"
+      ],
+      "authority_keys": [
+        "family",
+        "form_id",
+        "tax_year"
+      ],
+      "same_keys_as_top_entry": true,
+      "same_authority_keys": true,
+      "authority_family": "irs-instructions",
+      "form_id": "1040",
+      "tax_year": 2025,
+      "schema": "citation.v1"
+    },
+    {
+      "sibling": "schedule1-line-8",
+      "id": "citation.schedule1.line-8b",
+      "keys": [
+        "authority",
+        "id",
+        "schema",
+        "version"
+      ],
+      "authority_keys": [
+        "family",
+        "form_id",
+        "tax_year"
+      ],
+      "same_keys_as_top_entry": true,
+      "same_authority_keys": true,
+      "authority_family": "irs-instructions",
+      "form_id": "1040-SCH-1",
+      "tax_year": 2025,
+      "schema": "citation.v1"
+    }
+  ],
+  "field_corrections": [],
+  "successor_changed": false,
+  "why_no_correction": "The passage is in the local Form 1040 instructions, under Instructions for Schedule 1. The citizen stores the same fields as citation.schedule1.line-8b: authority family irs-instructions, form id 1040-SCH-1, tax year 2025, schema citation.v1. Neither sibling stores a locator or a passage. Line 6c uses form id 1040 because that citation points at Form 1040."
+}

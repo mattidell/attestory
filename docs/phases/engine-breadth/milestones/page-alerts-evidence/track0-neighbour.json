@@ -1,0 +1,97 @@
+{
+  "table": "neighbour",
+  "verdict": "PASS",
+  "executed_this_item": false,
+  "why_not_rerun": "Item 2 replayed published v91 against the recommended sibling. Item 4 recorded the citation passage and changed no successor, so the citation did not need another replay. The P0 v91-against-v92 part file is reused and was not run again.",
+  "counts": {
+    "p0_runs": 775,
+    "p0_identical": 775,
+    "sibling_runs": 775,
+    "sibling_identical": 775,
+    "changes": 0
+  },
+  "failing_case_ids": [],
+  "p0_v91_vs_v92": {
+    "reused": true,
+    "source": "rerun-output.json",
+    "workers": 9,
+    "wall_time_s": 1344.95,
+    "runs": 775,
+    "by_set": {
+      "v81": {
+        "identical": 206
+      },
+      "v82": {
+        "identical": 170
+      },
+      "v83": {
+        "identical": 298
+      },
+      "v84": {
+        "identical": 58
+      },
+      "v85": {
+        "identical": 43
+      }
+    },
+    "classes": {
+      "identical": 775
+    },
+    "same_error_on_both_cores": {
+      "v81": {
+        "FindingModelError": 66
+      },
+      "v82": {
+        "FindingModelError": 11,
+        "SourceAuthorityError": 1
+      },
+      "v83": {
+        "FindingModelError": 5,
+        "HorizonModelError": 1
+      }
+    },
+    "change_count": 0
+  },
+  "recommended_v91_vs_v93": {
+    "reused": true,
+    "source": "track0-sibling.json",
+    "workers": 9,
+    "wall_time_s": 1335.47,
+    "runs": 775,
+    "by_set": {
+      "v81": {
+        "identical": 206
+      },
+      "v82": {
+        "identical": 170
+      },
+      "v83": {
+        "identical": 298
+      },
+      "v84": {
+        "identical": 58
+      },
+      "v85": {
+        "identical": 43
+      }
+    },
+    "classes": {
+      "identical": 775
+    },
+    "same_error_on_both_cores": {
+      "v81": {
+        "FindingModelError": 66
+      },
+      "v82": {
+        "FindingModelError": 11,
+        "SourceAuthorityError": 1
+      },
+      "v83": {
+        "FindingModelError": 5,
+        "HorizonModelError": 1
+      }
+    },
+    "change_count": 0
+  },
+  "citation_successor_changed": false
+}

@@ -174,7 +174,7 @@ def _genesis(acts: list[dict[str, object]]) -> dict[str, Any] | None:
     return None
 
 
-def _splice(acts: list[dict[str, object]], *, box4: float, omit: str | None) -> dict[str, Any]:
+def _splice(acts: list[dict[str, object]], *, box4: float, omit: str | None, reclose: bool = True) -> dict[str, Any]:
     """Record one Form 1099-K on ``acts``.
 
     Box 1a is the family member, so it is a member-transition. Box 4 and the
@@ -253,9 +253,10 @@ def _splice(acts: list[dict[str, object]], *, box4: float, omit: str | None) -> 
         finding = cast(dict[str, Any], act.get("payload") or {}).get("finding")
         if isinstance(finding, dict) and str(finding.get("fact_id", "")).startswith(CLOSURE_TYPE + "|"):
             closure_at = index
-            finding["fact_id"] = (
-                f"{CLOSURE_TYPE}|family-horizon={successor},tax-year={YEAR}"
-            )
+            if reclose:
+                finding["fact_id"] = (
+                    f"{CLOSURE_TYPE}|family-horizon={successor},tax-year={YEAR}"
+                )
             break
     if closure_at is None:
         inserted.append(late("assertion", {

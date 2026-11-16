@@ -1,0 +1,43 @@
+{
+  "table": "neighbour",
+  "verdict": "PASS",
+  "cores": "published v91 and published v92",
+  "workers": 9,
+  "wall_time_s": 1354.6,
+  "runs": 775,
+  "changes": 0,
+  "classes": {
+    "identical": 775
+  },
+  "by_set": {
+    "v81": {
+      "identical": 206
+    },
+    "v82": {
+      "identical": 170
+    },
+    "v83": {
+      "identical": 298
+    },
+    "v84": {
+      "identical": 58
+    },
+    "v85": {
+      "identical": 43
+    }
+  },
+  "same_error_on_both_cores": {
+    "v81": {
+      "FindingModelError": 66
+    },
+    "v82": {
+      "FindingModelError": 11,
+      "SourceAuthorityError": 1
+    },
+    "v83": {
+      "FindingModelError": 5,
+      "HorizonModelError": 1
+    }
+  },
+  "failing_case_ids": []
+}

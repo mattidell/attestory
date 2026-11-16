@@ -1,0 +1,56 @@
+{
+  "from": {
+    "package": "v91",
+    "registry": "v89",
+    "release": "v89"
+  },
+  "to": {
+    "package": "v92",
+    "registry": "v90",
+    "release": "v90"
+  },
+  "package": "v92",
+  "registry": "v90",
+  "release": "v90",
+  "members": [
+    [
+      "computation",
+      "rule.form1040-line6c",
+      "v1",
+      "v2",
+      "value not_checked"
+    ],
+    [
+      "form-field",
+      "form1040.line-6c",
+      "v1",
+      "v2",
+      "render not_checked"
+    ],
+    [
+      "citation",
+      "citation.schedule1.top-entry",
+      null,
+      "v1",
+      "added"
+    ],
+    [
+      "form-field",
+      "schedule1.top-entry.form-field",
+      "v1",
+      "v2",
+      "citation added"
+    ]
+  ],
+  "entrypoints_replaced": [
+    "rule.form1040-line6c v1 to v2",
+    "schedule1.top-entry.form-field v1 to v2"
+  ],
+  "unchanged": [
+    "rule.schedule1-top-entry stays v3",
+    "form1040.line-6c stays a member, not an entrypoint",
+    "citation.form1040.line-6c stays v1 and stays on the line 6c field"
+  ],
+  "inherited_inconsistencies": [],
+  "design": "Content successors only. Line 6c publishes and renders not_checked when the election was not made. The Schedule 1 top entry gains a citation. No engine, schema, projection, page or kernel change."
+}
