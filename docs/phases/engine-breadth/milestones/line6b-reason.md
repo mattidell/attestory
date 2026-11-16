@@ -3,7 +3,8 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "line6b-reason",
-  "status": "Open 2026-11-16. Repair chartered.",
+  "status": "Closed 2026-11-16. Core v93, registry v91, release v91.",
+  "retrospective": "docs/milestone-retrospectives/2026-11-16-line6b-reason.md",
   "scope": [
     "a return with a Form SSA-1099 benefit statement whose Form 1040 line 6b blocks shows the filer why, and which question to answer, on the page",
     "every recorded return computes the same numbers"
@@ -367,3 +368,15 @@ passes. There are no scope deviations, recording changes, forbidden-path
 edits, governance reads, agents or pushes. Each repair item is committed
 under the lock. CI `verify` remains the full-suite gate; this repair is ready
 for the foreman's fresh review rather than a claim of publication readiness.
+
+## Closeout
+
+Closed 2026-11-16. Retrospective:
+`docs/milestone-retrospectives/2026-11-16-line6b-reason.md`. The repair was
+not re-reviewed: the blocking finding was one question's words, and the
+foreman checked the committed words against the fact title, the package
+diff (add-only content and loader) and the package tests.
+
+Parked: question entry beyond W-2 data (questions are display-only);
+naming both open causes on line 6b of a separate return (Decision 10);
+the recorded-replay pin is selected-value parity, not page parity.
