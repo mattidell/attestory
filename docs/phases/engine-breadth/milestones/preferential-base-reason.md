@@ -218,3 +218,51 @@ apply recommended choices; the owner may reverse any before merge.
 
 Track 0 is accepted and Track 1 is chartered
 (`docs/reviews/preferential-base-reason/charter-track1.md`).
+
+## Track 1 result
+
+Published core v91, registry v89, and release v89. The one computation
+change is `rule.selected-preferential-base` v10 to v11 on
+`rule-artifact.v17`. Where Schedule D is required and no sale is recorded,
+the guard blocks `DEPENDENCY_ABSENT` and names the four sale questions and
+the four Exception 1 questions. The loader entries for v91 carry v90's
+covered-flag refusal map and companion declaration.
+
+**Line 16 is parked.** `line16-gate.json` compares the ten
+blocked-names-question cases on published line 16 v8 and a line-16-only v9
+candidate. Nine cases are identical. `exception1_personal_loss_8949` is the
+required-and-no-sale state inside line 16's outer else: its line 16 missing
+names grow from the four sale questions to the eight, and its line 16
+questions grow from 4 to 8. Line values stay blocked and equal. Decision 8
+parks that successor, so `rule.form1040-line16.v9` is not published. The
+same ten cases on preferential v11 alone keep their v10 names, questions,
+and values, and the published-v91 test asserts that.
+
+**Full replay.** `track1-replay.json`: published v90 against published v91,
+775 lists, 9 workers, wall time 1,362.46 seconds. 771 identical. The four
+`numbers_changed` lists are the recorded honest returns
+`m_2a_only_exc1_only2a_no`, `m_empty_exc1_nolosses_no`,
+`m_empty_exc1_only2a_no`, and `t4_s1_removed`. The only row change is
+`selected-preferential-base`, from inapplicable to a block naming the eight
+questions, and each page gains the four Exception 1 sentences. No line value
+changes. No computing return gains or loses a question. Verdict PASS.
+
+**Tests.** `tests/test_preferential_base_reason_v91.py` runs the Track 0
+authority cells, matrix, and late steps, the four recorded returns, and the
+ten blocked-names-question cases on published v91 through
+`live_coordinate_run` and the presentation projection, one run for each
+distinct act list on each core. The realized no-sale cell names the eight
+questions. The 23 fields name eight questions, and every other blocked
+filer-visible field names a question. Exception 1 "yes" reaches the wage
+hand. A sale reaches the sale hand. The ten cases keep their v90 names,
+questions, and values. `tests/test_preferential_base_reason_v91_package.py`
+checks byte identity with the prototype, the one member replacement,
+registry v89 add-only, the loader entries, and v90 and earlier unchanged.
+
+Touched tests: 11 passed. `pytest -m "not live"`: 1806 passed, 8 skipped.
+`python3 -m mypy`: no issues in 501 source files.
+`python3 tools/envelope_scan.py --range github/main..HEAD`: clean.
+
+**Deviations.** The charter asked for two published members. Line 16 v9
+stays out, so the package replaces one member. No engine, schema,
+projection, page, or kernel change.
