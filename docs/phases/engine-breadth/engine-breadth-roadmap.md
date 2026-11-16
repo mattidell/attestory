@@ -874,6 +874,19 @@ those questions. Changing Exception 1 to yes, or entering the sale,
 reaches the instruction values. Of the 775 recorded lists, 771 are
 identical and four change only that row and its sentences.
 
+## Bounded return — The Box 4 Withholding Amount Is Asked (2025), closed on P0
+
+[Plan](milestones/box4-amount-asked.md); retrospective:
+`docs/milestone-retrospectives/2026-11-15-box4-amount-asked.md`.
+
+Opened on a parked finding that Form 1040 lines 25b and 25d block with no
+question when a Form 1099-B box 4 amount is missing. P0 showed published
+core v91 already asks: both lines, and lines 33, 34, 35a and 37 behind
+them, show the published amount prompt, and entering the amount reaches
+the instruction values. The finding came from a probe that kept only
+sentences with a question mark. Nothing was published; core v91, registry
+v89 and release v89 stand.
+
 ## Saved-page observation — Mortgage and Sales (2025)
 
 [Plan](milestones/sale-page-observation.md); retrospective:
@@ -1035,9 +1048,12 @@ delivers an item removes it.
   blocked fields name eight (core v91). A line 16 successor naming the
   eight changes the `exception1_personal_loss_8949` case, which must be
   preserved or reopened.
-- Form 1040 lines 25b and 25d block with no question when the Form 1099-B
-  box 4 withholding amount is missing: the published question asks
-  whether withholding was reported, not the amount.
+- A filer who answered the per-statement Form 1099-B box 4 yes/no "no"
+  is still shown the amount prompt on lines 25b and 25d until they enter
+  $0; line 25b reads the amount, not the yes/no (box4-amount-asked P0).
+- The blocked-names-question and preferential-base-reason evidence probes
+  count a sentence as a question only if it has a question mark, so an
+  imperative prompt is missed. Replace the filter before reusing them.
 - The unasked boundary answers (lines 18-19, QOF). Since core v89 Path B
   and "no Form 8949" are asked.
 - Kernel reverse presence check: removing a sale checks only one of its
