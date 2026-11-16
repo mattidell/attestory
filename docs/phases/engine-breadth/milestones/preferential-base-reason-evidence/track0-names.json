@@ -1,0 +1,1043 @@
+{
+  "question_citizens": [
+    {
+      "fact": "exception1.only-box2a-capital-gains",
+      "question_id": "input-question.exception1-only-box2a-capital-gains",
+      "version": "v3",
+      "question": "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-S for it or you report it on Form 8949."
+    },
+    {
+      "fact": "exception1.no-capital-losses",
+      "question_id": "input-question.exception1-no-capital-losses",
+      "version": "v2",
+      "question": "Is it true that you had no capital losses in 2025 (for example, no loss from selling stock, funds or other property)?"
+    },
+    {
+      "fact": "exception1.no-qof-deferral",
+      "question_id": "input-question.exception1-no-qof-deferral",
+      "version": "v2",
+      "question": "Is it true that you did not defer any capital gain in 2025 by investing in a qualified opportunity fund?"
+    },
+    {
+      "fact": "exception1.no-boxes-2b-2c-2d",
+      "question_id": "input-question.exception1-no-boxes-2b-2c-2d",
+      "version": "v2",
+      "question": "Is it true that none of your 2025 Forms 1099-DIV or substitute statements shows an amount in box 2b, 2c or 2d?"
+    }
+  ],
+  "line16_v8_missing": [
+    "f1099b.noncovered-sold.source-closure",
+    "f8949.no1099b-sold.source-closure",
+    "schedule-d-boundary.no-form8949-sources",
+    "schedule-d-boundary.no-other-form8949-adjustments"
+  ],
+  "line16_names_exception": false,
+  "combinations": [
+    {
+      "id": "t4/four/q1-no/q2-no/form8949-no/pathb-no",
+      "truthful_no_sale": false,
+      "preferential_unblocked": false,
+      "producer": {
+        "disposition": "blocked",
+        "code": "DEPENDENCY_ABSENT",
+        "guard_result": null,
+        "missing": [
+          "schedule-d.line-16",
+          "schedule-d.line-15",
+          "schedule-d.line-3",
+          "schedule-d.line-10"
+        ],
+        "value": null
+      },
+      "line16_blocked": true,
+      "line16_questions": [
+        "Did you sell any securities whose basis was not reported to the IRS?",
+        "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+        "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+        "Is it true that you had no transaction or adjustment to report on Form 8949?"
+      ],
+      "line16_value": "blocked",
+      "silent": []
+    },
+    {
+      "id": "t4/four/q1-yes/q2-no/form8949-no/pathb-no",
+      "truthful_no_sale": false,
+      "preferential_unblocked": false,
+      "producer": {
+        "disposition": "blocked",
+        "code": "DEPENDENCY_ABSENT",
+        "guard_result": null,
+        "missing": [
+          "schedule-d.line-16",
+          "schedule-d.line-15",
+          "schedule-d.line-3",
+          "schedule-d.line-10"
+        ],
+        "value": null
+      },
+      "line16_blocked": true,
+      "line16_questions": [
+        "Did you sell any securities whose basis was not reported to the IRS?",
+        "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+        "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+        "Is it true that you had no transaction or adjustment to report on Form 8949?"
+      ],
+      "line16_value": "blocked",
+      "silent": []
+    },
+    {
+      "id": "t4/four/q1-no/q2-yes/form8949-no/pathb-no",
+      "truthful_no_sale": false,
+      "preferential_unblocked": false,
+      "producer": {
+        "disposition": "blocked",
+        "code": "DEPENDENCY_ABSENT",
+        "guard_result": null,
+        "missing": [
+          "schedule-d.line-16",
+          "schedule-d.line-15",
+          "schedule-d.line-3",
+          "schedule-d.line-10"
+        ],
+        "value": null
+      },
+      "line16_blocked": true,
+      "line16_questions": [
+        "Did you sell any securities whose basis was not reported to the IRS?",
+        "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+        "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+        "Is it true that you had no transaction or adjustment to report on Form 8949?"
+      ],
+      "line16_value": "blocked",
+      "silent": []
+    },
+    {
+      "id": "t4/four/q1-yes/q2-yes/form8949-no/pathb-no",
+      "truthful_no_sale": false,
+      "preferential_unblocked": false,
+      "producer": {
+        "disposition": "blocked",
+        "code": "DEPENDENCY_ABSENT",
+        "guard_result": null,
+        "missing": [
+          "schedule-d.line-16",
+          "schedule-d.line-15",
+          "schedule-d.line-3",
+          "schedule-d.line-10"
+        ],
+        "value": null
+      },
+      "line16_blocked": true,
+      "line16_questions": [
+        "Did you sell any securities whose basis was not reported to the IRS?",
+        "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+        "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+        "Is it true that you had no transaction or adjustment to report on Form 8949?"
+      ],
+      "line16_value": "blocked",
+      "silent": []
+    },
+    {
+      "id": "t4/four/q1-no/q2-no/form8949-yes/pathb-no",
+      "truthful_no_sale": false,
+      "preferential_unblocked": false,
+      "producer": {
+        "disposition": "blocked",
+        "code": "DEPENDENCY_ABSENT",
+        "guard_result": null,
+        "missing": [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments"
+        ],
+        "value": null
+      },
+      "line16_blocked": true,
+      "line16_questions": [
+        "Did you sell any securities whose basis was not reported to the IRS?",
+        "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+        "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+        "Is it true that you had no transaction or adjustment to report on Form 8949?"
+      ],
+      "line16_value": "blocked",
+      "silent": []
+    },
+    {
+      "id": "t4/four/q1-yes/q2-no/form8949-yes/pathb-no",
+      "truthful_no_sale": false,
+      "preferential_unblocked": false,
+      "producer": {
+        "disposition": "blocked",
+        "code": "DEPENDENCY_ABSENT",
+        "guard_result": null,
+        "missing": [
+          "schedule-d.line-16",
+          "schedule-d.line-15",
+          "schedule-d.line-3",
+          "schedule-d.line-10"
+        ],
+        "value": null
+      },
+      "line16_blocked": true,
+      "line16_questions": [
+        "Did you sell any securities whose basis was not reported to the IRS?",
+        "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+        "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+        "Is it true that you had no transaction or adjustment to report on Form 8949?"
+      ],
+      "line16_value": "blocked",
+      "silent": []
+    },
+    {
+      "id": "t4/four/q1-no/q2-yes/form8949-yes/pathb-no",
+      "truthful_no_sale": false,
+      "preferential_unblocked": false,
+      "producer": {
+        "disposition": "blocked",
+        "code": "DEPENDENCY_ABSENT",
+        "guard_result": null,
+        "missing": [
+          "schedule-d.line-16",
+          "schedule-d.line-15",
+          "schedule-d.line-3",
+          "schedule-d.line-10"
+        ],
+        "value": null
+      },
+      "line16_blocked": true,
+      "line16_questions": [
+        "Did you sell any securities whose basis was not reported to the IRS?",
+        "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+        "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+        "Is it true that you had no transaction or adjustment to report on Form 8949?"
+      ],
+      "line16_value": "blocked",
+      "silent": []
+    },
+    {
+      "id": "t4/four/q1-yes/q2-yes/form8949-yes/pathb-no",
+      "truthful_no_sale": false,
+      "preferential_unblocked": false,
+      "producer": {
+        "disposition": "blocked",
+        "code": "DEPENDENCY_ABSENT",
+        "guard_result": null,
+        "missing": [
+          "schedule-d.line-16",
+          "schedule-d.line-15",
+          "schedule-d.line-3",
+          "schedule-d.line-10"
+        ],
+        "value": null
+      },
+      "line16_blocked": true,
+      "line16_questions": [
+        "Did you sell any securities whose basis was not reported to the IRS?",
+        "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+        "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+        "Is it true that you had no transaction or adjustment to report on Form 8949?"
+      ],
+      "line16_value": "blocked",
+      "silent": []
+    },
+    {
+      "id": "t4/four/q1-no/q2-no/form8949-no/pathb-yes",
+      "truthful_no_sale": false,
+      "preferential_unblocked": false,
+      "producer": {
+        "disposition": "blocked",
+        "code": "DEPENDENCY_ABSENT",
+        "guard_result": null,
+        "missing": [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments"
+        ],
+        "value": null
+      },
+      "line16_blocked": true,
+      "line16_questions": [
+        "Did you sell any securities whose basis was not reported to the IRS?",
+        "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+        "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+        "Is it true that you had no transaction or adjustment to report on Form 8949?"
+      ],
+      "line16_value": "blocked",
+      "silent": []
+    },
+    {
+      "id": "t4/four/q1-yes/q2-no/form8949-no/pathb-yes",
+      "truthful_no_sale": false,
+      "preferential_unblocked": false,
+      "producer": {
+        "disposition": "blocked",
+        "code": "DEPENDENCY_ABSENT",
+        "guard_result": null,
+        "missing": [
+          "schedule-d.line-16",
+          "schedule-d.line-15",
+          "schedule-d.line-3",
+          "schedule-d.line-10"
+        ],
+        "value": null
+      },
+      "line16_blocked": true,
+      "line16_questions": [
+        "Did you sell any securities whose basis was not reported to the IRS?",
+        "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+        "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+        "Is it true that you had no transaction or adjustment to report on Form 8949?"
+      ],
+      "line16_value": "blocked",
+      "silent": []
+    },
+    {
+      "id": "t4/four/q1-no/q2-yes/form8949-no/pathb-yes",
+      "truthful_no_sale": false,
+      "preferential_unblocked": false,
+      "producer": {
+        "disposition": "blocked",
+        "code": "DEPENDENCY_ABSENT",
+        "guard_result": null,
+        "missing": [
+          "schedule-d.line-16",
+          "schedule-d.line-15",
+          "schedule-d.line-3",
+          "schedule-d.line-10"
+        ],
+        "value": null
+      },
+      "line16_blocked": true,
+      "line16_questions": [
+        "Did you sell any securities whose basis was not reported to the IRS?",
+        "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+        "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+        "Is it true that you had no transaction or adjustment to report on Form 8949?"
+      ],
+      "line16_value": "blocked",
+      "silent": []
+    },
+    {
+      "id": "t4/four/q1-yes/q2-yes/form8949-no/pathb-yes",
+      "truthful_no_sale": false,
+      "preferential_unblocked": false,
+      "producer": {
+        "disposition": "blocked",
+        "code": "DEPENDENCY_ABSENT",
+        "guard_result": null,
+        "missing": [
+          "schedule-d.line-16",
+          "schedule-d.line-15",
+          "schedule-d.line-3",
+          "schedule-d.line-10"
+        ],
+        "value": null
+      },
+      "line16_blocked": true,
+      "line16_questions": [
+        "Did you sell any securities whose basis was not reported to the IRS?",
+        "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+        "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+        "Is it true that you had no transaction or adjustment to report on Form 8949?"
+      ],
+      "line16_value": "blocked",
+      "silent": []
+    },
+    {
+      "id": "t4/four/q1-no/q2-no/form8949-yes/pathb-yes",
+      "truthful_no_sale": true,
+      "preferential_unblocked": false,
+      "producer": {
+        "disposition": "blocked",
+        "code": "DEPENDENCY_ABSENT",
+        "guard_result": null,
+        "missing": [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments"
+        ],
+        "value": null
+      },
+      "line16_blocked": true,
+      "line16_questions": [
+        "Did you sell any securities whose basis was not reported to the IRS?",
+        "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+        "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+        "Is it true that you had no transaction or adjustment to report on Form 8949?"
+      ],
+      "line16_value": "blocked",
+      "silent": []
+    },
+    {
+      "id": "t4/four/q1-yes/q2-no/form8949-yes/pathb-yes",
+      "truthful_no_sale": false,
+      "preferential_unblocked": false,
+      "producer": {
+        "disposition": "blocked",
+        "code": "DEPENDENCY_ABSENT",
+        "guard_result": null,
+        "missing": [
+          "schedule-d.line-16",
+          "schedule-d.line-15",
+          "schedule-d.line-3",
+          "schedule-d.line-10"
+        ],
+        "value": null
+      },
+      "line16_blocked": true,
+      "line16_questions": [
+        "Did you sell any securities whose basis was not reported to the IRS?",
+        "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+        "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+        "Is it true that you had no transaction or adjustment to report on Form 8949?"
+      ],
+      "line16_value": "blocked",
+      "silent": []
+    },
+    {
+      "id": "t4/four/q1-no/q2-yes/form8949-yes/pathb-yes",
+      "truthful_no_sale": false,
+      "preferential_unblocked": false,
+      "producer": {
+        "disposition": "blocked",
+        "code": "DEPENDENCY_ABSENT",
+        "guard_result": null,
+        "missing": [
+          "schedule-d.line-16",
+          "schedule-d.line-15",
+          "schedule-d.line-3",
+          "schedule-d.line-10"
+        ],
+        "value": null
+      },
+      "line16_blocked": true,
+      "line16_questions": [
+        "Did you sell any securities whose basis was not reported to the IRS?",
+        "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+        "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+        "Is it true that you had no transaction or adjustment to report on Form 8949?"
+      ],
+      "line16_value": "blocked",
+      "silent": []
+    },
+    {
+      "id": "t4/four/q1-yes/q2-yes/form8949-yes/pathb-yes",
+      "truthful_no_sale": false,
+      "preferential_unblocked": false,
+      "producer": {
+        "disposition": "blocked",
+        "code": "DEPENDENCY_ABSENT",
+        "guard_result": null,
+        "missing": [
+          "schedule-d.line-16",
+          "schedule-d.line-15",
+          "schedule-d.line-3",
+          "schedule-d.line-10"
+        ],
+        "value": null
+      },
+      "line16_blocked": true,
+      "line16_questions": [
+        "Did you sell any securities whose basis was not reported to the IRS?",
+        "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+        "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+        "Is it true that you had no transaction or adjustment to report on Form 8949?"
+      ],
+      "line16_value": "blocked",
+      "silent": []
+    },
+    {
+      "id": "mistaken/four/q1-no/q2-no/form8949-no/pathb-no",
+      "truthful_no_sale": false,
+      "preferential_unblocked": false,
+      "producer": {
+        "disposition": "blocked",
+        "code": "DEPENDENCY_ABSENT",
+        "guard_result": null,
+        "missing": [
+          "schedule-d.line-16",
+          "schedule-d.line-15",
+          "schedule-d.line-3",
+          "schedule-d.line-10"
+        ],
+        "value": null
+      },
+      "line16_blocked": true,
+      "line16_questions": [
+        "Did you sell any securities whose basis was not reported to the IRS?",
+        "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+        "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+        "Is it true that you had no transaction or adjustment to report on Form 8949?"
+      ],
+      "line16_value": "blocked",
+      "silent": []
+    },
+    {
+      "id": "mistaken/four/q1-yes/q2-no/form8949-no/pathb-no",
+      "truthful_no_sale": false,
+      "preferential_unblocked": false,
+      "producer": {
+        "disposition": "blocked",
+        "code": "DEPENDENCY_ABSENT",
+        "guard_result": null,
+        "missing": [
+          "schedule-d.line-16",
+          "schedule-d.line-15",
+          "schedule-d.line-3",
+          "schedule-d.line-10"
+        ],
+        "value": null
+      },
+      "line16_blocked": true,
+      "line16_questions": [
+        "Did you sell any securities whose basis was not reported to the IRS?",
+        "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+        "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+        "Is it true that you had no transaction or adjustment to report on Form 8949?"
+      ],
+      "line16_value": "blocked",
+      "silent": []
+    },
+    {
+      "id": "mistaken/four/q1-no/q2-yes/form8949-no/pathb-no",
+      "truthful_no_sale": false,
+      "preferential_unblocked": false,
+      "producer": {
+        "disposition": "blocked",
+        "code": "DEPENDENCY_ABSENT",
+        "guard_result": null,
+        "missing": [
+          "schedule-d.line-16",
+          "schedule-d.line-15",
+          "schedule-d.line-3",
+          "schedule-d.line-10"
+        ],
+        "value": null
+      },
+      "line16_blocked": true,
+      "line16_questions": [
+        "Did you sell any securities whose basis was not reported to the IRS?",
+        "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+        "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+        "Is it true that you had no transaction or adjustment to report on Form 8949?"
+      ],
+      "line16_value": "blocked",
+      "silent": []
+    },
+    {
+      "id": "mistaken/four/q1-yes/q2-yes/form8949-no/pathb-no",
+      "truthful_no_sale": false,
+      "preferential_unblocked": false,
+      "producer": {
+        "disposition": "blocked",
+        "code": "DEPENDENCY_ABSENT",
+        "guard_result": null,
+        "missing": [
+          "schedule-d.line-16",
+          "schedule-d.line-15",
+          "schedule-d.line-3",
+          "schedule-d.line-10"
+        ],
+        "value": null
+      },
+      "line16_blocked": true,
+      "line16_questions": [
+        "Did you sell any securities whose basis was not reported to the IRS?",
+        "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+        "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+        "Is it true that you had no transaction or adjustment to report on Form 8949?"
+      ],
+      "line16_value": "blocked",
+      "silent": []
+    },
+    {
+      "id": "mistaken/four/q1-no/q2-no/form8949-yes/pathb-no",
+      "truthful_no_sale": false,
+      "preferential_unblocked": false,
+      "producer": {
+        "disposition": "blocked",
+        "code": "DEPENDENCY_ABSENT",
+        "guard_result": null,
+        "missing": [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments"
+        ],
+        "value": null
+      },
+      "line16_blocked": true,
+      "line16_questions": [
+        "Did you sell any securities whose basis was not reported to the IRS?",
+        "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+        "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+        "Is it true that you had no transaction or adjustment to report on Form 8949?"
+      ],
+      "line16_value": "blocked",
+      "silent": []
+    },
+    {
+      "id": "mistaken/four/q1-yes/q2-no/form8949-yes/pathb-no",
+      "truthful_no_sale": false,
+      "preferential_unblocked": false,
+      "producer": {
+        "disposition": "blocked",
+        "code": "DEPENDENCY_ABSENT",
+        "guard_result": null,
+        "missing": [
+          "schedule-d.line-16",
+          "schedule-d.line-15",
+          "schedule-d.line-3",
+          "schedule-d.line-10"
+        ],
+        "value": null
+      },
+      "line16_blocked": true,
+      "line16_questions": [
+        "Did you sell any securities whose basis was not reported to the IRS?",
+        "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+        "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+        "Is it true that you had no transaction or adjustment to report on Form 8949?"
+      ],
+      "line16_value": "blocked",
+      "silent": []
+    },
+    {
+      "id": "mistaken/four/q1-no/q2-yes/form8949-yes/pathb-no",
+      "truthful_no_sale": false,
+      "preferential_unblocked": false,
+      "producer": {
+        "disposition": "blocked",
+        "code": "DEPENDENCY_ABSENT",
+        "guard_result": null,
+        "missing": [
+          "schedule-d.line-16",
+          "schedule-d.line-15",
+          "schedule-d.line-3",
+          "schedule-d.line-10"
+        ],
+        "value": null
+      },
+      "line16_blocked": true,
+      "line16_questions": [
+        "Did you sell any securities whose basis was not reported to the IRS?",
+        "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+        "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+        "Is it true that you had no transaction or adjustment to report on Form 8949?"
+      ],
+      "line16_value": "blocked",
+      "silent": []
+    },
+    {
+      "id": "mistaken/four/q1-yes/q2-yes/form8949-yes/pathb-no",
+      "truthful_no_sale": false,
+      "preferential_unblocked": false,
+      "producer": {
+        "disposition": "blocked",
+        "code": "DEPENDENCY_ABSENT",
+        "guard_result": null,
+        "missing": [
+          "schedule-d.line-16",
+          "schedule-d.line-15",
+          "schedule-d.line-3",
+          "schedule-d.line-10"
+        ],
+        "value": null
+      },
+      "line16_blocked": true,
+      "line16_questions": [
+        "Did you sell any securities whose basis was not reported to the IRS?",
+        "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+        "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+        "Is it true that you had no transaction or adjustment to report on Form 8949?"
+      ],
+      "line16_value": "blocked",
+      "silent": []
+    },
+    {
+      "id": "mistaken/four/q1-no/q2-no/form8949-no/pathb-yes",
+      "truthful_no_sale": false,
+      "preferential_unblocked": false,
+      "producer": {
+        "disposition": "blocked",
+        "code": "DEPENDENCY_ABSENT",
+        "guard_result": null,
+        "missing": [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments"
+        ],
+        "value": null
+      },
+      "line16_blocked": true,
+      "line16_questions": [
+        "Did you sell any securities whose basis was not reported to the IRS?",
+        "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+        "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+        "Is it true that you had no transaction or adjustment to report on Form 8949?"
+      ],
+      "line16_value": "blocked",
+      "silent": []
+    },
+    {
+      "id": "mistaken/four/q1-yes/q2-no/form8949-no/pathb-yes",
+      "truthful_no_sale": false,
+      "preferential_unblocked": false,
+      "producer": {
+        "disposition": "blocked",
+        "code": "DEPENDENCY_ABSENT",
+        "guard_result": null,
+        "missing": [
+          "schedule-d.line-16",
+          "schedule-d.line-15",
+          "schedule-d.line-3",
+          "schedule-d.line-10"
+        ],
+        "value": null
+      },
+      "line16_blocked": true,
+      "line16_questions": [
+        "Did you sell any securities whose basis was not reported to the IRS?",
+        "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+        "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+        "Is it true that you had no transaction or adjustment to report on Form 8949?"
+      ],
+      "line16_value": "blocked",
+      "silent": []
+    },
+    {
+      "id": "mistaken/four/q1-no/q2-yes/form8949-no/pathb-yes",
+      "truthful_no_sale": false,
+      "preferential_unblocked": false,
+      "producer": {
+        "disposition": "blocked",
+        "code": "DEPENDENCY_ABSENT",
+        "guard_result": null,
+        "missing": [
+          "schedule-d.line-16",
+          "schedule-d.line-15",
+          "schedule-d.line-3",
+          "schedule-d.line-10"
+        ],
+        "value": null
+      },
+      "line16_blocked": true,
+      "line16_questions": [
+        "Did you sell any securities whose basis was not reported to the IRS?",
+        "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+        "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+        "Is it true that you had no transaction or adjustment to report on Form 8949?"
+      ],
+      "line16_value": "blocked",
+      "silent": []
+    },
+    {
+      "id": "mistaken/four/q1-yes/q2-yes/form8949-no/pathb-yes",
+      "truthful_no_sale": false,
+      "preferential_unblocked": false,
+      "producer": {
+        "disposition": "blocked",
+        "code": "DEPENDENCY_ABSENT",
+        "guard_result": null,
+        "missing": [
+          "schedule-d.line-16",
+          "schedule-d.line-15",
+          "schedule-d.line-3",
+          "schedule-d.line-10"
+        ],
+        "value": null
+      },
+      "line16_blocked": true,
+      "line16_questions": [
+        "Did you sell any securities whose basis was not reported to the IRS?",
+        "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+        "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+        "Is it true that you had no transaction or adjustment to report on Form 8949?"
+      ],
+      "line16_value": "blocked",
+      "silent": []
+    },
+    {
+      "id": "mistaken/four/q1-no/q2-no/form8949-yes/pathb-yes",
+      "truthful_no_sale": true,
+      "preferential_unblocked": false,
+      "producer": {
+        "disposition": "blocked",
+        "code": "DEPENDENCY_ABSENT",
+        "guard_result": null,
+        "missing": [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments"
+        ],
+        "value": null
+      },
+      "line16_blocked": true,
+      "line16_questions": [
+        "Did you sell any securities whose basis was not reported to the IRS?",
+        "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+        "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+        "Is it true that you had no transaction or adjustment to report on Form 8949?"
+      ],
+      "line16_value": "blocked",
+      "silent": []
+    },
+    {
+      "id": "mistaken/four/q1-yes/q2-no/form8949-yes/pathb-yes",
+      "truthful_no_sale": false,
+      "preferential_unblocked": false,
+      "producer": {
+        "disposition": "blocked",
+        "code": "DEPENDENCY_ABSENT",
+        "guard_result": null,
+        "missing": [
+          "schedule-d.line-16",
+          "schedule-d.line-15",
+          "schedule-d.line-3",
+          "schedule-d.line-10"
+        ],
+        "value": null
+      },
+      "line16_blocked": true,
+      "line16_questions": [
+        "Did you sell any securities whose basis was not reported to the IRS?",
+        "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+        "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+        "Is it true that you had no transaction or adjustment to report on Form 8949?"
+      ],
+      "line16_value": "blocked",
+      "silent": []
+    },
+    {
+      "id": "mistaken/four/q1-no/q2-yes/form8949-yes/pathb-yes",
+      "truthful_no_sale": false,
+      "preferential_unblocked": false,
+      "producer": {
+        "disposition": "blocked",
+        "code": "DEPENDENCY_ABSENT",
+        "guard_result": null,
+        "missing": [
+          "schedule-d.line-16",
+          "schedule-d.line-15",
+          "schedule-d.line-3",
+          "schedule-d.line-10"
+        ],
+        "value": null
+      },
+      "line16_blocked": true,
+      "line16_questions": [
+        "Did you sell any securities whose basis was not reported to the IRS?",
+        "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+        "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+        "Is it true that you had no transaction or adjustment to report on Form 8949?"
+      ],
+      "line16_value": "blocked",
+      "silent": []
+    },
+    {
+      "id": "mistaken/four/q1-yes/q2-yes/form8949-yes/pathb-yes",
+      "truthful_no_sale": false,
+      "preferential_unblocked": false,
+      "producer": {
+        "disposition": "blocked",
+        "code": "DEPENDENCY_ABSENT",
+        "guard_result": null,
+        "missing": [
+          "schedule-d.line-16",
+          "schedule-d.line-15",
+          "schedule-d.line-3",
+          "schedule-d.line-10"
+        ],
+        "value": null
+      },
+      "line16_blocked": true,
+      "line16_questions": [
+        "Did you sell any securities whose basis was not reported to the IRS?",
+        "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+        "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+        "Is it true that you had no transaction or adjustment to report on Form 8949?"
+      ],
+      "line16_value": "blocked",
+      "silent": []
+    }
+  ],
+  "any_combination_unblocks_preferential": false,
+  "what_unblocks": {
+    "t4": {
+      "producer": {
+        "disposition": "published",
+        "code": null,
+        "guard_result": null,
+        "missing": [],
+        "value": 0
+      },
+      "hand_misses": [],
+      "silent": []
+    },
+    "mistaken": {
+      "producer": {
+        "disposition": "published",
+        "code": null,
+        "guard_result": null,
+        "missing": [],
+        "value": 0
+      },
+      "hand_misses": [],
+      "silent": []
+    }
+  },
+  "line16_same_gap": true,
+  "variant_build": {
+    "from": {
+      "package": "v90",
+      "registry": "v88",
+      "release": "v88"
+    },
+    "to": {
+      "package": "v91",
+      "registry": "v89",
+      "release": "v89"
+    },
+    "package": "v91",
+    "successor": "rule.selected-preferential-base.v11.json",
+    "named_questions": [
+      "f1099b.noncovered-sold.source-closure",
+      "f8949.no1099b-sold.source-closure",
+      "schedule-d-boundary.no-form8949-sources",
+      "schedule-d-boundary.no-other-form8949-adjustments",
+      "exception1.only-box2a-capital-gains",
+      "exception1.no-capital-losses",
+      "exception1.no-qof-deferral",
+      "exception1.no-boxes-2b-2c-2d"
+    ],
+    "added_over_p0": [
+      "exception1.only-box2a-capital-gains",
+      "exception1.no-capital-losses",
+      "exception1.no-qof-deferral",
+      "exception1.no-boxes-2b-2c-2d"
+    ]
+  },
+  "variant_runs": {
+    "t4/four/q1-no/q2-no/form8949-yes/pathb-yes": {
+      "producer": {
+        "disposition": "blocked",
+        "code": "DEPENDENCY_ABSENT",
+        "guard_result": null,
+        "missing": [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments",
+          "exception1.only-box2a-capital-gains",
+          "exception1.no-capital-losses",
+          "exception1.no-qof-deferral",
+          "exception1.no-boxes-2b-2c-2d"
+        ],
+        "value": null
+      },
+      "page_questions": [
+        "Did you sell any securities whose basis was not reported to the IRS?",
+        "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+        "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+        "Is it true that none of your 2025 Forms 1099-DIV or substitute statements shows an amount in box 2b, 2c or 2d?",
+        "Is it true that you did not defer any capital gain in 2025 by investing in a qualified opportunity fund?",
+        "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-S for it or you report it on Form 8949.",
+        "Is it true that you had no capital losses in 2025 (for example, no loss from selling stock, funds or other property)?",
+        "Is it true that you had no transaction or adjustment to report on Form 8949?"
+      ],
+      "silent": [],
+      "duplicate_questions": [],
+      "exception_questions_shown": [
+        "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-S for it or you report it on Form 8949.",
+        "Is it true that you had no capital losses in 2025 (for example, no loss from selling stock, funds or other property)?",
+        "Is it true that you did not defer any capital gain in 2025 by investing in a qualified opportunity fund?",
+        "Is it true that none of your 2025 Forms 1099-DIV or substitute statements shows an amount in box 2b, 2c or 2d?"
+      ]
+    },
+    "mistaken/four/q1-no/q2-no/form8949-yes/pathb-yes": {
+      "producer": {
+        "disposition": "blocked",
+        "code": "DEPENDENCY_ABSENT",
+        "guard_result": null,
+        "missing": [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments",
+          "exception1.only-box2a-capital-gains",
+          "exception1.no-capital-losses",
+          "exception1.no-qof-deferral",
+          "exception1.no-boxes-2b-2c-2d"
+        ],
+        "value": null
+      },
+      "page_questions": [
+        "Did you sell any securities whose basis was not reported to the IRS?",
+        "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+        "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+        "Is it true that none of your 2025 Forms 1099-DIV or substitute statements shows an amount in box 2b, 2c or 2d?",
+        "Is it true that you did not defer any capital gain in 2025 by investing in a qualified opportunity fund?",
+        "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-S for it or you report it on Form 8949.",
+        "Is it true that you had no capital losses in 2025 (for example, no loss from selling stock, funds or other property)?",
+        "Is it true that you had no transaction or adjustment to report on Form 8949?"
+      ],
+      "silent": [],
+      "duplicate_questions": [],
+      "exception_questions_shown": [
+        "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-S for it or you report it on Form 8949.",
+        "Is it true that you had no capital losses in 2025 (for example, no loss from selling stock, funds or other property)?",
+        "Is it true that you did not defer any capital gain in 2025 by investing in a qualified opportunity fund?",
+        "Is it true that none of your 2025 Forms 1099-DIV or substitute statements shows an amount in box 2b, 2c or 2d?"
+      ]
+    },
+    "t4/exception-yes": {
+      "producer": {
+        "disposition": "published",
+        "code": null,
+        "guard_result": null,
+        "missing": [],
+        "value": 0
+      },
+      "page_questions": [],
+      "silent": [],
+      "duplicate_questions": [],
+      "exception_questions_shown": []
+    },
+    "mistaken/exception-yes": {
+      "producer": {
+        "disposition": "published",
+        "code": null,
+        "guard_result": null,
+        "missing": [],
+        "value": 0
+      },
+      "page_questions": [],
+      "silent": [],
+      "duplicate_questions": [],
+      "exception_questions_shown": []
+    },
+    "computing-sale": {
+      "producer": {
+        "disposition": "published",
+        "code": null,
+        "guard_result": null,
+        "missing": [],
+        "value": 0
+      },
+      "page_questions": [],
+      "silent": [],
+      "duplicate_questions": [],
+      "exception_questions_shown": []
+    }
+  },
+  "variant_shows_exception_question": true,
+  "computing_return_new_questions": [],
+  "recommendation": "Also name the four Exception 1 questions. Answering the four sale questions does not unblock, changing Exception 1 to yes does, the projection shows the Exception 1 sentences, and the computing sale gains no question.",
+  "variant_prototyped": "exception names added to the P0 block",
+  "line16_should_follow": true
+}

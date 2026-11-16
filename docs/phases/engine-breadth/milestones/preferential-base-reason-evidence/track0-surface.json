@@ -1,0 +1,2952 @@
+{
+  "cases": [
+    {
+      "id": "recorded/m_2a_only_exc1_only2a_no",
+      "v90_page_questions": [
+        "Did you sell any securities whose basis was not reported to the IRS?",
+        "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+        "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+        "Is it true that you had no transaction or adjustment to report on Form 8949?"
+      ],
+      "v91_page_questions": [
+        "Did you sell any securities whose basis was not reported to the IRS?",
+        "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+        "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+        "Is it true that you had no transaction or adjustment to report on Form 8949?"
+      ],
+      "v90_fields": [
+        {
+          "field": "form.eic-worksheet-a.line-3",
+          "questions": []
+        },
+        {
+          "field": "form.eic-worksheet-a.line-5",
+          "questions": []
+        },
+        {
+          "field": "form.eic-worksheet-a.line-6",
+          "questions": []
+        },
+        {
+          "field": "form.sch8812.line-14",
+          "questions": []
+        },
+        {
+          "field": "form.sch8812.line-17",
+          "questions": []
+        },
+        {
+          "field": "form.sch8812.worksheet-a.line-5",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-11a",
+          "questions": []
+        },
+        {
+          "field": "form1040.line-11b",
+          "questions": []
+        },
+        {
+          "field": "form1040.line-13b",
+          "questions": []
+        },
+        {
+          "field": "form1040.line-14",
+          "questions": []
+        },
+        {
+          "field": "form1040.line-15",
+          "questions": []
+        },
+        {
+          "field": "form1040.line-16",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-19",
+          "questions": []
+        },
+        {
+          "field": "form1040.line-20",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-24",
+          "questions": []
+        },
+        {
+          "field": "form1040.line-27a",
+          "questions": []
+        },
+        {
+          "field": "form1040.line-28",
+          "questions": []
+        },
+        {
+          "field": "form1040.line-32",
+          "questions": []
+        },
+        {
+          "field": "form1040.line-33",
+          "questions": []
+        },
+        {
+          "field": "form1040.line-34",
+          "questions": []
+        },
+        {
+          "field": "form1040.line-35a",
+          "questions": []
+        },
+        {
+          "field": "form1040.line-37",
+          "questions": []
+        },
+        {
+          "field": "form1040.line-6b",
+          "questions": []
+        },
+        {
+          "field": "form1040.line-7a",
+          "questions": []
+        },
+        {
+          "field": "form1040.line-9",
+          "questions": []
+        },
+        {
+          "field": "form1040.tax-after-credits",
+          "questions": []
+        },
+        {
+          "field": "schedule3.line-1",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "schedule3.line-8",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        }
+      ],
+      "v91_fields": [
+        {
+          "field": "form.eic-worksheet-a.line-3",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form.eic-worksheet-a.line-5",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form.eic-worksheet-a.line-6",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form.sch8812.line-14",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form.sch8812.line-17",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form.sch8812.worksheet-a.line-5",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-11a",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-11b",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-13b",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-14",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-15",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-16",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-19",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-20",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-24",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-27a",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-28",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-32",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-33",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-34",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-35a",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-37",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-6b",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-7a",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-9",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.tax-after-credits",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "schedule3.line-1",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "schedule3.line-8",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        }
+      ],
+      "duplicate_questions": [],
+      "computed_on_v90_blocked_on_v91": [],
+      "silent": [],
+      "pass": true
+    },
+    {
+      "id": "recorded/m_empty_exc1_nolosses_no",
+      "v90_page_questions": [
+        "Did you sell any securities whose basis was not reported to the IRS?",
+        "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+        "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+        "Is it true that you had no transaction or adjustment to report on Form 8949?"
+      ],
+      "v91_page_questions": [
+        "Did you sell any securities whose basis was not reported to the IRS?",
+        "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+        "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+        "Is it true that you had no transaction or adjustment to report on Form 8949?"
+      ],
+      "v90_fields": [
+        {
+          "field": "form.eic-worksheet-a.line-3",
+          "questions": []
+        },
+        {
+          "field": "form.eic-worksheet-a.line-5",
+          "questions": []
+        },
+        {
+          "field": "form.eic-worksheet-a.line-6",
+          "questions": []
+        },
+        {
+          "field": "form.sch8812.line-14",
+          "questions": []
+        },
+        {
+          "field": "form.sch8812.line-17",
+          "questions": []
+        },
+        {
+          "field": "form.sch8812.worksheet-a.line-5",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-11a",
+          "questions": []
+        },
+        {
+          "field": "form1040.line-11b",
+          "questions": []
+        },
+        {
+          "field": "form1040.line-13b",
+          "questions": []
+        },
+        {
+          "field": "form1040.line-14",
+          "questions": []
+        },
+        {
+          "field": "form1040.line-15",
+          "questions": []
+        },
+        {
+          "field": "form1040.line-16",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-19",
+          "questions": []
+        },
+        {
+          "field": "form1040.line-20",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-24",
+          "questions": []
+        },
+        {
+          "field": "form1040.line-27a",
+          "questions": []
+        },
+        {
+          "field": "form1040.line-28",
+          "questions": []
+        },
+        {
+          "field": "form1040.line-32",
+          "questions": []
+        },
+        {
+          "field": "form1040.line-33",
+          "questions": []
+        },
+        {
+          "field": "form1040.line-34",
+          "questions": []
+        },
+        {
+          "field": "form1040.line-35a",
+          "questions": []
+        },
+        {
+          "field": "form1040.line-37",
+          "questions": []
+        },
+        {
+          "field": "form1040.line-6b",
+          "questions": []
+        },
+        {
+          "field": "form1040.line-7a",
+          "questions": []
+        },
+        {
+          "field": "form1040.line-9",
+          "questions": []
+        },
+        {
+          "field": "form1040.tax-after-credits",
+          "questions": []
+        },
+        {
+          "field": "schedule3.line-1",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "schedule3.line-8",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        }
+      ],
+      "v91_fields": [
+        {
+          "field": "form.eic-worksheet-a.line-3",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form.eic-worksheet-a.line-5",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form.eic-worksheet-a.line-6",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form.sch8812.line-14",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form.sch8812.line-17",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form.sch8812.worksheet-a.line-5",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-11a",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-11b",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-13b",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-14",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-15",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-16",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-19",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-20",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-24",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-27a",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-28",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-32",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-33",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-34",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-35a",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-37",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-6b",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-7a",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-9",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.tax-after-credits",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "schedule3.line-1",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "schedule3.line-8",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        }
+      ],
+      "duplicate_questions": [],
+      "computed_on_v90_blocked_on_v91": [],
+      "silent": [],
+      "pass": true
+    },
+    {
+      "id": "recorded/m_empty_exc1_only2a_no",
+      "v90_page_questions": [
+        "Did you sell any securities whose basis was not reported to the IRS?",
+        "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+        "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+        "Is it true that you had no transaction or adjustment to report on Form 8949?"
+      ],
+      "v91_page_questions": [
+        "Did you sell any securities whose basis was not reported to the IRS?",
+        "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+        "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+        "Is it true that you had no transaction or adjustment to report on Form 8949?"
+      ],
+      "v90_fields": [
+        {
+          "field": "form.eic-worksheet-a.line-3",
+          "questions": []
+        },
+        {
+          "field": "form.eic-worksheet-a.line-5",
+          "questions": []
+        },
+        {
+          "field": "form.eic-worksheet-a.line-6",
+          "questions": []
+        },
+        {
+          "field": "form.sch8812.line-14",
+          "questions": []
+        },
+        {
+          "field": "form.sch8812.line-17",
+          "questions": []
+        },
+        {
+          "field": "form.sch8812.worksheet-a.line-5",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-11a",
+          "questions": []
+        },
+        {
+          "field": "form1040.line-11b",
+          "questions": []
+        },
+        {
+          "field": "form1040.line-13b",
+          "questions": []
+        },
+        {
+          "field": "form1040.line-14",
+          "questions": []
+        },
+        {
+          "field": "form1040.line-15",
+          "questions": []
+        },
+        {
+          "field": "form1040.line-16",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-19",
+          "questions": []
+        },
+        {
+          "field": "form1040.line-20",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-24",
+          "questions": []
+        },
+        {
+          "field": "form1040.line-27a",
+          "questions": []
+        },
+        {
+          "field": "form1040.line-28",
+          "questions": []
+        },
+        {
+          "field": "form1040.line-32",
+          "questions": []
+        },
+        {
+          "field": "form1040.line-33",
+          "questions": []
+        },
+        {
+          "field": "form1040.line-34",
+          "questions": []
+        },
+        {
+          "field": "form1040.line-35a",
+          "questions": []
+        },
+        {
+          "field": "form1040.line-37",
+          "questions": []
+        },
+        {
+          "field": "form1040.line-6b",
+          "questions": []
+        },
+        {
+          "field": "form1040.line-7a",
+          "questions": []
+        },
+        {
+          "field": "form1040.line-9",
+          "questions": []
+        },
+        {
+          "field": "form1040.tax-after-credits",
+          "questions": []
+        },
+        {
+          "field": "schedule3.line-1",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "schedule3.line-8",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        }
+      ],
+      "v91_fields": [
+        {
+          "field": "form.eic-worksheet-a.line-3",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form.eic-worksheet-a.line-5",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form.eic-worksheet-a.line-6",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form.sch8812.line-14",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form.sch8812.line-17",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form.sch8812.worksheet-a.line-5",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-11a",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-11b",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-13b",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-14",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-15",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-16",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-19",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-20",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-24",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-27a",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-28",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-32",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-33",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-34",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-35a",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-37",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-6b",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-7a",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-9",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.tax-after-credits",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "schedule3.line-1",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "schedule3.line-8",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        }
+      ],
+      "duplicate_questions": [],
+      "computed_on_v90_blocked_on_v91": [],
+      "silent": [],
+      "pass": true
+    },
+    {
+      "id": "recorded/t4_s1_removed",
+      "v90_page_questions": [
+        "Did you sell any securities whose basis was not reported to the IRS?",
+        "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+        "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+        "Is it true that you had no transaction or adjustment to report on Form 8949?"
+      ],
+      "v91_page_questions": [
+        "Did you sell any securities whose basis was not reported to the IRS?",
+        "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+        "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+        "Is it true that you had no transaction or adjustment to report on Form 8949?"
+      ],
+      "v90_fields": [
+        {
+          "field": "form.eic-worksheet-a.line-3",
+          "questions": []
+        },
+        {
+          "field": "form.eic-worksheet-a.line-5",
+          "questions": []
+        },
+        {
+          "field": "form.eic-worksheet-a.line-6",
+          "questions": []
+        },
+        {
+          "field": "form.sch8812.line-14",
+          "questions": []
+        },
+        {
+          "field": "form.sch8812.line-17",
+          "questions": []
+        },
+        {
+          "field": "form.sch8812.worksheet-a.line-5",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-11a",
+          "questions": []
+        },
+        {
+          "field": "form1040.line-11b",
+          "questions": []
+        },
+        {
+          "field": "form1040.line-13b",
+          "questions": []
+        },
+        {
+          "field": "form1040.line-14",
+          "questions": []
+        },
+        {
+          "field": "form1040.line-15",
+          "questions": []
+        },
+        {
+          "field": "form1040.line-16",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-19",
+          "questions": []
+        },
+        {
+          "field": "form1040.line-20",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-24",
+          "questions": []
+        },
+        {
+          "field": "form1040.line-27a",
+          "questions": []
+        },
+        {
+          "field": "form1040.line-28",
+          "questions": []
+        },
+        {
+          "field": "form1040.line-32",
+          "questions": []
+        },
+        {
+          "field": "form1040.line-33",
+          "questions": []
+        },
+        {
+          "field": "form1040.line-34",
+          "questions": []
+        },
+        {
+          "field": "form1040.line-35a",
+          "questions": []
+        },
+        {
+          "field": "form1040.line-37",
+          "questions": []
+        },
+        {
+          "field": "form1040.line-6b",
+          "questions": []
+        },
+        {
+          "field": "form1040.line-7a",
+          "questions": []
+        },
+        {
+          "field": "form1040.line-9",
+          "questions": []
+        },
+        {
+          "field": "form1040.tax-after-credits",
+          "questions": []
+        },
+        {
+          "field": "schedule3.line-1",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "schedule3.line-8",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        }
+      ],
+      "v91_fields": [
+        {
+          "field": "form.eic-worksheet-a.line-3",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form.eic-worksheet-a.line-5",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form.eic-worksheet-a.line-6",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form.sch8812.line-14",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form.sch8812.line-17",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form.sch8812.worksheet-a.line-5",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-11a",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-11b",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-13b",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-14",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-15",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-16",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-19",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-20",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-24",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-27a",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-28",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-32",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-33",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-34",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-35a",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-37",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-6b",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-7a",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.line-9",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "form1040.tax-after-credits",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "schedule3.line-1",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        },
+        {
+          "field": "schedule3.line-8",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ]
+        }
+      ],
+      "duplicate_questions": [],
+      "computed_on_v90_blocked_on_v91": [],
+      "silent": [],
+      "pass": true
+    },
+    {
+      "id": "neighbour/carryover",
+      "v90_page_questions": [
+        "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+        "Did you sell any securities whose basis was not reported to the IRS?",
+        "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+      ],
+      "v91_page_questions": [
+        "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+        "Did you sell any securities whose basis was not reported to the IRS?",
+        "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+      ],
+      "v90_fields": [
+        {
+          "field": "form.eic-worksheet-a.line-3",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form.eic-worksheet-a.line-5",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form.eic-worksheet-a.line-6",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form.sch8812.line-14",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form.sch8812.line-17",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form.sch8812.worksheet-a.line-5",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-11a",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-11b",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-13b",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-14",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-15",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-16",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-19",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-20",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-24",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-25b",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?"
+          ]
+        },
+        {
+          "field": "form1040.line-25d",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?"
+          ]
+        },
+        {
+          "field": "form1040.line-27a",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-28",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-32",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-33",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-34",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-35a",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-37",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-6b",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-7a",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-7b",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-9",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.tax-after-credits",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "schedule-d.line-10",
+          "questions": [
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "schedule-d.line-15",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "schedule-d.line-16",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "schedule-d.line-1b",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?"
+          ]
+        },
+        {
+          "field": "schedule-d.line-2",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?"
+          ]
+        },
+        {
+          "field": "schedule-d.line-21",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "schedule-d.line-3",
+          "questions": [
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "schedule-d.line-7",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "schedule-d.line-8b",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?"
+          ]
+        },
+        {
+          "field": "schedule-d.line-9",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?"
+          ]
+        },
+        {
+          "field": "schedule3.line-1",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "schedule3.line-8",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        }
+      ],
+      "v91_fields": [
+        {
+          "field": "form.eic-worksheet-a.line-3",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form.eic-worksheet-a.line-5",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form.eic-worksheet-a.line-6",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form.sch8812.line-14",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form.sch8812.line-17",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form.sch8812.worksheet-a.line-5",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-11a",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-11b",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-13b",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-14",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-15",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-16",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-19",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-20",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-24",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-25b",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?"
+          ]
+        },
+        {
+          "field": "form1040.line-25d",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?"
+          ]
+        },
+        {
+          "field": "form1040.line-27a",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-28",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-32",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-33",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-34",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-35a",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-37",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-6b",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-7a",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-7b",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-9",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.tax-after-credits",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "schedule-d.line-10",
+          "questions": [
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "schedule-d.line-15",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "schedule-d.line-16",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "schedule-d.line-1b",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?"
+          ]
+        },
+        {
+          "field": "schedule-d.line-2",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?"
+          ]
+        },
+        {
+          "field": "schedule-d.line-21",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "schedule-d.line-3",
+          "questions": [
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "schedule-d.line-7",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "schedule-d.line-8b",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?"
+          ]
+        },
+        {
+          "field": "schedule-d.line-9",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?"
+          ]
+        },
+        {
+          "field": "schedule3.line-1",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "schedule3.line-8",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        }
+      ],
+      "duplicate_questions": [],
+      "computed_on_v90_blocked_on_v91": [],
+      "silent": [],
+      "pass": true
+    },
+    {
+      "id": "neighbour/box2a",
+      "v90_page_questions": [
+        "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+        "Did you sell any securities whose basis was not reported to the IRS?",
+        "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+      ],
+      "v91_page_questions": [
+        "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+        "Did you sell any securities whose basis was not reported to the IRS?",
+        "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+      ],
+      "v90_fields": [
+        {
+          "field": "form.eic-worksheet-a.line-3",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form.eic-worksheet-a.line-5",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form.eic-worksheet-a.line-6",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form.sch8812.line-14",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form.sch8812.line-17",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form.sch8812.worksheet-a.line-5",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-11a",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-11b",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-13b",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-14",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-15",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-16",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-19",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-20",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-24",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-25b",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?"
+          ]
+        },
+        {
+          "field": "form1040.line-25d",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?"
+          ]
+        },
+        {
+          "field": "form1040.line-27a",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-28",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-32",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-33",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-34",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-35a",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-37",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-6b",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-7a",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-7b",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-9",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.tax-after-credits",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "schedule-d.line-10",
+          "questions": [
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "schedule-d.line-15",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "schedule-d.line-16",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "schedule-d.line-1b",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?"
+          ]
+        },
+        {
+          "field": "schedule-d.line-2",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?"
+          ]
+        },
+        {
+          "field": "schedule-d.line-21",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "schedule-d.line-3",
+          "questions": [
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "schedule-d.line-7",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "schedule-d.line-8b",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?"
+          ]
+        },
+        {
+          "field": "schedule-d.line-9",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?"
+          ]
+        },
+        {
+          "field": "schedule3.line-1",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "schedule3.line-8",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        }
+      ],
+      "v91_fields": [
+        {
+          "field": "form.eic-worksheet-a.line-3",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form.eic-worksheet-a.line-5",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form.eic-worksheet-a.line-6",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form.sch8812.line-14",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form.sch8812.line-17",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form.sch8812.worksheet-a.line-5",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-11a",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-11b",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-13b",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-14",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-15",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-16",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-19",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-20",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-24",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-25b",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?"
+          ]
+        },
+        {
+          "field": "form1040.line-25d",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?"
+          ]
+        },
+        {
+          "field": "form1040.line-27a",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-28",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-32",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-33",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-34",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-35a",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-37",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-6b",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-7a",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-7b",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.line-9",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "form1040.tax-after-credits",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "schedule-d.line-10",
+          "questions": [
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "schedule-d.line-15",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "schedule-d.line-16",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "schedule-d.line-1b",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?"
+          ]
+        },
+        {
+          "field": "schedule-d.line-2",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?"
+          ]
+        },
+        {
+          "field": "schedule-d.line-21",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "schedule-d.line-3",
+          "questions": [
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "schedule-d.line-7",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "schedule-d.line-8b",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?"
+          ]
+        },
+        {
+          "field": "schedule-d.line-9",
+          "questions": [
+            "Did you sell any securities whose basis was not reported to the IRS?"
+          ]
+        },
+        {
+          "field": "schedule3.line-1",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        },
+        {
+          "field": "schedule3.line-8",
+          "questions": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+          ]
+        }
+      ],
+      "duplicate_questions": [],
+      "computed_on_v90_blocked_on_v91": [],
+      "silent": [],
+      "pass": true
+    }
+  ],
+  "fail_ids": [],
+  "verdict": "PASS"
+}

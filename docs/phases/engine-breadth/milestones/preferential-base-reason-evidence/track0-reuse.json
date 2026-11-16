@@ -1,0 +1,23 @@
+{
+  "changed_members": [
+    {
+      "id": "selected-preferential-base",
+      "old": "v10",
+      "new": "v11"
+    }
+  ],
+  "differences_after_undoing_the_else": [],
+  "new_questions": {
+    "wage": [],
+    "sale": []
+  },
+  "checks": {
+    "one_successor": true,
+    "undoing_the_else_leaves_v10": true,
+    "no_new_question_on_wage_workspace": true,
+    "no_new_question_on_sale_workspace": true,
+    "wage_lines_unchanged": true,
+    "sale_lines_unchanged": true
+  },
+  "verdict": "PASS"
+}

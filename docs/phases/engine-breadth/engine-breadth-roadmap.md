@@ -857,6 +857,23 @@ condition is yes. The saved citation-walk page now draws a `not_checked`
 box as "not checked"; line 6d's alert clears and line 6c's `not_elected`
 alert stays. The 775 recorded lists compute the same numbers.
 
+## Bounded return — Lines Below Line 16 Name Their Question (2025)
+
+[Plan](milestones/preferential-base-reason.md); retrospective:
+`docs/milestone-retrospectives/2026-11-15-preferential-base-reason.md`.
+Contract: ADR 0086.
+
+Core v91 (registry v89, release v89) replaces one member,
+`selected-preferential-base` v11. On a return where Schedule D is
+required and no sale or Schedule D amount is recorded, the preferential
+base now blocks and names eight questions (the four sale and boundary
+questions line 16 names, and the four Exception 1 questions) where it was
+inapplicable. The 23 blocked fields that showed no question on such a
+return, among them Form 1040 lines 7a, 9, 11, 15, 24, 33 and 37, now show
+those questions. Changing Exception 1 to yes, or entering the sale,
+reaches the instruction values. Of the 775 recorded lists, 771 are
+identical and four change only that row and its sentences.
+
 ## Saved-page observation — Mortgage and Sales (2025)
 
 [Plan](milestones/sale-page-observation.md); retrospective:
@@ -1012,11 +1029,15 @@ delivers an item removes it.
   check to carry a subject; both are derivation changes.
 - The per-statement box 4 amount and box 7 questions do not name the
   statement.
-- On four recorded returns with a Schedule D "required" conclusion and no
-  sale, Form 1040 lines 24, 33 and 37 block with no field-level question
-  because `capital-gains.selected-preferential-base` is inapplicable; line
-  16 and the page name the questions, and answering them unblocks every
-  line (blocked-names-question review note BNQ-R7).
+- On a return with Schedule D required and no sale, Form 1040 line 16 and
+  four lines that explain through it (line 20, Schedule 3 lines 1 and 8,
+  Schedule 8812 worksheet A line 5) name four questions while the other
+  blocked fields name eight (core v91). A line 16 successor naming the
+  eight changes the `exception1_personal_loss_8949` case, which must be
+  preserved or reopened.
+- Form 1040 lines 25b and 25d block with no question when the Form 1099-B
+  box 4 withholding amount is missing: the published question asks
+  whether withholding was reported, not the amount.
 - The unasked boundary answers (lines 18-19, QOF). Since core v89 Path B
   and "no Form 8949" are asked.
 - Kernel reverse presence check: removing a sale checks only one of its

@@ -1,0 +1,804 @@
+{
+  "cells": [
+    {
+      "id": "none/no/open",
+      "activity": "none",
+      "conclusion": "no",
+      "boundary": "open",
+      "observed_activity": "blocked-on-open-counts",
+      "observed_conclusion": "no",
+      "axes_match": true,
+      "allowed_difference": false,
+      "open_counts_block_the_activity_test": true,
+      "v10": {
+        "disposition": "blocked",
+        "code": "DEPENDENCY_ABSENT",
+        "guard_result": null,
+        "missing": [
+          "schedule-d.line-1b",
+          "schedule-d.line-8b",
+          "schedule-d.line-16",
+          "schedule-d.line-15",
+          "schedule-d.line-2",
+          "schedule-d.line-3",
+          "schedule-d.line-9",
+          "schedule-d.line-10",
+          "f1099b.noncovered-st-count",
+          "f1099b.noncovered-lt-count",
+          "f1099b.code-b-st-count",
+          "f1099b.code-b-lt-count",
+          "f8949.no1099b-st-count",
+          "f8949.no1099b-lt-count"
+        ],
+        "value": null
+      },
+      "v11": {
+        "disposition": "blocked",
+        "code": "DEPENDENCY_ABSENT",
+        "guard_result": null,
+        "missing": [
+          "schedule-d.line-1b",
+          "schedule-d.line-8b",
+          "schedule-d.line-16",
+          "schedule-d.line-15",
+          "schedule-d.line-2",
+          "schedule-d.line-3",
+          "schedule-d.line-9",
+          "schedule-d.line-10",
+          "f1099b.noncovered-st-count",
+          "f1099b.noncovered-lt-count",
+          "f1099b.code-b-st-count",
+          "f1099b.code-b-lt-count",
+          "f8949.no1099b-st-count",
+          "f8949.no1099b-lt-count"
+        ],
+        "value": null
+      },
+      "differs": false,
+      "which_is_right": "the shared v10 result",
+      "pass": true
+    },
+    {
+      "id": "none/no/answered",
+      "activity": "none",
+      "conclusion": "no",
+      "boundary": "answered",
+      "observed_activity": "none",
+      "observed_conclusion": "no",
+      "axes_match": true,
+      "allowed_difference": false,
+      "open_counts_block_the_activity_test": false,
+      "v10": {
+        "disposition": "published",
+        "code": null,
+        "guard_result": null,
+        "missing": [],
+        "value": 0
+      },
+      "v11": {
+        "disposition": "published",
+        "code": null,
+        "guard_result": null,
+        "missing": [],
+        "value": 0
+      },
+      "differs": false,
+      "which_is_right": "the shared v10 result",
+      "pass": true
+    },
+    {
+      "id": "none/required/open",
+      "activity": "none",
+      "conclusion": "required",
+      "boundary": "open",
+      "observed_activity": "blocked-on-open-counts",
+      "observed_conclusion": "required",
+      "axes_match": true,
+      "allowed_difference": false,
+      "open_counts_block_the_activity_test": true,
+      "v10": {
+        "disposition": "blocked",
+        "code": "DEPENDENCY_ABSENT",
+        "guard_result": null,
+        "missing": [
+          "schedule-d.line-1b",
+          "schedule-d.line-8b",
+          "schedule-d.line-16",
+          "schedule-d.line-15",
+          "schedule-d.line-2",
+          "schedule-d.line-3",
+          "schedule-d.line-9",
+          "schedule-d.line-10",
+          "f1099b.noncovered-st-count",
+          "f1099b.noncovered-lt-count",
+          "f1099b.code-b-st-count",
+          "f1099b.code-b-lt-count",
+          "f8949.no1099b-st-count",
+          "f8949.no1099b-lt-count"
+        ],
+        "value": null
+      },
+      "v11": {
+        "disposition": "blocked",
+        "code": "DEPENDENCY_ABSENT",
+        "guard_result": null,
+        "missing": [
+          "schedule-d.line-1b",
+          "schedule-d.line-8b",
+          "schedule-d.line-16",
+          "schedule-d.line-15",
+          "schedule-d.line-2",
+          "schedule-d.line-3",
+          "schedule-d.line-9",
+          "schedule-d.line-10",
+          "f1099b.noncovered-st-count",
+          "f1099b.noncovered-lt-count",
+          "f1099b.code-b-st-count",
+          "f1099b.code-b-lt-count",
+          "f8949.no1099b-st-count",
+          "f8949.no1099b-lt-count"
+        ],
+        "value": null
+      },
+      "differs": false,
+      "which_is_right": "the shared v10 result",
+      "pass": true
+    },
+    {
+      "id": "none/required/answered",
+      "activity": "none",
+      "conclusion": "required",
+      "boundary": "answered",
+      "observed_activity": "none",
+      "observed_conclusion": "required",
+      "axes_match": true,
+      "allowed_difference": true,
+      "open_counts_block_the_activity_test": false,
+      "v10": {
+        "disposition": "inapplicable",
+        "code": null,
+        "guard_result": false,
+        "missing": [],
+        "value": null
+      },
+      "v11": {
+        "disposition": "blocked",
+        "code": "DEPENDENCY_ABSENT",
+        "guard_result": null,
+        "missing": [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments"
+        ],
+        "value": null
+      },
+      "differs": true,
+      "which_is_right": "v11 names the four questions",
+      "pass": true
+    },
+    {
+      "id": "none/open/open",
+      "activity": "none",
+      "conclusion": "open",
+      "boundary": "open",
+      "observed_activity": "blocked-on-open-counts",
+      "observed_conclusion": "open",
+      "axes_match": true,
+      "allowed_difference": false,
+      "open_counts_block_the_activity_test": true,
+      "v10": {
+        "disposition": "blocked",
+        "code": "DEPENDENCY_ABSENT",
+        "guard_result": null,
+        "missing": [
+          "schedule-d.line-1b",
+          "schedule-d.line-8b",
+          "schedule-d.line-16",
+          "schedule-d-required.conclusion",
+          "schedule-d.line-15",
+          "schedule-d.line-2",
+          "schedule-d.line-3",
+          "schedule-d.line-9",
+          "schedule-d.line-10",
+          "f1099b.noncovered-st-count",
+          "f1099b.noncovered-lt-count",
+          "f1099b.code-b-st-count",
+          "f1099b.code-b-lt-count",
+          "f8949.no1099b-st-count",
+          "f8949.no1099b-lt-count"
+        ],
+        "value": null
+      },
+      "v11": {
+        "disposition": "blocked",
+        "code": "DEPENDENCY_ABSENT",
+        "guard_result": null,
+        "missing": [
+          "schedule-d.line-1b",
+          "schedule-d.line-8b",
+          "schedule-d.line-16",
+          "schedule-d-required.conclusion",
+          "schedule-d.line-15",
+          "schedule-d.line-2",
+          "schedule-d.line-3",
+          "schedule-d.line-9",
+          "schedule-d.line-10",
+          "f1099b.noncovered-st-count",
+          "f1099b.noncovered-lt-count",
+          "f1099b.code-b-st-count",
+          "f1099b.code-b-lt-count",
+          "f8949.no1099b-st-count",
+          "f8949.no1099b-lt-count"
+        ],
+        "value": null
+      },
+      "differs": false,
+      "which_is_right": "the shared v10 result",
+      "pass": true
+    },
+    {
+      "id": "none/open/answered",
+      "activity": "none",
+      "conclusion": "open",
+      "boundary": "answered",
+      "observed_activity": "none",
+      "observed_conclusion": "open",
+      "axes_match": true,
+      "allowed_difference": false,
+      "open_counts_block_the_activity_test": false,
+      "v10": {
+        "disposition": "blocked",
+        "code": "DEPENDENCY_ABSENT",
+        "guard_result": null,
+        "missing": [
+          "schedule-d-required.conclusion"
+        ],
+        "value": null
+      },
+      "v11": {
+        "disposition": "blocked",
+        "code": "DEPENDENCY_ABSENT",
+        "guard_result": null,
+        "missing": [
+          "schedule-d-required.conclusion"
+        ],
+        "value": null
+      },
+      "differs": false,
+      "which_is_right": "the shared v10 result",
+      "pass": true
+    },
+    {
+      "id": "sale/no/open",
+      "activity": "sale",
+      "conclusion": "no",
+      "boundary": "open",
+      "observed_activity": "blocked-on-open-counts",
+      "observed_conclusion": "no",
+      "axes_match": true,
+      "allowed_difference": false,
+      "open_counts_block_the_activity_test": true,
+      "v10": {
+        "disposition": "blocked",
+        "code": "DEPENDENCY_ABSENT",
+        "guard_result": null,
+        "missing": [
+          "schedule-d.line-1b",
+          "schedule-d.line-8b",
+          "schedule-d.line-16",
+          "schedule-d.line-15",
+          "schedule-d.line-2",
+          "schedule-d.line-3",
+          "schedule-d.line-9",
+          "schedule-d.line-10",
+          "f1099b.noncovered-st-count",
+          "f1099b.noncovered-lt-count",
+          "f1099b.code-b-st-count",
+          "f1099b.code-b-lt-count",
+          "f8949.no1099b-st-count",
+          "f8949.no1099b-lt-count"
+        ],
+        "value": null
+      },
+      "v11": {
+        "disposition": "blocked",
+        "code": "DEPENDENCY_ABSENT",
+        "guard_result": null,
+        "missing": [
+          "schedule-d.line-1b",
+          "schedule-d.line-8b",
+          "schedule-d.line-16",
+          "schedule-d.line-15",
+          "schedule-d.line-2",
+          "schedule-d.line-3",
+          "schedule-d.line-9",
+          "schedule-d.line-10",
+          "f1099b.noncovered-st-count",
+          "f1099b.noncovered-lt-count",
+          "f1099b.code-b-st-count",
+          "f1099b.code-b-lt-count",
+          "f8949.no1099b-st-count",
+          "f8949.no1099b-lt-count"
+        ],
+        "value": null
+      },
+      "differs": false,
+      "which_is_right": "the shared v10 result",
+      "pass": true
+    },
+    {
+      "id": "sale/no/answered",
+      "activity": "sale",
+      "conclusion": "no",
+      "boundary": "answered",
+      "observed_activity": "sale",
+      "observed_conclusion": "no",
+      "axes_match": true,
+      "allowed_difference": false,
+      "open_counts_block_the_activity_test": false,
+      "v10": {
+        "disposition": "published",
+        "code": null,
+        "guard_result": null,
+        "missing": [],
+        "value": 0
+      },
+      "v11": {
+        "disposition": "published",
+        "code": null,
+        "guard_result": null,
+        "missing": [],
+        "value": 0
+      },
+      "differs": false,
+      "which_is_right": "the shared v10 result",
+      "pass": true
+    },
+    {
+      "id": "sale/required/open",
+      "activity": "sale",
+      "conclusion": "required",
+      "boundary": "open",
+      "observed_activity": "blocked-on-open-counts",
+      "observed_conclusion": "required",
+      "axes_match": true,
+      "allowed_difference": false,
+      "open_counts_block_the_activity_test": true,
+      "v10": {
+        "disposition": "blocked",
+        "code": "DEPENDENCY_ABSENT",
+        "guard_result": null,
+        "missing": [
+          "schedule-d.line-1b",
+          "schedule-d.line-8b",
+          "schedule-d.line-16",
+          "schedule-d.line-15",
+          "schedule-d.line-2",
+          "schedule-d.line-3",
+          "schedule-d.line-9",
+          "schedule-d.line-10",
+          "f1099b.noncovered-st-count",
+          "f1099b.noncovered-lt-count",
+          "f1099b.code-b-st-count",
+          "f1099b.code-b-lt-count",
+          "f8949.no1099b-st-count",
+          "f8949.no1099b-lt-count"
+        ],
+        "value": null
+      },
+      "v11": {
+        "disposition": "blocked",
+        "code": "DEPENDENCY_ABSENT",
+        "guard_result": null,
+        "missing": [
+          "schedule-d.line-1b",
+          "schedule-d.line-8b",
+          "schedule-d.line-16",
+          "schedule-d.line-15",
+          "schedule-d.line-2",
+          "schedule-d.line-3",
+          "schedule-d.line-9",
+          "schedule-d.line-10",
+          "f1099b.noncovered-st-count",
+          "f1099b.noncovered-lt-count",
+          "f1099b.code-b-st-count",
+          "f1099b.code-b-lt-count",
+          "f8949.no1099b-st-count",
+          "f8949.no1099b-lt-count"
+        ],
+        "value": null
+      },
+      "differs": false,
+      "which_is_right": "the shared v10 result",
+      "pass": true
+    },
+    {
+      "id": "sale/required/answered",
+      "activity": "sale",
+      "conclusion": "required",
+      "boundary": "answered",
+      "observed_activity": "sale",
+      "observed_conclusion": "required",
+      "axes_match": true,
+      "allowed_difference": false,
+      "open_counts_block_the_activity_test": false,
+      "v10": {
+        "disposition": "published",
+        "code": null,
+        "guard_result": null,
+        "missing": [],
+        "value": 0
+      },
+      "v11": {
+        "disposition": "published",
+        "code": null,
+        "guard_result": null,
+        "missing": [],
+        "value": 0
+      },
+      "differs": false,
+      "which_is_right": "the shared v10 result",
+      "pass": true
+    },
+    {
+      "id": "sale/open/open",
+      "activity": "sale",
+      "conclusion": "open",
+      "boundary": "open",
+      "observed_activity": "blocked-on-open-counts",
+      "observed_conclusion": "open",
+      "axes_match": true,
+      "allowed_difference": false,
+      "open_counts_block_the_activity_test": true,
+      "v10": {
+        "disposition": "blocked",
+        "code": "DEPENDENCY_ABSENT",
+        "guard_result": null,
+        "missing": [
+          "schedule-d.line-1b",
+          "schedule-d.line-8b",
+          "schedule-d.line-16",
+          "schedule-d-required.conclusion",
+          "schedule-d.line-15",
+          "schedule-d.line-2",
+          "schedule-d.line-3",
+          "schedule-d.line-9",
+          "schedule-d.line-10",
+          "f1099b.noncovered-st-count",
+          "f1099b.noncovered-lt-count",
+          "f1099b.code-b-st-count",
+          "f1099b.code-b-lt-count",
+          "f8949.no1099b-st-count",
+          "f8949.no1099b-lt-count"
+        ],
+        "value": null
+      },
+      "v11": {
+        "disposition": "blocked",
+        "code": "DEPENDENCY_ABSENT",
+        "guard_result": null,
+        "missing": [
+          "schedule-d.line-1b",
+          "schedule-d.line-8b",
+          "schedule-d.line-16",
+          "schedule-d-required.conclusion",
+          "schedule-d.line-15",
+          "schedule-d.line-2",
+          "schedule-d.line-3",
+          "schedule-d.line-9",
+          "schedule-d.line-10",
+          "f1099b.noncovered-st-count",
+          "f1099b.noncovered-lt-count",
+          "f1099b.code-b-st-count",
+          "f1099b.code-b-lt-count",
+          "f8949.no1099b-st-count",
+          "f8949.no1099b-lt-count"
+        ],
+        "value": null
+      },
+      "differs": false,
+      "which_is_right": "the shared v10 result",
+      "pass": true
+    },
+    {
+      "id": "sale/open/answered",
+      "activity": "sale",
+      "conclusion": "open",
+      "boundary": "answered",
+      "observed_activity": "sale",
+      "observed_conclusion": "open",
+      "axes_match": true,
+      "allowed_difference": false,
+      "open_counts_block_the_activity_test": false,
+      "v10": {
+        "disposition": "blocked",
+        "code": "DEPENDENCY_ABSENT",
+        "guard_result": null,
+        "missing": [
+          "schedule-d-required.conclusion"
+        ],
+        "value": null
+      },
+      "v11": {
+        "disposition": "blocked",
+        "code": "DEPENDENCY_ABSENT",
+        "guard_result": null,
+        "missing": [
+          "schedule-d-required.conclusion"
+        ],
+        "value": null
+      },
+      "differs": false,
+      "which_is_right": "the shared v10 result",
+      "pass": true
+    },
+    {
+      "id": "amount/no/open",
+      "activity": "amount",
+      "conclusion": "no",
+      "boundary": "open",
+      "observed_activity": "blocked-on-open-counts",
+      "observed_conclusion": "no",
+      "axes_match": true,
+      "allowed_difference": false,
+      "open_counts_block_the_activity_test": true,
+      "v10": {
+        "disposition": "blocked",
+        "code": "DEPENDENCY_ABSENT",
+        "guard_result": null,
+        "missing": [
+          "schedule-d.line-1b",
+          "schedule-d.line-8b",
+          "schedule-d.line-16",
+          "schedule-d.line-15",
+          "schedule-d.line-2",
+          "schedule-d.line-3",
+          "schedule-d.line-9",
+          "schedule-d.line-10",
+          "f1099b.noncovered-st-count",
+          "f1099b.noncovered-lt-count",
+          "f1099b.code-b-st-count",
+          "f1099b.code-b-lt-count",
+          "f8949.no1099b-st-count",
+          "f8949.no1099b-lt-count"
+        ],
+        "value": null
+      },
+      "v11": {
+        "disposition": "blocked",
+        "code": "DEPENDENCY_ABSENT",
+        "guard_result": null,
+        "missing": [
+          "schedule-d.line-1b",
+          "schedule-d.line-8b",
+          "schedule-d.line-16",
+          "schedule-d.line-15",
+          "schedule-d.line-2",
+          "schedule-d.line-3",
+          "schedule-d.line-9",
+          "schedule-d.line-10",
+          "f1099b.noncovered-st-count",
+          "f1099b.noncovered-lt-count",
+          "f1099b.code-b-st-count",
+          "f1099b.code-b-lt-count",
+          "f8949.no1099b-st-count",
+          "f8949.no1099b-lt-count"
+        ],
+        "value": null
+      },
+      "differs": false,
+      "which_is_right": "the shared v10 result",
+      "pass": true
+    },
+    {
+      "id": "amount/no/answered",
+      "activity": "amount",
+      "conclusion": "no",
+      "boundary": "answered",
+      "observed_activity": "amount",
+      "observed_conclusion": "no",
+      "axes_match": true,
+      "allowed_difference": false,
+      "open_counts_block_the_activity_test": false,
+      "v10": {
+        "disposition": "published",
+        "code": null,
+        "guard_result": null,
+        "missing": [],
+        "value": 0
+      },
+      "v11": {
+        "disposition": "published",
+        "code": null,
+        "guard_result": null,
+        "missing": [],
+        "value": 0
+      },
+      "differs": false,
+      "which_is_right": "the shared v10 result",
+      "pass": true
+    },
+    {
+      "id": "amount/required/open",
+      "activity": "amount",
+      "conclusion": "required",
+      "boundary": "open",
+      "observed_activity": "blocked-on-open-counts",
+      "observed_conclusion": "required",
+      "axes_match": true,
+      "allowed_difference": false,
+      "open_counts_block_the_activity_test": true,
+      "v10": {
+        "disposition": "blocked",
+        "code": "DEPENDENCY_ABSENT",
+        "guard_result": null,
+        "missing": [
+          "schedule-d.line-1b",
+          "schedule-d.line-8b",
+          "schedule-d.line-16",
+          "schedule-d.line-15",
+          "schedule-d.line-2",
+          "schedule-d.line-3",
+          "schedule-d.line-9",
+          "schedule-d.line-10",
+          "f1099b.noncovered-st-count",
+          "f1099b.noncovered-lt-count",
+          "f1099b.code-b-st-count",
+          "f1099b.code-b-lt-count",
+          "f8949.no1099b-st-count",
+          "f8949.no1099b-lt-count"
+        ],
+        "value": null
+      },
+      "v11": {
+        "disposition": "blocked",
+        "code": "DEPENDENCY_ABSENT",
+        "guard_result": null,
+        "missing": [
+          "schedule-d.line-1b",
+          "schedule-d.line-8b",
+          "schedule-d.line-16",
+          "schedule-d.line-15",
+          "schedule-d.line-2",
+          "schedule-d.line-3",
+          "schedule-d.line-9",
+          "schedule-d.line-10",
+          "f1099b.noncovered-st-count",
+          "f1099b.noncovered-lt-count",
+          "f1099b.code-b-st-count",
+          "f1099b.code-b-lt-count",
+          "f8949.no1099b-st-count",
+          "f8949.no1099b-lt-count"
+        ],
+        "value": null
+      },
+      "differs": false,
+      "which_is_right": "the shared v10 result",
+      "pass": true
+    },
+    {
+      "id": "amount/required/answered",
+      "activity": "amount",
+      "conclusion": "required",
+      "boundary": "answered",
+      "observed_activity": "amount",
+      "observed_conclusion": "required",
+      "axes_match": true,
+      "allowed_difference": false,
+      "open_counts_block_the_activity_test": false,
+      "v10": {
+        "disposition": "published",
+        "code": null,
+        "guard_result": null,
+        "missing": [],
+        "value": 0
+      },
+      "v11": {
+        "disposition": "published",
+        "code": null,
+        "guard_result": null,
+        "missing": [],
+        "value": 0
+      },
+      "differs": false,
+      "which_is_right": "the shared v10 result",
+      "pass": true
+    },
+    {
+      "id": "amount/open/open",
+      "activity": "amount",
+      "conclusion": "open",
+      "boundary": "open",
+      "observed_activity": "blocked-on-open-counts",
+      "observed_conclusion": "open",
+      "axes_match": true,
+      "allowed_difference": false,
+      "open_counts_block_the_activity_test": true,
+      "v10": {
+        "disposition": "blocked",
+        "code": "DEPENDENCY_ABSENT",
+        "guard_result": null,
+        "missing": [
+          "schedule-d.line-1b",
+          "schedule-d.line-8b",
+          "schedule-d.line-16",
+          "schedule-d-required.conclusion",
+          "schedule-d.line-15",
+          "schedule-d.line-2",
+          "schedule-d.line-3",
+          "schedule-d.line-9",
+          "schedule-d.line-10",
+          "f1099b.noncovered-st-count",
+          "f1099b.noncovered-lt-count",
+          "f1099b.code-b-st-count",
+          "f1099b.code-b-lt-count",
+          "f8949.no1099b-st-count",
+          "f8949.no1099b-lt-count"
+        ],
+        "value": null
+      },
+      "v11": {
+        "disposition": "blocked",
+        "code": "DEPENDENCY_ABSENT",
+        "guard_result": null,
+        "missing": [
+          "schedule-d.line-1b",
+          "schedule-d.line-8b",
+          "schedule-d.line-16",
+          "schedule-d-required.conclusion",
+          "schedule-d.line-15",
+          "schedule-d.line-2",
+          "schedule-d.line-3",
+          "schedule-d.line-9",
+          "schedule-d.line-10",
+          "f1099b.noncovered-st-count",
+          "f1099b.noncovered-lt-count",
+          "f1099b.code-b-st-count",
+          "f1099b.code-b-lt-count",
+          "f8949.no1099b-st-count",
+          "f8949.no1099b-lt-count"
+        ],
+        "value": null
+      },
+      "differs": false,
+      "which_is_right": "the shared v10 result",
+      "pass": true
+    },
+    {
+      "id": "amount/open/answered",
+      "activity": "amount",
+      "conclusion": "open",
+      "boundary": "answered",
+      "observed_activity": "amount",
+      "observed_conclusion": "open",
+      "axes_match": true,
+      "allowed_difference": false,
+      "open_counts_block_the_activity_test": false,
+      "v10": {
+        "disposition": "blocked",
+        "code": "DEPENDENCY_ABSENT",
+        "guard_result": null,
+        "missing": [
+          "schedule-d-required.conclusion"
+        ],
+        "value": null
+      },
+      "v11": {
+        "disposition": "blocked",
+        "code": "DEPENDENCY_ABSENT",
+        "guard_result": null,
+        "missing": [
+          "schedule-d-required.conclusion"
+        ],
+        "value": null
+      },
+      "differs": false,
+      "which_is_right": "the shared v10 result",
+      "pass": true
+    }
+  ],
+  "count": 18,
+  "fail_ids": [],
+  "verdict": "PASS"
+}

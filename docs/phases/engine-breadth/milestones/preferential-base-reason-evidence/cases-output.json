@@ -1,0 +1,288 @@
+{
+  "unanswered_recorded": {
+    "m_2a_only_exc1_only2a_no": {
+      "reasonless": [],
+      "silent_preferential": [],
+      "plan_fields_without_a_question": [],
+      "producer": {
+        "artifact": "selected-preferential-base",
+        "disposition": "blocked",
+        "code": "DEPENDENCY_ABSENT",
+        "guard_result": null,
+        "missing": [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments"
+        ]
+      },
+      "page_questions": [
+        "Did you sell any securities whose basis was not reported to the IRS?",
+        "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+        "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+        "Is it true that you had no transaction or adjustment to report on Form 8949?"
+      ]
+    },
+    "m_empty_exc1_nolosses_no": {
+      "reasonless": [],
+      "silent_preferential": [],
+      "plan_fields_without_a_question": [],
+      "producer": {
+        "artifact": "selected-preferential-base",
+        "disposition": "blocked",
+        "code": "DEPENDENCY_ABSENT",
+        "guard_result": null,
+        "missing": [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments"
+        ]
+      },
+      "page_questions": [
+        "Did you sell any securities whose basis was not reported to the IRS?",
+        "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+        "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+        "Is it true that you had no transaction or adjustment to report on Form 8949?"
+      ]
+    },
+    "m_empty_exc1_only2a_no": {
+      "reasonless": [],
+      "silent_preferential": [],
+      "plan_fields_without_a_question": [],
+      "producer": {
+        "artifact": "selected-preferential-base",
+        "disposition": "blocked",
+        "code": "DEPENDENCY_ABSENT",
+        "guard_result": null,
+        "missing": [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments"
+        ]
+      },
+      "page_questions": [
+        "Did you sell any securities whose basis was not reported to the IRS?",
+        "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+        "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+        "Is it true that you had no transaction or adjustment to report on Form 8949?"
+      ]
+    },
+    "t4_s1_removed": {
+      "reasonless": [],
+      "silent_preferential": [],
+      "plan_fields_without_a_question": [],
+      "producer": {
+        "artifact": "selected-preferential-base",
+        "disposition": "blocked",
+        "code": "DEPENDENCY_ABSENT",
+        "guard_result": null,
+        "missing": [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments"
+        ]
+      },
+      "page_questions": [
+        "Did you sell any securities whose basis was not reported to the IRS?",
+        "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+        "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+        "Is it true that you had no transaction or adjustment to report on Form 8949?"
+      ]
+    }
+  },
+  "answered_recorded": {
+    "m_2a_only_exc1_only2a_no": {
+      "reasonless": [],
+      "lines": {
+        "form1040.line-7a": -3000,
+        "form1040.line-11a": 47000,
+        "form1040.line-15": 31250,
+        "form1040.line-16": 3515,
+        "form1040.line-24": 3515,
+        "form1040.line-33": 4500,
+        "form1040.line-37": 0,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-2": 0,
+        "schedule-d.line-3": -6000,
+        "schedule-d.line-7": -6000,
+        "schedule-d.line-16": -5000,
+        "schedule-d.line-21": 3000
+      },
+      "hand_misses": [],
+      "same_numbers_as_v90": true
+    },
+    "m_empty_exc1_nolosses_no": {
+      "reasonless": [],
+      "lines": {
+        "form1040.line-7a": -3000,
+        "form1040.line-11a": 47000,
+        "form1040.line-15": 31250,
+        "form1040.line-16": 3515,
+        "form1040.line-24": 3515,
+        "form1040.line-33": 4500,
+        "form1040.line-37": 0,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-2": 0,
+        "schedule-d.line-3": -6000,
+        "schedule-d.line-7": -6000,
+        "schedule-d.line-16": -6000,
+        "schedule-d.line-21": 3000
+      },
+      "hand_misses": [],
+      "same_numbers_as_v90": true
+    },
+    "m_empty_exc1_only2a_no": {
+      "reasonless": [],
+      "lines": {
+        "form1040.line-7a": -3000,
+        "form1040.line-11a": 47000,
+        "form1040.line-15": 31250,
+        "form1040.line-16": 3515,
+        "form1040.line-24": 3515,
+        "form1040.line-33": 4500,
+        "form1040.line-37": 0,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-2": 0,
+        "schedule-d.line-3": -6000,
+        "schedule-d.line-7": -6000,
+        "schedule-d.line-16": -6000,
+        "schedule-d.line-21": 3000
+      },
+      "hand_misses": [],
+      "same_numbers_as_v90": true
+    },
+    "t4_s1_removed": {
+      "reasonless": [],
+      "lines": {
+        "form1040.line-7a": -3000,
+        "form1040.line-11a": 47000,
+        "form1040.line-15": 31250,
+        "form1040.line-16": 3515,
+        "form1040.line-24": 3515,
+        "form1040.line-33": 4500,
+        "form1040.line-37": 0,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-2": 0,
+        "schedule-d.line-3": -6000,
+        "schedule-d.line-7": -6000,
+        "schedule-d.line-16": -6000,
+        "schedule-d.line-21": 3000
+      },
+      "hand_misses": [],
+      "same_numbers_as_v90": true
+    }
+  },
+  "track0": {
+    "sd_yes_nothing": {
+      "unanswered_has_question": true,
+      "hand_misses": [],
+      "same_numbers_as_v90": true,
+      "answered_reasonless": []
+    },
+    "sd_8949_no_unadmitted": {
+      "unanswered_has_question": true,
+      "hand_misses": [],
+      "same_numbers_as_v90": true,
+      "answered_reasonless": []
+    },
+    "sd_sale_beside_8949_yes": {
+      "unanswered_has_question": true,
+      "hand_misses": [],
+      "same_numbers_as_v90": true,
+      "answered_reasonless": []
+    },
+    "sd_amounts_disagree": {
+      "unanswered_has_question": true,
+      "hand_misses": [],
+      "same_numbers_as_v90": true,
+      "answered_reasonless": []
+    },
+    "sd_path_b_unanswered": {
+      "unanswered_has_question": true,
+      "hand_misses": [],
+      "same_numbers_as_v90": true,
+      "answered_reasonless": []
+    },
+    "codeb_yes_nothing": {
+      "unanswered_has_question": true,
+      "hand_misses": [],
+      "same_numbers_as_v90": true,
+      "answered_reasonless": []
+    },
+    "codeb_sale_beside_8949_yes": {
+      "unanswered_has_question": true,
+      "hand_misses": [],
+      "same_numbers_as_v90": true,
+      "answered_reasonless": []
+    },
+    "codeb_amounts_disagree": {
+      "unanswered_has_question": true,
+      "hand_misses": [],
+      "same_numbers_as_v90": true,
+      "answered_reasonless": []
+    },
+    "exception1_personal_loss_8949": {
+      "unanswered_has_question": true,
+      "hand_misses": [],
+      "same_numbers_as_v90": true,
+      "answered_reasonless": []
+    },
+    "wash_adjustment_open": {
+      "unanswered_has_question": true,
+      "hand_misses": [],
+      "same_numbers_as_v90": true,
+      "answered_reasonless": []
+    }
+  },
+  "no_schedule_d": {
+    "v90_page_questions": [
+      "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+      "Did you sell any securities whose basis was not reported to the IRS?",
+      "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+    ],
+    "v91_page_questions": [
+      "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+      "Did you sell any securities whose basis was not reported to the IRS?",
+      "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+    ],
+    "new_questions": [],
+    "same_lines": true
+  },
+  "sale_and_schedule_d_required": {
+    "case": "answered/sd_sale_beside_8949_yes",
+    "same_lines": true,
+    "v90_lines": {
+      "form1040.line-7a": -3000,
+      "form1040.line-11a": 47000,
+      "form1040.line-15": 31250,
+      "form1040.line-16": 3515,
+      "form1040.line-24": 3515,
+      "form1040.line-33": 4500,
+      "form1040.line-37": 0,
+      "schedule-d.line-1b": 0,
+      "schedule-d.line-2": 0,
+      "schedule-d.line-3": -6000,
+      "schedule-d.line-7": -6000,
+      "schedule-d.line-16": -6000,
+      "schedule-d.line-21": 3000
+    },
+    "v91_lines": {
+      "form1040.line-7a": -3000,
+      "form1040.line-11a": 47000,
+      "form1040.line-15": 31250,
+      "form1040.line-16": 3515,
+      "form1040.line-24": 3515,
+      "form1040.line-33": 4500,
+      "form1040.line-37": 0,
+      "schedule-d.line-1b": 0,
+      "schedule-d.line-2": 0,
+      "schedule-d.line-3": -6000,
+      "schedule-d.line-7": -6000,
+      "schedule-d.line-16": -6000,
+      "schedule-d.line-21": 3000
+    }
+  }
+}
