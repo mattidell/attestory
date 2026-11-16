@@ -3,7 +3,8 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "preferential-base-reason",
-  "status": "Open. Track 0 closed; Track 1 chartered.",
+  "status": "Closed 2026-11-15. Core v91, registry v89, release v89.",
+  "retrospective": "docs/milestone-retrospectives/2026-11-15-preferential-base-reason.md",
   "scope": [
     "on a return with a Schedule D 'required' conclusion and no sale, every blocked Form 1040 line a filer sees (lines 7a to 15, 24, 33 and 37) names the questions that unblock it, as line 16 does since core v89",
     "answering those questions truthfully reaches the 2025-instruction hand values",
@@ -288,3 +289,28 @@ The strengthened live test passed. Touched tests: 6 passed.
 `python3 tools/envelope_scan.py --range github/main..HEAD`: clean.
 
 **Deviations.** None.
+
+## Review and repair
+
+Fresh-reader review: `docs/reviews/preferential-base-reason/review.md`,
+ready, no blocking finding. From 41 act lists on v90 and v91 it confirmed
+that one state changes (Schedule D required, no sale or amount recorded:
+inapplicable becomes a block naming eight questions), that no line which
+published on v90 changes or blocks, and that Exception 1 "yes" or an
+entered sale reaches the hand values. N1 (note): the test counted the
+questions instead of comparing them, did not compare line maps, and
+named recorded returns "unanswered"; repaired
+(`docs/reviews/preferential-base-reason/charter-repair.md`, "Repair
+result" above). N2 (note): line 16 and four lines that explain through
+it still name four questions; parked. The repair changed tests only, so
+no re-review was chartered.
+
+## Closeout
+
+Closed 2026-11-15. Retrospective:
+`docs/milestone-retrospectives/2026-11-15-preferential-base-reason.md`.
+
+Parked: a line 16 successor naming the eight questions (it changes the
+`exception1_personal_loss_8949` case, so that case must be preserved or
+reopened); Form 1040 lines 25b and 25d, which block with no question
+because the Form 1099-B box 4 amount has none.

@@ -2,7 +2,7 @@
 
 Reviewer, fresh reader. Charter: `docs/reviews/preferential-base-reason/charter-review.md`.
 Object: `github/main` (`2478955196a10f34da16fc15db2d89362568d267`) `..` HEAD
-(`c6a5b25a2a719d35c4632310316a3e75f2318b00`) on
+(the Track 1 head; commit removed at closeout) on
 `milestone/preferential-base-reason-2025`. Orientation block verified at
 that HEAD. Governance not read.
 
