@@ -3,7 +3,8 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "page-alerts",
-  "status": "Open 2026-11-16. P0 done. Track 0 recorded. Matrix PASS and late-member PASS; the two SSA rows are case artifacts.",
+  "status": "Closed 2026-11-16. Core v92, registry v90, release v90.",
+  "retrospective": "docs/milestone-retrospectives/2026-11-16-page-alerts.md",
   "scope": [
     "a saved citation-walk page for a return that computes shows no safe-render alert for Form 1040 line 6c or the Schedule 1 top entry",
     "line 6c is drawn in words a filer can read whether or not the election is made, and the Schedule 1 top entry shows where its amount comes from",
@@ -221,3 +222,15 @@ The line 6c label is "Lump-sum election (not checked)" and the line 6c-checked l
 Core v92, registry v90, and release v90 were rebuilt from the v91 predecessor with `package_successor`. The package file is byte-identical: its checksum covers member pins. Registry v90 changes the checksums of the three edited citizens. Release v90 changes the registry hash. v91 and earlier package bytes are unchanged. Published Form 1099-K content is the personal-item family. A recorded member leaves the closed-empty path, so published content reaches no return that has a Form 1099-K for something else and still draws the zero sentence. The wage return requires the new sentence.
 
 Checks: `pytest` on `tests/test_page_alerts_v92.py` and `tests/test_page_alerts_v92_package.py` — 8 passed in 45.75s. `pytest -m "not live"` — 1811 passed, 8 skipped, 4303 subtests passed in 15.46s. `python3 -m mypy` — Success: no issues found in 503 source files. `python3 tools/envelope_scan.py --range github/main..HEAD` — exit 0, no findings. No replay.
+
+## Closeout
+
+Closed 2026-11-16. Retrospective:
+`docs/milestone-retrospectives/2026-11-16-page-alerts.md`. The repair was
+not re-reviewed: the blocking finding was one sentence, and the foreman
+checked the committed sentence, labels and diff against the review.
+
+Parked: the inactive line 6c section's "Not applicable." value (a page
+change, with one section per line 12d box); citation buttons that show
+`id@version`; line 6b blocked with no reason sentence on a benefit
+statement (reproduced on v91 and v92).
