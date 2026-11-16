@@ -266,3 +266,25 @@ Touched tests: 11 passed. `pytest -m "not live"`: 1806 passed, 8 skipped.
 **Deviations.** The charter asked for two published members. Line 16 v9
 stays out, so the package replaces one member. No engine, schema,
 projection, page, or kernel change.
+
+## Repair result
+
+Review note N1 is repaired in `tests/test_preferential_base_reason_v91.py`.
+N2 stays parked: line 16 v8 remains the published rule. No file under
+`packages/` changed.
+
+Every authority cell requires the v90 and v91 presentation line maps to be
+equal, in addition to the producer signature. On each recorded honest
+return the 23 fields' question sentences are the eight texts of the
+question citizens core v91 adopts, and the v90 and v91 line maps are equal.
+A case whose name says one of the eight facts is unanswered does not assert
+that fact. The four recorded lists are named `honest`, because they already
+assert seven of the eight facts. One coordinator run still covers each
+distinct act list.
+
+The strengthened live test passed. Touched tests: 6 passed.
+`pytest -m "not live"`: 1806 passed, 8 skipped.
+`python3 -m mypy`: no issues in 501 source files.
+`python3 tools/envelope_scan.py --range github/main..HEAD`: clean.
+
+**Deviations.** None.

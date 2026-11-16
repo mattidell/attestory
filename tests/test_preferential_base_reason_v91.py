@@ -4,8 +4,9 @@ Measured reason: each case uses live_coordinate_run and the presentation
 projection, so the module is outside the 3.0 second fast-lane budget.
 Authority, matrix, late, recorded, and blocked-names-question claims share
 one result for each distinct act list on each core. Hand values are the
-2025-instruction literals in Track 0. A case whose id says unanswered does
-not receive the sale or the Path B answer from a shared helper.
+2025-instruction literals in Track 0. A case whose name says one of the
+eight facts is unanswered does not assert that fact. The recorded returns
+are the honest lists.
 """
 
 from __future__ import annotations
@@ -32,7 +33,6 @@ BNQ = REPO / "docs/phases/engine-breadth/milestones/blocked-names-question-evide
 CONTENT = REPO / "packages/content/tax/2025"
 RELEASES = REPO / "packages/sample_data/student_loan_worksheet_integration/publication_surface/releases"
 OWNER = "tests.test_preferential_base_reason_v91"
-PATH_B = "tax.us.2025.schedule-d-boundary.no-other-form8949-adjustments"
 EIGHT = [
     "f1099b.noncovered-sold.source-closure",
     "f8949.no1099b-sold.source-closure",
@@ -105,22 +105,53 @@ def _asserted_fact_ids(acts: list[dict[str, Any]]) -> list[str]:
     return found
 
 
-def _leave_unanswered(case_id: str, acts: list[dict[str, Any]]) -> None:
-    """A case named unanswered keeps that fact out of its assertions."""
+def _claimed_absent(case_id: str) -> list[str]:
+    """The eight facts this case name says are unanswered."""
     if "unanswered" not in case_id:
-        return
+        return []
+    claimed: list[str] = []
+    qualified = {
+        "path_b_unanswered": "schedule-d-boundary.no-other-form8949-adjustments",
+        "pathb_unanswered": "schedule-d-boundary.no-other-form8949-adjustments",
+        "form8949_unanswered": "schedule-d-boundary.no-form8949-sources",
+        "q1_unanswered": "f1099b.noncovered-sold.source-closure",
+        "q2_unanswered": "f8949.no1099b-sold.source-closure",
+        "noncovered_unanswered": "f1099b.noncovered-sold.source-closure",
+        "no1099b_unanswered": "f8949.no1099b-sold.source-closure",
+        "only2a_unanswered": "exception1.only-box2a-capital-gains",
+        "nolosses_unanswered": "exception1.no-capital-losses",
+        "qof_unanswered": "exception1.no-qof-deferral",
+        "boxes_unanswered": "exception1.no-boxes-2b-2c-2d",
+    }
+    folded = case_id.replace("-", "_")
+    for token, fact in qualified.items():
+        if token in folded and fact not in claimed:
+            claimed.append(fact)
+    # A bare unanswered segment is the sale boundary: the four sale questions.
+    if "unanswered" in case_id.split("/"):
+        for fact in EIGHT[:4]:
+            if fact not in claimed:
+                claimed.append(fact)
+    if not claimed:
+        return list(EIGHT)
+    return claimed
+
+
+def _leave_unanswered(case_id: str, acts: list[dict[str, Any]]) -> None:
+    """A case whose name says a fact is unanswered does not assert that fact."""
+    asserted = _asserted_fact_ids(acts)
+    for fact in _claimed_absent(case_id):
+        prefix = "tax.us.2025." + fact + "|"
+        if any(fact_id.startswith(prefix) for fact_id in asserted):
+            raise AssertionError(case_id + " asserts " + fact)
     if case_id.endswith("/unanswered") and "pbr-sale" in json.dumps(acts):
         raise AssertionError(case_id + " includes the shared sale answer")
-    if case_id == "bnq/sd_path_b_unanswered":
-        prefix = PATH_B + "|"
-        if any(fact_id.startswith(prefix) for fact_id in _asserted_fact_ids(acts)):
-            raise AssertionError(case_id + " asserts Path B")
 
 
 def _matrix(track: Any) -> list[tuple[str, list[dict[str, Any]]]]:
     lists: list[tuple[str, list[dict[str, Any]]]] = []
     for case_id, acts in track._recorded():
-        lists.append((case_id + "/unanswered", acts))
+        lists.append((case_id + "/honest", acts))
         lists.append((case_id + "/answered", track._age(track._sale_answer(acts))))
     for name, fact in (
         ("exc1-only2a-no", "exception1.only-box2a-capital-gains"),
@@ -220,6 +251,34 @@ def _run_shard(work: list[dict[str, Any]]) -> list[dict[str, Any]]:
         evidence_loader.finish_all()
 
 
+def _adopted_question_texts() -> list[str]:
+    """The question sentences core v91 adopts for the eight named facts."""
+    package = json.loads((CONTENT / "package.core-calculations.v91.json").read_text(encoding="utf-8"))
+    members = {(row["id"], row["version"]) for row in package["members"]}
+    texts: list[str] = []
+    for short in EIGHT:
+        chosen = ""
+        for path in sorted(CONTENT.glob("input-question*.json")):
+            body = json.loads(path.read_text(encoding="utf-8"))
+            fact = str((body.get("fact_type") or {}).get("id", ""))
+            if fact != "tax.us.2025." + short:
+                continue
+            if (body.get("id"), body.get("version")) not in members:
+                continue
+            chosen = str(body.get("question") or "")
+            break
+        if not chosen:
+            raise AssertionError("no adopted question for " + short)
+        texts.append(chosen)
+    return texts
+
+
+def _before_answer(stem: str) -> str:
+    if stem.startswith("recorded/"):
+        return stem + "/honest"
+    return stem + "/unanswered"
+
+
 def _blocked_map(row: dict[str, Any]) -> dict[str, dict[str, Any]]:
     return {field["field"]: field for field in row.get("blocked") or []}
 
@@ -246,6 +305,8 @@ def _failures(runs: dict[str, dict[str, Any]], lists: list[tuple[str, list[dict[
             for boundary in track.BOUNDARIES:
                 case_id = f"authority/{activity}/{conclusion}/{boundary}"
                 v90, v91 = pair(case_id)
+                if v90.get("lines") != v91.get("lines"):
+                    failures.append(f"{case_id} line maps differ")
                 if v90.get("outcome") != "success" or v91.get("outcome") != "success":
                     failures.append(f"{case_id} outcome {v90.get('outcome')} {v91.get('outcome')}")
                     continue
@@ -289,7 +350,7 @@ def _failures(runs: dict[str, dict[str, Any]], lists: list[tuple[str, list[dict[
     ]
     for case_id in matrix_ids:
         stem = case_id[: -len("/answered")]
-        unanswered_v91 = pair(stem + "/unanswered")[1]
+        unanswered_v91 = pair(_before_answer(stem))[1]
         v90, v91 = pair(case_id)
         hand = RECORDED_HAND if stem.startswith("recorded/") else hands[stem]
         misses = track.hand_misses(v91, hand)
@@ -330,7 +391,9 @@ def _failures(runs: dict[str, dict[str, Any]], lists: list[tuple[str, list[dict[
         "m_empty_exc1_only2a_no",
         "t4_s1_removed",
     ):
-        v90, v91 = pair("recorded/" + name + "/unanswered")
+        v90, v91 = pair("recorded/" + name + "/honest")
+        if v90.get("lines") != v91.get("lines"):
+            failures.append(f"{name} line maps differ")
         if v91.get("outcome") != "success":
             failures.append(f"{name} outcome {v91.get('outcome')}")
             continue
@@ -339,12 +402,15 @@ def _failures(runs: dict[str, dict[str, Any]], lists: list[tuple[str, list[dict[
             failures.append(f"{name} silent {v91.get('silent')}")
         if v91.get("duplicate_questions"):
             failures.append(f"{name} duplicate {v91.get('duplicate_questions')}")
+        adopted = _adopted_question_texts()
         for field in FIELDS:
             row = blocked_fields.get(field)
             if row is None:
                 failures.append(f"{name} {field} is not blocked")
-            elif row.get("questions") is None or len(row.get("questions") or []) != 8:
-                failures.append(f"{name} {field} questions {len(row.get('questions') or [])}")
+                continue
+            got = [str(sentence) for sentence in row.get("questions") or []]
+            if sorted(got) != sorted(adopted):
+                failures.append(f"{name} {field} questions {got}")
         for field, value in v90.get("lines", {}).items():
             if isinstance(value, (int, float)) and not isinstance(value, bool):
                 if field in blocked_fields:
