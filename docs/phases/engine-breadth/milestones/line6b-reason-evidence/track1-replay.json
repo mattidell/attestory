@@ -5,7 +5,7 @@
   "workers": 9,
   "distinct_lists": 775,
   "coordinate_attempts": 1550,
-  "wall_time_s": 1371.583,
+  "wall_time_s": 1374.989,
   "counts": {
     "identical": 775
   },
@@ -793,5 +793,14 @@
     "v85/reuse/reuse_unemp_alone": "identical",
     "v85/surface/surface_blocked_sale_box4": "identical"
   },
-  "part_file_retained": true
+  "part_file_retained": true,
+  "comparison": "selected-pin parity",
+  "limitations": [
+    "identical means equality of the selected tests/test_f1099b_backup_withholding_v83.py pin, not a complete page projection",
+    "The pin omits some field dispositions and descriptions; computed_zero and published_value at equal shown zero can compare equal",
+    "Inherited question extraction uses sentence.endswith('?'); blocked reason sets are also pinned, but this is not complete sentence preservation evidence",
+    "84 matching errors are parity outcomes, not successful completed returns"
+  ],
+  "richer_semantic_evidence": "track1-neighbours-matrix.json compares every saved field disposition, value, codes, missing names, terminal roots and question sentences, plus ledger rows; track1-neighbours-drawn.json checks drawn sentences.",
+  "content_state": "Decision 13 territorial question repair"
 }

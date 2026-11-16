@@ -11,11 +11,12 @@
     "release": "v91"
   },
   "package_checksum": "fe0decee88052daa1bb92eae9f9c2a7630edcd5ff8611729ba51907099406cde",
-  "registry_sha256": "a08f087d7d3e5dd33d2eaef24ce080c9f8fc3126bc5d2030f9d4fd4be24c9241",
-  "release_sha256": "8dc26bc76fccefa001fde5a432523e95706997d0a4f768bb7ca5c920dd844251",
+  "registry_sha256": "5aacdf177a495cd0276e647556d6ff5fae364bd9350f381f217d5830329591d6",
+  "release_sha256": "9dddaa3e2b79351a8de779d2dcb73fb51e43b3a50bc70dd647f3b70290e42c62",
   "inherited_inconsistencies": [],
   "members_and_entrypoints_added": 10,
   "rule_changes": 0,
   "binding_changes": 0,
-  "base_delta": "v92 repairs line 6c rendering and Schedule 1 top-entry citation; the worksheet, ten fact declarations and input bindings assumed by P0 are unchanged."
+  "base_delta": "v92 repairs line 6c rendering and Schedule 1 top-entry citation; the worksheet, ten fact declarations and input bindings assumed by P0 are unchanged.",
+  "question_wording_repair": "Decision 13: territorial v1 now asks about any income of a bona fide resident, including the spouse on joint returns; the other nine P0 questions are unchanged."
 }

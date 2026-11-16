@@ -1,4 +1,7 @@
-"""Foreground published-v92/v93 replay, with resumable external part file.
+"""Foreground published-v92/v93 selected-pin replay parity.
+
+The inherited pin is not a complete semantic page projection; its limits
+and the richer neighbour comparison are retained beside each classification.
 
 Run: python3 <this-file> <work-directory-outside-the-repository>
 """
@@ -16,6 +19,8 @@ import time
 
 HERE = Path(__file__).resolve().parent
 REPO = HERE.parents[4]
+PIN_LIMITATIONS = ['identical means equality of the selected tests/test_f1099b_backup_withholding_v83.py pin, not a complete page projection', 'The pin omits some field dispositions and descriptions; computed_zero and published_value at equal shown zero can compare equal', "Inherited question extraction uses sentence.endswith('?'); blocked reason sets are also pinned, but this is not complete sentence preservation evidence", '84 matching errors are parity outcomes, not successful completed returns']
+NEIGHBOUR_EVIDENCE = 'track1-neighbours-matrix.json compares every saved field disposition, value, codes, missing names, terminal roots and question sentences, plus ledger rows; track1-neighbours-drawn.json checks drawn sentences.'
 
 
 def sentences(pin):
@@ -62,7 +67,9 @@ def main():
         "successful_coordinate_runs_per_core": errors.get(None, 0),
         "same_errors_per_core": {k: v for k, v in errors.items() if k is not None},
         "changes": changes, "classes": {key: row["class"] for key, row in sorted(results.items())},
-        "part_file_retained": True}
+        "part_file_retained": True, "comparison": "selected-pin parity",
+        "limitations": PIN_LIMITATIONS, "richer_semantic_evidence": NEIGHBOUR_EVIDENCE,
+        "content_state": "Decision 13 territorial question repair"}
     text = json.dumps(body, indent=2) + "\n"
     assert not re.search(r"/(?:Users|private|tmp|var)/", text)
     (HERE / "track1-replay.json").write_text(text)

@@ -1,10 +1,11 @@
-"""Published v93 adds precisely the ten unchanged prototype questions.
+"""Published v93 adds ten prototype questions with one named wording repair.
 
 These static checks cover immutable prior publications, additive adoption,
 the registry/release integrity chain and production loader declarations.
 """
 from __future__ import annotations
 
+import copy
 import hashlib
 import json
 from pathlib import Path
@@ -24,6 +25,8 @@ RELEASES = REPO / "packages/sample_data/student_loan_worksheet_integration/publi
 EVIDENCE = REPO / "docs/phases/engine-breadth/milestones/line6b-reason-evidence"
 CORE = "tax.us.2025.package.core-calculations"
 STEM = "demo.release.sli-worksheet-integration.2025"
+TERRITORIAL_NAME = "input-question.ss-benefits-scope-no-puerto-rico-or-samoa-income.v1.json"
+TERRITORIAL_QUESTION = "For 2025, were you (or your spouse, if filing jointly) a bona fide resident of Puerto Rico or American Samoa who had any income?"
 
 
 def _read(path: Path) -> dict[str, Any]:
@@ -32,7 +35,12 @@ def _read(path: Path) -> dict[str, Any]:
 
 def _artifacts() -> list[tuple[str, dict[str, Any]]]:
     prototype = evidence_loader.load(EVIDENCE / "prototype.py", "l6b_v93_package_prototype")
-    return cast(list[tuple[str, dict[str, Any]]], prototype.artifacts())
+    artifacts = copy.deepcopy(cast(list[tuple[str, dict[str, Any]]], prototype.artifacts()))
+    for name, body in artifacts:
+        if name == TERRITORIAL_NAME:
+            assert body["question"] == "Were you a bona fide resident of Puerto Rico or American Samoa with income from there in 2025?"
+            body["question"] = TERRITORIAL_QUESTION
+    return artifacts
 
 
 def _index(rows: list[dict[str, Any]]) -> dict[tuple[str, str], dict[str, Any]]:
@@ -41,7 +49,7 @@ def _index(rows: list[dict[str, Any]]) -> dict[tuple[str, str], dict[str, Any]]:
     return result
 
 
-def test_ten_question_files_are_byte_identical_to_p0() -> None:
+def test_ten_question_files_match_p0_except_named_territorial_repair() -> None:
     artifacts = _artifacts()
     assert len(artifacts) == 10
     assert len({body["fact_type"]["id"] for _, body in artifacts}) == 10

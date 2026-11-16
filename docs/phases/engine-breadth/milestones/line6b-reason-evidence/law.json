@@ -52,9 +52,9 @@
     },
     {
       "fact": "tax.us.2025.ss-benefits-scope.no-puerto-rico-or-samoa-income",
-      "question": "Were you a bona fide resident of Puerto Rico or American Samoa with income from there in 2025?",
+      "question": "For 2025, were you (or your spouse, if filing jointly) a bona fide resident of Puerto Rico or American Samoa who had any income?",
       "instruction_location": "31, Lines 6a and 6b, Exception, third bullet; residency footnote at end of Where Do You File",
-      "assessment": "The Social Security exception names income excluded from Puerto Rico and Form 4563; the residency footnote names American Samoa and points to Publication 570. The exact bona-fide-resident/Puerto-Rico-or-American-Samoa boundary is already declared by ss-benefits-scope.bundle.json. The question names that existing product boundary; the local 1040 passage alone does not establish a new legal rule about all such income."
+      "assessment": "The local Social Security exception names excluded Puerto Rico-source income and Form 4563, and the Where Do You File footnote names American Samoa and Pub. 570. These passages do not establish an exclusion of all resident income. The published fact deliberately bounds the product more broadly: no income of bona fide residents of Puerto Rico or American Samoa. Decision 13 removes the former source restriction and includes a spouse on joint returns. A resident with only mainland income answers yes, so the absence fact is no and the existing worksheet guard remains inapplicable; no new tax eligibility claim is made."
     },
     {
       "fact": "tax.us.2025.schedule1-adjustments-scope.no-line24z-writein",

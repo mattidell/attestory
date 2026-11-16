@@ -1,9 +1,10 @@
 """Published v93 explains line 6b through real runs, projection and saved pages.
 
-The fourteen required act lists and the distinct joint-filing browser list
+The fourteen required act lists, two mainland-income counterexamples,
+and the distinct joint-filing browser list
 each run once. These tests exceed the fast-lane budget: real coordinate
-runs took 6.67-21.12 seconds in the first targeted run; the Chrome test
-took 7.21 seconds. Like the v92 page-alerts precedent, the whole module
+runs took 6.77-23.08 seconds in the repair targeted run; the Chrome test
+took 22.94 seconds. Like the v92 page-alerts precedent, the whole module
 is explicitly live.
 
 Decision 8: a spoken no to a positive question about an excluded circumstance
@@ -36,6 +37,9 @@ EVIDENCE = MILESTONES / "line6b-reason-evidence"
 P = "tax.us.2025."
 SCOPE = "ss-benefits-scope.no-form-2555"
 LIVING = "mfs-lived-apart-all-year"
+TERRITORIAL = "ss-benefits-scope.no-puerto-rico-or-samoa-income"
+TERRITORIAL_QUESTION = "For 2025, were you (or your spouse, if filing jointly) a bona fide resident of Puerto Rico or American Samoa who had any income?"
+COUNTEREXAMPLES = ("resident-mainland-income", "joint-spouse-resident-mainland-income")
 FACTS = (
     "ss-benefits-scope.no-unsupported-line1-entries",
     "ss-benefits-scope.no-pension-annuity-line5b",
@@ -48,7 +52,7 @@ FACTS = (
     "schedule1-adjustments-scope.no-line24z-writein",
     LIVING,
 )
-CASES = (*FACTS, "scope-pair", "mfs-pair", "fully-answered", "mfs-no-benefits")
+CASES = (*FACTS, "scope-pair", "mfs-pair", "fully-answered", "mfs-no-benefits", *COUNTEREXAMPLES)
 Acts = list[dict[str, Any]]
 
 
@@ -126,10 +130,12 @@ def _blocked(section: dict[str, Any], wanted: set[str]) -> None:
 @pytest.mark.parametrize("case", CASES)
 def test_required_v93_cases_once(case: str, tmp_path: Path) -> None:
     helper = _evidence()
-    questions = cast(dict[str, str], helper.proto.QUESTIONS)
+    questions = dict(cast(dict[str, str], helper.proto.QUESTIONS))
+    questions[TERRITORIAL] = TERRITORIAL_QUESTION
     assert set(questions) == set(FACTS)
     separate = case in {LIVING, "mfs-pair", "mfs-no-benefits"}
-    status = "married_filing_separately" if separate else "single"
+    status = ("married_filing_jointly" if case == "joint-spouse-resident-mainland-income" else
+              "married_filing_separately" if separate else "single")
     if case == "mfs-no-benefits":
         acts = cast(Acts, helper.current_answers(helper.probe.base(status, benefits=False), status))
         missing_slugs = {LIVING}
@@ -141,6 +147,15 @@ def test_required_v93_cases_once(case: str, tmp_path: Path) -> None:
     # All exclusions answered no, living-apart answered yes, by Decision 8.
     for slug in FACTS:
         assert [f["value"] for f in _facts(acts, P + slug)] == ["yes"]
+    if case in COUNTEREXAMPLES:
+        # Synthetic resident (or spouse on a joint return), only mainland
+        # income: the truthful answer to any income is yes. Decision 8
+        # records no for the absence fact, unlike the former source qualifier.
+        recorded_value = helper.predicate_value(P + TERRITORIAL, "yes")
+        assert recorded_value == "no"
+        acts = cast(Acts, helper.probe.harness().say(
+            acts, P + TERRITORIAL, recorded_value, "l6b.repair." + case))
+        assert [f["value"] for f in _facts(acts, P + TERRITORIAL)] == ["no"]
     missing = {P + slug for slug in missing_slugs}
     # The omission is local and visible; no shared helper removes these facts.
     acts = [a for a in acts if not any(
@@ -150,7 +165,11 @@ def test_required_v93_cases_once(case: str, tmp_path: Path) -> None:
     _absent(acts, missing)
     model, _page = _run(helper, acts, missing, case.replace(".", "-"), tmp_path)
     line6b = _field(model, "form1040.line-6b")
-    if case == "fully-answered":
+    if case in COUNTEREXAMPLES:
+        assert line6b["resolved"]["disposition"] == "guard_inapplicable"
+        assert line6b["resolved"].get("value") is None
+        assert _questions(line6b) == []
+    elif case == "fully-answered":
         # 2025 Social Security Benefits Worksheet, printed p32; local source
         # lines 2072-2110 in the audited law.json extract. Box 5 = 12,000,
         # wages = 50,000, tax-exempt interest and adjustments = zero.

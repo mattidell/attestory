@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "line6b-reason",
-  "status": "Open 2026-11-16. Track 1 chartered.",
+  "status": "Open 2026-11-16. Repair chartered.",
   "scope": [
     "a return with a Form SSA-1099 benefit statement whose Form 1040 line 6b blocks shows the filer why, and which question to answer, on the page",
     "every recorded return computes the same numbers"
@@ -226,8 +226,11 @@ Track 1 is chartered (`docs/reviews/line6b-reason/charter-track1.md`).
 
 ## Track 1 result
 
-Track 1 is complete on rebased source `1680a36d`; items 1-5 pass. Ten new
-input-question citizens are byte-identical to P0. Core v93, registry v91
+The initial Track 1 validation on rebased source `1680a36d` passed items
+1-5. The fresh review below identified a wording defect; the repair result
+below records the current candidate and superseding measurements. Ten new
+input-question citizens were initially byte-identical to P0; Decision 13
+below corrects one territorial question. Core v93, registry v91
 and release v91 were generated with `python3 -m tools.package_successor`
 from published v92, with the ten added as members and entrypoints. V93's
 loader declarations copy v92 unchanged; the covered-flag enumeration now
@@ -237,8 +240,8 @@ The v92 base repairs line 6c rendering and Schedule 1 top-entry citation.
 It does not change the ten fact declarations, the v4 SSA worksheet or input
 bindings assumed by the prototype. The former parked alerts are therefore
 resolved on the build base; no prototype assumption needed a repair.
-Item 3 passes on the published pair. A fresh 775-list replay is entirely
-identical (1,371.583 seconds, nine workers), including 691 successful runs
+Item 3 records selected-pin parity on the published pair. All 775 replay
+pins compare identical (1,371.583 seconds, nine workers), including 691 successful runs
 and 84 matching errors per core. The interrupted earlier part was discarded
 as evidence. Track 0's 253 neighbours are 160 identical, 90 questions-only
 and three unchanged admission refusals (424.987 seconds, nine workers).
@@ -270,5 +273,97 @@ No scope deviations, recording changes or edits to kernel, derivation,
 schemas or presentation were needed. No push was made. The build is ready
 for the chartered fresh review, not milestone closeout.
 
-The committed Track 1 replay and neighbour JSON retain classifications and
-field-level certificates; external part files retain the complete raw runs.
+The committed Track 1 replay records **selected-pin parity**, not complete
+page parity. Its inherited question extraction uses `sentence.endswith("?")`;
+the selected pin omits some field descriptions and dispositions (including
+a zero amount's computed-zero versus published-value distinction).
+The 84 equal errors are not completed returns. For question sentences and
+field dispositions, use the richer track1-neighbours-matrix.json field and
+ledger comparison and track1-neighbours-drawn.json Chrome observations.
+These instruments retain separate classifications and field-level
+certificates; external part files retain their raw results.
+
+## Review and repair
+
+Fresh Codex review (`docs/reviews/line6b-reason/review.md`): not ready.
+
+13. **L6B-R1 (blocking) is repaired in words.** The territorial question
+    adds "with income from there"; the fact it pins covers any income of
+    a bona fide resident of Puerto Rico or American Samoa. The question
+    is reworded to the fact's whole class (and, on a joint return, the
+    spouse), with no fact or rule change. The citizen is new on this
+    branch and not on main, so its v1 bytes, core v93, registry v91 and
+    release v91 are rebuilt in place before merge; nothing published on
+    main changes.
+14. **L6B-R2 (should-fix) is repaired.** Source excerpts are sliced on
+    physical newlines and every catalog entry is checked to contain its
+    passage.
+15. **L6B-R3 (note) is accepted.** The plan and evidence call the replay
+    result selected-pin parity and point to the neighbour comparison for
+    sentences and dispositions.
+
+The repair is chartered (`docs/reviews/line6b-reason/charter-repair.md`).
+
+
+**Repair result.** All four repair items are complete. Item 1 repairs L6B-R1. The question now asks:
+"For 2025, were you (or your spouse, if filing jointly) a bona fide resident
+of Puerto Rico or American Samoa who had any income?"
+The fact title (ss-benefits-scope.bundle.json:201) excludes income **of**
+those residents, not only income sourced there. Any income therefore includes
+the reviewer's mainland-only income, and the joint-return subject includes
+the spouse. Under Decision 8, a truthful yes records no for the absence fact,
+so the existing worksheet guard remains inapplicable. A truthful no records
+yes. The local 2025 instruction extract, physical lines 1981-1985 (printed
+p31), instead names excluded Puerto Rico-source income and Form 4563; the
+Where Do You File footnote at line 8982 names American Samoa and Pub. 570.
+Those passages do not independently establish this broader product boundary.
+The new words truthfully describe the already-declared bounded scope without
+claiming a new tax rule. No fact or computation changed.
+
+Core v93, registry v91 and release v91 were rebuilt from published v92 with
+package_successor. Only this branch-new question differs from P0, explicitly
+named in the package identity check. Two meaning/live cases cover mainland-only
+income of the taxpayer and, on a joint return, the spouse. Their real-run
+results are included in item 4 below.
+
+Item 2 repairs L6B-R2. Both question catalogs now slice the unchanged local
+extract with `split("\n")`, preserving form feeds within their physical
+lines. All ten primary excerpts assert their claimed passage fragments;
+the territorial entry separately checks the line-8982 residency footnote.
+Catalog-only regeneration passed all checks for both catalogs.
+
+
+Item 3 repairs L6B-R3. The Track 1 result, replay script and classification
+now explicitly call `identical` selected-pin parity, state the omitted
+properties and punctuation-based extraction, distinguish matching errors
+from successful runs, and point to the richer neighbour field/ledger and
+Chrome evidence for sentences and dispositions. Item 4 regenerated the
+classification against the rebuilt candidate; these limits remain beside it.
+
+
+Item 4 reran the changed surfaces. The live/package modules pass all 22 tests
+(17 live, five fast) in 31.22 seconds, with unrelated page-alerts evidence
+first on PYTHONPATH. Live calls measured 6.77-23.08 seconds, including the
+22.94-second Chrome test; the slowest fast check was 0.12 seconds.
+The taxpayer and joint-return spouse mainland-only-income cases both answer
+yes, record the absence fact as no, and produce guard-inapplicable line 6b
+on v92 and repaired v93. The isolated omission displays the new words.
+
+The expanded 255-neighbour comparison (510 attempts, nine workers,
+429.646 seconds) is 162 identical, 90 questions-only and three unchanged
+admission refusals. All 22 meaning checks and 55 isolated/pair checks pass;
+there are zero value, disposition, required-answer, code, ledger or placement
+changes. Two fresh Chrome draws cover all 29 gaining fields with zero
+safe-render alerts. The complete fresh replay is 775 identical **selected
+pins** (1,374.989 seconds, nine workers), including 691 successful runs and
+84 matching errors per core. The external part is complete and its package
+and release fingerprints match the repaired candidate. Sentence and
+disposition preservation evidence remains the richer neighbour comparison,
+not an extrapolation from the replay pin.
+
+The fast lane passes with 1,816 passed and eight skipped in 15.36 seconds;
+mypy passes all 505 source files; `envelope_scan --range github/main..HEAD`
+passes. There are no scope deviations, recording changes, forbidden-path
+edits, governance reads, agents or pushes. Each repair item is committed
+under the lock. CI `verify` remains the full-suite gate; this repair is ready
+for the foreman's fresh review rather than a claim of publication readiness.

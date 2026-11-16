@@ -6,6 +6,9 @@
       "fact": "tax.us.2025.mfs-lived-apart-all-year",
       "spoken_answer": "no",
       "fact_value": "no",
+      "question": null,
+      "scenario": null,
+      "why_truthful": null,
       "line6b": {
         "baseline": {
           "section_id": "line-6b",
@@ -35,6 +38,9 @@
       "fact": "tax.us.2025.mfs-lived-apart-all-year",
       "spoken_answer": "yes",
       "fact_value": "yes",
+      "question": null,
+      "scenario": null,
+      "why_truthful": null,
       "line6b": {
         "baseline": {
           "section_id": "line-6b",
@@ -64,6 +70,9 @@
       "fact": "tax.us.2025.schedule1-adjustments-scope.no-line24z-writein",
       "spoken_answer": "no",
       "fact_value": "yes",
+      "question": null,
+      "scenario": null,
+      "why_truthful": null,
       "line6b": {
         "baseline": {
           "section_id": "line-6b",
@@ -93,6 +102,9 @@
       "fact": "tax.us.2025.schedule1-adjustments-scope.no-line24z-writein",
       "spoken_answer": "yes",
       "fact_value": "no",
+      "question": null,
+      "scenario": null,
+      "why_truthful": null,
       "line6b": {
         "baseline": {
           "section_id": "line-6b",
@@ -122,6 +134,9 @@
       "fact": "tax.us.2025.ss-benefits-scope.no-excluded-adoption-benefits",
       "spoken_answer": "no",
       "fact_value": "yes",
+      "question": null,
+      "scenario": null,
+      "why_truthful": null,
       "line6b": {
         "baseline": {
           "section_id": "line-6b",
@@ -151,6 +166,9 @@
       "fact": "tax.us.2025.ss-benefits-scope.no-excluded-adoption-benefits",
       "spoken_answer": "yes",
       "fact_value": "no",
+      "question": null,
+      "scenario": null,
+      "why_truthful": null,
       "line6b": {
         "baseline": {
           "section_id": "line-6b",
@@ -180,6 +198,9 @@
       "fact": "tax.us.2025.ss-benefits-scope.no-form-2555",
       "spoken_answer": "no",
       "fact_value": "yes",
+      "question": null,
+      "scenario": null,
+      "why_truthful": null,
       "line6b": {
         "baseline": {
           "section_id": "line-6b",
@@ -209,6 +230,9 @@
       "fact": "tax.us.2025.ss-benefits-scope.no-form-2555",
       "spoken_answer": "yes",
       "fact_value": "no",
+      "question": null,
+      "scenario": null,
+      "why_truthful": null,
       "line6b": {
         "baseline": {
           "section_id": "line-6b",
@@ -238,6 +262,9 @@
       "fact": "tax.us.2025.ss-benefits-scope.no-form-4563",
       "spoken_answer": "no",
       "fact_value": "yes",
+      "question": null,
+      "scenario": null,
+      "why_truthful": null,
       "line6b": {
         "baseline": {
           "section_id": "line-6b",
@@ -267,6 +294,9 @@
       "fact": "tax.us.2025.ss-benefits-scope.no-form-4563",
       "spoken_answer": "yes",
       "fact_value": "no",
+      "question": null,
+      "scenario": null,
+      "why_truthful": null,
       "line6b": {
         "baseline": {
           "section_id": "line-6b",
@@ -296,6 +326,9 @@
       "fact": "tax.us.2025.ss-benefits-scope.no-form-8815",
       "spoken_answer": "no",
       "fact_value": "yes",
+      "question": null,
+      "scenario": null,
+      "why_truthful": null,
       "line6b": {
         "baseline": {
           "section_id": "line-6b",
@@ -325,6 +358,9 @@
       "fact": "tax.us.2025.ss-benefits-scope.no-form-8815",
       "spoken_answer": "yes",
       "fact_value": "no",
+      "question": null,
+      "scenario": null,
+      "why_truthful": null,
       "line6b": {
         "baseline": {
           "section_id": "line-6b",
@@ -354,6 +390,9 @@
       "fact": "tax.us.2025.ss-benefits-scope.no-pension-annuity-line5b",
       "spoken_answer": "no",
       "fact_value": "yes",
+      "question": null,
+      "scenario": null,
+      "why_truthful": null,
       "line6b": {
         "baseline": {
           "section_id": "line-6b",
@@ -383,6 +422,9 @@
       "fact": "tax.us.2025.ss-benefits-scope.no-pension-annuity-line5b",
       "spoken_answer": "yes",
       "fact_value": "no",
+      "question": null,
+      "scenario": null,
+      "why_truthful": null,
       "line6b": {
         "baseline": {
           "section_id": "line-6b",
@@ -412,6 +454,9 @@
       "fact": "tax.us.2025.ss-benefits-scope.no-puerto-rico-or-samoa-income",
       "spoken_answer": "no",
       "fact_value": "yes",
+      "question": null,
+      "scenario": null,
+      "why_truthful": null,
       "line6b": {
         "baseline": {
           "section_id": "line-6b",
@@ -441,6 +486,9 @@
       "fact": "tax.us.2025.ss-benefits-scope.no-puerto-rico-or-samoa-income",
       "spoken_answer": "yes",
       "fact_value": "no",
+      "question": null,
+      "scenario": null,
+      "why_truthful": null,
       "line6b": {
         "baseline": {
           "section_id": "line-6b",
@@ -470,6 +518,9 @@
       "fact": "tax.us.2025.ss-benefits-scope.no-traditional-ira-deduction",
       "spoken_answer": "no",
       "fact_value": "yes",
+      "question": null,
+      "scenario": null,
+      "why_truthful": null,
       "line6b": {
         "baseline": {
           "section_id": "line-6b",
@@ -499,6 +550,9 @@
       "fact": "tax.us.2025.ss-benefits-scope.no-traditional-ira-deduction",
       "spoken_answer": "yes",
       "fact_value": "no",
+      "question": null,
+      "scenario": null,
+      "why_truthful": null,
       "line6b": {
         "baseline": {
           "section_id": "line-6b",
@@ -528,6 +582,9 @@
       "fact": "tax.us.2025.ss-benefits-scope.no-unsupported-line1-entries",
       "spoken_answer": "no",
       "fact_value": "yes",
+      "question": null,
+      "scenario": null,
+      "why_truthful": null,
       "line6b": {
         "baseline": {
           "section_id": "line-6b",
@@ -557,6 +614,85 @@
       "fact": "tax.us.2025.ss-benefits-scope.no-unsupported-line1-entries",
       "spoken_answer": "yes",
       "fact_value": "no",
+      "question": null,
+      "scenario": null,
+      "why_truthful": null,
+      "line6b": {
+        "baseline": {
+          "section_id": "line-6b",
+          "disposition": "guard_inapplicable",
+          "value": null,
+          "codes": [],
+          "questions": [],
+          "missing": [],
+          "terminal_missing": [],
+          "generic_explain": "line 6b is blocked because a worksheet or source dependency is incomplete"
+        },
+        "successor": {
+          "section_id": "line-6b",
+          "disposition": "guard_inapplicable",
+          "value": null,
+          "codes": [],
+          "questions": [],
+          "missing": [],
+          "terminal_missing": [],
+          "generic_explain": "line 6b is blocked because a worksheet or source dependency is incomplete"
+        }
+      },
+      "meaning_pass": true
+    },
+    {
+      "id": "meaning/territory-mainland-only/spouse",
+      "fact": "tax.us.2025.ss-benefits-scope.no-puerto-rico-or-samoa-income",
+      "spoken_answer": "yes",
+      "fact_value": "no",
+      "question": "For 2025, were you (or your spouse, if filing jointly) a bona fide resident of Puerto Rico or American Samoa who had any income?",
+      "scenario": {
+        "filing_status": "married_filing_jointly",
+        "resident_with_income": "spouse",
+        "bona_fide_resident": "Puerto Rico",
+        "income_source": "mainland only",
+        "territorial_source_income": 0
+      },
+      "why_truthful": "A resident with any income answers yes, regardless of its source; on a joint return this includes the spouse.",
+      "line6b": {
+        "baseline": {
+          "section_id": "line-6b",
+          "disposition": "guard_inapplicable",
+          "value": null,
+          "codes": [],
+          "questions": [],
+          "missing": [],
+          "terminal_missing": [],
+          "generic_explain": "line 6b is blocked because a worksheet or source dependency is incomplete"
+        },
+        "successor": {
+          "section_id": "line-6b",
+          "disposition": "guard_inapplicable",
+          "value": null,
+          "codes": [],
+          "questions": [],
+          "missing": [],
+          "terminal_missing": [],
+          "generic_explain": "line 6b is blocked because a worksheet or source dependency is incomplete"
+        }
+      },
+      "meaning_pass": true
+    },
+    {
+      "id": "meaning/territory-mainland-only/taxpayer",
+      "fact": "tax.us.2025.ss-benefits-scope.no-puerto-rico-or-samoa-income",
+      "spoken_answer": "yes",
+      "fact_value": "no",
+      "question": "For 2025, were you (or your spouse, if filing jointly) a bona fide resident of Puerto Rico or American Samoa who had any income?",
+      "scenario": {
+        "filing_status": "single",
+        "resident_with_income": "taxpayer",
+        "bona_fide_resident": "Puerto Rico",
+        "income_source": "mainland only",
+        "territorial_source_income": 0
+      },
+      "why_truthful": "A resident with any income answers yes, regardless of its source; on a joint return this includes the spouse.",
       "line6b": {
         "baseline": {
           "section_id": "line-6b",

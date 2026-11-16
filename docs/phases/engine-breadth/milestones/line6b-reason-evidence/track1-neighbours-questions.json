@@ -1,5 +1,9 @@
 {
   "source_text_sha256": "6024dc94dd1f545ed6e2068a42ea11859be546e8fe18ec3082021259f9b45ff1",
+  "source_line_convention": "physical newline only; form feeds remain on their physical line",
+  "wording_repairs": {
+    "tax.us.2025.ss-benefits-scope.no-puerto-rico-or-samoa-income": "For 2025, were you (or your spouse, if filing jointly) a bona fide resident of Puerto Rico or American Samoa who had any income?"
+  },
   "questions": [
     {
       "citizen": {
@@ -54,7 +58,10 @@
         "start_line": 2075,
         "end_line": 2075,
         "quote_from_layout_extract": [
-          "ure your IRA deduction.                      fits from the SSA (for a total of $18,000     box 2a (or substitute statements); and"
+          " 3.    Combine the amounts from Form 1040 or 1040-SR, lines 1z, 2b, 3b, 4b, 5b, 7a, and 8 . . . . . . . . .                                                  3."
+        ],
+        "checked_passage_fragments": [
+          "lines 1z, 2b, 3b, 4b, 5b, 7a, and 8"
         ],
         "assessment": "Lines 1z, 2b, 3b, 4b, 5b, 7a and 8 enter worksheet line 3; the published scope fact excludes line-1 income beyond W-2 box 1. This prompt asks that existing boundary, not a new IRS exclusion."
       },
@@ -119,7 +126,10 @@
         "start_line": 2075,
         "end_line": 2075,
         "quote_from_layout_extract": [
-          "ure your IRA deduction.                      fits from the SSA (for a total of $18,000     box 2a (or substitute statements); and"
+          " 3.    Combine the amounts from Form 1040 or 1040-SR, lines 1z, 2b, 3b, 4b, 5b, 7a, and 8 . . . . . . . . .                                                  3."
+        ],
+        "checked_passage_fragments": [
+          "lines 1z, 2b, 3b, 4b, 5b, 7a, and 8"
         ],
         "assessment": "Line 5b is explicitly part of worksheet line 3. The bounded rule represents its absence, rather than an amount."
       },
@@ -184,14 +194,19 @@
         "start_line": 2038,
         "end_line": 2045,
         "quote_from_layout_extract": [
-          "                                                                                           lump-sum election. See Lump-Sum Elec-",
-          "                                             United States (or its allies), whether out-",
-          "Lines 6a and 6b                              side or within the United States. In the",
-          "                                                                                           tion in Pub. 915 for details.",
-          "Social Security Benefits                     case of the September 11 attacks, inju-       Line 6d",
-          "                                             ries eligible for coverage by the Septem-     If you are married filing separately and",
-          "You should receive a Form SSA-1099",
-          "                                             ber 11 Victim Compensation Fund are           you lived apart from your spouse for all"
+          "   \u2022 You made contributions to a tradi-      the September 11 terrorist attack on the      Form 8949 or Schedule D if you aren\u2019t",
+          "tional IRA for 2025 and you or your          World Trade Center. You began receiv-         deferring any capital gain by investing",
+          "spouse were covered by a retirement          ing SSDI benefits at age 54. Your full        in a qualified opportunity fund and both",
+          "plan at work or through self-employ-         retirement age for social security retire-    of the following apply.",
+          "ment. Instead, use the worksheets in         ment benefits is age 66. Your birthday is        1. You have no capital losses, and",
+          "Pub. 590-A to see if any of your social      April 25. In the year you turned age 66,      your only capital gains are capital gain",
+          "security benefits are taxable and to fig-    you received $1,500 per month in bene-        distributions from Form(s) 1099-DIV,",
+          "ure your IRA deduction.                      fits from the SSA (for a total of $18,000     box 2a (or substitute statements); and"
+        ],
+        "checked_passage_fragments": [
+          "contributions to a tradi-",
+          "spouse were covered",
+          "Pub. 590-A"
         ],
         "assessment": "The instructions route traditional-IRA contributions with taxpayer or spouse workplace/self-employment plan coverage to Publication 590-A worksheets. The wording preserves the published deduction-coordination fact; it does not add an IRA amount input."
       },
@@ -256,11 +271,15 @@
         "start_line": 1981,
         "end_line": 1985,
         "quote_from_layout_extract": [
-          "equals $3,000 a month. Until you turn         If you are the retiree, use your age on        ceived an early distribution from a quali-",
-          "age 62, you can exclude $500 of your          the annuity starting date. If you are the      fied retirement plan and the total amount",
-          "monthly retirement benefit from income        survivor of a retiree, use the retiree\u2019s age   wasn\u2019t rolled over. For details, see the",
-          "(the difference between the early retire-     on their annuity starting date. But if your    instructions for Schedule 2, line 8.",
-          "ment benefit and the normal retirement        annuity starting date was after 1997 and"
+          "\fbox 1 on line 5c. See Rollovers, earlier,       \u2022 You file Form 2555, 4563, or                      Form RRB-1099. If you need a",
+          "for more information.                        8815, or you exclude employer-provided         TIP replacement Form RRB-1099,",
+          "                                             adoption benefits or income from sour-                call the Railroad Retirement",
+          "   If you are making the election to ex-     ces within Puerto Rico. Instead, use the      Board at 877-772-5772 or go to",
+          "clude from your income distributions         worksheet in Pub. 915.                        www.rrb.gov."
+        ],
+        "checked_passage_fragments": [
+          "Form 2555",
+          "worksheet in Pub. 915"
         ],
         "assessment": "Form 2555 is named in the exception routing the filer to Publication 915."
       },
@@ -325,11 +344,15 @@
         "start_line": 1981,
         "end_line": 1985,
         "quote_from_layout_extract": [
-          "equals $3,000 a month. Until you turn         If you are the retiree, use your age on        ceived an early distribution from a quali-",
-          "age 62, you can exclude $500 of your          the annuity starting date. If you are the      fied retirement plan and the total amount",
-          "monthly retirement benefit from income        survivor of a retiree, use the retiree\u2019s age   wasn\u2019t rolled over. For details, see the",
-          "(the difference between the early retire-     on their annuity starting date. But if your    instructions for Schedule 2, line 8.",
-          "ment benefit and the normal retirement        annuity starting date was after 1997 and"
+          "\fbox 1 on line 5c. See Rollovers, earlier,       \u2022 You file Form 2555, 4563, or                      Form RRB-1099. If you need a",
+          "for more information.                        8815, or you exclude employer-provided         TIP replacement Form RRB-1099,",
+          "                                             adoption benefits or income from sour-                call the Railroad Retirement",
+          "   If you are making the election to ex-     ces within Puerto Rico. Instead, use the      Board at 877-772-5772 or go to",
+          "clude from your income distributions         worksheet in Pub. 915.                        www.rrb.gov."
+        ],
+        "checked_passage_fragments": [
+          "4563",
+          "worksheet in Pub. 915"
         ],
         "assessment": "Form 4563 is named in the same exception."
       },
@@ -394,11 +417,15 @@
         "start_line": 1981,
         "end_line": 1985,
         "quote_from_layout_extract": [
-          "equals $3,000 a month. Until you turn         If you are the retiree, use your age on        ceived an early distribution from a quali-",
-          "age 62, you can exclude $500 of your          the annuity starting date. If you are the      fied retirement plan and the total amount",
-          "monthly retirement benefit from income        survivor of a retiree, use the retiree\u2019s age   wasn\u2019t rolled over. For details, see the",
-          "(the difference between the early retire-     on their annuity starting date. But if your    instructions for Schedule 2, line 8.",
-          "ment benefit and the normal retirement        annuity starting date was after 1997 and"
+          "\fbox 1 on line 5c. See Rollovers, earlier,       \u2022 You file Form 2555, 4563, or                      Form RRB-1099. If you need a",
+          "for more information.                        8815, or you exclude employer-provided         TIP replacement Form RRB-1099,",
+          "                                             adoption benefits or income from sour-                call the Railroad Retirement",
+          "   If you are making the election to ex-     ces within Puerto Rico. Instead, use the      Board at 877-772-5772 or go to",
+          "clude from your income distributions         worksheet in Pub. 915.                        www.rrb.gov."
+        ],
+        "checked_passage_fragments": [
+          "8815",
+          "worksheet in Pub. 915"
         ],
         "assessment": "Form 8815 is named in the same exception."
       },
@@ -463,11 +490,15 @@
         "start_line": 1981,
         "end_line": 1985,
         "quote_from_layout_extract": [
-          "equals $3,000 a month. Until you turn         If you are the retiree, use your age on        ceived an early distribution from a quali-",
-          "age 62, you can exclude $500 of your          the annuity starting date. If you are the      fied retirement plan and the total amount",
-          "monthly retirement benefit from income        survivor of a retiree, use the retiree\u2019s age   wasn\u2019t rolled over. For details, see the",
-          "(the difference between the early retire-     on their annuity starting date. But if your    instructions for Schedule 2, line 8.",
-          "ment benefit and the normal retirement        annuity starting date was after 1997 and"
+          "\fbox 1 on line 5c. See Rollovers, earlier,       \u2022 You file Form 2555, 4563, or                      Form RRB-1099. If you need a",
+          "for more information.                        8815, or you exclude employer-provided         TIP replacement Form RRB-1099,",
+          "                                             adoption benefits or income from sour-                call the Railroad Retirement",
+          "   If you are making the election to ex-     ces within Puerto Rico. Instead, use the      Board at 877-772-5772 or go to",
+          "clude from your income distributions         worksheet in Pub. 915.                        www.rrb.gov."
+        ],
+        "checked_passage_fragments": [
+          "exclude employer-provided",
+          "adoption benefits"
         ],
         "assessment": "Excluded employer-provided adoption benefits are named in the same exception."
       },
@@ -488,9 +519,9 @@
           "id": "tax.us.2025.ss-benefits-scope.no-puerto-rico-or-samoa-income",
           "version": "v1"
         },
-        "question": "Were you a bona fide resident of Puerto Rico or American Samoa with income from there in 2025?"
+        "question": "For 2025, were you (or your spouse, if filing jointly) a bona fide resident of Puerto Rico or American Samoa who had any income?"
       },
-      "citizen_sha256": "802921890c0e2e39d4f24ba3e3f3e92e418767ba9faf6bf1d7725238c3eb44db",
+      "citizen_sha256": "0c3dfcde80c6e794509a429d0f79b31c67517c98a0f4d92c3a540fc04a25ef07",
       "fact": {
         "id": "tax.us.2025.ss-benefits-scope.no-puerto-rico-or-samoa-income",
         "identity_keys": [
@@ -532,13 +563,31 @@
         "start_line": 1981,
         "end_line": 1985,
         "quote_from_layout_extract": [
-          "equals $3,000 a month. Until you turn         If you are the retiree, use your age on        ceived an early distribution from a quali-",
-          "age 62, you can exclude $500 of your          the annuity starting date. If you are the      fied retirement plan and the total amount",
-          "monthly retirement benefit from income        survivor of a retiree, use the retiree\u2019s age   wasn\u2019t rolled over. For details, see the",
-          "(the difference between the early retire-     on their annuity starting date. But if your    instructions for Schedule 2, line 8.",
-          "ment benefit and the normal retirement        annuity starting date was after 1997 and"
+          "\fbox 1 on line 5c. See Rollovers, earlier,       \u2022 You file Form 2555, 4563, or                      Form RRB-1099. If you need a",
+          "for more information.                        8815, or you exclude employer-provided         TIP replacement Form RRB-1099,",
+          "                                             adoption benefits or income from sour-                call the Railroad Retirement",
+          "   If you are making the election to ex-     ces within Puerto Rico. Instead, use the      Board at 877-772-5772 or go to",
+          "clude from your income distributions         worksheet in Pub. 915.                        www.rrb.gov."
         ],
-        "assessment": "The Social Security exception names income excluded from Puerto Rico and Form 4563; the residency footnote names American Samoa and points to Publication 570. The exact bona-fide-resident/Puerto-Rico-or-American-Samoa boundary is already declared by ss-benefits-scope.bundle.json. The question names that existing product boundary; the local 1040 passage alone does not establish a new legal rule about all such income."
+        "checked_passage_fragments": [
+          "Puerto Rico",
+          "worksheet in Pub. 915"
+        ],
+        "assessment": "The local Social Security exception names excluded Puerto Rico-source income and Form 4563, and the Where Do You File footnote names American Samoa and Pub. 570. These passages do not establish an exclusion of all resident income. The published fact deliberately bounds the product more broadly: no income of bona fide residents of Puerto Rico or American Samoa. Decision 13 removes the former source restriction and includes a spouse on joint returns. A resident with only mainland income answers yes, so the absence fact is no and the existing worksheet guard remains inapplicable; no new tax eligibility claim is made.",
+        "additional_passages": [
+          {
+            "filename": "i1040gi-2025.txt",
+            "start_line": 8982,
+            "end_line": 8982,
+            "quote_from_layout_extract": [
+              "*If you live in American Samoa, Puerto Rico, Guam, the U.S. Virgin Islands, or the Northern Mariana Islands, see Pub. 570."
+            ],
+            "checked_passage_fragments": [
+              "American Samoa, Puerto Rico",
+              "Pub. 570"
+            ]
+          }
+        ]
       },
       "expected_filer_meaning": {
         "yes": "no",
@@ -601,8 +650,12 @@
         "start_line": 2063,
         "end_line": 2064,
         "quote_from_layout_extract": [
-          "Exception. Do not use the Social Se-",
-          "                                             payments, see Pub. 3920.                      complete and attach Form 8949 and"
+          " Before you begin:                    If the instructions for Schedule 1, line 24z, have you enter a write-in adjustment on line 24z, figure that",
+          "                                      write-in before completing this worksheet (see the instructions for Schedule 1, line 24z)."
+        ],
+        "checked_passage_fragments": [
+          "write-in adjustment on line 24z",
+          "before completing this worksheet"
         ],
         "assessment": "The instructions say to figure the applicable Schedule 1 line 24z write-in before the worksheet. The existing fact is specific to that prerequisite."
       },
@@ -680,14 +733,19 @@
         "start_line": 2085,
         "end_line": 2092,
         "quote_from_layout_extract": [
-          "repayments if they were for benefits you     part of the $12,000 is taxable.               aren\u2019t deferring any capital gain by in-",
-          "included in income in an earlier year.                                                     vesting in a qualified opportunity fund",
-          "For more details, see Pub. 915.                                                            or terminating deferral from an",
-          "",
-          "",
-          "",
-          "Need more information or forms? Visit IRS.gov.                                                                                    31",
-          ""
+          " 8.    If you are:",
+          "           \u2022 Married filing jointly, enter $32,000",
+          "           \u2022 Single, head of household, qualifying surviving spouse, or",
+          "           married filing separately and you lived apart from your spouse for",
+          "           all of 2025, enter $25,000                                                                                ...............                         8.",
+          "           \u2022 Married   filing separately and you  lived    with    your     spouse       at  any    time",
+          "           in 2025, skip lines 8 through 15; multiply line 7 by 85% (0.85) and",
+          "           enter the result on line 16. Then, go to line 17"
+        ],
+        "checked_passage_fragments": [
+          "lived apart from your spouse",
+          "with your spouse",
+          "in 2025, skip lines 8 through 15"
         ],
         "assessment": "Both the checkbox instruction and the worksheet distinguish separate filers who lived apart all year from those who lived with a spouse at any time. The prompt preserves that distinction and the fact's yes/no direction."
       },

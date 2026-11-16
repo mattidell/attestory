@@ -20,6 +20,10 @@ from functools import lru_cache
 
 HERE = Path(__file__).resolve().parent
 REPO = HERE.parents[4]
+TERRITORIAL_FACT = "tax.us.2025.ss-benefits-scope.no-puerto-rico-or-samoa-income"
+TERRITORIAL_QUESTION = "For 2025, were you (or your spouse, if filing jointly) a bona fide resident of Puerto Rico or American Samoa who had any income?"
+# Decision 13 names the sole difference from the historical P0 prototype.
+QUESTION_REPAIRS = {TERRITORIAL_FACT: TERRITORIAL_QUESTION}
 sys.path.insert(0, str(REPO))
 
 
@@ -54,7 +58,7 @@ def refs(node):
 
 def catalog(core, instructions: Path):
     laws = read(HERE / "law.json")
-    text = instructions.read_text().splitlines()
+    text = instructions.read_text().split("\n")
     assert hashlib.sha256(instructions.read_bytes()).hexdigest() == laws["source"]["text_sha256"]
     facts = {}
     for name in ("ss-benefits-scope.bundle.json", "schedule1-adjustments-scope.bundle.json", "ssa1099.bundle.v2.json"):
@@ -82,15 +86,35 @@ def catalog(core, instructions: Path):
         "no-puerto-rico-or-samoa-income": (1981, 1985),
         "no-line24z-writein": (2063, 2064), "mfs-lived-apart-all-year": (2085, 2092),
     }
+    # Each physical span must carry the words that justify its claimed use.
+    passages = {
+        "no-unsupported-line1-entries": ("lines 1z, 2b, 3b, 4b, 5b, 7a, and 8",),
+        "no-pension-annuity-line5b": ("lines 1z, 2b, 3b, 4b, 5b, 7a, and 8",),
+        "no-traditional-ira-deduction": ("contributions to a tradi-", "spouse were covered", "Pub. 590-A"),
+        "no-form-2555": ("Form 2555", "worksheet in Pub. 915"),
+        "no-form-4563": ("4563", "worksheet in Pub. 915"),
+        "no-form-8815": ("8815", "worksheet in Pub. 915"),
+        "no-excluded-adoption-benefits": ("exclude employer-provided", "adoption benefits"),
+        "no-puerto-rico-or-samoa-income": ("Puerto Rico", "worksheet in Pub. 915"),
+        "no-line24z-writein": ("write-in adjustment on line 24z", "before completing this worksheet"),
+        "mfs-lived-apart-all-year": ("lived apart from your spouse", "with your spouse", "in 2025, skip lines 8 through 15"),
+    }
     result = []
     for name, expected in proto.artifacts():
+        expected = copy.deepcopy(expected)
+        if expected["fact_type"]["id"] in QUESTION_REPAIRS:
+            expected["question"] = QUESTION_REPAIRS[expected["fact_type"]["id"]]
         raw = (core.content / name).read_bytes()
-        assert raw == (json.dumps(expected, indent=2) + "\n").encode(), "P0 citizen bytes must remain unchanged"
+        assert raw == (json.dumps(expected, indent=2) + "\n").encode(), "P0 bytes must match except the Decision 13 territorial wording"
         citizen = json.loads(raw)
         fact_id = citizen["fact_type"]["id"]
         bundle, fact = facts[fact_id]
         suffix = fact_id.rsplit(".", 1)[-1]
         start, end = spans[suffix]
+        excerpt = text[start-1:end]
+        normalized = " ".join(" ".join(excerpt).split())
+        for passage in passages[suffix]:
+            assert passage in normalized, (suffix, start, end, passage)
         negative = suffix.startswith("no-")
         readers = [{"file": path, "id": r["id"], "version": r["version"],
                     "publishes": r["publishes"],
@@ -104,14 +128,22 @@ def catalog(core, instructions: Path):
             "fact": fact, "fact_source": bundle,
             "readers": readers,
             "source": {"filename": "i1040gi-2025.txt", "start_line": start, "end_line": end,
-                       "quote_from_layout_extract": text[start-1:end],
+                       "quote_from_layout_extract": excerpt, "checked_passage_fragments": passages[suffix],
                        "assessment": next(c["assessment"] for c in laws["checks"] if c["fact"] == fact_id)},
             "expected_filer_meaning": {"yes": "no" if negative else "yes", "no": "yes" if negative else "no"},
             "wording_verdict": "PASS",
             "convention": "positive question about excluded circumstance: no means absence fact yes" if negative else "positive question matching the affirmative living-apart fact",
             "proposed_words": None,
         })
-    return {"source_text_sha256": laws["source"]["text_sha256"], "questions": result}
+    territorial = next(row for row in result if row["fact"]["id"] == TERRITORIAL_FACT)
+    footnote = text[8981:8982]
+    assert "American Samoa, Puerto Rico" in footnote[0] and "Pub. 570" in footnote[0]
+    territorial["source"]["additional_passages"] = [{"filename": "i1040gi-2025.txt",
+        "start_line": 8982, "end_line": 8982, "quote_from_layout_extract": footnote,
+        "checked_passage_fragments": ["American Samoa, Puerto Rico", "Pub. 570"]}]
+    return {"source_text_sha256": laws["source"]["text_sha256"],
+        "source_line_convention": "physical newline only; form feeds remain on their physical line",
+        "wording_repairs": QUESTION_REPAIRS, "questions": result}
 
 
 def reuse(core, core_path):
@@ -219,7 +251,23 @@ def case_grid():
         acts = h.strip(h.strip(complete_ssa(status), a), b)
         rows.append({"id": "pair/" + a.removeprefix(probe.P) + "+" + b.removeprefix(probe.P),
                      "group": "pair", "acts": acts, "unanswered": [a, b]})
-    assert len(rows) == 253
+    # Review counterexample: income need not be sourced in either territory.
+    # The spouse-only joint case checks the repaired question's second subject.
+    for status, subject in (("single", "taxpayer"), ("married_filing_jointly", "spouse")):
+        spoken = "yes"
+        value = predicate_value(TERRITORIAL_FACT, spoken)
+        assert value == "no"
+        acts = h.say(complete_ssa(status), TERRITORIAL_FACT, value,
+                     "l6b.repair.territory." + subject)
+        rows.append({"id": "meaning/territory-mainland-only/" + subject,
+            "group": "meaning", "acts": acts, "fact": TERRITORIAL_FACT,
+            "spoken_answer": spoken, "fact_value": value,
+            "question": TERRITORIAL_QUESTION,
+            "scenario": {"filing_status": status, "resident_with_income": subject,
+                "bona_fide_resident": "Puerto Rico", "income_source": "mainland only",
+                "territorial_source_income": 0},
+            "why_truthful": "A resident with any income answers yes, regardless of its source; on a joint return this includes the spouse."})
+    assert len(rows) == 255
     return rows
 
 
@@ -483,6 +531,7 @@ def main():
     parser.add_argument("--output-prefix", default="track0")
     parser.add_argument("--instructions", required=True, type=Path)
     parser.add_argument("--summarize-only", action="store_true")
+    parser.add_argument("--catalogs-only", action="store_true")
     args = parser.parse_args()
     core = rr.resolve_core(args.core)
     baseline = rr.resolve_core(args.baseline)
@@ -504,6 +553,11 @@ def main():
     data["decision"] = "Decision 8: display only; synthetic facts are set by the published positive-question or assertion-question convention, not through an entry path."
     data["published_sibling_examples"] = examples
     data["proposed_question_words"] = {}
+    if args.catalogs_only:
+        for prefix in ("track0", "track1-neighbours"):
+            probe.write_json(HERE / (prefix + "-questions.json"), data)
+        print("Both question catalogs regenerated: ten checked physical excerpts and the residency footnote each.")
+        return
     probe.write_json(output("questions"), data)
     if args.baseline == "v91" and Path(args.core).is_file():
         probe.write_json(output("replay"), reuse(core, Path(args.core)))
@@ -538,7 +592,7 @@ def main():
         {"id": r["id"], "unanswered": r["unanswered"], **r.get("root_check", {"pass": False})} for r in roots]})
     meaning = [r for r in rows if r["group"] == "meaning"]
     probe.write_json(output("meaning"), {"convention": data["decision"], "results": [
-        {k: r.get(k) for k in ("id", "fact", "spoken_answer", "fact_value", "line6b", "meaning_pass")} for r in meaning]})
+        {k: r.get(k) for k in ("id", "fact", "spoken_answer", "fact_value", "question", "scenario", "why_truthful", "line6b", "meaning_pass")} for r in meaning]})
     if args.summarize_only and (output("drawn")).is_file():
         drawn = read(output("drawn"))
         assert set(drawn["covered_fields"]) == {g["field"] for r in rows for g in r.get("gains", [])}
