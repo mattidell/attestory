@@ -1,0 +1,492 @@
+{
+  "core": {
+    "package": "v92",
+    "registry": "v90",
+    "release": "v90"
+  },
+  "page": "packages/presentation/pages/citation-walk.v1.html",
+  "browser": "Chrome/157.0.8103.78",
+  "node": "22.23.2",
+  "cases": [
+    {
+      "id": "wages-only",
+      "says": "Single filer, wages 50,000, withholding 4,500, not 65, not blind. No Schedule 1 income.",
+      "outcome": "success",
+      "stop": "saturated",
+      "error": null,
+      "dom_alert_count": 0,
+      "other_root_alerts": [],
+      "drawn_alerts": [],
+      "focus": [
+        {
+          "field_id": "form1040.line-6c",
+          "disposition": "published_categorical",
+          "render": "not_checked",
+          "finding_value": "not_checked",
+          "value": null,
+          "citation_id": "citation.form1040.line-6c",
+          "heading": "Lump-sum election (Line 6c) PUBLISHED CATEGORICAL",
+          "badge": "PUBLISHED CATEGORICAL",
+          "drawn_value": "not checked",
+          "drawn_explain": "The lump-sum election checkbox is not checked.",
+          "drawn_alert": null,
+          "citation_buttons": 1
+        },
+        {
+          "field_id": "schedule1.top-entry.form-field",
+          "disposition": "closure_backed_zero",
+          "render": "{value}",
+          "finding_value": "0",
+          "value": 0,
+          "citation_id": "citation.schedule1.top-entry",
+          "heading": "Form 1099-K personal item sale loss gross payment amount (Schedule 1 top entry) (Line sch1-top) CLOSURE BACKED ZERO",
+          "badge": "CLOSURE BACKED ZERO",
+          "drawn_value": "0",
+          "drawn_explain": "No Form 1099-K statements were received for 2025.",
+          "drawn_alert": null,
+          "citation_buttons": 1
+        }
+      ]
+    },
+    {
+      "id": "ss-not-elected",
+      "says": "Same wages, one SSA-1099 box 5 of 12,000, lump-sum scope answer yes (no election).",
+      "outcome": "success",
+      "stop": "saturated",
+      "error": null,
+      "dom_alert_count": 0,
+      "other_root_alerts": [],
+      "drawn_alerts": [],
+      "focus": [
+        {
+          "field_id": "form1040.line-6c",
+          "disposition": "published_categorical",
+          "render": "not_checked",
+          "finding_value": "not_checked",
+          "value": null,
+          "citation_id": "citation.form1040.line-6c",
+          "heading": "Lump-sum election (Line 6c) PUBLISHED CATEGORICAL",
+          "badge": "PUBLISHED CATEGORICAL",
+          "drawn_value": "not checked",
+          "drawn_explain": "The lump-sum election checkbox is not checked.",
+          "drawn_alert": null,
+          "citation_buttons": 1
+        },
+        {
+          "field_id": "schedule1.top-entry.form-field",
+          "disposition": "closure_backed_zero",
+          "render": "{value}",
+          "finding_value": "0",
+          "value": 0,
+          "citation_id": "citation.schedule1.top-entry",
+          "heading": "Form 1099-K personal item sale loss gross payment amount (Schedule 1 top entry) (Line sch1-top) CLOSURE BACKED ZERO",
+          "badge": "CLOSURE BACKED ZERO",
+          "drawn_value": "0",
+          "drawn_explain": "No Form 1099-K statements were received for 2025.",
+          "drawn_alert": null,
+          "citation_buttons": 1
+        }
+      ]
+    },
+    {
+      "id": "ss-elected",
+      "says": "Same wages and SSA-1099, lump-sum scope answer no (election made).",
+      "outcome": "success",
+      "stop": "saturated",
+      "error": null,
+      "dom_alert_count": 0,
+      "other_root_alerts": [],
+      "drawn_alerts": [],
+      "focus": [
+        {
+          "field_id": "form1040.line-6c",
+          "disposition": "guard_inapplicable",
+          "render": "",
+          "finding_value": null,
+          "value": null,
+          "citation_id": "citation.form1040.line-6c",
+          "heading": "Lump-sum election (Line 6c) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "drawn_value": "Not applicable.",
+          "drawn_explain": "line 6c disposition is inapplicable for the current class",
+          "drawn_alert": null,
+          "citation_buttons": 0
+        },
+        {
+          "field_id": "schedule1.top-entry.form-field",
+          "disposition": "closure_backed_zero",
+          "render": "{value}",
+          "finding_value": "0",
+          "value": 0,
+          "citation_id": "citation.schedule1.top-entry",
+          "heading": "Form 1099-K personal item sale loss gross payment amount (Schedule 1 top entry) (Line sch1-top) CLOSURE BACKED ZERO",
+          "badge": "CLOSURE BACKED ZERO",
+          "drawn_value": "0",
+          "drawn_explain": "No Form 1099-K statements were received for 2025.",
+          "drawn_alert": null,
+          "citation_buttons": 1
+        }
+      ]
+    },
+    {
+      "id": "elected-no-benefits",
+      "says": "Same wages, no SSA-1099, lump-sum scope answer no (election made).",
+      "outcome": "success",
+      "stop": "saturated",
+      "error": null,
+      "dom_alert_count": 0,
+      "other_root_alerts": [],
+      "drawn_alerts": [],
+      "focus": [
+        {
+          "field_id": "form1040.line-6c",
+          "disposition": "guard_inapplicable",
+          "render": "",
+          "finding_value": null,
+          "value": null,
+          "citation_id": "citation.form1040.line-6c",
+          "heading": "Lump-sum election (Line 6c) GUARD INAPPLICABLE",
+          "badge": "GUARD INAPPLICABLE",
+          "drawn_value": "Not applicable.",
+          "drawn_explain": "line 6c disposition is inapplicable for the current class",
+          "drawn_alert": null,
+          "citation_buttons": 0
+        },
+        {
+          "field_id": "schedule1.top-entry.form-field",
+          "disposition": "closure_backed_zero",
+          "render": "{value}",
+          "finding_value": "0",
+          "value": 0,
+          "citation_id": "citation.schedule1.top-entry",
+          "heading": "Form 1099-K personal item sale loss gross payment amount (Schedule 1 top entry) (Line sch1-top) CLOSURE BACKED ZERO",
+          "badge": "CLOSURE BACKED ZERO",
+          "drawn_value": "0",
+          "drawn_explain": "No Form 1099-K statements were received for 2025.",
+          "drawn_alert": null,
+          "citation_buttons": 1
+        }
+      ]
+    },
+    {
+      "id": "f1099k-top-entry",
+      "says": "Same wages, one Form 1099-K personal-item loss, box 1a 880.",
+      "outcome": "success",
+      "stop": "saturated",
+      "error": null,
+      "dom_alert_count": 0,
+      "other_root_alerts": [],
+      "drawn_alerts": [],
+      "focus": [
+        {
+          "field_id": "form1040.line-6c",
+          "disposition": "published_categorical",
+          "render": "not_checked",
+          "finding_value": "not_checked",
+          "value": null,
+          "citation_id": "citation.form1040.line-6c",
+          "heading": "Lump-sum election (Line 6c) PUBLISHED CATEGORICAL",
+          "badge": "PUBLISHED CATEGORICAL",
+          "drawn_value": "not checked",
+          "drawn_explain": "The lump-sum election checkbox is not checked.",
+          "drawn_alert": null,
+          "citation_buttons": 1
+        },
+        {
+          "field_id": "schedule1.top-entry.form-field",
+          "disposition": "published_value",
+          "render": "{value}",
+          "finding_value": "880.0",
+          "value": 880,
+          "citation_id": "citation.schedule1.top-entry",
+          "heading": "Form 1099-K personal item sale loss gross payment amount (Schedule 1 top entry) (Line sch1-top) PUBLISHED VALUE",
+          "badge": "PUBLISHED VALUE",
+          "drawn_value": "880",
+          "drawn_explain": "This sale resulted in a nondeductible personal loss whose Box 1a gross amount is entered at the top of Schedule 1.",
+          "drawn_alert": null,
+          "citation_buttons": 18
+        }
+      ]
+    },
+    {
+      "id": "w2g-winnings",
+      "says": "Same wages, one Form W-2G with winnings 1,200 and box 4 zero.",
+      "outcome": "success",
+      "stop": "saturated",
+      "error": null,
+      "dom_alert_count": 0,
+      "other_root_alerts": [],
+      "drawn_alerts": [],
+      "focus": [
+        {
+          "field_id": "form1040.line-6c",
+          "disposition": "published_categorical",
+          "render": "not_checked",
+          "finding_value": "not_checked",
+          "value": null,
+          "citation_id": "citation.form1040.line-6c",
+          "heading": "Lump-sum election (Line 6c) PUBLISHED CATEGORICAL",
+          "badge": "PUBLISHED CATEGORICAL",
+          "drawn_value": "not checked",
+          "drawn_explain": "The lump-sum election checkbox is not checked.",
+          "drawn_alert": null,
+          "citation_buttons": 1
+        },
+        {
+          "field_id": "schedule1.top-entry.form-field",
+          "disposition": "closure_backed_zero",
+          "render": "{value}",
+          "finding_value": "0",
+          "value": 0,
+          "citation_id": "citation.schedule1.top-entry",
+          "heading": "Form 1099-K personal item sale loss gross payment amount (Schedule 1 top entry) (Line sch1-top) CLOSURE BACKED ZERO",
+          "badge": "CLOSURE BACKED ZERO",
+          "drawn_value": "0",
+          "drawn_explain": "No Form 1099-K statements were received for 2025.",
+          "drawn_alert": null,
+          "citation_buttons": 1
+        }
+      ]
+    },
+    {
+      "id": "l12d-single-age",
+      "says": "Single; born before January 2, 1961; not blind.",
+      "outcome": "success",
+      "stop": "saturated",
+      "error": null,
+      "dom_alert_count": 0,
+      "other_root_alerts": [],
+      "drawn_alerts": [],
+      "focus": [
+        {
+          "field_id": "form1040.line-6c",
+          "disposition": "published_categorical",
+          "render": "not_checked",
+          "finding_value": "not_checked",
+          "value": null,
+          "citation_id": "citation.form1040.line-6c",
+          "heading": "Lump-sum election (Line 6c) PUBLISHED CATEGORICAL",
+          "badge": "PUBLISHED CATEGORICAL",
+          "drawn_value": "not checked",
+          "drawn_explain": "The lump-sum election checkbox is not checked.",
+          "drawn_alert": null,
+          "citation_buttons": 1
+        },
+        {
+          "field_id": "schedule1.top-entry.form-field",
+          "disposition": "closure_backed_zero",
+          "render": "{value}",
+          "finding_value": "0",
+          "value": 0,
+          "citation_id": "citation.schedule1.top-entry",
+          "heading": "Form 1099-K personal item sale loss gross payment amount (Schedule 1 top entry) (Line sch1-top) CLOSURE BACKED ZERO",
+          "badge": "CLOSURE BACKED ZERO",
+          "drawn_value": "0",
+          "drawn_explain": "No Form 1099-K statements were received for 2025.",
+          "drawn_alert": null,
+          "citation_buttons": 1
+        }
+      ]
+    },
+    {
+      "id": "l12d-joint-spouse-age",
+      "says": "Joint; only the spouse born before January 2, 1961.",
+      "outcome": "success",
+      "stop": "saturated",
+      "error": null,
+      "dom_alert_count": 0,
+      "other_root_alerts": [],
+      "drawn_alerts": [],
+      "focus": [
+        {
+          "field_id": "form1040.line-6c",
+          "disposition": "published_categorical",
+          "render": "not_checked",
+          "finding_value": "not_checked",
+          "value": null,
+          "citation_id": "citation.form1040.line-6c",
+          "heading": "Lump-sum election (Line 6c) PUBLISHED CATEGORICAL",
+          "badge": "PUBLISHED CATEGORICAL",
+          "drawn_value": "not checked",
+          "drawn_explain": "The lump-sum election checkbox is not checked.",
+          "drawn_alert": null,
+          "citation_buttons": 1
+        },
+        {
+          "field_id": "schedule1.top-entry.form-field",
+          "disposition": "closure_backed_zero",
+          "render": "{value}",
+          "finding_value": "0",
+          "value": 0,
+          "citation_id": "citation.schedule1.top-entry",
+          "heading": "Form 1099-K personal item sale loss gross payment amount (Schedule 1 top entry) (Line sch1-top) CLOSURE BACKED ZERO",
+          "badge": "CLOSURE BACKED ZERO",
+          "drawn_value": "0",
+          "drawn_explain": "No Form 1099-K statements were received for 2025.",
+          "drawn_alert": null,
+          "citation_buttons": 1
+        }
+      ]
+    },
+    {
+      "id": "l12d-separate-condition-no",
+      "says": "Separate; spouse blind recorded; condition no.",
+      "outcome": "success",
+      "stop": "saturated",
+      "error": null,
+      "dom_alert_count": 0,
+      "other_root_alerts": [],
+      "drawn_alerts": [],
+      "focus": [
+        {
+          "field_id": "form1040.line-6c",
+          "disposition": "published_categorical",
+          "render": "not_checked",
+          "finding_value": "not_checked",
+          "value": null,
+          "citation_id": "citation.form1040.line-6c",
+          "heading": "Lump-sum election (Line 6c) PUBLISHED CATEGORICAL",
+          "badge": "PUBLISHED CATEGORICAL",
+          "drawn_value": "not checked",
+          "drawn_explain": "The lump-sum election checkbox is not checked.",
+          "drawn_alert": null,
+          "citation_buttons": 1
+        },
+        {
+          "field_id": "schedule1.top-entry.form-field",
+          "disposition": "closure_backed_zero",
+          "render": "{value}",
+          "finding_value": "0",
+          "value": 0,
+          "citation_id": "citation.schedule1.top-entry",
+          "heading": "Form 1099-K personal item sale loss gross payment amount (Schedule 1 top entry) (Line sch1-top) CLOSURE BACKED ZERO",
+          "badge": "CLOSURE BACKED ZERO",
+          "drawn_value": "0",
+          "drawn_explain": "No Form 1099-K statements were received for 2025.",
+          "drawn_alert": null,
+          "citation_buttons": 1
+        }
+      ]
+    },
+    {
+      "id": "l12d-separate-lived-with",
+      "says": "Separate; condition no; lived with the spouse during 2025.",
+      "outcome": "success",
+      "stop": "saturated",
+      "error": null,
+      "dom_alert_count": 0,
+      "other_root_alerts": [],
+      "drawn_alerts": [],
+      "focus": [
+        {
+          "field_id": "form1040.line-6c",
+          "disposition": "published_categorical",
+          "render": "not_checked",
+          "finding_value": "not_checked",
+          "value": null,
+          "citation_id": "citation.form1040.line-6c",
+          "heading": "Lump-sum election (Line 6c) PUBLISHED CATEGORICAL",
+          "badge": "PUBLISHED CATEGORICAL",
+          "drawn_value": "not checked",
+          "drawn_explain": "The lump-sum election checkbox is not checked.",
+          "drawn_alert": null,
+          "citation_buttons": 1
+        },
+        {
+          "field_id": "schedule1.top-entry.form-field",
+          "disposition": "closure_backed_zero",
+          "render": "{value}",
+          "finding_value": "0",
+          "value": 0,
+          "citation_id": "citation.schedule1.top-entry",
+          "heading": "Form 1099-K personal item sale loss gross payment amount (Schedule 1 top entry) (Line sch1-top) CLOSURE BACKED ZERO",
+          "badge": "CLOSURE BACKED ZERO",
+          "drawn_value": "0",
+          "drawn_explain": "No Form 1099-K statements were received for 2025.",
+          "drawn_alert": null,
+          "citation_buttons": 1
+        }
+      ]
+    },
+    {
+      "id": "l12d-hoh",
+      "says": "Head of household; not 65; not blind.",
+      "outcome": "success",
+      "stop": "saturated",
+      "error": null,
+      "dom_alert_count": 0,
+      "other_root_alerts": [],
+      "drawn_alerts": [],
+      "focus": [
+        {
+          "field_id": "form1040.line-6c",
+          "disposition": "published_categorical",
+          "render": "not_checked",
+          "finding_value": "not_checked",
+          "value": null,
+          "citation_id": "citation.form1040.line-6c",
+          "heading": "Lump-sum election (Line 6c) PUBLISHED CATEGORICAL",
+          "badge": "PUBLISHED CATEGORICAL",
+          "drawn_value": "not checked",
+          "drawn_explain": "The lump-sum election checkbox is not checked.",
+          "drawn_alert": null,
+          "citation_buttons": 1
+        },
+        {
+          "field_id": "schedule1.top-entry.form-field",
+          "disposition": "closure_backed_zero",
+          "render": "{value}",
+          "finding_value": "0",
+          "value": 0,
+          "citation_id": "citation.schedule1.top-entry",
+          "heading": "Form 1099-K personal item sale loss gross payment amount (Schedule 1 top entry) (Line sch1-top) CLOSURE BACKED ZERO",
+          "badge": "CLOSURE BACKED ZERO",
+          "drawn_value": "0",
+          "drawn_explain": "No Form 1099-K statements were received for 2025.",
+          "drawn_alert": null,
+          "citation_buttons": 1
+        }
+      ]
+    },
+    {
+      "id": "l12d-unanswered-age",
+      "says": "Single; age and blindness left unanswered.",
+      "outcome": "success",
+      "stop": "saturated",
+      "error": null,
+      "dom_alert_count": 0,
+      "other_root_alerts": [],
+      "drawn_alerts": [],
+      "focus": [
+        {
+          "field_id": "form1040.line-6c",
+          "disposition": "published_categorical",
+          "render": "not_checked",
+          "finding_value": "not_checked",
+          "value": null,
+          "citation_id": "citation.form1040.line-6c",
+          "heading": "Lump-sum election (Line 6c) PUBLISHED CATEGORICAL",
+          "badge": "PUBLISHED CATEGORICAL",
+          "drawn_value": "not checked",
+          "drawn_explain": "The lump-sum election checkbox is not checked.",
+          "drawn_alert": null,
+          "citation_buttons": 1
+        },
+        {
+          "field_id": "schedule1.top-entry.form-field",
+          "disposition": "closure_backed_zero",
+          "render": "{value}",
+          "finding_value": "0",
+          "value": 0,
+          "citation_id": "citation.schedule1.top-entry",
+          "heading": "Form 1099-K personal item sale loss gross payment amount (Schedule 1 top entry) (Line sch1-top) CLOSURE BACKED ZERO",
+          "badge": "CLOSURE BACKED ZERO",
+          "drawn_value": "0",
+          "drawn_explain": "No Form 1099-K statements were received for 2025.",
+          "drawn_alert": null,
+          "citation_buttons": 1
+        }
+      ]
+    }
+  ]
+}

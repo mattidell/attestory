@@ -1,0 +1,1066 @@
+{
+  "table": "ssa line 6a guard settlement",
+  "core": {
+    "package": "v91",
+    "registry": "v89",
+    "release": "v89"
+  },
+  "closure_question": "Have you recorded every Form SSA-1099 you or your spouse received for 2025 (not counting a lump-sum election, and not a Form RRB-1099), with its box 3, box 4 and box 5 amounts?",
+  "guard_reads": {
+    "rule": "tax.us.2025.rule.form1040-line6a",
+    "rule_version": "v2",
+    "rule_file": "packages/content/tax/2025/rule.form1040-line6a.v2.json",
+    "when": "packages/content/tax/2025/rule.form1040-line6a.v2.json:40-43",
+    "value": "ref tax.us.2025.ssa1099.benefits.box5-subtotal (rule.form1040-line6a.v2.json:35-38)",
+    "op": "require_closed",
+    "source_set": "tax.us.2025.ssa1099.benefits",
+    "reads": "env.closed_sets",
+    "evaluator": "packages/derivation/evaluator.py:585-590",
+    "closed_sets_assigned_from_admissions": "packages/derivation/runner.py:632",
+    "admission": "packages/derivation/source_authority.py:360-384",
+    "group_mapping_schema": "packages/derivation/source_authority.py:30-35",
+    "mapping_file": "packages/content/tax/2025/closure-mapping.ssa1099-benefits.v3.json",
+    "mapping_id": "tax.us.2025.closure-mapping.ssa1099-benefits",
+    "mapping_version": "v3",
+    "mapping_schema": "source-closure-mapping.v3",
+    "is_group_mapping": false,
+    "closure_fact_type": "tax.us.2025.ssa1099.source-closure",
+    "closure_fact_version": "v1",
+    "family_file": "packages/content/tax/2025/family.ssa1099-benefits.v2.json:1-16",
+    "family_version_adopted": "v2",
+    "package_pins": {
+      "rule.form1040-line6a": "packages/content/tax/2025/package.core-calculations.v91.json:5108-5111",
+      "ssa1099.benefits": "packages/content/tax/2025/package.core-calculations.v91.json:6800-6804",
+      "closure-mapping.ssa1099-benefits": "packages/content/tax/2025/package.core-calculations.v91.json:6806-6809"
+    },
+    "admits_when": "exactly one finding of tax.us.2025.ssa1099.source-closure whose horizon_id equals the family's current horizon and whose value is boolean true",
+    "empty_collect": "packages/derivation/evaluator.py:467-482 returns [] only when the source set is in closed_sets; a nonempty collect sums the rows it has",
+    "subtotal_rule": "packages/content/tax/2025/rule.ssa1099-benefits-subtotal.json:47-65",
+    "zero_path_on_the_track0_measurement": "rule.ssa1099-benefits-subtotal collects the empty admitted set and publishes 0; rule.form1040-line6a v2 refs that 0. Both pin demo.fk.ssa.reconfirm.",
+    "no_activity_route": {
+      "name": "ssa-no-activity-applicability",
+      "introduced_on": "core v30, rule.ss-benefits-worksheet v2, tests/test_ssa_no_activity_line6b_track1.py:1-32",
+      "adopted_on_v91": "tax.us.2025.rule.ss-benefits-worksheet v4",
+      "package_pin": "packages/content/tax/2025/package.core-calculations.v91.json:5918-5921",
+      "publishes": "tax.us.2025.social-security.line6b",
+      "choose_zero_when_count_eq_0": "packages/content/tax/2025/rule.ss-benefits-worksheet.v4.json:2136-2147",
+      "require_closed": "packages/content/tax/2025/rule.ss-benefits-worksheet.v4.json:2150-2155",
+      "notes": "packages/content/tax/2025/rule.ss-benefits-worksheet.v4.json:29"
+    }
+  },
+  "runs": [
+    {
+      "name": "wage-reconfirm",
+      "reconfirm": true,
+      "stop": "saturated",
+      "before": {
+        "closures": [
+          {
+            "finding_id": "demo.ssa.closure",
+            "horizon": "demo.ssa.h0",
+            "value": true
+          }
+        ],
+        "chain": [
+          {
+            "kind": "genesis",
+            "version": "v1",
+            "horizon": "demo.ssa.h0"
+          }
+        ]
+      },
+      "after": {
+        "closures": [
+          {
+            "finding_id": "demo.ssa.closure",
+            "horizon": "demo.ssa.h0",
+            "value": true
+          },
+          {
+            "finding_id": "demo.fk.ssa.reconfirm",
+            "horizon": "demo.ssa.handover.h74",
+            "value": true
+          }
+        ],
+        "chain": [
+          {
+            "kind": "genesis",
+            "version": "v1",
+            "horizon": "demo.ssa.h0"
+          },
+          {
+            "kind": "family-handover",
+            "version": "v2",
+            "horizon": "demo.ssa.handover.h74"
+          }
+        ]
+      },
+      "rules": [
+        {
+          "artifact_id": "tax.us.2025.rule.ssa1099-benefits-subtotal",
+          "version": null,
+          "disposition": "published",
+          "code": null,
+          "missing": null
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.form1040-line6a",
+          "version": null,
+          "disposition": "published",
+          "code": null,
+          "missing": null
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.ss-benefits-worksheet",
+          "version": null,
+          "disposition": "published",
+          "code": null,
+          "missing": null
+        }
+      ],
+      "box5_subtotal": {
+        "value": "0",
+        "pin_ids": [
+          "demo.cgd.t2.finding.rounding",
+          "demo.fk.ssa.reconfirm",
+          "tax.us.2025.closure-mapping.ssa1099-benefits",
+          "tax.us.2025.ssa1099.benefits"
+        ]
+      },
+      "line6a": {
+        "value": "0",
+        "pin_ids": [
+          "demo.fk.ssa.reconfirm",
+          "finding:derived:f3efa5144ef68fcfe7b3f4ea",
+          "tax.us.2025.closure-mapping.ssa1099-benefits",
+          "tax.us.2025.ssa1099.benefits"
+        ]
+      },
+      "line6b": {
+        "value": "0",
+        "pin_ids": [
+          "demo.fk.ssa.reconfirm",
+          "demo.ssa.scope.no-rrb-or-foreign-social-benefit",
+          "tax.us.2025.closure-mapping.ssa1099-benefits",
+          "tax.us.2025.ssa1099.benefits"
+        ]
+      },
+      "page_line6a": {
+        "disposition": "computed_zero",
+        "value": 0,
+        "active_codes": [],
+        "asks_closure_question": false
+      },
+      "page_line6b": {
+        "disposition": "computed_zero",
+        "value": 0,
+        "active_codes": []
+      }
+    },
+    {
+      "name": "wage-no-reconfirm",
+      "reconfirm": false,
+      "stop": "saturated",
+      "before": {
+        "closures": [
+          {
+            "finding_id": "demo.ssa.closure",
+            "horizon": "demo.ssa.h0",
+            "value": true
+          }
+        ],
+        "chain": [
+          {
+            "kind": "genesis",
+            "version": "v1",
+            "horizon": "demo.ssa.h0"
+          }
+        ]
+      },
+      "after": {
+        "closures": [
+          {
+            "finding_id": "demo.ssa.closure",
+            "horizon": "demo.ssa.h0",
+            "value": true
+          }
+        ],
+        "chain": [
+          {
+            "kind": "genesis",
+            "version": "v1",
+            "horizon": "demo.ssa.h0"
+          },
+          {
+            "kind": "family-handover",
+            "version": "v2",
+            "horizon": "demo.ssa.handover.h74"
+          }
+        ]
+      },
+      "rules": [
+        {
+          "artifact_id": "tax.us.2025.rule.ssa1099-benefits-subtotal",
+          "version": null,
+          "disposition": "blocked",
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "tax.us.2025.ssa1099.benefits"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.form1040-line6a",
+          "version": null,
+          "disposition": "blocked",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.ssa1099.benefits.box5-subtotal"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.ss-benefits-worksheet",
+          "version": null,
+          "disposition": "blocked",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.social-security.line6a"
+          ]
+        }
+      ],
+      "box5_subtotal": null,
+      "line6a": null,
+      "line6b": null,
+      "page_line6a": {
+        "disposition": "blocked",
+        "value": null,
+        "active_codes": [
+          "DEPENDENCY_ABSENT"
+        ],
+        "asks_closure_question": true
+      },
+      "page_line6b": {
+        "disposition": "blocked",
+        "value": null,
+        "active_codes": [
+          "DEPENDENCY_ABSENT"
+        ]
+      }
+    },
+    {
+      "name": "strip-reconfirm",
+      "reconfirm": true,
+      "stop": "saturated",
+      "before": {
+        "closures": [],
+        "chain": [
+          {
+            "kind": "genesis",
+            "version": "v1",
+            "horizon": "demo.ssa.h0"
+          }
+        ]
+      },
+      "after": {
+        "closures": [
+          {
+            "finding_id": "demo.fk.ssa.reconfirm",
+            "horizon": "demo.ssa.handover.h74",
+            "value": true
+          }
+        ],
+        "chain": [
+          {
+            "kind": "genesis",
+            "version": "v1",
+            "horizon": "demo.ssa.h0"
+          },
+          {
+            "kind": "family-handover",
+            "version": "v2",
+            "horizon": "demo.ssa.handover.h74"
+          }
+        ]
+      },
+      "rules": [
+        {
+          "artifact_id": "tax.us.2025.rule.ssa1099-benefits-subtotal",
+          "version": null,
+          "disposition": "published",
+          "code": null,
+          "missing": null
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.form1040-line6a",
+          "version": null,
+          "disposition": "published",
+          "code": null,
+          "missing": null
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.ss-benefits-worksheet",
+          "version": null,
+          "disposition": "published",
+          "code": null,
+          "missing": null
+        }
+      ],
+      "box5_subtotal": {
+        "value": "0",
+        "pin_ids": [
+          "demo.cgd.t2.finding.rounding",
+          "demo.fk.ssa.reconfirm",
+          "tax.us.2025.closure-mapping.ssa1099-benefits",
+          "tax.us.2025.ssa1099.benefits"
+        ]
+      },
+      "line6a": {
+        "value": "0",
+        "pin_ids": [
+          "demo.fk.ssa.reconfirm",
+          "finding:derived:f3efa5144ef68fcfe7b3f4ea",
+          "tax.us.2025.closure-mapping.ssa1099-benefits",
+          "tax.us.2025.ssa1099.benefits"
+        ]
+      },
+      "line6b": {
+        "value": "0",
+        "pin_ids": [
+          "demo.fk.ssa.reconfirm",
+          "demo.ssa.scope.no-rrb-or-foreign-social-benefit",
+          "tax.us.2025.closure-mapping.ssa1099-benefits",
+          "tax.us.2025.ssa1099.benefits"
+        ]
+      },
+      "page_line6a": {
+        "disposition": "computed_zero",
+        "value": 0,
+        "active_codes": [],
+        "asks_closure_question": false
+      },
+      "page_line6b": {
+        "disposition": "computed_zero",
+        "value": 0,
+        "active_codes": []
+      }
+    },
+    {
+      "name": "strip-no-reconfirm",
+      "reconfirm": false,
+      "stop": "saturated",
+      "before": {
+        "closures": [],
+        "chain": [
+          {
+            "kind": "genesis",
+            "version": "v1",
+            "horizon": "demo.ssa.h0"
+          }
+        ]
+      },
+      "after": {
+        "closures": [],
+        "chain": [
+          {
+            "kind": "genesis",
+            "version": "v1",
+            "horizon": "demo.ssa.h0"
+          },
+          {
+            "kind": "family-handover",
+            "version": "v2",
+            "horizon": "demo.ssa.handover.h74"
+          }
+        ]
+      },
+      "rules": [
+        {
+          "artifact_id": "tax.us.2025.rule.ssa1099-benefits-subtotal",
+          "version": null,
+          "disposition": "blocked",
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "tax.us.2025.ssa1099.benefits"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.form1040-line6a",
+          "version": null,
+          "disposition": "blocked",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.ssa1099.benefits.box5-subtotal"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.ss-benefits-worksheet",
+          "version": null,
+          "disposition": "blocked",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.social-security.line6a"
+          ]
+        }
+      ],
+      "box5_subtotal": null,
+      "line6a": null,
+      "line6b": null,
+      "page_line6a": {
+        "disposition": "blocked",
+        "value": null,
+        "active_codes": [
+          "DEPENDENCY_ABSENT"
+        ],
+        "asks_closure_question": true
+      },
+      "page_line6b": {
+        "disposition": "blocked",
+        "value": null,
+        "active_codes": [
+          "DEPENDENCY_ABSENT"
+        ]
+      }
+    },
+    {
+      "name": "stale-reconfirm",
+      "reconfirm": true,
+      "stop": "saturated",
+      "before": {
+        "closures": [
+          {
+            "finding_id": "demo.ssa.closure",
+            "horizon": "demo.ssa.h0",
+            "value": true
+          }
+        ],
+        "chain": [
+          {
+            "kind": "genesis",
+            "version": "v1",
+            "horizon": "demo.ssa.h0"
+          },
+          {
+            "kind": "member-transition",
+            "version": "v1",
+            "successor": "demo.pa.ssa.h1",
+            "predecessor": "demo.ssa.h0"
+          }
+        ]
+      },
+      "after": {
+        "closures": [
+          {
+            "finding_id": "demo.ssa.closure",
+            "horizon": "demo.ssa.h0",
+            "value": true
+          },
+          {
+            "finding_id": "demo.fk.ssa.reconfirm",
+            "horizon": "demo.ssa.handover.h75",
+            "value": true
+          }
+        ],
+        "chain": [
+          {
+            "kind": "genesis",
+            "version": "v1",
+            "horizon": "demo.ssa.h0"
+          },
+          {
+            "kind": "member-transition",
+            "version": "v1",
+            "successor": "demo.pa.ssa.h1",
+            "predecessor": "demo.ssa.h0"
+          },
+          {
+            "kind": "family-handover",
+            "version": "v2",
+            "horizon": "demo.ssa.handover.h75"
+          }
+        ]
+      },
+      "rules": [
+        {
+          "artifact_id": "tax.us.2025.rule.ssa1099-benefits-subtotal",
+          "version": null,
+          "disposition": "published",
+          "code": null,
+          "missing": null
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.form1040-line6a",
+          "version": null,
+          "disposition": "published",
+          "code": null,
+          "missing": null
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.ss-benefits-worksheet",
+          "version": null,
+          "disposition": "blocked",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule1-adjustments-scope.no-line24z-writein"
+          ]
+        }
+      ],
+      "box5_subtotal": {
+        "value": "12000",
+        "pin_ids": [
+          "demo.cgd.t2.finding.rounding",
+          "demo.pa.ssa.b3.0",
+          "demo.pa.ssa.b4.0",
+          "demo.pa.ssa.b5.0",
+          "demo.pa.ssa.kind.0",
+          "demo.pa.ssa.lump.0",
+          "demo.pa.ssa.recipient.0"
+        ]
+      },
+      "line6a": {
+        "value": "12000",
+        "pin_ids": [
+          "demo.fk.ssa.reconfirm",
+          "finding:derived:9fdb5f7fdf1a28134305e1f4",
+          "tax.us.2025.closure-mapping.ssa1099-benefits",
+          "tax.us.2025.ssa1099.benefits"
+        ]
+      },
+      "line6b": null,
+      "page_line6a": {
+        "disposition": "published_value",
+        "value": 12000,
+        "active_codes": [],
+        "asks_closure_question": false
+      },
+      "page_line6b": {
+        "disposition": "blocked",
+        "value": null,
+        "active_codes": [
+          "DEPENDENCY_ABSENT"
+        ]
+      }
+    },
+    {
+      "name": "stale-no-reconfirm",
+      "reconfirm": false,
+      "stop": "saturated",
+      "before": {
+        "closures": [
+          {
+            "finding_id": "demo.ssa.closure",
+            "horizon": "demo.ssa.h0",
+            "value": true
+          }
+        ],
+        "chain": [
+          {
+            "kind": "genesis",
+            "version": "v1",
+            "horizon": "demo.ssa.h0"
+          },
+          {
+            "kind": "member-transition",
+            "version": "v1",
+            "successor": "demo.pa.ssa.h1",
+            "predecessor": "demo.ssa.h0"
+          }
+        ]
+      },
+      "after": {
+        "closures": [
+          {
+            "finding_id": "demo.ssa.closure",
+            "horizon": "demo.ssa.h0",
+            "value": true
+          }
+        ],
+        "chain": [
+          {
+            "kind": "genesis",
+            "version": "v1",
+            "horizon": "demo.ssa.h0"
+          },
+          {
+            "kind": "member-transition",
+            "version": "v1",
+            "successor": "demo.pa.ssa.h1",
+            "predecessor": "demo.ssa.h0"
+          },
+          {
+            "kind": "family-handover",
+            "version": "v2",
+            "horizon": "demo.ssa.handover.h75"
+          }
+        ]
+      },
+      "rules": [
+        {
+          "artifact_id": "tax.us.2025.rule.ssa1099-benefits-subtotal",
+          "version": null,
+          "disposition": "published",
+          "code": null,
+          "missing": null
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.form1040-line6a",
+          "version": null,
+          "disposition": "blocked",
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "tax.us.2025.ssa1099.benefits"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.ss-benefits-worksheet",
+          "version": null,
+          "disposition": "blocked",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.social-security.line6a"
+          ]
+        }
+      ],
+      "box5_subtotal": {
+        "value": "12000",
+        "pin_ids": [
+          "demo.cgd.t2.finding.rounding",
+          "demo.pa.ssa.b3.0",
+          "demo.pa.ssa.b4.0",
+          "demo.pa.ssa.b5.0",
+          "demo.pa.ssa.kind.0",
+          "demo.pa.ssa.lump.0",
+          "demo.pa.ssa.recipient.0"
+        ]
+      },
+      "line6a": null,
+      "line6b": null,
+      "page_line6a": {
+        "disposition": "blocked",
+        "value": null,
+        "active_codes": [
+          "SOURCE_SET_UNCLOSED"
+        ],
+        "asks_closure_question": true
+      },
+      "page_line6b": {
+        "disposition": "blocked",
+        "value": null,
+        "active_codes": [
+          "DEPENDENCY_ABSENT"
+        ]
+      }
+    },
+    {
+      "name": "reclosed-no-reconfirm",
+      "reconfirm": false,
+      "stop": "saturated",
+      "before": {
+        "closures": [
+          {
+            "finding_id": "demo.ssa.closure",
+            "horizon": "demo.pa.ssa.h1",
+            "value": true
+          }
+        ],
+        "chain": [
+          {
+            "kind": "genesis",
+            "version": "v1",
+            "horizon": "demo.ssa.h0"
+          },
+          {
+            "kind": "member-transition",
+            "version": "v1",
+            "successor": "demo.pa.ssa.h1",
+            "predecessor": "demo.ssa.h0"
+          }
+        ]
+      },
+      "after": {
+        "closures": [
+          {
+            "finding_id": "demo.ssa.closure",
+            "horizon": "demo.pa.ssa.h1",
+            "value": true
+          }
+        ],
+        "chain": [
+          {
+            "kind": "genesis",
+            "version": "v1",
+            "horizon": "demo.ssa.h0"
+          },
+          {
+            "kind": "member-transition",
+            "version": "v1",
+            "successor": "demo.pa.ssa.h1",
+            "predecessor": "demo.ssa.h0"
+          },
+          {
+            "kind": "family-handover",
+            "version": "v2",
+            "horizon": "demo.ssa.handover.h75"
+          }
+        ]
+      },
+      "rules": [
+        {
+          "artifact_id": "tax.us.2025.rule.ssa1099-benefits-subtotal",
+          "version": null,
+          "disposition": "published",
+          "code": null,
+          "missing": null
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.form1040-line6a",
+          "version": null,
+          "disposition": "blocked",
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "tax.us.2025.ssa1099.benefits"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.ss-benefits-worksheet",
+          "version": null,
+          "disposition": "blocked",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.social-security.line6a"
+          ]
+        }
+      ],
+      "box5_subtotal": {
+        "value": "12000",
+        "pin_ids": [
+          "demo.cgd.t2.finding.rounding",
+          "demo.pa.ssa.b3.0",
+          "demo.pa.ssa.b4.0",
+          "demo.pa.ssa.b5.0",
+          "demo.pa.ssa.kind.0",
+          "demo.pa.ssa.lump.0",
+          "demo.pa.ssa.recipient.0"
+        ]
+      },
+      "line6a": null,
+      "line6b": null,
+      "page_line6a": {
+        "disposition": "blocked",
+        "value": null,
+        "active_codes": [
+          "SOURCE_SET_UNCLOSED"
+        ],
+        "asks_closure_question": true
+      },
+      "page_line6b": {
+        "disposition": "blocked",
+        "value": null,
+        "active_codes": [
+          "DEPENDENCY_ABSENT"
+        ]
+      }
+    },
+    {
+      "name": "test-shape-unclosed",
+      "reconfirm": false,
+      "stop": "saturated",
+      "before": {
+        "closures": [],
+        "chain": [
+          {
+            "kind": "genesis",
+            "version": "v1",
+            "horizon": "demo.ssa.h0"
+          },
+          {
+            "kind": "member-transition",
+            "version": "v1",
+            "successor": "demo.fw.ssa.h1",
+            "predecessor": "demo.ssa.h0"
+          }
+        ]
+      },
+      "after": {
+        "closures": [],
+        "chain": [
+          {
+            "kind": "genesis",
+            "version": "v1",
+            "horizon": "demo.ssa.h0"
+          },
+          {
+            "kind": "member-transition",
+            "version": "v1",
+            "successor": "demo.fw.ssa.h1",
+            "predecessor": "demo.ssa.h0"
+          },
+          {
+            "kind": "family-handover",
+            "version": "v2",
+            "horizon": "demo.ssa.handover.h75"
+          }
+        ]
+      },
+      "rules": [
+        {
+          "artifact_id": "tax.us.2025.rule.ssa1099-benefits-subtotal",
+          "version": null,
+          "disposition": "published",
+          "code": null,
+          "missing": null
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.form1040-line6a",
+          "version": null,
+          "disposition": "blocked",
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "tax.us.2025.ssa1099.benefits"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.ss-benefits-worksheet",
+          "version": null,
+          "disposition": "blocked",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.social-security.line6a"
+          ]
+        }
+      ],
+      "box5_subtotal": {
+        "value": "12000",
+        "pin_ids": [
+          "demo.cgd.t2.finding.rounding",
+          "demo.fw.ssa.b3.0",
+          "demo.fw.ssa.b4.0",
+          "demo.fw.ssa.b5.0",
+          "demo.fw.ssa.kind.0",
+          "demo.fw.ssa.lump.0",
+          "demo.fw.ssa.recipient.0"
+        ]
+      },
+      "line6a": null,
+      "line6b": null,
+      "page_line6a": {
+        "disposition": "blocked",
+        "value": null,
+        "active_codes": [
+          "SOURCE_SET_UNCLOSED"
+        ],
+        "asks_closure_question": true
+      },
+      "page_line6b": {
+        "disposition": "blocked",
+        "value": null,
+        "active_codes": [
+          "DEPENDENCY_ABSENT"
+        ]
+      }
+    },
+    {
+      "name": "test-shape-closed-reconfirm",
+      "reconfirm": true,
+      "stop": "saturated",
+      "before": {
+        "closures": [
+          {
+            "finding_id": "demo.ssa.closure",
+            "horizon": "demo.ssa.h0",
+            "value": true
+          },
+          {
+            "finding_id": "demo.fw.ssa.closure.benefits",
+            "horizon": "demo.fw.ssa.h1",
+            "value": true
+          }
+        ],
+        "chain": [
+          {
+            "kind": "genesis",
+            "version": "v1",
+            "horizon": "demo.ssa.h0"
+          },
+          {
+            "kind": "member-transition",
+            "version": "v1",
+            "successor": "demo.fw.ssa.h1",
+            "predecessor": "demo.ssa.h0"
+          }
+        ]
+      },
+      "after": {
+        "closures": [
+          {
+            "finding_id": "demo.ssa.closure",
+            "horizon": "demo.ssa.h0",
+            "value": true
+          },
+          {
+            "finding_id": "demo.fw.ssa.closure.benefits",
+            "horizon": "demo.fw.ssa.h1",
+            "value": true
+          },
+          {
+            "finding_id": "demo.fk.ssa.reconfirm",
+            "horizon": "demo.ssa.handover.h75",
+            "value": true
+          }
+        ],
+        "chain": [
+          {
+            "kind": "genesis",
+            "version": "v1",
+            "horizon": "demo.ssa.h0"
+          },
+          {
+            "kind": "member-transition",
+            "version": "v1",
+            "successor": "demo.fw.ssa.h1",
+            "predecessor": "demo.ssa.h0"
+          },
+          {
+            "kind": "family-handover",
+            "version": "v2",
+            "horizon": "demo.ssa.handover.h75"
+          }
+        ]
+      },
+      "rules": [
+        {
+          "artifact_id": "tax.us.2025.rule.ssa1099-benefits-subtotal",
+          "version": null,
+          "disposition": "published",
+          "code": null,
+          "missing": null
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.form1040-line6a",
+          "version": null,
+          "disposition": "published",
+          "code": null,
+          "missing": null
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.ss-benefits-worksheet",
+          "version": null,
+          "disposition": "published",
+          "code": null,
+          "missing": null
+        }
+      ],
+      "box5_subtotal": {
+        "value": "12000",
+        "pin_ids": [
+          "demo.cgd.t2.finding.rounding",
+          "demo.fw.ssa.b3.0",
+          "demo.fw.ssa.b4.0",
+          "demo.fw.ssa.b5.0",
+          "demo.fw.ssa.kind.0",
+          "demo.fw.ssa.lump.0",
+          "demo.fw.ssa.recipient.0"
+        ]
+      },
+      "line6a": {
+        "value": "12000",
+        "pin_ids": [
+          "demo.fk.ssa.reconfirm",
+          "finding:derived:c01720f4f21325043c36a41c",
+          "tax.us.2025.closure-mapping.ssa1099-benefits",
+          "tax.us.2025.ssa1099.benefits"
+        ]
+      },
+      "line6b": {
+        "value": "10200",
+        "pin_ids": [
+          "demo.cgd.t2.finding.rounding",
+          "demo.cgd.t2.finding.status",
+          "demo.fk.ssa.reconfirm",
+          "demo.fw.ssa.b3.0",
+          "demo.fw.ssa.b4.0",
+          "demo.fw.ssa.b5.0",
+          "demo.fw.ssa.kind.0",
+          "demo.fw.ssa.lump.0",
+          "demo.fw.ssa.recipient.0",
+          "demo.fw.ssa.scope.no-line24z-writein",
+          "demo.probe.sched1-scope.no-line11-educator",
+          "demo.probe.sched1-scope.no-line12-business-expenses",
+          "demo.probe.sched1-scope.no-line13-hsa",
+          "demo.probe.sched1-scope.no-line14-moving",
+          "demo.probe.sched1-scope.no-line15-deductible-se",
+          "demo.probe.sched1-scope.no-line16-se-retirement",
+          "demo.probe.sched1-scope.no-line17-se-health",
+          "demo.probe.sched1-scope.no-line18-penalty",
+          "demo.probe.sched1-scope.no-line19-alimony-paid",
+          "demo.probe.sched1-scope.no-line20-ira-deduction",
+          "demo.probe.sched1-scope.no-line23-archer-msa",
+          "demo.probe.sched1-scope.no-line25-other-adjustments",
+          "demo.ssa.scope.no-excluded-adoption-benefits",
+          "demo.ssa.scope.no-form-2555",
+          "demo.ssa.scope.no-form-4563",
+          "demo.ssa.scope.no-form-8815",
+          "demo.ssa.scope.no-lump-sum-election",
+          "demo.ssa.scope.no-pension-annuity-line5b",
+          "demo.ssa.scope.no-puerto-rico-or-samoa-income",
+          "demo.ssa.scope.no-rrb-or-foreign-social-benefit",
+          "demo.ssa.scope.no-traditional-ira-deduction",
+          "demo.ssa.scope.no-unsupported-line1-entries",
+          "finding:derived:199791cefcc49ff93bf24175",
+          "finding:derived:27defa158669eac21bbdb44a",
+          "finding:derived:63041a081edce6495056c726",
+          "finding:derived:67d549d76a8d913702c89b48",
+          "finding:derived:8758c66a9b49b6cb7a95de9a",
+          "finding:derived:b2d55f0031798ade75c9c4c1",
+          "finding:derived:b8acf7cd1533f84fab61b848",
+          "finding:derived:cac5d35a0bd18f436550d090",
+          "tax.us.2025.closure-mapping.ssa1099-benefits",
+          "tax.us.2025.ssa1099.benefits"
+        ]
+      },
+      "page_line6a": {
+        "disposition": "published_value",
+        "value": 12000,
+        "active_codes": [],
+        "asks_closure_question": false
+      },
+      "page_line6b": {
+        "disposition": "published_value",
+        "value": 10200,
+        "active_codes": []
+      }
+    }
+  ],
+  "rows": {
+    "ssa-closure-missing": {
+      "verdict": "CASE ARTIFACT",
+      "track0_measurement": "strip-reconfirm",
+      "published_on_that_measurement": {
+        "line6a": "computed_zero 0",
+        "admitted_by": "demo.fk.ssa.reconfirm at demo.ssa.handover.h74"
+      },
+      "corrected_run": "wage-no-reconfirm",
+      "corrected_line6a": "blocked DEPENDENCY_ABSENT missing tax.us.2025.ssa1099.benefits.box5-subtotal; subtotal SOURCE_SET_UNCLOSED missing tax.us.2025.ssa1099.benefits; page asks the closure question",
+      "artifact_cause": "track0.py run_model calls audit harness _handover with reconfirm true, which asserts demo.fk.ssa.reconfirm after the case has stripped every source-closure finding. That assertion is the finding the v3 mapping admits.",
+      "reachable_unanswered_acts": [
+        "wage return horizon-genesis of tax.us.2025.ssa1099.benefits v1 at demo.ssa.h0",
+        "assertion demo.ssa.closure value true at family-horizon demo.ssa.h0",
+        "family-handover to tax.us.2025.ssa1099.benefits v2 at demo.ssa.handover.h74",
+        "no assertion of tax.us.2025.ssa1099.source-closure at demo.ssa.handover.h74"
+      ]
+    },
+    "ssa-member-before-reclose": {
+      "verdict": "CASE ARTIFACT",
+      "track0_measurement": "stale-reconfirm",
+      "published_on_that_measurement": {
+        "line6a": "12000",
+        "admitted_by": "demo.fk.ssa.reconfirm at demo.ssa.handover.h75",
+        "closure_left_on": "demo.ssa.closure at demo.ssa.h0",
+        "member_successor": "demo.pa.ssa.h1"
+      },
+      "corrected_run": "stale-no-reconfirm",
+      "corrected_line6a": "blocked SOURCE_SET_UNCLOSED missing tax.us.2025.ssa1099.benefits; page asks the closure question; box5-subtotal still publishes 12000",
+      "comparison_run": "test-shape-unclosed",
+      "comparison": "The collect-closure unclosed shape on v91 blocks line 6a SOURCE_SET_UNCLOSED. tests/test_collect_closure.py:261-266 asserts that absence on v62.",
+      "artifact_cause": "with_benefits reclose false leaves the closure on demo.ssa.h0 and does not restate it. The published 12000 pinned the harness reconfirm at the handover horizon, which is the current horizon the guard reads."
+    }
+  }
+}

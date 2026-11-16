@@ -1,0 +1,355 @@
+{
+  "table": "authority lifecycle",
+  "verdict": "PASS",
+  "failing_case_ids": [],
+  "rows": [
+    {
+      "id": "ss-benefits-scope.no-lump-sum-election",
+      "meaning": "The return states whether the lump-sum election was not made.",
+      "authority_scope": "This return's election answer.",
+      "depends_on": "The taxpayer's answer to that question.",
+      "invalidated_by": "A different answer, or no answer.",
+      "evidence": [
+        {
+          "case_id": "ssa-closed-empty",
+          "disposition": "published_categorical",
+          "value": null,
+          "render": "not_checked",
+          "drawn_value": "not checked",
+          "section_error": "",
+          "reasons": [],
+          "citation_buttons": 1,
+          "active_codes": []
+        },
+        {
+          "case_id": "ssa-election-made",
+          "disposition": "published_categorical",
+          "value": null,
+          "render": "checked",
+          "drawn_value": "checked",
+          "section_error": "",
+          "reasons": [],
+          "citation_buttons": 1,
+          "active_codes": []
+        },
+        {
+          "case_id": "ssa-election-unanswered",
+          "disposition": "blocked",
+          "value": null,
+          "render": "",
+          "drawn_value": "No value published \u2014 cannot compute.",
+          "section_error": "",
+          "reasons": [
+            "Did you choose the lump-sum election for Social Security benefits that relate to an earlier year?"
+          ],
+          "citation_buttons": 0,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "social-security.line6c-indicator",
+      "meaning": "The line 6c checkbox is not checked.",
+      "authority_scope": "This return, and only while the election fact is yes.",
+      "depends_on": [
+        "ss-benefits-scope.no-lump-sum-election"
+      ],
+      "invalidated_by": "The fact becoming no, or disappearing.",
+      "evidence": [
+        {
+          "case_id": "ssa-closed-empty",
+          "disposition": "published_categorical",
+          "value": null,
+          "render": "not_checked",
+          "drawn_value": "not checked",
+          "section_error": "",
+          "reasons": [],
+          "citation_buttons": 1,
+          "active_codes": []
+        },
+        {
+          "case_id": "ssa-election-made",
+          "disposition": "guard_inapplicable",
+          "value": null,
+          "render": "",
+          "drawn_value": "Not applicable.",
+          "section_error": "",
+          "reasons": [],
+          "citation_buttons": 0,
+          "active_codes": []
+        },
+        {
+          "case_id": "ssa-election-unanswered",
+          "disposition": "blocked",
+          "value": null,
+          "render": "",
+          "drawn_value": "No value published \u2014 cannot compute.",
+          "section_error": "",
+          "reasons": [
+            "Did you choose the lump-sum election for Social Security benefits that relate to an earlier year?"
+          ],
+          "citation_buttons": 0,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "social-security.line6c-checked",
+      "meaning": "The line 6c checkbox is checked.",
+      "authority_scope": "This return, and only while the election fact is no.",
+      "depends_on": [
+        "ss-benefits-scope.no-lump-sum-election"
+      ],
+      "invalidated_by": "The fact becoming yes, or disappearing.",
+      "evidence": [
+        {
+          "case_id": "ssa-closed-empty",
+          "disposition": "guard_inapplicable",
+          "value": null,
+          "render": "",
+          "drawn_value": "Not applicable.",
+          "section_error": "",
+          "reasons": [],
+          "citation_buttons": 0,
+          "active_codes": []
+        },
+        {
+          "case_id": "ssa-election-made",
+          "disposition": "published_categorical",
+          "value": null,
+          "render": "checked",
+          "drawn_value": "checked",
+          "section_error": "",
+          "reasons": [],
+          "citation_buttons": 1,
+          "active_codes": []
+        },
+        {
+          "case_id": "ssa-election-unanswered",
+          "disposition": "blocked",
+          "value": null,
+          "render": "",
+          "drawn_value": "No value published \u2014 cannot compute.",
+          "section_error": "",
+          "reasons": [
+            "Did you choose the lump-sum election for Social Security benefits that relate to an earlier year?"
+          ],
+          "citation_buttons": 0,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "schedule1.top-entry",
+      "meaning": "The amount entered at the top of Schedule 1 for Form 1099-K.",
+      "authority_scope": "This return's closed Form 1099-K family.",
+      "depends_on": [
+        "f1099k.source-closure",
+        "f1099k.box1a-subtotal",
+        "f1099k.statement-loss-reason"
+      ],
+      "invalidated_by": "A member the closure does not cover, a missing closure, or a loss reason other than supported-loss.",
+      "evidence": [
+        {
+          "case_id": "k-closed-empty",
+          "disposition": "closure_backed_zero",
+          "value": 0,
+          "render": "{value}",
+          "drawn_value": "0",
+          "section_error": "",
+          "reasons": [],
+          "citation_buttons": 1,
+          "active_codes": []
+        },
+        {
+          "case_id": "k-closure-missing",
+          "disposition": "blocked",
+          "value": null,
+          "render": "",
+          "drawn_value": "No value published \u2014 cannot compute.",
+          "section_error": "",
+          "reasons": [
+            "Have you recorded every gross payment amount in box 1a of every Form 1099-K you or your spouse received for 2025 for personal items you sold?"
+          ],
+          "citation_buttons": 0,
+          "active_codes": [
+            "SOURCE_SET_UNCLOSED"
+          ]
+        },
+        {
+          "case_id": "k-member-before-reclose",
+          "disposition": null,
+          "value": null,
+          "render": null,
+          "drawn_value": null,
+          "section_error": null,
+          "reasons": null,
+          "citation_buttons": null,
+          "active_codes": null
+        },
+        {
+          "case_id": "k-reclosed",
+          "disposition": "published_value",
+          "value": 880,
+          "render": "{value}",
+          "drawn_value": "880",
+          "section_error": "",
+          "reasons": [],
+          "citation_buttons": 18,
+          "active_codes": []
+        },
+        {
+          "case_id": "k-unresolved",
+          "disposition": "blocked",
+          "value": null,
+          "render": "",
+          "drawn_value": "No value published \u2014 cannot compute.",
+          "section_error": "",
+          "reasons": [
+            "The question regarding single item sale scope has no current answer."
+          ],
+          "citation_buttons": 0,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "citation.schedule1.top-entry",
+      "meaning": "The Schedule 1 instructions tell the filer what the top entry is for.",
+      "authority_scope": "Form 1040-SCH-1, tax year 2025, irs-instructions.",
+      "depends_on": "The instruction passage. Not the amount.",
+      "invalidated_by": "Nothing in the return. A blocked or inapplicable field draws no button.",
+      "evidence": [
+        {
+          "case_id": "k-closed-empty",
+          "disposition": "closure_backed_zero",
+          "value": 0,
+          "render": "{value}",
+          "drawn_value": "0",
+          "section_error": "",
+          "reasons": [],
+          "citation_buttons": 1,
+          "active_codes": []
+        },
+        {
+          "case_id": "k-reclosed",
+          "disposition": "published_value",
+          "value": 880,
+          "render": "{value}",
+          "drawn_value": "880",
+          "section_error": "",
+          "reasons": [],
+          "citation_buttons": 18,
+          "active_codes": []
+        },
+        {
+          "case_id": "k-unresolved",
+          "disposition": "blocked",
+          "value": null,
+          "render": "",
+          "drawn_value": "No value published \u2014 cannot compute.",
+          "section_error": "",
+          "reasons": [
+            "The question regarding single item sale scope has no current answer."
+          ],
+          "citation_buttons": 0,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ]
+        }
+      ]
+    }
+  ],
+  "neighbor_closure_not_this_verdict": {
+    "id": "ssa1099.source-closure",
+    "meaning": "The SSA-1099 set for this return is closed at one horizon.",
+    "authority_scope": "This return's SSA-1099 family.",
+    "depends_on": "The closure fact naming that horizon.",
+    "invalidated_by": "No source-closure finding whose horizon is the family's current horizon. A finding left on an earlier horizon does not admit.",
+    "evidence": [
+      {
+        "case_id": "ssa-closed-empty",
+        "disposition": "computed_zero",
+        "value": 0,
+        "render": "0",
+        "drawn_value": "0",
+        "section_error": "",
+        "reasons": [],
+        "citation_buttons": 2,
+        "active_codes": []
+      },
+      {
+        "case_id": "ssa-closure-missing",
+        "disposition": "computed_zero",
+        "value": 0,
+        "render": "0",
+        "drawn_value": "0",
+        "section_error": "",
+        "reasons": [],
+        "citation_buttons": 2,
+        "active_codes": [],
+        "measurement_class": "harness-reconfirm"
+      },
+      {
+        "case_id": "ssa-member-before-reclose",
+        "disposition": "published_value",
+        "value": 12000,
+        "render": "{value}",
+        "drawn_value": "12000",
+        "section_error": "",
+        "reasons": [],
+        "citation_buttons": 8,
+        "active_codes": [],
+        "measurement_class": "harness-reconfirm"
+      },
+      {
+        "case_id": "ssa-reclosed",
+        "disposition": "published_value",
+        "value": 12000,
+        "render": "{value}",
+        "drawn_value": "12000",
+        "section_error": "",
+        "reasons": [],
+        "citation_buttons": 8,
+        "active_codes": []
+      }
+    ],
+    "judged_on": [
+      "track0-matrix.json",
+      "track0-late.json",
+      "track0-ssa-guard.json"
+    ],
+    "settlement": "CASE ARTIFACT",
+    "settlement_record": "page-alerts-evidence/track0-ssa-guard.json",
+    "corrected": [
+      {
+        "case_id": "wage-no-reconfirm",
+        "disposition": "blocked",
+        "active_codes": [
+          "DEPENDENCY_ABSENT"
+        ],
+        "reasons": [
+          "Have you recorded every Form SSA-1099 you or your spouse received for 2025 (not counting a lump-sum election, and not a Form RRB-1099), with its box 3, box 4 and box 5 amounts?"
+        ]
+      },
+      {
+        "case_id": "stale-no-reconfirm",
+        "disposition": "blocked",
+        "active_codes": [
+          "SOURCE_SET_UNCLOSED"
+        ],
+        "reasons": [
+          "Have you recorded every Form SSA-1099 you or your spouse received for 2025 (not counting a lump-sum election, and not a Form RRB-1099), with its box 3, box 4 and box 5 amounts?"
+        ]
+      }
+    ]
+  }
+}

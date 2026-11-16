@@ -1,0 +1,2581 @@
+{
+  "table": "checked sibling",
+  "successor": {
+    "from_package": "v92",
+    "to": {
+      "package": "v93",
+      "registry": "v91",
+      "release": "v91"
+    },
+    "package": "v93",
+    "release": "v91",
+    "inherited_inconsistencies": [],
+    "added": [
+      "rule.form1040-line6c-checked v1 publishes social-security.line6c-checked",
+      "form1040.line-6c-checked v1 renders checked"
+    ]
+  },
+  "cases": [
+    {
+      "id": "not-made.none.single",
+      "election": "not-made",
+      "benefits": "none",
+      "status": "single",
+      "outcome": "success",
+      "stop": "saturated",
+      "error": null,
+      "sections": [
+        {
+          "field_id": "form1040.line-6c",
+          "disposition": "published_categorical",
+          "render": "not_checked",
+          "finding_value": "not_checked",
+          "reasons": [],
+          "drawn_value": "not checked",
+          "drawn_explain": "The lump-sum election checkbox is not checked.",
+          "section_error": null,
+          "citation_buttons": 1
+        },
+        {
+          "field_id": "form1040.line-6c-checked",
+          "disposition": "guard_inapplicable",
+          "render": "",
+          "finding_value": null,
+          "reasons": [],
+          "drawn_value": "Not applicable.",
+          "drawn_explain": "The checked lump-sum election disposition does not apply.",
+          "section_error": null,
+          "citation_buttons": 0
+        }
+      ],
+      "questions_by_field": {},
+      "page_questions": [],
+      "field_shows_question_twice": [],
+      "page_lists_question_on_two_fields": [],
+      "line6c_fields_blocking_that_v91_did_not": []
+    },
+    {
+      "id": "not-made.none.joint",
+      "election": "not-made",
+      "benefits": "none",
+      "status": "joint",
+      "outcome": "success",
+      "stop": "saturated",
+      "error": null,
+      "sections": [
+        {
+          "field_id": "form1040.line-6c",
+          "disposition": "published_categorical",
+          "render": "not_checked",
+          "finding_value": "not_checked",
+          "reasons": [],
+          "drawn_value": "not checked",
+          "drawn_explain": "The lump-sum election checkbox is not checked.",
+          "section_error": null,
+          "citation_buttons": 1
+        },
+        {
+          "field_id": "form1040.line-6c-checked",
+          "disposition": "guard_inapplicable",
+          "render": "",
+          "finding_value": null,
+          "reasons": [],
+          "drawn_value": "Not applicable.",
+          "drawn_explain": "The checked lump-sum election disposition does not apply.",
+          "section_error": null,
+          "citation_buttons": 0
+        }
+      ],
+      "questions_by_field": {
+        "form.sch8812.line-14": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "form.sch8812.line-17": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "form.sch8812.worksheet-a.line-5": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "form1040.line-12d-spouse-age": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no."
+        ],
+        "form1040.line-12d-spouse-age-not-checked": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no."
+        ],
+        "form1040.line-12d-spouse-blind": [
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "form1040.line-12d-spouse-blind-not-checked": [
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "form1040.line-12e": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "form1040.line-13b": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no."
+        ],
+        "form1040.line-14": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "form1040.line-15": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "form1040.line-16": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "form1040.line-19": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "form1040.line-20": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "form1040.line-24": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "form1040.line-28": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "form1040.line-32": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "form1040.line-33": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "form1040.line-34": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "form1040.line-35a": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "form1040.line-37": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "form1040.tax-after-credits": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "schedule3.line-1": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "schedule3.line-8": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ]
+      },
+      "page_questions": [
+        "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+        "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+      ],
+      "field_shows_question_twice": [],
+      "page_lists_question_on_two_fields": [
+        {
+          "sentence": "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "fields": [
+            "form.sch8812.line-14",
+            "form.sch8812.line-17",
+            "form.sch8812.worksheet-a.line-5",
+            "form1040.line-12d-spouse-age",
+            "form1040.line-12d-spouse-age-not-checked",
+            "form1040.line-12e",
+            "form1040.line-13b",
+            "form1040.line-14",
+            "form1040.line-15",
+            "form1040.line-16",
+            "form1040.line-19",
+            "form1040.line-20",
+            "form1040.line-24",
+            "form1040.line-28",
+            "form1040.line-32",
+            "form1040.line-33",
+            "form1040.line-34",
+            "form1040.line-35a",
+            "form1040.line-37",
+            "form1040.tax-after-credits",
+            "schedule3.line-1",
+            "schedule3.line-8"
+          ]
+        },
+        {
+          "sentence": "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead.",
+          "fields": [
+            "form.sch8812.line-14",
+            "form.sch8812.line-17",
+            "form.sch8812.worksheet-a.line-5",
+            "form1040.line-12d-spouse-blind",
+            "form1040.line-12d-spouse-blind-not-checked",
+            "form1040.line-12e",
+            "form1040.line-14",
+            "form1040.line-15",
+            "form1040.line-16",
+            "form1040.line-19",
+            "form1040.line-20",
+            "form1040.line-24",
+            "form1040.line-28",
+            "form1040.line-32",
+            "form1040.line-33",
+            "form1040.line-34",
+            "form1040.line-35a",
+            "form1040.line-37",
+            "form1040.tax-after-credits",
+            "schedule3.line-1",
+            "schedule3.line-8"
+          ]
+        }
+      ],
+      "line6c_fields_blocking_that_v91_did_not": []
+    },
+    {
+      "id": "not-made.none.separate",
+      "election": "not-made",
+      "benefits": "none",
+      "status": "separate",
+      "outcome": "success",
+      "stop": "saturated",
+      "error": null,
+      "sections": [
+        {
+          "field_id": "form1040.line-6c",
+          "disposition": "published_categorical",
+          "render": "not_checked",
+          "finding_value": "not_checked",
+          "reasons": [],
+          "drawn_value": "not checked",
+          "drawn_explain": "The lump-sum election checkbox is not checked.",
+          "section_error": null,
+          "citation_buttons": 1
+        },
+        {
+          "field_id": "form1040.line-6c-checked",
+          "disposition": "guard_inapplicable",
+          "render": "",
+          "finding_value": null,
+          "reasons": [],
+          "drawn_value": "Not applicable.",
+          "drawn_explain": "The checked lump-sum election disposition does not apply.",
+          "section_error": null,
+          "citation_buttons": 0
+        }
+      ],
+      "questions_by_field": {
+        "form.sch8812.line-14": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form.sch8812.line-17": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form.sch8812.worksheet-a.line-5": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-12d-spouse-age": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-12d-spouse-age-not-checked": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-12d-spouse-blind": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-12d-spouse-blind-not-checked": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-12e": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-14": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-15": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-16": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-19": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-20": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-24": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-28": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-32": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-33": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-34": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-35a": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-37": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.tax-after-credits": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "schedule3.line-1": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "schedule3.line-8": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ]
+      },
+      "page_questions": [
+        "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+      ],
+      "field_shows_question_twice": [],
+      "page_lists_question_on_two_fields": [
+        {
+          "sentence": "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?",
+          "fields": [
+            "form.sch8812.line-14",
+            "form.sch8812.line-17",
+            "form.sch8812.worksheet-a.line-5",
+            "form1040.line-12d-spouse-age",
+            "form1040.line-12d-spouse-age-not-checked",
+            "form1040.line-12d-spouse-blind",
+            "form1040.line-12d-spouse-blind-not-checked",
+            "form1040.line-12e",
+            "form1040.line-14",
+            "form1040.line-15",
+            "form1040.line-16",
+            "form1040.line-19",
+            "form1040.line-20",
+            "form1040.line-24",
+            "form1040.line-28",
+            "form1040.line-32",
+            "form1040.line-33",
+            "form1040.line-34",
+            "form1040.line-35a",
+            "form1040.line-37",
+            "form1040.tax-after-credits",
+            "schedule3.line-1",
+            "schedule3.line-8"
+          ]
+        }
+      ],
+      "line6c_fields_blocking_that_v91_did_not": []
+    },
+    {
+      "id": "not-made.statement.single",
+      "election": "not-made",
+      "benefits": "statement",
+      "status": "single",
+      "outcome": "success",
+      "stop": "saturated",
+      "error": null,
+      "sections": [
+        {
+          "field_id": "form1040.line-6c",
+          "disposition": "published_categorical",
+          "render": "not_checked",
+          "finding_value": "not_checked",
+          "reasons": [],
+          "drawn_value": "not checked",
+          "drawn_explain": "The lump-sum election checkbox is not checked.",
+          "section_error": null,
+          "citation_buttons": 1
+        },
+        {
+          "field_id": "form1040.line-6c-checked",
+          "disposition": "guard_inapplicable",
+          "render": "",
+          "finding_value": null,
+          "reasons": [],
+          "drawn_value": "Not applicable.",
+          "drawn_explain": "The checked lump-sum election disposition does not apply.",
+          "section_error": null,
+          "citation_buttons": 0
+        }
+      ],
+      "questions_by_field": {
+        "form1040.line-25b": [
+          "Enter the voluntary federal income tax withheld in box 6 of each Form SSA-1099 you or your spouse received for 2025. If box 6 is blank, enter $0."
+        ],
+        "form1040.line-25d": [
+          "Enter the voluntary federal income tax withheld in box 6 of each Form SSA-1099 you or your spouse received for 2025. If box 6 is blank, enter $0."
+        ]
+      },
+      "page_questions": [
+        "Enter the voluntary federal income tax withheld in box 6 of each Form SSA-1099 you or your spouse received for 2025. If box 6 is blank, enter $0."
+      ],
+      "field_shows_question_twice": [],
+      "page_lists_question_on_two_fields": [
+        {
+          "sentence": "Enter the voluntary federal income tax withheld in box 6 of each Form SSA-1099 you or your spouse received for 2025. If box 6 is blank, enter $0.",
+          "fields": [
+            "form1040.line-25b",
+            "form1040.line-25d"
+          ]
+        }
+      ],
+      "line6c_fields_blocking_that_v91_did_not": []
+    },
+    {
+      "id": "not-made.statement.joint",
+      "election": "not-made",
+      "benefits": "statement",
+      "status": "joint",
+      "outcome": "success",
+      "stop": "saturated",
+      "error": null,
+      "sections": [
+        {
+          "field_id": "form1040.line-6c",
+          "disposition": "published_categorical",
+          "render": "not_checked",
+          "finding_value": "not_checked",
+          "reasons": [],
+          "drawn_value": "not checked",
+          "drawn_explain": "The lump-sum election checkbox is not checked.",
+          "section_error": null,
+          "citation_buttons": 1
+        },
+        {
+          "field_id": "form1040.line-6c-checked",
+          "disposition": "guard_inapplicable",
+          "render": "",
+          "finding_value": null,
+          "reasons": [],
+          "drawn_value": "Not applicable.",
+          "drawn_explain": "The checked lump-sum election disposition does not apply.",
+          "section_error": null,
+          "citation_buttons": 0
+        }
+      ],
+      "questions_by_field": {
+        "form1040.line-12d-spouse-age": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no."
+        ],
+        "form1040.line-12d-spouse-age-not-checked": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no."
+        ],
+        "form1040.line-12d-spouse-blind": [
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "form1040.line-12d-spouse-blind-not-checked": [
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "form1040.line-12e": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "form1040.line-25b": [
+          "Enter the voluntary federal income tax withheld in box 6 of each Form SSA-1099 you or your spouse received for 2025. If box 6 is blank, enter $0."
+        ],
+        "form1040.line-25d": [
+          "Enter the voluntary federal income tax withheld in box 6 of each Form SSA-1099 you or your spouse received for 2025. If box 6 is blank, enter $0."
+        ]
+      },
+      "page_questions": [
+        "Enter the voluntary federal income tax withheld in box 6 of each Form SSA-1099 you or your spouse received for 2025. If box 6 is blank, enter $0.",
+        "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+        "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+      ],
+      "field_shows_question_twice": [],
+      "page_lists_question_on_two_fields": [
+        {
+          "sentence": "Enter the voluntary federal income tax withheld in box 6 of each Form SSA-1099 you or your spouse received for 2025. If box 6 is blank, enter $0.",
+          "fields": [
+            "form1040.line-25b",
+            "form1040.line-25d"
+          ]
+        },
+        {
+          "sentence": "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "fields": [
+            "form1040.line-12d-spouse-age",
+            "form1040.line-12d-spouse-age-not-checked",
+            "form1040.line-12e"
+          ]
+        },
+        {
+          "sentence": "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead.",
+          "fields": [
+            "form1040.line-12d-spouse-blind",
+            "form1040.line-12d-spouse-blind-not-checked",
+            "form1040.line-12e"
+          ]
+        }
+      ],
+      "line6c_fields_blocking_that_v91_did_not": []
+    },
+    {
+      "id": "not-made.statement.separate",
+      "election": "not-made",
+      "benefits": "statement",
+      "status": "separate",
+      "outcome": "success",
+      "stop": "saturated",
+      "error": null,
+      "sections": [
+        {
+          "field_id": "form1040.line-6c",
+          "disposition": "published_categorical",
+          "render": "not_checked",
+          "finding_value": "not_checked",
+          "reasons": [],
+          "drawn_value": "not checked",
+          "drawn_explain": "The lump-sum election checkbox is not checked.",
+          "section_error": null,
+          "citation_buttons": 1
+        },
+        {
+          "field_id": "form1040.line-6c-checked",
+          "disposition": "guard_inapplicable",
+          "render": "",
+          "finding_value": null,
+          "reasons": [],
+          "drawn_value": "Not applicable.",
+          "drawn_explain": "The checked lump-sum election disposition does not apply.",
+          "section_error": null,
+          "citation_buttons": 0
+        }
+      ],
+      "questions_by_field": {
+        "form1040.line-12d-spouse-age": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-12d-spouse-age-not-checked": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-12d-spouse-blind": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-12d-spouse-blind-not-checked": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-12e": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-25b": [
+          "Enter the voluntary federal income tax withheld in box 6 of each Form SSA-1099 you or your spouse received for 2025. If box 6 is blank, enter $0."
+        ],
+        "form1040.line-25d": [
+          "Enter the voluntary federal income tax withheld in box 6 of each Form SSA-1099 you or your spouse received for 2025. If box 6 is blank, enter $0."
+        ]
+      },
+      "page_questions": [
+        "Enter the voluntary federal income tax withheld in box 6 of each Form SSA-1099 you or your spouse received for 2025. If box 6 is blank, enter $0.",
+        "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+      ],
+      "field_shows_question_twice": [],
+      "page_lists_question_on_two_fields": [
+        {
+          "sentence": "Enter the voluntary federal income tax withheld in box 6 of each Form SSA-1099 you or your spouse received for 2025. If box 6 is blank, enter $0.",
+          "fields": [
+            "form1040.line-25b",
+            "form1040.line-25d"
+          ]
+        },
+        {
+          "sentence": "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?",
+          "fields": [
+            "form1040.line-12d-spouse-age",
+            "form1040.line-12d-spouse-age-not-checked",
+            "form1040.line-12d-spouse-blind",
+            "form1040.line-12d-spouse-blind-not-checked",
+            "form1040.line-12e"
+          ]
+        }
+      ],
+      "line6c_fields_blocking_that_v91_did_not": []
+    },
+    {
+      "id": "made.none.single",
+      "election": "made",
+      "benefits": "none",
+      "status": "single",
+      "outcome": "success",
+      "stop": "saturated",
+      "error": null,
+      "sections": [
+        {
+          "field_id": "form1040.line-6c",
+          "disposition": "guard_inapplicable",
+          "render": "",
+          "finding_value": null,
+          "reasons": [],
+          "drawn_value": "Not applicable.",
+          "drawn_explain": "line 6c disposition is inapplicable for the current class",
+          "section_error": null,
+          "citation_buttons": 0
+        },
+        {
+          "field_id": "form1040.line-6c-checked",
+          "disposition": "published_categorical",
+          "render": "checked",
+          "finding_value": "checked",
+          "reasons": [],
+          "drawn_value": "checked",
+          "drawn_explain": "The lump-sum election checkbox is checked.",
+          "section_error": null,
+          "citation_buttons": 1
+        }
+      ],
+      "questions_by_field": {},
+      "page_questions": [],
+      "field_shows_question_twice": [],
+      "page_lists_question_on_two_fields": [],
+      "line6c_fields_blocking_that_v91_did_not": []
+    },
+    {
+      "id": "made.none.joint",
+      "election": "made",
+      "benefits": "none",
+      "status": "joint",
+      "outcome": "success",
+      "stop": "saturated",
+      "error": null,
+      "sections": [
+        {
+          "field_id": "form1040.line-6c",
+          "disposition": "guard_inapplicable",
+          "render": "",
+          "finding_value": null,
+          "reasons": [],
+          "drawn_value": "Not applicable.",
+          "drawn_explain": "line 6c disposition is inapplicable for the current class",
+          "section_error": null,
+          "citation_buttons": 0
+        },
+        {
+          "field_id": "form1040.line-6c-checked",
+          "disposition": "published_categorical",
+          "render": "checked",
+          "finding_value": "checked",
+          "reasons": [],
+          "drawn_value": "checked",
+          "drawn_explain": "The lump-sum election checkbox is checked.",
+          "section_error": null,
+          "citation_buttons": 1
+        }
+      ],
+      "questions_by_field": {
+        "form.sch8812.line-14": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "form.sch8812.line-17": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "form.sch8812.worksheet-a.line-5": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "form1040.line-12d-spouse-age": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no."
+        ],
+        "form1040.line-12d-spouse-age-not-checked": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no."
+        ],
+        "form1040.line-12d-spouse-blind": [
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "form1040.line-12d-spouse-blind-not-checked": [
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "form1040.line-12e": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "form1040.line-13b": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no."
+        ],
+        "form1040.line-14": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "form1040.line-15": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "form1040.line-16": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "form1040.line-19": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "form1040.line-20": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "form1040.line-24": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "form1040.line-28": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "form1040.line-32": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "form1040.line-33": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "form1040.line-34": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "form1040.line-35a": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "form1040.line-37": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "form1040.tax-after-credits": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "schedule3.line-1": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "schedule3.line-8": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ]
+      },
+      "page_questions": [
+        "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+        "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+      ],
+      "field_shows_question_twice": [],
+      "page_lists_question_on_two_fields": [
+        {
+          "sentence": "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "fields": [
+            "form.sch8812.line-14",
+            "form.sch8812.line-17",
+            "form.sch8812.worksheet-a.line-5",
+            "form1040.line-12d-spouse-age",
+            "form1040.line-12d-spouse-age-not-checked",
+            "form1040.line-12e",
+            "form1040.line-13b",
+            "form1040.line-14",
+            "form1040.line-15",
+            "form1040.line-16",
+            "form1040.line-19",
+            "form1040.line-20",
+            "form1040.line-24",
+            "form1040.line-28",
+            "form1040.line-32",
+            "form1040.line-33",
+            "form1040.line-34",
+            "form1040.line-35a",
+            "form1040.line-37",
+            "form1040.tax-after-credits",
+            "schedule3.line-1",
+            "schedule3.line-8"
+          ]
+        },
+        {
+          "sentence": "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead.",
+          "fields": [
+            "form.sch8812.line-14",
+            "form.sch8812.line-17",
+            "form.sch8812.worksheet-a.line-5",
+            "form1040.line-12d-spouse-blind",
+            "form1040.line-12d-spouse-blind-not-checked",
+            "form1040.line-12e",
+            "form1040.line-14",
+            "form1040.line-15",
+            "form1040.line-16",
+            "form1040.line-19",
+            "form1040.line-20",
+            "form1040.line-24",
+            "form1040.line-28",
+            "form1040.line-32",
+            "form1040.line-33",
+            "form1040.line-34",
+            "form1040.line-35a",
+            "form1040.line-37",
+            "form1040.tax-after-credits",
+            "schedule3.line-1",
+            "schedule3.line-8"
+          ]
+        }
+      ],
+      "line6c_fields_blocking_that_v91_did_not": []
+    },
+    {
+      "id": "made.none.separate",
+      "election": "made",
+      "benefits": "none",
+      "status": "separate",
+      "outcome": "success",
+      "stop": "saturated",
+      "error": null,
+      "sections": [
+        {
+          "field_id": "form1040.line-6c",
+          "disposition": "guard_inapplicable",
+          "render": "",
+          "finding_value": null,
+          "reasons": [],
+          "drawn_value": "Not applicable.",
+          "drawn_explain": "line 6c disposition is inapplicable for the current class",
+          "section_error": null,
+          "citation_buttons": 0
+        },
+        {
+          "field_id": "form1040.line-6c-checked",
+          "disposition": "published_categorical",
+          "render": "checked",
+          "finding_value": "checked",
+          "reasons": [],
+          "drawn_value": "checked",
+          "drawn_explain": "The lump-sum election checkbox is checked.",
+          "section_error": null,
+          "citation_buttons": 1
+        }
+      ],
+      "questions_by_field": {
+        "form.sch8812.line-14": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form.sch8812.line-17": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form.sch8812.worksheet-a.line-5": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-12d-spouse-age": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-12d-spouse-age-not-checked": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-12d-spouse-blind": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-12d-spouse-blind-not-checked": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-12e": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-14": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-15": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-16": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-19": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-20": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-24": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-28": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-32": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-33": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-34": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-35a": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-37": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.tax-after-credits": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "schedule3.line-1": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "schedule3.line-8": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ]
+      },
+      "page_questions": [
+        "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+      ],
+      "field_shows_question_twice": [],
+      "page_lists_question_on_two_fields": [
+        {
+          "sentence": "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?",
+          "fields": [
+            "form.sch8812.line-14",
+            "form.sch8812.line-17",
+            "form.sch8812.worksheet-a.line-5",
+            "form1040.line-12d-spouse-age",
+            "form1040.line-12d-spouse-age-not-checked",
+            "form1040.line-12d-spouse-blind",
+            "form1040.line-12d-spouse-blind-not-checked",
+            "form1040.line-12e",
+            "form1040.line-14",
+            "form1040.line-15",
+            "form1040.line-16",
+            "form1040.line-19",
+            "form1040.line-20",
+            "form1040.line-24",
+            "form1040.line-28",
+            "form1040.line-32",
+            "form1040.line-33",
+            "form1040.line-34",
+            "form1040.line-35a",
+            "form1040.line-37",
+            "form1040.tax-after-credits",
+            "schedule3.line-1",
+            "schedule3.line-8"
+          ]
+        }
+      ],
+      "line6c_fields_blocking_that_v91_did_not": []
+    },
+    {
+      "id": "made.statement.single",
+      "election": "made",
+      "benefits": "statement",
+      "status": "single",
+      "outcome": "success",
+      "stop": "saturated",
+      "error": null,
+      "sections": [
+        {
+          "field_id": "form1040.line-6c",
+          "disposition": "guard_inapplicable",
+          "render": "",
+          "finding_value": null,
+          "reasons": [],
+          "drawn_value": "Not applicable.",
+          "drawn_explain": "line 6c disposition is inapplicable for the current class",
+          "section_error": null,
+          "citation_buttons": 0
+        },
+        {
+          "field_id": "form1040.line-6c-checked",
+          "disposition": "published_categorical",
+          "render": "checked",
+          "finding_value": "checked",
+          "reasons": [],
+          "drawn_value": "checked",
+          "drawn_explain": "The lump-sum election checkbox is checked.",
+          "section_error": null,
+          "citation_buttons": 1
+        }
+      ],
+      "questions_by_field": {
+        "form1040.line-25b": [
+          "Enter the voluntary federal income tax withheld in box 6 of each Form SSA-1099 you or your spouse received for 2025. If box 6 is blank, enter $0."
+        ],
+        "form1040.line-25d": [
+          "Enter the voluntary federal income tax withheld in box 6 of each Form SSA-1099 you or your spouse received for 2025. If box 6 is blank, enter $0."
+        ]
+      },
+      "page_questions": [
+        "Enter the voluntary federal income tax withheld in box 6 of each Form SSA-1099 you or your spouse received for 2025. If box 6 is blank, enter $0."
+      ],
+      "field_shows_question_twice": [],
+      "page_lists_question_on_two_fields": [
+        {
+          "sentence": "Enter the voluntary federal income tax withheld in box 6 of each Form SSA-1099 you or your spouse received for 2025. If box 6 is blank, enter $0.",
+          "fields": [
+            "form1040.line-25b",
+            "form1040.line-25d"
+          ]
+        }
+      ],
+      "line6c_fields_blocking_that_v91_did_not": []
+    },
+    {
+      "id": "made.statement.joint",
+      "election": "made",
+      "benefits": "statement",
+      "status": "joint",
+      "outcome": "success",
+      "stop": "saturated",
+      "error": null,
+      "sections": [
+        {
+          "field_id": "form1040.line-6c",
+          "disposition": "guard_inapplicable",
+          "render": "",
+          "finding_value": null,
+          "reasons": [],
+          "drawn_value": "Not applicable.",
+          "drawn_explain": "line 6c disposition is inapplicable for the current class",
+          "section_error": null,
+          "citation_buttons": 0
+        },
+        {
+          "field_id": "form1040.line-6c-checked",
+          "disposition": "published_categorical",
+          "render": "checked",
+          "finding_value": "checked",
+          "reasons": [],
+          "drawn_value": "checked",
+          "drawn_explain": "The lump-sum election checkbox is checked.",
+          "section_error": null,
+          "citation_buttons": 1
+        }
+      ],
+      "questions_by_field": {
+        "form1040.line-12d-spouse-age": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no."
+        ],
+        "form1040.line-12d-spouse-age-not-checked": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no."
+        ],
+        "form1040.line-12d-spouse-blind": [
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "form1040.line-12d-spouse-blind-not-checked": [
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "form1040.line-12e": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "form1040.line-25b": [
+          "Enter the voluntary federal income tax withheld in box 6 of each Form SSA-1099 you or your spouse received for 2025. If box 6 is blank, enter $0."
+        ],
+        "form1040.line-25d": [
+          "Enter the voluntary federal income tax withheld in box 6 of each Form SSA-1099 you or your spouse received for 2025. If box 6 is blank, enter $0."
+        ]
+      },
+      "page_questions": [
+        "Enter the voluntary federal income tax withheld in box 6 of each Form SSA-1099 you or your spouse received for 2025. If box 6 is blank, enter $0.",
+        "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+        "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+      ],
+      "field_shows_question_twice": [],
+      "page_lists_question_on_two_fields": [
+        {
+          "sentence": "Enter the voluntary federal income tax withheld in box 6 of each Form SSA-1099 you or your spouse received for 2025. If box 6 is blank, enter $0.",
+          "fields": [
+            "form1040.line-25b",
+            "form1040.line-25d"
+          ]
+        },
+        {
+          "sentence": "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "fields": [
+            "form1040.line-12d-spouse-age",
+            "form1040.line-12d-spouse-age-not-checked",
+            "form1040.line-12e"
+          ]
+        },
+        {
+          "sentence": "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead.",
+          "fields": [
+            "form1040.line-12d-spouse-blind",
+            "form1040.line-12d-spouse-blind-not-checked",
+            "form1040.line-12e"
+          ]
+        }
+      ],
+      "line6c_fields_blocking_that_v91_did_not": []
+    },
+    {
+      "id": "made.statement.separate",
+      "election": "made",
+      "benefits": "statement",
+      "status": "separate",
+      "outcome": "success",
+      "stop": "saturated",
+      "error": null,
+      "sections": [
+        {
+          "field_id": "form1040.line-6c",
+          "disposition": "guard_inapplicable",
+          "render": "",
+          "finding_value": null,
+          "reasons": [],
+          "drawn_value": "Not applicable.",
+          "drawn_explain": "line 6c disposition is inapplicable for the current class",
+          "section_error": null,
+          "citation_buttons": 0
+        },
+        {
+          "field_id": "form1040.line-6c-checked",
+          "disposition": "published_categorical",
+          "render": "checked",
+          "finding_value": "checked",
+          "reasons": [],
+          "drawn_value": "checked",
+          "drawn_explain": "The lump-sum election checkbox is checked.",
+          "section_error": null,
+          "citation_buttons": 1
+        }
+      ],
+      "questions_by_field": {
+        "form1040.line-12d-spouse-age": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-12d-spouse-age-not-checked": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-12d-spouse-blind": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-12d-spouse-blind-not-checked": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-12e": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-25b": [
+          "Enter the voluntary federal income tax withheld in box 6 of each Form SSA-1099 you or your spouse received for 2025. If box 6 is blank, enter $0."
+        ],
+        "form1040.line-25d": [
+          "Enter the voluntary federal income tax withheld in box 6 of each Form SSA-1099 you or your spouse received for 2025. If box 6 is blank, enter $0."
+        ]
+      },
+      "page_questions": [
+        "Enter the voluntary federal income tax withheld in box 6 of each Form SSA-1099 you or your spouse received for 2025. If box 6 is blank, enter $0.",
+        "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+      ],
+      "field_shows_question_twice": [],
+      "page_lists_question_on_two_fields": [
+        {
+          "sentence": "Enter the voluntary federal income tax withheld in box 6 of each Form SSA-1099 you or your spouse received for 2025. If box 6 is blank, enter $0.",
+          "fields": [
+            "form1040.line-25b",
+            "form1040.line-25d"
+          ]
+        },
+        {
+          "sentence": "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?",
+          "fields": [
+            "form1040.line-12d-spouse-age",
+            "form1040.line-12d-spouse-age-not-checked",
+            "form1040.line-12d-spouse-blind",
+            "form1040.line-12d-spouse-blind-not-checked",
+            "form1040.line-12e"
+          ]
+        }
+      ],
+      "line6c_fields_blocking_that_v91_did_not": []
+    },
+    {
+      "id": "unanswered.none.single",
+      "election": "unanswered",
+      "benefits": "none",
+      "status": "single",
+      "outcome": "success",
+      "stop": "saturated",
+      "error": null,
+      "sections": [
+        {
+          "field_id": "form1040.line-6c",
+          "disposition": "blocked",
+          "render": "",
+          "finding_value": null,
+          "reasons": [
+            "Did you choose the lump-sum election for Social Security benefits that relate to an earlier year?"
+          ],
+          "drawn_value": "No value published \u2014 cannot compute.",
+          "drawn_explain": "",
+          "section_error": null,
+          "citation_buttons": 0
+        },
+        {
+          "field_id": "form1040.line-6c-checked",
+          "disposition": "blocked",
+          "render": "",
+          "finding_value": null,
+          "reasons": [
+            "Did you choose the lump-sum election for Social Security benefits that relate to an earlier year?"
+          ],
+          "drawn_value": "No value published \u2014 cannot compute.",
+          "drawn_explain": "",
+          "section_error": null,
+          "citation_buttons": 0
+        }
+      ],
+      "questions_by_field": {
+        "form1040.line-6c": [
+          "Did you choose the lump-sum election for Social Security benefits that relate to an earlier year?"
+        ],
+        "form1040.line-6c-checked": [
+          "Did you choose the lump-sum election for Social Security benefits that relate to an earlier year?"
+        ]
+      },
+      "page_questions": [
+        "Did you choose the lump-sum election for Social Security benefits that relate to an earlier year?"
+      ],
+      "field_shows_question_twice": [],
+      "page_lists_question_on_two_fields": [
+        {
+          "sentence": "Did you choose the lump-sum election for Social Security benefits that relate to an earlier year?",
+          "fields": [
+            "form1040.line-6c",
+            "form1040.line-6c-checked"
+          ]
+        }
+      ],
+      "line6c_fields_blocking_that_v91_did_not": [
+        "form1040.line-6c-checked"
+      ]
+    },
+    {
+      "id": "unanswered.none.joint",
+      "election": "unanswered",
+      "benefits": "none",
+      "status": "joint",
+      "outcome": "success",
+      "stop": "saturated",
+      "error": null,
+      "sections": [
+        {
+          "field_id": "form1040.line-6c",
+          "disposition": "blocked",
+          "render": "",
+          "finding_value": null,
+          "reasons": [
+            "Did you choose the lump-sum election for Social Security benefits that relate to an earlier year?"
+          ],
+          "drawn_value": "No value published \u2014 cannot compute.",
+          "drawn_explain": "",
+          "section_error": null,
+          "citation_buttons": 0
+        },
+        {
+          "field_id": "form1040.line-6c-checked",
+          "disposition": "blocked",
+          "render": "",
+          "finding_value": null,
+          "reasons": [
+            "Did you choose the lump-sum election for Social Security benefits that relate to an earlier year?"
+          ],
+          "drawn_value": "No value published \u2014 cannot compute.",
+          "drawn_explain": "",
+          "section_error": null,
+          "citation_buttons": 0
+        }
+      ],
+      "questions_by_field": {
+        "form.sch8812.line-14": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "form.sch8812.line-17": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "form.sch8812.worksheet-a.line-5": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "form1040.line-12d-spouse-age": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no."
+        ],
+        "form1040.line-12d-spouse-age-not-checked": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no."
+        ],
+        "form1040.line-12d-spouse-blind": [
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "form1040.line-12d-spouse-blind-not-checked": [
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "form1040.line-12e": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "form1040.line-13b": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no."
+        ],
+        "form1040.line-14": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "form1040.line-15": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "form1040.line-16": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "form1040.line-19": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "form1040.line-20": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "form1040.line-24": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "form1040.line-28": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "form1040.line-32": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "form1040.line-33": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "form1040.line-34": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "form1040.line-35a": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "form1040.line-37": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "form1040.line-6c": [
+          "Did you choose the lump-sum election for Social Security benefits that relate to an earlier year?"
+        ],
+        "form1040.line-6c-checked": [
+          "Did you choose the lump-sum election for Social Security benefits that relate to an earlier year?"
+        ],
+        "form1040.tax-after-credits": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "schedule3.line-1": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "schedule3.line-8": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ]
+      },
+      "page_questions": [
+        "Did you choose the lump-sum election for Social Security benefits that relate to an earlier year?",
+        "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+        "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+      ],
+      "field_shows_question_twice": [],
+      "page_lists_question_on_two_fields": [
+        {
+          "sentence": "Did you choose the lump-sum election for Social Security benefits that relate to an earlier year?",
+          "fields": [
+            "form1040.line-6c",
+            "form1040.line-6c-checked"
+          ]
+        },
+        {
+          "sentence": "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "fields": [
+            "form.sch8812.line-14",
+            "form.sch8812.line-17",
+            "form.sch8812.worksheet-a.line-5",
+            "form1040.line-12d-spouse-age",
+            "form1040.line-12d-spouse-age-not-checked",
+            "form1040.line-12e",
+            "form1040.line-13b",
+            "form1040.line-14",
+            "form1040.line-15",
+            "form1040.line-16",
+            "form1040.line-19",
+            "form1040.line-20",
+            "form1040.line-24",
+            "form1040.line-28",
+            "form1040.line-32",
+            "form1040.line-33",
+            "form1040.line-34",
+            "form1040.line-35a",
+            "form1040.line-37",
+            "form1040.tax-after-credits",
+            "schedule3.line-1",
+            "schedule3.line-8"
+          ]
+        },
+        {
+          "sentence": "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead.",
+          "fields": [
+            "form.sch8812.line-14",
+            "form.sch8812.line-17",
+            "form.sch8812.worksheet-a.line-5",
+            "form1040.line-12d-spouse-blind",
+            "form1040.line-12d-spouse-blind-not-checked",
+            "form1040.line-12e",
+            "form1040.line-14",
+            "form1040.line-15",
+            "form1040.line-16",
+            "form1040.line-19",
+            "form1040.line-20",
+            "form1040.line-24",
+            "form1040.line-28",
+            "form1040.line-32",
+            "form1040.line-33",
+            "form1040.line-34",
+            "form1040.line-35a",
+            "form1040.line-37",
+            "form1040.tax-after-credits",
+            "schedule3.line-1",
+            "schedule3.line-8"
+          ]
+        }
+      ],
+      "line6c_fields_blocking_that_v91_did_not": [
+        "form1040.line-6c-checked"
+      ]
+    },
+    {
+      "id": "unanswered.none.separate",
+      "election": "unanswered",
+      "benefits": "none",
+      "status": "separate",
+      "outcome": "success",
+      "stop": "saturated",
+      "error": null,
+      "sections": [
+        {
+          "field_id": "form1040.line-6c",
+          "disposition": "blocked",
+          "render": "",
+          "finding_value": null,
+          "reasons": [
+            "Did you choose the lump-sum election for Social Security benefits that relate to an earlier year?"
+          ],
+          "drawn_value": "No value published \u2014 cannot compute.",
+          "drawn_explain": "",
+          "section_error": null,
+          "citation_buttons": 0
+        },
+        {
+          "field_id": "form1040.line-6c-checked",
+          "disposition": "blocked",
+          "render": "",
+          "finding_value": null,
+          "reasons": [
+            "Did you choose the lump-sum election for Social Security benefits that relate to an earlier year?"
+          ],
+          "drawn_value": "No value published \u2014 cannot compute.",
+          "drawn_explain": "",
+          "section_error": null,
+          "citation_buttons": 0
+        }
+      ],
+      "questions_by_field": {
+        "form.sch8812.line-14": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form.sch8812.line-17": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form.sch8812.worksheet-a.line-5": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-12d-spouse-age": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-12d-spouse-age-not-checked": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-12d-spouse-blind": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-12d-spouse-blind-not-checked": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-12e": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-14": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-15": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-16": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-19": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-20": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-24": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-28": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-32": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-33": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-34": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-35a": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-37": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-6c": [
+          "Did you choose the lump-sum election for Social Security benefits that relate to an earlier year?"
+        ],
+        "form1040.line-6c-checked": [
+          "Did you choose the lump-sum election for Social Security benefits that relate to an earlier year?"
+        ],
+        "form1040.tax-after-credits": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "schedule3.line-1": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "schedule3.line-8": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ]
+      },
+      "page_questions": [
+        "Did you choose the lump-sum election for Social Security benefits that relate to an earlier year?",
+        "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+      ],
+      "field_shows_question_twice": [],
+      "page_lists_question_on_two_fields": [
+        {
+          "sentence": "Did you choose the lump-sum election for Social Security benefits that relate to an earlier year?",
+          "fields": [
+            "form1040.line-6c",
+            "form1040.line-6c-checked"
+          ]
+        },
+        {
+          "sentence": "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?",
+          "fields": [
+            "form.sch8812.line-14",
+            "form.sch8812.line-17",
+            "form.sch8812.worksheet-a.line-5",
+            "form1040.line-12d-spouse-age",
+            "form1040.line-12d-spouse-age-not-checked",
+            "form1040.line-12d-spouse-blind",
+            "form1040.line-12d-spouse-blind-not-checked",
+            "form1040.line-12e",
+            "form1040.line-14",
+            "form1040.line-15",
+            "form1040.line-16",
+            "form1040.line-19",
+            "form1040.line-20",
+            "form1040.line-24",
+            "form1040.line-28",
+            "form1040.line-32",
+            "form1040.line-33",
+            "form1040.line-34",
+            "form1040.line-35a",
+            "form1040.line-37",
+            "form1040.tax-after-credits",
+            "schedule3.line-1",
+            "schedule3.line-8"
+          ]
+        }
+      ],
+      "line6c_fields_blocking_that_v91_did_not": [
+        "form1040.line-6c-checked"
+      ]
+    },
+    {
+      "id": "unanswered.statement.single",
+      "election": "unanswered",
+      "benefits": "statement",
+      "status": "single",
+      "outcome": "success",
+      "stop": "saturated",
+      "error": null,
+      "sections": [
+        {
+          "field_id": "form1040.line-6c",
+          "disposition": "blocked",
+          "render": "",
+          "finding_value": null,
+          "reasons": [
+            "Did you choose the lump-sum election for Social Security benefits that relate to an earlier year?"
+          ],
+          "drawn_value": "No value published \u2014 cannot compute.",
+          "drawn_explain": "",
+          "section_error": null,
+          "citation_buttons": 0
+        },
+        {
+          "field_id": "form1040.line-6c-checked",
+          "disposition": "blocked",
+          "render": "",
+          "finding_value": null,
+          "reasons": [
+            "Did you choose the lump-sum election for Social Security benefits that relate to an earlier year?"
+          ],
+          "drawn_value": "No value published \u2014 cannot compute.",
+          "drawn_explain": "",
+          "section_error": null,
+          "citation_buttons": 0
+        }
+      ],
+      "questions_by_field": {
+        "form1040.line-25b": [
+          "Enter the voluntary federal income tax withheld in box 6 of each Form SSA-1099 you or your spouse received for 2025. If box 6 is blank, enter $0."
+        ],
+        "form1040.line-25d": [
+          "Enter the voluntary federal income tax withheld in box 6 of each Form SSA-1099 you or your spouse received for 2025. If box 6 is blank, enter $0."
+        ],
+        "form1040.line-6c": [
+          "Did you choose the lump-sum election for Social Security benefits that relate to an earlier year?"
+        ],
+        "form1040.line-6c-checked": [
+          "Did you choose the lump-sum election for Social Security benefits that relate to an earlier year?"
+        ]
+      },
+      "page_questions": [
+        "Did you choose the lump-sum election for Social Security benefits that relate to an earlier year?",
+        "Enter the voluntary federal income tax withheld in box 6 of each Form SSA-1099 you or your spouse received for 2025. If box 6 is blank, enter $0."
+      ],
+      "field_shows_question_twice": [],
+      "page_lists_question_on_two_fields": [
+        {
+          "sentence": "Did you choose the lump-sum election for Social Security benefits that relate to an earlier year?",
+          "fields": [
+            "form1040.line-6c",
+            "form1040.line-6c-checked"
+          ]
+        },
+        {
+          "sentence": "Enter the voluntary federal income tax withheld in box 6 of each Form SSA-1099 you or your spouse received for 2025. If box 6 is blank, enter $0.",
+          "fields": [
+            "form1040.line-25b",
+            "form1040.line-25d"
+          ]
+        }
+      ],
+      "line6c_fields_blocking_that_v91_did_not": [
+        "form1040.line-6c-checked"
+      ]
+    },
+    {
+      "id": "unanswered.statement.joint",
+      "election": "unanswered",
+      "benefits": "statement",
+      "status": "joint",
+      "outcome": "success",
+      "stop": "saturated",
+      "error": null,
+      "sections": [
+        {
+          "field_id": "form1040.line-6c",
+          "disposition": "blocked",
+          "render": "",
+          "finding_value": null,
+          "reasons": [
+            "Did you choose the lump-sum election for Social Security benefits that relate to an earlier year?"
+          ],
+          "drawn_value": "No value published \u2014 cannot compute.",
+          "drawn_explain": "",
+          "section_error": null,
+          "citation_buttons": 0
+        },
+        {
+          "field_id": "form1040.line-6c-checked",
+          "disposition": "blocked",
+          "render": "",
+          "finding_value": null,
+          "reasons": [
+            "Did you choose the lump-sum election for Social Security benefits that relate to an earlier year?"
+          ],
+          "drawn_value": "No value published \u2014 cannot compute.",
+          "drawn_explain": "",
+          "section_error": null,
+          "citation_buttons": 0
+        }
+      ],
+      "questions_by_field": {
+        "form1040.line-12d-spouse-age": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no."
+        ],
+        "form1040.line-12d-spouse-age-not-checked": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no."
+        ],
+        "form1040.line-12d-spouse-blind": [
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "form1040.line-12d-spouse-blind-not-checked": [
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "form1040.line-12e": [
+          "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+        ],
+        "form1040.line-25b": [
+          "Enter the voluntary federal income tax withheld in box 6 of each Form SSA-1099 you or your spouse received for 2025. If box 6 is blank, enter $0."
+        ],
+        "form1040.line-25d": [
+          "Enter the voluntary federal income tax withheld in box 6 of each Form SSA-1099 you or your spouse received for 2025. If box 6 is blank, enter $0."
+        ],
+        "form1040.line-6c": [
+          "Did you choose the lump-sum election for Social Security benefits that relate to an earlier year?"
+        ],
+        "form1040.line-6c-checked": [
+          "Did you choose the lump-sum election for Social Security benefits that relate to an earlier year?"
+        ]
+      },
+      "page_questions": [
+        "Did you choose the lump-sum election for Social Security benefits that relate to an earlier year?",
+        "Enter the voluntary federal income tax withheld in box 6 of each Form SSA-1099 you or your spouse received for 2025. If box 6 is blank, enter $0.",
+        "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+        "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead."
+      ],
+      "field_shows_question_twice": [],
+      "page_lists_question_on_two_fields": [
+        {
+          "sentence": "Did you choose the lump-sum election for Social Security benefits that relate to an earlier year?",
+          "fields": [
+            "form1040.line-6c",
+            "form1040.line-6c-checked"
+          ]
+        },
+        {
+          "sentence": "Enter the voluntary federal income tax withheld in box 6 of each Form SSA-1099 you or your spouse received for 2025. If box 6 is blank, enter $0.",
+          "fields": [
+            "form1040.line-25b",
+            "form1040.line-25d"
+          ]
+        },
+        {
+          "sentence": "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "fields": [
+            "form1040.line-12d-spouse-age",
+            "form1040.line-12d-spouse-age-not-checked",
+            "form1040.line-12e"
+          ]
+        },
+        {
+          "sentence": "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead.",
+          "fields": [
+            "form1040.line-12d-spouse-blind",
+            "form1040.line-12d-spouse-blind-not-checked",
+            "form1040.line-12e"
+          ]
+        }
+      ],
+      "line6c_fields_blocking_that_v91_did_not": [
+        "form1040.line-6c-checked"
+      ]
+    },
+    {
+      "id": "unanswered.statement.separate",
+      "election": "unanswered",
+      "benefits": "statement",
+      "status": "separate",
+      "outcome": "success",
+      "stop": "saturated",
+      "error": null,
+      "sections": [
+        {
+          "field_id": "form1040.line-6c",
+          "disposition": "blocked",
+          "render": "",
+          "finding_value": null,
+          "reasons": [
+            "Did you choose the lump-sum election for Social Security benefits that relate to an earlier year?"
+          ],
+          "drawn_value": "No value published \u2014 cannot compute.",
+          "drawn_explain": "",
+          "section_error": null,
+          "citation_buttons": 0
+        },
+        {
+          "field_id": "form1040.line-6c-checked",
+          "disposition": "blocked",
+          "render": "",
+          "finding_value": null,
+          "reasons": [
+            "Did you choose the lump-sum election for Social Security benefits that relate to an earlier year?"
+          ],
+          "drawn_value": "No value published \u2014 cannot compute.",
+          "drawn_explain": "",
+          "section_error": null,
+          "citation_buttons": 0
+        }
+      ],
+      "questions_by_field": {
+        "form1040.line-12d-spouse-age": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-12d-spouse-age-not-checked": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-12d-spouse-blind": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-12d-spouse-blind-not-checked": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-12e": [
+          "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+        ],
+        "form1040.line-25b": [
+          "Enter the voluntary federal income tax withheld in box 6 of each Form SSA-1099 you or your spouse received for 2025. If box 6 is blank, enter $0."
+        ],
+        "form1040.line-25d": [
+          "Enter the voluntary federal income tax withheld in box 6 of each Form SSA-1099 you or your spouse received for 2025. If box 6 is blank, enter $0."
+        ],
+        "form1040.line-6c": [
+          "Did you choose the lump-sum election for Social Security benefits that relate to an earlier year?"
+        ],
+        "form1040.line-6c-checked": [
+          "Did you choose the lump-sum election for Social Security benefits that relate to an earlier year?"
+        ]
+      },
+      "page_questions": [
+        "Did you choose the lump-sum election for Social Security benefits that relate to an earlier year?",
+        "Enter the voluntary federal income tax withheld in box 6 of each Form SSA-1099 you or your spouse received for 2025. If box 6 is blank, enter $0.",
+        "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+      ],
+      "field_shows_question_twice": [],
+      "page_lists_question_on_two_fields": [
+        {
+          "sentence": "Did you choose the lump-sum election for Social Security benefits that relate to an earlier year?",
+          "fields": [
+            "form1040.line-6c",
+            "form1040.line-6c-checked"
+          ]
+        },
+        {
+          "sentence": "Enter the voluntary federal income tax withheld in box 6 of each Form SSA-1099 you or your spouse received for 2025. If box 6 is blank, enter $0.",
+          "fields": [
+            "form1040.line-25b",
+            "form1040.line-25d"
+          ]
+        },
+        {
+          "sentence": "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?",
+          "fields": [
+            "form1040.line-12d-spouse-age",
+            "form1040.line-12d-spouse-age-not-checked",
+            "form1040.line-12d-spouse-blind",
+            "form1040.line-12d-spouse-blind-not-checked",
+            "form1040.line-12e"
+          ]
+        }
+      ],
+      "line6c_fields_blocking_that_v91_did_not": [
+        "form1040.line-6c-checked"
+      ]
+    }
+  ],
+  "field_shows_question_twice": [],
+  "page_lists_question_on_two_fields": [
+    {
+      "id": "not-made.none.joint",
+      "questions": [
+        {
+          "sentence": "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "fields": [
+            "form.sch8812.line-14",
+            "form.sch8812.line-17",
+            "form.sch8812.worksheet-a.line-5",
+            "form1040.line-12d-spouse-age",
+            "form1040.line-12d-spouse-age-not-checked",
+            "form1040.line-12e",
+            "form1040.line-13b",
+            "form1040.line-14",
+            "form1040.line-15",
+            "form1040.line-16",
+            "form1040.line-19",
+            "form1040.line-20",
+            "form1040.line-24",
+            "form1040.line-28",
+            "form1040.line-32",
+            "form1040.line-33",
+            "form1040.line-34",
+            "form1040.line-35a",
+            "form1040.line-37",
+            "form1040.tax-after-credits",
+            "schedule3.line-1",
+            "schedule3.line-8"
+          ]
+        },
+        {
+          "sentence": "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead.",
+          "fields": [
+            "form.sch8812.line-14",
+            "form.sch8812.line-17",
+            "form.sch8812.worksheet-a.line-5",
+            "form1040.line-12d-spouse-blind",
+            "form1040.line-12d-spouse-blind-not-checked",
+            "form1040.line-12e",
+            "form1040.line-14",
+            "form1040.line-15",
+            "form1040.line-16",
+            "form1040.line-19",
+            "form1040.line-20",
+            "form1040.line-24",
+            "form1040.line-28",
+            "form1040.line-32",
+            "form1040.line-33",
+            "form1040.line-34",
+            "form1040.line-35a",
+            "form1040.line-37",
+            "form1040.tax-after-credits",
+            "schedule3.line-1",
+            "schedule3.line-8"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "not-made.none.separate",
+      "questions": [
+        {
+          "sentence": "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?",
+          "fields": [
+            "form.sch8812.line-14",
+            "form.sch8812.line-17",
+            "form.sch8812.worksheet-a.line-5",
+            "form1040.line-12d-spouse-age",
+            "form1040.line-12d-spouse-age-not-checked",
+            "form1040.line-12d-spouse-blind",
+            "form1040.line-12d-spouse-blind-not-checked",
+            "form1040.line-12e",
+            "form1040.line-14",
+            "form1040.line-15",
+            "form1040.line-16",
+            "form1040.line-19",
+            "form1040.line-20",
+            "form1040.line-24",
+            "form1040.line-28",
+            "form1040.line-32",
+            "form1040.line-33",
+            "form1040.line-34",
+            "form1040.line-35a",
+            "form1040.line-37",
+            "form1040.tax-after-credits",
+            "schedule3.line-1",
+            "schedule3.line-8"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "not-made.statement.single",
+      "questions": [
+        {
+          "sentence": "Enter the voluntary federal income tax withheld in box 6 of each Form SSA-1099 you or your spouse received for 2025. If box 6 is blank, enter $0.",
+          "fields": [
+            "form1040.line-25b",
+            "form1040.line-25d"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "not-made.statement.joint",
+      "questions": [
+        {
+          "sentence": "Enter the voluntary federal income tax withheld in box 6 of each Form SSA-1099 you or your spouse received for 2025. If box 6 is blank, enter $0.",
+          "fields": [
+            "form1040.line-25b",
+            "form1040.line-25d"
+          ]
+        },
+        {
+          "sentence": "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "fields": [
+            "form1040.line-12d-spouse-age",
+            "form1040.line-12d-spouse-age-not-checked",
+            "form1040.line-12e"
+          ]
+        },
+        {
+          "sentence": "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead.",
+          "fields": [
+            "form1040.line-12d-spouse-blind",
+            "form1040.line-12d-spouse-blind-not-checked",
+            "form1040.line-12e"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "not-made.statement.separate",
+      "questions": [
+        {
+          "sentence": "Enter the voluntary federal income tax withheld in box 6 of each Form SSA-1099 you or your spouse received for 2025. If box 6 is blank, enter $0.",
+          "fields": [
+            "form1040.line-25b",
+            "form1040.line-25d"
+          ]
+        },
+        {
+          "sentence": "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?",
+          "fields": [
+            "form1040.line-12d-spouse-age",
+            "form1040.line-12d-spouse-age-not-checked",
+            "form1040.line-12d-spouse-blind",
+            "form1040.line-12d-spouse-blind-not-checked",
+            "form1040.line-12e"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "made.none.joint",
+      "questions": [
+        {
+          "sentence": "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "fields": [
+            "form.sch8812.line-14",
+            "form.sch8812.line-17",
+            "form.sch8812.worksheet-a.line-5",
+            "form1040.line-12d-spouse-age",
+            "form1040.line-12d-spouse-age-not-checked",
+            "form1040.line-12e",
+            "form1040.line-13b",
+            "form1040.line-14",
+            "form1040.line-15",
+            "form1040.line-16",
+            "form1040.line-19",
+            "form1040.line-20",
+            "form1040.line-24",
+            "form1040.line-28",
+            "form1040.line-32",
+            "form1040.line-33",
+            "form1040.line-34",
+            "form1040.line-35a",
+            "form1040.line-37",
+            "form1040.tax-after-credits",
+            "schedule3.line-1",
+            "schedule3.line-8"
+          ]
+        },
+        {
+          "sentence": "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead.",
+          "fields": [
+            "form.sch8812.line-14",
+            "form.sch8812.line-17",
+            "form.sch8812.worksheet-a.line-5",
+            "form1040.line-12d-spouse-blind",
+            "form1040.line-12d-spouse-blind-not-checked",
+            "form1040.line-12e",
+            "form1040.line-14",
+            "form1040.line-15",
+            "form1040.line-16",
+            "form1040.line-19",
+            "form1040.line-20",
+            "form1040.line-24",
+            "form1040.line-28",
+            "form1040.line-32",
+            "form1040.line-33",
+            "form1040.line-34",
+            "form1040.line-35a",
+            "form1040.line-37",
+            "form1040.tax-after-credits",
+            "schedule3.line-1",
+            "schedule3.line-8"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "made.none.separate",
+      "questions": [
+        {
+          "sentence": "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?",
+          "fields": [
+            "form.sch8812.line-14",
+            "form.sch8812.line-17",
+            "form.sch8812.worksheet-a.line-5",
+            "form1040.line-12d-spouse-age",
+            "form1040.line-12d-spouse-age-not-checked",
+            "form1040.line-12d-spouse-blind",
+            "form1040.line-12d-spouse-blind-not-checked",
+            "form1040.line-12e",
+            "form1040.line-14",
+            "form1040.line-15",
+            "form1040.line-16",
+            "form1040.line-19",
+            "form1040.line-20",
+            "form1040.line-24",
+            "form1040.line-28",
+            "form1040.line-32",
+            "form1040.line-33",
+            "form1040.line-34",
+            "form1040.line-35a",
+            "form1040.line-37",
+            "form1040.tax-after-credits",
+            "schedule3.line-1",
+            "schedule3.line-8"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "made.statement.single",
+      "questions": [
+        {
+          "sentence": "Enter the voluntary federal income tax withheld in box 6 of each Form SSA-1099 you or your spouse received for 2025. If box 6 is blank, enter $0.",
+          "fields": [
+            "form1040.line-25b",
+            "form1040.line-25d"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "made.statement.joint",
+      "questions": [
+        {
+          "sentence": "Enter the voluntary federal income tax withheld in box 6 of each Form SSA-1099 you or your spouse received for 2025. If box 6 is blank, enter $0.",
+          "fields": [
+            "form1040.line-25b",
+            "form1040.line-25d"
+          ]
+        },
+        {
+          "sentence": "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "fields": [
+            "form1040.line-12d-spouse-age",
+            "form1040.line-12d-spouse-age-not-checked",
+            "form1040.line-12e"
+          ]
+        },
+        {
+          "sentence": "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead.",
+          "fields": [
+            "form1040.line-12d-spouse-blind",
+            "form1040.line-12d-spouse-blind-not-checked",
+            "form1040.line-12e"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "made.statement.separate",
+      "questions": [
+        {
+          "sentence": "Enter the voluntary federal income tax withheld in box 6 of each Form SSA-1099 you or your spouse received for 2025. If box 6 is blank, enter $0.",
+          "fields": [
+            "form1040.line-25b",
+            "form1040.line-25d"
+          ]
+        },
+        {
+          "sentence": "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?",
+          "fields": [
+            "form1040.line-12d-spouse-age",
+            "form1040.line-12d-spouse-age-not-checked",
+            "form1040.line-12d-spouse-blind",
+            "form1040.line-12d-spouse-blind-not-checked",
+            "form1040.line-12e"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "unanswered.none.single",
+      "questions": [
+        {
+          "sentence": "Did you choose the lump-sum election for Social Security benefits that relate to an earlier year?",
+          "fields": [
+            "form1040.line-6c",
+            "form1040.line-6c-checked"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "unanswered.none.joint",
+      "questions": [
+        {
+          "sentence": "Did you choose the lump-sum election for Social Security benefits that relate to an earlier year?",
+          "fields": [
+            "form1040.line-6c",
+            "form1040.line-6c-checked"
+          ]
+        },
+        {
+          "sentence": "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "fields": [
+            "form.sch8812.line-14",
+            "form.sch8812.line-17",
+            "form.sch8812.worksheet-a.line-5",
+            "form1040.line-12d-spouse-age",
+            "form1040.line-12d-spouse-age-not-checked",
+            "form1040.line-12e",
+            "form1040.line-13b",
+            "form1040.line-14",
+            "form1040.line-15",
+            "form1040.line-16",
+            "form1040.line-19",
+            "form1040.line-20",
+            "form1040.line-24",
+            "form1040.line-28",
+            "form1040.line-32",
+            "form1040.line-33",
+            "form1040.line-34",
+            "form1040.line-35a",
+            "form1040.line-37",
+            "form1040.tax-after-credits",
+            "schedule3.line-1",
+            "schedule3.line-8"
+          ]
+        },
+        {
+          "sentence": "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead.",
+          "fields": [
+            "form.sch8812.line-14",
+            "form.sch8812.line-17",
+            "form.sch8812.worksheet-a.line-5",
+            "form1040.line-12d-spouse-blind",
+            "form1040.line-12d-spouse-blind-not-checked",
+            "form1040.line-12e",
+            "form1040.line-14",
+            "form1040.line-15",
+            "form1040.line-16",
+            "form1040.line-19",
+            "form1040.line-20",
+            "form1040.line-24",
+            "form1040.line-28",
+            "form1040.line-32",
+            "form1040.line-33",
+            "form1040.line-34",
+            "form1040.line-35a",
+            "form1040.line-37",
+            "form1040.tax-after-credits",
+            "schedule3.line-1",
+            "schedule3.line-8"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "unanswered.none.separate",
+      "questions": [
+        {
+          "sentence": "Did you choose the lump-sum election for Social Security benefits that relate to an earlier year?",
+          "fields": [
+            "form1040.line-6c",
+            "form1040.line-6c-checked"
+          ]
+        },
+        {
+          "sentence": "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?",
+          "fields": [
+            "form.sch8812.line-14",
+            "form.sch8812.line-17",
+            "form.sch8812.worksheet-a.line-5",
+            "form1040.line-12d-spouse-age",
+            "form1040.line-12d-spouse-age-not-checked",
+            "form1040.line-12d-spouse-blind",
+            "form1040.line-12d-spouse-blind-not-checked",
+            "form1040.line-12e",
+            "form1040.line-14",
+            "form1040.line-15",
+            "form1040.line-16",
+            "form1040.line-19",
+            "form1040.line-20",
+            "form1040.line-24",
+            "form1040.line-28",
+            "form1040.line-32",
+            "form1040.line-33",
+            "form1040.line-34",
+            "form1040.line-35a",
+            "form1040.line-37",
+            "form1040.tax-after-credits",
+            "schedule3.line-1",
+            "schedule3.line-8"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "unanswered.statement.single",
+      "questions": [
+        {
+          "sentence": "Did you choose the lump-sum election for Social Security benefits that relate to an earlier year?",
+          "fields": [
+            "form1040.line-6c",
+            "form1040.line-6c-checked"
+          ]
+        },
+        {
+          "sentence": "Enter the voluntary federal income tax withheld in box 6 of each Form SSA-1099 you or your spouse received for 2025. If box 6 is blank, enter $0.",
+          "fields": [
+            "form1040.line-25b",
+            "form1040.line-25d"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "unanswered.statement.joint",
+      "questions": [
+        {
+          "sentence": "Did you choose the lump-sum election for Social Security benefits that relate to an earlier year?",
+          "fields": [
+            "form1040.line-6c",
+            "form1040.line-6c-checked"
+          ]
+        },
+        {
+          "sentence": "Enter the voluntary federal income tax withheld in box 6 of each Form SSA-1099 you or your spouse received for 2025. If box 6 is blank, enter $0.",
+          "fields": [
+            "form1040.line-25b",
+            "form1040.line-25d"
+          ]
+        },
+        {
+          "sentence": "Was your spouse born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday. If your spouse died in 2025 before reaching age 65, answer no.",
+          "fields": [
+            "form1040.line-12d-spouse-age",
+            "form1040.line-12d-spouse-age-not-checked",
+            "form1040.line-12e"
+          ]
+        },
+        {
+          "sentence": "Was your spouse totally blind on December 31, 2025, or does your spouse have a statement certified by an eye doctor (ophthalmologist or optometrist) that they can't see better than 20/200 in the better eye with glasses or contact lenses, or that their field of vision is 20 degrees or less? If your spouse's eye condition isn't likely to improve beyond the conditions listed above, your spouse can get a statement certified by an eye doctor (ophthalmologist or optometrist) to this effect instead.",
+          "fields": [
+            "form1040.line-12d-spouse-blind",
+            "form1040.line-12d-spouse-blind-not-checked",
+            "form1040.line-12e"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "unanswered.statement.separate",
+      "questions": [
+        {
+          "sentence": "Did you choose the lump-sum election for Social Security benefits that relate to an earlier year?",
+          "fields": [
+            "form1040.line-6c",
+            "form1040.line-6c-checked"
+          ]
+        },
+        {
+          "sentence": "Enter the voluntary federal income tax withheld in box 6 of each Form SSA-1099 you or your spouse received for 2025. If box 6 is blank, enter $0.",
+          "fields": [
+            "form1040.line-25b",
+            "form1040.line-25d"
+          ]
+        },
+        {
+          "sentence": "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?",
+          "fields": [
+            "form1040.line-12d-spouse-age",
+            "form1040.line-12d-spouse-age-not-checked",
+            "form1040.line-12d-spouse-blind",
+            "form1040.line-12d-spouse-blind-not-checked",
+            "form1040.line-12e"
+          ]
+        }
+      ]
+    }
+  ],
+  "unanswered_blocks_a_new_field": [
+    {
+      "id": "unanswered.none.single",
+      "fields": [
+        "form1040.line-6c-checked"
+      ]
+    },
+    {
+      "id": "unanswered.none.joint",
+      "fields": [
+        "form1040.line-6c-checked"
+      ]
+    },
+    {
+      "id": "unanswered.none.separate",
+      "fields": [
+        "form1040.line-6c-checked"
+      ]
+    },
+    {
+      "id": "unanswered.statement.single",
+      "fields": [
+        "form1040.line-6c-checked"
+      ]
+    },
+    {
+      "id": "unanswered.statement.joint",
+      "fields": [
+        "form1040.line-6c-checked"
+      ]
+    },
+    {
+      "id": "unanswered.statement.separate",
+      "fields": [
+        "form1040.line-6c-checked"
+      ]
+    }
+  ],
+  "replay": {
+    "baseline": "v91",
+    "comparison": "v93",
+    "workers": 9,
+    "wall_time_s": 1335.47,
+    "runs": 775,
+    "classes": {
+      "identical": 775
+    },
+    "change_count": 0,
+    "sentence_change_count": 0,
+    "changes": []
+  },
+  "browser": "Chrome/157.0.8103.78",
+  "node": "22.23.2",
+  "recommendation": {
+    "recommend": "build",
+    "new_question_case_ids": [],
+    "field_shows_question_twice": [],
+    "introduced_page_duplicates": [
+      {
+        "id": "unanswered.none.single",
+        "questions": [
+          {
+            "sentence": "Did you choose the lump-sum election for Social Security benefits that relate to an earlier year?",
+            "fields_added": [
+              "form1040.line-6c-checked"
+            ],
+            "fields": [
+              "form1040.line-6c",
+              "form1040.line-6c-checked"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "unanswered.none.joint",
+        "questions": [
+          {
+            "sentence": "Did you choose the lump-sum election for Social Security benefits that relate to an earlier year?",
+            "fields_added": [
+              "form1040.line-6c-checked"
+            ],
+            "fields": [
+              "form1040.line-6c",
+              "form1040.line-6c-checked"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "unanswered.none.separate",
+        "questions": [
+          {
+            "sentence": "Did you choose the lump-sum election for Social Security benefits that relate to an earlier year?",
+            "fields_added": [
+              "form1040.line-6c-checked"
+            ],
+            "fields": [
+              "form1040.line-6c",
+              "form1040.line-6c-checked"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "unanswered.statement.single",
+        "questions": [
+          {
+            "sentence": "Did you choose the lump-sum election for Social Security benefits that relate to an earlier year?",
+            "fields_added": [
+              "form1040.line-6c-checked"
+            ],
+            "fields": [
+              "form1040.line-6c",
+              "form1040.line-6c-checked"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "unanswered.statement.joint",
+        "questions": [
+          {
+            "sentence": "Did you choose the lump-sum election for Social Security benefits that relate to an earlier year?",
+            "fields_added": [
+              "form1040.line-6c-checked"
+            ],
+            "fields": [
+              "form1040.line-6c",
+              "form1040.line-6c-checked"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "unanswered.statement.separate",
+        "questions": [
+          {
+            "sentence": "Did you choose the lump-sum election for Social Security benefits that relate to an earlier year?",
+            "fields_added": [
+              "form1040.line-6c-checked"
+            ],
+            "fields": [
+              "form1040.line-6c",
+              "form1040.line-6c-checked"
+            ]
+          }
+        ]
+      }
+    ],
+    "unanswered_blocks_a_new_field": [
+      "unanswered.none.single",
+      "unanswered.none.joint",
+      "unanswered.none.separate",
+      "unanswered.statement.single",
+      "unanswered.statement.joint",
+      "unanswered.statement.separate"
+    ],
+    "replay_classes": {
+      "identical": 775
+    },
+    "why": "Recorded lists stay identical, so none is newly asked a question. No field lists the same sentence twice. The six unanswered cells also block the new checked field, and that field shows the same election question line 6c already shows. That second listing is the line 6d shape: two fields, one question each. It is not a second sentence inside one field, so the build bar is met."
+  }
+}
