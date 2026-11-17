@@ -902,6 +902,23 @@ personal items you sold was recorded for 2025.", or the personal-item
 loss amount. All 691 computing recorded returns draw neither alert, and
 the 775 recorded lists compute the same numbers. The page is unchanged.
 
+## Bounded return — Line 6b Names Why It Is Blocked (2025)
+
+[Plan](milestones/line6b-reason.md); retrospective:
+`docs/milestone-retrospectives/2026-11-16-line6b-reason.md`.
+
+Core v93 (registry v91, release v91) adopts ten input-question citizens,
+so a blocked Form 1040 line 6b on a return with a Form SSA-1099 benefit
+statement asks the question that unblocks it: eight Social Security
+Benefits Worksheet scope questions, the Schedule 1 line 24z write-in
+question and, for a separate filer, whether the filer lived apart from
+their spouse all year. Line 6d, already blocked on that last fact, now
+asks it too. No rule changed. The 775 recorded lists keep their selected
+pins, and 255 current neighbour returns change no value, disposition,
+required answer or refusal code. When two causes are open on a separate
+return, line 6b names the one its worksheet rule refuses on first and
+line 6d names living apart.
+
 ## Saved-page observation — Mortgage and Sales (2025)
 
 [Plan](milestones/sale-page-observation.md); retrospective:
@@ -1020,9 +1037,10 @@ delivers an item removes it.
 - Every citation button on the saved page shows `id@version`; the page
   takes a readable label only from a source fact's evidence label. A
   label for a field citation is a projection or page change.
-- On a return with a Form SSA-1099 benefit statement, Form 1040 line 6b
-  blocks `DEPENDENCY_ABSENT` with no reason sentence (reproduced on cores
-  v91 and v92 by the page-alerts review).
+- The saved page draws a blocked field's question but has no answer
+  control, and the entry loop accepts W-2 entries only; questions are
+  display-only until a question-entry milestone (line6b-reason Decision
+  8).
 - The page-alerts alert census reads form sections only, and the
   recorded-replay pin does not hold field explain or categorical render
   text; neither can show that a sentence stayed put.

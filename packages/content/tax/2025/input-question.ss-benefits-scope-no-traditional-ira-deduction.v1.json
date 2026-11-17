@@ -1,0 +1,10 @@
+{
+  "schema": "input-question.v1",
+  "id": "tax.us.2025.input-question.ss-benefits-scope-no-traditional-ira-deduction",
+  "version": "v1",
+  "fact_type": {
+    "id": "tax.us.2025.ss-benefits-scope.no-traditional-ira-deduction",
+    "version": "v1"
+  },
+  "question": "Do you have a traditional IRA contribution deduction to figure with your Social Security benefits because you or your spouse were covered by a retirement plan at work or through self-employment in 2025?"
+}

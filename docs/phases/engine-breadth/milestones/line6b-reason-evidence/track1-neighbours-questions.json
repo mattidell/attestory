@@ -1,0 +1,883 @@
+{
+  "source_text_sha256": "6024dc94dd1f545ed6e2068a42ea11859be546e8fe18ec3082021259f9b45ff1",
+  "source_line_convention": "physical newline only; form feeds remain on their physical line",
+  "wording_repairs": {
+    "tax.us.2025.ss-benefits-scope.no-puerto-rico-or-samoa-income": "For 2025, were you (or your spouse, if filing jointly) a bona fide resident of Puerto Rico or American Samoa who had any income?"
+  },
+  "questions": [
+    {
+      "citizen": {
+        "schema": "input-question.v1",
+        "id": "tax.us.2025.input-question.ss-benefits-scope-no-unsupported-line1-entries",
+        "version": "v1",
+        "fact_type": {
+          "id": "tax.us.2025.ss-benefits-scope.no-unsupported-line1-entries",
+          "version": "v1"
+        },
+        "question": "For 2025, do you have any Form 1040 line 1 income other than wages reported in box 1 of your Forms W-2?"
+      },
+      "citizen_sha256": "8bd9e171f4847c99095e7b47375142640c0ab48bcbf9df1d65521d145e324264",
+      "fact": {
+        "id": "tax.us.2025.ss-benefits-scope.no-unsupported-line1-entries",
+        "identity_keys": [
+          {
+            "kind": "literal",
+            "name": "tax-year",
+            "values": [
+              "2025"
+            ]
+          }
+        ],
+        "nature": "determinable",
+        "schema": "fact-type.v2",
+        "supersession": {
+          "policy": "free"
+        },
+        "title": "Social Security Benefits Worksheet completeness component: No unsupported Form 1040 line 1 entries beyond closed W-2 wages (line 1a) are present for the bounded Social Security worksheet claim. Contributed categorical assertion, domain {yes, no}, no default. yes asserts the named excluded class is absent; no asserts it is present and blocks.",
+        "value_schema": {
+          "enum": [
+            "yes",
+            "no"
+          ],
+          "type": "string"
+        },
+        "version": "v1"
+      },
+      "fact_source": "ss-benefits-scope.bundle.json",
+      "readers": [
+        {
+          "file": "rule.ss-benefits-worksheet.v4.json",
+          "id": "tax.us.2025.rule.ss-benefits-worksheet",
+          "version": "v4",
+          "publishes": "tax.us.2025.social-security.line6b",
+          "needed_to_publish": "yes (the excluded class is absent)"
+        }
+      ],
+      "source": {
+        "filename": "i1040gi-2025.txt",
+        "start_line": 2075,
+        "end_line": 2075,
+        "quote_from_layout_extract": [
+          " 3.    Combine the amounts from Form 1040 or 1040-SR, lines 1z, 2b, 3b, 4b, 5b, 7a, and 8 . . . . . . . . .                                                  3."
+        ],
+        "checked_passage_fragments": [
+          "lines 1z, 2b, 3b, 4b, 5b, 7a, and 8"
+        ],
+        "assessment": "Lines 1z, 2b, 3b, 4b, 5b, 7a and 8 enter worksheet line 3; the published scope fact excludes line-1 income beyond W-2 box 1. This prompt asks that existing boundary, not a new IRS exclusion."
+      },
+      "expected_filer_meaning": {
+        "yes": "no",
+        "no": "yes"
+      },
+      "wording_verdict": "PASS",
+      "convention": "positive question about excluded circumstance: no means absence fact yes",
+      "proposed_words": null
+    },
+    {
+      "citizen": {
+        "schema": "input-question.v1",
+        "id": "tax.us.2025.input-question.ss-benefits-scope-no-pension-annuity-line5b",
+        "version": "v1",
+        "fact_type": {
+          "id": "tax.us.2025.ss-benefits-scope.no-pension-annuity-line5b",
+          "version": "v1"
+        },
+        "question": "Do you have taxable pension or annuity income to report on Form 1040, line 5b, for 2025?"
+      },
+      "citizen_sha256": "93cc039e2a702ed2901ede13308cab326971b226e89982b760a5e7cb4d2bbcae",
+      "fact": {
+        "id": "tax.us.2025.ss-benefits-scope.no-pension-annuity-line5b",
+        "identity_keys": [
+          {
+            "kind": "literal",
+            "name": "tax-year",
+            "values": [
+              "2025"
+            ]
+          }
+        ],
+        "nature": "determinable",
+        "schema": "fact-type.v2",
+        "supersession": {
+          "policy": "free"
+        },
+        "title": "Social Security Benefits Worksheet completeness component: No Form 1040 line 5b taxable pensions and annuities are present for the bounded Social Security worksheet claim. Contributed categorical assertion, domain {yes, no}, no default. yes asserts the named excluded class is absent; no asserts it is present and blocks.",
+        "value_schema": {
+          "enum": [
+            "yes",
+            "no"
+          ],
+          "type": "string"
+        },
+        "version": "v1"
+      },
+      "fact_source": "ss-benefits-scope.bundle.json",
+      "readers": [
+        {
+          "file": "rule.ss-benefits-worksheet.v4.json",
+          "id": "tax.us.2025.rule.ss-benefits-worksheet",
+          "version": "v4",
+          "publishes": "tax.us.2025.social-security.line6b",
+          "needed_to_publish": "yes (the excluded class is absent)"
+        }
+      ],
+      "source": {
+        "filename": "i1040gi-2025.txt",
+        "start_line": 2075,
+        "end_line": 2075,
+        "quote_from_layout_extract": [
+          " 3.    Combine the amounts from Form 1040 or 1040-SR, lines 1z, 2b, 3b, 4b, 5b, 7a, and 8 . . . . . . . . .                                                  3."
+        ],
+        "checked_passage_fragments": [
+          "lines 1z, 2b, 3b, 4b, 5b, 7a, and 8"
+        ],
+        "assessment": "Line 5b is explicitly part of worksheet line 3. The bounded rule represents its absence, rather than an amount."
+      },
+      "expected_filer_meaning": {
+        "yes": "no",
+        "no": "yes"
+      },
+      "wording_verdict": "PASS",
+      "convention": "positive question about excluded circumstance: no means absence fact yes",
+      "proposed_words": null
+    },
+    {
+      "citizen": {
+        "schema": "input-question.v1",
+        "id": "tax.us.2025.input-question.ss-benefits-scope-no-traditional-ira-deduction",
+        "version": "v1",
+        "fact_type": {
+          "id": "tax.us.2025.ss-benefits-scope.no-traditional-ira-deduction",
+          "version": "v1"
+        },
+        "question": "Do you have a traditional IRA contribution deduction to figure with your Social Security benefits because you or your spouse were covered by a retirement plan at work or through self-employment in 2025?"
+      },
+      "citizen_sha256": "cf5325494ebc48c04e156619db45f792f6bb004cb57fb15944d23497a47450ee",
+      "fact": {
+        "id": "tax.us.2025.ss-benefits-scope.no-traditional-ira-deduction",
+        "identity_keys": [
+          {
+            "kind": "literal",
+            "name": "tax-year",
+            "values": [
+              "2025"
+            ]
+          }
+        ],
+        "nature": "determinable",
+        "schema": "fact-type.v2",
+        "supersession": {
+          "policy": "free"
+        },
+        "title": "Social Security Benefits Worksheet completeness component: No traditional IRA contribution deduction coordinated with workplace-plan coverage is present for the bounded standard Social Security Benefits Worksheet claim. Contributed categorical assertion, domain {yes, no}, no default. yes asserts the named excluded class is absent; no asserts it is present and blocks.",
+        "value_schema": {
+          "enum": [
+            "yes",
+            "no"
+          ],
+          "type": "string"
+        },
+        "version": "v1"
+      },
+      "fact_source": "ss-benefits-scope.bundle.json",
+      "readers": [
+        {
+          "file": "rule.ss-benefits-worksheet.v4.json",
+          "id": "tax.us.2025.rule.ss-benefits-worksheet",
+          "version": "v4",
+          "publishes": "tax.us.2025.social-security.line6b",
+          "needed_to_publish": "yes (the excluded class is absent)"
+        }
+      ],
+      "source": {
+        "filename": "i1040gi-2025.txt",
+        "start_line": 2038,
+        "end_line": 2045,
+        "quote_from_layout_extract": [
+          "   \u2022 You made contributions to a tradi-      the September 11 terrorist attack on the      Form 8949 or Schedule D if you aren\u2019t",
+          "tional IRA for 2025 and you or your          World Trade Center. You began receiv-         deferring any capital gain by investing",
+          "spouse were covered by a retirement          ing SSDI benefits at age 54. Your full        in a qualified opportunity fund and both",
+          "plan at work or through self-employ-         retirement age for social security retire-    of the following apply.",
+          "ment. Instead, use the worksheets in         ment benefits is age 66. Your birthday is        1. You have no capital losses, and",
+          "Pub. 590-A to see if any of your social      April 25. In the year you turned age 66,      your only capital gains are capital gain",
+          "security benefits are taxable and to fig-    you received $1,500 per month in bene-        distributions from Form(s) 1099-DIV,",
+          "ure your IRA deduction.                      fits from the SSA (for a total of $18,000     box 2a (or substitute statements); and"
+        ],
+        "checked_passage_fragments": [
+          "contributions to a tradi-",
+          "spouse were covered",
+          "Pub. 590-A"
+        ],
+        "assessment": "The instructions route traditional-IRA contributions with taxpayer or spouse workplace/self-employment plan coverage to Publication 590-A worksheets. The wording preserves the published deduction-coordination fact; it does not add an IRA amount input."
+      },
+      "expected_filer_meaning": {
+        "yes": "no",
+        "no": "yes"
+      },
+      "wording_verdict": "PASS",
+      "convention": "positive question about excluded circumstance: no means absence fact yes",
+      "proposed_words": null
+    },
+    {
+      "citizen": {
+        "schema": "input-question.v1",
+        "id": "tax.us.2025.input-question.ss-benefits-scope-no-form-2555",
+        "version": "v1",
+        "fact_type": {
+          "id": "tax.us.2025.ss-benefits-scope.no-form-2555",
+          "version": "v1"
+        },
+        "question": "Are you filing Form 2555 for 2025?"
+      },
+      "citizen_sha256": "fee4b873495da91fa8dd18b8a44c9f5c909d9ff995549a3afdc33faf94972ea0",
+      "fact": {
+        "id": "tax.us.2025.ss-benefits-scope.no-form-2555",
+        "identity_keys": [
+          {
+            "kind": "literal",
+            "name": "tax-year",
+            "values": [
+              "2025"
+            ]
+          }
+        ],
+        "nature": "determinable",
+        "schema": "fact-type.v2",
+        "supersession": {
+          "policy": "free"
+        },
+        "title": "Social Security Benefits Worksheet completeness component: No Form 2555 foreign earned income is present for the bounded standard Social Security Benefits Worksheet claim. Contributed categorical assertion, domain {yes, no}, no default. yes asserts the named excluded class is absent; no asserts it is present and blocks.",
+        "value_schema": {
+          "enum": [
+            "yes",
+            "no"
+          ],
+          "type": "string"
+        },
+        "version": "v1"
+      },
+      "fact_source": "ss-benefits-scope.bundle.json",
+      "readers": [
+        {
+          "file": "rule.ss-benefits-worksheet.v4.json",
+          "id": "tax.us.2025.rule.ss-benefits-worksheet",
+          "version": "v4",
+          "publishes": "tax.us.2025.social-security.line6b",
+          "needed_to_publish": "yes (the excluded class is absent)"
+        }
+      ],
+      "source": {
+        "filename": "i1040gi-2025.txt",
+        "start_line": 1981,
+        "end_line": 1985,
+        "quote_from_layout_extract": [
+          "\fbox 1 on line 5c. See Rollovers, earlier,       \u2022 You file Form 2555, 4563, or                      Form RRB-1099. If you need a",
+          "for more information.                        8815, or you exclude employer-provided         TIP replacement Form RRB-1099,",
+          "                                             adoption benefits or income from sour-                call the Railroad Retirement",
+          "   If you are making the election to ex-     ces within Puerto Rico. Instead, use the      Board at 877-772-5772 or go to",
+          "clude from your income distributions         worksheet in Pub. 915.                        www.rrb.gov."
+        ],
+        "checked_passage_fragments": [
+          "Form 2555",
+          "worksheet in Pub. 915"
+        ],
+        "assessment": "Form 2555 is named in the exception routing the filer to Publication 915."
+      },
+      "expected_filer_meaning": {
+        "yes": "no",
+        "no": "yes"
+      },
+      "wording_verdict": "PASS",
+      "convention": "positive question about excluded circumstance: no means absence fact yes",
+      "proposed_words": null
+    },
+    {
+      "citizen": {
+        "schema": "input-question.v1",
+        "id": "tax.us.2025.input-question.ss-benefits-scope-no-form-4563",
+        "version": "v1",
+        "fact_type": {
+          "id": "tax.us.2025.ss-benefits-scope.no-form-4563",
+          "version": "v1"
+        },
+        "question": "Are you filing Form 4563 for 2025?"
+      },
+      "citizen_sha256": "a279864d6ba3d793ccbf6c80d820c8d51937a684897abd82ca1fb8e123a5f15c",
+      "fact": {
+        "id": "tax.us.2025.ss-benefits-scope.no-form-4563",
+        "identity_keys": [
+          {
+            "kind": "literal",
+            "name": "tax-year",
+            "values": [
+              "2025"
+            ]
+          }
+        ],
+        "nature": "determinable",
+        "schema": "fact-type.v2",
+        "supersession": {
+          "policy": "free"
+        },
+        "title": "Social Security Benefits Worksheet completeness component: No Form 4563 exclusion of income for bona fide residents of American Samoa is present for the bounded standard Social Security Benefits Worksheet claim. Contributed categorical assertion, domain {yes, no}, no default. yes asserts the named excluded class is absent; no asserts it is present and blocks.",
+        "value_schema": {
+          "enum": [
+            "yes",
+            "no"
+          ],
+          "type": "string"
+        },
+        "version": "v1"
+      },
+      "fact_source": "ss-benefits-scope.bundle.json",
+      "readers": [
+        {
+          "file": "rule.ss-benefits-worksheet.v4.json",
+          "id": "tax.us.2025.rule.ss-benefits-worksheet",
+          "version": "v4",
+          "publishes": "tax.us.2025.social-security.line6b",
+          "needed_to_publish": "yes (the excluded class is absent)"
+        }
+      ],
+      "source": {
+        "filename": "i1040gi-2025.txt",
+        "start_line": 1981,
+        "end_line": 1985,
+        "quote_from_layout_extract": [
+          "\fbox 1 on line 5c. See Rollovers, earlier,       \u2022 You file Form 2555, 4563, or                      Form RRB-1099. If you need a",
+          "for more information.                        8815, or you exclude employer-provided         TIP replacement Form RRB-1099,",
+          "                                             adoption benefits or income from sour-                call the Railroad Retirement",
+          "   If you are making the election to ex-     ces within Puerto Rico. Instead, use the      Board at 877-772-5772 or go to",
+          "clude from your income distributions         worksheet in Pub. 915.                        www.rrb.gov."
+        ],
+        "checked_passage_fragments": [
+          "4563",
+          "worksheet in Pub. 915"
+        ],
+        "assessment": "Form 4563 is named in the same exception."
+      },
+      "expected_filer_meaning": {
+        "yes": "no",
+        "no": "yes"
+      },
+      "wording_verdict": "PASS",
+      "convention": "positive question about excluded circumstance: no means absence fact yes",
+      "proposed_words": null
+    },
+    {
+      "citizen": {
+        "schema": "input-question.v1",
+        "id": "tax.us.2025.input-question.ss-benefits-scope-no-form-8815",
+        "version": "v1",
+        "fact_type": {
+          "id": "tax.us.2025.ss-benefits-scope.no-form-8815",
+          "version": "v1"
+        },
+        "question": "Are you filing Form 8815 for 2025?"
+      },
+      "citizen_sha256": "1b5af2b7ab3fc045d45c3c9d6583d51f67096853f1fbb0b6ebf63d11484c3c86",
+      "fact": {
+        "id": "tax.us.2025.ss-benefits-scope.no-form-8815",
+        "identity_keys": [
+          {
+            "kind": "literal",
+            "name": "tax-year",
+            "values": [
+              "2025"
+            ]
+          }
+        ],
+        "nature": "determinable",
+        "schema": "fact-type.v2",
+        "supersession": {
+          "policy": "free"
+        },
+        "title": "Social Security Benefits Worksheet completeness component: No Form 8815 exclusion of interest from series EE and I U.S. savings bonds is present for the bounded standard Social Security Benefits Worksheet claim. Contributed categorical assertion, domain {yes, no}, no default. yes asserts the named excluded class is absent; no asserts it is present and blocks.",
+        "value_schema": {
+          "enum": [
+            "yes",
+            "no"
+          ],
+          "type": "string"
+        },
+        "version": "v1"
+      },
+      "fact_source": "ss-benefits-scope.bundle.json",
+      "readers": [
+        {
+          "file": "rule.ss-benefits-worksheet.v4.json",
+          "id": "tax.us.2025.rule.ss-benefits-worksheet",
+          "version": "v4",
+          "publishes": "tax.us.2025.social-security.line6b",
+          "needed_to_publish": "yes (the excluded class is absent)"
+        }
+      ],
+      "source": {
+        "filename": "i1040gi-2025.txt",
+        "start_line": 1981,
+        "end_line": 1985,
+        "quote_from_layout_extract": [
+          "\fbox 1 on line 5c. See Rollovers, earlier,       \u2022 You file Form 2555, 4563, or                      Form RRB-1099. If you need a",
+          "for more information.                        8815, or you exclude employer-provided         TIP replacement Form RRB-1099,",
+          "                                             adoption benefits or income from sour-                call the Railroad Retirement",
+          "   If you are making the election to ex-     ces within Puerto Rico. Instead, use the      Board at 877-772-5772 or go to",
+          "clude from your income distributions         worksheet in Pub. 915.                        www.rrb.gov."
+        ],
+        "checked_passage_fragments": [
+          "8815",
+          "worksheet in Pub. 915"
+        ],
+        "assessment": "Form 8815 is named in the same exception."
+      },
+      "expected_filer_meaning": {
+        "yes": "no",
+        "no": "yes"
+      },
+      "wording_verdict": "PASS",
+      "convention": "positive question about excluded circumstance: no means absence fact yes",
+      "proposed_words": null
+    },
+    {
+      "citizen": {
+        "schema": "input-question.v1",
+        "id": "tax.us.2025.input-question.ss-benefits-scope-no-excluded-adoption-benefits",
+        "version": "v1",
+        "fact_type": {
+          "id": "tax.us.2025.ss-benefits-scope.no-excluded-adoption-benefits",
+          "version": "v1"
+        },
+        "question": "Are you excluding employer-provided adoption benefits from your income for 2025?"
+      },
+      "citizen_sha256": "ec0f5de39eaa7da617e554ccfbaa94f5ce9564551e13a2c62f95cd54ba93893b",
+      "fact": {
+        "id": "tax.us.2025.ss-benefits-scope.no-excluded-adoption-benefits",
+        "identity_keys": [
+          {
+            "kind": "literal",
+            "name": "tax-year",
+            "values": [
+              "2025"
+            ]
+          }
+        ],
+        "nature": "determinable",
+        "schema": "fact-type.v2",
+        "supersession": {
+          "policy": "free"
+        },
+        "title": "Social Security Benefits Worksheet completeness component: No employer-provided adoption benefits excluded from income are present for the bounded standard Social Security Benefits Worksheet claim. Contributed categorical assertion, domain {yes, no}, no default. yes asserts the named excluded class is absent; no asserts it is present and blocks.",
+        "value_schema": {
+          "enum": [
+            "yes",
+            "no"
+          ],
+          "type": "string"
+        },
+        "version": "v1"
+      },
+      "fact_source": "ss-benefits-scope.bundle.json",
+      "readers": [
+        {
+          "file": "rule.ss-benefits-worksheet.v4.json",
+          "id": "tax.us.2025.rule.ss-benefits-worksheet",
+          "version": "v4",
+          "publishes": "tax.us.2025.social-security.line6b",
+          "needed_to_publish": "yes (the excluded class is absent)"
+        }
+      ],
+      "source": {
+        "filename": "i1040gi-2025.txt",
+        "start_line": 1981,
+        "end_line": 1985,
+        "quote_from_layout_extract": [
+          "\fbox 1 on line 5c. See Rollovers, earlier,       \u2022 You file Form 2555, 4563, or                      Form RRB-1099. If you need a",
+          "for more information.                        8815, or you exclude employer-provided         TIP replacement Form RRB-1099,",
+          "                                             adoption benefits or income from sour-                call the Railroad Retirement",
+          "   If you are making the election to ex-     ces within Puerto Rico. Instead, use the      Board at 877-772-5772 or go to",
+          "clude from your income distributions         worksheet in Pub. 915.                        www.rrb.gov."
+        ],
+        "checked_passage_fragments": [
+          "exclude employer-provided",
+          "adoption benefits"
+        ],
+        "assessment": "Excluded employer-provided adoption benefits are named in the same exception."
+      },
+      "expected_filer_meaning": {
+        "yes": "no",
+        "no": "yes"
+      },
+      "wording_verdict": "PASS",
+      "convention": "positive question about excluded circumstance: no means absence fact yes",
+      "proposed_words": null
+    },
+    {
+      "citizen": {
+        "schema": "input-question.v1",
+        "id": "tax.us.2025.input-question.ss-benefits-scope-no-puerto-rico-or-samoa-income",
+        "version": "v1",
+        "fact_type": {
+          "id": "tax.us.2025.ss-benefits-scope.no-puerto-rico-or-samoa-income",
+          "version": "v1"
+        },
+        "question": "For 2025, were you (or your spouse, if filing jointly) a bona fide resident of Puerto Rico or American Samoa who had any income?"
+      },
+      "citizen_sha256": "0c3dfcde80c6e794509a429d0f79b31c67517c98a0f4d92c3a540fc04a25ef07",
+      "fact": {
+        "id": "tax.us.2025.ss-benefits-scope.no-puerto-rico-or-samoa-income",
+        "identity_keys": [
+          {
+            "kind": "literal",
+            "name": "tax-year",
+            "values": [
+              "2025"
+            ]
+          }
+        ],
+        "nature": "determinable",
+        "schema": "fact-type.v2",
+        "supersession": {
+          "policy": "free"
+        },
+        "title": "Social Security Benefits Worksheet completeness component: No income of bona fide residents of Puerto Rico or American Samoa is present for the bounded standard Social Security Benefits Worksheet claim. Contributed categorical assertion, domain {yes, no}, no default. yes asserts the named excluded class is absent; no asserts it is present and blocks.",
+        "value_schema": {
+          "enum": [
+            "yes",
+            "no"
+          ],
+          "type": "string"
+        },
+        "version": "v1"
+      },
+      "fact_source": "ss-benefits-scope.bundle.json",
+      "readers": [
+        {
+          "file": "rule.ss-benefits-worksheet.v4.json",
+          "id": "tax.us.2025.rule.ss-benefits-worksheet",
+          "version": "v4",
+          "publishes": "tax.us.2025.social-security.line6b",
+          "needed_to_publish": "yes (the excluded class is absent)"
+        }
+      ],
+      "source": {
+        "filename": "i1040gi-2025.txt",
+        "start_line": 1981,
+        "end_line": 1985,
+        "quote_from_layout_extract": [
+          "\fbox 1 on line 5c. See Rollovers, earlier,       \u2022 You file Form 2555, 4563, or                      Form RRB-1099. If you need a",
+          "for more information.                        8815, or you exclude employer-provided         TIP replacement Form RRB-1099,",
+          "                                             adoption benefits or income from sour-                call the Railroad Retirement",
+          "   If you are making the election to ex-     ces within Puerto Rico. Instead, use the      Board at 877-772-5772 or go to",
+          "clude from your income distributions         worksheet in Pub. 915.                        www.rrb.gov."
+        ],
+        "checked_passage_fragments": [
+          "Puerto Rico",
+          "worksheet in Pub. 915"
+        ],
+        "assessment": "The local Social Security exception names excluded Puerto Rico-source income and Form 4563, and the Where Do You File footnote names American Samoa and Pub. 570. These passages do not establish an exclusion of all resident income. The published fact deliberately bounds the product more broadly: no income of bona fide residents of Puerto Rico or American Samoa. Decision 13 removes the former source restriction and includes a spouse on joint returns. A resident with only mainland income answers yes, so the absence fact is no and the existing worksheet guard remains inapplicable; no new tax eligibility claim is made.",
+        "additional_passages": [
+          {
+            "filename": "i1040gi-2025.txt",
+            "start_line": 8982,
+            "end_line": 8982,
+            "quote_from_layout_extract": [
+              "*If you live in American Samoa, Puerto Rico, Guam, the U.S. Virgin Islands, or the Northern Mariana Islands, see Pub. 570."
+            ],
+            "checked_passage_fragments": [
+              "American Samoa, Puerto Rico",
+              "Pub. 570"
+            ]
+          }
+        ]
+      },
+      "expected_filer_meaning": {
+        "yes": "no",
+        "no": "yes"
+      },
+      "wording_verdict": "PASS",
+      "convention": "positive question about excluded circumstance: no means absence fact yes",
+      "proposed_words": null
+    },
+    {
+      "citizen": {
+        "schema": "input-question.v1",
+        "id": "tax.us.2025.input-question.schedule1-adjustments-scope-no-line24z-writein",
+        "version": "v1",
+        "fact_type": {
+          "id": "tax.us.2025.schedule1-adjustments-scope.no-line24z-writein",
+          "version": "v1"
+        },
+        "question": "Do you have a Schedule 1 line 24z write-in adjustment that must be figured before completing the Social Security Benefits Worksheet for 2025?"
+      },
+      "citizen_sha256": "386a1087130847e485728cdc5f57c1746914dbab446e05e2253a8a8f512bf60a",
+      "fact": {
+        "id": "tax.us.2025.schedule1-adjustments-scope.no-line24z-writein",
+        "identity_keys": [
+          {
+            "kind": "literal",
+            "name": "tax-year",
+            "values": [
+              "2025"
+            ]
+          }
+        ],
+        "nature": "determinable",
+        "schema": "fact-type.v2",
+        "supersession": {
+          "policy": "free"
+        },
+        "title": "Schedule 1 line 24z write-in adjustment is not present for tax year 2025. Contributed categorical assertion, domain {yes, no}, no default. yes asserts the named class is absent; no asserts it is present.",
+        "value_schema": {
+          "enum": [
+            "yes",
+            "no"
+          ],
+          "type": "string"
+        },
+        "version": "v1"
+      },
+      "fact_source": "schedule1-adjustments-scope.bundle.json",
+      "readers": [
+        {
+          "file": "rule.ss-benefits-worksheet.v4.json",
+          "id": "tax.us.2025.rule.ss-benefits-worksheet",
+          "version": "v4",
+          "publishes": "tax.us.2025.social-security.line6b",
+          "needed_to_publish": "yes (the excluded class is absent)"
+        }
+      ],
+      "source": {
+        "filename": "i1040gi-2025.txt",
+        "start_line": 2063,
+        "end_line": 2064,
+        "quote_from_layout_extract": [
+          " Before you begin:                    If the instructions for Schedule 1, line 24z, have you enter a write-in adjustment on line 24z, figure that",
+          "                                      write-in before completing this worksheet (see the instructions for Schedule 1, line 24z)."
+        ],
+        "checked_passage_fragments": [
+          "write-in adjustment on line 24z",
+          "before completing this worksheet"
+        ],
+        "assessment": "The instructions say to figure the applicable Schedule 1 line 24z write-in before the worksheet. The existing fact is specific to that prerequisite."
+      },
+      "expected_filer_meaning": {
+        "yes": "no",
+        "no": "yes"
+      },
+      "wording_verdict": "PASS",
+      "convention": "positive question about excluded circumstance: no means absence fact yes",
+      "proposed_words": null
+    },
+    {
+      "citizen": {
+        "schema": "input-question.v1",
+        "id": "tax.us.2025.input-question.mfs-lived-apart-all-year",
+        "version": "v1",
+        "fact_type": {
+          "id": "tax.us.2025.mfs-lived-apart-all-year",
+          "version": "v1"
+        },
+        "question": "If you are married filing separately, did you live apart from your spouse for all of 2025?"
+      },
+      "citizen_sha256": "9d4f87d6edd9adf5228c5ac1c2fa28736206a50c8875cbb6ec719947aa213c32",
+      "fact": {
+        "id": "tax.us.2025.mfs-lived-apart-all-year",
+        "identity_keys": [
+          {
+            "kind": "literal",
+            "name": "tax-year",
+            "values": [
+              "2025"
+            ]
+          }
+        ],
+        "nature": "determinable",
+        "schema": "fact-type.v2",
+        "supersession": {
+          "policy": "free"
+        },
+        "title": "Whether the taxpayer lived apart from their spouse for the entire tax year (Form 1040 line 6d / Social Security Benefits Worksheet MFS branch). Domain {yes, no}: yes = lived apart all year; no = lived with spouse at any time. Required only for married filing separately; never inferred from filing status.",
+        "value_schema": {
+          "enum": [
+            "yes",
+            "no"
+          ]
+        },
+        "version": "v1"
+      },
+      "fact_source": "ssa1099.bundle.v2.json",
+      "readers": [
+        {
+          "file": "rule.form1040-line6d.json",
+          "id": "tax.us.2025.rule.form1040-line6d",
+          "version": "v1",
+          "publishes": "tax.us.2025.social-security.line6d-indicator",
+          "needed_to_publish": "yes (apart all year)"
+        },
+        {
+          "file": "rule.form1040-line6d-not-checked.json",
+          "id": "tax.us.2025.rule.form1040-line6d-not-checked",
+          "version": "v1",
+          "publishes": "tax.us.2025.social-security.line6d-not-checked",
+          "needed_to_publish": "no (lived with spouse at some time)"
+        },
+        {
+          "file": "rule.ss-benefits-worksheet.v4.json",
+          "id": "tax.us.2025.rule.ss-benefits-worksheet",
+          "version": "v4",
+          "publishes": "tax.us.2025.social-security.line6b",
+          "needed_to_publish": "yes (apart all year) or no (lived with spouse at some time); chooses worksheet branch"
+        }
+      ],
+      "source": {
+        "filename": "i1040gi-2025.txt",
+        "start_line": 2085,
+        "end_line": 2092,
+        "quote_from_layout_extract": [
+          " 8.    If you are:",
+          "           \u2022 Married filing jointly, enter $32,000",
+          "           \u2022 Single, head of household, qualifying surviving spouse, or",
+          "           married filing separately and you lived apart from your spouse for",
+          "           all of 2025, enter $25,000                                                                                ...............                         8.",
+          "           \u2022 Married   filing separately and you  lived    with    your     spouse       at  any    time",
+          "           in 2025, skip lines 8 through 15; multiply line 7 by 85% (0.85) and",
+          "           enter the result on line 16. Then, go to line 17"
+        ],
+        "checked_passage_fragments": [
+          "lived apart from your spouse",
+          "with your spouse",
+          "in 2025, skip lines 8 through 15"
+        ],
+        "assessment": "Both the checkbox instruction and the worksheet distinguish separate filers who lived apart all year from those who lived with a spouse at any time. The prompt preserves that distinction and the fact's yes/no direction."
+      },
+      "expected_filer_meaning": {
+        "yes": "yes",
+        "no": "no"
+      },
+      "wording_verdict": "PASS",
+      "convention": "positive question matching the affirmative living-apart fact",
+      "proposed_words": null
+    }
+  ],
+  "decision": "Decision 8: display only; synthetic facts are set by the published positive-question or assertion-question convention, not through an entry path.",
+  "published_sibling_examples": [
+    {
+      "sentence": "For 2025, did you claim the foreign earned income exclusion (Form 2555), or exclude income as a bona fide resident of Puerto Rico or American Samoa (Form 4563)?",
+      "facts": [
+        "tax.us.2025.ctc.no-puerto-rico-or-4563-exclusion",
+        "tax.us.2025.sli-scope.no-form-2555",
+        "tax.us.2025.sli-scope.no-form-4563",
+        "tax.us.2025.sli-scope.no-puerto-rico-or-samoa-income"
+      ],
+      "citizens": [
+        {
+          "id": "tax.us.2025.input-question.ctc-no-puerto-rico-or-4563-exclusion",
+          "version": "v1"
+        },
+        {
+          "id": "tax.us.2025.input-question.sli-scope-no-form-2555",
+          "version": "v1"
+        },
+        {
+          "id": "tax.us.2025.input-question.sli-scope-no-form-4563",
+          "version": "v1"
+        },
+        {
+          "id": "tax.us.2025.input-question.sli-scope-no-puerto-rico-or-samoa-income",
+          "version": "v1"
+        }
+      ]
+    },
+    {
+      "sentence": "Is it true that you had no capital losses in 2025 (for example, no loss from selling stock, funds or other property)?",
+      "facts": [
+        "tax.us.2025.exception1.no-capital-losses"
+      ],
+      "citizens": [
+        {
+          "id": "tax.us.2025.input-question.exception1-no-capital-losses",
+          "version": "v2"
+        }
+      ]
+    },
+    {
+      "sentence": "In 2025, did you have any of these adjustments to income: educator expenses; business expenses of a reservist, performing artist or fee-basis government official; a health savings account deduction; moving expenses for the Armed Forces; the deductible part of self-employment tax; a self-employed SEP, SIMPLE or qualified plan deduction; self-employed health insurance; a penalty on early withdrawal of savings; alimony you paid; an IRA deduction; an Archer MSA deduction; or any other adjustment listed on Schedule 1 lines 24a through 24z (do not count student loan interest)?",
+      "facts": [
+        "tax.us.2025.schedule1-adjustments-scope.no-line11-educator",
+        "tax.us.2025.schedule1-adjustments-scope.no-line12-business-expenses",
+        "tax.us.2025.schedule1-adjustments-scope.no-line13-hsa",
+        "tax.us.2025.schedule1-adjustments-scope.no-line14-moving",
+        "tax.us.2025.schedule1-adjustments-scope.no-line15-deductible-se",
+        "tax.us.2025.schedule1-adjustments-scope.no-line16-se-retirement",
+        "tax.us.2025.schedule1-adjustments-scope.no-line17-se-health",
+        "tax.us.2025.schedule1-adjustments-scope.no-line18-penalty",
+        "tax.us.2025.schedule1-adjustments-scope.no-line19-alimony-paid",
+        "tax.us.2025.schedule1-adjustments-scope.no-line20-ira-deduction",
+        "tax.us.2025.schedule1-adjustments-scope.no-line23-archer-msa",
+        "tax.us.2025.schedule1-adjustments-scope.no-line25-other-adjustments"
+      ],
+      "citizens": [
+        {
+          "id": "tax.us.2025.input-question.schedule1-adjustments-scope-no-line11-educator",
+          "version": "v1"
+        },
+        {
+          "id": "tax.us.2025.input-question.schedule1-adjustments-scope-no-line12-business-expenses",
+          "version": "v1"
+        },
+        {
+          "id": "tax.us.2025.input-question.schedule1-adjustments-scope-no-line13-hsa",
+          "version": "v1"
+        },
+        {
+          "id": "tax.us.2025.input-question.schedule1-adjustments-scope-no-line14-moving",
+          "version": "v1"
+        },
+        {
+          "id": "tax.us.2025.input-question.schedule1-adjustments-scope-no-line15-deductible-se",
+          "version": "v1"
+        },
+        {
+          "id": "tax.us.2025.input-question.schedule1-adjustments-scope-no-line16-se-retirement",
+          "version": "v1"
+        },
+        {
+          "id": "tax.us.2025.input-question.schedule1-adjustments-scope-no-line17-se-health",
+          "version": "v1"
+        },
+        {
+          "id": "tax.us.2025.input-question.schedule1-adjustments-scope-no-line18-penalty",
+          "version": "v1"
+        },
+        {
+          "id": "tax.us.2025.input-question.schedule1-adjustments-scope-no-line19-alimony-paid",
+          "version": "v1"
+        },
+        {
+          "id": "tax.us.2025.input-question.schedule1-adjustments-scope-no-line20-ira-deduction",
+          "version": "v1"
+        },
+        {
+          "id": "tax.us.2025.input-question.schedule1-adjustments-scope-no-line23-archer-msa",
+          "version": "v1"
+        },
+        {
+          "id": "tax.us.2025.input-question.schedule1-adjustments-scope-no-line25-other-adjustments",
+          "version": "v1"
+        }
+      ]
+    },
+    {
+      "sentence": "Did you choose the lump-sum election for Social Security benefits that relate to an earlier year?",
+      "facts": [
+        "tax.us.2025.ss-benefits-scope.no-lump-sum-election"
+      ],
+      "citizens": [
+        {
+          "id": "tax.us.2025.input-question.ss-benefits-scope-no-lump-sum-election",
+          "version": "v1"
+        }
+      ]
+    }
+  ],
+  "proposed_question_words": {}
+}

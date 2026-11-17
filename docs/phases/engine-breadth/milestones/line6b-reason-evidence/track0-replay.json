@@ -1,0 +1,18 @@
+{
+  "status": "PASS",
+  "action": "reuse; no replay executed",
+  "citizens_changed": false,
+  "core_fingerprints_match": true,
+  "part_sha256": "a004c00bad56dcd65b66ff1412700943a3998e6cc5656dd7c14a7a0eff6e9bf3",
+  "counts": {
+    "identical": 775
+  },
+  "original_wall_time_s": 1458.141,
+  "successful_runs_per_core": 691,
+  "same_errors_per_core": {
+    "FindingModelError": 82,
+    "HorizonModelError": 1,
+    "SourceAuthorityError": 1
+  },
+  "baseline_computing": 0
+}

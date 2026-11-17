@@ -1,0 +1,10 @@
+{
+  "schema": "input-question.v1",
+  "id": "tax.us.2025.input-question.ss-benefits-scope-no-pension-annuity-line5b",
+  "version": "v1",
+  "fact_type": {
+    "id": "tax.us.2025.ss-benefits-scope.no-pension-annuity-line5b",
+    "version": "v1"
+  },
+  "question": "Do you have taxable pension or annuity income to report on Form 1040, line 5b, for 2025?"
+}

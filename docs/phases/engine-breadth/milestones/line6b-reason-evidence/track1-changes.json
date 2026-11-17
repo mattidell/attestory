@@ -1,0 +1,174 @@
+{
+  "package_version": "v93",
+  "release_version": "v91",
+  "members": [
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.ss-benefits-scope-no-unsupported-line1-entries",
+        "version": "v1",
+        "schema": "input-question.v1",
+        "role": "input-question"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.ss-benefits-scope-no-pension-annuity-line5b",
+        "version": "v1",
+        "schema": "input-question.v1",
+        "role": "input-question"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.ss-benefits-scope-no-traditional-ira-deduction",
+        "version": "v1",
+        "schema": "input-question.v1",
+        "role": "input-question"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.ss-benefits-scope-no-form-2555",
+        "version": "v1",
+        "schema": "input-question.v1",
+        "role": "input-question"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.ss-benefits-scope-no-form-4563",
+        "version": "v1",
+        "schema": "input-question.v1",
+        "role": "input-question"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.ss-benefits-scope-no-form-8815",
+        "version": "v1",
+        "schema": "input-question.v1",
+        "role": "input-question"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.ss-benefits-scope-no-excluded-adoption-benefits",
+        "version": "v1",
+        "schema": "input-question.v1",
+        "role": "input-question"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.ss-benefits-scope-no-puerto-rico-or-samoa-income",
+        "version": "v1",
+        "schema": "input-question.v1",
+        "role": "input-question"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.schedule1-adjustments-scope-no-line24z-writein",
+        "version": "v1",
+        "schema": "input-question.v1",
+        "role": "input-question"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.mfs-lived-apart-all-year",
+        "version": "v1",
+        "schema": "input-question.v1",
+        "role": "input-question"
+      }
+    }
+  ],
+  "entrypoints": [
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.ss-benefits-scope-no-unsupported-line1-entries",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.ss-benefits-scope-no-pension-annuity-line5b",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.ss-benefits-scope-no-traditional-ira-deduction",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.ss-benefits-scope-no-form-2555",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.ss-benefits-scope-no-form-4563",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.ss-benefits-scope-no-form-8815",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.ss-benefits-scope-no-excluded-adoption-benefits",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.ss-benefits-scope-no-puerto-rico-or-samoa-income",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.schedule1-adjustments-scope-no-line24z-writein",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.mfs-lived-apart-all-year",
+        "version": "v1"
+      }
+    }
+  ],
+  "registry_sort": "id_version",
+  "registry_new_key_order": [
+    "checksum",
+    "id",
+    "version"
+  ]
+}

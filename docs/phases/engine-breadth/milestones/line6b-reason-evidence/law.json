@@ -1,0 +1,73 @@
+{
+  "source": {
+    "document": "2025 Instructions for Form 1040 and 1040-SR",
+    "edition_date": "2026-02-25",
+    "local_filename": "i1040gi-2025.pdf",
+    "pdf_sha256": "c196586433aaa1899719158ecc9df56b60b525090bf122d2b8d8120d7f3b118b",
+    "text_sha256": "6024dc94dd1f545ed6e2068a42ea11859be546e8fe18ec3082021259f9b45ff1",
+    "citation_unit": "printed pages; no local source locations committed"
+  },
+  "checks": [
+    {
+      "fact": "tax.us.2025.ss-benefits-scope.no-unsupported-line1-entries",
+      "question": "For 2025, do you have any Form 1040 line 1 income other than wages reported in box 1 of your Forms W-2?",
+      "instruction_location": "32, worksheet line 3",
+      "assessment": "Lines 1z, 2b, 3b, 4b, 5b, 7a and 8 enter worksheet line 3; the published scope fact excludes line-1 income beyond W-2 box 1. This prompt asks that existing boundary, not a new IRS exclusion."
+    },
+    {
+      "fact": "tax.us.2025.ss-benefits-scope.no-pension-annuity-line5b",
+      "question": "Do you have taxable pension or annuity income to report on Form 1040, line 5b, for 2025?",
+      "instruction_location": "32, worksheet line 3",
+      "assessment": "Line 5b is explicitly part of worksheet line 3. The bounded rule represents its absence, rather than an amount."
+    },
+    {
+      "fact": "tax.us.2025.ss-benefits-scope.no-traditional-ira-deduction",
+      "question": "Do you have a traditional IRA contribution deduction to figure with your Social Security benefits because you or your spouse were covered by a retirement plan at work or through self-employment in 2025?",
+      "instruction_location": "31, Lines 6a and 6b, Exception, first bullet",
+      "assessment": "The instructions route traditional-IRA contributions with taxpayer or spouse workplace/self-employment plan coverage to Publication 590-A worksheets. The wording preserves the published deduction-coordination fact; it does not add an IRA amount input."
+    },
+    {
+      "fact": "tax.us.2025.ss-benefits-scope.no-form-2555",
+      "question": "Are you filing Form 2555 for 2025?",
+      "instruction_location": "31, Lines 6a and 6b, Exception, third bullet",
+      "assessment": "Form 2555 is named in the exception routing the filer to Publication 915."
+    },
+    {
+      "fact": "tax.us.2025.ss-benefits-scope.no-form-4563",
+      "question": "Are you filing Form 4563 for 2025?",
+      "instruction_location": "31, Lines 6a and 6b, Exception, third bullet",
+      "assessment": "Form 4563 is named in the same exception."
+    },
+    {
+      "fact": "tax.us.2025.ss-benefits-scope.no-form-8815",
+      "question": "Are you filing Form 8815 for 2025?",
+      "instruction_location": "31, Lines 6a and 6b, Exception, third bullet",
+      "assessment": "Form 8815 is named in the same exception."
+    },
+    {
+      "fact": "tax.us.2025.ss-benefits-scope.no-excluded-adoption-benefits",
+      "question": "Are you excluding employer-provided adoption benefits from your income for 2025?",
+      "instruction_location": "31, Lines 6a and 6b, Exception, third bullet",
+      "assessment": "Excluded employer-provided adoption benefits are named in the same exception."
+    },
+    {
+      "fact": "tax.us.2025.ss-benefits-scope.no-puerto-rico-or-samoa-income",
+      "question": "For 2025, were you (or your spouse, if filing jointly) a bona fide resident of Puerto Rico or American Samoa who had any income?",
+      "instruction_location": "31, Lines 6a and 6b, Exception, third bullet; residency footnote at end of Where Do You File",
+      "assessment": "The local Social Security exception names excluded Puerto Rico-source income and Form 4563, and the Where Do You File footnote names American Samoa and Pub. 570. These passages do not establish an exclusion of all resident income. The published fact deliberately bounds the product more broadly: no income of bona fide residents of Puerto Rico or American Samoa. Decision 13 removes the former source restriction and includes a spouse on joint returns. A resident with only mainland income answers yes, so the absence fact is no and the existing worksheet guard remains inapplicable; no new tax eligibility claim is made."
+    },
+    {
+      "fact": "tax.us.2025.schedule1-adjustments-scope.no-line24z-writein",
+      "question": "Do you have a Schedule 1 line 24z write-in adjustment that must be figured before completing the Social Security Benefits Worksheet for 2025?",
+      "instruction_location": "32, Social Security Benefits Worksheet, Before you begin",
+      "assessment": "The instructions say to figure the applicable Schedule 1 line 24z write-in before the worksheet. The existing fact is specific to that prerequisite."
+    },
+    {
+      "fact": "tax.us.2025.mfs-lived-apart-all-year",
+      "question": "If you are married filing separately, did you live apart from your spouse for all of 2025?",
+      "instruction_location": "31, Line 6d; 32, worksheet Before you begin and line 8",
+      "assessment": "Both the checkbox instruction and the worksheet distinguish separate filers who lived apart all year from those who lived with a spouse at any time. The prompt preserves that distinction and the fact's yes/no direction."
+    }
+  ],
+  "limit": "These are candidate prompts for existing product scope facts. No eligibility rule, answer meaning or tax computation was changed. Prototype work stopped on the cross-field placement finding."
+}

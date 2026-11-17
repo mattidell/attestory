@@ -1,0 +1,585 @@
+{
+  "convention": "Decision 8: display only; synthetic facts are set by the published positive-question or assertion-question convention, not through an entry path.",
+  "results": [
+    {
+      "id": "meaning/mfs-lived-apart-all-year/no",
+      "fact": "tax.us.2025.mfs-lived-apart-all-year",
+      "spoken_answer": "no",
+      "fact_value": "no",
+      "line6b": {
+        "v91": {
+          "section_id": "line-6b",
+          "disposition": "published_value",
+          "value": 10200,
+          "codes": [],
+          "questions": [],
+          "missing": [],
+          "terminal_missing": [],
+          "generic_explain": "line 6b is blocked because a worksheet or source dependency is incomplete"
+        },
+        "successor": {
+          "section_id": "line-6b",
+          "disposition": "published_value",
+          "value": 10200,
+          "codes": [],
+          "questions": [],
+          "missing": [],
+          "terminal_missing": [],
+          "generic_explain": "line 6b is blocked because a worksheet or source dependency is incomplete"
+        }
+      },
+      "meaning_pass": true
+    },
+    {
+      "id": "meaning/mfs-lived-apart-all-year/yes",
+      "fact": "tax.us.2025.mfs-lived-apart-all-year",
+      "spoken_answer": "yes",
+      "fact_value": "yes",
+      "line6b": {
+        "v91": {
+          "section_id": "line-6b",
+          "disposition": "published_value",
+          "value": 10200,
+          "codes": [],
+          "questions": [],
+          "missing": [],
+          "terminal_missing": [],
+          "generic_explain": "line 6b is blocked because a worksheet or source dependency is incomplete"
+        },
+        "successor": {
+          "section_id": "line-6b",
+          "disposition": "published_value",
+          "value": 10200,
+          "codes": [],
+          "questions": [],
+          "missing": [],
+          "terminal_missing": [],
+          "generic_explain": "line 6b is blocked because a worksheet or source dependency is incomplete"
+        }
+      },
+      "meaning_pass": true
+    },
+    {
+      "id": "meaning/schedule1-adjustments-scope.no-line24z-writein/no",
+      "fact": "tax.us.2025.schedule1-adjustments-scope.no-line24z-writein",
+      "spoken_answer": "no",
+      "fact_value": "yes",
+      "line6b": {
+        "v91": {
+          "section_id": "line-6b",
+          "disposition": "published_value",
+          "value": 10200,
+          "codes": [],
+          "questions": [],
+          "missing": [],
+          "terminal_missing": [],
+          "generic_explain": "line 6b is blocked because a worksheet or source dependency is incomplete"
+        },
+        "successor": {
+          "section_id": "line-6b",
+          "disposition": "published_value",
+          "value": 10200,
+          "codes": [],
+          "questions": [],
+          "missing": [],
+          "terminal_missing": [],
+          "generic_explain": "line 6b is blocked because a worksheet or source dependency is incomplete"
+        }
+      },
+      "meaning_pass": true
+    },
+    {
+      "id": "meaning/schedule1-adjustments-scope.no-line24z-writein/yes",
+      "fact": "tax.us.2025.schedule1-adjustments-scope.no-line24z-writein",
+      "spoken_answer": "yes",
+      "fact_value": "no",
+      "line6b": {
+        "v91": {
+          "section_id": "line-6b",
+          "disposition": "guard_inapplicable",
+          "value": null,
+          "codes": [],
+          "questions": [],
+          "missing": [],
+          "terminal_missing": [],
+          "generic_explain": "line 6b is blocked because a worksheet or source dependency is incomplete"
+        },
+        "successor": {
+          "section_id": "line-6b",
+          "disposition": "guard_inapplicable",
+          "value": null,
+          "codes": [],
+          "questions": [],
+          "missing": [],
+          "terminal_missing": [],
+          "generic_explain": "line 6b is blocked because a worksheet or source dependency is incomplete"
+        }
+      },
+      "meaning_pass": true
+    },
+    {
+      "id": "meaning/ss-benefits-scope.no-excluded-adoption-benefits/no",
+      "fact": "tax.us.2025.ss-benefits-scope.no-excluded-adoption-benefits",
+      "spoken_answer": "no",
+      "fact_value": "yes",
+      "line6b": {
+        "v91": {
+          "section_id": "line-6b",
+          "disposition": "published_value",
+          "value": 10200,
+          "codes": [],
+          "questions": [],
+          "missing": [],
+          "terminal_missing": [],
+          "generic_explain": "line 6b is blocked because a worksheet or source dependency is incomplete"
+        },
+        "successor": {
+          "section_id": "line-6b",
+          "disposition": "published_value",
+          "value": 10200,
+          "codes": [],
+          "questions": [],
+          "missing": [],
+          "terminal_missing": [],
+          "generic_explain": "line 6b is blocked because a worksheet or source dependency is incomplete"
+        }
+      },
+      "meaning_pass": true
+    },
+    {
+      "id": "meaning/ss-benefits-scope.no-excluded-adoption-benefits/yes",
+      "fact": "tax.us.2025.ss-benefits-scope.no-excluded-adoption-benefits",
+      "spoken_answer": "yes",
+      "fact_value": "no",
+      "line6b": {
+        "v91": {
+          "section_id": "line-6b",
+          "disposition": "guard_inapplicable",
+          "value": null,
+          "codes": [],
+          "questions": [],
+          "missing": [],
+          "terminal_missing": [],
+          "generic_explain": "line 6b is blocked because a worksheet or source dependency is incomplete"
+        },
+        "successor": {
+          "section_id": "line-6b",
+          "disposition": "guard_inapplicable",
+          "value": null,
+          "codes": [],
+          "questions": [],
+          "missing": [],
+          "terminal_missing": [],
+          "generic_explain": "line 6b is blocked because a worksheet or source dependency is incomplete"
+        }
+      },
+      "meaning_pass": true
+    },
+    {
+      "id": "meaning/ss-benefits-scope.no-form-2555/no",
+      "fact": "tax.us.2025.ss-benefits-scope.no-form-2555",
+      "spoken_answer": "no",
+      "fact_value": "yes",
+      "line6b": {
+        "v91": {
+          "section_id": "line-6b",
+          "disposition": "published_value",
+          "value": 10200,
+          "codes": [],
+          "questions": [],
+          "missing": [],
+          "terminal_missing": [],
+          "generic_explain": "line 6b is blocked because a worksheet or source dependency is incomplete"
+        },
+        "successor": {
+          "section_id": "line-6b",
+          "disposition": "published_value",
+          "value": 10200,
+          "codes": [],
+          "questions": [],
+          "missing": [],
+          "terminal_missing": [],
+          "generic_explain": "line 6b is blocked because a worksheet or source dependency is incomplete"
+        }
+      },
+      "meaning_pass": true
+    },
+    {
+      "id": "meaning/ss-benefits-scope.no-form-2555/yes",
+      "fact": "tax.us.2025.ss-benefits-scope.no-form-2555",
+      "spoken_answer": "yes",
+      "fact_value": "no",
+      "line6b": {
+        "v91": {
+          "section_id": "line-6b",
+          "disposition": "guard_inapplicable",
+          "value": null,
+          "codes": [],
+          "questions": [],
+          "missing": [],
+          "terminal_missing": [],
+          "generic_explain": "line 6b is blocked because a worksheet or source dependency is incomplete"
+        },
+        "successor": {
+          "section_id": "line-6b",
+          "disposition": "guard_inapplicable",
+          "value": null,
+          "codes": [],
+          "questions": [],
+          "missing": [],
+          "terminal_missing": [],
+          "generic_explain": "line 6b is blocked because a worksheet or source dependency is incomplete"
+        }
+      },
+      "meaning_pass": true
+    },
+    {
+      "id": "meaning/ss-benefits-scope.no-form-4563/no",
+      "fact": "tax.us.2025.ss-benefits-scope.no-form-4563",
+      "spoken_answer": "no",
+      "fact_value": "yes",
+      "line6b": {
+        "v91": {
+          "section_id": "line-6b",
+          "disposition": "published_value",
+          "value": 10200,
+          "codes": [],
+          "questions": [],
+          "missing": [],
+          "terminal_missing": [],
+          "generic_explain": "line 6b is blocked because a worksheet or source dependency is incomplete"
+        },
+        "successor": {
+          "section_id": "line-6b",
+          "disposition": "published_value",
+          "value": 10200,
+          "codes": [],
+          "questions": [],
+          "missing": [],
+          "terminal_missing": [],
+          "generic_explain": "line 6b is blocked because a worksheet or source dependency is incomplete"
+        }
+      },
+      "meaning_pass": true
+    },
+    {
+      "id": "meaning/ss-benefits-scope.no-form-4563/yes",
+      "fact": "tax.us.2025.ss-benefits-scope.no-form-4563",
+      "spoken_answer": "yes",
+      "fact_value": "no",
+      "line6b": {
+        "v91": {
+          "section_id": "line-6b",
+          "disposition": "guard_inapplicable",
+          "value": null,
+          "codes": [],
+          "questions": [],
+          "missing": [],
+          "terminal_missing": [],
+          "generic_explain": "line 6b is blocked because a worksheet or source dependency is incomplete"
+        },
+        "successor": {
+          "section_id": "line-6b",
+          "disposition": "guard_inapplicable",
+          "value": null,
+          "codes": [],
+          "questions": [],
+          "missing": [],
+          "terminal_missing": [],
+          "generic_explain": "line 6b is blocked because a worksheet or source dependency is incomplete"
+        }
+      },
+      "meaning_pass": true
+    },
+    {
+      "id": "meaning/ss-benefits-scope.no-form-8815/no",
+      "fact": "tax.us.2025.ss-benefits-scope.no-form-8815",
+      "spoken_answer": "no",
+      "fact_value": "yes",
+      "line6b": {
+        "v91": {
+          "section_id": "line-6b",
+          "disposition": "published_value",
+          "value": 10200,
+          "codes": [],
+          "questions": [],
+          "missing": [],
+          "terminal_missing": [],
+          "generic_explain": "line 6b is blocked because a worksheet or source dependency is incomplete"
+        },
+        "successor": {
+          "section_id": "line-6b",
+          "disposition": "published_value",
+          "value": 10200,
+          "codes": [],
+          "questions": [],
+          "missing": [],
+          "terminal_missing": [],
+          "generic_explain": "line 6b is blocked because a worksheet or source dependency is incomplete"
+        }
+      },
+      "meaning_pass": true
+    },
+    {
+      "id": "meaning/ss-benefits-scope.no-form-8815/yes",
+      "fact": "tax.us.2025.ss-benefits-scope.no-form-8815",
+      "spoken_answer": "yes",
+      "fact_value": "no",
+      "line6b": {
+        "v91": {
+          "section_id": "line-6b",
+          "disposition": "guard_inapplicable",
+          "value": null,
+          "codes": [],
+          "questions": [],
+          "missing": [],
+          "terminal_missing": [],
+          "generic_explain": "line 6b is blocked because a worksheet or source dependency is incomplete"
+        },
+        "successor": {
+          "section_id": "line-6b",
+          "disposition": "guard_inapplicable",
+          "value": null,
+          "codes": [],
+          "questions": [],
+          "missing": [],
+          "terminal_missing": [],
+          "generic_explain": "line 6b is blocked because a worksheet or source dependency is incomplete"
+        }
+      },
+      "meaning_pass": true
+    },
+    {
+      "id": "meaning/ss-benefits-scope.no-pension-annuity-line5b/no",
+      "fact": "tax.us.2025.ss-benefits-scope.no-pension-annuity-line5b",
+      "spoken_answer": "no",
+      "fact_value": "yes",
+      "line6b": {
+        "v91": {
+          "section_id": "line-6b",
+          "disposition": "published_value",
+          "value": 10200,
+          "codes": [],
+          "questions": [],
+          "missing": [],
+          "terminal_missing": [],
+          "generic_explain": "line 6b is blocked because a worksheet or source dependency is incomplete"
+        },
+        "successor": {
+          "section_id": "line-6b",
+          "disposition": "published_value",
+          "value": 10200,
+          "codes": [],
+          "questions": [],
+          "missing": [],
+          "terminal_missing": [],
+          "generic_explain": "line 6b is blocked because a worksheet or source dependency is incomplete"
+        }
+      },
+      "meaning_pass": true
+    },
+    {
+      "id": "meaning/ss-benefits-scope.no-pension-annuity-line5b/yes",
+      "fact": "tax.us.2025.ss-benefits-scope.no-pension-annuity-line5b",
+      "spoken_answer": "yes",
+      "fact_value": "no",
+      "line6b": {
+        "v91": {
+          "section_id": "line-6b",
+          "disposition": "guard_inapplicable",
+          "value": null,
+          "codes": [],
+          "questions": [],
+          "missing": [],
+          "terminal_missing": [],
+          "generic_explain": "line 6b is blocked because a worksheet or source dependency is incomplete"
+        },
+        "successor": {
+          "section_id": "line-6b",
+          "disposition": "guard_inapplicable",
+          "value": null,
+          "codes": [],
+          "questions": [],
+          "missing": [],
+          "terminal_missing": [],
+          "generic_explain": "line 6b is blocked because a worksheet or source dependency is incomplete"
+        }
+      },
+      "meaning_pass": true
+    },
+    {
+      "id": "meaning/ss-benefits-scope.no-puerto-rico-or-samoa-income/no",
+      "fact": "tax.us.2025.ss-benefits-scope.no-puerto-rico-or-samoa-income",
+      "spoken_answer": "no",
+      "fact_value": "yes",
+      "line6b": {
+        "v91": {
+          "section_id": "line-6b",
+          "disposition": "published_value",
+          "value": 10200,
+          "codes": [],
+          "questions": [],
+          "missing": [],
+          "terminal_missing": [],
+          "generic_explain": "line 6b is blocked because a worksheet or source dependency is incomplete"
+        },
+        "successor": {
+          "section_id": "line-6b",
+          "disposition": "published_value",
+          "value": 10200,
+          "codes": [],
+          "questions": [],
+          "missing": [],
+          "terminal_missing": [],
+          "generic_explain": "line 6b is blocked because a worksheet or source dependency is incomplete"
+        }
+      },
+      "meaning_pass": true
+    },
+    {
+      "id": "meaning/ss-benefits-scope.no-puerto-rico-or-samoa-income/yes",
+      "fact": "tax.us.2025.ss-benefits-scope.no-puerto-rico-or-samoa-income",
+      "spoken_answer": "yes",
+      "fact_value": "no",
+      "line6b": {
+        "v91": {
+          "section_id": "line-6b",
+          "disposition": "guard_inapplicable",
+          "value": null,
+          "codes": [],
+          "questions": [],
+          "missing": [],
+          "terminal_missing": [],
+          "generic_explain": "line 6b is blocked because a worksheet or source dependency is incomplete"
+        },
+        "successor": {
+          "section_id": "line-6b",
+          "disposition": "guard_inapplicable",
+          "value": null,
+          "codes": [],
+          "questions": [],
+          "missing": [],
+          "terminal_missing": [],
+          "generic_explain": "line 6b is blocked because a worksheet or source dependency is incomplete"
+        }
+      },
+      "meaning_pass": true
+    },
+    {
+      "id": "meaning/ss-benefits-scope.no-traditional-ira-deduction/no",
+      "fact": "tax.us.2025.ss-benefits-scope.no-traditional-ira-deduction",
+      "spoken_answer": "no",
+      "fact_value": "yes",
+      "line6b": {
+        "v91": {
+          "section_id": "line-6b",
+          "disposition": "published_value",
+          "value": 10200,
+          "codes": [],
+          "questions": [],
+          "missing": [],
+          "terminal_missing": [],
+          "generic_explain": "line 6b is blocked because a worksheet or source dependency is incomplete"
+        },
+        "successor": {
+          "section_id": "line-6b",
+          "disposition": "published_value",
+          "value": 10200,
+          "codes": [],
+          "questions": [],
+          "missing": [],
+          "terminal_missing": [],
+          "generic_explain": "line 6b is blocked because a worksheet or source dependency is incomplete"
+        }
+      },
+      "meaning_pass": true
+    },
+    {
+      "id": "meaning/ss-benefits-scope.no-traditional-ira-deduction/yes",
+      "fact": "tax.us.2025.ss-benefits-scope.no-traditional-ira-deduction",
+      "spoken_answer": "yes",
+      "fact_value": "no",
+      "line6b": {
+        "v91": {
+          "section_id": "line-6b",
+          "disposition": "guard_inapplicable",
+          "value": null,
+          "codes": [],
+          "questions": [],
+          "missing": [],
+          "terminal_missing": [],
+          "generic_explain": "line 6b is blocked because a worksheet or source dependency is incomplete"
+        },
+        "successor": {
+          "section_id": "line-6b",
+          "disposition": "guard_inapplicable",
+          "value": null,
+          "codes": [],
+          "questions": [],
+          "missing": [],
+          "terminal_missing": [],
+          "generic_explain": "line 6b is blocked because a worksheet or source dependency is incomplete"
+        }
+      },
+      "meaning_pass": true
+    },
+    {
+      "id": "meaning/ss-benefits-scope.no-unsupported-line1-entries/no",
+      "fact": "tax.us.2025.ss-benefits-scope.no-unsupported-line1-entries",
+      "spoken_answer": "no",
+      "fact_value": "yes",
+      "line6b": {
+        "v91": {
+          "section_id": "line-6b",
+          "disposition": "published_value",
+          "value": 10200,
+          "codes": [],
+          "questions": [],
+          "missing": [],
+          "terminal_missing": [],
+          "generic_explain": "line 6b is blocked because a worksheet or source dependency is incomplete"
+        },
+        "successor": {
+          "section_id": "line-6b",
+          "disposition": "published_value",
+          "value": 10200,
+          "codes": [],
+          "questions": [],
+          "missing": [],
+          "terminal_missing": [],
+          "generic_explain": "line 6b is blocked because a worksheet or source dependency is incomplete"
+        }
+      },
+      "meaning_pass": true
+    },
+    {
+      "id": "meaning/ss-benefits-scope.no-unsupported-line1-entries/yes",
+      "fact": "tax.us.2025.ss-benefits-scope.no-unsupported-line1-entries",
+      "spoken_answer": "yes",
+      "fact_value": "no",
+      "line6b": {
+        "v91": {
+          "section_id": "line-6b",
+          "disposition": "guard_inapplicable",
+          "value": null,
+          "codes": [],
+          "questions": [],
+          "missing": [],
+          "terminal_missing": [],
+          "generic_explain": "line 6b is blocked because a worksheet or source dependency is incomplete"
+        },
+        "successor": {
+          "section_id": "line-6b",
+          "disposition": "guard_inapplicable",
+          "value": null,
+          "codes": [],
+          "questions": [],
+          "missing": [],
+          "terminal_missing": [],
+          "generic_explain": "line 6b is blocked because a worksheet or source dependency is incomplete"
+        }
+      },
+      "meaning_pass": true
+    }
+  ]
+}

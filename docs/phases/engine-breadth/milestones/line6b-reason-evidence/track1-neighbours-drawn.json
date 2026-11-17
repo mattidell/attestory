@@ -1,0 +1,867 @@
+{
+  "browser": "Chrome/157.0.8103.78",
+  "node": "22.23.2",
+  "cases": [
+    {
+      "id": "single-root/ss-benefits-scope.no-form-2555",
+      "fields": [
+        {
+          "field": "tax.us.2025.form.eic-worksheet-a.line-3",
+          "section_id": "line-eic-a-3",
+          "expected": [
+            "Are you filing Form 2555 for 2025?"
+          ],
+          "reasons": [
+            "Are you filing Form 2555 for 2025?"
+          ],
+          "questions_drawn": true,
+          "generic_explain_drawn": false,
+          "generic_remedy": 0,
+          "alerts": []
+        },
+        {
+          "field": "tax.us.2025.form.eic-worksheet-a.line-5",
+          "section_id": "line-eic-a-5",
+          "expected": [
+            "Are you filing Form 2555 for 2025?"
+          ],
+          "reasons": [
+            "Are you filing Form 2555 for 2025?"
+          ],
+          "questions_drawn": true,
+          "generic_explain_drawn": false,
+          "generic_remedy": 0,
+          "alerts": []
+        },
+        {
+          "field": "tax.us.2025.form.eic-worksheet-a.line-6",
+          "section_id": "line-eic-a-6",
+          "expected": [
+            "Are you filing Form 2555 for 2025?"
+          ],
+          "reasons": [
+            "Are you filing Form 2555 for 2025?"
+          ],
+          "questions_drawn": true,
+          "generic_explain_drawn": false,
+          "generic_remedy": 0,
+          "alerts": []
+        },
+        {
+          "field": "tax.us.2025.form.sch8812.line-14",
+          "section_id": "line-8812-14",
+          "expected": [
+            "Are you filing Form 2555 for 2025?"
+          ],
+          "reasons": [
+            "Are you filing Form 2555 for 2025?"
+          ],
+          "questions_drawn": true,
+          "generic_explain_drawn": false,
+          "generic_remedy": 0,
+          "alerts": []
+        },
+        {
+          "field": "tax.us.2025.form.sch8812.line-17",
+          "section_id": "line-8812-17",
+          "expected": [
+            "Are you filing Form 2555 for 2025?"
+          ],
+          "reasons": [
+            "Are you filing Form 2555 for 2025?"
+          ],
+          "questions_drawn": true,
+          "generic_explain_drawn": false,
+          "generic_remedy": 0,
+          "alerts": []
+        },
+        {
+          "field": "tax.us.2025.form.sch8812.worksheet-a.line-5",
+          "section_id": "line-8812-wa-5",
+          "expected": [
+            "Are you filing Form 2555 for 2025?"
+          ],
+          "reasons": [
+            "Are you filing Form 2555 for 2025?"
+          ],
+          "questions_drawn": true,
+          "generic_explain_drawn": false,
+          "generic_remedy": 0,
+          "alerts": []
+        },
+        {
+          "field": "tax.us.2025.form1040.line-11a",
+          "section_id": "line-11a",
+          "expected": [
+            "Are you filing Form 2555 for 2025?"
+          ],
+          "reasons": [
+            "Are you filing Form 2555 for 2025?"
+          ],
+          "questions_drawn": true,
+          "generic_explain_drawn": false,
+          "generic_remedy": 0,
+          "alerts": []
+        },
+        {
+          "field": "tax.us.2025.form1040.line-11b",
+          "section_id": "line-11b",
+          "expected": [
+            "Are you filing Form 2555 for 2025?"
+          ],
+          "reasons": [
+            "Are you filing Form 2555 for 2025?"
+          ],
+          "questions_drawn": true,
+          "generic_explain_drawn": false,
+          "generic_remedy": 0,
+          "alerts": []
+        },
+        {
+          "field": "tax.us.2025.form1040.line-13b",
+          "section_id": "line-13b",
+          "expected": [
+            "Are you filing Form 2555 for 2025?"
+          ],
+          "reasons": [
+            "Are you filing Form 2555 for 2025?"
+          ],
+          "questions_drawn": true,
+          "generic_explain_drawn": false,
+          "generic_remedy": 0,
+          "alerts": []
+        },
+        {
+          "field": "tax.us.2025.form1040.line-14",
+          "section_id": "line-1040-14",
+          "expected": [
+            "Are you filing Form 2555 for 2025?"
+          ],
+          "reasons": [
+            "Are you filing Form 2555 for 2025?"
+          ],
+          "questions_drawn": true,
+          "generic_explain_drawn": false,
+          "generic_remedy": 0,
+          "alerts": []
+        },
+        {
+          "field": "tax.us.2025.form1040.line-15",
+          "section_id": "line-15",
+          "expected": [
+            "Are you filing Form 2555 for 2025?"
+          ],
+          "reasons": [
+            "Are you filing Form 2555 for 2025?"
+          ],
+          "questions_drawn": true,
+          "generic_explain_drawn": false,
+          "generic_remedy": 0,
+          "alerts": []
+        },
+        {
+          "field": "tax.us.2025.form1040.line-16",
+          "section_id": "line-16",
+          "expected": [
+            "Are you filing Form 2555 for 2025?"
+          ],
+          "reasons": [
+            "Are you filing Form 2555 for 2025?"
+          ],
+          "questions_drawn": true,
+          "generic_explain_drawn": false,
+          "generic_remedy": 0,
+          "alerts": []
+        },
+        {
+          "field": "tax.us.2025.form1040.line-19",
+          "section_id": "line-19",
+          "expected": [
+            "Are you filing Form 2555 for 2025?"
+          ],
+          "reasons": [
+            "Are you filing Form 2555 for 2025?"
+          ],
+          "questions_drawn": true,
+          "generic_explain_drawn": false,
+          "generic_remedy": 0,
+          "alerts": []
+        },
+        {
+          "field": "tax.us.2025.form1040.line-20",
+          "section_id": "line-20",
+          "expected": [
+            "Are you filing Form 2555 for 2025?"
+          ],
+          "reasons": [
+            "Are you filing Form 2555 for 2025?"
+          ],
+          "questions_drawn": true,
+          "generic_explain_drawn": false,
+          "generic_remedy": 0,
+          "alerts": []
+        },
+        {
+          "field": "tax.us.2025.form1040.line-24",
+          "section_id": "line-24",
+          "expected": [
+            "Are you filing Form 2555 for 2025?"
+          ],
+          "reasons": [
+            "Are you filing Form 2555 for 2025?"
+          ],
+          "questions_drawn": true,
+          "generic_explain_drawn": false,
+          "generic_remedy": 0,
+          "alerts": []
+        },
+        {
+          "field": "tax.us.2025.form1040.line-27a",
+          "section_id": "line-27a",
+          "expected": [
+            "Are you filing Form 2555 for 2025?"
+          ],
+          "reasons": [
+            "Are you filing Form 2555 for 2025?"
+          ],
+          "questions_drawn": true,
+          "generic_explain_drawn": false,
+          "generic_remedy": 0,
+          "alerts": []
+        },
+        {
+          "field": "tax.us.2025.form1040.line-28",
+          "section_id": "line-28",
+          "expected": [
+            "Are you filing Form 2555 for 2025?"
+          ],
+          "reasons": [
+            "Are you filing Form 2555 for 2025?"
+          ],
+          "questions_drawn": true,
+          "generic_explain_drawn": false,
+          "generic_remedy": 0,
+          "alerts": []
+        },
+        {
+          "field": "tax.us.2025.form1040.line-32",
+          "section_id": "line-32",
+          "expected": [
+            "Are you filing Form 2555 for 2025?"
+          ],
+          "reasons": [
+            "Are you filing Form 2555 for 2025?"
+          ],
+          "questions_drawn": true,
+          "generic_explain_drawn": false,
+          "generic_remedy": 0,
+          "alerts": []
+        },
+        {
+          "field": "tax.us.2025.form1040.line-33",
+          "section_id": "line-33",
+          "expected": [
+            "Are you filing Form 2555 for 2025?"
+          ],
+          "reasons": [
+            "Are you filing Form 2555 for 2025?"
+          ],
+          "questions_drawn": true,
+          "generic_explain_drawn": false,
+          "generic_remedy": 0,
+          "alerts": []
+        },
+        {
+          "field": "tax.us.2025.form1040.line-34",
+          "section_id": "line-34",
+          "expected": [
+            "Are you filing Form 2555 for 2025?"
+          ],
+          "reasons": [
+            "Are you filing Form 2555 for 2025?"
+          ],
+          "questions_drawn": true,
+          "generic_explain_drawn": false,
+          "generic_remedy": 0,
+          "alerts": []
+        },
+        {
+          "field": "tax.us.2025.form1040.line-35a",
+          "section_id": "line-35a",
+          "expected": [
+            "Are you filing Form 2555 for 2025?"
+          ],
+          "reasons": [
+            "Are you filing Form 2555 for 2025?"
+          ],
+          "questions_drawn": true,
+          "generic_explain_drawn": false,
+          "generic_remedy": 0,
+          "alerts": []
+        },
+        {
+          "field": "tax.us.2025.form1040.line-37",
+          "section_id": "line-37",
+          "expected": [
+            "Are you filing Form 2555 for 2025?"
+          ],
+          "reasons": [
+            "Are you filing Form 2555 for 2025?"
+          ],
+          "questions_drawn": true,
+          "generic_explain_drawn": false,
+          "generic_remedy": 0,
+          "alerts": []
+        },
+        {
+          "field": "tax.us.2025.form1040.line-6b",
+          "section_id": "line-6b",
+          "expected": [
+            "Are you filing Form 2555 for 2025?"
+          ],
+          "reasons": [
+            "Are you filing Form 2555 for 2025?"
+          ],
+          "questions_drawn": true,
+          "generic_explain_drawn": false,
+          "generic_remedy": 0,
+          "alerts": []
+        },
+        {
+          "field": "tax.us.2025.form1040.line-9",
+          "section_id": "line-9",
+          "expected": [
+            "Are you filing Form 2555 for 2025?"
+          ],
+          "reasons": [
+            "Are you filing Form 2555 for 2025?"
+          ],
+          "questions_drawn": true,
+          "generic_explain_drawn": false,
+          "generic_remedy": 0,
+          "alerts": []
+        },
+        {
+          "field": "tax.us.2025.form1040.tax-after-credits",
+          "section_id": "line-22",
+          "expected": [
+            "Are you filing Form 2555 for 2025?"
+          ],
+          "reasons": [
+            "Are you filing Form 2555 for 2025?"
+          ],
+          "questions_drawn": true,
+          "generic_explain_drawn": false,
+          "generic_remedy": 0,
+          "alerts": []
+        },
+        {
+          "field": "tax.us.2025.schedule3.line-1",
+          "section_id": "line-Sch3-1",
+          "expected": [
+            "Are you filing Form 2555 for 2025?"
+          ],
+          "reasons": [
+            "Are you filing Form 2555 for 2025?"
+          ],
+          "questions_drawn": true,
+          "generic_explain_drawn": false,
+          "generic_remedy": 0,
+          "alerts": []
+        },
+        {
+          "field": "tax.us.2025.schedule3.line-8",
+          "section_id": "line-Sch3-8",
+          "expected": [
+            "Are you filing Form 2555 for 2025?"
+          ],
+          "reasons": [
+            "Are you filing Form 2555 for 2025?"
+          ],
+          "questions_drawn": true,
+          "generic_explain_drawn": false,
+          "generic_remedy": 0,
+          "alerts": []
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "single-root/mfs-lived-apart-all-year",
+      "fields": [
+        {
+          "field": "tax.us.2025.form.eic-worksheet-a.line-3",
+          "section_id": "line-eic-a-3",
+          "expected": [
+            "If you are married filing separately, did you live apart from your spouse for all of 2025?"
+          ],
+          "reasons": [
+            "If you are married filing separately, did you live apart from your spouse for all of 2025?"
+          ],
+          "questions_drawn": true,
+          "generic_explain_drawn": false,
+          "generic_remedy": 0,
+          "alerts": []
+        },
+        {
+          "field": "tax.us.2025.form.eic-worksheet-a.line-5",
+          "section_id": "line-eic-a-5",
+          "expected": [
+            "If you are married filing separately, did you live apart from your spouse for all of 2025?"
+          ],
+          "reasons": [
+            "If you are married filing separately, did you live apart from your spouse for all of 2025?"
+          ],
+          "questions_drawn": true,
+          "generic_explain_drawn": false,
+          "generic_remedy": 0,
+          "alerts": []
+        },
+        {
+          "field": "tax.us.2025.form.eic-worksheet-a.line-6",
+          "section_id": "line-eic-a-6",
+          "expected": [
+            "If you are married filing separately, did you live apart from your spouse for all of 2025?"
+          ],
+          "reasons": [
+            "If you are married filing separately, did you live apart from your spouse for all of 2025?"
+          ],
+          "questions_drawn": true,
+          "generic_explain_drawn": false,
+          "generic_remedy": 0,
+          "alerts": []
+        },
+        {
+          "field": "tax.us.2025.form.sch8812.line-14",
+          "section_id": "line-8812-14",
+          "expected": [
+            "If you are married filing separately, did you live apart from your spouse for all of 2025?"
+          ],
+          "reasons": [
+            "If you are married filing separately, did you live apart from your spouse for all of 2025?"
+          ],
+          "questions_drawn": true,
+          "generic_explain_drawn": false,
+          "generic_remedy": 0,
+          "alerts": []
+        },
+        {
+          "field": "tax.us.2025.form.sch8812.line-17",
+          "section_id": "line-8812-17",
+          "expected": [
+            "If you are married filing separately, did you live apart from your spouse for all of 2025?"
+          ],
+          "reasons": [
+            "If you are married filing separately, did you live apart from your spouse for all of 2025?"
+          ],
+          "questions_drawn": true,
+          "generic_explain_drawn": false,
+          "generic_remedy": 0,
+          "alerts": []
+        },
+        {
+          "field": "tax.us.2025.form.sch8812.worksheet-a.line-5",
+          "section_id": "line-8812-wa-5",
+          "expected": [
+            "If you are married filing separately, did you live apart from your spouse for all of 2025?"
+          ],
+          "reasons": [
+            "If you are married filing separately, did you live apart from your spouse for all of 2025?"
+          ],
+          "questions_drawn": true,
+          "generic_explain_drawn": false,
+          "generic_remedy": 0,
+          "alerts": []
+        },
+        {
+          "field": "tax.us.2025.form1040.line-11a",
+          "section_id": "line-11a",
+          "expected": [
+            "If you are married filing separately, did you live apart from your spouse for all of 2025?"
+          ],
+          "reasons": [
+            "If you are married filing separately, did you live apart from your spouse for all of 2025?"
+          ],
+          "questions_drawn": true,
+          "generic_explain_drawn": false,
+          "generic_remedy": 0,
+          "alerts": []
+        },
+        {
+          "field": "tax.us.2025.form1040.line-11b",
+          "section_id": "line-11b",
+          "expected": [
+            "If you are married filing separately, did you live apart from your spouse for all of 2025?"
+          ],
+          "reasons": [
+            "If you are married filing separately, did you live apart from your spouse for all of 2025?"
+          ],
+          "questions_drawn": true,
+          "generic_explain_drawn": false,
+          "generic_remedy": 0,
+          "alerts": []
+        },
+        {
+          "field": "tax.us.2025.form1040.line-13b",
+          "section_id": "line-13b",
+          "expected": [
+            "If you are married filing separately, did you live apart from your spouse for all of 2025?"
+          ],
+          "reasons": [
+            "If you are married filing separately, did you live apart from your spouse for all of 2025?"
+          ],
+          "questions_drawn": true,
+          "generic_explain_drawn": false,
+          "generic_remedy": 0,
+          "alerts": []
+        },
+        {
+          "field": "tax.us.2025.form1040.line-14",
+          "section_id": "line-1040-14",
+          "expected": [
+            "If you are married filing separately, did you live apart from your spouse for all of 2025?"
+          ],
+          "reasons": [
+            "If you are married filing separately, did you live apart from your spouse for all of 2025?"
+          ],
+          "questions_drawn": true,
+          "generic_explain_drawn": false,
+          "generic_remedy": 0,
+          "alerts": []
+        },
+        {
+          "field": "tax.us.2025.form1040.line-15",
+          "section_id": "line-15",
+          "expected": [
+            "If you are married filing separately, did you live apart from your spouse for all of 2025?"
+          ],
+          "reasons": [
+            "If you are married filing separately, did you live apart from your spouse for all of 2025?"
+          ],
+          "questions_drawn": true,
+          "generic_explain_drawn": false,
+          "generic_remedy": 0,
+          "alerts": []
+        },
+        {
+          "field": "tax.us.2025.form1040.line-16",
+          "section_id": "line-16",
+          "expected": [
+            "If you are married filing separately, did you live apart from your spouse for all of 2025?"
+          ],
+          "reasons": [
+            "If you are married filing separately, did you live apart from your spouse for all of 2025?"
+          ],
+          "questions_drawn": true,
+          "generic_explain_drawn": false,
+          "generic_remedy": 0,
+          "alerts": []
+        },
+        {
+          "field": "tax.us.2025.form1040.line-19",
+          "section_id": "line-19",
+          "expected": [
+            "If you are married filing separately, did you live apart from your spouse for all of 2025?"
+          ],
+          "reasons": [
+            "If you are married filing separately, did you live apart from your spouse for all of 2025?"
+          ],
+          "questions_drawn": true,
+          "generic_explain_drawn": false,
+          "generic_remedy": 0,
+          "alerts": []
+        },
+        {
+          "field": "tax.us.2025.form1040.line-20",
+          "section_id": "line-20",
+          "expected": [
+            "If you are married filing separately, did you live apart from your spouse for all of 2025?"
+          ],
+          "reasons": [
+            "If you are married filing separately, did you live apart from your spouse for all of 2025?"
+          ],
+          "questions_drawn": true,
+          "generic_explain_drawn": false,
+          "generic_remedy": 0,
+          "alerts": []
+        },
+        {
+          "field": "tax.us.2025.form1040.line-24",
+          "section_id": "line-24",
+          "expected": [
+            "If you are married filing separately, did you live apart from your spouse for all of 2025?"
+          ],
+          "reasons": [
+            "If you are married filing separately, did you live apart from your spouse for all of 2025?"
+          ],
+          "questions_drawn": true,
+          "generic_explain_drawn": false,
+          "generic_remedy": 0,
+          "alerts": []
+        },
+        {
+          "field": "tax.us.2025.form1040.line-27a",
+          "section_id": "line-27a",
+          "expected": [
+            "If you are married filing separately, did you live apart from your spouse for all of 2025?"
+          ],
+          "reasons": [
+            "If you are married filing separately, did you live apart from your spouse for all of 2025?"
+          ],
+          "questions_drawn": true,
+          "generic_explain_drawn": false,
+          "generic_remedy": 0,
+          "alerts": []
+        },
+        {
+          "field": "tax.us.2025.form1040.line-28",
+          "section_id": "line-28",
+          "expected": [
+            "If you are married filing separately, did you live apart from your spouse for all of 2025?"
+          ],
+          "reasons": [
+            "If you are married filing separately, did you live apart from your spouse for all of 2025?"
+          ],
+          "questions_drawn": true,
+          "generic_explain_drawn": false,
+          "generic_remedy": 0,
+          "alerts": []
+        },
+        {
+          "field": "tax.us.2025.form1040.line-32",
+          "section_id": "line-32",
+          "expected": [
+            "If you are married filing separately, did you live apart from your spouse for all of 2025?"
+          ],
+          "reasons": [
+            "If you are married filing separately, did you live apart from your spouse for all of 2025?"
+          ],
+          "questions_drawn": true,
+          "generic_explain_drawn": false,
+          "generic_remedy": 0,
+          "alerts": []
+        },
+        {
+          "field": "tax.us.2025.form1040.line-33",
+          "section_id": "line-33",
+          "expected": [
+            "If you are married filing separately, did you live apart from your spouse for all of 2025?"
+          ],
+          "reasons": [
+            "If you are married filing separately, did you live apart from your spouse for all of 2025?"
+          ],
+          "questions_drawn": true,
+          "generic_explain_drawn": false,
+          "generic_remedy": 0,
+          "alerts": []
+        },
+        {
+          "field": "tax.us.2025.form1040.line-34",
+          "section_id": "line-34",
+          "expected": [
+            "If you are married filing separately, did you live apart from your spouse for all of 2025?"
+          ],
+          "reasons": [
+            "If you are married filing separately, did you live apart from your spouse for all of 2025?"
+          ],
+          "questions_drawn": true,
+          "generic_explain_drawn": false,
+          "generic_remedy": 0,
+          "alerts": []
+        },
+        {
+          "field": "tax.us.2025.form1040.line-35a",
+          "section_id": "line-35a",
+          "expected": [
+            "If you are married filing separately, did you live apart from your spouse for all of 2025?"
+          ],
+          "reasons": [
+            "If you are married filing separately, did you live apart from your spouse for all of 2025?"
+          ],
+          "questions_drawn": true,
+          "generic_explain_drawn": false,
+          "generic_remedy": 0,
+          "alerts": []
+        },
+        {
+          "field": "tax.us.2025.form1040.line-37",
+          "section_id": "line-37",
+          "expected": [
+            "If you are married filing separately, did you live apart from your spouse for all of 2025?"
+          ],
+          "reasons": [
+            "If you are married filing separately, did you live apart from your spouse for all of 2025?"
+          ],
+          "questions_drawn": true,
+          "generic_explain_drawn": false,
+          "generic_remedy": 0,
+          "alerts": []
+        },
+        {
+          "field": "tax.us.2025.form1040.line-6b",
+          "section_id": "line-6b",
+          "expected": [
+            "If you are married filing separately, did you live apart from your spouse for all of 2025?"
+          ],
+          "reasons": [
+            "If you are married filing separately, did you live apart from your spouse for all of 2025?"
+          ],
+          "questions_drawn": true,
+          "generic_explain_drawn": false,
+          "generic_remedy": 0,
+          "alerts": []
+        },
+        {
+          "field": "tax.us.2025.form1040.line-6d",
+          "section_id": "line-6d",
+          "expected": [
+            "If you are married filing separately, did you live apart from your spouse for all of 2025?"
+          ],
+          "reasons": [
+            "If you are married filing separately, did you live apart from your spouse for all of 2025?"
+          ],
+          "questions_drawn": true,
+          "generic_explain_drawn": false,
+          "generic_remedy": 0,
+          "alerts": []
+        },
+        {
+          "field": "tax.us.2025.form1040.line-6d-not-checked",
+          "section_id": "line-6d-not-checked",
+          "expected": [
+            "If you are married filing separately, did you live apart from your spouse for all of 2025?"
+          ],
+          "reasons": [
+            "If you are married filing separately, did you live apart from your spouse for all of 2025?"
+          ],
+          "questions_drawn": true,
+          "generic_explain_drawn": false,
+          "generic_remedy": 0,
+          "alerts": []
+        },
+        {
+          "field": "tax.us.2025.form1040.line-9",
+          "section_id": "line-9",
+          "expected": [
+            "If you are married filing separately, did you live apart from your spouse for all of 2025?"
+          ],
+          "reasons": [
+            "If you are married filing separately, did you live apart from your spouse for all of 2025?"
+          ],
+          "questions_drawn": true,
+          "generic_explain_drawn": false,
+          "generic_remedy": 0,
+          "alerts": []
+        },
+        {
+          "field": "tax.us.2025.form1040.tax-after-credits",
+          "section_id": "line-22",
+          "expected": [
+            "If you are married filing separately, did you live apart from your spouse for all of 2025?"
+          ],
+          "reasons": [
+            "If you are married filing separately, did you live apart from your spouse for all of 2025?"
+          ],
+          "questions_drawn": true,
+          "generic_explain_drawn": false,
+          "generic_remedy": 0,
+          "alerts": []
+        },
+        {
+          "field": "tax.us.2025.schedule3.line-1",
+          "section_id": "line-Sch3-1",
+          "expected": [
+            "If you are married filing separately, did you live apart from your spouse for all of 2025?"
+          ],
+          "reasons": [
+            "If you are married filing separately, did you live apart from your spouse for all of 2025?"
+          ],
+          "questions_drawn": true,
+          "generic_explain_drawn": false,
+          "generic_remedy": 0,
+          "alerts": []
+        },
+        {
+          "field": "tax.us.2025.schedule3.line-8",
+          "section_id": "line-Sch3-8",
+          "expected": [
+            "If you are married filing separately, did you live apart from your spouse for all of 2025?"
+          ],
+          "reasons": [
+            "If you are married filing separately, did you live apart from your spouse for all of 2025?"
+          ],
+          "questions_drawn": true,
+          "generic_explain_drawn": false,
+          "generic_remedy": 0,
+          "alerts": []
+        }
+      ],
+      "alerts": []
+    }
+  ],
+  "gaining_fields": [
+    "tax.us.2025.form.eic-worksheet-a.line-3",
+    "tax.us.2025.form.eic-worksheet-a.line-5",
+    "tax.us.2025.form.eic-worksheet-a.line-6",
+    "tax.us.2025.form.sch8812.line-14",
+    "tax.us.2025.form.sch8812.line-17",
+    "tax.us.2025.form.sch8812.worksheet-a.line-5",
+    "tax.us.2025.form1040.line-11a",
+    "tax.us.2025.form1040.line-11b",
+    "tax.us.2025.form1040.line-13b",
+    "tax.us.2025.form1040.line-14",
+    "tax.us.2025.form1040.line-15",
+    "tax.us.2025.form1040.line-16",
+    "tax.us.2025.form1040.line-19",
+    "tax.us.2025.form1040.line-20",
+    "tax.us.2025.form1040.line-24",
+    "tax.us.2025.form1040.line-27a",
+    "tax.us.2025.form1040.line-28",
+    "tax.us.2025.form1040.line-32",
+    "tax.us.2025.form1040.line-33",
+    "tax.us.2025.form1040.line-34",
+    "tax.us.2025.form1040.line-35a",
+    "tax.us.2025.form1040.line-37",
+    "tax.us.2025.form1040.line-6b",
+    "tax.us.2025.form1040.line-6d",
+    "tax.us.2025.form1040.line-6d-not-checked",
+    "tax.us.2025.form1040.line-9",
+    "tax.us.2025.form1040.tax-after-credits",
+    "tax.us.2025.schedule3.line-1",
+    "tax.us.2025.schedule3.line-8"
+  ],
+  "covered_fields": [
+    "tax.us.2025.form.eic-worksheet-a.line-3",
+    "tax.us.2025.form.eic-worksheet-a.line-5",
+    "tax.us.2025.form.eic-worksheet-a.line-6",
+    "tax.us.2025.form.sch8812.line-14",
+    "tax.us.2025.form.sch8812.line-17",
+    "tax.us.2025.form.sch8812.worksheet-a.line-5",
+    "tax.us.2025.form1040.line-11a",
+    "tax.us.2025.form1040.line-11b",
+    "tax.us.2025.form1040.line-13b",
+    "tax.us.2025.form1040.line-14",
+    "tax.us.2025.form1040.line-15",
+    "tax.us.2025.form1040.line-16",
+    "tax.us.2025.form1040.line-19",
+    "tax.us.2025.form1040.line-20",
+    "tax.us.2025.form1040.line-24",
+    "tax.us.2025.form1040.line-27a",
+    "tax.us.2025.form1040.line-28",
+    "tax.us.2025.form1040.line-32",
+    "tax.us.2025.form1040.line-33",
+    "tax.us.2025.form1040.line-34",
+    "tax.us.2025.form1040.line-35a",
+    "tax.us.2025.form1040.line-37",
+    "tax.us.2025.form1040.line-6b",
+    "tax.us.2025.form1040.line-6d",
+    "tax.us.2025.form1040.line-6d-not-checked",
+    "tax.us.2025.form1040.line-9",
+    "tax.us.2025.form1040.tax-after-credits",
+    "tax.us.2025.schedule3.line-1",
+    "tax.us.2025.schedule3.line-8"
+  ],
+  "failures": [],
+  "unexpected_alerts": [],
+  "pass": true
+}
