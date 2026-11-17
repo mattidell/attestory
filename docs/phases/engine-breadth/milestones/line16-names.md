@@ -3,7 +3,8 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "line16-names",
-  "status": "Open 2026-11-17. Track 1 done (core v95, registry v93, release v93); fresh review chartered.",
+  "status": "Closed 2026-11-17. Core v95, registry v93, release v93.",
+  "retrospective": "docs/milestone-retrospectives/2026-11-17-line16-names.md",
   "scope": [
     "on a return with Schedule D required and no sale recorded, Form 1040 line 16 and the lines that explain through it name the same questions as the other blocked fields",
     "every recorded return keeps its numbers, and every other line 16 block keeps its names unless P0 shows the added names are true there"
@@ -313,3 +314,32 @@ CI `verify` remains the gate of record for the full suite; no push occurred.
 
 **Deviations:** none. Each numbered item is committed separately. No
 kernel, derivation, schema, presentation or recording change was needed.
+
+## Review disposition
+
+Foreman, 2026-11-17, on `docs/reviews/line16-names/review.md`: ready, no
+blocking finding. The reviewer evaluated all fifteen failing subsets in
+both rules with the real evaluator, drew two pages, and replayed ten lists.
+
+12. **L16-R1 (should-fix) is a scope qualification.** The recorded
+    replay compares a retained surface: the watched Form 1040 lines and
+    the watched rule rows (value, disposition, code, missing names) and
+    their sentences, not every field and report row on the saved page.
+    Every "no value, disposition or code changed" in this plan and its
+    evidence means on that retained surface. The rule diff is what
+    bounds the rest: only the two declaring blocks changed, and the
+    reviewer restored v8 and v11 exactly by undoing them.
+13. **L16-R2 (note) is parked.** When the failing answers are right, the
+    page names the criteria but gives no explicit next step (record the
+    sale or the unsupported work) and does not show the current answer.
+    Page guidance belongs to blocked-sale-pages; parked in the roadmap.
+
+## Closeout
+
+Closed 2026-11-17. Retrospective:
+`docs/milestone-retrospectives/2026-11-17-line16-names.md`. No repair was
+needed; L16-R1 is answered by Decision 12's wording.
+
+Parked: the page's next step when the failing Exception 1 answers are
+right (L16-R2); a replay pin that retains every saved field and report
+row (L16-R1).

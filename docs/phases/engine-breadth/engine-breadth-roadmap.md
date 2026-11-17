@@ -934,6 +934,23 @@ Of the 775 recorded lists, 271 now name the return-level "statement
 with no sale" question on line 25b instead of the amount and 125 show
 the new amount words; no value, disposition or refusal code changed.
 
+## Bounded return — Line 16 Names the Failing Exception 1 Criteria (2025)
+
+[Plan](milestones/line16-names.md); retrospective:
+`docs/milestone-retrospectives/2026-11-17-line16-names.md`.
+
+Core v95 (registry v93, release v93) changes what Form 1040 line 16 and
+the selected preferential base name on a return where Schedule D is
+required, no sale is recorded and "no Form 8949" is answered yes: each
+names exactly the Exception 1 criteria whose current answer fails, so
+line 16, its four dependants (line 20, Schedule 3 lines 1 and 8,
+Schedule 8812 worksheet A line 5) and the 23 other blocked fields agree
+and every name is an answer that can move them. A reported personal-item
+loss keeps its four names; an unanswered "no Form 8949" asks that
+question. Of 775 recorded lists, the four honest returns in that state
+change their names; on the replay's retained surface no value,
+disposition or refusal code changed.
+
 ## Saved-page observation — Mortgage and Sales (2025)
 
 [Plan](milestones/sale-page-observation.md); retrospective:
@@ -1095,12 +1112,13 @@ delivers an item removes it.
   check to carry a subject; both are derivation changes.
 - The per-statement box 4 amount and box 7 questions do not name the
   statement.
-- On a return with Schedule D required and no sale, Form 1040 line 16 and
-  four lines that explain through it (line 20, Schedule 3 lines 1 and 8,
-  Schedule 8812 worksheet A line 5) name four questions while the other
-  blocked fields name eight (core v91). A line 16 successor naming the
-  eight changes the `exception1_personal_loss_8949` case, which must be
-  preserved or reopened.
+- When the failing Exception 1 answers on a required-Schedule-D return
+  with no sale are right, the page names the criteria but gives no
+  explicit next step (record the sale or unsupported work) and does not
+  show the current answer (line16-names L16-R2; page guidance).
+- The recorded-replay pin keeps the watched lines and rule rows, not
+  every saved field and report row; a full-surface pin would let a
+  replay claim that nothing else changed (line16-names L16-R1).
 - An amount entered after a per-statement Form 1099-B box 4 "no"
   leaves the earlier zero payment findings current until a run; the
   engine's currency on additions (box4-no-prompt Decision 8).
