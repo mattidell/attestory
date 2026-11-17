@@ -1,0 +1,62 @@
+{
+  "item": 6,
+  "verdict": "PASS",
+  "targeted": {
+    "new_live": {
+      "module": "tests/test_line16_names_v95.py",
+      "passed": 7,
+      "wall_time_s": 23.41
+    },
+    "new_package": {
+      "module": "tests/test_line16_names_v95_package.py",
+      "current_tests_verified": 14,
+      "initial_passed": 12,
+      "initial_failed_assertions_repaired": 1,
+      "focused_repair_passed": 1,
+      "additional_allowlist_test_passed": 1
+    },
+    "touched_switch": {
+      "module": "tests/test_noncovered_sales_v78_switch.py",
+      "passed": 5,
+      "wall_time_s": 1.14
+    },
+    "related_required_versus_read": {
+      "module": "tests/test_required_versus_read.py",
+      "passed": 7,
+      "combined_with_new_allowlist_test": 8,
+      "wall_time_s": 4.37
+    }
+  },
+  "fast_lane": {
+    "command": "pytest -m \"not live\"",
+    "passed": 1837,
+    "skipped": 8,
+    "failed": 0,
+    "wall_time_s": 15.29,
+    "initial_run": {
+      "passed": 1834,
+      "failed": 2,
+      "skipped": 8,
+      "wall_time_s": 15.55,
+      "cause": "Two line16 v8 allowlist rows needed the exact v9 version transfer; rule semantics and rationales unchanged."
+    }
+  },
+  "mypy": {
+    "command": "python3 -m mypy",
+    "passed": true,
+    "source_files": 509
+  },
+  "envelope": {
+    "command": "python3 tools/envelope_scan.py --range github/main..HEAD",
+    "passed": true,
+    "comparison_ref": "github/main",
+    "comparison_commit": "e5e284021f087a43362403db51ccd393d39e6ceb"
+  },
+  "scope": {
+    "protected_directories_unchanged": true,
+    "old_content_and_release_files_unchanged": 1801,
+    "prototype_rule_bytes_unchanged": true
+  },
+  "ci_verify": "Gate of record for full-suite publication; not run locally and no push authorized.",
+  "deviations": []
+}

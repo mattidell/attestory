@@ -1,0 +1,622 @@
+{
+  "sources": [
+    {
+      "title": "2025 Instructions for Form 1040",
+      "url": "https://www.irs.gov/pub/irs-prior/i1040gi--2025.pdf",
+      "filename": "i1040gi-2025.pdf",
+      "sha256": "482e9c487c608f1bbeaceef35bc3c0933e8b35443cfff447e4279d590468364a",
+      "pdf_pages": [
+        31,
+        34,
+        37,
+        38,
+        80,
+        93,
+        113
+      ],
+      "headings": "Line 7a, Exception 1; line 16 and Qualified Dividends and Capital Gain Tax Worksheet"
+    },
+    {
+      "title": "2025 Instructions for Schedule D",
+      "url": "https://www.irs.gov/pub/irs-prior/i1040sd--2025.pdf",
+      "filename": "i1040sd--2025.pdf",
+      "sha256": "650643a686378b7573e4f4476ee4e7c9f9bab1384314dca32dc336f7b2276002",
+      "pdf_pages": [
+        3,
+        4
+      ],
+      "headings": "Capital Assets Held for Personal Use; Certain Nondeductible Losses; Lines 1a and 8a"
+    },
+    {
+      "title": "2025 Instructions for Form 8949",
+      "url": "https://www.irs.gov/pub/irs-prior/i8949--2025.pdf",
+      "filename": "i8949--2025.pdf",
+      "sha256": "f077991c83b086810c46cbad3755e0f126cb8dfd88cf8bf8ab2d5605d6e7ab45",
+      "pdf_pages": [
+        3,
+        9
+      ],
+      "headings": "Personal items reported on Form 1099-K; columns (f) and (g), code L; instructions for line 1, boxes B/C/E/F"
+    }
+  ],
+  "questions": [
+    {
+      "name": "f1099b.noncovered-sold.source-closure",
+      "sentence": "Did you sell any securities whose basis was not reported to the IRS?",
+      "truthful_answer_on_stipulated_case": "no",
+      "assessment": "8949 boxes B/E concern securities with basis not reported; a personal item is not evidence of a securities sale.",
+      "sources": [
+        1,
+        2
+      ],
+      "one_answer_at_a_time": {
+        "yes": {
+          "disposition": "blocked",
+          "value": null,
+          "row": {
+            "artifact": "form1040-line16",
+            "symbol": "tax.total-tax",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "f1099b.noncovered-sold.source-closure",
+              "f8949.no1099b-sold.source-closure",
+              "schedule-d-boundary.no-form8949-sources",
+              "schedule-d-boundary.no-other-form8949-adjustments"
+            ]
+          },
+          "reasons": [
+            {
+              "sentence": "Did you sell any securities whose basis was not reported to the IRS?"
+            },
+            {
+              "sentence": "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+            },
+            {
+              "sentence": "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?"
+            },
+            {
+              "sentence": "Is it true that you had no transaction or adjustment to report on Form 8949?"
+            }
+          ]
+        },
+        "no": {
+          "disposition": "blocked",
+          "value": null,
+          "row": {
+            "artifact": "form1040-line16",
+            "symbol": "tax.total-tax",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "f1099b.noncovered-sold.source-closure",
+              "f8949.no1099b-sold.source-closure",
+              "schedule-d-boundary.no-form8949-sources",
+              "schedule-d-boundary.no-other-form8949-adjustments"
+            ]
+          },
+          "reasons": [
+            {
+              "sentence": "Did you sell any securities whose basis was not reported to the IRS?"
+            },
+            {
+              "sentence": "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+            },
+            {
+              "sentence": "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?"
+            },
+            {
+              "sentence": "Is it true that you had no transaction or adjustment to report on Form 8949?"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "f8949.no1099b-sold.source-closure",
+      "sentence": "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+      "truthful_answer_on_stipulated_case": "no",
+      "assessment": "8949 boxes C/F also cover other capital assets, but this existing sentence asks about securities. A personal item does not become a security.",
+      "sources": [
+        1,
+        2
+      ],
+      "one_answer_at_a_time": {
+        "yes": {
+          "disposition": "blocked",
+          "value": null,
+          "row": {
+            "artifact": "form1040-line16",
+            "symbol": "tax.total-tax",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "f1099b.noncovered-sold.source-closure",
+              "f8949.no1099b-sold.source-closure",
+              "schedule-d-boundary.no-form8949-sources",
+              "schedule-d-boundary.no-other-form8949-adjustments"
+            ]
+          },
+          "reasons": [
+            {
+              "sentence": "Did you sell any securities whose basis was not reported to the IRS?"
+            },
+            {
+              "sentence": "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+            },
+            {
+              "sentence": "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?"
+            },
+            {
+              "sentence": "Is it true that you had no transaction or adjustment to report on Form 8949?"
+            }
+          ]
+        },
+        "no": {
+          "disposition": "blocked",
+          "value": null,
+          "row": {
+            "artifact": "form1040-line16",
+            "symbol": "tax.total-tax",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "f1099b.noncovered-sold.source-closure",
+              "f8949.no1099b-sold.source-closure",
+              "schedule-d-boundary.no-form8949-sources",
+              "schedule-d-boundary.no-other-form8949-adjustments"
+            ]
+          },
+          "reasons": [
+            {
+              "sentence": "Did you sell any securities whose basis was not reported to the IRS?"
+            },
+            {
+              "sentence": "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+            },
+            {
+              "sentence": "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?"
+            },
+            {
+              "sentence": "Is it true that you had no transaction or adjustment to report on Form 8949?"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "schedule-d-boundary.no-form8949-sources",
+      "sentence": "Is it true that you had no transaction or adjustment to report on Form 8949?",
+      "truthful_answer_on_stipulated_case": "no",
+      "assessment": "The stipulated item is reported on Form 8949. Nondeductibility does not erase that reporting fact.",
+      "sources": [
+        1,
+        2
+      ],
+      "one_answer_at_a_time": {
+        "yes": {
+          "disposition": "blocked",
+          "value": null,
+          "row": {
+            "artifact": "form1040-line16",
+            "symbol": "tax.total-tax",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "f1099b.noncovered-sold.source-closure",
+              "f8949.no1099b-sold.source-closure",
+              "schedule-d-boundary.no-form8949-sources",
+              "schedule-d-boundary.no-other-form8949-adjustments"
+            ]
+          },
+          "reasons": [
+            {
+              "sentence": "Did you sell any securities whose basis was not reported to the IRS?"
+            },
+            {
+              "sentence": "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+            },
+            {
+              "sentence": "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?"
+            },
+            {
+              "sentence": "Is it true that you had no transaction or adjustment to report on Form 8949?"
+            }
+          ]
+        },
+        "no": {
+          "disposition": "blocked",
+          "value": null,
+          "row": {
+            "artifact": "form1040-line16",
+            "symbol": "tax.total-tax",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "f1099b.noncovered-sold.source-closure",
+              "f8949.no1099b-sold.source-closure",
+              "schedule-d-boundary.no-form8949-sources",
+              "schedule-d-boundary.no-other-form8949-adjustments"
+            ]
+          },
+          "reasons": [
+            {
+              "sentence": "Did you sell any securities whose basis was not reported to the IRS?"
+            },
+            {
+              "sentence": "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+            },
+            {
+              "sentence": "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?"
+            },
+            {
+              "sentence": "Is it true that you had no transaction or adjustment to report on Form 8949?"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "schedule-d-boundary.no-other-form8949-adjustments",
+      "sentence": "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+      "truthful_answer_on_stipulated_case": "no",
+      "assessment": "Personal nondeductible losses use adjustment code L, not the W-only route. This is evidence for the existing no; the code-L product question stays parked.",
+      "sources": [
+        1,
+        2
+      ],
+      "one_answer_at_a_time": {
+        "yes": {
+          "disposition": "blocked",
+          "value": null,
+          "row": {
+            "artifact": "form1040-line16",
+            "symbol": "tax.total-tax",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "f1099b.noncovered-sold.source-closure",
+              "f8949.no1099b-sold.source-closure",
+              "schedule-d-boundary.no-form8949-sources",
+              "schedule-d-boundary.no-other-form8949-adjustments"
+            ]
+          },
+          "reasons": [
+            {
+              "sentence": "Did you sell any securities whose basis was not reported to the IRS?"
+            },
+            {
+              "sentence": "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+            },
+            {
+              "sentence": "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?"
+            },
+            {
+              "sentence": "Is it true that you had no transaction or adjustment to report on Form 8949?"
+            }
+          ]
+        },
+        "no": {
+          "disposition": "blocked",
+          "value": null,
+          "row": {
+            "artifact": "form1040-line16",
+            "symbol": "tax.total-tax",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "f1099b.noncovered-sold.source-closure",
+              "f8949.no1099b-sold.source-closure",
+              "schedule-d-boundary.no-form8949-sources",
+              "schedule-d-boundary.no-other-form8949-adjustments"
+            ]
+          },
+          "reasons": [
+            {
+              "sentence": "Did you sell any securities whose basis was not reported to the IRS?"
+            },
+            {
+              "sentence": "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+            },
+            {
+              "sentence": "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?"
+            },
+            {
+              "sentence": "Is it true that you had no transaction or adjustment to report on Form 8949?"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "exception1.only-box2a-capital-gains",
+      "sentence": "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-S for it or you report it on Form 8949.",
+      "truthful_answer_on_stipulated_case": "no",
+      "assessment": "The adopted v3 sentence expressly excludes a personal loss only when it is not reported on Form 8949 (and no Form 1099-S). This case is reported there. Exception 1 yes would contradict it.",
+      "sources": [
+        0,
+        1,
+        2
+      ],
+      "one_answer_at_a_time": {
+        "yes": {
+          "disposition": "blocked",
+          "value": null,
+          "row": {
+            "artifact": "form1040-line16",
+            "symbol": "tax.total-tax",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "f1099b.noncovered-sold.source-closure",
+              "f8949.no1099b-sold.source-closure",
+              "schedule-d-boundary.no-form8949-sources",
+              "schedule-d-boundary.no-other-form8949-adjustments"
+            ]
+          },
+          "reasons": [
+            {
+              "sentence": "Did you sell any securities whose basis was not reported to the IRS?"
+            },
+            {
+              "sentence": "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+            },
+            {
+              "sentence": "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?"
+            },
+            {
+              "sentence": "Is it true that you had no transaction or adjustment to report on Form 8949?"
+            }
+          ]
+        },
+        "no": {
+          "disposition": "blocked",
+          "value": null,
+          "row": {
+            "artifact": "form1040-line16",
+            "symbol": "tax.total-tax",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "f1099b.noncovered-sold.source-closure",
+              "f8949.no1099b-sold.source-closure",
+              "schedule-d-boundary.no-form8949-sources",
+              "schedule-d-boundary.no-other-form8949-adjustments"
+            ]
+          },
+          "reasons": [
+            {
+              "sentence": "Did you sell any securities whose basis was not reported to the IRS?"
+            },
+            {
+              "sentence": "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+            },
+            {
+              "sentence": "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?"
+            },
+            {
+              "sentence": "Is it true that you had no transaction or adjustment to report on Form 8949?"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "exception1.no-capital-losses",
+      "sentence": "Is it true that you had no capital losses in 2025 (for example, no loss from selling stock, funds or other property)?",
+      "truthful_answer_on_stipulated_case": "no",
+      "assessment": "Personal-use property is a capital asset; a loss can be nondeductible and still require reporting and a positive code-L adjustment. Do not turn that item into the supported deductible securities loss.",
+      "sources": [
+        0,
+        1,
+        2
+      ],
+      "one_answer_at_a_time": {
+        "yes": {
+          "disposition": "blocked",
+          "value": null,
+          "row": {
+            "artifact": "form1040-line16",
+            "symbol": "tax.total-tax",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "f1099b.noncovered-sold.source-closure",
+              "f8949.no1099b-sold.source-closure",
+              "schedule-d-boundary.no-form8949-sources",
+              "schedule-d-boundary.no-other-form8949-adjustments"
+            ]
+          },
+          "reasons": [
+            {
+              "sentence": "Did you sell any securities whose basis was not reported to the IRS?"
+            },
+            {
+              "sentence": "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+            },
+            {
+              "sentence": "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?"
+            },
+            {
+              "sentence": "Is it true that you had no transaction or adjustment to report on Form 8949?"
+            }
+          ]
+        },
+        "no": {
+          "disposition": "blocked",
+          "value": null,
+          "row": {
+            "artifact": "form1040-line16",
+            "symbol": "tax.total-tax",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "f1099b.noncovered-sold.source-closure",
+              "f8949.no1099b-sold.source-closure",
+              "schedule-d-boundary.no-form8949-sources",
+              "schedule-d-boundary.no-other-form8949-adjustments"
+            ]
+          },
+          "reasons": [
+            {
+              "sentence": "Did you sell any securities whose basis was not reported to the IRS?"
+            },
+            {
+              "sentence": "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+            },
+            {
+              "sentence": "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?"
+            },
+            {
+              "sentence": "Is it true that you had no transaction or adjustment to report on Form 8949?"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "exception1.no-qof-deferral",
+      "sentence": "Is it true that you did not defer any capital gain in 2025 by investing in a qualified opportunity fund?",
+      "truthful_answer_on_stipulated_case": "yes",
+      "assessment": "The stipulated case has no QOF deferral. This accurate Exception 1 criterion is already satisfied; changing it to no supplies another reason to require Schedule D.",
+      "sources": [
+        0
+      ],
+      "one_answer_at_a_time": {
+        "yes": {
+          "disposition": "blocked",
+          "value": null,
+          "row": {
+            "artifact": "form1040-line16",
+            "symbol": "tax.total-tax",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "f1099b.noncovered-sold.source-closure",
+              "f8949.no1099b-sold.source-closure",
+              "schedule-d-boundary.no-form8949-sources",
+              "schedule-d-boundary.no-other-form8949-adjustments"
+            ]
+          },
+          "reasons": [
+            {
+              "sentence": "Did you sell any securities whose basis was not reported to the IRS?"
+            },
+            {
+              "sentence": "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+            },
+            {
+              "sentence": "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?"
+            },
+            {
+              "sentence": "Is it true that you had no transaction or adjustment to report on Form 8949?"
+            }
+          ]
+        },
+        "no": {
+          "disposition": "blocked",
+          "value": null,
+          "row": {
+            "artifact": "form1040-line16",
+            "symbol": "tax.total-tax",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "f1099b.noncovered-sold.source-closure",
+              "f8949.no1099b-sold.source-closure",
+              "schedule-d-boundary.no-form8949-sources",
+              "schedule-d-boundary.no-other-form8949-adjustments"
+            ]
+          },
+          "reasons": [
+            {
+              "sentence": "Did you sell any securities whose basis was not reported to the IRS?"
+            },
+            {
+              "sentence": "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+            },
+            {
+              "sentence": "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?"
+            },
+            {
+              "sentence": "Is it true that you had no transaction or adjustment to report on Form 8949?"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "exception1.no-boxes-2b-2c-2d",
+      "sentence": "Is it true that none of your 2025 Forms 1099-DIV or substitute statements shows an amount in box 2b, 2c or 2d?",
+      "truthful_answer_on_stipulated_case": "yes",
+      "assessment": "The stipulated case has none of these distribution boxes. This accurate Exception 1 criterion is already satisfied; changing it to no cannot remove the reported personal item.",
+      "sources": [
+        0
+      ],
+      "one_answer_at_a_time": {
+        "yes": {
+          "disposition": "blocked",
+          "value": null,
+          "row": {
+            "artifact": "form1040-line16",
+            "symbol": "tax.total-tax",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "f1099b.noncovered-sold.source-closure",
+              "f8949.no1099b-sold.source-closure",
+              "schedule-d-boundary.no-form8949-sources",
+              "schedule-d-boundary.no-other-form8949-adjustments"
+            ]
+          },
+          "reasons": [
+            {
+              "sentence": "Did you sell any securities whose basis was not reported to the IRS?"
+            },
+            {
+              "sentence": "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+            },
+            {
+              "sentence": "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?"
+            },
+            {
+              "sentence": "Is it true that you had no transaction or adjustment to report on Form 8949?"
+            }
+          ]
+        },
+        "no": {
+          "disposition": "blocked",
+          "value": null,
+          "row": {
+            "artifact": "form1040-line16",
+            "symbol": "tax.total-tax",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "f1099b.noncovered-sold.source-closure",
+              "f8949.no1099b-sold.source-closure",
+              "schedule-d-boundary.no-form8949-sources",
+              "schedule-d-boundary.no-other-form8949-adjustments"
+            ]
+          },
+          "reasons": [
+            {
+              "sentence": "Did you sell any securities whose basis was not reported to the IRS?"
+            },
+            {
+              "sentence": "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+            },
+            {
+              "sentence": "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?"
+            },
+            {
+              "sentence": "Is it true that you had no transaction or adjustment to report on Form 8949?"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "conclusion": "The eight sentences are valid domain questions, but the four added Exception 1 questions are not truthful additional ways to resolve this fixed personal-loss case. Preserve its four names. The no-form8949-sources answer (no here, yes on the four recorded target returns) distinguishes them inside the guard.",
+  "limit": "Counterfactual answers demonstrate software routing, not permission to change truthful facts. No new question wording or personal-loss support is proposed."
+}

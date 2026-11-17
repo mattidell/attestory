@@ -1,0 +1,53 @@
+{
+  "from": {
+    "package": "v94",
+    "registry": "v92",
+    "release": "v92"
+  },
+  "to": {
+    "package": "v95",
+    "registry": "v93",
+    "release": "v93"
+  },
+  "package": "v95",
+  "successors": [
+    "rule.form1040-line16.v9.json",
+    "rule.selected-preferential-base.v12.json"
+  ],
+  "schema": "rule-artifact.v17",
+  "named_questions": [
+    "exception1.only-box2a-capital-gains",
+    "exception1.no-capital-losses",
+    "exception1.no-qof-deferral",
+    "exception1.no-boxes-2b-2c-2d"
+  ],
+  "guard": "The two target blocks name only the current failing criteria; original outer guard outcomes and other branches remain.",
+  "line16": "included",
+  "item": 1,
+  "verdict": "PASS",
+  "variant": "track0b-failing-criteria",
+  "shape": "nested categorical choose over four existing criteria, nonempty literal block lists at leaves",
+  "target": "required Schedule D, no represented sale, no-Form-8949 yes",
+  "cost": {
+    "helper_rules": 0,
+    "new_schema_or_engine_ops": 0,
+    "choose_nodes_per_criterion_tree": 14,
+    "nonempty_subsets_per_rule": 15,
+    "criterion_tree_leaves_per_rule": 15,
+    "criterion_comparisons_on_selected_path_per_rule": {
+      "min": 3,
+      "max": 4
+    },
+    "line16_target_gate_choose_nodes": 2
+  },
+  "unchanged_after_undoing_declaring_blocks": true,
+  "alternatives": {
+    "helper_rules": "Adds citizens, package members and dependencies for a four-input finite choice; unnecessary.",
+    "first_failing_only": "Smaller tree but omits other failing criteria; violates the completeness requirement.",
+    "dynamic_missing_expression": "Not part of admitted v17; would need a schema/engine change and is out of scope."
+  },
+  "successor_rule_bytes": {
+    "rule.form1040-line16.v9.json": 27503,
+    "rule.selected-preferential-base.v12.json": 52467
+  }
+}

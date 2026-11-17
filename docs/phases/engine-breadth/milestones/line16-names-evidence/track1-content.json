@@ -1,0 +1,26 @@
+{
+  "item": 2,
+  "verdict": "PASS",
+  "prototype": "accepted Track 0b minimized successor",
+  "artifacts": [
+    {
+      "filename": "rule.form1040-line16.v9.json",
+      "id": "tax.us.2025.rule.form1040-line16",
+      "version": "v9",
+      "schema": "rule-artifact.v17",
+      "role": "computation",
+      "sha256": "45afebdaebe06fd9e30d2c8ebd19be534db622cb3e05796b25070414059f5bc5",
+      "bytes": 27503
+    },
+    {
+      "filename": "rule.selected-preferential-base.v12.json",
+      "id": "tax.us.2025.rule.selected-preferential-base",
+      "version": "v12",
+      "schema": "rule-artifact.v17",
+      "role": "computation",
+      "sha256": "1cc713065b6ccc8d798ec04ac594fadbc37297fc271e3c8103aeca5c409e114f",
+      "bytes": 52467
+    }
+  ],
+  "prior_files_frozen": 1801
+}
