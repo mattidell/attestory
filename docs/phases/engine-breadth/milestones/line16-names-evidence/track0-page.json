@@ -1,0 +1,135 @@
+{
+  "item": 5,
+  "verdict": "PASS",
+  "wall_time_s": 25.143,
+  "rows": {
+    "target": {
+      "verdict": "PASS",
+      "page_filename": "demo.l16.t0.target.html",
+      "page_sha256": "db23ebda3da6d19a09ae4aa40f01817fd315d1d0cb0ab7cf1fe0a9edfa0a764d",
+      "dom_sha256": "923655cb9fa51c94a7dbefd2b8a5f1a0c5fb483f83d5cdb4e5029c0cbe1bdc77",
+      "safe_render_alert_elements": 0,
+      "safe_render_alert_sentences": [],
+      "fields": {
+        "form.sch8812.worksheet-a.line-5": {
+          "sentences": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that none of your 2025 Forms 1099-DIV or substitute statements shows an amount in box 2b, 2c or 2d?",
+            "Is it true that you did not defer any capital gain in 2025 by investing in a qualified opportunity fund?",
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-S for it or you report it on Form 8949.",
+            "Is it true that you had no capital losses in 2025 (for example, no loss from selling stock, funds or other property)?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ],
+          "all_sentences_drawn": true,
+          "drawn_sentence_count": 8
+        },
+        "form1040.line-16": {
+          "sentences": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that none of your 2025 Forms 1099-DIV or substitute statements shows an amount in box 2b, 2c or 2d?",
+            "Is it true that you did not defer any capital gain in 2025 by investing in a qualified opportunity fund?",
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-S for it or you report it on Form 8949.",
+            "Is it true that you had no capital losses in 2025 (for example, no loss from selling stock, funds or other property)?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ],
+          "all_sentences_drawn": true,
+          "drawn_sentence_count": 8
+        },
+        "form1040.line-20": {
+          "sentences": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that none of your 2025 Forms 1099-DIV or substitute statements shows an amount in box 2b, 2c or 2d?",
+            "Is it true that you did not defer any capital gain in 2025 by investing in a qualified opportunity fund?",
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-S for it or you report it on Form 8949.",
+            "Is it true that you had no capital losses in 2025 (for example, no loss from selling stock, funds or other property)?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ],
+          "all_sentences_drawn": true,
+          "drawn_sentence_count": 8
+        },
+        "schedule3.line-1": {
+          "sentences": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that none of your 2025 Forms 1099-DIV or substitute statements shows an amount in box 2b, 2c or 2d?",
+            "Is it true that you did not defer any capital gain in 2025 by investing in a qualified opportunity fund?",
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-S for it or you report it on Form 8949.",
+            "Is it true that you had no capital losses in 2025 (for example, no loss from selling stock, funds or other property)?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ],
+          "all_sentences_drawn": true,
+          "drawn_sentence_count": 8
+        },
+        "schedule3.line-8": {
+          "sentences": [
+            "Did you sell any securities whose basis was not reported to the IRS?",
+            "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+            "Is it true that every Form 8949 adjustment code is W, no row has more than one code, and no Form 8949 sale has basis that was not reported to the IRS?",
+            "Is it true that none of your 2025 Forms 1099-DIV or substitute statements shows an amount in box 2b, 2c or 2d?",
+            "Is it true that you did not defer any capital gain in 2025 by investing in a qualified opportunity fund?",
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-S for it or you report it on Form 8949.",
+            "Is it true that you had no capital losses in 2025 (for example, no loss from selling stock, funds or other property)?",
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ],
+          "all_sentences_drawn": true,
+          "drawn_sentence_count": 8
+        }
+      },
+      "observation": "Questions checked against drawn field text excluding script/style, not merely embedded MODEL text."
+    },
+    "unanswered-boundary": {
+      "verdict": "PASS",
+      "page_filename": "demo.l16.t0.unanswered-boundary.html",
+      "page_sha256": "990a53ce2cfe4ac9c4b8adb8dc040236116f88c4060f08626ea6209e9377cf57",
+      "dom_sha256": "36ab978e8b281723e5d03c2991b2ad7f4015e860b591209bb0ad5ed8658957d9",
+      "safe_render_alert_elements": 0,
+      "safe_render_alert_sentences": [],
+      "fields": {
+        "form.sch8812.worksheet-a.line-5": {
+          "sentences": [
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ],
+          "all_sentences_drawn": true,
+          "drawn_sentence_count": 1
+        },
+        "form1040.line-16": {
+          "sentences": [
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ],
+          "all_sentences_drawn": true,
+          "drawn_sentence_count": 1
+        },
+        "form1040.line-20": {
+          "sentences": [
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ],
+          "all_sentences_drawn": true,
+          "drawn_sentence_count": 1
+        },
+        "schedule3.line-1": {
+          "sentences": [
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ],
+          "all_sentences_drawn": true,
+          "drawn_sentence_count": 1
+        },
+        "schedule3.line-8": {
+          "sentences": [
+            "Is it true that you had no transaction or adjustment to report on Form 8949?"
+          ],
+          "all_sentences_drawn": true,
+          "drawn_sentence_count": 1
+        }
+      },
+      "observation": "Questions checked against drawn field text excluding script/style, not merely embedded MODEL text."
+    }
+  },
+  "retained_pages": "Saved outside Git in the scratch successor's track0-pages directory; operational report identifies it."
+}

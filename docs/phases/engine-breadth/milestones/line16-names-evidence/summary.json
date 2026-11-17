@@ -1,0 +1,2280 @@
+{
+  "cases": 42,
+  "changed_cases": 8,
+  "changes": {
+    "protected/schedule-d-boundary.no-form8949-sources/yes": [
+      "form.sch8812.worksheet-a.line-5",
+      "form1040.line-16",
+      "form1040.line-20",
+      "schedule3.line-1",
+      "schedule3.line-8"
+    ],
+    "recorded/m_2a_only_exc1_only2a_no": [
+      "form.sch8812.worksheet-a.line-5",
+      "form1040.line-16",
+      "form1040.line-20",
+      "schedule3.line-1",
+      "schedule3.line-8"
+    ],
+    "recorded/m_empty_exc1_nolosses_no": [
+      "form.sch8812.worksheet-a.line-5",
+      "form1040.line-16",
+      "form1040.line-20",
+      "schedule3.line-1",
+      "schedule3.line-8"
+    ],
+    "recorded/m_empty_exc1_only2a_no": [
+      "form.sch8812.worksheet-a.line-5",
+      "form1040.line-16",
+      "form1040.line-20",
+      "schedule3.line-1",
+      "schedule3.line-8"
+    ],
+    "recorded/t4_s1_removed": [
+      "form.sch8812.worksheet-a.line-5",
+      "form1040.line-16",
+      "form1040.line-20",
+      "schedule3.line-1",
+      "schedule3.line-8"
+    ],
+    "status/married_filing_jointly/required": [
+      "form.sch8812.worksheet-a.line-5",
+      "form1040.line-16",
+      "form1040.line-20",
+      "schedule3.line-1",
+      "schedule3.line-8"
+    ],
+    "status/married_filing_separately/required": [
+      "form.sch8812.worksheet-a.line-5",
+      "form1040.line-16",
+      "form1040.line-20",
+      "schedule3.line-1",
+      "schedule3.line-8"
+    ],
+    "status/single/required": [
+      "form.sch8812.worksheet-a.line-5",
+      "form1040.line-16",
+      "form1040.line-20",
+      "schedule3.line-1",
+      "schedule3.line-8"
+    ]
+  },
+  "all_ten_cases_identical": true,
+  "protected_case_identical": true,
+  "computing_neighbours": {
+    "neighbour/recorded-sale": 3515,
+    "status/married_filing_jointly/exception-yes": 1853,
+    "status/married_filing_separately/exception-yes": 3875,
+    "status/single/exception-yes": 3875
+  },
+  "one_at_a_time": {
+    "protected/exception1.no-boxes-2b-2c-2d/no": {
+      "line16_changes_on_v94": false
+    },
+    "protected/exception1.no-boxes-2b-2c-2d/yes": {
+      "line16_changes_on_v94": false
+    },
+    "protected/exception1.no-capital-losses/no": {
+      "line16_changes_on_v94": false
+    },
+    "protected/exception1.no-capital-losses/yes": {
+      "line16_changes_on_v94": false
+    },
+    "protected/exception1.no-qof-deferral/no": {
+      "line16_changes_on_v94": false
+    },
+    "protected/exception1.no-qof-deferral/yes": {
+      "line16_changes_on_v94": false
+    },
+    "protected/exception1.only-box2a-capital-gains/no": {
+      "line16_changes_on_v94": false
+    },
+    "protected/exception1.only-box2a-capital-gains/yes": {
+      "line16_changes_on_v94": false
+    },
+    "protected/f1099b.noncovered-sold.source-closure/no": {
+      "line16_changes_on_v94": false
+    },
+    "protected/f1099b.noncovered-sold.source-closure/yes": {
+      "line16_changes_on_v94": false
+    },
+    "protected/f8949.no1099b-sold.source-closure/no": {
+      "line16_changes_on_v94": false
+    },
+    "protected/f8949.no1099b-sold.source-closure/yes": {
+      "line16_changes_on_v94": false
+    },
+    "protected/schedule-d-boundary.no-form8949-sources/no": {
+      "line16_changes_on_v94": false
+    },
+    "protected/schedule-d-boundary.no-form8949-sources/yes": {
+      "line16_changes_on_v94": false
+    },
+    "protected/schedule-d-boundary.no-other-form8949-adjustments/no": {
+      "line16_changes_on_v94": false
+    },
+    "protected/schedule-d-boundary.no-other-form8949-adjustments/yes": {
+      "line16_changes_on_v94": false
+    }
+  },
+  "reproduction": {
+    "blank/opened": {
+      "v94": {
+        "line16_missing": [
+          "income.taxable-income",
+          "capital-gains.selected-preferential-base",
+          "qdcg-worksheet.line-24",
+          "qdcg-worksheet.line-25",
+          "f1099b.noncovered-st-count",
+          "f1099b.noncovered-lt-count",
+          "f1099b.code-b-st-count",
+          "f1099b.code-b-lt-count",
+          "f8949.no1099b-st-count",
+          "f8949.no1099b-lt-count"
+        ],
+        "line16_sentences": 3,
+        "other_blocked_field_sentence_counts": {
+          "form.eic-worksheet-a.line-3": 3,
+          "form.eic-worksheet-a.line-5": 3,
+          "form.eic-worksheet-a.line-6": 3,
+          "form.sch8812.line-14": 3,
+          "form.sch8812.line-17": 3,
+          "form.sch8812.worksheet-a.line-5": 3,
+          "form1040.line-11a": 3,
+          "form1040.line-11b": 3,
+          "form1040.line-13b": 3,
+          "form1040.line-14": 3,
+          "form1040.line-15": 3,
+          "form1040.line-16": 3,
+          "form1040.line-19": 3,
+          "form1040.line-20": 3,
+          "form1040.line-24": 3,
+          "form1040.line-25b": 2,
+          "form1040.line-25d": 2,
+          "form1040.line-27a": 3,
+          "form1040.line-28": 3,
+          "form1040.line-32": 3,
+          "form1040.line-33": 3,
+          "form1040.line-34": 3,
+          "form1040.line-35a": 3,
+          "form1040.line-37": 3,
+          "form1040.line-6b": 3,
+          "form1040.line-7a": 3,
+          "form1040.line-7b": 3,
+          "form1040.line-9": 3,
+          "form1040.tax-after-credits": 3,
+          "schedule-d.line-10": 1,
+          "schedule-d.line-15": 3,
+          "schedule-d.line-16": 3,
+          "schedule-d.line-1b": 1,
+          "schedule-d.line-2": 1,
+          "schedule-d.line-21": 3,
+          "schedule-d.line-3": 1,
+          "schedule-d.line-7": 3,
+          "schedule-d.line-8b": 1,
+          "schedule-d.line-9": 1,
+          "schedule3.line-1": 3,
+          "schedule3.line-8": 3
+        }
+      },
+      "scratch": {
+        "line16_missing": [
+          "income.taxable-income",
+          "capital-gains.selected-preferential-base",
+          "qdcg-worksheet.line-24",
+          "qdcg-worksheet.line-25",
+          "f1099b.noncovered-st-count",
+          "f1099b.noncovered-lt-count",
+          "f1099b.code-b-st-count",
+          "f1099b.code-b-lt-count",
+          "f8949.no1099b-st-count",
+          "f8949.no1099b-lt-count"
+        ],
+        "line16_sentences": 3
+      }
+    },
+    "code-b-refused/codeb_amounts_disagree": {
+      "v94": {
+        "line16_missing": [
+          "income.taxable-income",
+          "capital-gains.selected-preferential-base",
+          "qdcg-worksheet.line-24",
+          "qdcg-worksheet.line-25"
+        ],
+        "line16_sentences": 1,
+        "other_blocked_field_sentence_counts": {
+          "form.eic-worksheet-a.line-3": 1,
+          "form.eic-worksheet-a.line-5": 1,
+          "form.eic-worksheet-a.line-6": 1,
+          "form.sch8812.line-14": 1,
+          "form.sch8812.line-17": 1,
+          "form.sch8812.worksheet-a.line-5": 1,
+          "form1040.line-11a": 1,
+          "form1040.line-11b": 1,
+          "form1040.line-13b": 1,
+          "form1040.line-14": 1,
+          "form1040.line-15": 1,
+          "form1040.line-16": 1,
+          "form1040.line-19": 1,
+          "form1040.line-20": 1,
+          "form1040.line-24": 1,
+          "form1040.line-27a": 1,
+          "form1040.line-28": 1,
+          "form1040.line-32": 1,
+          "form1040.line-33": 1,
+          "form1040.line-34": 1,
+          "form1040.line-35a": 1,
+          "form1040.line-37": 1,
+          "form1040.line-6b": 1,
+          "form1040.line-7a": 1,
+          "form1040.line-9": 1,
+          "form1040.tax-after-credits": 1,
+          "schedule-d.line-16": 1,
+          "schedule-d.line-1b": 1,
+          "schedule-d.line-21": 1,
+          "schedule-d.line-7": 1,
+          "schedule3.line-1": 1,
+          "schedule3.line-8": 1
+        }
+      },
+      "scratch": {
+        "line16_missing": [
+          "income.taxable-income",
+          "capital-gains.selected-preferential-base",
+          "qdcg-worksheet.line-24",
+          "qdcg-worksheet.line-25"
+        ],
+        "line16_sentences": 1
+      }
+    },
+    "code-b-refused/codeb_sale_beside_8949_yes": {
+      "v94": {
+        "line16_missing": [
+          "income.taxable-income",
+          "capital-gains.selected-preferential-base",
+          "qdcg-worksheet.line-24",
+          "qdcg-worksheet.line-25"
+        ],
+        "line16_sentences": 2,
+        "other_blocked_field_sentence_counts": {
+          "form.eic-worksheet-a.line-3": 2,
+          "form.eic-worksheet-a.line-5": 2,
+          "form.eic-worksheet-a.line-6": 2,
+          "form.sch8812.line-14": 2,
+          "form.sch8812.line-17": 2,
+          "form.sch8812.worksheet-a.line-5": 2,
+          "form1040.line-11a": 2,
+          "form1040.line-11b": 2,
+          "form1040.line-13b": 2,
+          "form1040.line-14": 2,
+          "form1040.line-15": 2,
+          "form1040.line-16": 2,
+          "form1040.line-19": 2,
+          "form1040.line-20": 2,
+          "form1040.line-24": 2,
+          "form1040.line-27a": 2,
+          "form1040.line-28": 2,
+          "form1040.line-32": 2,
+          "form1040.line-33": 2,
+          "form1040.line-34": 2,
+          "form1040.line-35a": 2,
+          "form1040.line-37": 2,
+          "form1040.line-6b": 2,
+          "form1040.line-7a": 2,
+          "form1040.line-9": 2,
+          "form1040.tax-after-credits": 2,
+          "schedule-d.line-16": 2,
+          "schedule-d.line-1b": 2,
+          "schedule-d.line-21": 2,
+          "schedule-d.line-7": 2,
+          "schedule3.line-1": 2,
+          "schedule3.line-8": 2
+        }
+      },
+      "scratch": {
+        "line16_missing": [
+          "income.taxable-income",
+          "capital-gains.selected-preferential-base",
+          "qdcg-worksheet.line-24",
+          "qdcg-worksheet.line-25"
+        ],
+        "line16_sentences": 2
+      }
+    },
+    "code-b-refused/codeb_yes_nothing": {
+      "v94": {
+        "line16_missing": [
+          "income.taxable-income",
+          "capital-gains.selected-preferential-base",
+          "qdcg-worksheet.line-24",
+          "qdcg-worksheet.line-25"
+        ],
+        "line16_sentences": 1,
+        "other_blocked_field_sentence_counts": {
+          "form.eic-worksheet-a.line-3": 1,
+          "form.eic-worksheet-a.line-5": 1,
+          "form.eic-worksheet-a.line-6": 1,
+          "form.sch8812.line-14": 1,
+          "form.sch8812.line-17": 1,
+          "form.sch8812.worksheet-a.line-5": 1,
+          "form1040.line-11a": 1,
+          "form1040.line-11b": 1,
+          "form1040.line-13b": 1,
+          "form1040.line-14": 1,
+          "form1040.line-15": 1,
+          "form1040.line-16": 1,
+          "form1040.line-19": 1,
+          "form1040.line-20": 1,
+          "form1040.line-24": 1,
+          "form1040.line-27a": 1,
+          "form1040.line-28": 1,
+          "form1040.line-32": 1,
+          "form1040.line-33": 1,
+          "form1040.line-34": 1,
+          "form1040.line-35a": 1,
+          "form1040.line-37": 1,
+          "form1040.line-6b": 1,
+          "form1040.line-7a": 1,
+          "form1040.line-9": 1,
+          "form1040.tax-after-credits": 1,
+          "schedule-d.line-15": 1,
+          "schedule-d.line-16": 1,
+          "schedule-d.line-1b": 1,
+          "schedule-d.line-21": 1,
+          "schedule-d.line-7": 1,
+          "schedule-d.line-8b": 1,
+          "schedule3.line-1": 1,
+          "schedule3.line-8": 1
+        }
+      },
+      "scratch": {
+        "line16_missing": [
+          "income.taxable-income",
+          "capital-gains.selected-preferential-base",
+          "qdcg-worksheet.line-24",
+          "qdcg-worksheet.line-25"
+        ],
+        "line16_sentences": 1
+      }
+    },
+    "exception1-no/exception1_personal_loss_8949": {
+      "v94": {
+        "line16_missing": [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments"
+        ],
+        "line16_sentences": 4,
+        "other_blocked_field_sentence_counts": {
+          "form.eic-worksheet-a.line-3": 4,
+          "form.eic-worksheet-a.line-5": 4,
+          "form.eic-worksheet-a.line-6": 4,
+          "form.sch8812.line-14": 4,
+          "form.sch8812.line-17": 4,
+          "form.sch8812.worksheet-a.line-5": 4,
+          "form1040.line-11a": 4,
+          "form1040.line-11b": 4,
+          "form1040.line-13b": 4,
+          "form1040.line-14": 4,
+          "form1040.line-15": 4,
+          "form1040.line-16": 4,
+          "form1040.line-19": 4,
+          "form1040.line-20": 4,
+          "form1040.line-24": 4,
+          "form1040.line-27a": 4,
+          "form1040.line-28": 4,
+          "form1040.line-32": 4,
+          "form1040.line-33": 4,
+          "form1040.line-34": 4,
+          "form1040.line-35a": 4,
+          "form1040.line-37": 4,
+          "form1040.line-6b": 4,
+          "form1040.line-7a": 4,
+          "form1040.line-9": 4,
+          "form1040.tax-after-credits": 4,
+          "schedule-d.line-10": 4,
+          "schedule-d.line-15": 4,
+          "schedule-d.line-16": 4,
+          "schedule-d.line-21": 4,
+          "schedule-d.line-3": 4,
+          "schedule-d.line-7": 4,
+          "schedule3.line-1": 4,
+          "schedule3.line-8": 4
+        }
+      },
+      "scratch": {
+        "line16_missing": [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments"
+        ],
+        "line16_sentences": 4
+      }
+    },
+    "neighbour/recorded-sale": {
+      "v94": {
+        "line16_missing": [],
+        "line16_sentences": 0,
+        "other_blocked_field_sentence_counts": {}
+      },
+      "scratch": {
+        "line16_missing": [],
+        "line16_sentences": 0
+      }
+    },
+    "protected/cumulative/exception1.no-boxes-2b-2c-2d": {
+      "v94": {
+        "line16_missing": [
+          "income.taxable-income",
+          "capital-gains.selected-preferential-base",
+          "qdcg-worksheet.line-24",
+          "qdcg-worksheet.line-25"
+        ],
+        "line16_sentences": 4,
+        "other_blocked_field_sentence_counts": {
+          "form.eic-worksheet-a.line-3": 4,
+          "form.eic-worksheet-a.line-5": 4,
+          "form.eic-worksheet-a.line-6": 4,
+          "form.sch8812.line-14": 4,
+          "form.sch8812.line-17": 4,
+          "form.sch8812.worksheet-a.line-5": 4,
+          "form1040.line-11a": 4,
+          "form1040.line-11b": 4,
+          "form1040.line-13b": 4,
+          "form1040.line-14": 4,
+          "form1040.line-15": 4,
+          "form1040.line-16": 4,
+          "form1040.line-19": 4,
+          "form1040.line-20": 4,
+          "form1040.line-24": 4,
+          "form1040.line-27a": 4,
+          "form1040.line-28": 4,
+          "form1040.line-32": 4,
+          "form1040.line-33": 4,
+          "form1040.line-34": 4,
+          "form1040.line-35a": 4,
+          "form1040.line-37": 4,
+          "form1040.line-6b": 4,
+          "form1040.line-7a": 4,
+          "form1040.line-9": 4,
+          "form1040.tax-after-credits": 4,
+          "schedule-d.line-10": 4,
+          "schedule-d.line-15": 4,
+          "schedule-d.line-16": 4,
+          "schedule-d.line-21": 4,
+          "schedule-d.line-3": 4,
+          "schedule-d.line-7": 4,
+          "schedule3.line-1": 4,
+          "schedule3.line-8": 4
+        }
+      },
+      "scratch": {
+        "line16_missing": [
+          "income.taxable-income",
+          "capital-gains.selected-preferential-base",
+          "qdcg-worksheet.line-24",
+          "qdcg-worksheet.line-25"
+        ],
+        "line16_sentences": 4
+      }
+    },
+    "protected/cumulative/exception1.no-capital-losses": {
+      "v94": {
+        "line16_missing": [
+          "income.taxable-income",
+          "capital-gains.selected-preferential-base",
+          "qdcg-worksheet.line-24",
+          "qdcg-worksheet.line-25"
+        ],
+        "line16_sentences": 4,
+        "other_blocked_field_sentence_counts": {
+          "form.eic-worksheet-a.line-3": 4,
+          "form.eic-worksheet-a.line-5": 4,
+          "form.eic-worksheet-a.line-6": 4,
+          "form.sch8812.line-14": 4,
+          "form.sch8812.line-17": 4,
+          "form.sch8812.worksheet-a.line-5": 4,
+          "form1040.line-11a": 4,
+          "form1040.line-11b": 4,
+          "form1040.line-13b": 4,
+          "form1040.line-14": 4,
+          "form1040.line-15": 4,
+          "form1040.line-16": 4,
+          "form1040.line-19": 4,
+          "form1040.line-20": 4,
+          "form1040.line-24": 4,
+          "form1040.line-27a": 4,
+          "form1040.line-28": 4,
+          "form1040.line-32": 4,
+          "form1040.line-33": 4,
+          "form1040.line-34": 4,
+          "form1040.line-35a": 4,
+          "form1040.line-37": 4,
+          "form1040.line-6b": 4,
+          "form1040.line-7a": 4,
+          "form1040.line-9": 4,
+          "form1040.tax-after-credits": 4,
+          "schedule-d.line-10": 4,
+          "schedule-d.line-15": 4,
+          "schedule-d.line-16": 4,
+          "schedule-d.line-21": 4,
+          "schedule-d.line-3": 4,
+          "schedule-d.line-7": 4,
+          "schedule3.line-1": 4,
+          "schedule3.line-8": 4
+        }
+      },
+      "scratch": {
+        "line16_missing": [
+          "income.taxable-income",
+          "capital-gains.selected-preferential-base",
+          "qdcg-worksheet.line-24",
+          "qdcg-worksheet.line-25"
+        ],
+        "line16_sentences": 4
+      }
+    },
+    "protected/cumulative/exception1.no-qof-deferral": {
+      "v94": {
+        "line16_missing": [
+          "income.taxable-income",
+          "capital-gains.selected-preferential-base",
+          "qdcg-worksheet.line-24",
+          "qdcg-worksheet.line-25"
+        ],
+        "line16_sentences": 4,
+        "other_blocked_field_sentence_counts": {
+          "form.eic-worksheet-a.line-3": 4,
+          "form.eic-worksheet-a.line-5": 4,
+          "form.eic-worksheet-a.line-6": 4,
+          "form.sch8812.line-14": 4,
+          "form.sch8812.line-17": 4,
+          "form.sch8812.worksheet-a.line-5": 4,
+          "form1040.line-11a": 4,
+          "form1040.line-11b": 4,
+          "form1040.line-13b": 4,
+          "form1040.line-14": 4,
+          "form1040.line-15": 4,
+          "form1040.line-16": 4,
+          "form1040.line-19": 4,
+          "form1040.line-20": 4,
+          "form1040.line-24": 4,
+          "form1040.line-27a": 4,
+          "form1040.line-28": 4,
+          "form1040.line-32": 4,
+          "form1040.line-33": 4,
+          "form1040.line-34": 4,
+          "form1040.line-35a": 4,
+          "form1040.line-37": 4,
+          "form1040.line-6b": 4,
+          "form1040.line-7a": 4,
+          "form1040.line-9": 4,
+          "form1040.tax-after-credits": 4,
+          "schedule-d.line-10": 4,
+          "schedule-d.line-15": 4,
+          "schedule-d.line-16": 4,
+          "schedule-d.line-21": 4,
+          "schedule-d.line-3": 4,
+          "schedule-d.line-7": 4,
+          "schedule3.line-1": 4,
+          "schedule3.line-8": 4
+        }
+      },
+      "scratch": {
+        "line16_missing": [
+          "income.taxable-income",
+          "capital-gains.selected-preferential-base",
+          "qdcg-worksheet.line-24",
+          "qdcg-worksheet.line-25"
+        ],
+        "line16_sentences": 4
+      }
+    },
+    "protected/cumulative/exception1.only-box2a-capital-gains": {
+      "v94": {
+        "line16_missing": [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments"
+        ],
+        "line16_sentences": 4,
+        "other_blocked_field_sentence_counts": {
+          "form.eic-worksheet-a.line-3": 4,
+          "form.eic-worksheet-a.line-5": 4,
+          "form.eic-worksheet-a.line-6": 4,
+          "form.sch8812.line-14": 4,
+          "form.sch8812.line-17": 4,
+          "form.sch8812.worksheet-a.line-5": 4,
+          "form1040.line-11a": 4,
+          "form1040.line-11b": 4,
+          "form1040.line-13b": 4,
+          "form1040.line-14": 4,
+          "form1040.line-15": 4,
+          "form1040.line-16": 4,
+          "form1040.line-19": 4,
+          "form1040.line-20": 4,
+          "form1040.line-24": 4,
+          "form1040.line-27a": 4,
+          "form1040.line-28": 4,
+          "form1040.line-32": 4,
+          "form1040.line-33": 4,
+          "form1040.line-34": 4,
+          "form1040.line-35a": 4,
+          "form1040.line-37": 4,
+          "form1040.line-6b": 4,
+          "form1040.line-7a": 4,
+          "form1040.line-9": 4,
+          "form1040.tax-after-credits": 4,
+          "schedule-d.line-10": 4,
+          "schedule-d.line-15": 4,
+          "schedule-d.line-16": 4,
+          "schedule-d.line-21": 4,
+          "schedule-d.line-3": 4,
+          "schedule-d.line-7": 4,
+          "schedule3.line-1": 4,
+          "schedule3.line-8": 4
+        }
+      },
+      "scratch": {
+        "line16_missing": [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments"
+        ],
+        "line16_sentences": 4
+      }
+    },
+    "protected/exception1.no-boxes-2b-2c-2d/no": {
+      "v94": {
+        "line16_missing": [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments"
+        ],
+        "line16_sentences": 4,
+        "other_blocked_field_sentence_counts": {
+          "form.eic-worksheet-a.line-3": 4,
+          "form.eic-worksheet-a.line-5": 4,
+          "form.eic-worksheet-a.line-6": 4,
+          "form.sch8812.line-14": 4,
+          "form.sch8812.line-17": 4,
+          "form.sch8812.worksheet-a.line-5": 4,
+          "form1040.line-11a": 4,
+          "form1040.line-11b": 4,
+          "form1040.line-13b": 4,
+          "form1040.line-14": 4,
+          "form1040.line-15": 4,
+          "form1040.line-16": 4,
+          "form1040.line-19": 4,
+          "form1040.line-20": 4,
+          "form1040.line-24": 4,
+          "form1040.line-27a": 4,
+          "form1040.line-28": 4,
+          "form1040.line-32": 4,
+          "form1040.line-33": 4,
+          "form1040.line-34": 4,
+          "form1040.line-35a": 4,
+          "form1040.line-37": 4,
+          "form1040.line-6b": 4,
+          "form1040.line-7a": 4,
+          "form1040.line-9": 4,
+          "form1040.tax-after-credits": 4,
+          "schedule-d.line-10": 4,
+          "schedule-d.line-15": 4,
+          "schedule-d.line-16": 4,
+          "schedule-d.line-21": 4,
+          "schedule-d.line-3": 4,
+          "schedule-d.line-7": 4,
+          "schedule3.line-1": 4,
+          "schedule3.line-8": 4
+        }
+      },
+      "scratch": {
+        "line16_missing": [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments"
+        ],
+        "line16_sentences": 4
+      }
+    },
+    "protected/exception1.no-boxes-2b-2c-2d/yes": {
+      "v94": {
+        "line16_missing": [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments"
+        ],
+        "line16_sentences": 4,
+        "other_blocked_field_sentence_counts": {
+          "form.eic-worksheet-a.line-3": 4,
+          "form.eic-worksheet-a.line-5": 4,
+          "form.eic-worksheet-a.line-6": 4,
+          "form.sch8812.line-14": 4,
+          "form.sch8812.line-17": 4,
+          "form.sch8812.worksheet-a.line-5": 4,
+          "form1040.line-11a": 4,
+          "form1040.line-11b": 4,
+          "form1040.line-13b": 4,
+          "form1040.line-14": 4,
+          "form1040.line-15": 4,
+          "form1040.line-16": 4,
+          "form1040.line-19": 4,
+          "form1040.line-20": 4,
+          "form1040.line-24": 4,
+          "form1040.line-27a": 4,
+          "form1040.line-28": 4,
+          "form1040.line-32": 4,
+          "form1040.line-33": 4,
+          "form1040.line-34": 4,
+          "form1040.line-35a": 4,
+          "form1040.line-37": 4,
+          "form1040.line-6b": 4,
+          "form1040.line-7a": 4,
+          "form1040.line-9": 4,
+          "form1040.tax-after-credits": 4,
+          "schedule-d.line-10": 4,
+          "schedule-d.line-15": 4,
+          "schedule-d.line-16": 4,
+          "schedule-d.line-21": 4,
+          "schedule-d.line-3": 4,
+          "schedule-d.line-7": 4,
+          "schedule3.line-1": 4,
+          "schedule3.line-8": 4
+        }
+      },
+      "scratch": {
+        "line16_missing": [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments"
+        ],
+        "line16_sentences": 4
+      }
+    },
+    "protected/exception1.no-capital-losses/no": {
+      "v94": {
+        "line16_missing": [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments"
+        ],
+        "line16_sentences": 4,
+        "other_blocked_field_sentence_counts": {
+          "form.eic-worksheet-a.line-3": 4,
+          "form.eic-worksheet-a.line-5": 4,
+          "form.eic-worksheet-a.line-6": 4,
+          "form.sch8812.line-14": 4,
+          "form.sch8812.line-17": 4,
+          "form.sch8812.worksheet-a.line-5": 4,
+          "form1040.line-11a": 4,
+          "form1040.line-11b": 4,
+          "form1040.line-13b": 4,
+          "form1040.line-14": 4,
+          "form1040.line-15": 4,
+          "form1040.line-16": 4,
+          "form1040.line-19": 4,
+          "form1040.line-20": 4,
+          "form1040.line-24": 4,
+          "form1040.line-27a": 4,
+          "form1040.line-28": 4,
+          "form1040.line-32": 4,
+          "form1040.line-33": 4,
+          "form1040.line-34": 4,
+          "form1040.line-35a": 4,
+          "form1040.line-37": 4,
+          "form1040.line-6b": 4,
+          "form1040.line-7a": 4,
+          "form1040.line-9": 4,
+          "form1040.tax-after-credits": 4,
+          "schedule-d.line-10": 4,
+          "schedule-d.line-15": 4,
+          "schedule-d.line-16": 4,
+          "schedule-d.line-21": 4,
+          "schedule-d.line-3": 4,
+          "schedule-d.line-7": 4,
+          "schedule3.line-1": 4,
+          "schedule3.line-8": 4
+        }
+      },
+      "scratch": {
+        "line16_missing": [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments"
+        ],
+        "line16_sentences": 4
+      }
+    },
+    "protected/exception1.no-capital-losses/yes": {
+      "v94": {
+        "line16_missing": [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments"
+        ],
+        "line16_sentences": 4,
+        "other_blocked_field_sentence_counts": {
+          "form.eic-worksheet-a.line-3": 4,
+          "form.eic-worksheet-a.line-5": 4,
+          "form.eic-worksheet-a.line-6": 4,
+          "form.sch8812.line-14": 4,
+          "form.sch8812.line-17": 4,
+          "form.sch8812.worksheet-a.line-5": 4,
+          "form1040.line-11a": 4,
+          "form1040.line-11b": 4,
+          "form1040.line-13b": 4,
+          "form1040.line-14": 4,
+          "form1040.line-15": 4,
+          "form1040.line-16": 4,
+          "form1040.line-19": 4,
+          "form1040.line-20": 4,
+          "form1040.line-24": 4,
+          "form1040.line-27a": 4,
+          "form1040.line-28": 4,
+          "form1040.line-32": 4,
+          "form1040.line-33": 4,
+          "form1040.line-34": 4,
+          "form1040.line-35a": 4,
+          "form1040.line-37": 4,
+          "form1040.line-6b": 4,
+          "form1040.line-7a": 4,
+          "form1040.line-9": 4,
+          "form1040.tax-after-credits": 4,
+          "schedule-d.line-10": 4,
+          "schedule-d.line-15": 4,
+          "schedule-d.line-16": 4,
+          "schedule-d.line-21": 4,
+          "schedule-d.line-3": 4,
+          "schedule-d.line-7": 4,
+          "schedule3.line-1": 4,
+          "schedule3.line-8": 4
+        }
+      },
+      "scratch": {
+        "line16_missing": [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments"
+        ],
+        "line16_sentences": 4
+      }
+    },
+    "protected/exception1.no-qof-deferral/no": {
+      "v94": {
+        "line16_missing": [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments"
+        ],
+        "line16_sentences": 4,
+        "other_blocked_field_sentence_counts": {
+          "form.eic-worksheet-a.line-3": 4,
+          "form.eic-worksheet-a.line-5": 4,
+          "form.eic-worksheet-a.line-6": 4,
+          "form.sch8812.line-14": 4,
+          "form.sch8812.line-17": 4,
+          "form.sch8812.worksheet-a.line-5": 4,
+          "form1040.line-11a": 4,
+          "form1040.line-11b": 4,
+          "form1040.line-13b": 4,
+          "form1040.line-14": 4,
+          "form1040.line-15": 4,
+          "form1040.line-16": 4,
+          "form1040.line-19": 4,
+          "form1040.line-20": 4,
+          "form1040.line-24": 4,
+          "form1040.line-27a": 4,
+          "form1040.line-28": 4,
+          "form1040.line-32": 4,
+          "form1040.line-33": 4,
+          "form1040.line-34": 4,
+          "form1040.line-35a": 4,
+          "form1040.line-37": 4,
+          "form1040.line-6b": 4,
+          "form1040.line-7a": 4,
+          "form1040.line-9": 4,
+          "form1040.tax-after-credits": 4,
+          "schedule-d.line-10": 4,
+          "schedule-d.line-15": 4,
+          "schedule-d.line-16": 4,
+          "schedule-d.line-21": 4,
+          "schedule-d.line-3": 4,
+          "schedule-d.line-7": 4,
+          "schedule3.line-1": 4,
+          "schedule3.line-8": 4
+        }
+      },
+      "scratch": {
+        "line16_missing": [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments"
+        ],
+        "line16_sentences": 4
+      }
+    },
+    "protected/exception1.no-qof-deferral/yes": {
+      "v94": {
+        "line16_missing": [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments"
+        ],
+        "line16_sentences": 4,
+        "other_blocked_field_sentence_counts": {
+          "form.eic-worksheet-a.line-3": 4,
+          "form.eic-worksheet-a.line-5": 4,
+          "form.eic-worksheet-a.line-6": 4,
+          "form.sch8812.line-14": 4,
+          "form.sch8812.line-17": 4,
+          "form.sch8812.worksheet-a.line-5": 4,
+          "form1040.line-11a": 4,
+          "form1040.line-11b": 4,
+          "form1040.line-13b": 4,
+          "form1040.line-14": 4,
+          "form1040.line-15": 4,
+          "form1040.line-16": 4,
+          "form1040.line-19": 4,
+          "form1040.line-20": 4,
+          "form1040.line-24": 4,
+          "form1040.line-27a": 4,
+          "form1040.line-28": 4,
+          "form1040.line-32": 4,
+          "form1040.line-33": 4,
+          "form1040.line-34": 4,
+          "form1040.line-35a": 4,
+          "form1040.line-37": 4,
+          "form1040.line-6b": 4,
+          "form1040.line-7a": 4,
+          "form1040.line-9": 4,
+          "form1040.tax-after-credits": 4,
+          "schedule-d.line-10": 4,
+          "schedule-d.line-15": 4,
+          "schedule-d.line-16": 4,
+          "schedule-d.line-21": 4,
+          "schedule-d.line-3": 4,
+          "schedule-d.line-7": 4,
+          "schedule3.line-1": 4,
+          "schedule3.line-8": 4
+        }
+      },
+      "scratch": {
+        "line16_missing": [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments"
+        ],
+        "line16_sentences": 4
+      }
+    },
+    "protected/exception1.only-box2a-capital-gains/no": {
+      "v94": {
+        "line16_missing": [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments"
+        ],
+        "line16_sentences": 4,
+        "other_blocked_field_sentence_counts": {
+          "form.eic-worksheet-a.line-3": 4,
+          "form.eic-worksheet-a.line-5": 4,
+          "form.eic-worksheet-a.line-6": 4,
+          "form.sch8812.line-14": 4,
+          "form.sch8812.line-17": 4,
+          "form.sch8812.worksheet-a.line-5": 4,
+          "form1040.line-11a": 4,
+          "form1040.line-11b": 4,
+          "form1040.line-13b": 4,
+          "form1040.line-14": 4,
+          "form1040.line-15": 4,
+          "form1040.line-16": 4,
+          "form1040.line-19": 4,
+          "form1040.line-20": 4,
+          "form1040.line-24": 4,
+          "form1040.line-27a": 4,
+          "form1040.line-28": 4,
+          "form1040.line-32": 4,
+          "form1040.line-33": 4,
+          "form1040.line-34": 4,
+          "form1040.line-35a": 4,
+          "form1040.line-37": 4,
+          "form1040.line-6b": 4,
+          "form1040.line-7a": 4,
+          "form1040.line-9": 4,
+          "form1040.tax-after-credits": 4,
+          "schedule-d.line-10": 4,
+          "schedule-d.line-15": 4,
+          "schedule-d.line-16": 4,
+          "schedule-d.line-21": 4,
+          "schedule-d.line-3": 4,
+          "schedule-d.line-7": 4,
+          "schedule3.line-1": 4,
+          "schedule3.line-8": 4
+        }
+      },
+      "scratch": {
+        "line16_missing": [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments"
+        ],
+        "line16_sentences": 4
+      }
+    },
+    "protected/exception1.only-box2a-capital-gains/yes": {
+      "v94": {
+        "line16_missing": [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments"
+        ],
+        "line16_sentences": 4,
+        "other_blocked_field_sentence_counts": {
+          "form.eic-worksheet-a.line-3": 4,
+          "form.eic-worksheet-a.line-5": 4,
+          "form.eic-worksheet-a.line-6": 4,
+          "form.sch8812.line-14": 4,
+          "form.sch8812.line-17": 4,
+          "form.sch8812.worksheet-a.line-5": 4,
+          "form1040.line-11a": 4,
+          "form1040.line-11b": 4,
+          "form1040.line-13b": 4,
+          "form1040.line-14": 4,
+          "form1040.line-15": 4,
+          "form1040.line-16": 4,
+          "form1040.line-19": 4,
+          "form1040.line-20": 4,
+          "form1040.line-24": 4,
+          "form1040.line-27a": 4,
+          "form1040.line-28": 4,
+          "form1040.line-32": 4,
+          "form1040.line-33": 4,
+          "form1040.line-34": 4,
+          "form1040.line-35a": 4,
+          "form1040.line-37": 4,
+          "form1040.line-6b": 4,
+          "form1040.line-7a": 4,
+          "form1040.line-9": 4,
+          "form1040.tax-after-credits": 4,
+          "schedule-d.line-10": 4,
+          "schedule-d.line-15": 4,
+          "schedule-d.line-16": 4,
+          "schedule-d.line-21": 4,
+          "schedule-d.line-3": 4,
+          "schedule-d.line-7": 4,
+          "schedule3.line-1": 4,
+          "schedule3.line-8": 4
+        }
+      },
+      "scratch": {
+        "line16_missing": [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments"
+        ],
+        "line16_sentences": 4
+      }
+    },
+    "protected/f1099b.noncovered-sold.source-closure/no": {
+      "v94": {
+        "line16_missing": [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments"
+        ],
+        "line16_sentences": 4,
+        "other_blocked_field_sentence_counts": {
+          "form.eic-worksheet-a.line-3": 4,
+          "form.eic-worksheet-a.line-5": 4,
+          "form.eic-worksheet-a.line-6": 4,
+          "form.sch8812.line-14": 4,
+          "form.sch8812.line-17": 4,
+          "form.sch8812.worksheet-a.line-5": 4,
+          "form1040.line-11a": 4,
+          "form1040.line-11b": 4,
+          "form1040.line-13b": 4,
+          "form1040.line-14": 4,
+          "form1040.line-15": 4,
+          "form1040.line-16": 4,
+          "form1040.line-19": 4,
+          "form1040.line-20": 4,
+          "form1040.line-24": 4,
+          "form1040.line-27a": 4,
+          "form1040.line-28": 4,
+          "form1040.line-32": 4,
+          "form1040.line-33": 4,
+          "form1040.line-34": 4,
+          "form1040.line-35a": 4,
+          "form1040.line-37": 4,
+          "form1040.line-6b": 4,
+          "form1040.line-7a": 4,
+          "form1040.line-9": 4,
+          "form1040.tax-after-credits": 4,
+          "schedule-d.line-10": 4,
+          "schedule-d.line-15": 4,
+          "schedule-d.line-16": 4,
+          "schedule-d.line-21": 4,
+          "schedule-d.line-3": 4,
+          "schedule-d.line-7": 4,
+          "schedule3.line-1": 4,
+          "schedule3.line-8": 4
+        }
+      },
+      "scratch": {
+        "line16_missing": [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments"
+        ],
+        "line16_sentences": 4
+      }
+    },
+    "protected/f1099b.noncovered-sold.source-closure/yes": {
+      "v94": {
+        "line16_missing": [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments"
+        ],
+        "line16_sentences": 4,
+        "other_blocked_field_sentence_counts": {
+          "form.eic-worksheet-a.line-3": 4,
+          "form.eic-worksheet-a.line-5": 4,
+          "form.eic-worksheet-a.line-6": 4,
+          "form.sch8812.line-14": 4,
+          "form.sch8812.line-17": 4,
+          "form.sch8812.worksheet-a.line-5": 4,
+          "form1040.line-11a": 4,
+          "form1040.line-11b": 4,
+          "form1040.line-13b": 4,
+          "form1040.line-14": 4,
+          "form1040.line-15": 4,
+          "form1040.line-16": 4,
+          "form1040.line-19": 4,
+          "form1040.line-20": 4,
+          "form1040.line-24": 4,
+          "form1040.line-27a": 4,
+          "form1040.line-28": 4,
+          "form1040.line-32": 4,
+          "form1040.line-33": 4,
+          "form1040.line-34": 4,
+          "form1040.line-35a": 4,
+          "form1040.line-37": 4,
+          "form1040.line-6b": 4,
+          "form1040.line-7a": 4,
+          "form1040.line-9": 4,
+          "form1040.tax-after-credits": 4,
+          "schedule-d.line-10": 4,
+          "schedule-d.line-15": 4,
+          "schedule-d.line-16": 4,
+          "schedule-d.line-21": 4,
+          "schedule-d.line-3": 4,
+          "schedule-d.line-7": 4,
+          "schedule3.line-1": 4,
+          "schedule3.line-8": 4
+        }
+      },
+      "scratch": {
+        "line16_missing": [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments"
+        ],
+        "line16_sentences": 4
+      }
+    },
+    "protected/f8949.no1099b-sold.source-closure/no": {
+      "v94": {
+        "line16_missing": [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments"
+        ],
+        "line16_sentences": 4,
+        "other_blocked_field_sentence_counts": {
+          "form.eic-worksheet-a.line-3": 4,
+          "form.eic-worksheet-a.line-5": 4,
+          "form.eic-worksheet-a.line-6": 4,
+          "form.sch8812.line-14": 4,
+          "form.sch8812.line-17": 4,
+          "form.sch8812.worksheet-a.line-5": 4,
+          "form1040.line-11a": 4,
+          "form1040.line-11b": 4,
+          "form1040.line-13b": 4,
+          "form1040.line-14": 4,
+          "form1040.line-15": 4,
+          "form1040.line-16": 4,
+          "form1040.line-19": 4,
+          "form1040.line-20": 4,
+          "form1040.line-24": 4,
+          "form1040.line-27a": 4,
+          "form1040.line-28": 4,
+          "form1040.line-32": 4,
+          "form1040.line-33": 4,
+          "form1040.line-34": 4,
+          "form1040.line-35a": 4,
+          "form1040.line-37": 4,
+          "form1040.line-6b": 4,
+          "form1040.line-7a": 4,
+          "form1040.line-9": 4,
+          "form1040.tax-after-credits": 4,
+          "schedule-d.line-10": 4,
+          "schedule-d.line-15": 4,
+          "schedule-d.line-16": 4,
+          "schedule-d.line-21": 4,
+          "schedule-d.line-3": 4,
+          "schedule-d.line-7": 4,
+          "schedule3.line-1": 4,
+          "schedule3.line-8": 4
+        }
+      },
+      "scratch": {
+        "line16_missing": [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments"
+        ],
+        "line16_sentences": 4
+      }
+    },
+    "protected/f8949.no1099b-sold.source-closure/yes": {
+      "v94": {
+        "line16_missing": [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments"
+        ],
+        "line16_sentences": 4,
+        "other_blocked_field_sentence_counts": {
+          "form.eic-worksheet-a.line-3": 4,
+          "form.eic-worksheet-a.line-5": 4,
+          "form.eic-worksheet-a.line-6": 4,
+          "form.sch8812.line-14": 4,
+          "form.sch8812.line-17": 4,
+          "form.sch8812.worksheet-a.line-5": 4,
+          "form1040.line-11a": 4,
+          "form1040.line-11b": 4,
+          "form1040.line-13b": 4,
+          "form1040.line-14": 4,
+          "form1040.line-15": 4,
+          "form1040.line-16": 4,
+          "form1040.line-19": 4,
+          "form1040.line-20": 4,
+          "form1040.line-24": 4,
+          "form1040.line-27a": 4,
+          "form1040.line-28": 4,
+          "form1040.line-32": 4,
+          "form1040.line-33": 4,
+          "form1040.line-34": 4,
+          "form1040.line-35a": 4,
+          "form1040.line-37": 4,
+          "form1040.line-6b": 4,
+          "form1040.line-7a": 4,
+          "form1040.line-9": 4,
+          "form1040.tax-after-credits": 4,
+          "schedule-d.line-10": 4,
+          "schedule-d.line-15": 4,
+          "schedule-d.line-16": 4,
+          "schedule-d.line-21": 4,
+          "schedule-d.line-3": 4,
+          "schedule-d.line-7": 4,
+          "schedule3.line-1": 4,
+          "schedule3.line-8": 4
+        }
+      },
+      "scratch": {
+        "line16_missing": [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments"
+        ],
+        "line16_sentences": 4
+      }
+    },
+    "protected/schedule-d-boundary.no-form8949-sources/no": {
+      "v94": {
+        "line16_missing": [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments"
+        ],
+        "line16_sentences": 4,
+        "other_blocked_field_sentence_counts": {
+          "form.eic-worksheet-a.line-3": 4,
+          "form.eic-worksheet-a.line-5": 4,
+          "form.eic-worksheet-a.line-6": 4,
+          "form.sch8812.line-14": 4,
+          "form.sch8812.line-17": 4,
+          "form.sch8812.worksheet-a.line-5": 4,
+          "form1040.line-11a": 4,
+          "form1040.line-11b": 4,
+          "form1040.line-13b": 4,
+          "form1040.line-14": 4,
+          "form1040.line-15": 4,
+          "form1040.line-16": 4,
+          "form1040.line-19": 4,
+          "form1040.line-20": 4,
+          "form1040.line-24": 4,
+          "form1040.line-27a": 4,
+          "form1040.line-28": 4,
+          "form1040.line-32": 4,
+          "form1040.line-33": 4,
+          "form1040.line-34": 4,
+          "form1040.line-35a": 4,
+          "form1040.line-37": 4,
+          "form1040.line-6b": 4,
+          "form1040.line-7a": 4,
+          "form1040.line-9": 4,
+          "form1040.tax-after-credits": 4,
+          "schedule-d.line-10": 4,
+          "schedule-d.line-15": 4,
+          "schedule-d.line-16": 4,
+          "schedule-d.line-21": 4,
+          "schedule-d.line-3": 4,
+          "schedule-d.line-7": 4,
+          "schedule3.line-1": 4,
+          "schedule3.line-8": 4
+        }
+      },
+      "scratch": {
+        "line16_missing": [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments"
+        ],
+        "line16_sentences": 4
+      }
+    },
+    "protected/schedule-d-boundary.no-form8949-sources/yes": {
+      "v94": {
+        "line16_missing": [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments"
+        ],
+        "line16_sentences": 4,
+        "other_blocked_field_sentence_counts": {
+          "form.eic-worksheet-a.line-3": 8,
+          "form.eic-worksheet-a.line-5": 8,
+          "form.eic-worksheet-a.line-6": 8,
+          "form.sch8812.line-14": 8,
+          "form.sch8812.line-17": 8,
+          "form.sch8812.worksheet-a.line-5": 4,
+          "form1040.line-11a": 8,
+          "form1040.line-11b": 8,
+          "form1040.line-13b": 8,
+          "form1040.line-14": 8,
+          "form1040.line-15": 8,
+          "form1040.line-16": 4,
+          "form1040.line-19": 8,
+          "form1040.line-20": 4,
+          "form1040.line-24": 8,
+          "form1040.line-27a": 8,
+          "form1040.line-28": 8,
+          "form1040.line-32": 8,
+          "form1040.line-33": 8,
+          "form1040.line-34": 8,
+          "form1040.line-35a": 8,
+          "form1040.line-37": 8,
+          "form1040.line-6b": 8,
+          "form1040.line-7a": 8,
+          "form1040.line-9": 8,
+          "form1040.tax-after-credits": 8,
+          "schedule3.line-1": 4,
+          "schedule3.line-8": 4
+        }
+      },
+      "scratch": {
+        "line16_missing": [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments",
+          "exception1.only-box2a-capital-gains",
+          "exception1.no-capital-losses",
+          "exception1.no-qof-deferral",
+          "exception1.no-boxes-2b-2c-2d"
+        ],
+        "line16_sentences": 8
+      }
+    },
+    "protected/schedule-d-boundary.no-other-form8949-adjustments/no": {
+      "v94": {
+        "line16_missing": [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments"
+        ],
+        "line16_sentences": 4,
+        "other_blocked_field_sentence_counts": {
+          "form.eic-worksheet-a.line-3": 4,
+          "form.eic-worksheet-a.line-5": 4,
+          "form.eic-worksheet-a.line-6": 4,
+          "form.sch8812.line-14": 4,
+          "form.sch8812.line-17": 4,
+          "form.sch8812.worksheet-a.line-5": 4,
+          "form1040.line-11a": 4,
+          "form1040.line-11b": 4,
+          "form1040.line-13b": 4,
+          "form1040.line-14": 4,
+          "form1040.line-15": 4,
+          "form1040.line-16": 4,
+          "form1040.line-19": 4,
+          "form1040.line-20": 4,
+          "form1040.line-24": 4,
+          "form1040.line-27a": 4,
+          "form1040.line-28": 4,
+          "form1040.line-32": 4,
+          "form1040.line-33": 4,
+          "form1040.line-34": 4,
+          "form1040.line-35a": 4,
+          "form1040.line-37": 4,
+          "form1040.line-6b": 4,
+          "form1040.line-7a": 4,
+          "form1040.line-9": 4,
+          "form1040.tax-after-credits": 4,
+          "schedule-d.line-10": 4,
+          "schedule-d.line-15": 4,
+          "schedule-d.line-16": 4,
+          "schedule-d.line-21": 4,
+          "schedule-d.line-3": 4,
+          "schedule-d.line-7": 4,
+          "schedule3.line-1": 4,
+          "schedule3.line-8": 4
+        }
+      },
+      "scratch": {
+        "line16_missing": [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments"
+        ],
+        "line16_sentences": 4
+      }
+    },
+    "protected/schedule-d-boundary.no-other-form8949-adjustments/yes": {
+      "v94": {
+        "line16_missing": [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments"
+        ],
+        "line16_sentences": 4,
+        "other_blocked_field_sentence_counts": {
+          "form.eic-worksheet-a.line-3": 8,
+          "form.eic-worksheet-a.line-5": 8,
+          "form.eic-worksheet-a.line-6": 8,
+          "form.sch8812.line-14": 8,
+          "form.sch8812.line-17": 8,
+          "form.sch8812.worksheet-a.line-5": 4,
+          "form1040.line-11a": 8,
+          "form1040.line-11b": 8,
+          "form1040.line-13b": 8,
+          "form1040.line-14": 8,
+          "form1040.line-15": 8,
+          "form1040.line-16": 4,
+          "form1040.line-19": 8,
+          "form1040.line-20": 4,
+          "form1040.line-24": 8,
+          "form1040.line-27a": 8,
+          "form1040.line-28": 8,
+          "form1040.line-32": 8,
+          "form1040.line-33": 8,
+          "form1040.line-34": 8,
+          "form1040.line-35a": 8,
+          "form1040.line-37": 8,
+          "form1040.line-6b": 8,
+          "form1040.line-7a": 8,
+          "form1040.line-9": 8,
+          "form1040.tax-after-credits": 8,
+          "schedule3.line-1": 4,
+          "schedule3.line-8": 4
+        }
+      },
+      "scratch": {
+        "line16_missing": [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments"
+        ],
+        "line16_sentences": 4
+      }
+    },
+    "recorded/m_2a_only_exc1_only2a_no": {
+      "v94": {
+        "line16_missing": [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments"
+        ],
+        "line16_sentences": 4,
+        "other_blocked_field_sentence_counts": {
+          "form.eic-worksheet-a.line-3": 8,
+          "form.eic-worksheet-a.line-5": 8,
+          "form.eic-worksheet-a.line-6": 8,
+          "form.sch8812.line-14": 8,
+          "form.sch8812.line-17": 8,
+          "form.sch8812.worksheet-a.line-5": 4,
+          "form1040.line-11a": 8,
+          "form1040.line-11b": 8,
+          "form1040.line-13b": 8,
+          "form1040.line-14": 8,
+          "form1040.line-15": 8,
+          "form1040.line-16": 4,
+          "form1040.line-19": 8,
+          "form1040.line-20": 4,
+          "form1040.line-24": 8,
+          "form1040.line-27a": 8,
+          "form1040.line-28": 8,
+          "form1040.line-32": 8,
+          "form1040.line-33": 8,
+          "form1040.line-34": 8,
+          "form1040.line-35a": 8,
+          "form1040.line-37": 8,
+          "form1040.line-6b": 8,
+          "form1040.line-7a": 8,
+          "form1040.line-9": 8,
+          "form1040.tax-after-credits": 8,
+          "schedule3.line-1": 4,
+          "schedule3.line-8": 4
+        }
+      },
+      "scratch": {
+        "line16_missing": [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments",
+          "exception1.only-box2a-capital-gains",
+          "exception1.no-capital-losses",
+          "exception1.no-qof-deferral",
+          "exception1.no-boxes-2b-2c-2d"
+        ],
+        "line16_sentences": 8
+      }
+    },
+    "recorded/m_empty_exc1_nolosses_no": {
+      "v94": {
+        "line16_missing": [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments"
+        ],
+        "line16_sentences": 4,
+        "other_blocked_field_sentence_counts": {
+          "form.eic-worksheet-a.line-3": 8,
+          "form.eic-worksheet-a.line-5": 8,
+          "form.eic-worksheet-a.line-6": 8,
+          "form.sch8812.line-14": 8,
+          "form.sch8812.line-17": 8,
+          "form.sch8812.worksheet-a.line-5": 4,
+          "form1040.line-11a": 8,
+          "form1040.line-11b": 8,
+          "form1040.line-13b": 8,
+          "form1040.line-14": 8,
+          "form1040.line-15": 8,
+          "form1040.line-16": 4,
+          "form1040.line-19": 8,
+          "form1040.line-20": 4,
+          "form1040.line-24": 8,
+          "form1040.line-27a": 8,
+          "form1040.line-28": 8,
+          "form1040.line-32": 8,
+          "form1040.line-33": 8,
+          "form1040.line-34": 8,
+          "form1040.line-35a": 8,
+          "form1040.line-37": 8,
+          "form1040.line-6b": 8,
+          "form1040.line-7a": 8,
+          "form1040.line-9": 8,
+          "form1040.tax-after-credits": 8,
+          "schedule3.line-1": 4,
+          "schedule3.line-8": 4
+        }
+      },
+      "scratch": {
+        "line16_missing": [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments",
+          "exception1.only-box2a-capital-gains",
+          "exception1.no-capital-losses",
+          "exception1.no-qof-deferral",
+          "exception1.no-boxes-2b-2c-2d"
+        ],
+        "line16_sentences": 8
+      }
+    },
+    "recorded/m_empty_exc1_only2a_no": {
+      "v94": {
+        "line16_missing": [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments"
+        ],
+        "line16_sentences": 4,
+        "other_blocked_field_sentence_counts": {
+          "form.eic-worksheet-a.line-3": 8,
+          "form.eic-worksheet-a.line-5": 8,
+          "form.eic-worksheet-a.line-6": 8,
+          "form.sch8812.line-14": 8,
+          "form.sch8812.line-17": 8,
+          "form.sch8812.worksheet-a.line-5": 4,
+          "form1040.line-11a": 8,
+          "form1040.line-11b": 8,
+          "form1040.line-13b": 8,
+          "form1040.line-14": 8,
+          "form1040.line-15": 8,
+          "form1040.line-16": 4,
+          "form1040.line-19": 8,
+          "form1040.line-20": 4,
+          "form1040.line-24": 8,
+          "form1040.line-27a": 8,
+          "form1040.line-28": 8,
+          "form1040.line-32": 8,
+          "form1040.line-33": 8,
+          "form1040.line-34": 8,
+          "form1040.line-35a": 8,
+          "form1040.line-37": 8,
+          "form1040.line-6b": 8,
+          "form1040.line-7a": 8,
+          "form1040.line-9": 8,
+          "form1040.tax-after-credits": 8,
+          "schedule3.line-1": 4,
+          "schedule3.line-8": 4
+        }
+      },
+      "scratch": {
+        "line16_missing": [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments",
+          "exception1.only-box2a-capital-gains",
+          "exception1.no-capital-losses",
+          "exception1.no-qof-deferral",
+          "exception1.no-boxes-2b-2c-2d"
+        ],
+        "line16_sentences": 8
+      }
+    },
+    "recorded/t4_s1_removed": {
+      "v94": {
+        "line16_missing": [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments"
+        ],
+        "line16_sentences": 4,
+        "other_blocked_field_sentence_counts": {
+          "form.eic-worksheet-a.line-3": 8,
+          "form.eic-worksheet-a.line-5": 8,
+          "form.eic-worksheet-a.line-6": 8,
+          "form.sch8812.line-14": 8,
+          "form.sch8812.line-17": 8,
+          "form.sch8812.worksheet-a.line-5": 4,
+          "form1040.line-11a": 8,
+          "form1040.line-11b": 8,
+          "form1040.line-13b": 8,
+          "form1040.line-14": 8,
+          "form1040.line-15": 8,
+          "form1040.line-16": 4,
+          "form1040.line-19": 8,
+          "form1040.line-20": 4,
+          "form1040.line-24": 8,
+          "form1040.line-27a": 8,
+          "form1040.line-28": 8,
+          "form1040.line-32": 8,
+          "form1040.line-33": 8,
+          "form1040.line-34": 8,
+          "form1040.line-35a": 8,
+          "form1040.line-37": 8,
+          "form1040.line-6b": 8,
+          "form1040.line-7a": 8,
+          "form1040.line-9": 8,
+          "form1040.tax-after-credits": 8,
+          "schedule3.line-1": 4,
+          "schedule3.line-8": 4
+        }
+      },
+      "scratch": {
+        "line16_missing": [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments",
+          "exception1.only-box2a-capital-gains",
+          "exception1.no-capital-losses",
+          "exception1.no-qof-deferral",
+          "exception1.no-boxes-2b-2c-2d"
+        ],
+        "line16_sentences": 8
+      }
+    },
+    "schedule-d-refused/sd_8949_no_unadmitted": {
+      "v94": {
+        "line16_missing": [
+          "income.taxable-income",
+          "capital-gains.selected-preferential-base",
+          "qdcg-worksheet.line-24",
+          "qdcg-worksheet.line-25"
+        ],
+        "line16_sentences": 4,
+        "other_blocked_field_sentence_counts": {
+          "form.eic-worksheet-a.line-3": 4,
+          "form.eic-worksheet-a.line-5": 4,
+          "form.eic-worksheet-a.line-6": 4,
+          "form.sch8812.line-14": 4,
+          "form.sch8812.line-17": 4,
+          "form.sch8812.worksheet-a.line-5": 4,
+          "form1040.line-11a": 4,
+          "form1040.line-11b": 4,
+          "form1040.line-13b": 4,
+          "form1040.line-14": 4,
+          "form1040.line-15": 4,
+          "form1040.line-16": 4,
+          "form1040.line-19": 4,
+          "form1040.line-20": 4,
+          "form1040.line-24": 4,
+          "form1040.line-27a": 4,
+          "form1040.line-28": 4,
+          "form1040.line-32": 4,
+          "form1040.line-33": 4,
+          "form1040.line-34": 4,
+          "form1040.line-35a": 4,
+          "form1040.line-37": 4,
+          "form1040.line-6b": 4,
+          "form1040.line-7a": 4,
+          "form1040.line-9": 4,
+          "form1040.tax-after-credits": 4,
+          "schedule-d.line-10": 4,
+          "schedule-d.line-15": 4,
+          "schedule-d.line-16": 4,
+          "schedule-d.line-21": 4,
+          "schedule-d.line-3": 4,
+          "schedule-d.line-7": 4,
+          "schedule3.line-1": 4,
+          "schedule3.line-8": 4
+        }
+      },
+      "scratch": {
+        "line16_missing": [
+          "income.taxable-income",
+          "capital-gains.selected-preferential-base",
+          "qdcg-worksheet.line-24",
+          "qdcg-worksheet.line-25"
+        ],
+        "line16_sentences": 4
+      }
+    },
+    "schedule-d-refused/sd_amounts_disagree": {
+      "v94": {
+        "line16_missing": [
+          "income.taxable-income",
+          "capital-gains.selected-preferential-base",
+          "qdcg-worksheet.line-24",
+          "qdcg-worksheet.line-25"
+        ],
+        "line16_sentences": 1,
+        "other_blocked_field_sentence_counts": {
+          "form.eic-worksheet-a.line-3": 1,
+          "form.eic-worksheet-a.line-5": 1,
+          "form.eic-worksheet-a.line-6": 1,
+          "form.sch8812.line-14": 1,
+          "form.sch8812.line-17": 1,
+          "form.sch8812.worksheet-a.line-5": 1,
+          "form1040.line-11a": 1,
+          "form1040.line-11b": 1,
+          "form1040.line-13b": 1,
+          "form1040.line-14": 1,
+          "form1040.line-15": 1,
+          "form1040.line-16": 1,
+          "form1040.line-19": 1,
+          "form1040.line-20": 1,
+          "form1040.line-24": 1,
+          "form1040.line-27a": 1,
+          "form1040.line-28": 1,
+          "form1040.line-32": 1,
+          "form1040.line-33": 1,
+          "form1040.line-34": 1,
+          "form1040.line-35a": 1,
+          "form1040.line-37": 1,
+          "form1040.line-6b": 1,
+          "form1040.line-7a": 1,
+          "form1040.line-9": 1,
+          "form1040.tax-after-credits": 1,
+          "schedule-d.line-16": 1,
+          "schedule-d.line-21": 1,
+          "schedule-d.line-3": 1,
+          "schedule-d.line-7": 1,
+          "schedule3.line-1": 1,
+          "schedule3.line-8": 1
+        }
+      },
+      "scratch": {
+        "line16_missing": [
+          "income.taxable-income",
+          "capital-gains.selected-preferential-base",
+          "qdcg-worksheet.line-24",
+          "qdcg-worksheet.line-25"
+        ],
+        "line16_sentences": 1
+      }
+    },
+    "schedule-d-refused/sd_path_b_unanswered": {
+      "v94": {
+        "line16_missing": [
+          "income.taxable-income",
+          "capital-gains.selected-preferential-base",
+          "qdcg-worksheet.line-24",
+          "qdcg-worksheet.line-25"
+        ],
+        "line16_sentences": 1,
+        "other_blocked_field_sentence_counts": {
+          "form.eic-worksheet-a.line-3": 1,
+          "form.eic-worksheet-a.line-5": 1,
+          "form.eic-worksheet-a.line-6": 1,
+          "form.sch8812.line-14": 1,
+          "form.sch8812.line-17": 1,
+          "form.sch8812.worksheet-a.line-5": 1,
+          "form1040.line-11a": 1,
+          "form1040.line-11b": 1,
+          "form1040.line-13b": 1,
+          "form1040.line-14": 1,
+          "form1040.line-15": 1,
+          "form1040.line-16": 1,
+          "form1040.line-19": 1,
+          "form1040.line-20": 1,
+          "form1040.line-24": 1,
+          "form1040.line-27a": 1,
+          "form1040.line-28": 1,
+          "form1040.line-32": 1,
+          "form1040.line-33": 1,
+          "form1040.line-34": 1,
+          "form1040.line-35a": 1,
+          "form1040.line-37": 1,
+          "form1040.line-6b": 1,
+          "form1040.line-7a": 1,
+          "form1040.line-9": 1,
+          "form1040.tax-after-credits": 1,
+          "schedule3.line-1": 1,
+          "schedule3.line-8": 1
+        }
+      },
+      "scratch": {
+        "line16_missing": [
+          "income.taxable-income",
+          "capital-gains.selected-preferential-base",
+          "qdcg-worksheet.line-24",
+          "qdcg-worksheet.line-25"
+        ],
+        "line16_sentences": 1
+      }
+    },
+    "schedule-d-refused/sd_sale_beside_8949_yes": {
+      "v94": {
+        "line16_missing": [
+          "income.taxable-income",
+          "capital-gains.selected-preferential-base",
+          "qdcg-worksheet.line-24",
+          "qdcg-worksheet.line-25"
+        ],
+        "line16_sentences": 1,
+        "other_blocked_field_sentence_counts": {
+          "form.eic-worksheet-a.line-3": 1,
+          "form.eic-worksheet-a.line-5": 1,
+          "form.eic-worksheet-a.line-6": 1,
+          "form.sch8812.line-14": 1,
+          "form.sch8812.line-17": 1,
+          "form.sch8812.worksheet-a.line-5": 1,
+          "form1040.line-11a": 1,
+          "form1040.line-11b": 1,
+          "form1040.line-13b": 1,
+          "form1040.line-14": 1,
+          "form1040.line-15": 1,
+          "form1040.line-16": 1,
+          "form1040.line-19": 1,
+          "form1040.line-20": 1,
+          "form1040.line-24": 1,
+          "form1040.line-27a": 1,
+          "form1040.line-28": 1,
+          "form1040.line-32": 1,
+          "form1040.line-33": 1,
+          "form1040.line-34": 1,
+          "form1040.line-35a": 1,
+          "form1040.line-37": 1,
+          "form1040.line-6b": 1,
+          "form1040.line-7a": 1,
+          "form1040.line-9": 1,
+          "form1040.tax-after-credits": 1,
+          "schedule-d.line-16": 1,
+          "schedule-d.line-21": 1,
+          "schedule-d.line-3": 1,
+          "schedule-d.line-7": 1,
+          "schedule3.line-1": 1,
+          "schedule3.line-8": 1
+        }
+      },
+      "scratch": {
+        "line16_missing": [
+          "income.taxable-income",
+          "capital-gains.selected-preferential-base",
+          "qdcg-worksheet.line-24",
+          "qdcg-worksheet.line-25"
+        ],
+        "line16_sentences": 1
+      }
+    },
+    "schedule-d-refused/sd_yes_nothing": {
+      "v94": {
+        "line16_missing": [
+          "income.taxable-income",
+          "capital-gains.selected-preferential-base",
+          "qdcg-worksheet.line-24",
+          "qdcg-worksheet.line-25"
+        ],
+        "line16_sentences": 4,
+        "other_blocked_field_sentence_counts": {
+          "form.eic-worksheet-a.line-3": 4,
+          "form.eic-worksheet-a.line-5": 4,
+          "form.eic-worksheet-a.line-6": 4,
+          "form.sch8812.line-14": 4,
+          "form.sch8812.line-17": 4,
+          "form.sch8812.worksheet-a.line-5": 4,
+          "form1040.line-11a": 4,
+          "form1040.line-11b": 4,
+          "form1040.line-13b": 4,
+          "form1040.line-14": 4,
+          "form1040.line-15": 4,
+          "form1040.line-16": 4,
+          "form1040.line-19": 4,
+          "form1040.line-20": 4,
+          "form1040.line-24": 4,
+          "form1040.line-27a": 4,
+          "form1040.line-28": 4,
+          "form1040.line-32": 4,
+          "form1040.line-33": 4,
+          "form1040.line-34": 4,
+          "form1040.line-35a": 4,
+          "form1040.line-37": 4,
+          "form1040.line-6b": 4,
+          "form1040.line-7a": 4,
+          "form1040.line-9": 4,
+          "form1040.tax-after-credits": 4,
+          "schedule-d.line-10": 4,
+          "schedule-d.line-15": 4,
+          "schedule-d.line-16": 4,
+          "schedule-d.line-21": 4,
+          "schedule-d.line-3": 4,
+          "schedule-d.line-7": 4,
+          "schedule3.line-1": 4,
+          "schedule3.line-8": 4
+        }
+      },
+      "scratch": {
+        "line16_missing": [
+          "income.taxable-income",
+          "capital-gains.selected-preferential-base",
+          "qdcg-worksheet.line-24",
+          "qdcg-worksheet.line-25"
+        ],
+        "line16_sentences": 4
+      }
+    },
+    "status/married_filing_jointly/exception-yes": {
+      "v94": {
+        "line16_missing": [],
+        "line16_sentences": 0,
+        "other_blocked_field_sentence_counts": {}
+      },
+      "scratch": {
+        "line16_missing": [],
+        "line16_sentences": 0
+      }
+    },
+    "status/married_filing_jointly/required": {
+      "v94": {
+        "line16_missing": [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments"
+        ],
+        "line16_sentences": 4,
+        "other_blocked_field_sentence_counts": {
+          "form.eic-worksheet-a.line-3": 8,
+          "form.eic-worksheet-a.line-5": 8,
+          "form.eic-worksheet-a.line-6": 8,
+          "form.sch8812.line-14": 8,
+          "form.sch8812.line-17": 8,
+          "form.sch8812.worksheet-a.line-5": 4,
+          "form1040.line-11a": 8,
+          "form1040.line-11b": 8,
+          "form1040.line-13b": 8,
+          "form1040.line-14": 8,
+          "form1040.line-15": 8,
+          "form1040.line-16": 4,
+          "form1040.line-19": 8,
+          "form1040.line-20": 4,
+          "form1040.line-24": 8,
+          "form1040.line-27a": 8,
+          "form1040.line-28": 8,
+          "form1040.line-32": 8,
+          "form1040.line-33": 8,
+          "form1040.line-34": 8,
+          "form1040.line-35a": 8,
+          "form1040.line-37": 8,
+          "form1040.line-6b": 8,
+          "form1040.line-7a": 8,
+          "form1040.line-9": 8,
+          "form1040.tax-after-credits": 8,
+          "schedule3.line-1": 4,
+          "schedule3.line-8": 4
+        }
+      },
+      "scratch": {
+        "line16_missing": [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments",
+          "exception1.only-box2a-capital-gains",
+          "exception1.no-capital-losses",
+          "exception1.no-qof-deferral",
+          "exception1.no-boxes-2b-2c-2d"
+        ],
+        "line16_sentences": 8
+      }
+    },
+    "status/married_filing_separately/exception-yes": {
+      "v94": {
+        "line16_missing": [],
+        "line16_sentences": 0,
+        "other_blocked_field_sentence_counts": {
+          "form1040.line-6d": 1,
+          "form1040.line-6d-not-checked": 1
+        }
+      },
+      "scratch": {
+        "line16_missing": [],
+        "line16_sentences": 0
+      }
+    },
+    "status/married_filing_separately/required": {
+      "v94": {
+        "line16_missing": [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments"
+        ],
+        "line16_sentences": 4,
+        "other_blocked_field_sentence_counts": {
+          "form.eic-worksheet-a.line-3": 8,
+          "form.eic-worksheet-a.line-5": 8,
+          "form.eic-worksheet-a.line-6": 8,
+          "form.sch8812.line-14": 8,
+          "form.sch8812.line-17": 8,
+          "form.sch8812.worksheet-a.line-5": 4,
+          "form1040.line-11a": 8,
+          "form1040.line-11b": 8,
+          "form1040.line-13b": 8,
+          "form1040.line-14": 8,
+          "form1040.line-15": 8,
+          "form1040.line-16": 4,
+          "form1040.line-19": 8,
+          "form1040.line-20": 4,
+          "form1040.line-24": 8,
+          "form1040.line-27a": 8,
+          "form1040.line-28": 8,
+          "form1040.line-32": 8,
+          "form1040.line-33": 8,
+          "form1040.line-34": 8,
+          "form1040.line-35a": 8,
+          "form1040.line-37": 8,
+          "form1040.line-6b": 8,
+          "form1040.line-6d": 1,
+          "form1040.line-6d-not-checked": 1,
+          "form1040.line-7a": 8,
+          "form1040.line-9": 8,
+          "form1040.tax-after-credits": 8,
+          "schedule3.line-1": 4,
+          "schedule3.line-8": 4
+        }
+      },
+      "scratch": {
+        "line16_missing": [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments",
+          "exception1.only-box2a-capital-gains",
+          "exception1.no-capital-losses",
+          "exception1.no-qof-deferral",
+          "exception1.no-boxes-2b-2c-2d"
+        ],
+        "line16_sentences": 8
+      }
+    },
+    "status/single/exception-yes": {
+      "v94": {
+        "line16_missing": [],
+        "line16_sentences": 0,
+        "other_blocked_field_sentence_counts": {}
+      },
+      "scratch": {
+        "line16_missing": [],
+        "line16_sentences": 0
+      }
+    },
+    "status/single/required": {
+      "v94": {
+        "line16_missing": [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments"
+        ],
+        "line16_sentences": 4,
+        "other_blocked_field_sentence_counts": {
+          "form.eic-worksheet-a.line-3": 8,
+          "form.eic-worksheet-a.line-5": 8,
+          "form.eic-worksheet-a.line-6": 8,
+          "form.sch8812.line-14": 8,
+          "form.sch8812.line-17": 8,
+          "form.sch8812.worksheet-a.line-5": 4,
+          "form1040.line-11a": 8,
+          "form1040.line-11b": 8,
+          "form1040.line-13b": 8,
+          "form1040.line-14": 8,
+          "form1040.line-15": 8,
+          "form1040.line-16": 4,
+          "form1040.line-19": 8,
+          "form1040.line-20": 4,
+          "form1040.line-24": 8,
+          "form1040.line-27a": 8,
+          "form1040.line-28": 8,
+          "form1040.line-32": 8,
+          "form1040.line-33": 8,
+          "form1040.line-34": 8,
+          "form1040.line-35a": 8,
+          "form1040.line-37": 8,
+          "form1040.line-6b": 8,
+          "form1040.line-7a": 8,
+          "form1040.line-9": 8,
+          "form1040.tax-after-credits": 8,
+          "schedule3.line-1": 4,
+          "schedule3.line-8": 4
+        }
+      },
+      "scratch": {
+        "line16_missing": [
+          "f1099b.noncovered-sold.source-closure",
+          "f8949.no1099b-sold.source-closure",
+          "schedule-d-boundary.no-form8949-sources",
+          "schedule-d-boundary.no-other-form8949-adjustments",
+          "exception1.only-box2a-capital-gains",
+          "exception1.no-capital-losses",
+          "exception1.no-qof-deferral",
+          "exception1.no-boxes-2b-2c-2d"
+        ],
+        "line16_sentences": 8
+      }
+    },
+    "wash-admission/wash_adjustment_open": {
+      "v94": {
+        "line16_missing": [
+          "income.taxable-income",
+          "capital-gains.selected-preferential-base",
+          "qdcg-worksheet.line-24",
+          "qdcg-worksheet.line-25"
+        ],
+        "line16_sentences": 1,
+        "other_blocked_field_sentence_counts": {
+          "form.eic-worksheet-a.line-3": 1,
+          "form.eic-worksheet-a.line-5": 1,
+          "form.eic-worksheet-a.line-6": 1,
+          "form.sch8812.line-14": 1,
+          "form.sch8812.line-17": 1,
+          "form.sch8812.worksheet-a.line-5": 1,
+          "form1040.line-11a": 1,
+          "form1040.line-11b": 1,
+          "form1040.line-13b": 1,
+          "form1040.line-14": 1,
+          "form1040.line-15": 1,
+          "form1040.line-16": 1,
+          "form1040.line-19": 1,
+          "form1040.line-20": 1,
+          "form1040.line-24": 1,
+          "form1040.line-27a": 1,
+          "form1040.line-28": 1,
+          "form1040.line-32": 1,
+          "form1040.line-33": 1,
+          "form1040.line-34": 1,
+          "form1040.line-35a": 1,
+          "form1040.line-37": 1,
+          "form1040.line-6b": 1,
+          "form1040.line-7a": 1,
+          "form1040.line-9": 1,
+          "form1040.tax-after-credits": 1,
+          "schedule-d.line-16": 1,
+          "schedule-d.line-1b": 1,
+          "schedule-d.line-21": 1,
+          "schedule-d.line-7": 1,
+          "schedule3.line-1": 1,
+          "schedule3.line-8": 1
+        }
+      },
+      "scratch": {
+        "line16_missing": [
+          "income.taxable-income",
+          "capital-gains.selected-preferential-base",
+          "qdcg-worksheet.line-24",
+          "qdcg-worksheet.line-25"
+        ],
+        "line16_sentences": 1
+      }
+    }
+  }
+}

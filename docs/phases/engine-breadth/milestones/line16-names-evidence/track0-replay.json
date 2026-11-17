@@ -1,0 +1,27 @@
+{
+  "item": 6,
+  "verdict": "PASS",
+  "mode": "reused",
+  "lists": 775,
+  "classification_counts": {
+    "identical_success": 687,
+    "same_error": 84,
+    "expected_line16_names": 4
+  },
+  "part_sha256": "a727d7999c90e7eb6969b5e18bfaf2ea4b5df1ff829436099fb70991747a41d2",
+  "successor_rule_sha256": "e1b59ddbfeb096cbdc6f4491576a55168395d2426ad4ed4000ce1ae744dedb47",
+  "original_replay_wall_time_s": 1405.37,
+  "new_live_replay_wall_time_s": 0,
+  "reuse_validation_wall_time_s": 0.413,
+  "content_identity": "Part fingerprints match; inherited bytes match published content, registry SHA matches release, and successor rule bytes exactly match the committed P0 builder.",
+  "classifier_controls": {
+    "added_row": true,
+    "removed_row": true,
+    "disposition": true,
+    "refusal_code": true,
+    "line_value": true,
+    "boolean_value": true,
+    "extra_sentence": true,
+    "new_error": true
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "from": {
+    "package": "v94",
+    "registry": "v92",
+    "release": "v92"
+  },
+  "to": {
+    "package": "v95",
+    "registry": "v93",
+    "release": "v93"
+  },
+  "package": "v95",
+  "successors": [
+    "rule.form1040-line16.v9.json"
+  ],
+  "schema": "rule-artifact.v17",
+  "named_questions": [
+    "f1099b.noncovered-sold.source-closure",
+    "f8949.no1099b-sold.source-closure",
+    "schedule-d-boundary.no-form8949-sources",
+    "schedule-d-boundary.no-other-form8949-adjustments",
+    "exception1.only-box2a-capital-gains",
+    "exception1.no-capital-losses",
+    "exception1.no-qof-deferral",
+    "exception1.no-boxes-2b-2c-2d"
+  ],
+  "guard": "existing no-sale block, required Schedule D, no-Form-8949 yes",
+  "line16": "included",
+  "variant": "narrow",
+  "new_answer": false,
+  "unchanged": [
+    "value",
+    "requires",
+    "pins",
+    "blocked",
+    "refusal codes"
+  ],
+  "boundary_read": "existing no-form8949-sources answer; absent answer blocks on its existing name"
+}
