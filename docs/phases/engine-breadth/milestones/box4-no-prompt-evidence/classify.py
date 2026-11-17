@@ -33,6 +33,76 @@ def answers(acts):
     return {'reported':reported,'amount':amount,
             'no_without_amount':sorted(s for s,v in reported.items() if v=='no' and s not in amount)}
 
+PAYMENT_ROWS = frozenset('form1040-line' + n for n in ('25b', '25d', '33', '34', '35a', '37'))
+PAYMENT_FIELDS = frozenset(n.replace('form1040-line', 'form1040.line-') for n in PAYMENT_ROWS)
+OLD_MISSING = 'f1099b.statement-box4-withholding'
+NEW_MISSING = 'f1099b.no-sale-box4-present'
+
+
+def question_words():
+    content = REPO / 'packages/content/tax/2025'
+    return tuple(json.loads((content / name).read_text())['question'] for name in (
+        'input-question.f1099b-box4.v1.json',
+        'input-question.f1099b-box4.v2.json',
+        'input-question.f1099b-no-sale-box4-present.v1.json'))
+
+
+def exact(a, b):
+    """JSON equality also distinguishes booleans from numeric amounts."""
+    return json.dumps(a, sort_keys=True) == json.dumps(b, sort_keys=True)
+
+
+def classify_pair(a, b, facts, allow_amount_wording=False):
+    """Only enumerated row/missing and complete sentence substitutions pass.
+
+    A recorded no is contextual support, never permission for an arbitrary diff.
+    All other pin fields, including errors and line values, must match exactly.
+    """
+    old_question, new_question, return_question = question_words()
+    ar, br = a.get('rows', {}), b.get('rows', {})
+    if ar.keys() != br.keys():
+        return 'unexpected'
+    routed = set()
+    for name in ar:
+        if exact(ar[name], br[name]):
+            continue
+        before, after = ar[name], br[name]
+        if (name not in PAYMENT_ROWS or not facts['no_without_amount']
+                or before != ['blocked', 'DEPENDENCY_ABSENT', [OLD_MISSING]]
+                or after != ['blocked', 'DEPENDENCY_ABSENT', [NEW_MISSING]]):
+            return 'unexpected'
+        routed.add(name)
+    expected = json.loads(json.dumps(a))
+    for name in routed:
+        expected['rows'][name] = br[name]
+
+    # Routing changes the explanatory sentence on 25b and its dependants.
+    # Wording changes may occur on any explanation, but only as a whole sentence.
+    def sentences(value, route=False):
+        if not isinstance(value, list):
+            return value
+        replaced = [return_question if route and text == old_question else
+                new_question if allow_amount_wording and text == old_question else text
+                for text in value]
+        # The saved presentation sentence collections are alphabetically sorted.
+        return sorted(replaced) if replaced != value else value
+
+    route = 'form1040-line25b' in routed
+    if 'questions' in expected:
+        expected['questions'] = sentences(expected['questions'], route)
+    for field in ('reasons', 'blocked_reasons'):
+        if field in expected:
+            expected[field] = {name: sentences(text, route and name in PAYMENT_FIELDS)
+                               for name, text in expected[field].items()}
+    if not exact(expected, b):
+        return 'unexpected'
+    if exact(a, b):
+        return 'same_error' if a.get('error') else 'identical_success'
+    if routed:
+        return 'no_without_amount_changed'
+    return 'amount_sentence_only'
+
+
 def main():
     parser=argparse.ArgumentParser()
     parser.add_argument('part',type=Path)
@@ -43,33 +113,13 @@ def main():
     results=part['results']
     lists=recorded_lists()
     assert set(results)=={k for k,_ in lists}
-    old_question=json.loads((REPO/'packages/content/tax/2025/input-question.f1099b-box4.v1.json').read_text())['question']
-    new_question=json.loads((REPO/'packages/content/tax/2025/input-question.f1099b-box4.v2.json').read_text())['question'] if args.allow_amount_wording else old_question
-    def normalize(value):
-        if isinstance(value,str):return value.replace(old_question,new_question)
-        if isinstance(value,list):return [normalize(v) for v in value]
-        if isinstance(value,dict):return {k:normalize(v) for k,v in value.items()}
-        return value
+    _, new_question, _ = question_words()
     rows={}
     for key,acts in lists:
         result=results[key]
         a,b=result['pins']['v93'],result['pins']['v94']
         facts=answers(acts)
-        if a==b:
-            label='same_error' if a.get('error') else 'identical_success'
-        elif args.allow_amount_wording and normalize(a)==b:
-            label='amount_sentence_only'
-        else:
-            copy_a=json.loads(json.dumps(a))
-            copy_b=json.loads(json.dumps(b))
-            copy_a.get('rows',{}).pop('form1040-line25b',None)
-            copy_b.get('rows',{}).pop('form1040-line25b',None)
-            if copy_a==copy_b:
-                label='line25b_dependency_route_only'
-            elif facts['no_without_amount']:
-                label='no_without_amount_changed'
-            else:
-                label='unexpected_change'
+        label=classify_pair(a,b,facts,args.allow_amount_wording)
         rows[key]={'classification':label, 'tool_class':result['class'],
                    'no_without_amount':facts['no_without_amount'],
                    'line_changes':[n for n in set(a.get('lines',{}))|set(b.get('lines',{}))
@@ -77,7 +127,8 @@ def main():
         rows[key]['sentence_fields']=[f for f in ('questions','reasons','blocked_reasons') if a.get(f)!=b.get(f)]
         rows[key]['row_changes']={name:{'v93':a.get('rows',{}).get(name),'v94':b.get('rows',{}).get(name)}
             for name in set(a.get('rows',{}))|set(b.get('rows',{}))
-            if a.get('rows',{}).get(name)!=b.get('rows',{}).get(name)}
+            if name not in a.get('rows',{}) or name not in b.get('rows',{})
+            or not exact(a['rows'][name],b['rows'][name])}
         rows[key]['nonpayment_changes']=[f for f in ('base','attachments','presentation_valid') if a.get(f)!=b.get(f)]
         if a!=b:
             rows[key]['reported']=facts['reported']
@@ -87,8 +138,12 @@ def main():
             'lists_with_no_without_amount':sum(bool(r['no_without_amount']) for r in rows.values()),
             'line_value_changes':sum(bool(r['line_changes']) for r in rows.values()),
             'nonpayment_changes':sum(bool(r['nonpayment_changes']) for r in rows.values()),
-            'row_disposition_or_code_changes':sum(any(v['v93'][:2]!=v['v94'][:2] for v in r['row_changes'].values()
-                 if isinstance(v['v93'],list) and isinstance(v['v94'],list)) for r in rows.values()),
+            'row_disposition_or_code_changes':sum(any(
+                not isinstance(v['v93'],list) or not isinstance(v['v94'],list)
+                or not exact(v['v93'][:2],v['v94'][:2])
+                for v in r['row_changes'].values()) for r in rows.values()),
+            'added_rows':sum(v['v93'] is None for r in rows.values() for v in r['row_changes'].values()),
+            'removed_rows':sum(v['v94'] is None for r in rows.values() for v in r['row_changes'].values()),
             'changed_row_names':dict(Counter(name for r in rows.values() for name in r['row_changes'])),
             'results':rows}
     if args.allow_amount_wording:

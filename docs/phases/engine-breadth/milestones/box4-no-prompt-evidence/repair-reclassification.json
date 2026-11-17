@@ -1,0 +1,18 @@
+{
+  "replay": "reused",
+  "live_replay_wall_seconds": 1408.692,
+  "classification_wall_seconds": 55.963,
+  "saved_part_sha256": "b18c2d79eba16fe58de448e6570580b2d16eb69332540aa2f24ac434528a1e4c",
+  "lists": 775,
+  "counts": {
+    "amount_sentence_only": 125,
+    "identical_success": 295,
+    "no_without_amount_changed": 271,
+    "same_error": 84
+  },
+  "line_value_changes": 0,
+  "nonpayment_changes": 0,
+  "row_disposition_or_code_changes": 0,
+  "added_rows": 0,
+  "removed_rows": 0
+}

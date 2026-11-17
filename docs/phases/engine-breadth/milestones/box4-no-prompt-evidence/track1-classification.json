@@ -15,6 +15,8 @@
   "line_value_changes": 0,
   "nonpayment_changes": 0,
   "row_disposition_or_code_changes": 0,
+  "added_rows": 0,
+  "removed_rows": 0,
   "changed_row_names": {
     "form1040-line25b": 271
   },

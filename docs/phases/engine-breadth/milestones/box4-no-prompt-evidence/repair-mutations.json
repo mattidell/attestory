@@ -1,0 +1,19 @@
+{
+  "real_pairs": 775,
+  "counts": {
+    "amount_sentence_only": 125,
+    "identical_success": 295,
+    "no_without_amount_changed": 271,
+    "same_error": 84
+  },
+  "labels_preserved": true,
+  "witness": "v83/track0/s1/d2_mixed_statements",
+  "mutations": {
+    "25b_disposition": "unexpected",
+    "25b_code": "unexpected",
+    "value_0_to_999": "unexpected",
+    "added_row": "unexpected",
+    "removed_row": "unexpected"
+  },
+  "wall_seconds": 52.828
+}

@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "box4-no-prompt",
-  "status": "Open 2026-11-16. Track 0 done; Decisions 7-8; Track 1 chartered.",
+  "status": "Open 2026-11-17. Reviewed; Decisions 9-10; classifier repair chartered.",
   "scope": [
     "a filer who answers that a Form 1099-B statement reported no federal income tax withheld in box 4 is not asked for the box 4 amount, and lines 25b and 25d follow from that answer",
     "every recorded return that does not answer that question computes the same numbers"
@@ -250,3 +250,40 @@ read by the expression. Explicit reasons and a package test were added;
 no checker code, accepted content bytes or recording changed. The final
 fast lane is green. Decision 8's addition-only currency behavior and the
 parked return-level question remain unchanged.
+
+## Review disposition
+
+Foreman, 2026-11-17, on `docs/reviews/box4-no-prompt/review.md`. No
+product-behaviour finding; the reviewer's own live runs, Chrome pages and
+ten-list replay agree with the build.
+
+9. **F1 (blocking) is the draft gate, not a defect.** `verify` refuses a
+   draft PR by design; the curated head is marked ready and merges only on
+   a green exact-head `verify`.
+10. **F2 (should-fix) is repaired.** `classify.py` rejects any changed
+    value, outcome, disposition, refusal code, or added or removed row
+    before it assigns an expected label, and permits only line 25b's
+    missing name moving from the statement amount to the return-level
+    question and the exact amount-question substitution. Mutation tests
+    exercise it, and the 775-list classification is rerun from the saved
+    replay (live only if the saved pins do not hold the rows).
+
+
+## Review repair
+
+Builder completed the Decision 10 classifier repair. Every row is compared
+before an expected label is assigned; added/removed rows and changed values,
+outcomes, dispositions or codes are rejected. Only the specified missing-name
+transition and whole amount-question substitution are permitted, including
+the presentation's alphabetical sentence ordering. All five mutation checks
+return `unexpected`, and all 775 saved Track 1 pairs retain their labels:
+295 identical successes, 84 same errors, 125 sentence-only and 271 accepted
+next-question changes. Strict counters report zero value, nonpayment,
+disposition/code, added-row or removed-row changes. The replay was reused;
+classification took 55.963 seconds (original live replay: 1408.692 seconds).
+Evidence: `box4-no-prompt-evidence/repair-*.json` and `check-classifier.py`.
+The fast lane passed 1823 tests with 8 skips in 16.08 seconds. No tests Python
+changed, so mypy was not required by this charter. The required
+`github/main..HEAD` envelope scan passed. No content, package, loader or
+production files changed; no push or spawn. CI verify remains the publication
+gate under Decision 9.
