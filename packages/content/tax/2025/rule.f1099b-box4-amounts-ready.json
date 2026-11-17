@@ -1,0 +1,193 @@
+{
+  "schema": "rule-artifact.v17",
+  "id": "tax.us.2025.rule.f1099b-box4-amounts-ready",
+  "version": "v1",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "role": "computation",
+  "requires": [],
+  "pins": [],
+  "when": true,
+  "selection": {
+    "mode": "exclusive_presence",
+    "conflict": "refuse",
+    "paths": [
+      {
+        "id": "sales",
+        "activity": {
+          "kind": "source_nonempty",
+          "member_fact_types": [
+            {
+              "id": "tax.us.2025.f1099b.covered-st-txn",
+              "version": "v1"
+            },
+            {
+              "id": "tax.us.2025.f1099b.covered-lt-txn",
+              "version": "v1"
+            },
+            {
+              "id": "tax.us.2025.f1099b.covered-w-st-txn",
+              "version": "v1"
+            },
+            {
+              "id": "tax.us.2025.f1099b.covered-w-lt-txn",
+              "version": "v1"
+            },
+            {
+              "id": "tax.us.2025.f1099b.noncovered-st-txn",
+              "version": "v1"
+            },
+            {
+              "id": "tax.us.2025.f1099b.noncovered-lt-txn",
+              "version": "v1"
+            },
+            {
+              "id": "tax.us.2025.f1099b.code-b-st-txn",
+              "version": "v1"
+            },
+            {
+              "id": "tax.us.2025.f1099b.code-b-lt-txn",
+              "version": "v1"
+            }
+          ]
+        },
+        "reads_subject_results": [
+          {
+            "symbol": "tax.us.2025.f1099b.covered-st-txn.box4-amount-needed",
+            "subject": {
+              "id": "tax.us.2025.f1099b.covered-st-txn",
+              "version": "v1"
+            }
+          },
+          {
+            "symbol": "tax.us.2025.f1099b.covered-lt-txn.box4-amount-needed",
+            "subject": {
+              "id": "tax.us.2025.f1099b.covered-lt-txn",
+              "version": "v1"
+            }
+          },
+          {
+            "symbol": "tax.us.2025.f1099b.covered-w-st-txn.box4-amount-needed",
+            "subject": {
+              "id": "tax.us.2025.f1099b.covered-w-st-txn",
+              "version": "v1"
+            }
+          },
+          {
+            "symbol": "tax.us.2025.f1099b.covered-w-lt-txn.box4-amount-needed",
+            "subject": {
+              "id": "tax.us.2025.f1099b.covered-w-lt-txn",
+              "version": "v1"
+            }
+          },
+          {
+            "symbol": "tax.us.2025.f1099b.noncovered-st-txn.box4-amount-needed",
+            "subject": {
+              "id": "tax.us.2025.f1099b.noncovered-st-txn",
+              "version": "v1"
+            }
+          },
+          {
+            "symbol": "tax.us.2025.f1099b.noncovered-lt-txn.box4-amount-needed",
+            "subject": {
+              "id": "tax.us.2025.f1099b.noncovered-lt-txn",
+              "version": "v1"
+            }
+          },
+          {
+            "symbol": "tax.us.2025.f1099b.code-b-st-txn.box4-amount-needed",
+            "subject": {
+              "id": "tax.us.2025.f1099b.code-b-st-txn",
+              "version": "v1"
+            }
+          },
+          {
+            "symbol": "tax.us.2025.f1099b.code-b-lt-txn.box4-amount-needed",
+            "subject": {
+              "id": "tax.us.2025.f1099b.code-b-lt-txn",
+              "version": "v1"
+            }
+          }
+        ],
+        "requires": [],
+        "pins": [],
+        "when": true,
+        "value": {
+          "op": "add",
+          "args": [
+            {
+              "op": "collect",
+              "name": "tax.us.2025.f1099b.covered-st-txn.box4-amount-needed",
+              "source_set": "tax.us.2025.f1099b.covered-st"
+            },
+            {
+              "op": "collect",
+              "name": "tax.us.2025.f1099b.covered-lt-txn.box4-amount-needed",
+              "source_set": "tax.us.2025.f1099b.covered-lt"
+            },
+            {
+              "op": "collect",
+              "name": "tax.us.2025.f1099b.covered-w-st-txn.box4-amount-needed",
+              "source_set": "tax.us.2025.f1099b.covered-w-st"
+            },
+            {
+              "op": "collect",
+              "name": "tax.us.2025.f1099b.covered-w-lt-txn.box4-amount-needed",
+              "source_set": "tax.us.2025.f1099b.covered-w-lt"
+            },
+            {
+              "op": "collect",
+              "name": "tax.us.2025.f1099b.noncovered-st-txn.box4-amount-needed",
+              "source_set": "tax.us.2025.f1099b.noncovered-st"
+            },
+            {
+              "op": "collect",
+              "name": "tax.us.2025.f1099b.noncovered-lt-txn.box4-amount-needed",
+              "source_set": "tax.us.2025.f1099b.noncovered-lt"
+            },
+            {
+              "op": "collect",
+              "name": "tax.us.2025.f1099b.code-b-st-txn.box4-amount-needed",
+              "source_set": "tax.us.2025.f1099b.code-b-st"
+            },
+            {
+              "op": "collect",
+              "name": "tax.us.2025.f1099b.code-b-lt-txn.box4-amount-needed",
+              "source_set": "tax.us.2025.f1099b.code-b-lt"
+            }
+          ]
+        }
+      }
+    ],
+    "default": {
+      "id": "neither",
+      "reads_subject_results": [],
+      "requires": [],
+      "pins": [],
+      "when": true,
+      "value": 0
+    },
+    "refusal": {
+      "code": "DEPENDENCY_INVALID",
+      "missing": [
+        "f1099b.box4-amounts-ready-conflict"
+      ],
+      "pins": []
+    }
+  },
+  "publishes": "tax.us.2025.f1099b.box4-amounts-ready",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": []
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.line-25b",
+      "version": "v1"
+    }
+  ],
+  "notes": "Scratch: count sales whose statement still needs an amount. Line 25b keeps the published amount missing name and refusal code."
+}

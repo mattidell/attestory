@@ -1,0 +1,64 @@
+{
+  "fast_lane_attempts": [
+    {
+      "command": "pytest -m \"not live\"",
+      "exit_code": 1,
+      "wall_time_s": 16.486,
+      "passed": 1821,
+      "failed": 1,
+      "skipped": 8,
+      "pytest_wall_time_s": 16.01,
+      "failure": "16 version-specific subject dispatch requirements missing from the static required-versus-read allowlist"
+    },
+    {
+      "command": "pytest -m \"not live\"",
+      "exit_code": 0,
+      "wall_time_s": 15.953,
+      "passed": 1823,
+      "skipped": 8,
+      "pytest_wall_time_s": 15.48
+    }
+  ],
+  "targeted_allowlist_repair": {
+    "modules": [
+      "tests/test_required_versus_read.py",
+      "tests/test_box4_no_prompt_v94_package.py"
+    ],
+    "passed": 14,
+    "pytest_wall_time_s": 1.37
+  },
+  "fast_lane": {
+    "command": "pytest -m \"not live\"",
+    "exit_code": 0,
+    "wall_time_s": 15.953,
+    "passed": 1823,
+    "skipped": 8,
+    "pytest_wall_time_s": 15.48
+  },
+  "mypy": {
+    "command": "python3 -m mypy",
+    "exit_code": 0,
+    "wall_time_s": 0.891,
+    "output": "Success: no issues found in 507 source files"
+  },
+  "final_package_evidence_isolation": {
+    "module": "tests/test_box4_no_prompt_v94_package.py",
+    "unrelated_evidence_first_on_pythonpath": "line6b-reason-evidence",
+    "exit_code": 0,
+    "wall_time_s": 1.5,
+    "passed": 7,
+    "pytest_wall_time_s": 1.09
+  },
+  "envelope": {
+    "command": "python3 tools/envelope_scan.py --range github/main..HEAD",
+    "exit_code": 0
+  },
+  "full_suite_gate": "CI verify; not substituted by local fast lane",
+  "deviations": [
+    "Added 16 exact rule/version/symbol entries to tools/required_versus_read_allowlist.json after the fast lane identified subject-dispatch dependencies. Each carries a reason; the checker code, accepted content bytes and recording are unchanged. Added one package test for these entries."
+  ],
+  "protected_paths_unchanged": true,
+  "json_local_path_check": "passed",
+  "python_syntax_check": "passed",
+  "git_diff_check": "passed"
+}

@@ -216,3 +216,37 @@ Items 1-5, 7 and 9 pass; item 8 (smaller shape) was not pursued, so the
    findings stay current until a run; that is the engine's currency
    behaviour on additions, unchanged by this milestone and outside its
    scope.
+
+
+## Track 1 result
+
+Builder complete on published core v94, registry v92 and release v92.
+Evidence: `box4-no-prompt-evidence/track1-result.md`, track1-*.json, and
+new live/package tests. The 19 prototype artifacts are byte-identical;
+the v2 box 4 amount question has Decision 7's exact words. Published
+citizens and schemas are unchanged; no recording, kernel, derivation,
+schema or presentation edit was needed. V94 loader declarations carry
+v93 unchanged, with the enumerated-core test extended through v94.
+
+The full 775-list v93/v94 replay took 1408.692 seconds with 9
+workers: 295 identical successes, 84 same errors, 125 sentence-only
+changes and the accepted 271 next-question changes. No numerical value,
+row disposition or refusal code changes; no unexpected changes. The nine
+computing neighbour pairs have 774 page-field comparisons with zero
+differences, in 34.651 seconds.
+
+Eight distinct live cases and seven fast package tests cover the charter.
+Both new modules passed with unrelated evidence first on PYTHONPATH.
+Targeted runs passed 34 initially, then 14 for the static-gate repair and
+7 for final package import isolation. Final fast lane: 1823 passed,
+8 skipped in 15.48 seconds. Mypy: no issues in 507 source files. The
+required github/main..HEAD envelope scan passed. CI verify remains the
+full-suite gate; this is not a merge/publication decision.
+
+Deviation: the first fast lane required 16 exact new helper rule/version/
+symbol entries in tools/required_versus_read_allowlist.json. Their
+subject dependency supplies dispatch identity rather than a sale value
+read by the expression. Explicit reasons and a package test were added;
+no checker code, accepted content bytes or recording changed. The final
+fast lane is green. Decision 8's addition-only currency behavior and the
+parked return-level question remain unchanged.

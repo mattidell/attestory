@@ -37,11 +37,19 @@ def main():
     parser=argparse.ArgumentParser()
     parser.add_argument('part',type=Path)
     parser.add_argument('--out',default='classification-output.json')
+    parser.add_argument('--allow-amount-wording',action='store_true')
     args=parser.parse_args()
     part=json.loads(args.part.read_text())
     results=part['results']
     lists=recorded_lists()
     assert set(results)=={k for k,_ in lists}
+    old_question=json.loads((REPO/'packages/content/tax/2025/input-question.f1099b-box4.v1.json').read_text())['question']
+    new_question=json.loads((REPO/'packages/content/tax/2025/input-question.f1099b-box4.v2.json').read_text())['question'] if args.allow_amount_wording else old_question
+    def normalize(value):
+        if isinstance(value,str):return value.replace(old_question,new_question)
+        if isinstance(value,list):return [normalize(v) for v in value]
+        if isinstance(value,dict):return {k:normalize(v) for k,v in value.items()}
+        return value
     rows={}
     for key,acts in lists:
         result=results[key]
@@ -49,6 +57,8 @@ def main():
         facts=answers(acts)
         if a==b:
             label='same_error' if a.get('error') else 'identical_success'
+        elif args.allow_amount_wording and normalize(a)==b:
+            label='amount_sentence_only'
         else:
             copy_a=json.loads(json.dumps(a))
             copy_b=json.loads(json.dumps(b))
@@ -81,6 +91,10 @@ def main():
                  if isinstance(v['v93'],list) and isinstance(v['v94'],list)) for r in rows.values()),
             'changed_row_names':dict(Counter(name for r in rows.values() for name in r['row_changes'])),
             'results':rows}
+    if args.allow_amount_wording:
+        output['p0_equivalent_counts']={'identical_success':output['counts'].get('identical_success',0)+output['counts'].get('amount_sentence_only',0),
+            'same_error':output['counts'].get('same_error',0),'no_without_amount_changed':output['counts'].get('no_without_amount_changed',0)}
+        output['question_words']=new_question
     spec=importlib.util.spec_from_file_location('b4n_classification_writer',HERE/'probe.py')
     m=importlib.util.module_from_spec(spec);sys.modules[spec.name]=m;spec.loader.exec_module(m)
     m.write(HERE/args.out,output)

@@ -1,0 +1,147 @@
+{
+  "source_ref": "3c0527689d21e34c35ed2a3a8b302ebe74eedf3c",
+  "files_added": [
+    {
+      "file": "packages/content/tax/2025/f1099b-box4-amount-requirement.bundle.json",
+      "id": "tax.us.2025.f1099b.box4-amount-requirement.vocabulary",
+      "version": "v1",
+      "sha256": "789d7e60af264085d762af6c794780f0d569978bf4c836b397bf81f1f16c6931",
+      "role": "fact-type-bundle"
+    },
+    {
+      "file": "packages/content/tax/2025/rule.f1099b.covered-st-txn.box4-amount-count.json",
+      "id": "tax.us.2025.rule.f1099b.covered-st-txn.box4-amount-count",
+      "version": "v1",
+      "sha256": "8905cf33a40e73b1ade8631f9752c6c0c9f64db81b5f0f34b2600af4ad1554ea",
+      "role": "computation"
+    },
+    {
+      "file": "packages/content/tax/2025/rule.f1099b.covered-st-txn.box4-amount-needed.json",
+      "id": "tax.us.2025.rule.f1099b.covered-st-txn.box4-amount-needed",
+      "version": "v1",
+      "sha256": "605aa39ea7f0058e91b4cb471f93f7c072665cc71e4a1bf01c2fb54e1cc2d82a",
+      "role": "computation"
+    },
+    {
+      "file": "packages/content/tax/2025/rule.f1099b.covered-lt-txn.box4-amount-count.json",
+      "id": "tax.us.2025.rule.f1099b.covered-lt-txn.box4-amount-count",
+      "version": "v1",
+      "sha256": "c20faf6cfe4d7b980d90ef2c1be337a378f9ea0790d2645ce1a025cf84fa1aa9",
+      "role": "computation"
+    },
+    {
+      "file": "packages/content/tax/2025/rule.f1099b.covered-lt-txn.box4-amount-needed.json",
+      "id": "tax.us.2025.rule.f1099b.covered-lt-txn.box4-amount-needed",
+      "version": "v1",
+      "sha256": "8c7b8fbb81ab207078aabef4c5567c78ff53f44c64f61eb61996258abe18805a",
+      "role": "computation"
+    },
+    {
+      "file": "packages/content/tax/2025/rule.f1099b.covered-w-st-txn.box4-amount-count.json",
+      "id": "tax.us.2025.rule.f1099b.covered-w-st-txn.box4-amount-count",
+      "version": "v1",
+      "sha256": "f4f9a9f22e28c70f83032a25dc3eb5e4c363f7799e66f67bcf3b25b1a62732e9",
+      "role": "computation"
+    },
+    {
+      "file": "packages/content/tax/2025/rule.f1099b.covered-w-st-txn.box4-amount-needed.json",
+      "id": "tax.us.2025.rule.f1099b.covered-w-st-txn.box4-amount-needed",
+      "version": "v1",
+      "sha256": "6841e365c337818ce454d8fe66314dae749138386e174ea6f6621db946a51da6",
+      "role": "computation"
+    },
+    {
+      "file": "packages/content/tax/2025/rule.f1099b.covered-w-lt-txn.box4-amount-count.json",
+      "id": "tax.us.2025.rule.f1099b.covered-w-lt-txn.box4-amount-count",
+      "version": "v1",
+      "sha256": "e7942745f41fe13fd8da54f88012c51d6f20e4e831726b744a10af4e0e0703e6",
+      "role": "computation"
+    },
+    {
+      "file": "packages/content/tax/2025/rule.f1099b.covered-w-lt-txn.box4-amount-needed.json",
+      "id": "tax.us.2025.rule.f1099b.covered-w-lt-txn.box4-amount-needed",
+      "version": "v1",
+      "sha256": "38324203d178af8ca149931fa5f0ea1dfc4fbead6820167fea116d8beba0b6dc",
+      "role": "computation"
+    },
+    {
+      "file": "packages/content/tax/2025/rule.f1099b.noncovered-st-txn.box4-amount-count.json",
+      "id": "tax.us.2025.rule.f1099b.noncovered-st-txn.box4-amount-count",
+      "version": "v1",
+      "sha256": "208bdfef0422296c5b4de99bea6fea6b79eb816521c262943242775b405ee544",
+      "role": "computation"
+    },
+    {
+      "file": "packages/content/tax/2025/rule.f1099b.noncovered-st-txn.box4-amount-needed.json",
+      "id": "tax.us.2025.rule.f1099b.noncovered-st-txn.box4-amount-needed",
+      "version": "v1",
+      "sha256": "5ac11ef49e0a09b3dc3eeb49eb2320d0895aa6a074307ab05c13bf85d460bf10",
+      "role": "computation"
+    },
+    {
+      "file": "packages/content/tax/2025/rule.f1099b.noncovered-lt-txn.box4-amount-count.json",
+      "id": "tax.us.2025.rule.f1099b.noncovered-lt-txn.box4-amount-count",
+      "version": "v1",
+      "sha256": "20323be17e49605b39b56d67d923b41fd2af4f224068c1354630d791caa9e428",
+      "role": "computation"
+    },
+    {
+      "file": "packages/content/tax/2025/rule.f1099b.noncovered-lt-txn.box4-amount-needed.json",
+      "id": "tax.us.2025.rule.f1099b.noncovered-lt-txn.box4-amount-needed",
+      "version": "v1",
+      "sha256": "93fe88a15abd493a09ae63c671032dc45eb86bbd43846fc3d91c3084c5de54d2",
+      "role": "computation"
+    },
+    {
+      "file": "packages/content/tax/2025/rule.f1099b.code-b-st-txn.box4-amount-count.json",
+      "id": "tax.us.2025.rule.f1099b.code-b-st-txn.box4-amount-count",
+      "version": "v1",
+      "sha256": "79b8c0ba1b68e4290228ab9b1cb0467d7e0798a103cda4033a3182c4a2b141a4",
+      "role": "computation"
+    },
+    {
+      "file": "packages/content/tax/2025/rule.f1099b.code-b-st-txn.box4-amount-needed.json",
+      "id": "tax.us.2025.rule.f1099b.code-b-st-txn.box4-amount-needed",
+      "version": "v1",
+      "sha256": "c9dca2e56da20b103877606a04499d5a375735f1de381d5cb70ae8ff90a15423",
+      "role": "computation"
+    },
+    {
+      "file": "packages/content/tax/2025/rule.f1099b.code-b-lt-txn.box4-amount-count.json",
+      "id": "tax.us.2025.rule.f1099b.code-b-lt-txn.box4-amount-count",
+      "version": "v1",
+      "sha256": "9a51cb1c1159145c1eb8d61fe1dfab6e062087a14f824ec5873db91fb4cc1988",
+      "role": "computation"
+    },
+    {
+      "file": "packages/content/tax/2025/rule.f1099b.code-b-lt-txn.box4-amount-needed.json",
+      "id": "tax.us.2025.rule.f1099b.code-b-lt-txn.box4-amount-needed",
+      "version": "v1",
+      "sha256": "0b30cce826151bee6372f4ec8195a0a8effa670d496351ee98864de01e48fedd",
+      "role": "computation"
+    },
+    {
+      "file": "packages/content/tax/2025/rule.f1099b-box4-amounts-ready.json",
+      "id": "tax.us.2025.rule.f1099b-box4-amounts-ready",
+      "version": "v1",
+      "sha256": "ce9e580f6b428de4f4bbcf28085541113bcf9981411ab5e92c83d4d4fcb21f6d",
+      "role": "computation"
+    },
+    {
+      "file": "packages/content/tax/2025/rule.form1040-line25b.v9.json",
+      "id": "tax.us.2025.rule.form1040-line25b",
+      "version": "v9",
+      "sha256": "bd52d93a74390fcb7a25aec668dead0f94806ef596398f7c3af7dc3c2e9b90ba",
+      "role": "computation"
+    },
+    {
+      "file": "packages/content/tax/2025/input-question.f1099b-box4.v2.json",
+      "id": "tax.us.2025.input-question.f1099b-box4",
+      "version": "v2",
+      "sha256": "c171874066045df3af0c383dab5ffa4f6e36f7d975cc8b6783b8538b235dbf6f",
+      "role": "input-question"
+    }
+  ],
+  "prototype_artifacts_byte_identical": 19,
+  "question": "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from, except a statement you said shows no federal income tax withheld in box 4 or whose amount you already entered. If box 4 is blank, enter $0."
+}

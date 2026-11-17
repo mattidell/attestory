@@ -1,0 +1,663 @@
+{
+  "schema": "bundle.v2",
+  "id": "tax.us.2025.f1099b.box4-amount-requirement.vocabulary",
+  "version": "v1",
+  "label": "Scratch box 4 amount requirement by sale",
+  "fact_types": [
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099b.covered-st-txn.box4-amount-needed",
+      "version": "v1",
+      "title": "Whether this sale's statement still needs a box 4 amount (1 or 0)",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "broker",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-broker"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-statement"
+        },
+        {
+          "name": "transaction",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-transaction"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "number",
+        "enum": [
+          0,
+          1
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099b.covered-st-txn.box4-amount-count",
+      "version": "v1",
+      "title": "Number of box 4 amounts on this sale's statement",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "broker",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-broker"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-statement"
+        },
+        {
+          "name": "transaction",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-transaction"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "number",
+        "minimum": 0
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099b.covered-lt-txn.box4-amount-needed",
+      "version": "v1",
+      "title": "Whether this sale's statement still needs a box 4 amount (1 or 0)",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "broker",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-broker"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-statement"
+        },
+        {
+          "name": "transaction",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-transaction"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "number",
+        "enum": [
+          0,
+          1
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099b.covered-lt-txn.box4-amount-count",
+      "version": "v1",
+      "title": "Number of box 4 amounts on this sale's statement",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "broker",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-broker"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-statement"
+        },
+        {
+          "name": "transaction",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-transaction"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "number",
+        "minimum": 0
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099b.covered-w-st-txn.box4-amount-needed",
+      "version": "v1",
+      "title": "Whether this sale's statement still needs a box 4 amount (1 or 0)",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "broker",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-broker"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-statement"
+        },
+        {
+          "name": "transaction",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-transaction"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "number",
+        "enum": [
+          0,
+          1
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099b.covered-w-st-txn.box4-amount-count",
+      "version": "v1",
+      "title": "Number of box 4 amounts on this sale's statement",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "broker",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-broker"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-statement"
+        },
+        {
+          "name": "transaction",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-transaction"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "number",
+        "minimum": 0
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099b.covered-w-lt-txn.box4-amount-needed",
+      "version": "v1",
+      "title": "Whether this sale's statement still needs a box 4 amount (1 or 0)",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "broker",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-broker"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-statement"
+        },
+        {
+          "name": "transaction",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-transaction"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "number",
+        "enum": [
+          0,
+          1
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099b.covered-w-lt-txn.box4-amount-count",
+      "version": "v1",
+      "title": "Number of box 4 amounts on this sale's statement",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "broker",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-broker"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-statement"
+        },
+        {
+          "name": "transaction",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-transaction"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "number",
+        "minimum": 0
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099b.noncovered-st-txn.box4-amount-needed",
+      "version": "v1",
+      "title": "Whether this sale's statement still needs a box 4 amount (1 or 0)",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "broker",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-broker"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-statement"
+        },
+        {
+          "name": "transaction",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-transaction"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "number",
+        "enum": [
+          0,
+          1
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099b.noncovered-st-txn.box4-amount-count",
+      "version": "v1",
+      "title": "Number of box 4 amounts on this sale's statement",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "broker",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-broker"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-statement"
+        },
+        {
+          "name": "transaction",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-transaction"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "number",
+        "minimum": 0
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099b.noncovered-lt-txn.box4-amount-needed",
+      "version": "v1",
+      "title": "Whether this sale's statement still needs a box 4 amount (1 or 0)",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "broker",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-broker"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-statement"
+        },
+        {
+          "name": "transaction",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-transaction"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "number",
+        "enum": [
+          0,
+          1
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099b.noncovered-lt-txn.box4-amount-count",
+      "version": "v1",
+      "title": "Number of box 4 amounts on this sale's statement",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "broker",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-broker"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-statement"
+        },
+        {
+          "name": "transaction",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-transaction"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "number",
+        "minimum": 0
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099b.code-b-st-txn.box4-amount-needed",
+      "version": "v1",
+      "title": "Whether this sale's statement still needs a box 4 amount (1 or 0)",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "broker",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-broker"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-statement"
+        },
+        {
+          "name": "transaction",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-transaction"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "number",
+        "enum": [
+          0,
+          1
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099b.code-b-st-txn.box4-amount-count",
+      "version": "v1",
+      "title": "Number of box 4 amounts on this sale's statement",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "broker",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-broker"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-statement"
+        },
+        {
+          "name": "transaction",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-transaction"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "number",
+        "minimum": 0
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099b.code-b-lt-txn.box4-amount-needed",
+      "version": "v1",
+      "title": "Whether this sale's statement still needs a box 4 amount (1 or 0)",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "broker",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-broker"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-statement"
+        },
+        {
+          "name": "transaction",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-transaction"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "number",
+        "enum": [
+          0,
+          1
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099b.code-b-lt-txn.box4-amount-count",
+      "version": "v1",
+      "title": "Number of box 4 amounts on this sale's statement",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "broker",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-broker"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-statement"
+        },
+        {
+          "name": "transaction",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-transaction"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "number",
+        "minimum": 0
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099b.box4-amounts-ready",
+      "version": "v1",
+      "title": "Number of recorded sales whose statement still needs a box 4 amount",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "number",
+        "minimum": 0
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    }
+  ]
+}

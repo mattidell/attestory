@@ -1,0 +1,37 @@
+{
+  "schema": "rule-artifact.v17",
+  "id": "tax.us.2025.rule.f1099b.covered-w-lt-txn.box4-amount-count",
+  "version": "v1",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "role": "computation",
+  "subject": {
+    "id": "tax.us.2025.f1099b.covered-w-lt-txn",
+    "version": "v1"
+  },
+  "requires": [
+    "tax.us.2025.f1099b.covered-w-lt-txn"
+  ],
+  "pins": [],
+  "when": true,
+  "value": {
+    "op": "shared_key_count",
+    "fact_type": "tax.us.2025.f1099b.statement-box4-withholding",
+    "key": "statement"
+  },
+  "publishes": "tax.us.2025.f1099b.covered-w-lt-txn.box4-amount-count",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": []
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.line-25b",
+      "version": "v1"
+    }
+  ],
+  "notes": "Scratch: count existing box 4 rows by statement, without reading amounts."
+}

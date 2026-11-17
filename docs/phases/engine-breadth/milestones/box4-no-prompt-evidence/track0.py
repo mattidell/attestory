@@ -287,8 +287,11 @@ def replay_reuse(core,part):
 
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--core',type=Path,required=True)
-    parser.add_argument('--part',type=Path,required=True);parser.add_argument('--smoke',action='store_true');parser.add_argument('--lifecycle-only',action='store_true');parser.add_argument('--addition-control',action='store_true');parser.add_argument('--wording-base',action='store_true')
-    args=parser.parse_args();start=time.monotonic();replay=replay_reuse(args.core,args.part)
+    parser.add_argument('--part',type=Path);parser.add_argument('--smoke',action='store_true');parser.add_argument('--lifecycle-only',action='store_true');parser.add_argument('--addition-control',action='store_true');parser.add_argument('--wording-base',action='store_true');parser.add_argument('--neighbours-only',action='store_true')
+    args=parser.parse_args();start=time.monotonic()
+    if not args.neighbours_only:
+        if args.part is None:parser.error('--part is required outside neighbours-only mode')
+        replay_reuse(args.core,args.part)
     if args.wording_base:
         started=time.monotonic();ident='local.no-yes-amount-unanswered'
         row=next(r for r in matrix() if r['id']==ident)
@@ -313,6 +316,7 @@ def main():
         print('Lifecycle:',[(r['id'],r['pass']) for r in traces],flush=True)
         return
     rows=matrix()
+    if args.neighbours_only:rows=[r for r in rows if r['item']==7]
     if args.smoke:rows=[rows[0],next(r for r in rows if r['id']=='repeated.3.yes'),next(r for r in rows if r['id']=='type.codeb.lt'),rows[-1]]
     from tests import evidence_loader
     owner=evidence_loader.current_owner()
@@ -320,10 +324,10 @@ def main():
     workers=max(1,(os.cpu_count() or 2)-1)
     with multiprocessing.get_context('spawn').Pool(workers) as pool:
         results=pool.map(worker,[(r,str(args.core)) for r in rows])
-    write('track0-smoke.json' if args.smoke else 'track0-matrix.json',{'workers':workers,'wall_time_s':round(time.monotonic()-start,3),'cases':results})
+    write('track1-neighbours.json' if args.neighbours_only else 'track0-smoke.json' if args.smoke else 'track0-matrix.json',{'workers':workers,'wall_time_s':round(time.monotonic()-start,3),'cases':results})
     print(json.dumps({'cases':len(results),'passes':sum(r['pass'] for r in results),
           'fails':[{k:v for k,v in r.items() if k in ('id','error','message','outcome')} for r in results if not r['pass']]},indent=2),flush=True)
-    if not args.smoke:
+    if not args.smoke and not args.neighbours_only:
         started=time.monotonic();traces=lifecycle(args.core)
         write('track0-lifecycle.json',{'wall_time_s':round(time.monotonic()-started,3),'traces':traces})
         print('Lifecycle:',[(r['id'],r['pass']) for r in traces],flush=True)
