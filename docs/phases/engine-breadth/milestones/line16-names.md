@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "line16-names",
-  "status": "Open 2026-11-17. Track 0b passed; Decisions 10-11; Track 1 chartered.",
+  "status": "Open 2026-11-17. Track 1 done (core v95, registry v93, release v93); fresh review chartered.",
   "scope": [
     "on a return with Schedule D required and no sale recorded, Form 1040 line 16 and the lines that explain through it name the same questions as the other blocked fields",
     "every recorded return keeps its numbers, and every other line 16 block keeps its names unless P0 shows the added names are true there"
