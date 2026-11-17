@@ -1,0 +1,55 @@
+{
+  "item": 3,
+  "verdict": "PASS",
+  "package": "v95",
+  "registry": "v93",
+  "release": "v93",
+  "files": [
+    {
+      "filename": "package.core-calculations.v95.json",
+      "sha256": "fda173160b4952eb70908cd70db98188aecd56f5467fb035f9fb35e09b448394"
+    },
+    {
+      "filename": "published-packages.v93.json",
+      "sha256": "90451b0c99e7c2526ed1f83aaa99c952f104b1e19602f5b4e60abaf79c49b05e"
+    },
+    {
+      "filename": "demo.release.sli-worksheet-integration.2025.v93.json",
+      "sha256": "c34f5bd4ead114daf2065c73169b9fd95da6070d181657601932d9a2c5d1ccf4"
+    }
+  ],
+  "byte_identity_to_track0b_package_registry_release": true,
+  "registry_added_citizens": 2,
+  "registry_added_packages": 1,
+  "loader_carries_v94": true,
+  "required_versus_read_allowlist_transfers": [
+    {
+      "before": {
+        "rule_id": "tax.us.2025.rule.form1040-line16",
+        "version": "v8",
+        "symbol": "filing_status",
+        "reason": "Over-declared. The rule's expression reads filing status only through the worksheet rules whose results it reads, so the symbol appears in its runtime pins but not in its own expression. Recorded, not corrected; P0 found no hazard in this row. v8 is the core v89 successor of the same over-declaration; it only declares names on an existing block."
+      },
+      "after": {
+        "rule_id": "tax.us.2025.rule.form1040-line16",
+        "version": "v9",
+        "symbol": "filing_status",
+        "reason": "Over-declared. The rule's expression reads filing status only through the worksheet rules whose results it reads, so the symbol appears in its runtime pins but not in its own expression. Recorded, not corrected; P0 found no hazard in this row. v8 is the core v89 successor of the same over-declaration; it only declares names on an existing block."
+      }
+    },
+    {
+      "before": {
+        "rule_id": "tax.us.2025.rule.form1040-line16",
+        "version": "v8",
+        "symbol": "tax.us.2025.income.taxable-income",
+        "reason": "Over-declared. The rule's expression reads taxable income only through the worksheet rules whose results it reads, so the symbol appears in its runtime pins but not in its own expression. Recorded, not corrected; P0 found no hazard in this row. v8 is the core v89 successor of the same over-declaration; it only declares names on an existing block."
+      },
+      "after": {
+        "rule_id": "tax.us.2025.rule.form1040-line16",
+        "version": "v9",
+        "symbol": "tax.us.2025.income.taxable-income",
+        "reason": "Over-declared. The rule's expression reads taxable income only through the worksheet rules whose results it reads, so the symbol appears in its runtime pins but not in its own expression. Recorded, not corrected; P0 found no hazard in this row. v8 is the core v89 successor of the same over-declaration; it only declares names on an existing block."
+      }
+    }
+  ]
+}

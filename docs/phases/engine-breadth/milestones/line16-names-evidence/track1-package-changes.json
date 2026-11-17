@@ -1,0 +1,66 @@
+{
+  "package_version": "v95",
+  "release_version": "v93",
+  "members": [
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.form1040-line16",
+        "version": "v8",
+        "schema": "rule-artifact.v17",
+        "role": "computation"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.form1040-line16",
+        "version": "v9",
+        "schema": "rule-artifact.v17",
+        "role": "computation"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.selected-preferential-base",
+        "version": "v11",
+        "schema": "rule-artifact.v17",
+        "role": "computation"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.selected-preferential-base",
+        "version": "v12",
+        "schema": "rule-artifact.v17",
+        "role": "computation"
+      }
+    }
+  ],
+  "entrypoints": [
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.form1040-line16",
+        "version": "v8"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.form1040-line16",
+        "version": "v9"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.selected-preferential-base",
+        "version": "v11"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.selected-preferential-base",
+        "version": "v12"
+      }
+    }
+  ],
+  "registry_sort": "id_version",
+  "registry_new_key_order": [
+    "checksum",
+    "id",
+    "version"
+  ]
+}

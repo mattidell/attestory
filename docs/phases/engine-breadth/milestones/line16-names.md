@@ -252,3 +252,64 @@ targets' names (687 identical, 84 same error).
     Track 1 times v94 and the successor on the same lists, under the
     same load, before publishing. If the successor is materially
     slower (more than 10% per list), stop and report.
+
+## Track 1 result
+
+Item 1 speed gate: **PASS**. On 40 fixed recorded lists (eight from each
+recorded set, including all four targets), nine workers timed each core
+back to back in the same worker, with twenty baseline-first and twenty
+successor-first pairs. Nothing else was running from this builder.
+Median elapsed time per list: v94 **7.536449 s**, Track 0b successor
+**7.496203 s**; ratio **0.994660**. The median paired ratio is 0.998897.
+The 1.10 stop threshold is not exceeded. This controlled measurement does
+not establish why the earlier full-replay wall times differed.
+See `line16-names-evidence/track1-speed.json` and `track1_speed.py`.
+
+**Built:** core v95, registry v93, release v93. The two new computation
+citizens are `rule.form1040-line16` v9 and
+`rule.selected-preferential-base` v12, both on rule-artifact v17 and
+byte-identical to the accepted minimized Track 0b prototype. The successor
+package, registry and release were generated with
+`python3 -m tools.package_successor` and are also byte-identical to that
+prototype's generated files. Exactly two members and entrypoints change;
+registry v93 adds only the two citizens and one package. The v95 loader
+declarations and covered-flag map carry v94 unchanged. No published citizen
+or schema was edited; 1,801 earlier content/release files retain their bytes.
+
+The core-enumeration test includes v95. The two current required-versus-read
+allowlist entries for line 16 carry their existing rationales from v8 to
+v9, with no change to their symbols, reasons or required inputs. This was
+identified by the fast lane and repaired as a version-only metadata update.
+
+**Published replay:** all 775 recorded lists on v94 and v95, nine workers,
+foreground, **1,428.48 seconds**. Strict classification is exactly
+**687 identical successes, 84 identical errors, four expected failing-criterion
+changes, zero unexpected**. No saved line value, disposition, refusal code
+or row membership changes. Only the line 16/preferential-base missing names
+and their matching sentences change, on the four recorded targets. All
+eleven rejection controls pass. The part stays outside Git and is identified
+in the operational JSON handoff; `track1-replay.json` holds the classification.
+
+**Tests:** `tests/test_line16_names_v95.py` runs seven distinct act lists
+once each through published `live_coordinate_run`, the presentation
+projection and saved page model: one, two and four failures, a real
+same-fact correction, the personal-loss case, the unanswered boundary, and
+an unchanged computing neighbour. Expected names come from input findings.
+All seven pass. Its measured calls are 18.75–19.68 seconds, so it is live.
+The new package module verifies fourteen fast checks, including frozen
+prototype hashes, the two replacements, add-only registry, release,
+loader/allowlist carry-forward and all earlier bytes. Both new modules were
+run with an unrelated evidence directory first on PYTHONPATH. The package
+module's initial optional-`citations` key assumption was fixed and only that
+failed assertion was rechecked; the later fast lane verifies the complete
+current module. Details are retained in `track1-tests.json`.
+
+**Checks:** the five touched core-switch tests pass; the seven related
+required-versus-read checks plus the new allowlist assertion pass. Final
+fast lane: **1,837 passed, 8 skipped** in 15.29 seconds. Mypy: no issues in
+509 source files. The requested `github/main..HEAD` envelope scan and
+whitespace/scope checks pass. `track1-checks.json` records these checks.
+CI `verify` remains the gate of record for the full suite; no push occurred.
+
+**Deviations:** none. Each numbered item is committed separately. No
+kernel, derivation, schema, presentation or recording change was needed.

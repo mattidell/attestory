@@ -123,6 +123,8 @@ def main():
     parser.add_argument("part", type=Path)
     parser.add_argument("time_log", type=Path)
     parser.add_argument("--track0b", action="store_true")
+    parser.add_argument("--out", help="Evidence output filename beside this script")
+    parser.add_argument("--item", type=int, help="Charter item number recorded in the summary")
     args = parser.parse_args()
     from tools.recorded_replay import recorded_lists
     results = json.loads(args.part.read_text())["results"]
@@ -192,7 +194,9 @@ def main():
             "line_value_changes": sum(not exact(r["pins"]["v94"].get("lines"), r["pins"]["v95"].get("lines")) for r in results.values()),
             "disposition_or_code_changes": sum(any(not exact(r["pins"]["v94"].get("rows", {}).get(name, [])[:2], r["pins"]["v95"].get("rows", {}).get(name, [])[:2])
                 for name in set(r["pins"]["v94"].get("rows", {})) | set(r["pins"]["v95"].get("rows", {}))) for r in results.values())})
-    output_name = "track0b-replay.json" if args.track0b else "rerun.json"
+    if args.item is not None: output["item"] = args.item
+    output_name = args.out or ("track0b-replay.json" if args.track0b else "rerun.json")
+    assert Path(output_name).name == output_name, "output must be a filename"
     probe.write(output_name, output)
     print(json.dumps({k: v for k, v in output.items() if k != "results"}, indent=2))
     assert not counts["unexpected"], "unexpected replay change; see " + output_name

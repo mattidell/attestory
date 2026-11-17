@@ -1,0 +1,52 @@
+{
+  "item": 5,
+  "verdict": "PASS",
+  "unrelated_pythonpath_first": "docs/phases/engine-breadth/milestones/box4-no-prompt-evidence",
+  "modules": [
+    {
+      "path": "tests/test_line16_names_v95.py",
+      "passed": 7,
+      "failed": 0,
+      "standalone_module_runs": 1,
+      "distinct_act_lists": 7,
+      "coordinate_runs": 7,
+      "saved_page_model_equals_projection": true,
+      "wall_time_s": 23.41,
+      "call_duration_range_s": [
+        18.75,
+        19.68
+      ],
+      "lane": "live",
+      "expected_names": "from current input findings; case masks checked before the run"
+    },
+    {
+      "path": "tests/test_line16_names_v95_package.py",
+      "verified_tests": 14,
+      "standalone_module_runs": 1,
+      "initial_run": {
+        "passed": 12,
+        "failed": 1,
+        "wall_time_s": 4.71
+      },
+      "focused_repair": {
+        "test": "test_citizens_match_the_accepted_prototype_bytes",
+        "passed": 1,
+        "wall_time_s": 3.92,
+        "reason": "The first assertion assumed an optional citations key existed on every rule. Replaced it with whole preserved-metadata equality including key presence."
+      },
+      "maximum_observed_call_s_upper_bound": 0.02,
+      "budget_s": 3.0,
+      "lane": "fast",
+      "additional_allowlist_test": {
+        "passed": 1,
+        "related_module_tests_passed": 7,
+        "combined_wall_time_s": 4.37
+      }
+    }
+  ],
+  "notes": [
+    "Each complete new module was run once with the unrelated evidence directory first. Only the failing package assertion was rechecked after its repair. The required fast lane is a separate integration gate.",
+    "All 1801 prior content/release files have frozen byte hashes; eight bounded shards keep the integrity checks fast.",
+    "The required-symbol gate required carrying two unchanged v8 rationales to v9. A focused assertion checks the exact version-only transfers; the final fast lane passes all fourteen current package tests."
+  ]
+}

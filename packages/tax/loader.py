@@ -256,6 +256,8 @@ def named_covered_flag_refusal_maps() -> dict[tuple[str, str], dict[str, str]]:
         ("tax.us.2025.package.core-calculations", "v93"): dict(COVERED_FLAG_REFUSAL_OBJECTS),
         # Core v94 changes only box 4 requirements and wording; v93's map is unchanged.
         ("tax.us.2025.package.core-calculations", "v94"): dict(COVERED_FLAG_REFUSAL_OBJECTS),
+        # Core v95 changes declaring names only and carries v94's map.
+        ("tax.us.2025.package.core-calculations", "v95"): dict(COVERED_FLAG_REFUSAL_OBJECTS),
     }
 
 
@@ -721,6 +723,17 @@ def domain_package_companion_declarations() -> dict[tuple[str, str], dict[str, A
         },
         # Core v94 carries v93's companion declaration without additions.
         ("tax.us.2025.package.core-calculations", "v94"): {
+            "presence_pairs": {
+                **gambling["presence_pairs"],
+                **noncovered_scalar_presence_pairs(),
+                **no1099b_scalar_presence_pairs(),
+                **code_b_scalar_presence_pairs(),
+                **covered_scalar_presence_pairs(),
+            },
+            "value_domains": dict(gambling["value_domains"]),
+        },
+        # Core v95 names failing Exception 1 criteria and carries v94 unchanged.
+        ("tax.us.2025.package.core-calculations", "v95"): {
             "presence_pairs": {
                 **gambling["presence_pairs"],
                 **noncovered_scalar_presence_pairs(),
