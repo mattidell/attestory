@@ -1,0 +1,82 @@
+{
+  "schema": "rule-artifact.v17",
+  "id": "tax.us.2025.rule.f1099b.code-b-lt-txn.box4-amount-needed",
+  "version": "v1",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "role": "computation",
+  "subject": {
+    "id": "tax.us.2025.f1099b.code-b-lt-txn",
+    "version": "v1"
+  },
+  "requires": [
+    "tax.us.2025.f1099b.code-b-lt-txn",
+    "tax.us.2025.f1099b.code-b-lt-txn.box4-amount-count"
+  ],
+  "pins": [],
+  "when": true,
+  "joined": {
+    "id": "tax.us.2025.f1099b.statement-box4-withholding-reported",
+    "version": "v1"
+  },
+  "direction": "subject_contains_joined",
+  "value": {
+    "op": "choose",
+    "when": {
+      "op": "compare",
+      "left": {
+        "op": "ref",
+        "name": "tax.us.2025.f1099b.code-b-lt-txn.box4-amount-count"
+      },
+      "cmp": "gt",
+      "right": 0
+    },
+    "then": 0,
+    "else": {
+      "op": "choose",
+      "when": {
+        "op": "compare",
+        "left": {
+          "op": "shared_key_count",
+          "fact_type": "tax.us.2025.f1099b.statement-box4-withholding-reported",
+          "key": "statement"
+        },
+        "cmp": "eq",
+        "right": 0
+      },
+      "then": 1,
+      "else": {
+        "op": "choose",
+        "when": {
+          "op": "collect_categorical_all_equal",
+          "name": "tax.us.2025.f1099b.statement-box4-withholding-reported",
+          "value": {
+            "op": "category_literal",
+            "fact_type": {
+              "id": "tax.us.2025.f1099b.statement-box4-withholding-reported",
+              "version": "v1"
+            },
+            "value": "no"
+          }
+        },
+        "then": 0,
+        "else": 1
+      }
+    }
+  },
+  "publishes": "tax.us.2025.f1099b.code-b-lt-txn.box4-amount-needed",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": []
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.line-25b",
+      "version": "v1"
+    }
+  ],
+  "notes": "Scratch: explicit amount wins. Without an amount, only this statement's no satisfies the amount requirement. 1 means amount needed; 0 does not publish an amount."
+}

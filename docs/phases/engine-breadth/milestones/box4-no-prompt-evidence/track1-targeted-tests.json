@@ -1,0 +1,23 @@
+{
+  "modules": [
+    "tests/test_box4_no_prompt_v94.py",
+    "tests/test_box4_no_prompt_v94_package.py",
+    "tests/test_noncovered_sales_v78_switch.py",
+    "tests/test_envelope_hooks.py",
+    "tests/test_push_envelope_posture.py"
+  ],
+  "unrelated_evidence_first_on_pythonpath": "line6b-reason-evidence",
+  "wall_time_s": 29.768,
+  "exit_code": 0,
+  "passed": 34,
+  "pytest_wall_time_s": 29.36,
+  "new_live_tests": 8,
+  "new_fast_package_tests": 6,
+  "touched_core_allowlist_tests": 5,
+  "data_safety_tests": 15,
+  "live_case_duration_range_s": [
+    6.59,
+    21.13
+  ],
+  "evidence_import_isolation": "passed for both new modules"
+}

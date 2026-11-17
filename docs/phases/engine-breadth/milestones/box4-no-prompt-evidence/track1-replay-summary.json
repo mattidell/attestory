@@ -1,0 +1,31 @@
+{
+  "cores": [
+    "v93",
+    "v94"
+  ],
+  "lists": 775,
+  "workers": 9,
+  "wall_time_s": 1408.692,
+  "counts": {
+    "amount_sentence_only": 125,
+    "identical_success": 295,
+    "no_without_amount_changed": 271,
+    "same_error": 84
+  },
+  "p0_equivalent_counts": {
+    "identical_success": 420,
+    "same_error": 84,
+    "no_without_amount_changed": 271
+  },
+  "line_value_changes": 0,
+  "row_disposition_or_code_changes": 0,
+  "nonpayment_changes": 0,
+  "unexpected_changes": 0,
+  "neighbours": {
+    "pairs": 9,
+    "fields_per_pair": 86,
+    "field_comparisons": 774,
+    "differences": 0,
+    "wall_time_s": 34.651
+  }
+}

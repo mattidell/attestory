@@ -1,0 +1,25 @@
+{
+  "targeted_data_safety_tests": {
+    "command": "pytest tests/test_envelope_hooks.py tests/test_push_envelope_posture.py",
+    "passed": 15,
+    "wall_time_s": 1.99
+  },
+  "matrix_cases": 41,
+  "matrix_passes": 41,
+  "lifecycle_traces": 3,
+  "lifecycle_passes": 3,
+  "neighbour_field_comparisons": 774,
+  "neighbour_field_differences": 0,
+  "qualitative_gate": "FAIL: item 6, F1; content-only proposed fix",
+  "json_local_path_check": "passed",
+  "python_syntax_check": "passed",
+  "git_diff_check": "passed",
+  "protected_paths_unchanged": [
+    "packages/",
+    "tests/",
+    "tools/"
+  ],
+  "content_bytes_changed": false,
+  "corpus_replay": "reused; zero new corpus live runs",
+  "staged_envelope_scan": "passed"
+}

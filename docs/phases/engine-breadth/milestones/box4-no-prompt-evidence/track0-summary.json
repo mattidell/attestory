@@ -1,0 +1,148 @@
+{
+  "source_commit": "50c0dd31b04bdc436bc2f16342aed2df5025387a",
+  "items": {
+    "1": {
+      "verdict": "PASS",
+      "summary": "12 two-/three-statement cases, including reversed order: only fully satisfied statements compute; missing amounts retain DEPENDENCY_ABSENT and the amount fact."
+    },
+    "2": {
+      "verdict": "PASS",
+      "summary": "Two and three sales on one statement: no computes 0; yes with one 200 amount computes 200 once."
+    },
+    "3": {
+      "verdict": "PASS",
+      "summary": "No+0=0, no+200=200, yes+0=0; Decision 2 retained."
+    },
+    "4": {
+      "verdict": "PASS",
+      "summary": "Appended correction and retraction restore the prompt and displace old 25b/25d findings; adding 200 recomputes and pins 200. Addition-only old-result invalidation is not claimed."
+    },
+    "5": {
+      "verdict": "PASS",
+      "summary": "Each of the eight sale subject types computes 25b=0 and 25d=4500 from no alone."
+    },
+    "6": {
+      "verdict": "FAIL",
+      "summary": "F1: the mixed-statement amount prompt says each statement, including a no already sufficient and a statement whose 200 amount was entered. Return-level wording passes."
+    },
+    "7": {
+      "verdict": "PASS",
+      "summary": "Nine computing neighbours, across single/joint/separate: all 86 page fields equal v93 in value, disposition and reason sentences; zero differences or added questions."
+    },
+    "8": {
+      "verdict": "PASS",
+      "summary": "Optional check not pursued; accepted 17-helper shape retained. No smaller shape is claimed.",
+      "optional_not_attempted": true
+    },
+    "9": {
+      "verdict": "PASS",
+      "summary": "775-list P0 part reused; core fingerprints and all 19 generated content artifacts match; zero corpus live reruns."
+    }
+  },
+  "mechanical_cases": 41,
+  "mechanical_passes": 41,
+  "lifecycle_traces": 3,
+  "lifecycle_passes": 3,
+  "neighbour_pairs": 9,
+  "fields_per_neighbour": 86,
+  "neighbour_field_comparisons": 774,
+  "neighbour_field_differences": 0,
+  "wording_cases": 12,
+  "wording_counts": {
+    "PASS": 3,
+    "FAIL": 9
+  },
+  "fails": [
+    {
+      "id": "F1",
+      "item": 6,
+      "severity": "blocks Track 0 closure",
+      "witness": "local.no-yes-amount-unanswered",
+      "measurement": "The amount instruction asks for each recorded sale statement, including a no already sufficient and the statement whose 200 amount is already entered.",
+      "smallest_fix": "Publish an input-question.f1099b-box4 successor that limits the ask to unrecorded amounts on yes or unanswered statements; retain all rule arithmetic and original pairing fallback.",
+      "proposed_words": "Enter the federal income tax withheld in box 4 for each Form 1099-B or substitute statement you recorded a sale from whose amount is still missing and whose box 4 answer is yes or unanswered. For those statements, enter $0 if box 4 is blank. No amount is needed for a statement answered no.",
+      "requires_more_than_content": false
+    }
+  ],
+  "smaller_shape": null,
+  "replay": {
+    "reused": true,
+    "new_live_runs": 0,
+    "wall_time_s": 0.184,
+    "part_sha256": "96c3bab1033e1db1c837d3a44493458c56e8a0c40046deb6fe4b52fdccaf0d17",
+    "cores": [
+      {
+        "version": "v93",
+        "registry": "v91",
+        "release_version": "v91",
+        "loader_from": null,
+        "presence_pairs": [],
+        "package_sha256": "aa9210c27b76f86016e91a0d453974bad2d59da5d474a014081c95fd98adcde6",
+        "release_sha256": "9dddaa3e2b79351a8de779d2dcb73fb51e43b3a50bc70dd647f3b70290e42c62"
+      },
+      {
+        "version": "v94",
+        "registry": "v92",
+        "release_version": "v92",
+        "loader_from": "v93",
+        "presence_pairs": [],
+        "package_sha256": "d4aadc7221db44d1e3c7f4709dad84566aaaa1a3a58f64fbd6551c6daee5608d",
+        "release_sha256": "769c61f6253e7d142b604ec5d56b3a8b2463df7af7a1dc72e7f663bce9850a97"
+      }
+    ],
+    "counts": {
+      "identical": 504,
+      "numbers_changed": 271
+    },
+    "p0_classification": {
+      "identical_success": 420,
+      "no_without_amount_changed": 271,
+      "same_error": 84
+    },
+    "content_bytes_changed": false,
+    "p0_content_hashes": {
+      "f1099b-box4-amount-requirement.bundle.json": "789d7e60af264085d762af6c794780f0d569978bf4c836b397bf81f1f16c6931",
+      "rule.f1099b.covered-st-txn.box4-amount-count.json": "8905cf33a40e73b1ade8631f9752c6c0c9f64db81b5f0f34b2600af4ad1554ea",
+      "rule.f1099b.covered-st-txn.box4-amount-needed.json": "605aa39ea7f0058e91b4cb471f93f7c072665cc71e4a1bf01c2fb54e1cc2d82a",
+      "rule.f1099b.covered-lt-txn.box4-amount-count.json": "c20faf6cfe4d7b980d90ef2c1be337a378f9ea0790d2645ce1a025cf84fa1aa9",
+      "rule.f1099b.covered-lt-txn.box4-amount-needed.json": "8c7b8fbb81ab207078aabef4c5567c78ff53f44c64f61eb61996258abe18805a",
+      "rule.f1099b.covered-w-st-txn.box4-amount-count.json": "f4f9a9f22e28c70f83032a25dc3eb5e4c363f7799e66f67bcf3b25b1a62732e9",
+      "rule.f1099b.covered-w-st-txn.box4-amount-needed.json": "6841e365c337818ce454d8fe66314dae749138386e174ea6f6621db946a51da6",
+      "rule.f1099b.covered-w-lt-txn.box4-amount-count.json": "e7942745f41fe13fd8da54f88012c51d6f20e4e831726b744a10af4e0e0703e6",
+      "rule.f1099b.covered-w-lt-txn.box4-amount-needed.json": "38324203d178af8ca149931fa5f0ea1dfc4fbead6820167fea116d8beba0b6dc",
+      "rule.f1099b.noncovered-st-txn.box4-amount-count.json": "208bdfef0422296c5b4de99bea6fea6b79eb816521c262943242775b405ee544",
+      "rule.f1099b.noncovered-st-txn.box4-amount-needed.json": "5ac11ef49e0a09b3dc3eeb49eb2320d0895aa6a074307ab05c13bf85d460bf10",
+      "rule.f1099b.noncovered-lt-txn.box4-amount-count.json": "20323be17e49605b39b56d67d923b41fd2af4f224068c1354630d791caa9e428",
+      "rule.f1099b.noncovered-lt-txn.box4-amount-needed.json": "93fe88a15abd493a09ae63c671032dc45eb86bbd43846fc3d91c3084c5de54d2",
+      "rule.f1099b.code-b-st-txn.box4-amount-count.json": "79b8c0ba1b68e4290228ab9b1cb0467d7e0798a103cda4033a3182c4a2b141a4",
+      "rule.f1099b.code-b-st-txn.box4-amount-needed.json": "c9dca2e56da20b103877606a04499d5a375735f1de381d5cb70ae8ff90a15423",
+      "rule.f1099b.code-b-lt-txn.box4-amount-count.json": "9a51cb1c1159145c1eb8d61fe1dfab6e062087a14f824ec5873db91fb4cc1988",
+      "rule.f1099b.code-b-lt-txn.box4-amount-needed.json": "0b30cce826151bee6372f4ec8195a0a8effa670d496351ee98864de01e48fedd",
+      "rule.f1099b-box4-amounts-ready.json": "ce9e580f6b428de4f4bbcf28085541113bcf9981411ab5e92c83d4d4fcb21f6d",
+      "rule.form1040-line25b.v9.json": "bd52d93a74390fcb7a25aec668dead0f94806ef596398f7c3af7dc3c2e9b90ba"
+    }
+  },
+  "addition_currency_boundary": {
+    "observed_on": [
+      "published v93",
+      "scratch v94"
+    ],
+    "old_zero_payment_findings_displaced_on_amount_addition": false,
+    "new_page_computes_correctly": true,
+    "classification": "Measurement limit shared with v93; not a prototype-only regression or a proof of addition-triggered invalidation."
+  },
+  "content_bytes_changed": false,
+  "closure_ready": false,
+  "stop_reason": null,
+  "source_subject_types": {
+    "type.covered.st": "tax.us.2025.f1099b.covered-st-txn",
+    "type.covered.lt": "tax.us.2025.f1099b.covered-lt-txn",
+    "type.w.st": "tax.us.2025.f1099b.covered-w-st-txn",
+    "type.w.lt": "tax.us.2025.f1099b.covered-w-lt-txn",
+    "type.noncovered.st": "tax.us.2025.f1099b.noncovered-st-txn",
+    "type.noncovered.lt": "tax.us.2025.f1099b.noncovered-lt-txn",
+    "type.codeb.st": "tax.us.2025.f1099b.code-b-st-txn",
+    "type.codeb.lt": "tax.us.2025.f1099b.code-b-lt-txn"
+  },
+  "original_pairing_fallback_unchanged": true
+}

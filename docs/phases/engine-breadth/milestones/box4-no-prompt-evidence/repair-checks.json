@@ -1,0 +1,34 @@
+{
+  "fast_lane": {
+    "command": "pytest -m \"not live\"",
+    "exit_code": 0,
+    "wall_seconds": 16.581,
+    "passed": 1823,
+    "skipped": 8,
+    "pytest_seconds": 16.08
+  },
+  "touched_tests": {
+    "python_under_tests_changed": false,
+    "pytest_modules": [],
+    "evidence_script": "check-classifier.py",
+    "real_pairs": 775,
+    "mutations_passed": 5,
+    "wall_seconds": 52.828
+  },
+  "mypy": {
+    "status": "not required",
+    "reason": "No Python under tests changed"
+  },
+  "envelope": {
+    "command": "python3 tools/envelope_scan.py --range github/main..HEAD",
+    "exit_code": 0,
+    "checked_commit": "0106309807723d07183910686812b41fc36ec7b5"
+  },
+  "syntax": {
+    "files": [
+      "classify.py",
+      "check-classifier.py"
+    ],
+    "status": "PASS"
+  }
+}

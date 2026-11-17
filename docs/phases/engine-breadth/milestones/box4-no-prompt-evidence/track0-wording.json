@@ -1,0 +1,262 @@
+{
+  "cases": [
+    {
+      "case": "local.no-unanswered",
+      "lines": {
+        "25b": [
+          "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+        ],
+        "25d": [
+          "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+        ],
+        "33": [
+          "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+        ],
+        "37": [
+          "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+        ]
+      },
+      "verdict": "FAIL",
+      "reason": "The blanket each-statement amount instruction includes the satisfied no statement; in the three-statement witness it also includes an amount of 200 already entered.",
+      "proposed_words": "Enter the federal income tax withheld in box 4 for each Form 1099-B or substitute statement you recorded a sale from whose amount is still missing and whose box 4 answer is yes or unanswered. For those statements, enter $0 if box 4 is blank. No amount is needed for a statement answered no."
+    },
+    {
+      "case": "local.reverse-no-unanswered",
+      "lines": {
+        "25b": [
+          "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+        ],
+        "25d": [
+          "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+        ],
+        "33": [
+          "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+        ],
+        "37": [
+          "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+        ]
+      },
+      "verdict": "FAIL",
+      "reason": "The blanket each-statement amount instruction includes the satisfied no statement; in the three-statement witness it also includes an amount of 200 already entered.",
+      "proposed_words": "Enter the federal income tax withheld in box 4 for each Form 1099-B or substitute statement you recorded a sale from whose amount is still missing and whose box 4 answer is yes or unanswered. For those statements, enter $0 if box 4 is blank. No amount is needed for a statement answered no."
+    },
+    {
+      "case": "local.no-yes-absent",
+      "lines": {
+        "25b": [
+          "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+        ],
+        "25d": [
+          "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+        ],
+        "33": [
+          "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+        ],
+        "37": [
+          "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+        ]
+      },
+      "verdict": "FAIL",
+      "reason": "The blanket each-statement amount instruction includes the satisfied no statement; in the three-statement witness it also includes an amount of 200 already entered.",
+      "proposed_words": "Enter the federal income tax withheld in box 4 for each Form 1099-B or substitute statement you recorded a sale from whose amount is still missing and whose box 4 answer is yes or unanswered. For those statements, enter $0 if box 4 is blank. No amount is needed for a statement answered no."
+    },
+    {
+      "case": "local.reverse-no-yes-absent",
+      "lines": {
+        "25b": [
+          "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+        ],
+        "25d": [
+          "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+        ],
+        "33": [
+          "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+        ],
+        "37": [
+          "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+        ]
+      },
+      "verdict": "FAIL",
+      "reason": "The blanket each-statement amount instruction includes the satisfied no statement; in the three-statement witness it also includes an amount of 200 already entered.",
+      "proposed_words": "Enter the federal income tax withheld in box 4 for each Form 1099-B or substitute statement you recorded a sale from whose amount is still missing and whose box 4 answer is yes or unanswered. For those statements, enter $0 if box 4 is blank. No amount is needed for a statement answered no."
+    },
+    {
+      "case": "local.no-yes-amount-unanswered",
+      "lines": {
+        "25b": [
+          "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+        ],
+        "25d": [
+          "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+        ],
+        "33": [
+          "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+        ],
+        "37": [
+          "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+        ]
+      },
+      "verdict": "FAIL",
+      "reason": "The blanket each-statement amount instruction includes the satisfied no statement; in the three-statement witness it also includes an amount of 200 already entered.",
+      "proposed_words": "Enter the federal income tax withheld in box 4 for each Form 1099-B or substitute statement you recorded a sale from whose amount is still missing and whose box 4 answer is yes or unanswered. For those statements, enter $0 if box 4 is blank. No amount is needed for a statement answered no."
+    },
+    {
+      "case": "local.reverse-no-yes-amount-unanswered",
+      "lines": {
+        "25b": [
+          "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+        ],
+        "25d": [
+          "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+        ],
+        "33": [
+          "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+        ],
+        "37": [
+          "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+        ]
+      },
+      "verdict": "FAIL",
+      "reason": "The blanket each-statement amount instruction includes the satisfied no statement; in the three-statement witness it also includes an amount of 200 already entered.",
+      "proposed_words": "Enter the federal income tax withheld in box 4 for each Form 1099-B or substitute statement you recorded a sale from whose amount is still missing and whose box 4 answer is yes or unanswered. For those statements, enter $0 if box 4 is blank. No amount is needed for a statement answered no."
+    },
+    {
+      "case": "local.no-yes-absent-no",
+      "lines": {
+        "25b": [
+          "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+        ],
+        "25d": [
+          "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+        ],
+        "33": [
+          "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+        ],
+        "37": [
+          "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+        ]
+      },
+      "verdict": "FAIL",
+      "reason": "The blanket each-statement amount instruction includes the satisfied no statement; in the three-statement witness it also includes an amount of 200 already entered.",
+      "proposed_words": "Enter the federal income tax withheld in box 4 for each Form 1099-B or substitute statement you recorded a sale from whose amount is still missing and whose box 4 answer is yes or unanswered. For those statements, enter $0 if box 4 is blank. No amount is needed for a statement answered no."
+    },
+    {
+      "case": "next.no-return-unanswered",
+      "lines": {
+        "25b": [
+          "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+        ],
+        "25d": [
+          "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+        ],
+        "33": [
+          "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+        ],
+        "37": [
+          "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+        ]
+      },
+      "verdict": "PASS",
+      "reason": "The no-closed-sale question/amount concerns different statements and excludes amounts already entered. The sale-statement no does not answer it.",
+      "proposed_words": null
+    },
+    {
+      "case": "next.three-no-return-unanswered",
+      "lines": {
+        "25b": [
+          "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+        ],
+        "25d": [
+          "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+        ],
+        "33": [
+          "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+        ],
+        "37": [
+          "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+        ]
+      },
+      "verdict": "PASS",
+      "reason": "The no-closed-sale question/amount concerns different statements and excludes amounts already entered. The sale-statement no does not answer it.",
+      "proposed_words": null
+    },
+    {
+      "case": "next.no-return-yes-no-amount",
+      "lines": {
+        "25b": [
+          "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute statements that report no closed sale. Do not include a statement whose box 4 you already entered, with or without a sale. If more than one remaining statement, enter the total. If box 4 is blank, enter $0."
+        ],
+        "25d": [
+          "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute statements that report no closed sale. Do not include a statement whose box 4 you already entered, with or without a sale. If more than one remaining statement, enter the total. If box 4 is blank, enter $0."
+        ],
+        "33": [
+          "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute statements that report no closed sale. Do not include a statement whose box 4 you already entered, with or without a sale. If more than one remaining statement, enter the total. If box 4 is blank, enter $0."
+        ],
+        "37": [
+          "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute statements that report no closed sale. Do not include a statement whose box 4 you already entered, with or without a sale. If more than one remaining statement, enter the total. If box 4 is blank, enter $0."
+        ]
+      },
+      "verdict": "PASS",
+      "reason": "The no-closed-sale question/amount concerns different statements and excludes amounts already entered. The sale-statement no does not answer it.",
+      "proposed_words": null
+    },
+    {
+      "case": "next.mixed-amount-needed-return-no",
+      "lines": {
+        "25b": [
+          "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+        ],
+        "25d": [
+          "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+        ],
+        "33": [
+          "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+        ],
+        "37": [
+          "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+        ]
+      },
+      "verdict": "FAIL",
+      "reason": "The blanket each-statement amount instruction includes the satisfied no statement; in the three-statement witness it also includes an amount of 200 already entered.",
+      "proposed_words": "Enter the federal income tax withheld in box 4 for each Form 1099-B or substitute statement you recorded a sale from whose amount is still missing and whose box 4 answer is yes or unanswered. For those statements, enter $0 if box 4 is blank. No amount is needed for a statement answered no."
+    },
+    {
+      "case": "next.mixed-unanswered-return-unanswered",
+      "lines": {
+        "25b": [
+          "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+        ],
+        "25d": [
+          "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+        ],
+        "33": [
+          "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+        ],
+        "37": [
+          "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+        ]
+      },
+      "verdict": "FAIL",
+      "reason": "The blanket each-statement amount instruction includes the satisfied no statement; in the three-statement witness it also includes an amount of 200 already entered.",
+      "proposed_words": "Enter the federal income tax withheld in box 4 for each Form 1099-B or substitute statement you recorded a sale from whose amount is still missing and whose box 4 answer is yes or unanswered. For those statements, enter $0 if box 4 is blank. No amount is needed for a statement answered no."
+    }
+  ],
+  "counts": {
+    "PASS": 3,
+    "FAIL": 9
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "item": 6,
+      "severity": "blocks Track 0 closure",
+      "witness": "local.no-yes-amount-unanswered",
+      "measurement": "The amount instruction asks for each recorded sale statement, including a no already sufficient and the statement whose 200 amount is already entered.",
+      "smallest_fix": "Publish an input-question.f1099b-box4 successor that limits the ask to unrecorded amounts on yes or unanswered statements; retain all rule arithmetic and original pairing fallback.",
+      "proposed_words": "Enter the federal income tax withheld in box 4 for each Form 1099-B or substitute statement you recorded a sale from whose amount is still missing and whose box 4 answer is yes or unanswered. For those statements, enter $0 if box 4 is blank. No amount is needed for a statement answered no.",
+      "requires_more_than_content": false
+    }
+  ],
+  "return_level_question": "PASS: a no for sale statements is not a declaration that no other statement with no closed sale has withholding. Its exclusion of already-entered amounts remains truthful.",
+  "no_content_edit": true
+}

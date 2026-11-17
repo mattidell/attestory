@@ -1,0 +1,57 @@
+{
+  "core": "v93",
+  "before_lines": {
+    "25b": {
+      "disposition": "computed_zero",
+      "value": 0,
+      "sentences": []
+    },
+    "25d": {
+      "disposition": "published_value",
+      "value": 4500,
+      "sentences": []
+    },
+    "33": {
+      "disposition": "published_value",
+      "value": 4500,
+      "sentences": []
+    },
+    "37": {
+      "disposition": "computed_zero",
+      "value": 0,
+      "sentences": []
+    }
+  },
+  "after_lines": {
+    "25b": {
+      "disposition": "published_value",
+      "value": 200,
+      "sentences": []
+    },
+    "25d": {
+      "disposition": "published_value",
+      "value": 4700,
+      "sentences": []
+    },
+    "33": {
+      "disposition": "published_value",
+      "value": 4700,
+      "sentences": []
+    },
+    "37": {
+      "disposition": "computed_zero",
+      "value": 0,
+      "sentences": []
+    }
+  },
+  "old_payment_finding_ids": {
+    "25b": "finding:derived:23f55a4fd5f39dbd41da8035",
+    "25d": "finding:derived:6fcc3d7f41df0b53022a7a24"
+  },
+  "old_payment_publications_displaced": {
+    "25b": false,
+    "25d": false
+  },
+  "observation": "Adding a new amount while leaving earlier source findings unchanged does not displace the previous zero payment publications on v93 either. Both cores recompute the new page correctly. This is not evidence that amount additions invalidate old results.",
+  "wall_time_s": 25.76
+}

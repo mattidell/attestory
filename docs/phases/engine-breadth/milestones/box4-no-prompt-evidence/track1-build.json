@@ -1,0 +1,14 @@
+{
+  "source_core": "v93",
+  "core": "v94",
+  "registry": "v92",
+  "release": "v92",
+  "member_edits": 20,
+  "entrypoint_edits": 2,
+  "registry_add_only": true,
+  "loader_carries_v93": true,
+  "inherited_inconsistencies": [],
+  "package_checksum": "240b25549f882a5d34ff198c660a53ea45e04689126727aa450c859a2c5c1809",
+  "registry_sha256": "1d7718093e9c2aa4e6c69b2e4619bbeed8e9a1b5536126c35e58dbd785be8297",
+  "release_sha256": "69dcd27491515720423cdc22a1f8c6c41f778afce33c74eb4aa6c7c810d9768c"
+}

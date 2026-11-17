@@ -1,0 +1,1116 @@
+{
+  "workers": 9,
+  "wall_time_s": 35.693,
+  "cases": [
+    {
+      "id": "local.no-yes-amount",
+      "item": 1,
+      "answers": [
+        [
+          "no",
+          null
+        ],
+        [
+          "yes",
+          200
+        ]
+      ],
+      "expected_25b": 200,
+      "outcome": "success",
+      "lines": {
+        "25b": {
+          "disposition": "published_value",
+          "value": 200,
+          "sentences": []
+        },
+        "25d": {
+          "disposition": "published_value",
+          "value": 4700,
+          "sentences": []
+        },
+        "33": {
+          "disposition": "published_value",
+          "value": 4700,
+          "sentences": []
+        },
+        "37": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        }
+      },
+      "rows": {
+        "tax.us.2025.rule.form1040-line25b": {
+          "disposition": "published",
+          "code": null,
+          "missing": null
+        },
+        "tax.us.2025.rule.form1040-line25d": {
+          "disposition": "published",
+          "code": null,
+          "missing": null
+        },
+        "tax.us.2025.rule.form1040-line33": {
+          "disposition": "published",
+          "code": null,
+          "missing": null
+        },
+        "tax.us.2025.rule.form1040-line37": {
+          "disposition": "published",
+          "code": null,
+          "missing": null
+        }
+      },
+      "page_has_amount_prompt": false,
+      "pass": true
+    },
+    {
+      "id": "repeated.3.yes",
+      "item": 2,
+      "answers": [
+        [
+          "yes",
+          200
+        ]
+      ],
+      "expected_25b": 200,
+      "outcome": "success",
+      "lines": {
+        "25b": {
+          "disposition": "published_value",
+          "value": 200,
+          "sentences": []
+        },
+        "25d": {
+          "disposition": "published_value",
+          "value": 4700,
+          "sentences": []
+        },
+        "33": {
+          "disposition": "published_value",
+          "value": 4700,
+          "sentences": []
+        },
+        "37": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        }
+      },
+      "rows": {
+        "tax.us.2025.rule.form1040-line25b": {
+          "disposition": "published",
+          "code": null,
+          "missing": null
+        },
+        "tax.us.2025.rule.form1040-line25d": {
+          "disposition": "published",
+          "code": null,
+          "missing": null
+        },
+        "tax.us.2025.rule.form1040-line33": {
+          "disposition": "published",
+          "code": null,
+          "missing": null
+        },
+        "tax.us.2025.rule.form1040-line37": {
+          "disposition": "published",
+          "code": null,
+          "missing": null
+        }
+      },
+      "page_has_amount_prompt": false,
+      "pass": true
+    },
+    {
+      "id": "type.codeb.lt",
+      "item": 5,
+      "answers": [
+        [
+          "no",
+          null
+        ]
+      ],
+      "expected_25b": 0,
+      "outcome": "success",
+      "lines": {
+        "25b": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "25d": {
+          "disposition": "published_value",
+          "value": 4500,
+          "sentences": []
+        },
+        "33": {
+          "disposition": "blocked",
+          "value": null,
+          "sentences": [
+            "The correct basis equals the basis the Form 1099-B shows, so there is nothing to correct. Record the sale as a sale with no adjustment (or with code W only)."
+          ]
+        },
+        "37": {
+          "disposition": "blocked",
+          "value": null,
+          "sentences": [
+            "The correct basis equals the basis the Form 1099-B shows, so there is nothing to correct. Record the sale as a sale with no adjustment (or with code W only)."
+          ]
+        }
+      },
+      "rows": {
+        "tax.us.2025.rule.form1040-line25b": {
+          "disposition": "published",
+          "code": null,
+          "missing": null
+        },
+        "tax.us.2025.rule.form1040-line25d": {
+          "disposition": "published",
+          "code": null,
+          "missing": null
+        },
+        "tax.us.2025.rule.form1040-line33": {
+          "disposition": "blocked",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.payments.line32"
+          ]
+        },
+        "tax.us.2025.rule.form1040-line37": {
+          "disposition": "blocked",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.tax.line24-total-tax",
+            "tax.us.2025.payments.line33"
+          ]
+        }
+      },
+      "page_has_amount_prompt": false,
+      "pass": true
+    },
+    {
+      "id": "neighbour.married_filing_separately.sale-no-zero",
+      "item": 7,
+      "answers": [
+        [
+          "no",
+          0
+        ]
+      ],
+      "expected_25b": 0,
+      "outcome": "success",
+      "lines": {
+        "25b": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "25d": {
+          "disposition": "published_value",
+          "value": 4500,
+          "sentences": []
+        },
+        "33": {
+          "disposition": "published_value",
+          "value": 4500,
+          "sentences": []
+        },
+        "37": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        }
+      },
+      "rows": {
+        "tax.us.2025.rule.form1040-line25b": {
+          "disposition": "published",
+          "code": null,
+          "missing": null
+        },
+        "tax.us.2025.rule.form1040-line25d": {
+          "disposition": "published",
+          "code": null,
+          "missing": null
+        },
+        "tax.us.2025.rule.form1040-line33": {
+          "disposition": "published",
+          "code": null,
+          "missing": null
+        },
+        "tax.us.2025.rule.form1040-line37": {
+          "disposition": "published",
+          "code": null,
+          "missing": null
+        }
+      },
+      "page_has_amount_prompt": false,
+      "fields": {
+        "tax.us.2025.form.eic-worksheet-a.line-1": {
+          "disposition": "published_value",
+          "value": 50000,
+          "sentences": []
+        },
+        "tax.us.2025.form.eic-worksheet-a.line-2": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.form.eic-worksheet-a.line-3": {
+          "disposition": "published_value",
+          "value": 51000,
+          "sentences": []
+        },
+        "tax.us.2025.form.eic-worksheet-a.line-5": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.form.eic-worksheet-a.line-6": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.form.f1098.residence-interest-unresolved": {
+          "disposition": "guard_inapplicable",
+          "value": null,
+          "sentences": []
+        },
+        "tax.us.2025.form.f1099k.unresolved.form-field": {
+          "disposition": "guard_inapplicable",
+          "value": null,
+          "sentences": []
+        },
+        "tax.us.2025.form.sch8812.line-14": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.form.sch8812.line-17": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.form.sch8812.line-20": {
+          "disposition": "published_value",
+          "value": 7125,
+          "sentences": []
+        },
+        "tax.us.2025.form.sch8812.line-4": {
+          "disposition": "closure_backed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.form.sch8812.line-6": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.form.sch8812.line-7": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.form.sch8812.worksheet-a.line-5": {
+          "disposition": "published_value",
+          "value": 3995,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-10": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-11a": {
+          "disposition": "published_value",
+          "value": 51000,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-11b": {
+          "disposition": "published_value",
+          "value": 51000,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-12d-spouse-age": {
+          "disposition": "guard_inapplicable",
+          "value": null,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-12d-spouse-age-not-checked": {
+          "disposition": "published_categorical",
+          "value": null,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-12d-spouse-blind": {
+          "disposition": "guard_inapplicable",
+          "value": null,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-12d-spouse-blind-not-checked": {
+          "disposition": "published_categorical",
+          "value": null,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-12d-you-age": {
+          "disposition": "guard_inapplicable",
+          "value": null,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-12d-you-age-not-checked": {
+          "disposition": "published_categorical",
+          "value": null,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-12d-you-blind": {
+          "disposition": "guard_inapplicable",
+          "value": null,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-12d-you-blind-not-checked": {
+          "disposition": "published_categorical",
+          "value": null,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-12e": {
+          "disposition": "published_value",
+          "value": 15750,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-13a": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-13b": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-14": {
+          "disposition": "published_value",
+          "value": 15750,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-15": {
+          "disposition": "published_value",
+          "value": 35250,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-16": {
+          "disposition": "published_value",
+          "value": 3995,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-19": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-1a": {
+          "disposition": "published_value",
+          "value": 50000,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-20": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-24": {
+          "disposition": "published_value",
+          "value": 3995,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-25a": {
+          "disposition": "published_value",
+          "value": 4500,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-25b": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-25c": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-25d": {
+          "disposition": "published_value",
+          "value": 4500,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-26": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-27a": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-28": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-2a": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-2b": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-32": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-33": {
+          "disposition": "published_value",
+          "value": 4500,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-34": {
+          "disposition": "published_value",
+          "value": 505,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-35a": {
+          "disposition": "published_value",
+          "value": 505,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-37": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-38": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-3a": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-3b": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-4b": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-6a": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-6b": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-6c": {
+          "disposition": "published_categorical",
+          "value": null,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-6c-checked": {
+          "disposition": "guard_inapplicable",
+          "value": null,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-6d": {
+          "disposition": "published_categorical",
+          "value": null,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-6d-not-checked": {
+          "disposition": "guard_inapplicable",
+          "value": null,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-7a": {
+          "disposition": "published_value",
+          "value": 1000,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-7b": {
+          "disposition": "guard_inapplicable",
+          "value": null,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-8": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-9": {
+          "disposition": "published_value",
+          "value": 51000,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.tax-after-credits": {
+          "disposition": "published_value",
+          "value": 3995,
+          "sentences": []
+        },
+        "tax.us.2025.schedule-d.line-10": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.schedule-d.line-13": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.schedule-d.line-14": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.schedule-d.line-15": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.schedule-d.line-16": {
+          "disposition": "published_value",
+          "value": 1000,
+          "sentences": []
+        },
+        "tax.us.2025.schedule-d.line-1a": {
+          "disposition": "published_value",
+          "value": 1000,
+          "sentences": []
+        },
+        "tax.us.2025.schedule-d.line-1b": {
+          "disposition": "closure_backed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.schedule-d.line-2": {
+          "disposition": "closure_backed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.schedule-d.line-21": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.schedule-d.line-3": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.schedule-d.line-6": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.schedule-d.line-7": {
+          "disposition": "published_value",
+          "value": 1000,
+          "sentences": []
+        },
+        "tax.us.2025.schedule-d.line-8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.schedule-d.line-8b": {
+          "disposition": "closure_backed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.schedule-d.line-9": {
+          "disposition": "closure_backed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.schedule1.line-10": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.schedule1.line-21": {
+          "disposition": "closure_backed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.schedule1.line-7": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.schedule1.line-8b": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.schedule1.top-entry.form-field": {
+          "disposition": "closure_backed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.schedule3.line-1": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.schedule3.line-8": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        }
+      },
+      "baseline_fields": {
+        "tax.us.2025.form.eic-worksheet-a.line-1": {
+          "disposition": "published_value",
+          "value": 50000,
+          "sentences": []
+        },
+        "tax.us.2025.form.eic-worksheet-a.line-2": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.form.eic-worksheet-a.line-3": {
+          "disposition": "published_value",
+          "value": 51000,
+          "sentences": []
+        },
+        "tax.us.2025.form.eic-worksheet-a.line-5": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.form.eic-worksheet-a.line-6": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.form.f1098.residence-interest-unresolved": {
+          "disposition": "guard_inapplicable",
+          "value": null,
+          "sentences": []
+        },
+        "tax.us.2025.form.f1099k.unresolved.form-field": {
+          "disposition": "guard_inapplicable",
+          "value": null,
+          "sentences": []
+        },
+        "tax.us.2025.form.sch8812.line-14": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.form.sch8812.line-17": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.form.sch8812.line-20": {
+          "disposition": "published_value",
+          "value": 7125,
+          "sentences": []
+        },
+        "tax.us.2025.form.sch8812.line-4": {
+          "disposition": "closure_backed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.form.sch8812.line-6": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.form.sch8812.line-7": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.form.sch8812.worksheet-a.line-5": {
+          "disposition": "published_value",
+          "value": 3995,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-10": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-11a": {
+          "disposition": "published_value",
+          "value": 51000,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-11b": {
+          "disposition": "published_value",
+          "value": 51000,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-12d-spouse-age": {
+          "disposition": "guard_inapplicable",
+          "value": null,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-12d-spouse-age-not-checked": {
+          "disposition": "published_categorical",
+          "value": null,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-12d-spouse-blind": {
+          "disposition": "guard_inapplicable",
+          "value": null,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-12d-spouse-blind-not-checked": {
+          "disposition": "published_categorical",
+          "value": null,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-12d-you-age": {
+          "disposition": "guard_inapplicable",
+          "value": null,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-12d-you-age-not-checked": {
+          "disposition": "published_categorical",
+          "value": null,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-12d-you-blind": {
+          "disposition": "guard_inapplicable",
+          "value": null,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-12d-you-blind-not-checked": {
+          "disposition": "published_categorical",
+          "value": null,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-12e": {
+          "disposition": "published_value",
+          "value": 15750,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-13a": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-13b": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-14": {
+          "disposition": "published_value",
+          "value": 15750,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-15": {
+          "disposition": "published_value",
+          "value": 35250,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-16": {
+          "disposition": "published_value",
+          "value": 3995,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-19": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-1a": {
+          "disposition": "published_value",
+          "value": 50000,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-20": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-24": {
+          "disposition": "published_value",
+          "value": 3995,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-25a": {
+          "disposition": "published_value",
+          "value": 4500,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-25b": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-25c": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-25d": {
+          "disposition": "published_value",
+          "value": 4500,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-26": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-27a": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-28": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-2a": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-2b": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-32": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-33": {
+          "disposition": "published_value",
+          "value": 4500,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-34": {
+          "disposition": "published_value",
+          "value": 505,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-35a": {
+          "disposition": "published_value",
+          "value": 505,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-37": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-38": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-3a": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-3b": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-4b": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-6a": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-6b": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-6c": {
+          "disposition": "published_categorical",
+          "value": null,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-6c-checked": {
+          "disposition": "guard_inapplicable",
+          "value": null,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-6d": {
+          "disposition": "published_categorical",
+          "value": null,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-6d-not-checked": {
+          "disposition": "guard_inapplicable",
+          "value": null,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-7a": {
+          "disposition": "published_value",
+          "value": 1000,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-7b": {
+          "disposition": "guard_inapplicable",
+          "value": null,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-8": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.line-9": {
+          "disposition": "published_value",
+          "value": 51000,
+          "sentences": []
+        },
+        "tax.us.2025.form1040.tax-after-credits": {
+          "disposition": "published_value",
+          "value": 3995,
+          "sentences": []
+        },
+        "tax.us.2025.schedule-d.line-10": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.schedule-d.line-13": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.schedule-d.line-14": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.schedule-d.line-15": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.schedule-d.line-16": {
+          "disposition": "published_value",
+          "value": 1000,
+          "sentences": []
+        },
+        "tax.us.2025.schedule-d.line-1a": {
+          "disposition": "published_value",
+          "value": 1000,
+          "sentences": []
+        },
+        "tax.us.2025.schedule-d.line-1b": {
+          "disposition": "closure_backed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.schedule-d.line-2": {
+          "disposition": "closure_backed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.schedule-d.line-21": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.schedule-d.line-3": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.schedule-d.line-6": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.schedule-d.line-7": {
+          "disposition": "published_value",
+          "value": 1000,
+          "sentences": []
+        },
+        "tax.us.2025.schedule-d.line-8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.schedule-d.line-8b": {
+          "disposition": "closure_backed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.schedule-d.line-9": {
+          "disposition": "closure_backed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.schedule1.line-10": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.schedule1.line-21": {
+          "disposition": "closure_backed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.schedule1.line-7": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.schedule1.line-8b": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.schedule1.top-entry.form-field": {
+          "disposition": "closure_backed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.schedule3.line-1": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        },
+        "tax.us.2025.schedule3.line-8": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        }
+      },
+      "field_differences": {},
+      "pass": true
+    }
+  ]
+}

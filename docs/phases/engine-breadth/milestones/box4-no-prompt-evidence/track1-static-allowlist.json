@@ -1,0 +1,103 @@
+{
+  "file": "tools/required_versus_read_allowlist.json",
+  "entries_added": [
+    {
+      "rule_id": "tax.us.2025.rule.f1099b.covered-st-txn.box4-amount-count",
+      "version": "v1",
+      "symbol": "tax.us.2025.f1099b.covered-st-txn",
+      "reason": "Declared sale subject required for per-subject dispatch, identity-key matching and the subject input pin. The expression reads statement-keyed counts or the joined answer, not the sale value. Retained byte-identical to the accepted box4-no-prompt P0 shape (Decisions 1 and 4); this version-specific entry records the dispatch dependency without widening the static checker."
+    },
+    {
+      "rule_id": "tax.us.2025.rule.f1099b.covered-st-txn.box4-amount-needed",
+      "version": "v1",
+      "symbol": "tax.us.2025.f1099b.covered-st-txn",
+      "reason": "Declared sale subject required for per-subject dispatch, identity-key matching and the subject input pin. The expression reads statement-keyed counts or the joined answer, not the sale value. Retained byte-identical to the accepted box4-no-prompt P0 shape (Decisions 1 and 4); this version-specific entry records the dispatch dependency without widening the static checker."
+    },
+    {
+      "rule_id": "tax.us.2025.rule.f1099b.covered-lt-txn.box4-amount-count",
+      "version": "v1",
+      "symbol": "tax.us.2025.f1099b.covered-lt-txn",
+      "reason": "Declared sale subject required for per-subject dispatch, identity-key matching and the subject input pin. The expression reads statement-keyed counts or the joined answer, not the sale value. Retained byte-identical to the accepted box4-no-prompt P0 shape (Decisions 1 and 4); this version-specific entry records the dispatch dependency without widening the static checker."
+    },
+    {
+      "rule_id": "tax.us.2025.rule.f1099b.covered-lt-txn.box4-amount-needed",
+      "version": "v1",
+      "symbol": "tax.us.2025.f1099b.covered-lt-txn",
+      "reason": "Declared sale subject required for per-subject dispatch, identity-key matching and the subject input pin. The expression reads statement-keyed counts or the joined answer, not the sale value. Retained byte-identical to the accepted box4-no-prompt P0 shape (Decisions 1 and 4); this version-specific entry records the dispatch dependency without widening the static checker."
+    },
+    {
+      "rule_id": "tax.us.2025.rule.f1099b.covered-w-st-txn.box4-amount-count",
+      "version": "v1",
+      "symbol": "tax.us.2025.f1099b.covered-w-st-txn",
+      "reason": "Declared sale subject required for per-subject dispatch, identity-key matching and the subject input pin. The expression reads statement-keyed counts or the joined answer, not the sale value. Retained byte-identical to the accepted box4-no-prompt P0 shape (Decisions 1 and 4); this version-specific entry records the dispatch dependency without widening the static checker."
+    },
+    {
+      "rule_id": "tax.us.2025.rule.f1099b.covered-w-st-txn.box4-amount-needed",
+      "version": "v1",
+      "symbol": "tax.us.2025.f1099b.covered-w-st-txn",
+      "reason": "Declared sale subject required for per-subject dispatch, identity-key matching and the subject input pin. The expression reads statement-keyed counts or the joined answer, not the sale value. Retained byte-identical to the accepted box4-no-prompt P0 shape (Decisions 1 and 4); this version-specific entry records the dispatch dependency without widening the static checker."
+    },
+    {
+      "rule_id": "tax.us.2025.rule.f1099b.covered-w-lt-txn.box4-amount-count",
+      "version": "v1",
+      "symbol": "tax.us.2025.f1099b.covered-w-lt-txn",
+      "reason": "Declared sale subject required for per-subject dispatch, identity-key matching and the subject input pin. The expression reads statement-keyed counts or the joined answer, not the sale value. Retained byte-identical to the accepted box4-no-prompt P0 shape (Decisions 1 and 4); this version-specific entry records the dispatch dependency without widening the static checker."
+    },
+    {
+      "rule_id": "tax.us.2025.rule.f1099b.covered-w-lt-txn.box4-amount-needed",
+      "version": "v1",
+      "symbol": "tax.us.2025.f1099b.covered-w-lt-txn",
+      "reason": "Declared sale subject required for per-subject dispatch, identity-key matching and the subject input pin. The expression reads statement-keyed counts or the joined answer, not the sale value. Retained byte-identical to the accepted box4-no-prompt P0 shape (Decisions 1 and 4); this version-specific entry records the dispatch dependency without widening the static checker."
+    },
+    {
+      "rule_id": "tax.us.2025.rule.f1099b.noncovered-st-txn.box4-amount-count",
+      "version": "v1",
+      "symbol": "tax.us.2025.f1099b.noncovered-st-txn",
+      "reason": "Declared sale subject required for per-subject dispatch, identity-key matching and the subject input pin. The expression reads statement-keyed counts or the joined answer, not the sale value. Retained byte-identical to the accepted box4-no-prompt P0 shape (Decisions 1 and 4); this version-specific entry records the dispatch dependency without widening the static checker."
+    },
+    {
+      "rule_id": "tax.us.2025.rule.f1099b.noncovered-st-txn.box4-amount-needed",
+      "version": "v1",
+      "symbol": "tax.us.2025.f1099b.noncovered-st-txn",
+      "reason": "Declared sale subject required for per-subject dispatch, identity-key matching and the subject input pin. The expression reads statement-keyed counts or the joined answer, not the sale value. Retained byte-identical to the accepted box4-no-prompt P0 shape (Decisions 1 and 4); this version-specific entry records the dispatch dependency without widening the static checker."
+    },
+    {
+      "rule_id": "tax.us.2025.rule.f1099b.noncovered-lt-txn.box4-amount-count",
+      "version": "v1",
+      "symbol": "tax.us.2025.f1099b.noncovered-lt-txn",
+      "reason": "Declared sale subject required for per-subject dispatch, identity-key matching and the subject input pin. The expression reads statement-keyed counts or the joined answer, not the sale value. Retained byte-identical to the accepted box4-no-prompt P0 shape (Decisions 1 and 4); this version-specific entry records the dispatch dependency without widening the static checker."
+    },
+    {
+      "rule_id": "tax.us.2025.rule.f1099b.noncovered-lt-txn.box4-amount-needed",
+      "version": "v1",
+      "symbol": "tax.us.2025.f1099b.noncovered-lt-txn",
+      "reason": "Declared sale subject required for per-subject dispatch, identity-key matching and the subject input pin. The expression reads statement-keyed counts or the joined answer, not the sale value. Retained byte-identical to the accepted box4-no-prompt P0 shape (Decisions 1 and 4); this version-specific entry records the dispatch dependency without widening the static checker."
+    },
+    {
+      "rule_id": "tax.us.2025.rule.f1099b.code-b-st-txn.box4-amount-count",
+      "version": "v1",
+      "symbol": "tax.us.2025.f1099b.code-b-st-txn",
+      "reason": "Declared sale subject required for per-subject dispatch, identity-key matching and the subject input pin. The expression reads statement-keyed counts or the joined answer, not the sale value. Retained byte-identical to the accepted box4-no-prompt P0 shape (Decisions 1 and 4); this version-specific entry records the dispatch dependency without widening the static checker."
+    },
+    {
+      "rule_id": "tax.us.2025.rule.f1099b.code-b-st-txn.box4-amount-needed",
+      "version": "v1",
+      "symbol": "tax.us.2025.f1099b.code-b-st-txn",
+      "reason": "Declared sale subject required for per-subject dispatch, identity-key matching and the subject input pin. The expression reads statement-keyed counts or the joined answer, not the sale value. Retained byte-identical to the accepted box4-no-prompt P0 shape (Decisions 1 and 4); this version-specific entry records the dispatch dependency without widening the static checker."
+    },
+    {
+      "rule_id": "tax.us.2025.rule.f1099b.code-b-lt-txn.box4-amount-count",
+      "version": "v1",
+      "symbol": "tax.us.2025.f1099b.code-b-lt-txn",
+      "reason": "Declared sale subject required for per-subject dispatch, identity-key matching and the subject input pin. The expression reads statement-keyed counts or the joined answer, not the sale value. Retained byte-identical to the accepted box4-no-prompt P0 shape (Decisions 1 and 4); this version-specific entry records the dispatch dependency without widening the static checker."
+    },
+    {
+      "rule_id": "tax.us.2025.rule.f1099b.code-b-lt-txn.box4-amount-needed",
+      "version": "v1",
+      "symbol": "tax.us.2025.f1099b.code-b-lt-txn",
+      "reason": "Declared sale subject required for per-subject dispatch, identity-key matching and the subject input pin. The expression reads statement-keyed counts or the joined answer, not the sale value. Retained byte-identical to the accepted box4-no-prompt P0 shape (Decisions 1 and 4); this version-specific entry records the dispatch dependency without widening the static checker."
+    }
+  ],
+  "content_bytes_changed": false,
+  "reason": "Fast lane discovered 16 subject-dispatch requirements omitted by the expression-only read scan. Exact rule/version/symbol entries preserve the accepted prototype bytes and the existing checker policy."
+}

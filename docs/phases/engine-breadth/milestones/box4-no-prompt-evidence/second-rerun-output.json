@@ -1,0 +1,13 @@
+{
+  "runs": 775,
+  "workers": 9,
+  "wall_time_s": 745.57,
+  "tool_counts": {
+    "identical": 488,
+    "numbers_changed": 287
+  },
+  "line_value_changes": 0,
+  "unexpected_changes": 14,
+  "witness": "v82/t1_s1/honest: noncovered-lt-count missing became an amount missing name; amount prompt appeared sooner.",
+  "repair": "Keep the original require_paired expression as the fallback when an amount is still needed. Its vacuous/no-key behavior preserves the prior count dependency."
+}

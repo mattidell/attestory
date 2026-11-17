@@ -1,0 +1,22 @@
+{
+  "targeted_data_safety_tests": {
+    "command": "pytest tests/test_envelope_hooks.py tests/test_push_envelope_posture.py",
+    "passed": 15,
+    "wall_time_s": 1.98
+  },
+  "focused_live_cases": {
+    "baseline": 48,
+    "successor": 48
+  },
+  "recorded_lists": 775,
+  "json_and_local_path_check": "passed",
+  "unaffected_focused_case_equality": "passed",
+  "protected_paths_unchanged": [
+    "packages/",
+    "tests/",
+    "tools/"
+  ],
+  "python_syntax_check": "passed",
+  "git_diff_check": "passed",
+  "staged_envelope_scan": "passed"
+}

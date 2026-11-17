@@ -1,0 +1,5768 @@
+{
+  "core": {
+    "version": "v94",
+    "registry": "v92",
+    "release_version": "v92",
+    "loader_from": "v93",
+    "presence_pairs": [],
+    "package_sha256": "d4aadc7221db44d1e3c7f4709dad84566aaaa1a3a58f64fbd6551c6daee5608d",
+    "release_sha256": "769c61f6253e7d142b604ec5d56b3a8b2463df7af7a1dc72e7f663bce9850a97"
+  },
+  "workers": 9,
+  "wall_time_s": 59.427,
+  "cases": [
+    {
+      "id": "single.yes-200",
+      "answers": [
+        [
+          "yes",
+          200
+        ]
+      ],
+      "present": "no",
+      "return_amount": null,
+      "truthful": true,
+      "outcome": "success",
+      "lines": {
+        "25b": {
+          "disposition": "published_value",
+          "value": 200,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 25b is the total of the 1099-document withholding amounts, with cents included, rounded once to whole dollars: Forms 1099-INT, 1099-DIV and 1099-R box 4, Form 1099-G box 4, Form SSA-1099 box 6, and Form 1099-B box 4 backup withholding. That total includes backup withholding from a Form 1099-B with no closed sale, excluding an amount already entered, with or without a sale.",
+            "render": "{value}"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25b",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "25d": {
+          "disposition": "published_value",
+          "value": 4700,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 25d equals lines 25a, 25b, and 25c added together.",
+            "render": "{value}"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25d",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "33": {
+          "disposition": "published_value",
+          "value": 4700,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 33 equals line 25d plus line 26 plus line 32.",
+            "render": "{value}"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line33",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "37": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 37 publishes a computed zero.",
+            "render": "0"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line37",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        }
+      },
+      "page_sentences": [],
+      "page_has_amount_prompt": false
+    },
+    {
+      "id": "single.yes-absent",
+      "answers": [
+        [
+          "yes",
+          null
+        ]
+      ],
+      "present": "no",
+      "return_amount": null,
+      "truthful": true,
+      "outcome": "success",
+      "lines": {
+        "25b": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID",
+              "SOURCE_SET_UNCLOSED"
+            ],
+            "explain": "Form 1040 line 25b is blocked because an input it needs is missing or not yet closed. It is also blocked while a recorded sale's statement has no box 4 amount, and while it is unanswered whether a Form 1099-B shows box 4 withholding and no closed sale, other than a statement whose box 4 you already entered, with or without a sale.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25b",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.f1099b.statement-box4-withholding"
+              ],
+              "value": null
+            }
+          ]
+        },
+        "25d": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID",
+              "SOURCE_SET_UNCLOSED"
+            ],
+            "explain": "Form 1040 line 25d is blocked because an input it needs is missing or not yet closed.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25d",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.payments.line25b"
+              ],
+              "value": null
+            }
+          ]
+        },
+        "33": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "Form 1040 line 33 is blocked because an input it needs is missing or invalid.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line33",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.payments.line25d"
+              ],
+              "value": null
+            }
+          ]
+        },
+        "37": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "Form 1040 line 37 is blocked because an input it needs is missing, invalid, or (line 36) exceeds line 34.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line37",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.payments.line33"
+              ],
+              "value": null
+            }
+          ]
+        }
+      },
+      "page_sentences": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "page_has_amount_prompt": true
+    },
+    {
+      "id": "single.no-absent",
+      "answers": [
+        [
+          "no",
+          null
+        ]
+      ],
+      "present": "no",
+      "return_amount": null,
+      "truthful": true,
+      "outcome": "success",
+      "lines": {
+        "25b": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 25b publishes a computed zero.",
+            "render": "0"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25b",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "25d": {
+          "disposition": "published_value",
+          "value": 4500,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 25d equals lines 25a, 25b, and 25c added together.",
+            "render": "{value}"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25d",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "33": {
+          "disposition": "published_value",
+          "value": 4500,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 33 equals line 25d plus line 26 plus line 32.",
+            "render": "{value}"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line33",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "37": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 37 publishes a computed zero.",
+            "render": "0"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line37",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        }
+      },
+      "page_sentences": [],
+      "page_has_amount_prompt": false
+    },
+    {
+      "id": "single.no-zero",
+      "answers": [
+        [
+          "no",
+          0
+        ]
+      ],
+      "present": "no",
+      "return_amount": null,
+      "truthful": true,
+      "outcome": "success",
+      "lines": {
+        "25b": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 25b publishes a computed zero.",
+            "render": "0"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25b",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "25d": {
+          "disposition": "published_value",
+          "value": 4500,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 25d equals lines 25a, 25b, and 25c added together.",
+            "render": "{value}"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25d",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "33": {
+          "disposition": "published_value",
+          "value": 4500,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 33 equals line 25d plus line 26 plus line 32.",
+            "render": "{value}"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line33",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "37": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 37 publishes a computed zero.",
+            "render": "0"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line37",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        }
+      },
+      "page_sentences": [],
+      "page_has_amount_prompt": false
+    },
+    {
+      "id": "single.no-200",
+      "answers": [
+        [
+          "no",
+          200
+        ]
+      ],
+      "present": "no",
+      "return_amount": null,
+      "truthful": false,
+      "outcome": "success",
+      "lines": {
+        "25b": {
+          "disposition": "published_value",
+          "value": 200,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 25b is the total of the 1099-document withholding amounts, with cents included, rounded once to whole dollars: Forms 1099-INT, 1099-DIV and 1099-R box 4, Form 1099-G box 4, Form SSA-1099 box 6, and Form 1099-B box 4 backup withholding. That total includes backup withholding from a Form 1099-B with no closed sale, excluding an amount already entered, with or without a sale.",
+            "render": "{value}"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25b",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "25d": {
+          "disposition": "published_value",
+          "value": 4700,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 25d equals lines 25a, 25b, and 25c added together.",
+            "render": "{value}"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25d",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "33": {
+          "disposition": "published_value",
+          "value": 4700,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 33 equals line 25d plus line 26 plus line 32.",
+            "render": "{value}"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line33",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "37": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 37 publishes a computed zero.",
+            "render": "0"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line37",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        }
+      },
+      "page_sentences": [],
+      "page_has_amount_prompt": false
+    },
+    {
+      "id": "single.unanswered",
+      "answers": [
+        [
+          null,
+          null
+        ]
+      ],
+      "present": "no",
+      "return_amount": null,
+      "truthful": true,
+      "outcome": "success",
+      "lines": {
+        "25b": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID",
+              "SOURCE_SET_UNCLOSED"
+            ],
+            "explain": "Form 1040 line 25b is blocked because an input it needs is missing or not yet closed. It is also blocked while a recorded sale's statement has no box 4 amount, and while it is unanswered whether a Form 1099-B shows box 4 withholding and no closed sale, other than a statement whose box 4 you already entered, with or without a sale.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25b",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.f1099b.statement-box4-withholding"
+              ],
+              "value": null
+            }
+          ]
+        },
+        "25d": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID",
+              "SOURCE_SET_UNCLOSED"
+            ],
+            "explain": "Form 1040 line 25d is blocked because an input it needs is missing or not yet closed.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25d",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.payments.line25b"
+              ],
+              "value": null
+            }
+          ]
+        },
+        "33": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "Form 1040 line 33 is blocked because an input it needs is missing or invalid.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line33",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.payments.line25d"
+              ],
+              "value": null
+            }
+          ]
+        },
+        "37": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "Form 1040 line 37 is blocked because an input it needs is missing, invalid, or (line 36) exceeds line 34.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line37",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.payments.line33"
+              ],
+              "value": null
+            }
+          ]
+        }
+      },
+      "page_sentences": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "page_has_amount_prompt": true
+    },
+    {
+      "id": "single.unanswered-200",
+      "answers": [
+        [
+          null,
+          200
+        ]
+      ],
+      "present": "no",
+      "return_amount": null,
+      "truthful": true,
+      "outcome": "success",
+      "lines": {
+        "25b": {
+          "disposition": "published_value",
+          "value": 200,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 25b is the total of the 1099-document withholding amounts, with cents included, rounded once to whole dollars: Forms 1099-INT, 1099-DIV and 1099-R box 4, Form 1099-G box 4, Form SSA-1099 box 6, and Form 1099-B box 4 backup withholding. That total includes backup withholding from a Form 1099-B with no closed sale, excluding an amount already entered, with or without a sale.",
+            "render": "{value}"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25b",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "25d": {
+          "disposition": "published_value",
+          "value": 4700,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 25d equals lines 25a, 25b, and 25c added together.",
+            "render": "{value}"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25d",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "33": {
+          "disposition": "published_value",
+          "value": 4700,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 33 equals line 25d plus line 26 plus line 32.",
+            "render": "{value}"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line33",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "37": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 37 publishes a computed zero.",
+            "render": "0"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line37",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        }
+      },
+      "page_sentences": [],
+      "page_has_amount_prompt": false
+    },
+    {
+      "id": "single.mixed-no-yes-200",
+      "answers": [
+        [
+          "no",
+          null
+        ],
+        [
+          "yes",
+          200
+        ]
+      ],
+      "present": "no",
+      "return_amount": null,
+      "truthful": true,
+      "outcome": "success",
+      "lines": {
+        "25b": {
+          "disposition": "published_value",
+          "value": 200,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 25b is the total of the 1099-document withholding amounts, with cents included, rounded once to whole dollars: Forms 1099-INT, 1099-DIV and 1099-R box 4, Form 1099-G box 4, Form SSA-1099 box 6, and Form 1099-B box 4 backup withholding. That total includes backup withholding from a Form 1099-B with no closed sale, excluding an amount already entered, with or without a sale.",
+            "render": "{value}"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25b",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "25d": {
+          "disposition": "published_value",
+          "value": 4700,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 25d equals lines 25a, 25b, and 25c added together.",
+            "render": "{value}"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25d",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "33": {
+          "disposition": "published_value",
+          "value": 4700,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 33 equals line 25d plus line 26 plus line 32.",
+            "render": "{value}"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line33",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "37": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 37 publishes a computed zero.",
+            "render": "0"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line37",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        }
+      },
+      "page_sentences": [],
+      "page_has_amount_prompt": false
+    },
+    {
+      "id": "single.mixed-no-yes-absent",
+      "answers": [
+        [
+          "no",
+          null
+        ],
+        [
+          "yes",
+          null
+        ]
+      ],
+      "present": "no",
+      "return_amount": null,
+      "truthful": true,
+      "outcome": "success",
+      "lines": {
+        "25b": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID",
+              "SOURCE_SET_UNCLOSED"
+            ],
+            "explain": "Form 1040 line 25b is blocked because an input it needs is missing or not yet closed. It is also blocked while a recorded sale's statement has no box 4 amount, and while it is unanswered whether a Form 1099-B shows box 4 withholding and no closed sale, other than a statement whose box 4 you already entered, with or without a sale.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25b",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.f1099b.statement-box4-withholding"
+              ],
+              "value": null
+            }
+          ]
+        },
+        "25d": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID",
+              "SOURCE_SET_UNCLOSED"
+            ],
+            "explain": "Form 1040 line 25d is blocked because an input it needs is missing or not yet closed.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25d",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.payments.line25b"
+              ],
+              "value": null
+            }
+          ]
+        },
+        "33": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "Form 1040 line 33 is blocked because an input it needs is missing or invalid.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line33",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.payments.line25d"
+              ],
+              "value": null
+            }
+          ]
+        },
+        "37": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "Form 1040 line 37 is blocked because an input it needs is missing, invalid, or (line 36) exceeds line 34.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line37",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.payments.line33"
+              ],
+              "value": null
+            }
+          ]
+        }
+      },
+      "page_sentences": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "page_has_amount_prompt": true
+    },
+    {
+      "id": "single.mixed-no-unanswered",
+      "answers": [
+        [
+          "no",
+          null
+        ],
+        [
+          null,
+          null
+        ]
+      ],
+      "present": "no",
+      "return_amount": null,
+      "truthful": true,
+      "outcome": "success",
+      "lines": {
+        "25b": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID",
+              "SOURCE_SET_UNCLOSED"
+            ],
+            "explain": "Form 1040 line 25b is blocked because an input it needs is missing or not yet closed. It is also blocked while a recorded sale's statement has no box 4 amount, and while it is unanswered whether a Form 1099-B shows box 4 withholding and no closed sale, other than a statement whose box 4 you already entered, with or without a sale.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25b",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.f1099b.statement-box4-withholding"
+              ],
+              "value": null
+            }
+          ]
+        },
+        "25d": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID",
+              "SOURCE_SET_UNCLOSED"
+            ],
+            "explain": "Form 1040 line 25d is blocked because an input it needs is missing or not yet closed.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25d",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.payments.line25b"
+              ],
+              "value": null
+            }
+          ]
+        },
+        "33": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "Form 1040 line 33 is blocked because an input it needs is missing or invalid.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line33",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.payments.line25d"
+              ],
+              "value": null
+            }
+          ]
+        },
+        "37": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "Form 1040 line 37 is blocked because an input it needs is missing, invalid, or (line 36) exceeds line 34.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line37",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.payments.line33"
+              ],
+              "value": null
+            }
+          ]
+        }
+      },
+      "page_sentences": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "page_has_amount_prompt": true
+    },
+    {
+      "id": "single.two-no",
+      "answers": [
+        [
+          "no",
+          null
+        ],
+        [
+          "no",
+          null
+        ]
+      ],
+      "present": "no",
+      "return_amount": null,
+      "truthful": true,
+      "outcome": "success",
+      "lines": {
+        "25b": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 25b publishes a computed zero.",
+            "render": "0"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25b",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "25d": {
+          "disposition": "published_value",
+          "value": 4500,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 25d equals lines 25a, 25b, and 25c added together.",
+            "render": "{value}"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25d",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "33": {
+          "disposition": "published_value",
+          "value": 4500,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 33 equals line 25d plus line 26 plus line 32.",
+            "render": "{value}"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line33",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "37": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 37 publishes a computed zero.",
+            "render": "0"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line37",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        }
+      },
+      "page_sentences": [],
+      "page_has_amount_prompt": false
+    },
+    {
+      "id": "single.return-yes-150",
+      "answers": [
+        [
+          "no",
+          null
+        ]
+      ],
+      "present": "yes",
+      "return_amount": 150,
+      "truthful": true,
+      "outcome": "success",
+      "lines": {
+        "25b": {
+          "disposition": "published_value",
+          "value": 150,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 25b is the total of the 1099-document withholding amounts, with cents included, rounded once to whole dollars: Forms 1099-INT, 1099-DIV and 1099-R box 4, Form 1099-G box 4, Form SSA-1099 box 6, and Form 1099-B box 4 backup withholding. That total includes backup withholding from a Form 1099-B with no closed sale, excluding an amount already entered, with or without a sale.",
+            "render": "{value}"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25b",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "25d": {
+          "disposition": "published_value",
+          "value": 4650,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 25d equals lines 25a, 25b, and 25c added together.",
+            "render": "{value}"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25d",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "33": {
+          "disposition": "published_value",
+          "value": 4650,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 33 equals line 25d plus line 26 plus line 32.",
+            "render": "{value}"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line33",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "37": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 37 publishes a computed zero.",
+            "render": "0"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line37",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        }
+      },
+      "page_sentences": [],
+      "page_has_amount_prompt": false
+    },
+    {
+      "id": "single.return-yes-absent",
+      "answers": [
+        [
+          "no",
+          null
+        ]
+      ],
+      "present": "yes",
+      "return_amount": null,
+      "truthful": true,
+      "outcome": "success",
+      "lines": {
+        "25b": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute statements that report no closed sale. Do not include a statement whose box 4 you already entered, with or without a sale. If more than one remaining statement, enter the total. If box 4 is blank, enter $0."
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID",
+              "SOURCE_SET_UNCLOSED"
+            ],
+            "explain": "Form 1040 line 25b is blocked because an input it needs is missing or not yet closed. It is also blocked while a recorded sale's statement has no box 4 amount, and while it is unanswered whether a Form 1099-B shows box 4 withholding and no closed sale, other than a statement whose box 4 you already entered, with or without a sale.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25b",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.f1099b.no-sale-box4-withholding"
+              ],
+              "value": null
+            }
+          ]
+        },
+        "25d": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute statements that report no closed sale. Do not include a statement whose box 4 you already entered, with or without a sale. If more than one remaining statement, enter the total. If box 4 is blank, enter $0."
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID",
+              "SOURCE_SET_UNCLOSED"
+            ],
+            "explain": "Form 1040 line 25d is blocked because an input it needs is missing or not yet closed.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25d",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.payments.line25b"
+              ],
+              "value": null
+            }
+          ]
+        },
+        "33": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute statements that report no closed sale. Do not include a statement whose box 4 you already entered, with or without a sale. If more than one remaining statement, enter the total. If box 4 is blank, enter $0."
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "Form 1040 line 33 is blocked because an input it needs is missing or invalid.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line33",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.payments.line25d"
+              ],
+              "value": null
+            }
+          ]
+        },
+        "37": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute statements that report no closed sale. Do not include a statement whose box 4 you already entered, with or without a sale. If more than one remaining statement, enter the total. If box 4 is blank, enter $0."
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "Form 1040 line 37 is blocked because an input it needs is missing, invalid, or (line 36) exceeds line 34.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line37",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.payments.line33"
+              ],
+              "value": null
+            }
+          ]
+        }
+      },
+      "page_sentences": [
+        "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute statements that report no closed sale. Do not include a statement whose box 4 you already entered, with or without a sale. If more than one remaining statement, enter the total. If box 4 is blank, enter $0."
+      ],
+      "page_has_amount_prompt": false
+    },
+    {
+      "id": "single.no-1099b",
+      "answers": [],
+      "present": "no",
+      "return_amount": null,
+      "truthful": true,
+      "outcome": "success",
+      "lines": {
+        "25b": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 25b publishes a computed zero.",
+            "render": "0"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25b",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "25d": {
+          "disposition": "published_value",
+          "value": 4500,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 25d equals lines 25a, 25b, and 25c added together.",
+            "render": "{value}"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25d",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "33": {
+          "disposition": "published_value",
+          "value": 4500,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 33 equals line 25d plus line 26 plus line 32.",
+            "render": "{value}"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line33",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "37": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 37 publishes a computed zero.",
+            "render": "0"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line37",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        }
+      },
+      "page_sentences": [],
+      "page_has_amount_prompt": false
+    },
+    {
+      "id": "married_filing_jointly.yes-200",
+      "answers": [
+        [
+          "yes",
+          200
+        ]
+      ],
+      "present": "no",
+      "return_amount": null,
+      "truthful": true,
+      "outcome": "success",
+      "lines": {
+        "25b": {
+          "disposition": "published_value",
+          "value": 200,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 25b is the total of the 1099-document withholding amounts, with cents included, rounded once to whole dollars: Forms 1099-INT, 1099-DIV and 1099-R box 4, Form 1099-G box 4, Form SSA-1099 box 6, and Form 1099-B box 4 backup withholding. That total includes backup withholding from a Form 1099-B with no closed sale, excluding an amount already entered, with or without a sale.",
+            "render": "{value}"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25b",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "25d": {
+          "disposition": "published_value",
+          "value": 4700,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 25d equals lines 25a, 25b, and 25c added together.",
+            "render": "{value}"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25d",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "33": {
+          "disposition": "published_value",
+          "value": 4700,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 33 equals line 25d plus line 26 plus line 32.",
+            "render": "{value}"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line33",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "37": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 37 publishes a computed zero.",
+            "render": "0"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line37",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        }
+      },
+      "page_sentences": [],
+      "page_has_amount_prompt": false
+    },
+    {
+      "id": "married_filing_jointly.yes-absent",
+      "answers": [
+        [
+          "yes",
+          null
+        ]
+      ],
+      "present": "no",
+      "return_amount": null,
+      "truthful": true,
+      "outcome": "success",
+      "lines": {
+        "25b": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID",
+              "SOURCE_SET_UNCLOSED"
+            ],
+            "explain": "Form 1040 line 25b is blocked because an input it needs is missing or not yet closed. It is also blocked while a recorded sale's statement has no box 4 amount, and while it is unanswered whether a Form 1099-B shows box 4 withholding and no closed sale, other than a statement whose box 4 you already entered, with or without a sale.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25b",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.f1099b.statement-box4-withholding"
+              ],
+              "value": null
+            }
+          ]
+        },
+        "25d": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID",
+              "SOURCE_SET_UNCLOSED"
+            ],
+            "explain": "Form 1040 line 25d is blocked because an input it needs is missing or not yet closed.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25d",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.payments.line25b"
+              ],
+              "value": null
+            }
+          ]
+        },
+        "33": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "Form 1040 line 33 is blocked because an input it needs is missing or invalid.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line33",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.payments.line25d"
+              ],
+              "value": null
+            }
+          ]
+        },
+        "37": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "Form 1040 line 37 is blocked because an input it needs is missing, invalid, or (line 36) exceeds line 34.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line37",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.payments.line33"
+              ],
+              "value": null
+            }
+          ]
+        }
+      },
+      "page_sentences": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "page_has_amount_prompt": true
+    },
+    {
+      "id": "married_filing_jointly.no-absent",
+      "answers": [
+        [
+          "no",
+          null
+        ]
+      ],
+      "present": "no",
+      "return_amount": null,
+      "truthful": true,
+      "outcome": "success",
+      "lines": {
+        "25b": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 25b publishes a computed zero.",
+            "render": "0"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25b",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "25d": {
+          "disposition": "published_value",
+          "value": 4500,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 25d equals lines 25a, 25b, and 25c added together.",
+            "render": "{value}"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25d",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "33": {
+          "disposition": "published_value",
+          "value": 4500,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 33 equals line 25d plus line 26 plus line 32.",
+            "render": "{value}"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line33",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "37": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 37 publishes a computed zero.",
+            "render": "0"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line37",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        }
+      },
+      "page_sentences": [],
+      "page_has_amount_prompt": false
+    },
+    {
+      "id": "married_filing_jointly.no-zero",
+      "answers": [
+        [
+          "no",
+          0
+        ]
+      ],
+      "present": "no",
+      "return_amount": null,
+      "truthful": true,
+      "outcome": "success",
+      "lines": {
+        "25b": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 25b publishes a computed zero.",
+            "render": "0"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25b",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "25d": {
+          "disposition": "published_value",
+          "value": 4500,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 25d equals lines 25a, 25b, and 25c added together.",
+            "render": "{value}"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25d",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "33": {
+          "disposition": "published_value",
+          "value": 4500,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 33 equals line 25d plus line 26 plus line 32.",
+            "render": "{value}"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line33",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "37": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 37 publishes a computed zero.",
+            "render": "0"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line37",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        }
+      },
+      "page_sentences": [],
+      "page_has_amount_prompt": false
+    },
+    {
+      "id": "married_filing_jointly.no-200",
+      "answers": [
+        [
+          "no",
+          200
+        ]
+      ],
+      "present": "no",
+      "return_amount": null,
+      "truthful": false,
+      "outcome": "success",
+      "lines": {
+        "25b": {
+          "disposition": "published_value",
+          "value": 200,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 25b is the total of the 1099-document withholding amounts, with cents included, rounded once to whole dollars: Forms 1099-INT, 1099-DIV and 1099-R box 4, Form 1099-G box 4, Form SSA-1099 box 6, and Form 1099-B box 4 backup withholding. That total includes backup withholding from a Form 1099-B with no closed sale, excluding an amount already entered, with or without a sale.",
+            "render": "{value}"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25b",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "25d": {
+          "disposition": "published_value",
+          "value": 4700,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 25d equals lines 25a, 25b, and 25c added together.",
+            "render": "{value}"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25d",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "33": {
+          "disposition": "published_value",
+          "value": 4700,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 33 equals line 25d plus line 26 plus line 32.",
+            "render": "{value}"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line33",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "37": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 37 publishes a computed zero.",
+            "render": "0"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line37",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        }
+      },
+      "page_sentences": [],
+      "page_has_amount_prompt": false
+    },
+    {
+      "id": "married_filing_jointly.unanswered",
+      "answers": [
+        [
+          null,
+          null
+        ]
+      ],
+      "present": "no",
+      "return_amount": null,
+      "truthful": true,
+      "outcome": "success",
+      "lines": {
+        "25b": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID",
+              "SOURCE_SET_UNCLOSED"
+            ],
+            "explain": "Form 1040 line 25b is blocked because an input it needs is missing or not yet closed. It is also blocked while a recorded sale's statement has no box 4 amount, and while it is unanswered whether a Form 1099-B shows box 4 withholding and no closed sale, other than a statement whose box 4 you already entered, with or without a sale.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25b",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.f1099b.statement-box4-withholding"
+              ],
+              "value": null
+            }
+          ]
+        },
+        "25d": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID",
+              "SOURCE_SET_UNCLOSED"
+            ],
+            "explain": "Form 1040 line 25d is blocked because an input it needs is missing or not yet closed.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25d",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.payments.line25b"
+              ],
+              "value": null
+            }
+          ]
+        },
+        "33": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "Form 1040 line 33 is blocked because an input it needs is missing or invalid.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line33",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.payments.line25d"
+              ],
+              "value": null
+            }
+          ]
+        },
+        "37": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "Form 1040 line 37 is blocked because an input it needs is missing, invalid, or (line 36) exceeds line 34.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line37",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.payments.line33"
+              ],
+              "value": null
+            }
+          ]
+        }
+      },
+      "page_sentences": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "page_has_amount_prompt": true
+    },
+    {
+      "id": "married_filing_jointly.unanswered-200",
+      "answers": [
+        [
+          null,
+          200
+        ]
+      ],
+      "present": "no",
+      "return_amount": null,
+      "truthful": true,
+      "outcome": "success",
+      "lines": {
+        "25b": {
+          "disposition": "published_value",
+          "value": 200,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 25b is the total of the 1099-document withholding amounts, with cents included, rounded once to whole dollars: Forms 1099-INT, 1099-DIV and 1099-R box 4, Form 1099-G box 4, Form SSA-1099 box 6, and Form 1099-B box 4 backup withholding. That total includes backup withholding from a Form 1099-B with no closed sale, excluding an amount already entered, with or without a sale.",
+            "render": "{value}"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25b",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "25d": {
+          "disposition": "published_value",
+          "value": 4700,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 25d equals lines 25a, 25b, and 25c added together.",
+            "render": "{value}"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25d",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "33": {
+          "disposition": "published_value",
+          "value": 4700,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 33 equals line 25d plus line 26 plus line 32.",
+            "render": "{value}"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line33",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "37": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 37 publishes a computed zero.",
+            "render": "0"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line37",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        }
+      },
+      "page_sentences": [],
+      "page_has_amount_prompt": false
+    },
+    {
+      "id": "married_filing_jointly.mixed-no-yes-200",
+      "answers": [
+        [
+          "no",
+          null
+        ],
+        [
+          "yes",
+          200
+        ]
+      ],
+      "present": "no",
+      "return_amount": null,
+      "truthful": true,
+      "outcome": "success",
+      "lines": {
+        "25b": {
+          "disposition": "published_value",
+          "value": 200,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 25b is the total of the 1099-document withholding amounts, with cents included, rounded once to whole dollars: Forms 1099-INT, 1099-DIV and 1099-R box 4, Form 1099-G box 4, Form SSA-1099 box 6, and Form 1099-B box 4 backup withholding. That total includes backup withholding from a Form 1099-B with no closed sale, excluding an amount already entered, with or without a sale.",
+            "render": "{value}"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25b",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "25d": {
+          "disposition": "published_value",
+          "value": 4700,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 25d equals lines 25a, 25b, and 25c added together.",
+            "render": "{value}"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25d",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "33": {
+          "disposition": "published_value",
+          "value": 4700,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 33 equals line 25d plus line 26 plus line 32.",
+            "render": "{value}"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line33",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "37": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 37 publishes a computed zero.",
+            "render": "0"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line37",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        }
+      },
+      "page_sentences": [],
+      "page_has_amount_prompt": false
+    },
+    {
+      "id": "married_filing_jointly.mixed-no-yes-absent",
+      "answers": [
+        [
+          "no",
+          null
+        ],
+        [
+          "yes",
+          null
+        ]
+      ],
+      "present": "no",
+      "return_amount": null,
+      "truthful": true,
+      "outcome": "success",
+      "lines": {
+        "25b": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID",
+              "SOURCE_SET_UNCLOSED"
+            ],
+            "explain": "Form 1040 line 25b is blocked because an input it needs is missing or not yet closed. It is also blocked while a recorded sale's statement has no box 4 amount, and while it is unanswered whether a Form 1099-B shows box 4 withholding and no closed sale, other than a statement whose box 4 you already entered, with or without a sale.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25b",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.f1099b.statement-box4-withholding"
+              ],
+              "value": null
+            }
+          ]
+        },
+        "25d": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID",
+              "SOURCE_SET_UNCLOSED"
+            ],
+            "explain": "Form 1040 line 25d is blocked because an input it needs is missing or not yet closed.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25d",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.payments.line25b"
+              ],
+              "value": null
+            }
+          ]
+        },
+        "33": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "Form 1040 line 33 is blocked because an input it needs is missing or invalid.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line33",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.payments.line25d"
+              ],
+              "value": null
+            }
+          ]
+        },
+        "37": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "Form 1040 line 37 is blocked because an input it needs is missing, invalid, or (line 36) exceeds line 34.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line37",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.payments.line33"
+              ],
+              "value": null
+            }
+          ]
+        }
+      },
+      "page_sentences": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "page_has_amount_prompt": true
+    },
+    {
+      "id": "married_filing_jointly.mixed-no-unanswered",
+      "answers": [
+        [
+          "no",
+          null
+        ],
+        [
+          null,
+          null
+        ]
+      ],
+      "present": "no",
+      "return_amount": null,
+      "truthful": true,
+      "outcome": "success",
+      "lines": {
+        "25b": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID",
+              "SOURCE_SET_UNCLOSED"
+            ],
+            "explain": "Form 1040 line 25b is blocked because an input it needs is missing or not yet closed. It is also blocked while a recorded sale's statement has no box 4 amount, and while it is unanswered whether a Form 1099-B shows box 4 withholding and no closed sale, other than a statement whose box 4 you already entered, with or without a sale.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25b",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.f1099b.statement-box4-withholding"
+              ],
+              "value": null
+            }
+          ]
+        },
+        "25d": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID",
+              "SOURCE_SET_UNCLOSED"
+            ],
+            "explain": "Form 1040 line 25d is blocked because an input it needs is missing or not yet closed.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25d",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.payments.line25b"
+              ],
+              "value": null
+            }
+          ]
+        },
+        "33": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "Form 1040 line 33 is blocked because an input it needs is missing or invalid.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line33",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.payments.line25d"
+              ],
+              "value": null
+            }
+          ]
+        },
+        "37": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "Form 1040 line 37 is blocked because an input it needs is missing, invalid, or (line 36) exceeds line 34.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line37",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.payments.line33"
+              ],
+              "value": null
+            }
+          ]
+        }
+      },
+      "page_sentences": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "page_has_amount_prompt": true
+    },
+    {
+      "id": "married_filing_jointly.two-no",
+      "answers": [
+        [
+          "no",
+          null
+        ],
+        [
+          "no",
+          null
+        ]
+      ],
+      "present": "no",
+      "return_amount": null,
+      "truthful": true,
+      "outcome": "success",
+      "lines": {
+        "25b": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 25b publishes a computed zero.",
+            "render": "0"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25b",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "25d": {
+          "disposition": "published_value",
+          "value": 4500,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 25d equals lines 25a, 25b, and 25c added together.",
+            "render": "{value}"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25d",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "33": {
+          "disposition": "published_value",
+          "value": 4500,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 33 equals line 25d plus line 26 plus line 32.",
+            "render": "{value}"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line33",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "37": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 37 publishes a computed zero.",
+            "render": "0"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line37",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        }
+      },
+      "page_sentences": [],
+      "page_has_amount_prompt": false
+    },
+    {
+      "id": "married_filing_jointly.return-yes-150",
+      "answers": [
+        [
+          "no",
+          null
+        ]
+      ],
+      "present": "yes",
+      "return_amount": 150,
+      "truthful": true,
+      "outcome": "success",
+      "lines": {
+        "25b": {
+          "disposition": "published_value",
+          "value": 150,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 25b is the total of the 1099-document withholding amounts, with cents included, rounded once to whole dollars: Forms 1099-INT, 1099-DIV and 1099-R box 4, Form 1099-G box 4, Form SSA-1099 box 6, and Form 1099-B box 4 backup withholding. That total includes backup withholding from a Form 1099-B with no closed sale, excluding an amount already entered, with or without a sale.",
+            "render": "{value}"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25b",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "25d": {
+          "disposition": "published_value",
+          "value": 4650,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 25d equals lines 25a, 25b, and 25c added together.",
+            "render": "{value}"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25d",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "33": {
+          "disposition": "published_value",
+          "value": 4650,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 33 equals line 25d plus line 26 plus line 32.",
+            "render": "{value}"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line33",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "37": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 37 publishes a computed zero.",
+            "render": "0"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line37",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        }
+      },
+      "page_sentences": [],
+      "page_has_amount_prompt": false
+    },
+    {
+      "id": "married_filing_jointly.return-yes-absent",
+      "answers": [
+        [
+          "no",
+          null
+        ]
+      ],
+      "present": "yes",
+      "return_amount": null,
+      "truthful": true,
+      "outcome": "success",
+      "lines": {
+        "25b": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute statements that report no closed sale. Do not include a statement whose box 4 you already entered, with or without a sale. If more than one remaining statement, enter the total. If box 4 is blank, enter $0."
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID",
+              "SOURCE_SET_UNCLOSED"
+            ],
+            "explain": "Form 1040 line 25b is blocked because an input it needs is missing or not yet closed. It is also blocked while a recorded sale's statement has no box 4 amount, and while it is unanswered whether a Form 1099-B shows box 4 withholding and no closed sale, other than a statement whose box 4 you already entered, with or without a sale.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25b",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.f1099b.no-sale-box4-withholding"
+              ],
+              "value": null
+            }
+          ]
+        },
+        "25d": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute statements that report no closed sale. Do not include a statement whose box 4 you already entered, with or without a sale. If more than one remaining statement, enter the total. If box 4 is blank, enter $0."
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID",
+              "SOURCE_SET_UNCLOSED"
+            ],
+            "explain": "Form 1040 line 25d is blocked because an input it needs is missing or not yet closed.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25d",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.payments.line25b"
+              ],
+              "value": null
+            }
+          ]
+        },
+        "33": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute statements that report no closed sale. Do not include a statement whose box 4 you already entered, with or without a sale. If more than one remaining statement, enter the total. If box 4 is blank, enter $0."
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "Form 1040 line 33 is blocked because an input it needs is missing or invalid.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line33",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.payments.line25d"
+              ],
+              "value": null
+            }
+          ]
+        },
+        "37": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute statements that report no closed sale. Do not include a statement whose box 4 you already entered, with or without a sale. If more than one remaining statement, enter the total. If box 4 is blank, enter $0."
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "Form 1040 line 37 is blocked because an input it needs is missing, invalid, or (line 36) exceeds line 34.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line37",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.payments.line33"
+              ],
+              "value": null
+            }
+          ]
+        }
+      },
+      "page_sentences": [
+        "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute statements that report no closed sale. Do not include a statement whose box 4 you already entered, with or without a sale. If more than one remaining statement, enter the total. If box 4 is blank, enter $0."
+      ],
+      "page_has_amount_prompt": false
+    },
+    {
+      "id": "married_filing_jointly.no-1099b",
+      "answers": [],
+      "present": "no",
+      "return_amount": null,
+      "truthful": true,
+      "outcome": "success",
+      "lines": {
+        "25b": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 25b publishes a computed zero.",
+            "render": "0"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25b",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "25d": {
+          "disposition": "published_value",
+          "value": 4500,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 25d equals lines 25a, 25b, and 25c added together.",
+            "render": "{value}"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25d",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "33": {
+          "disposition": "published_value",
+          "value": 4500,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 33 equals line 25d plus line 26 plus line 32.",
+            "render": "{value}"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line33",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "37": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 37 publishes a computed zero.",
+            "render": "0"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line37",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        }
+      },
+      "page_sentences": [],
+      "page_has_amount_prompt": false
+    },
+    {
+      "id": "married_filing_separately.yes-200",
+      "answers": [
+        [
+          "yes",
+          200
+        ]
+      ],
+      "present": "no",
+      "return_amount": null,
+      "truthful": true,
+      "outcome": "success",
+      "lines": {
+        "25b": {
+          "disposition": "published_value",
+          "value": 200,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 25b is the total of the 1099-document withholding amounts, with cents included, rounded once to whole dollars: Forms 1099-INT, 1099-DIV and 1099-R box 4, Form 1099-G box 4, Form SSA-1099 box 6, and Form 1099-B box 4 backup withholding. That total includes backup withholding from a Form 1099-B with no closed sale, excluding an amount already entered, with or without a sale.",
+            "render": "{value}"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25b",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "25d": {
+          "disposition": "published_value",
+          "value": 4700,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 25d equals lines 25a, 25b, and 25c added together.",
+            "render": "{value}"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25d",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "33": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "Form 1040 line 33 is blocked because an input it needs is missing or invalid.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line33",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.payments.line32"
+              ],
+              "value": null
+            }
+          ]
+        },
+        "37": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "Form 1040 line 37 is blocked because an input it needs is missing, invalid, or (line 36) exceeds line 34.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line37",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.tax.line24-total-tax",
+                "tax.us.2025.payments.line33"
+              ],
+              "value": null
+            }
+          ]
+        }
+      },
+      "page_sentences": [
+        "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+      ],
+      "page_has_amount_prompt": false
+    },
+    {
+      "id": "married_filing_separately.yes-absent",
+      "answers": [
+        [
+          "yes",
+          null
+        ]
+      ],
+      "present": "no",
+      "return_amount": null,
+      "truthful": true,
+      "outcome": "success",
+      "lines": {
+        "25b": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID",
+              "SOURCE_SET_UNCLOSED"
+            ],
+            "explain": "Form 1040 line 25b is blocked because an input it needs is missing or not yet closed. It is also blocked while a recorded sale's statement has no box 4 amount, and while it is unanswered whether a Form 1099-B shows box 4 withholding and no closed sale, other than a statement whose box 4 you already entered, with or without a sale.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25b",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.f1099b.statement-box4-withholding"
+              ],
+              "value": null
+            }
+          ]
+        },
+        "25d": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID",
+              "SOURCE_SET_UNCLOSED"
+            ],
+            "explain": "Form 1040 line 25d is blocked because an input it needs is missing or not yet closed.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25d",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.payments.line25b"
+              ],
+              "value": null
+            }
+          ]
+        },
+        "33": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+            },
+            {
+              "sentence": "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "Form 1040 line 33 is blocked because an input it needs is missing or invalid.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line33",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.payments.line25d",
+                "tax.us.2025.payments.line32"
+              ],
+              "value": null
+            }
+          ]
+        },
+        "37": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+            },
+            {
+              "sentence": "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "Form 1040 line 37 is blocked because an input it needs is missing, invalid, or (line 36) exceeds line 34.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line37",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.tax.line24-total-tax",
+                "tax.us.2025.payments.line33"
+              ],
+              "value": null
+            }
+          ]
+        }
+      },
+      "page_sentences": [
+        "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?",
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "page_has_amount_prompt": true
+    },
+    {
+      "id": "married_filing_separately.no-absent",
+      "answers": [
+        [
+          "no",
+          null
+        ]
+      ],
+      "present": "no",
+      "return_amount": null,
+      "truthful": true,
+      "outcome": "success",
+      "lines": {
+        "25b": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 25b publishes a computed zero.",
+            "render": "0"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25b",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "25d": {
+          "disposition": "published_value",
+          "value": 4500,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 25d equals lines 25a, 25b, and 25c added together.",
+            "render": "{value}"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25d",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "33": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "Form 1040 line 33 is blocked because an input it needs is missing or invalid.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line33",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.payments.line32"
+              ],
+              "value": null
+            }
+          ]
+        },
+        "37": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "Form 1040 line 37 is blocked because an input it needs is missing, invalid, or (line 36) exceeds line 34.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line37",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.tax.line24-total-tax",
+                "tax.us.2025.payments.line33"
+              ],
+              "value": null
+            }
+          ]
+        }
+      },
+      "page_sentences": [
+        "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+      ],
+      "page_has_amount_prompt": false
+    },
+    {
+      "id": "married_filing_separately.no-zero",
+      "answers": [
+        [
+          "no",
+          0
+        ]
+      ],
+      "present": "no",
+      "return_amount": null,
+      "truthful": true,
+      "outcome": "success",
+      "lines": {
+        "25b": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 25b publishes a computed zero.",
+            "render": "0"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25b",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "25d": {
+          "disposition": "published_value",
+          "value": 4500,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 25d equals lines 25a, 25b, and 25c added together.",
+            "render": "{value}"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25d",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "33": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "Form 1040 line 33 is blocked because an input it needs is missing or invalid.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line33",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.payments.line32"
+              ],
+              "value": null
+            }
+          ]
+        },
+        "37": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "Form 1040 line 37 is blocked because an input it needs is missing, invalid, or (line 36) exceeds line 34.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line37",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.tax.line24-total-tax",
+                "tax.us.2025.payments.line33"
+              ],
+              "value": null
+            }
+          ]
+        }
+      },
+      "page_sentences": [
+        "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+      ],
+      "page_has_amount_prompt": false
+    },
+    {
+      "id": "married_filing_separately.no-200",
+      "answers": [
+        [
+          "no",
+          200
+        ]
+      ],
+      "present": "no",
+      "return_amount": null,
+      "truthful": false,
+      "outcome": "success",
+      "lines": {
+        "25b": {
+          "disposition": "published_value",
+          "value": 200,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 25b is the total of the 1099-document withholding amounts, with cents included, rounded once to whole dollars: Forms 1099-INT, 1099-DIV and 1099-R box 4, Form 1099-G box 4, Form SSA-1099 box 6, and Form 1099-B box 4 backup withholding. That total includes backup withholding from a Form 1099-B with no closed sale, excluding an amount already entered, with or without a sale.",
+            "render": "{value}"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25b",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "25d": {
+          "disposition": "published_value",
+          "value": 4700,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 25d equals lines 25a, 25b, and 25c added together.",
+            "render": "{value}"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25d",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "33": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "Form 1040 line 33 is blocked because an input it needs is missing or invalid.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line33",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.payments.line32"
+              ],
+              "value": null
+            }
+          ]
+        },
+        "37": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "Form 1040 line 37 is blocked because an input it needs is missing, invalid, or (line 36) exceeds line 34.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line37",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.tax.line24-total-tax",
+                "tax.us.2025.payments.line33"
+              ],
+              "value": null
+            }
+          ]
+        }
+      },
+      "page_sentences": [
+        "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+      ],
+      "page_has_amount_prompt": false
+    },
+    {
+      "id": "married_filing_separately.unanswered",
+      "answers": [
+        [
+          null,
+          null
+        ]
+      ],
+      "present": "no",
+      "return_amount": null,
+      "truthful": true,
+      "outcome": "success",
+      "lines": {
+        "25b": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID",
+              "SOURCE_SET_UNCLOSED"
+            ],
+            "explain": "Form 1040 line 25b is blocked because an input it needs is missing or not yet closed. It is also blocked while a recorded sale's statement has no box 4 amount, and while it is unanswered whether a Form 1099-B shows box 4 withholding and no closed sale, other than a statement whose box 4 you already entered, with or without a sale.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25b",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.f1099b.statement-box4-withholding"
+              ],
+              "value": null
+            }
+          ]
+        },
+        "25d": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID",
+              "SOURCE_SET_UNCLOSED"
+            ],
+            "explain": "Form 1040 line 25d is blocked because an input it needs is missing or not yet closed.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25d",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.payments.line25b"
+              ],
+              "value": null
+            }
+          ]
+        },
+        "33": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+            },
+            {
+              "sentence": "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "Form 1040 line 33 is blocked because an input it needs is missing or invalid.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line33",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.payments.line25d",
+                "tax.us.2025.payments.line32"
+              ],
+              "value": null
+            }
+          ]
+        },
+        "37": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+            },
+            {
+              "sentence": "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "Form 1040 line 37 is blocked because an input it needs is missing, invalid, or (line 36) exceeds line 34.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line37",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.tax.line24-total-tax",
+                "tax.us.2025.payments.line33"
+              ],
+              "value": null
+            }
+          ]
+        }
+      },
+      "page_sentences": [
+        "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?",
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "page_has_amount_prompt": true
+    },
+    {
+      "id": "married_filing_separately.unanswered-200",
+      "answers": [
+        [
+          null,
+          200
+        ]
+      ],
+      "present": "no",
+      "return_amount": null,
+      "truthful": true,
+      "outcome": "success",
+      "lines": {
+        "25b": {
+          "disposition": "published_value",
+          "value": 200,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 25b is the total of the 1099-document withholding amounts, with cents included, rounded once to whole dollars: Forms 1099-INT, 1099-DIV and 1099-R box 4, Form 1099-G box 4, Form SSA-1099 box 6, and Form 1099-B box 4 backup withholding. That total includes backup withholding from a Form 1099-B with no closed sale, excluding an amount already entered, with or without a sale.",
+            "render": "{value}"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25b",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "25d": {
+          "disposition": "published_value",
+          "value": 4700,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 25d equals lines 25a, 25b, and 25c added together.",
+            "render": "{value}"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25d",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "33": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "Form 1040 line 33 is blocked because an input it needs is missing or invalid.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line33",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.payments.line32"
+              ],
+              "value": null
+            }
+          ]
+        },
+        "37": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "Form 1040 line 37 is blocked because an input it needs is missing, invalid, or (line 36) exceeds line 34.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line37",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.tax.line24-total-tax",
+                "tax.us.2025.payments.line33"
+              ],
+              "value": null
+            }
+          ]
+        }
+      },
+      "page_sentences": [
+        "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+      ],
+      "page_has_amount_prompt": false
+    },
+    {
+      "id": "married_filing_separately.mixed-no-yes-200",
+      "answers": [
+        [
+          "no",
+          null
+        ],
+        [
+          "yes",
+          200
+        ]
+      ],
+      "present": "no",
+      "return_amount": null,
+      "truthful": true,
+      "outcome": "success",
+      "lines": {
+        "25b": {
+          "disposition": "published_value",
+          "value": 200,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 25b is the total of the 1099-document withholding amounts, with cents included, rounded once to whole dollars: Forms 1099-INT, 1099-DIV and 1099-R box 4, Form 1099-G box 4, Form SSA-1099 box 6, and Form 1099-B box 4 backup withholding. That total includes backup withholding from a Form 1099-B with no closed sale, excluding an amount already entered, with or without a sale.",
+            "render": "{value}"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25b",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "25d": {
+          "disposition": "published_value",
+          "value": 4700,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 25d equals lines 25a, 25b, and 25c added together.",
+            "render": "{value}"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25d",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "33": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "Form 1040 line 33 is blocked because an input it needs is missing or invalid.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line33",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.payments.line32"
+              ],
+              "value": null
+            }
+          ]
+        },
+        "37": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "Form 1040 line 37 is blocked because an input it needs is missing, invalid, or (line 36) exceeds line 34.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line37",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.tax.line24-total-tax",
+                "tax.us.2025.payments.line33"
+              ],
+              "value": null
+            }
+          ]
+        }
+      },
+      "page_sentences": [
+        "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+      ],
+      "page_has_amount_prompt": false
+    },
+    {
+      "id": "married_filing_separately.mixed-no-yes-absent",
+      "answers": [
+        [
+          "no",
+          null
+        ],
+        [
+          "yes",
+          null
+        ]
+      ],
+      "present": "no",
+      "return_amount": null,
+      "truthful": true,
+      "outcome": "success",
+      "lines": {
+        "25b": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID",
+              "SOURCE_SET_UNCLOSED"
+            ],
+            "explain": "Form 1040 line 25b is blocked because an input it needs is missing or not yet closed. It is also blocked while a recorded sale's statement has no box 4 amount, and while it is unanswered whether a Form 1099-B shows box 4 withholding and no closed sale, other than a statement whose box 4 you already entered, with or without a sale.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25b",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.f1099b.statement-box4-withholding"
+              ],
+              "value": null
+            }
+          ]
+        },
+        "25d": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID",
+              "SOURCE_SET_UNCLOSED"
+            ],
+            "explain": "Form 1040 line 25d is blocked because an input it needs is missing or not yet closed.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25d",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.payments.line25b"
+              ],
+              "value": null
+            }
+          ]
+        },
+        "33": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+            },
+            {
+              "sentence": "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "Form 1040 line 33 is blocked because an input it needs is missing or invalid.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line33",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.payments.line25d",
+                "tax.us.2025.payments.line32"
+              ],
+              "value": null
+            }
+          ]
+        },
+        "37": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+            },
+            {
+              "sentence": "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "Form 1040 line 37 is blocked because an input it needs is missing, invalid, or (line 36) exceeds line 34.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line37",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.tax.line24-total-tax",
+                "tax.us.2025.payments.line33"
+              ],
+              "value": null
+            }
+          ]
+        }
+      },
+      "page_sentences": [
+        "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?",
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "page_has_amount_prompt": true
+    },
+    {
+      "id": "married_filing_separately.mixed-no-unanswered",
+      "answers": [
+        [
+          "no",
+          null
+        ],
+        [
+          null,
+          null
+        ]
+      ],
+      "present": "no",
+      "return_amount": null,
+      "truthful": true,
+      "outcome": "success",
+      "lines": {
+        "25b": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID",
+              "SOURCE_SET_UNCLOSED"
+            ],
+            "explain": "Form 1040 line 25b is blocked because an input it needs is missing or not yet closed. It is also blocked while a recorded sale's statement has no box 4 amount, and while it is unanswered whether a Form 1099-B shows box 4 withholding and no closed sale, other than a statement whose box 4 you already entered, with or without a sale.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25b",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.f1099b.statement-box4-withholding"
+              ],
+              "value": null
+            }
+          ]
+        },
+        "25d": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID",
+              "SOURCE_SET_UNCLOSED"
+            ],
+            "explain": "Form 1040 line 25d is blocked because an input it needs is missing or not yet closed.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25d",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.payments.line25b"
+              ],
+              "value": null
+            }
+          ]
+        },
+        "33": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+            },
+            {
+              "sentence": "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "Form 1040 line 33 is blocked because an input it needs is missing or invalid.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line33",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.payments.line25d",
+                "tax.us.2025.payments.line32"
+              ],
+              "value": null
+            }
+          ]
+        },
+        "37": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+            },
+            {
+              "sentence": "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "Form 1040 line 37 is blocked because an input it needs is missing, invalid, or (line 36) exceeds line 34.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line37",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.tax.line24-total-tax",
+                "tax.us.2025.payments.line33"
+              ],
+              "value": null
+            }
+          ]
+        }
+      },
+      "page_sentences": [
+        "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?",
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "page_has_amount_prompt": true
+    },
+    {
+      "id": "married_filing_separately.two-no",
+      "answers": [
+        [
+          "no",
+          null
+        ],
+        [
+          "no",
+          null
+        ]
+      ],
+      "present": "no",
+      "return_amount": null,
+      "truthful": true,
+      "outcome": "success",
+      "lines": {
+        "25b": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 25b publishes a computed zero.",
+            "render": "0"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25b",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "25d": {
+          "disposition": "published_value",
+          "value": 4500,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 25d equals lines 25a, 25b, and 25c added together.",
+            "render": "{value}"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25d",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "33": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "Form 1040 line 33 is blocked because an input it needs is missing or invalid.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line33",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.payments.line32"
+              ],
+              "value": null
+            }
+          ]
+        },
+        "37": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "Form 1040 line 37 is blocked because an input it needs is missing, invalid, or (line 36) exceeds line 34.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line37",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.tax.line24-total-tax",
+                "tax.us.2025.payments.line33"
+              ],
+              "value": null
+            }
+          ]
+        }
+      },
+      "page_sentences": [
+        "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+      ],
+      "page_has_amount_prompt": false
+    },
+    {
+      "id": "married_filing_separately.return-yes-150",
+      "answers": [
+        [
+          "no",
+          null
+        ]
+      ],
+      "present": "yes",
+      "return_amount": 150,
+      "truthful": true,
+      "outcome": "success",
+      "lines": {
+        "25b": {
+          "disposition": "published_value",
+          "value": 150,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 25b is the total of the 1099-document withholding amounts, with cents included, rounded once to whole dollars: Forms 1099-INT, 1099-DIV and 1099-R box 4, Form 1099-G box 4, Form SSA-1099 box 6, and Form 1099-B box 4 backup withholding. That total includes backup withholding from a Form 1099-B with no closed sale, excluding an amount already entered, with or without a sale.",
+            "render": "{value}"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25b",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "25d": {
+          "disposition": "published_value",
+          "value": 4650,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 25d equals lines 25a, 25b, and 25c added together.",
+            "render": "{value}"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25d",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "33": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "Form 1040 line 33 is blocked because an input it needs is missing or invalid.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line33",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.payments.line32"
+              ],
+              "value": null
+            }
+          ]
+        },
+        "37": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "Form 1040 line 37 is blocked because an input it needs is missing, invalid, or (line 36) exceeds line 34.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line37",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.tax.line24-total-tax",
+                "tax.us.2025.payments.line33"
+              ],
+              "value": null
+            }
+          ]
+        }
+      },
+      "page_sentences": [
+        "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+      ],
+      "page_has_amount_prompt": false
+    },
+    {
+      "id": "married_filing_separately.return-yes-absent",
+      "answers": [
+        [
+          "no",
+          null
+        ]
+      ],
+      "present": "yes",
+      "return_amount": null,
+      "truthful": true,
+      "outcome": "success",
+      "lines": {
+        "25b": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute statements that report no closed sale. Do not include a statement whose box 4 you already entered, with or without a sale. If more than one remaining statement, enter the total. If box 4 is blank, enter $0."
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID",
+              "SOURCE_SET_UNCLOSED"
+            ],
+            "explain": "Form 1040 line 25b is blocked because an input it needs is missing or not yet closed. It is also blocked while a recorded sale's statement has no box 4 amount, and while it is unanswered whether a Form 1099-B shows box 4 withholding and no closed sale, other than a statement whose box 4 you already entered, with or without a sale.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25b",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.f1099b.no-sale-box4-withholding"
+              ],
+              "value": null
+            }
+          ]
+        },
+        "25d": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute statements that report no closed sale. Do not include a statement whose box 4 you already entered, with or without a sale. If more than one remaining statement, enter the total. If box 4 is blank, enter $0."
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID",
+              "SOURCE_SET_UNCLOSED"
+            ],
+            "explain": "Form 1040 line 25d is blocked because an input it needs is missing or not yet closed.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25d",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.payments.line25b"
+              ],
+              "value": null
+            }
+          ]
+        },
+        "33": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute statements that report no closed sale. Do not include a statement whose box 4 you already entered, with or without a sale. If more than one remaining statement, enter the total. If box 4 is blank, enter $0."
+            },
+            {
+              "sentence": "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "Form 1040 line 33 is blocked because an input it needs is missing or invalid.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line33",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.payments.line25d",
+                "tax.us.2025.payments.line32"
+              ],
+              "value": null
+            }
+          ]
+        },
+        "37": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute statements that report no closed sale. Do not include a statement whose box 4 you already entered, with or without a sale. If more than one remaining statement, enter the total. If box 4 is blank, enter $0."
+            },
+            {
+              "sentence": "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "Form 1040 line 37 is blocked because an input it needs is missing, invalid, or (line 36) exceeds line 34.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line37",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.tax.line24-total-tax",
+                "tax.us.2025.payments.line33"
+              ],
+              "value": null
+            }
+          ]
+        }
+      },
+      "page_sentences": [
+        "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?",
+        "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute statements that report no closed sale. Do not include a statement whose box 4 you already entered, with or without a sale. If more than one remaining statement, enter the total. If box 4 is blank, enter $0."
+      ],
+      "page_has_amount_prompt": false
+    },
+    {
+      "id": "married_filing_separately.no-1099b",
+      "answers": [],
+      "present": "no",
+      "return_amount": null,
+      "truthful": true,
+      "outcome": "success",
+      "lines": {
+        "25b": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 25b publishes a computed zero.",
+            "render": "0"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25b",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "25d": {
+          "disposition": "published_value",
+          "value": 4500,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 25d equals lines 25a, 25b, and 25c added together.",
+            "render": "{value}"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25d",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "33": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "Form 1040 line 33 is blocked because an input it needs is missing or invalid.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line33",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.payments.line32"
+              ],
+              "value": null
+            }
+          ]
+        },
+        "37": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "Form 1040 line 37 is blocked because an input it needs is missing, invalid, or (line 36) exceeds line 34.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line37",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.tax.line24-total-tax",
+                "tax.us.2025.payments.line33"
+              ],
+              "value": null
+            }
+          ]
+        }
+      },
+      "page_sentences": [
+        "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+      ],
+      "page_has_amount_prompt": false
+    },
+    {
+      "id": "recorded.codeb_amounts_disagree",
+      "answers": {
+        "reported": [
+          "no"
+        ],
+        "amount": [],
+        "present": "no",
+        "return_amount": null
+      },
+      "truthful": true,
+      "note": "Recorded code B sale. Reported no. Amount absent.",
+      "outcome": "success",
+      "lines": {
+        "25b": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 25b publishes a computed zero.",
+            "render": "0"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25b",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "25d": {
+          "disposition": "published_value",
+          "value": 4500,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 25d equals lines 25a, 25b, and 25c added together.",
+            "render": "{value}"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25d",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "33": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "What is the column (g) adjustment for each short-term sale you recorded whose reported basis is wrong: the basis shown minus the correct basis, plus any wash-sale loss disallowed?"
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "Form 1040 line 33 is blocked because an input it needs is missing or invalid.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line33",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.payments.line32"
+              ],
+              "value": null
+            }
+          ]
+        },
+        "37": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "What is the column (g) adjustment for each short-term sale you recorded whose reported basis is wrong: the basis shown minus the correct basis, plus any wash-sale loss disallowed?"
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "Form 1040 line 37 is blocked because an input it needs is missing, invalid, or (line 36) exceeds line 34.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line37",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.tax.line24-total-tax",
+                "tax.us.2025.payments.line33"
+              ],
+              "value": null
+            }
+          ]
+        }
+      },
+      "page_sentences": [
+        "What is the column (g) adjustment for each short-term sale you recorded whose reported basis is wrong: the basis shown minus the correct basis, plus any wash-sale loss disallowed?"
+      ],
+      "page_has_amount_prompt": false
+    },
+    {
+      "id": "recorded.codeb_amounts_disagree_amount0",
+      "answers": {
+        "reported": [
+          "no"
+        ],
+        "amount": [
+          0
+        ],
+        "present": "no",
+        "return_amount": null
+      },
+      "truthful": true,
+      "note": "Same list with amount 0.",
+      "outcome": "success",
+      "lines": {
+        "25b": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 25b publishes a computed zero.",
+            "render": "0"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25b",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "25d": {
+          "disposition": "published_value",
+          "value": 4500,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 25d equals lines 25a, 25b, and 25c added together.",
+            "render": "{value}"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25d",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "33": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "What is the column (g) adjustment for each short-term sale you recorded whose reported basis is wrong: the basis shown minus the correct basis, plus any wash-sale loss disallowed?"
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "Form 1040 line 33 is blocked because an input it needs is missing or invalid.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line33",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.payments.line32"
+              ],
+              "value": null
+            }
+          ]
+        },
+        "37": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "What is the column (g) adjustment for each short-term sale you recorded whose reported basis is wrong: the basis shown minus the correct basis, plus any wash-sale loss disallowed?"
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "Form 1040 line 37 is blocked because an input it needs is missing, invalid, or (line 36) exceeds line 34.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line37",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.tax.line24-total-tax",
+                "tax.us.2025.payments.line33"
+              ],
+              "value": null
+            }
+          ]
+        }
+      },
+      "page_sentences": [
+        "What is the column (g) adjustment for each short-term sale you recorded whose reported basis is wrong: the basis shown minus the correct basis, plus any wash-sale loss disallowed?"
+      ],
+      "page_has_amount_prompt": false
+    },
+    {
+      "id": "recorded.codeb_sale_beside_8949_yes",
+      "answers": {
+        "reported": [
+          "no"
+        ],
+        "amount": [],
+        "present": "no",
+        "return_amount": null
+      },
+      "truthful": true,
+      "note": "Recorded code B sale. Path B open. Amount absent.",
+      "outcome": "success",
+      "lines": {
+        "25b": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 25b publishes a computed zero.",
+            "render": "0"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25b",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "25d": {
+          "disposition": "published_value",
+          "value": 4500,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 25d equals lines 25a, 25b, and 25c added together.",
+            "render": "{value}"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25d",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "33": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Each sale on your Form 8949 should be one of two kinds. (1) A sale your broker reported to the IRS with its basis, with no adjustment other than a wash-sale loss or a correction of that basis. (2) A sale of stocks or other securities, entered only once and in the one box its statement gives it, with a basis you supply (the correct basis, even if your Form 1099-B showed a different one), net proceeds you supply when you got no Form 1099-B, and no adjustment other than a wash-sale loss. Is every sale on your Form 8949 one of these two kinds?"
+            },
+            {
+              "sentence": "Is it true that you had no transaction or adjustment to report on Form 8949?"
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "Form 1040 line 33 is blocked because an input it needs is missing or invalid.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line33",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.payments.line32"
+              ],
+              "value": null
+            }
+          ]
+        },
+        "37": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Each sale on your Form 8949 should be one of two kinds. (1) A sale your broker reported to the IRS with its basis, with no adjustment other than a wash-sale loss or a correction of that basis. (2) A sale of stocks or other securities, entered only once and in the one box its statement gives it, with a basis you supply (the correct basis, even if your Form 1099-B showed a different one), net proceeds you supply when you got no Form 1099-B, and no adjustment other than a wash-sale loss. Is every sale on your Form 8949 one of these two kinds?"
+            },
+            {
+              "sentence": "Is it true that you had no transaction or adjustment to report on Form 8949?"
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "Form 1040 line 37 is blocked because an input it needs is missing, invalid, or (line 36) exceeds line 34.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line37",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.tax.line24-total-tax",
+                "tax.us.2025.payments.line33"
+              ],
+              "value": null
+            }
+          ]
+        }
+      },
+      "page_sentences": [
+        "Each sale on your Form 8949 should be one of two kinds. (1) A sale your broker reported to the IRS with its basis, with no adjustment other than a wash-sale loss or a correction of that basis. (2) A sale of stocks or other securities, entered only once and in the one box its statement gives it, with a basis you supply (the correct basis, even if your Form 1099-B showed a different one), net proceeds you supply when you got no Form 1099-B, and no adjustment other than a wash-sale loss. Is every sale on your Form 8949 one of these two kinds?",
+        "Is it true that you had no transaction or adjustment to report on Form 8949?"
+      ],
+      "page_has_amount_prompt": false
+    },
+    {
+      "id": "recorded.codeb_sale_beside_8949_yes_amount0",
+      "answers": {
+        "reported": [
+          "no"
+        ],
+        "amount": [
+          0
+        ],
+        "present": "no",
+        "return_amount": null
+      },
+      "truthful": true,
+      "note": "Same list with amount 0.",
+      "outcome": "success",
+      "lines": {
+        "25b": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 25b publishes a computed zero.",
+            "render": "0"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25b",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "25d": {
+          "disposition": "published_value",
+          "value": 4500,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 25d equals lines 25a, 25b, and 25c added together.",
+            "render": "{value}"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25d",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "33": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Each sale on your Form 8949 should be one of two kinds. (1) A sale your broker reported to the IRS with its basis, with no adjustment other than a wash-sale loss or a correction of that basis. (2) A sale of stocks or other securities, entered only once and in the one box its statement gives it, with a basis you supply (the correct basis, even if your Form 1099-B showed a different one), net proceeds you supply when you got no Form 1099-B, and no adjustment other than a wash-sale loss. Is every sale on your Form 8949 one of these two kinds?"
+            },
+            {
+              "sentence": "Is it true that you had no transaction or adjustment to report on Form 8949?"
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "Form 1040 line 33 is blocked because an input it needs is missing or invalid.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line33",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.payments.line32"
+              ],
+              "value": null
+            }
+          ]
+        },
+        "37": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Each sale on your Form 8949 should be one of two kinds. (1) A sale your broker reported to the IRS with its basis, with no adjustment other than a wash-sale loss or a correction of that basis. (2) A sale of stocks or other securities, entered only once and in the one box its statement gives it, with a basis you supply (the correct basis, even if your Form 1099-B showed a different one), net proceeds you supply when you got no Form 1099-B, and no adjustment other than a wash-sale loss. Is every sale on your Form 8949 one of these two kinds?"
+            },
+            {
+              "sentence": "Is it true that you had no transaction or adjustment to report on Form 8949?"
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "Form 1040 line 37 is blocked because an input it needs is missing, invalid, or (line 36) exceeds line 34.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line37",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.tax.line24-total-tax",
+                "tax.us.2025.payments.line33"
+              ],
+              "value": null
+            }
+          ]
+        }
+      },
+      "page_sentences": [
+        "Each sale on your Form 8949 should be one of two kinds. (1) A sale your broker reported to the IRS with its basis, with no adjustment other than a wash-sale loss or a correction of that basis. (2) A sale of stocks or other securities, entered only once and in the one box its statement gives it, with a basis you supply (the correct basis, even if your Form 1099-B showed a different one), net proceeds you supply when you got no Form 1099-B, and no adjustment other than a wash-sale loss. Is every sale on your Form 8949 one of these two kinds?",
+        "Is it true that you had no transaction or adjustment to report on Form 8949?"
+      ],
+      "page_has_amount_prompt": false
+    },
+    {
+      "id": "recorded.wash_adjustment_open",
+      "answers": {
+        "reported": [
+          "no"
+        ],
+        "amount": [],
+        "present": "no",
+        "return_amount": null
+      },
+      "truthful": true,
+      "note": "Recorded wash sale. Adjustment family open. Amount absent.",
+      "outcome": "success",
+      "lines": {
+        "25b": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 25b publishes a computed zero.",
+            "render": "0"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25b",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "25d": {
+          "disposition": "published_value",
+          "value": 4500,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 25d equals lines 25a, 25b, and 25c added together.",
+            "render": "{value}"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25d",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "33": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Have you recorded the wash-sale loss adjustment amount of every covered short-term sale with a wash-sale loss adjustment (a loss disallowed because you bought the same investment within 30 days before or after the sale) on every Form 1099-B you or your spouse received for 2025?"
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "Form 1040 line 33 is blocked because an input it needs is missing or invalid.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line33",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.payments.line32"
+              ],
+              "value": null
+            }
+          ]
+        },
+        "37": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Have you recorded the wash-sale loss adjustment amount of every covered short-term sale with a wash-sale loss adjustment (a loss disallowed because you bought the same investment within 30 days before or after the sale) on every Form 1099-B you or your spouse received for 2025?"
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "Form 1040 line 37 is blocked because an input it needs is missing, invalid, or (line 36) exceeds line 34.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line37",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.tax.line24-total-tax",
+                "tax.us.2025.payments.line33"
+              ],
+              "value": null
+            }
+          ]
+        }
+      },
+      "page_sentences": [
+        "Have you recorded the wash-sale loss adjustment amount of every covered short-term sale with a wash-sale loss adjustment (a loss disallowed because you bought the same investment within 30 days before or after the sale) on every Form 1099-B you or your spouse received for 2025?"
+      ],
+      "page_has_amount_prompt": false
+    },
+    {
+      "id": "recorded.wash_adjustment_open_amount0",
+      "answers": {
+        "reported": [
+          "no"
+        ],
+        "amount": [
+          0
+        ],
+        "present": "no",
+        "return_amount": null
+      },
+      "truthful": true,
+      "note": "Same list with amount 0.",
+      "outcome": "success",
+      "lines": {
+        "25b": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 25b publishes a computed zero.",
+            "render": "0"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25b",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "25d": {
+          "disposition": "published_value",
+          "value": 4500,
+          "active_codes": null,
+          "reasons": [],
+          "instructions": {
+            "explain": "Form 1040 line 25d equals lines 25a, 25b, and 25c added together.",
+            "render": "{value}"
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line25d",
+              "disposition": "published",
+              "code": null,
+              "missing": null,
+              "value": null
+            }
+          ]
+        },
+        "33": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Have you recorded the wash-sale loss adjustment amount of every covered short-term sale with a wash-sale loss adjustment (a loss disallowed because you bought the same investment within 30 days before or after the sale) on every Form 1099-B you or your spouse received for 2025?"
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "Form 1040 line 33 is blocked because an input it needs is missing or invalid.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line33",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.payments.line32"
+              ],
+              "value": null
+            }
+          ]
+        },
+        "37": {
+          "disposition": "blocked",
+          "value": null,
+          "active_codes": [
+            "DEPENDENCY_ABSENT"
+          ],
+          "reasons": [
+            {
+              "sentence": "Have you recorded the wash-sale loss adjustment amount of every covered short-term sale with a wash-sale loss adjustment (a loss disallowed because you bought the same investment within 30 days before or after the sale) on every Form 1099-B you or your spouse received for 2025?"
+            }
+          ],
+          "instructions": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "Form 1040 line 37 is blocked because an input it needs is missing, invalid, or (line 36) exceeds line 34.",
+            "render": ""
+          },
+          "rows": [
+            {
+              "artifact_id": "tax.us.2025.rule.form1040-line37",
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.us.2025.tax.line24-total-tax",
+                "tax.us.2025.payments.line33"
+              ],
+              "value": null
+            }
+          ]
+        }
+      },
+      "page_sentences": [
+        "Have you recorded the wash-sale loss adjustment amount of every covered short-term sale with a wash-sale loss adjustment (a loss disallowed because you bought the same investment within 30 days before or after the sale) on every Form 1099-B you or your spouse received for 2025?"
+      ],
+      "page_has_amount_prompt": false
+    }
+  ]
+}
