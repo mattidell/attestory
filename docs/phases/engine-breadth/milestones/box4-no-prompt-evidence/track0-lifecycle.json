@@ -1,0 +1,255 @@
+{
+  "wall_time_s": 45.337,
+  "traces": [
+    {
+      "id": "correct-no-to-yes",
+      "pass": true,
+      "before_source": "demo.b4.t0.reported.demo.sfa.b4nt0.s0.statement",
+      "before_source_pinned": true,
+      "source_current_after": false,
+      "old_payment_publications_displaced": {
+        "25b": true,
+        "25d": true
+      },
+      "old_payment_finding_ids": {
+        "25b": "finding:derived:5b3be606386111d2c139d04d",
+        "25d": "finding:derived:4d12b4949410c8ad353a2bb2"
+      },
+      "displacement_reasons": {
+        "25b": [
+          {
+            "kind": "derivation",
+            "by": "finding:derived:899514229156acca55f848b3"
+          }
+        ],
+        "25d": [
+          {
+            "kind": "derivation",
+            "by": "finding:derived:5b3be606386111d2c139d04d"
+          }
+        ]
+      },
+      "after_lines": {
+        "25b": {
+          "disposition": "blocked",
+          "value": null,
+          "sentences": [
+            "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+          ]
+        },
+        "25d": {
+          "disposition": "blocked",
+          "value": null,
+          "sentences": [
+            "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+          ]
+        },
+        "33": {
+          "disposition": "blocked",
+          "value": null,
+          "sentences": [
+            "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+          ]
+        },
+        "37": {
+          "disposition": "blocked",
+          "value": null,
+          "sentences": [
+            "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+          ]
+        }
+      },
+      "after_rows": {
+        "tax.us.2025.rule.form1040-line25b": {
+          "disposition": "blocked",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.f1099b.statement-box4-withholding"
+          ]
+        },
+        "tax.us.2025.rule.form1040-line25d": {
+          "disposition": "blocked",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.payments.line25b"
+          ]
+        },
+        "tax.us.2025.rule.form1040-line33": {
+          "disposition": "blocked",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.payments.line25d"
+          ]
+        },
+        "tax.us.2025.rule.form1040-line37": {
+          "disposition": "blocked",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.payments.line33"
+          ]
+        }
+      },
+      "page_has_amount_prompt": true,
+      "after_payment_finding_id": null,
+      "new_amount_pinned": null
+    },
+    {
+      "id": "withdraw-no",
+      "pass": true,
+      "before_source": "demo.b4.t0.reported.demo.sfa.b4nt0.s0.statement",
+      "before_source_pinned": true,
+      "source_current_after": false,
+      "old_payment_publications_displaced": {
+        "25b": true,
+        "25d": true
+      },
+      "old_payment_finding_ids": {
+        "25b": "finding:derived:5b3be606386111d2c139d04d",
+        "25d": "finding:derived:4d12b4949410c8ad353a2bb2"
+      },
+      "displacement_reasons": {
+        "25b": [
+          {
+            "kind": "derivation",
+            "by": "finding:derived:899514229156acca55f848b3"
+          }
+        ],
+        "25d": [
+          {
+            "kind": "derivation",
+            "by": "finding:derived:5b3be606386111d2c139d04d"
+          }
+        ]
+      },
+      "after_lines": {
+        "25b": {
+          "disposition": "blocked",
+          "value": null,
+          "sentences": [
+            "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+          ]
+        },
+        "25d": {
+          "disposition": "blocked",
+          "value": null,
+          "sentences": [
+            "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+          ]
+        },
+        "33": {
+          "disposition": "blocked",
+          "value": null,
+          "sentences": [
+            "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+          ]
+        },
+        "37": {
+          "disposition": "blocked",
+          "value": null,
+          "sentences": [
+            "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+          ]
+        }
+      },
+      "after_rows": {
+        "tax.us.2025.rule.form1040-line25b": {
+          "disposition": "blocked",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.f1099b.statement-box4-withholding"
+          ]
+        },
+        "tax.us.2025.rule.form1040-line25d": {
+          "disposition": "blocked",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.payments.line25b"
+          ]
+        },
+        "tax.us.2025.rule.form1040-line33": {
+          "disposition": "blocked",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.payments.line25d"
+          ]
+        },
+        "tax.us.2025.rule.form1040-line37": {
+          "disposition": "blocked",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.payments.line33"
+          ]
+        }
+      },
+      "page_has_amount_prompt": true,
+      "after_payment_finding_id": null,
+      "new_amount_pinned": null
+    },
+    {
+      "id": "amount-after-no",
+      "pass": true,
+      "before_source": "demo.b4.t0.reported.demo.sfa.b4nt0.s0.statement",
+      "before_source_pinned": true,
+      "source_current_after": true,
+      "old_payment_publications_displaced": {
+        "25b": false,
+        "25d": false
+      },
+      "old_payment_finding_ids": {
+        "25b": "finding:derived:5b3be606386111d2c139d04d",
+        "25d": "finding:derived:4d12b4949410c8ad353a2bb2"
+      },
+      "displacement_reasons": {
+        "25b": [],
+        "25d": []
+      },
+      "after_lines": {
+        "25b": {
+          "disposition": "published_value",
+          "value": 200,
+          "sentences": []
+        },
+        "25d": {
+          "disposition": "published_value",
+          "value": 4700,
+          "sentences": []
+        },
+        "33": {
+          "disposition": "published_value",
+          "value": 4700,
+          "sentences": []
+        },
+        "37": {
+          "disposition": "computed_zero",
+          "value": 0,
+          "sentences": []
+        }
+      },
+      "after_rows": {
+        "tax.us.2025.rule.form1040-line25b": {
+          "disposition": "published",
+          "code": null,
+          "missing": null
+        },
+        "tax.us.2025.rule.form1040-line25d": {
+          "disposition": "published",
+          "code": null,
+          "missing": null
+        },
+        "tax.us.2025.rule.form1040-line33": {
+          "disposition": "published",
+          "code": null,
+          "missing": null
+        },
+        "tax.us.2025.rule.form1040-line37": {
+          "disposition": "published",
+          "code": null,
+          "missing": null
+        }
+      },
+      "page_has_amount_prompt": false,
+      "after_payment_finding_id": "finding:derived:0cf5d6040739c7306780b2bc",
+      "new_amount_pinned": true
+    }
+  ]
+}

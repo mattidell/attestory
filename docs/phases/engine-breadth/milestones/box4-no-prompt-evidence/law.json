@@ -1,0 +1,43 @@
+{
+  "sources": [
+    {
+      "title": "2025 Instructions for Form 1040",
+      "local_filename": "i1040gi-2025.pdf",
+      "pdf_sha256": "482e9c487c608f1bbeaceef35bc3c0933e8b35443cfff447e4279d590468364a",
+      "text_sha256": "6024dc94dd1f545ed6e2068a42ea11859be546e8fe18ec3082021259f9b45ff1",
+      "pdf_pages": [
+        39
+      ],
+      "heading": "Line 25b\u2014Form(s) 1099",
+      "short_quote": "include the amount withheld",
+      "assessment": "Line 25b includes the withholding shown on Forms 1099. A truthful no to the statement question supplies no box 4 withholding to carry from that statement."
+    },
+    {
+      "title": "2025 Instructions for Form 1099-B",
+      "local_filename": "i1099b-2025.pdf",
+      "pdf_sha256": "55bbe7df46f43f2c305481f303bc9e6518f5874766a2d183f2cb14dc0b91d745",
+      "text_sha256": "b6c47dc6c931308871f33e834885d6761b4690397d73445018357842419a3327",
+      "pdf_pages": [
+        12
+      ],
+      "heading": "Box 4. Federal Income Tax Withheld",
+      "short_quote": "Enter backup withholding",
+      "assessment": "Box 4 is the reported federal withholding amount. No is statement-local, not a declaration about all withholding or all statements."
+    },
+    {
+      "title": "2025 Form 1099-B, Copy B instructions for recipient",
+      "local_filename": "f1099b-2025.pdf",
+      "pdf_sha256": "7e334cea66c2b2be3d88615a56db288a2805cb8705076b3b282a4eabbbd788ad",
+      "text_sha256": "8e4cb19e9c4de2a62859d2c7840e85dc7053439f918cc0ef20480899ca583479",
+      "pdf_pages": [
+        7
+      ],
+      "heading": "Box 4.",
+      "short_quote": "Shows backup withholding",
+      "assessment": "The recipient instructions direct inclusion of this amount as tax withheld. An explicit positive amount beside no is contradictory; retaining the explicit amount preserves the existing recorded amount rather than claiming the pair is truthful."
+    }
+  ],
+  "new_filer_sentences": [],
+  "published_questions": "Both the yes/no question and amount prompt remain byte-for-byte unchanged.",
+  "inference_limit": "No is zero withholding to carry from the identified statement as reported. It does not resolve an incorrect information return or other statements."
+}

@@ -1,0 +1,66 @@
+{
+  "case": "local.no-yes-amount-unanswered",
+  "baseline": "published v93",
+  "baseline_lines": {
+    "25b": {
+      "disposition": "blocked",
+      "value": null,
+      "sentences": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ]
+    },
+    "25d": {
+      "disposition": "blocked",
+      "value": null,
+      "sentences": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ]
+    },
+    "33": {
+      "disposition": "blocked",
+      "value": null,
+      "sentences": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ]
+    },
+    "37": {
+      "disposition": "blocked",
+      "value": null,
+      "sentences": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ]
+    }
+  },
+  "successor_lines": {
+    "25b": {
+      "disposition": "blocked",
+      "value": null,
+      "sentences": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ]
+    },
+    "25d": {
+      "disposition": "blocked",
+      "value": null,
+      "sentences": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ]
+    },
+    "33": {
+      "disposition": "blocked",
+      "value": null,
+      "sentences": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ]
+    },
+    "37": {
+      "disposition": "blocked",
+      "value": null,
+      "sentences": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ]
+    }
+  },
+  "four_lines_identical": true,
+  "wall_time_s": 20.93
+}

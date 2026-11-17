@@ -1,0 +1,32 @@
+{
+  "core_fingerprints": [
+    {
+      "version": "v93",
+      "registry": "v91",
+      "release_version": "v91",
+      "loader_from": null,
+      "presence_pairs": [],
+      "package_sha256": "aa9210c27b76f86016e91a0d453974bad2d59da5d474a014081c95fd98adcde6",
+      "release_sha256": "9dddaa3e2b79351a8de779d2dcb73fb51e43b3a50bc70dd647f3b70290e42c62"
+    },
+    {
+      "version": "v94",
+      "registry": "v92",
+      "release_version": "v92",
+      "loader_from": "v93",
+      "presence_pairs": [],
+      "package_sha256": "55262b2fffb36851bba30d844da74ea5cd77fc40d41ff79ea78ccde973815054",
+      "release_sha256": "1d9f68d6a0a50a62c3f5c2cc10bf9b516512f52abbbc66cd1a34692e92e9700f"
+    }
+  ],
+  "runs": 775,
+  "workers": 9,
+  "wall_time_s": 1390.389,
+  "tool_counts": {
+    "identical": 363,
+    "numbers_changed": 412
+  },
+  "line_value_changes": 0,
+  "sentence_changes": 287,
+  "failure": "The first candidate routed line25b through a blocked helper, changing missing names on 412 lists and sentences on some lists without a no. Repaired by publishing a numeric need count and keeping the original declaring amount block in line25b."
+}

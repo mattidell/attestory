@@ -1,0 +1,140 @@
+{
+  "baseline": "core v93 / registry v91 / release v91",
+  "scratch": "core v94 / registry v92 / release v92",
+  "artifacts": [
+    {
+      "filename": "f1099b-box4-amount-requirement.bundle.json",
+      "id": "tax.us.2025.f1099b.box4-amount-requirement.vocabulary",
+      "version": "v1",
+      "schema": "bundle.v2",
+      "role": "fact-type-bundle"
+    },
+    {
+      "filename": "rule.f1099b.covered-st-txn.box4-amount-count.json",
+      "id": "tax.us.2025.rule.f1099b.covered-st-txn.box4-amount-count",
+      "version": "v1",
+      "schema": "rule-artifact.v17",
+      "role": "computation"
+    },
+    {
+      "filename": "rule.f1099b.covered-st-txn.box4-amount-needed.json",
+      "id": "tax.us.2025.rule.f1099b.covered-st-txn.box4-amount-needed",
+      "version": "v1",
+      "schema": "rule-artifact.v17",
+      "role": "computation"
+    },
+    {
+      "filename": "rule.f1099b.covered-lt-txn.box4-amount-count.json",
+      "id": "tax.us.2025.rule.f1099b.covered-lt-txn.box4-amount-count",
+      "version": "v1",
+      "schema": "rule-artifact.v17",
+      "role": "computation"
+    },
+    {
+      "filename": "rule.f1099b.covered-lt-txn.box4-amount-needed.json",
+      "id": "tax.us.2025.rule.f1099b.covered-lt-txn.box4-amount-needed",
+      "version": "v1",
+      "schema": "rule-artifact.v17",
+      "role": "computation"
+    },
+    {
+      "filename": "rule.f1099b.covered-w-st-txn.box4-amount-count.json",
+      "id": "tax.us.2025.rule.f1099b.covered-w-st-txn.box4-amount-count",
+      "version": "v1",
+      "schema": "rule-artifact.v17",
+      "role": "computation"
+    },
+    {
+      "filename": "rule.f1099b.covered-w-st-txn.box4-amount-needed.json",
+      "id": "tax.us.2025.rule.f1099b.covered-w-st-txn.box4-amount-needed",
+      "version": "v1",
+      "schema": "rule-artifact.v17",
+      "role": "computation"
+    },
+    {
+      "filename": "rule.f1099b.covered-w-lt-txn.box4-amount-count.json",
+      "id": "tax.us.2025.rule.f1099b.covered-w-lt-txn.box4-amount-count",
+      "version": "v1",
+      "schema": "rule-artifact.v17",
+      "role": "computation"
+    },
+    {
+      "filename": "rule.f1099b.covered-w-lt-txn.box4-amount-needed.json",
+      "id": "tax.us.2025.rule.f1099b.covered-w-lt-txn.box4-amount-needed",
+      "version": "v1",
+      "schema": "rule-artifact.v17",
+      "role": "computation"
+    },
+    {
+      "filename": "rule.f1099b.noncovered-st-txn.box4-amount-count.json",
+      "id": "tax.us.2025.rule.f1099b.noncovered-st-txn.box4-amount-count",
+      "version": "v1",
+      "schema": "rule-artifact.v17",
+      "role": "computation"
+    },
+    {
+      "filename": "rule.f1099b.noncovered-st-txn.box4-amount-needed.json",
+      "id": "tax.us.2025.rule.f1099b.noncovered-st-txn.box4-amount-needed",
+      "version": "v1",
+      "schema": "rule-artifact.v17",
+      "role": "computation"
+    },
+    {
+      "filename": "rule.f1099b.noncovered-lt-txn.box4-amount-count.json",
+      "id": "tax.us.2025.rule.f1099b.noncovered-lt-txn.box4-amount-count",
+      "version": "v1",
+      "schema": "rule-artifact.v17",
+      "role": "computation"
+    },
+    {
+      "filename": "rule.f1099b.noncovered-lt-txn.box4-amount-needed.json",
+      "id": "tax.us.2025.rule.f1099b.noncovered-lt-txn.box4-amount-needed",
+      "version": "v1",
+      "schema": "rule-artifact.v17",
+      "role": "computation"
+    },
+    {
+      "filename": "rule.f1099b.code-b-st-txn.box4-amount-count.json",
+      "id": "tax.us.2025.rule.f1099b.code-b-st-txn.box4-amount-count",
+      "version": "v1",
+      "schema": "rule-artifact.v17",
+      "role": "computation"
+    },
+    {
+      "filename": "rule.f1099b.code-b-st-txn.box4-amount-needed.json",
+      "id": "tax.us.2025.rule.f1099b.code-b-st-txn.box4-amount-needed",
+      "version": "v1",
+      "schema": "rule-artifact.v17",
+      "role": "computation"
+    },
+    {
+      "filename": "rule.f1099b.code-b-lt-txn.box4-amount-count.json",
+      "id": "tax.us.2025.rule.f1099b.code-b-lt-txn.box4-amount-count",
+      "version": "v1",
+      "schema": "rule-artifact.v17",
+      "role": "computation"
+    },
+    {
+      "filename": "rule.f1099b.code-b-lt-txn.box4-amount-needed.json",
+      "id": "tax.us.2025.rule.f1099b.code-b-lt-txn.box4-amount-needed",
+      "version": "v1",
+      "schema": "rule-artifact.v17",
+      "role": "computation"
+    },
+    {
+      "filename": "rule.f1099b-box4-amounts-ready.json",
+      "id": "tax.us.2025.rule.f1099b-box4-amounts-ready",
+      "version": "v1",
+      "schema": "rule-artifact.v17",
+      "role": "computation"
+    },
+    {
+      "filename": "rule.form1040-line25b.v9.json",
+      "id": "tax.us.2025.rule.form1040-line25b",
+      "version": "v9",
+      "schema": "rule-artifact.v17",
+      "role": "computation"
+    }
+  ],
+  "inherited_inconsistencies": []
+}
