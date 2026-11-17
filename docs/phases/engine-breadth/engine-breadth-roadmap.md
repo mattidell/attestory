@@ -919,6 +919,21 @@ required answer or refusal code. When two causes are open on a separate
 return, line 6b names the one its worksheet rule refuses on first and
 line 6d names living apart.
 
+## Bounded return — A Box 4 "No" Is Not Asked For an Amount (2025)
+
+[Plan](milestones/box4-no-prompt.md); retrospective:
+`docs/milestone-retrospectives/2026-11-17-box4-no-prompt.md`.
+
+Core v94 (registry v92, release v92) lets a Form 1099-B statement whose
+box 4 the filer answered "no" stand for no withholding on that
+statement: Form 1040 line 25b no longer waits for its amount, and the
+box 4 amount question now asks only for statements answered "yes" or
+not answered. Each statement is judged alone; an entered amount wins
+over a "no"; any statement not satisfied runs the v93 pairing unchanged.
+Of the 775 recorded lists, 271 now name the return-level "statement
+with no sale" question on line 25b instead of the amount and 125 show
+the new amount words; no value, disposition or refusal code changed.
+
 ## Saved-page observation — Mortgage and Sales (2025)
 
 [Plan](milestones/sale-page-observation.md); retrospective:
@@ -1086,9 +1101,9 @@ delivers an item removes it.
   blocked fields name eight (core v91). A line 16 successor naming the
   eight changes the `exception1_personal_loss_8949` case, which must be
   preserved or reopened.
-- A filer who answered the per-statement Form 1099-B box 4 yes/no "no"
-  is still shown the amount prompt on lines 25b and 25d until they enter
-  $0; line 25b reads the amount, not the yes/no (box4-amount-asked P0).
+- An amount entered after a per-statement Form 1099-B box 4 "no"
+  leaves the earlier zero payment findings current until a run; the
+  engine's currency on additions (box4-no-prompt Decision 8).
 - The blocked-names-question and preferential-base-reason evidence probes
   count a sentence as a question only if it has a question mark, so an
   imperative prompt is missed. Replace the filter before reusing them.

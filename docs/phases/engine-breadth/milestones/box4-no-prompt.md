@@ -3,7 +3,8 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "box4-no-prompt",
-  "status": "Open 2026-11-17. Reviewed; Decisions 9-10; classifier repair chartered.",
+  "status": "Closed 2026-11-17. Core v94, registry v92, release v92.",
+  "retrospective": "docs/milestone-retrospectives/2026-11-17-box4-no-prompt.md",
   "scope": [
     "a filer who answers that a Form 1099-B statement reported no federal income tax withheld in box 4 is not asked for the box 4 amount, and lines 25b and 25d follow from that answer",
     "every recorded return that does not answer that question computes the same numbers"
@@ -287,3 +288,17 @@ changed, so mypy was not required by this charter. The required
 `github/main..HEAD` envelope scan passed. No content, package, loader or
 production files changed; no push or spawn. CI verify remains the publication
 gate under Decision 9.
+
+## Closeout
+
+Closed 2026-11-17. Retrospective:
+`docs/milestone-retrospectives/2026-11-17-box4-no-prompt.md`. The repair
+was not re-reviewed: it touched only evidence (`classify.py` and its
+mutation check), and the foreman read the strict comparison and the
+unchanged reclassification. The review's F1 clears with a green
+exact-head `verify` on the ready PR.
+
+Parked: an amount added after a "no" leaves earlier zero payment
+findings current until a run (Decision 8). Unchanged: the return-level
+box 4 question and total, and the box 4 questions not naming their
+statement.
