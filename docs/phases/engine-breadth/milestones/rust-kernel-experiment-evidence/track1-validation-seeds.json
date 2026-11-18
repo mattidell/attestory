@@ -1,0 +1,135 @@
+{
+ "note": "Validation issue lists for the published v96 package and four mutations, pristine code (commit 0763f572, exported) versus the changed code, same PYTHONHASHSEED. ordered = digest of the issue list in order; multiset = digest of the sorted issues. The pristine order changes with the seed for two mutations; the multiset never does.",
+ "order_depends_on_seed_on_pristine": [
+  "mutation_drop_every_seventh",
+  "mutation_remove_source_families"
+ ],
+ "seeds": {
+  "0": {
+   "mutation_drop_every_seventh": {
+    "changed_multiset": "2d273d80cf33d591",
+    "changed_ordered": "8cdf46d290e8cde7",
+    "count": 327,
+    "ordered_equal": true,
+    "pristine_multiset": "2d273d80cf33d591",
+    "pristine_ordered": "8cdf46d290e8cde7"
+   },
+   "mutation_remove_source_families": {
+    "changed_multiset": "69370db079289115",
+    "changed_ordered": "acbfe750c18fa527",
+    "count": 211,
+    "ordered_equal": true,
+    "pristine_multiset": "69370db079289115",
+    "pristine_ordered": "acbfe750c18fa527"
+   },
+   "mutation_tampered_citizens": {
+    "changed_multiset": "6a99c9579ebbc23b",
+    "changed_ordered": "d85f5fd8fe08e38e",
+    "count": 9,
+    "ordered_equal": true,
+    "pristine_multiset": "6a99c9579ebbc23b",
+    "pristine_ordered": "d85f5fd8fe08e38e"
+   },
+   "mutation_unknown_versions": {
+    "changed_multiset": "5850d0daa0a9b1af",
+    "changed_ordered": "62a0bd2aefaa8e4b",
+    "count": 3,
+    "ordered_equal": true,
+    "pristine_multiset": "5850d0daa0a9b1af",
+    "pristine_ordered": "62a0bd2aefaa8e4b"
+   },
+   "published_v96": {
+    "changed_multiset": "e3b0c44298fc1c14",
+    "changed_ordered": "4f53cda18c2baa0c",
+    "count": 0,
+    "ordered_equal": true,
+    "pristine_multiset": "e3b0c44298fc1c14",
+    "pristine_ordered": "4f53cda18c2baa0c"
+   }
+  },
+  "1": {
+   "mutation_drop_every_seventh": {
+    "changed_multiset": "2d273d80cf33d591",
+    "changed_ordered": "9651fb083096906f",
+    "count": 327,
+    "ordered_equal": true,
+    "pristine_multiset": "2d273d80cf33d591",
+    "pristine_ordered": "9651fb083096906f"
+   },
+   "mutation_remove_source_families": {
+    "changed_multiset": "69370db079289115",
+    "changed_ordered": "e1c8cb8f652607ca",
+    "count": 211,
+    "ordered_equal": true,
+    "pristine_multiset": "69370db079289115",
+    "pristine_ordered": "e1c8cb8f652607ca"
+   },
+   "mutation_tampered_citizens": {
+    "changed_multiset": "6a99c9579ebbc23b",
+    "changed_ordered": "d85f5fd8fe08e38e",
+    "count": 9,
+    "ordered_equal": true,
+    "pristine_multiset": "6a99c9579ebbc23b",
+    "pristine_ordered": "d85f5fd8fe08e38e"
+   },
+   "mutation_unknown_versions": {
+    "changed_multiset": "5850d0daa0a9b1af",
+    "changed_ordered": "62a0bd2aefaa8e4b",
+    "count": 3,
+    "ordered_equal": true,
+    "pristine_multiset": "5850d0daa0a9b1af",
+    "pristine_ordered": "62a0bd2aefaa8e4b"
+   },
+   "published_v96": {
+    "changed_multiset": "e3b0c44298fc1c14",
+    "changed_ordered": "4f53cda18c2baa0c",
+    "count": 0,
+    "ordered_equal": true,
+    "pristine_multiset": "e3b0c44298fc1c14",
+    "pristine_ordered": "4f53cda18c2baa0c"
+   }
+  },
+  "2": {
+   "mutation_drop_every_seventh": {
+    "changed_multiset": "2d273d80cf33d591",
+    "changed_ordered": "ecaec49c1c140978",
+    "count": 327,
+    "ordered_equal": true,
+    "pristine_multiset": "2d273d80cf33d591",
+    "pristine_ordered": "ecaec49c1c140978"
+   },
+   "mutation_remove_source_families": {
+    "changed_multiset": "69370db079289115",
+    "changed_ordered": "19681924cdf2f270",
+    "count": 211,
+    "ordered_equal": true,
+    "pristine_multiset": "69370db079289115",
+    "pristine_ordered": "19681924cdf2f270"
+   },
+   "mutation_tampered_citizens": {
+    "changed_multiset": "6a99c9579ebbc23b",
+    "changed_ordered": "d85f5fd8fe08e38e",
+    "count": 9,
+    "ordered_equal": true,
+    "pristine_multiset": "6a99c9579ebbc23b",
+    "pristine_ordered": "d85f5fd8fe08e38e"
+   },
+   "mutation_unknown_versions": {
+    "changed_multiset": "5850d0daa0a9b1af",
+    "changed_ordered": "62a0bd2aefaa8e4b",
+    "count": 3,
+    "ordered_equal": true,
+    "pristine_multiset": "5850d0daa0a9b1af",
+    "pristine_ordered": "62a0bd2aefaa8e4b"
+   },
+   "published_v96": {
+    "changed_multiset": "e3b0c44298fc1c14",
+    "changed_ordered": "4f53cda18c2baa0c",
+    "count": 0,
+    "ordered_equal": true,
+    "pristine_multiset": "e3b0c44298fc1c14",
+    "pristine_ordered": "4f53cda18c2baa0c"
+   }
+  }
+ }
+}
