@@ -724,12 +724,12 @@ def _generated_aliases(model: dict[str, Any], report: dict[str, Any]) -> tuple[d
             pin = edge.get("pin") or {}
             target = nodes.get(edge.get("target"))
             if isinstance(target, dict) and target.get("kind") == "derived" and target.get("id") in by_id and target["id"] not in active:
-                ref = shape(target["id"], active | {fid})
+                ref: Any = shape(target["id"], active | {fid})
             else:
                 ref = pin.get("id")
             described.append([pin.get("role"), ref])
         described.sort(key=_encoded)
-        digest = hashlib.sha1(_encoded([node.get("produced_by", {}) and (node.get("produced_by") or {}).get("id"), described]).encode()).hexdigest()[:10]
+        digest = hashlib.sha1(_encoded([(node.get("produced_by") or {}).get("id"), described]).encode()).hexdigest()[:10]
         base[fid] = f"finding~{node.get('symbol')}~{digest}"
         return base[fid]
 
@@ -936,9 +936,20 @@ def _id_pattern(ident: str) -> str:
     return r"(?<![\w.-])" + re.escape(ident) + r"(?![\w.-])"
 
 
-def text_change(citizen_id: str, attribute: str, before: str, after: str, note: str = "") -> Expectation:
-    """Expect one sentence of one citizen (field or attachment) to change."""
-    return Expectation(("page", "attachment"), re.escape(attribute), _id_pattern(citizen_id), "changed",
+def text_change(
+    citizen_id: str,
+    attribute: str,
+    before: str,
+    after: str,
+    note: str = "",
+    kinds: tuple[str, ...] = ("page", "attachment", "model"),
+) -> Expectation:
+    """Expect one sentence of one citizen (field or attachment) to change.
+
+    A sentence can be saved in more than one place (an attachment title is on
+    the attachment and in its citation group); `kinds` names where.
+    """
+    return Expectation(kinds, re.escape(attribute), _id_pattern(citizen_id), "changed",
                        before, after, note or f"text:{citizen_id}:{attribute}")
 
 
@@ -1139,6 +1150,15 @@ def standard_controls(model: dict[str, Any], report: dict[str, Any]) -> dict[str
         target["resolved"]["value"] = (old + 1) if isinstance(old, (int, float)) and not isinstance(old, bool) else "demo.changed-value"
         e["target"] = target["id"]
 
+    m, r, e = make("changed_line_12e_value")
+    twelve = next((x for x in m.get("sections") or [] if x.get("id") == "line-12e" and "value" in x["resolved"]), None)
+    if twelve is None:
+        e["available"] = False
+    else:
+        old = twelve["resolved"]["value"]
+        twelve["resolved"]["value"] = (old + 1) if isinstance(old, (int, float)) and not isinstance(old, bool) else "demo.changed-value"
+        e["target"] = "line-12e"
+
     m, r, e = make("changed_unwatched_row_code")
     rows = r.get("dispositions") or []
     row = next((x for x in rows if x.get("artifact_id") == "tax.us.2025.rule.interest.nominee-reduction"), rows[0] if rows else None)
@@ -1223,6 +1243,7 @@ def run_controls(model: dict[str, Any], report: dict[str, Any]) -> dict[str, dic
         failed = result["class"] == "unexpected"
         verdicts[name] = {
             "available": True,
+            "target": entry.get("target"),
             "must": entry["must"],
             "class": result["class"],
             "differences": result["differences"],
