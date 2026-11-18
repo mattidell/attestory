@@ -1002,6 +1002,18 @@ saved sale record and copied into a published value. P0 drafted plain
 sentences and parked the change behind a projection and schema route.
 No package version change.
 
+## Bounded return — Replays Compare the Whole Saved Return (2025)
+
+[Plan](milestones/full-surface-replay.md); retrospective:
+`docs/milestone-retrospectives/2026-11-18-full-surface-replay.md`.
+
+`tools/recorded_replay.py` gains a full-surface comparison: every saved
+field, explanation node and report row as typed records, a strict diff
+that fails any undeclared difference, and controls that mutate the saved
+output before the snapshot. It closes the line16-names L16-R1 gap.
+v95 against v96 with plain-line-texts' declared changes passes all 775
+lists with no unexpected difference. No package version change.
+
 ## Saved-page observation — Mortgage and Sales (2025)
 
 [Plan](milestones/sale-page-observation.md); retrospective:
@@ -1197,9 +1209,12 @@ delivers an item removes it.
   with no sale are right, the page names the criteria but gives no
   explicit next step (record the sale or unsupported work) and does not
   show the current answer (line16-names L16-R2; page guidance).
-- The recorded-replay pin keeps the watched lines and rule rows, not
-  every saved field and report row; a full-surface pin would let a
-  replay claim that nothing else changed (line16-names L16-R1).
+- Recorded lists produce only one of the six optional model blocks
+  (`line21Explanation`); the mortgage, Form 1099-K and provenance
+  blocks are reached only by synthetic cases, so a full-surface replay
+  cannot vouch for them on recorded returns (full-surface-replay
+  FSR-R1). Pin order in report rows and the explanation block is not
+  compared.
 - An amount entered after a per-statement Form 1099-B box 4 "no"
   leaves the earlier zero payment findings current until a run; the
   engine's currency on additions (box4-no-prompt Decision 8).
