@@ -1,0 +1,253 @@
+{
+  "source": "published core v96 / registry v94 / release v94; every whole-string occurrence in the real presentation model",
+  "lists": {
+    "recorded": 775,
+    "synthetic": 9
+  },
+  "pages": {
+    "recorded": 691,
+    "synthetic": 9
+  },
+  "reasons": [
+    {
+      "text": "The holding period does not match this short-term or long-term family.",
+      "recorded_lists": [
+        "v81/case/a_holding_mismatch",
+        "v81/case/x_d_holding_mismatch",
+        "v81/v80/v80_f_holding_mismatch",
+        "v83/returns/case/a_holding_mismatch/recorded",
+        "v83/returns/case/x_d_holding_mismatch/recorded",
+        "v83/returns/v80/v80_f_holding_mismatch/recorded"
+      ],
+      "synthetic_lists": [
+        "demo.srp.holding.codeb-lt",
+        "demo.srp.holding.no1099b-lt",
+        "demo.srp.holding.no1099b-st",
+        "demo.srp.holding.noncovered-lt",
+        "demo.srp.holding.noncovered-st"
+      ],
+      "page_fields": 38,
+      "occurrences": 352,
+      "fields": [
+        "tax.us.2025.form.eic-worksheet-a.line-3",
+        "tax.us.2025.form.eic-worksheet-a.line-5",
+        "tax.us.2025.form.eic-worksheet-a.line-6",
+        "tax.us.2025.form.sch8812.line-14",
+        "tax.us.2025.form.sch8812.line-17",
+        "tax.us.2025.form.sch8812.worksheet-a.line-5",
+        "tax.us.2025.form1040.line-11a",
+        "tax.us.2025.form1040.line-11b",
+        "tax.us.2025.form1040.line-13b",
+        "tax.us.2025.form1040.line-14",
+        "tax.us.2025.form1040.line-15",
+        "tax.us.2025.form1040.line-16",
+        "tax.us.2025.form1040.line-19",
+        "tax.us.2025.form1040.line-20",
+        "tax.us.2025.form1040.line-24",
+        "tax.us.2025.form1040.line-27a",
+        "tax.us.2025.form1040.line-28",
+        "tax.us.2025.form1040.line-32",
+        "tax.us.2025.form1040.line-33",
+        "tax.us.2025.form1040.line-34",
+        "tax.us.2025.form1040.line-35a",
+        "tax.us.2025.form1040.line-37",
+        "tax.us.2025.form1040.line-6b",
+        "tax.us.2025.form1040.line-7a",
+        "tax.us.2025.form1040.line-9",
+        "tax.us.2025.form1040.tax-after-credits",
+        "tax.us.2025.schedule-d.line-10",
+        "tax.us.2025.schedule-d.line-15",
+        "tax.us.2025.schedule-d.line-16",
+        "tax.us.2025.schedule-d.line-1b",
+        "tax.us.2025.schedule-d.line-2",
+        "tax.us.2025.schedule-d.line-21",
+        "tax.us.2025.schedule-d.line-3",
+        "tax.us.2025.schedule-d.line-7",
+        "tax.us.2025.schedule-d.line-8b",
+        "tax.us.2025.schedule-d.line-9",
+        "tax.us.2025.schedule3.line-1",
+        "tax.us.2025.schedule3.line-8"
+      ],
+      "paths": {
+        "sections.[].resolved.reasons.[].sentence": 352
+      },
+      "origin_rows": {
+        "tax.us.2025.f1099b.code-b-st.member-validation.synthesized blocked DEPENDENCY_INVALID ['HOLDING_PERIOD_MISMATCH']": 2,
+        "tax.us.2025.f1099b.code-b-lt.member-validation.synthesized blocked DEPENDENCY_INVALID ['HOLDING_PERIOD_MISMATCH']": 3,
+        "tax.us.2025.f8949.no1099b-lt.member-validation.synthesized blocked DEPENDENCY_INVALID ['HOLDING_PERIOD_MISMATCH']": 3,
+        "tax.us.2025.f8949.no1099b-st.member-validation.synthesized blocked DEPENDENCY_INVALID ['HOLDING_PERIOD_MISMATCH']": 1,
+        "tax.us.2025.f1099b.noncovered-lt.member-validation.synthesized blocked DEPENDENCY_INVALID ['HOLDING_PERIOD_MISMATCH']": 1,
+        "tax.us.2025.f1099b.noncovered-st.member-validation.synthesized blocked DEPENDENCY_INVALID ['HOLDING_PERIOD_MISMATCH']": 1
+      },
+      "covered_w_adjustment_row_states": {}
+    },
+    {
+      "text": "The wash-sale disallowed amount exceeds this transaction's own otherwise-deductible loss, floor_zero(basis - proceeds). Existing block code: tax.us.2025.block.f8949.adjustment-exceeds-loss.",
+      "recorded_lists": [
+        "v83/returns/v80/probe_a_bw_on_w_broker/recorded",
+        "v83/returns/v80/probe_a_high_on_w_broker/recorded"
+      ],
+      "synthetic_lists": [
+        "demo.srp.wash.w-lt-closed",
+        "demo.srp.wash.w-st-gain",
+        "demo.srp.wash.w-st-open"
+      ],
+      "page_fields": 34,
+      "occurrences": 160,
+      "fields": [
+        "tax.us.2025.form.eic-worksheet-a.line-3",
+        "tax.us.2025.form.eic-worksheet-a.line-5",
+        "tax.us.2025.form.eic-worksheet-a.line-6",
+        "tax.us.2025.form.sch8812.line-14",
+        "tax.us.2025.form.sch8812.line-17",
+        "tax.us.2025.form.sch8812.worksheet-a.line-5",
+        "tax.us.2025.form1040.line-11a",
+        "tax.us.2025.form1040.line-11b",
+        "tax.us.2025.form1040.line-13b",
+        "tax.us.2025.form1040.line-14",
+        "tax.us.2025.form1040.line-15",
+        "tax.us.2025.form1040.line-16",
+        "tax.us.2025.form1040.line-19",
+        "tax.us.2025.form1040.line-20",
+        "tax.us.2025.form1040.line-24",
+        "tax.us.2025.form1040.line-27a",
+        "tax.us.2025.form1040.line-28",
+        "tax.us.2025.form1040.line-32",
+        "tax.us.2025.form1040.line-33",
+        "tax.us.2025.form1040.line-34",
+        "tax.us.2025.form1040.line-35a",
+        "tax.us.2025.form1040.line-37",
+        "tax.us.2025.form1040.line-6b",
+        "tax.us.2025.form1040.line-7a",
+        "tax.us.2025.form1040.line-9",
+        "tax.us.2025.form1040.tax-after-credits",
+        "tax.us.2025.schedule-d.line-15",
+        "tax.us.2025.schedule-d.line-16",
+        "tax.us.2025.schedule-d.line-1b",
+        "tax.us.2025.schedule-d.line-21",
+        "tax.us.2025.schedule-d.line-7",
+        "tax.us.2025.schedule-d.line-8b",
+        "tax.us.2025.schedule3.line-1",
+        "tax.us.2025.schedule3.line-8"
+      ],
+      "paths": {
+        "sections.[].resolved.reasons.[].sentence": 160
+      },
+      "origin_rows": {
+        "tax.us.2025.f1099b.covered-w-st.member-validation.synthesized blocked DEPENDENCY_INVALID ['ADJUSTMENT_EXCEEDS_LOSS']": 4,
+        "tax.us.2025.f1099b.covered-w-lt.member-validation.synthesized blocked DEPENDENCY_INVALID ['ADJUSTMENT_EXCEEDS_LOSS']": 1
+      },
+      "covered_w_adjustment_row_states": {
+        "blocked:DEPENDENCY_ABSENT published:None": 5
+      }
+    }
+  ],
+  "other_texts_same_citizens": [
+    {
+      "text": "A positive wash-sale disallowed amount is asserted on a transaction whose proceeds are greater than or equal to its basis (code W on an individually non-loss transaction). Evaluated on this member's own proceeds and basis, never on a netted box subtotal. Existing block code: tax.us.2025.block.f8949.code-w-on-gain.",
+      "source": [
+        "tax.us.2025.f1099b.covered-w-st@v2 member_constraints.2.meaning (CODE_W_ON_GAIN)",
+        "tax.us.2025.f1099b.covered-w-lt@v2 member_constraints.2.meaning (CODE_W_ON_GAIN)"
+      ],
+      "recorded_lists": 1,
+      "engine_terms": null,
+      "synthetic_lists": [
+        "demo.srp.wash.w-st-gain"
+      ],
+      "example_lists": [
+        "demo.srp.wash.w-st-gain",
+        "v83/returns/v80/probe_a_high_on_w_broker/recorded"
+      ],
+      "page_fields": 32
+    },
+    {
+      "text": "A wash-sale disallowance is recorded on a sale that is not a loss once its basis is corrected.",
+      "source": [
+        "tax.us.2025.f1099b.code-b-st@v1 member_constraints.2.meaning (CODE_W_ON_GAIN)",
+        "tax.us.2025.f1099b.code-b-lt@v1 member_constraints.2.meaning (CODE_W_ON_GAIN)"
+      ],
+      "recorded_lists": 2,
+      "engine_terms": null,
+      "synthetic_lists": [],
+      "example_lists": [
+        "v81/case/a_w_on_gain_after_correction",
+        "v83/returns/case/a_w_on_gain_after_correction/recorded"
+      ],
+      "page_fields": 32
+    },
+    {
+      "text": "A wash-sale disallowance is recorded on a sale that is not a loss.",
+      "source": [
+        "tax.us.2025.f1099b.noncovered-st@v1 member_constraints.2.meaning (CODE_W_ON_GAIN)",
+        "tax.us.2025.f1099b.noncovered-lt@v1 member_constraints.2.meaning (CODE_W_ON_GAIN)",
+        "tax.us.2025.f8949.no1099b-st@v1 member_constraints.1.meaning (CODE_W_ON_GAIN)",
+        "tax.us.2025.f8949.no1099b-lt@v1 member_constraints.1.meaning (CODE_W_ON_GAIN)"
+      ],
+      "recorded_lists": 6,
+      "engine_terms": null,
+      "synthetic_lists": [],
+      "example_lists": [
+        "v81/v80/carried_code_w_on_gain",
+        "v81/v80/v80_c_code_w_on_gain",
+        "v81/v80/v80_d3_b_code_w_on_gain",
+        "v83/returns/v80/carried_code_w_on_gain/recorded"
+      ],
+      "page_fields": 35
+    },
+    {
+      "text": "The correct basis equals the basis the Form 1099-B shows, so there is nothing to correct. Record the sale as a sale with no adjustment (or with code W only).",
+      "source": [
+        "tax.us.2025.f1099b.code-b-st@v1 member_constraints.1.meaning (CODE_B_WITHOUT_CORRECTION)",
+        "tax.us.2025.f1099b.code-b-lt@v1 member_constraints.1.meaning (CODE_B_WITHOUT_CORRECTION)"
+      ],
+      "recorded_lists": 4,
+      "engine_terms": null,
+      "synthetic_lists": [],
+      "example_lists": [
+        "v81/case/a_no_correction",
+        "v81/case/x_no_correction_with_w",
+        "v83/returns/case/a_no_correction/recorded",
+        "v83/returns/case/x_no_correction_with_w/recorded"
+      ],
+      "page_fields": 32
+    },
+    {
+      "text": "The wash-sale disallowance exceeds this sale's own loss once its basis is corrected.",
+      "source": [
+        "tax.us.2025.f1099b.code-b-st@v1 member_constraints.3.meaning (ADJUSTMENT_EXCEEDS_LOSS)",
+        "tax.us.2025.f1099b.code-b-lt@v1 member_constraints.3.meaning (ADJUSTMENT_EXCEEDS_LOSS)"
+      ],
+      "recorded_lists": 8,
+      "engine_terms": null,
+      "synthetic_lists": [],
+      "example_lists": [
+        "v81/case/a_w_exceeds_corrected_loss",
+        "v81/case/a_w_on_gain_after_correction",
+        "v81/case/x_bw_w_exceeds_correct_loss_within_shown",
+        "v81/case/x_d_bw_w_exceeds_correct_loss"
+      ],
+      "page_fields": 34
+    },
+    {
+      "text": "The wash-sale disallowance exceeds this sale's own loss.",
+      "source": [
+        "tax.us.2025.f1099b.noncovered-st@v1 member_constraints.3.meaning (ADJUSTMENT_EXCEEDS_LOSS)",
+        "tax.us.2025.f1099b.noncovered-lt@v1 member_constraints.3.meaning (ADJUSTMENT_EXCEEDS_LOSS)",
+        "tax.us.2025.f8949.no1099b-st@v1 member_constraints.2.meaning (ADJUSTMENT_EXCEEDS_LOSS)",
+        "tax.us.2025.f8949.no1099b-lt@v1 member_constraints.2.meaning (ADJUSTMENT_EXCEEDS_LOSS)"
+      ],
+      "recorded_lists": 6,
+      "engine_terms": null,
+      "synthetic_lists": [
+        "demo.srp.wash.noncovered-st"
+      ],
+      "example_lists": [
+        "demo.srp.wash.noncovered-st",
+        "v81/v80/carried_code_w_on_gain",
+        "v81/v80/v80_c_code_w_on_gain",
+        "v81/v80/v80_d3_b_code_w_on_gain"
+      ],
+      "page_fields": 35
+    }
+  ]
+}

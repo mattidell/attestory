@@ -78,3 +78,27 @@ adversarial check.
 ## Decisions
 
 Pending P0.
+
+## P0 result
+
+Builder, 2026-11-18. **Stopped under the charter's stop condition**;
+evidence in `sale-reasons-plain-evidence/p0.md`.
+
+- Census on v96 (775 recorded lists, 9 synthetic states): the holding
+  reason is drawn on 6 recorded lists, the wash-sale reason on 2, both as
+  page reasons on 34-38 blocked fields, always from the blocking family's
+  own member-validation row. Six noncovered, code B and no-1099-B families
+  carry the first; the two covered-W families the second.
+- Drafts checked against the 2025 Form 8949 and Schedule D instructions
+  are in `wording.json`, one sentence per reason, true in every drawn state.
+- The carrier is a source-family declaration. A content successor forces a
+  73-citizen cascade (core v97, registry v95, release v95; valid; no
+  `_successor_graphs` pin), and strict replay with 15 rejected mutation
+  controls found 0 expected pairs: all 700 successful pairs lose
+  publications because horizon chains are keyed by family version, and the
+  sentence is also copied into the validation finding's value.
+- Smallest change that keeps every number: a projection change drawing the
+  page reason from a declared sentence outside the family (engine plus
+  schema). The alternative is family successors with an ADR-0079 handover
+  and re-confirmed closures in every sale workspace. Foreman to choose,
+  re-charter or park.
