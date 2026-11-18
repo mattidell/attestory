@@ -1,0 +1,412 @@
+{
+  "status": "pass",
+  "pages": 699,
+  "browser": "Chrome/157.0.8103.79",
+  "replacement_properties": 57,
+  "all_new_texts_drawn": true,
+  "retained_old_text_properties": 0,
+  "render_alerts": [],
+  "non_loopback_requests": 0,
+  "checks": [
+    {
+      "id": "tax.us.2025.rule.attachment.f8949",
+      "property": "title",
+      "expected_lists": 699,
+      "new_text_lists": 699,
+      "old_text_lists": 0
+    },
+    {
+      "id": "tax.us.2025.rule.attachment.schedule-a",
+      "property": "title",
+      "expected_lists": 699,
+      "new_text_lists": 699,
+      "old_text_lists": 0
+    },
+    {
+      "id": "tax.us.2025.rule.attachment.schedule-d",
+      "property": "title",
+      "expected_lists": 699,
+      "new_text_lists": 699,
+      "old_text_lists": 0
+    },
+    {
+      "id": "tax.us.2025.form.eic-worksheet-a.line-2",
+      "property": "dispositions.computed_zero.explain",
+      "expected_lists": 697,
+      "new_text_lists": 697,
+      "old_text_lists": 0
+    },
+    {
+      "id": "tax.us.2025.form.eic-worksheet-a.line-5",
+      "property": "dispositions.computed_zero.explain",
+      "expected_lists": 323,
+      "new_text_lists": 323,
+      "old_text_lists": 0
+    },
+    {
+      "id": "tax.us.2025.form.eic-worksheet-a.line-5",
+      "property": "dispositions.guard_inapplicable.explain",
+      "expected_lists": 2,
+      "new_text_lists": 2,
+      "old_text_lists": 0
+    },
+    {
+      "id": "tax.us.2025.form.eic-worksheet-a.line-6",
+      "property": "dispositions.computed_zero.explain",
+      "expected_lists": 323,
+      "new_text_lists": 323,
+      "old_text_lists": 0
+    },
+    {
+      "id": "tax.us.2025.form.sch8812.line-14",
+      "property": "dispositions.computed_zero.explain",
+      "expected_lists": 2,
+      "new_text_lists": 2,
+      "old_text_lists": 0
+    },
+    {
+      "id": "tax.us.2025.form.sch8812.line-17",
+      "property": "dispositions.computed_zero.explain",
+      "expected_lists": 2,
+      "new_text_lists": 2,
+      "old_text_lists": 0
+    },
+    {
+      "id": "tax.us.2025.form.sch8812.line-4",
+      "property": "dispositions.closure_backed_zero.explain",
+      "expected_lists": 697,
+      "new_text_lists": 697,
+      "old_text_lists": 0
+    },
+    {
+      "id": "tax.us.2025.form.sch8812.line-6",
+      "property": "dispositions.computed_zero.explain",
+      "expected_lists": 699,
+      "new_text_lists": 699,
+      "old_text_lists": 0
+    },
+    {
+      "id": "tax.us.2025.form.sch8812.line-7",
+      "property": "dispositions.computed_zero.explain",
+      "expected_lists": 699,
+      "new_text_lists": 699,
+      "old_text_lists": 0
+    },
+    {
+      "id": "tax.us.2025.form1040.line-10",
+      "property": "dispositions.published_value.explain",
+      "expected_lists": 2,
+      "new_text_lists": 2,
+      "old_text_lists": 0
+    },
+    {
+      "id": "tax.us.2025.form1040.line-11a",
+      "property": "dispositions.published_value.explain",
+      "expected_lists": 325,
+      "new_text_lists": 325,
+      "old_text_lists": 0
+    },
+    {
+      "id": "tax.us.2025.form1040.line-11b",
+      "property": "dispositions.published_value.explain",
+      "expected_lists": 325,
+      "new_text_lists": 325,
+      "old_text_lists": 0
+    },
+    {
+      "id": "tax.us.2025.form1040.line-19",
+      "property": "dispositions.computed_zero.explain",
+      "expected_lists": 2,
+      "new_text_lists": 2,
+      "old_text_lists": 0
+    },
+    {
+      "id": "tax.us.2025.form1040.line-25a",
+      "property": "dispositions.computed_zero.explain",
+      "expected_lists": 2,
+      "new_text_lists": 2,
+      "old_text_lists": 0
+    },
+    {
+      "id": "tax.us.2025.form1040.line-25b",
+      "property": "dispositions.computed_zero.explain",
+      "expected_lists": 61,
+      "new_text_lists": 61,
+      "old_text_lists": 0
+    },
+    {
+      "id": "tax.us.2025.form1040.line-25c",
+      "property": "dispositions.computed_zero.explain",
+      "expected_lists": 699,
+      "new_text_lists": 699,
+      "old_text_lists": 0
+    },
+    {
+      "id": "tax.us.2025.form1040.line-25d",
+      "property": "dispositions.computed_zero.explain",
+      "expected_lists": 1,
+      "new_text_lists": 1,
+      "old_text_lists": 0
+    },
+    {
+      "id": "tax.us.2025.form1040.line-26",
+      "property": "dispositions.computed_zero.explain",
+      "expected_lists": 699,
+      "new_text_lists": 699,
+      "old_text_lists": 0
+    },
+    {
+      "id": "tax.us.2025.form1040.line-27a",
+      "property": "dispositions.computed_zero.explain",
+      "expected_lists": 323,
+      "new_text_lists": 323,
+      "old_text_lists": 0
+    },
+    {
+      "id": "tax.us.2025.form1040.line-28",
+      "property": "dispositions.computed_zero.explain",
+      "expected_lists": 2,
+      "new_text_lists": 2,
+      "old_text_lists": 0
+    },
+    {
+      "id": "tax.us.2025.form1040.line-2a",
+      "property": "dispositions.computed_zero.explain",
+      "expected_lists": 697,
+      "new_text_lists": 697,
+      "old_text_lists": 0
+    },
+    {
+      "id": "tax.us.2025.form1040.line-2a",
+      "property": "dispositions.published_value.explain",
+      "expected_lists": 2,
+      "new_text_lists": 2,
+      "old_text_lists": 0
+    },
+    {
+      "id": "tax.us.2025.form1040.line-2b",
+      "property": "dispositions.computed_zero.explain",
+      "expected_lists": 692,
+      "new_text_lists": 692,
+      "old_text_lists": 0
+    },
+    {
+      "id": "tax.us.2025.form1040.line-2b",
+      "property": "dispositions.published_value.explain",
+      "expected_lists": 7,
+      "new_text_lists": 7,
+      "old_text_lists": 0
+    },
+    {
+      "id": "tax.us.2025.form1040.line-32",
+      "property": "dispositions.computed_zero.explain",
+      "expected_lists": 2,
+      "new_text_lists": 2,
+      "old_text_lists": 0
+    },
+    {
+      "id": "tax.us.2025.form1040.line-37",
+      "property": "dispositions.computed_zero.explain",
+      "expected_lists": 2,
+      "new_text_lists": 2,
+      "old_text_lists": 0
+    },
+    {
+      "id": "tax.us.2025.form1040.line-38",
+      "property": "dispositions.computed_zero.explain",
+      "expected_lists": 699,
+      "new_text_lists": 699,
+      "old_text_lists": 0
+    },
+    {
+      "id": "tax.us.2025.form1040.line-3a",
+      "property": "dispositions.computed_zero.explain",
+      "expected_lists": 699,
+      "new_text_lists": 699,
+      "old_text_lists": 0
+    },
+    {
+      "id": "tax.us.2025.form1040.line-3b",
+      "property": "dispositions.computed_zero.explain",
+      "expected_lists": 690,
+      "new_text_lists": 690,
+      "old_text_lists": 0
+    },
+    {
+      "id": "tax.us.2025.form1040.line-3b",
+      "property": "dispositions.published_value.explain",
+      "expected_lists": 9,
+      "new_text_lists": 9,
+      "old_text_lists": 0
+    },
+    {
+      "id": "tax.us.2025.form1040.line-4b",
+      "property": "dispositions.computed_zero.explain",
+      "expected_lists": 693,
+      "new_text_lists": 693,
+      "old_text_lists": 0
+    },
+    {
+      "id": "tax.us.2025.form1040.line-6b",
+      "property": "dispositions.blocked.explain",
+      "expected_lists": 147,
+      "new_text_lists": 147,
+      "old_text_lists": 0
+    },
+    {
+      "id": "tax.us.2025.form1040.line-6d-not-checked",
+      "property": "dispositions.guard_inapplicable.explain",
+      "expected_lists": 699,
+      "new_text_lists": 699,
+      "old_text_lists": 0
+    },
+    {
+      "id": "tax.us.2025.form1040.line-6d",
+      "property": "dispositions.guard_inapplicable.explain",
+      "expected_lists": 698,
+      "new_text_lists": 698,
+      "old_text_lists": 0
+    },
+    {
+      "id": "tax.us.2025.form1040.line-7a",
+      "property": "dispositions.computed_zero.explain",
+      "expected_lists": 80,
+      "new_text_lists": 80,
+      "old_text_lists": 0
+    },
+    {
+      "id": "tax.us.2025.form1040.line-7a",
+      "property": "dispositions.published_value.explain",
+      "expected_lists": 245,
+      "new_text_lists": 245,
+      "old_text_lists": 0
+    },
+    {
+      "id": "tax.us.2025.form1040.line-7b",
+      "property": "dispositions.guard_inapplicable.explain",
+      "expected_lists": 581,
+      "new_text_lists": 581,
+      "old_text_lists": 0
+    },
+    {
+      "id": "tax.us.2025.form1040.line-8",
+      "property": "dispositions.published_value.explain",
+      "expected_lists": 6,
+      "new_text_lists": 6,
+      "old_text_lists": 0
+    },
+    {
+      "id": "tax.us.2025.form1040.tax-after-credits",
+      "property": "dispositions.blocked.explain",
+      "expected_lists": 148,
+      "new_text_lists": 148,
+      "old_text_lists": 0
+    },
+    {
+      "id": "tax.us.2025.rule.attachment.schedule-1",
+      "property": "title",
+      "expected_lists": 699,
+      "new_text_lists": 699,
+      "old_text_lists": 0
+    },
+    {
+      "id": "tax.us.2025.schedule-d.line-13",
+      "property": "dispositions.computed_zero.explain",
+      "expected_lists": 693,
+      "new_text_lists": 693,
+      "old_text_lists": 0
+    },
+    {
+      "id": "tax.us.2025.schedule-d.line-13",
+      "property": "dispositions.published_value.explain",
+      "expected_lists": 6,
+      "new_text_lists": 6,
+      "old_text_lists": 0
+    },
+    {
+      "id": "tax.us.2025.schedule-d.line-16",
+      "property": "dispositions.published_value.explain",
+      "expected_lists": 253,
+      "new_text_lists": 253,
+      "old_text_lists": 0
+    },
+    {
+      "id": "tax.us.2025.schedule1.line-10",
+      "property": "dispositions.published_value.explain",
+      "expected_lists": 6,
+      "new_text_lists": 6,
+      "old_text_lists": 0
+    },
+    {
+      "id": "tax.us.2025.schedule1.line-21",
+      "property": "dispositions.closure_backed_zero.explain",
+      "expected_lists": 696,
+      "new_text_lists": 696,
+      "old_text_lists": 0
+    },
+    {
+      "id": "tax.us.2025.schedule1.line-21",
+      "property": "dispositions.published_value.explain",
+      "expected_lists": 2,
+      "new_text_lists": 2,
+      "old_text_lists": 0
+    },
+    {
+      "id": "tax.us.2025.schedule1.line-7",
+      "property": "dispositions.published_value.explain",
+      "expected_lists": 6,
+      "new_text_lists": 6,
+      "old_text_lists": 0
+    },
+    {
+      "id": "tax.us.2025.schedule3.line-1",
+      "property": "dispositions.blocked.explain",
+      "expected_lists": 147,
+      "new_text_lists": 147,
+      "old_text_lists": 0
+    },
+    {
+      "id": "tax.us.2025.schedule3.line-8",
+      "property": "dispositions.blocked.explain",
+      "expected_lists": 148,
+      "new_text_lists": 148,
+      "old_text_lists": 0
+    },
+    {
+      "id": "tax.us.2025.rule.effective-proceeds-support-count",
+      "property": "notes",
+      "expected_lists": 1,
+      "new_text_lists": 1,
+      "old_text_lists": 0
+    },
+    {
+      "id": "tax.us.2025.rule.f1098-line8a",
+      "property": "notes",
+      "expected_lists": 1,
+      "new_text_lists": 1,
+      "old_text_lists": 0
+    },
+    {
+      "id": "tax.us.2025.rule.mortgage-account-readiness",
+      "property": "notes",
+      "expected_lists": 1,
+      "new_text_lists": 1,
+      "old_text_lists": 0
+    },
+    {
+      "id": "tax.us.2025.rule.mortgage-link-support",
+      "property": "notes",
+      "expected_lists": 1,
+      "new_text_lists": 1,
+      "old_text_lists": 0
+    },
+    {
+      "id": "tax.us.2025.rule.mortgage-payment-comparison-support-count",
+      "property": "notes",
+      "expected_lists": 1,
+      "new_text_lists": 1,
+      "old_text_lists": 0
+    }
+  ],
+  "failures": []
+}

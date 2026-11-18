@@ -1,0 +1,41 @@
+{
+  "source": "published core v95 / registry v93 / release v93",
+  "workers": 9,
+  "lists": 7,
+  "wall_time_s": 24.473,
+  "recorded_outcomes": {},
+  "synthetic_outcomes": {
+    "demo.plt.blocked-names": {
+      "outcome": "success",
+      "stop": "saturated"
+    },
+    "demo.plt.interest-dividends": {
+      "outcome": "success",
+      "stop": "saturated"
+    },
+    "demo.plt.refused": {
+      "outcome": "refused",
+      "reason": "ADOPTION_NONE_CURRENT"
+    },
+    "demo.plt.sale": {
+      "outcome": "success",
+      "stop": "saturated"
+    },
+    "demo.plt.wage.married_filing_jointly": {
+      "outcome": "success",
+      "stop": "saturated"
+    },
+    "demo.plt.wage.married_filing_separately": {
+      "outcome": "success",
+      "stop": "saturated"
+    },
+    "demo.plt.wage.single": {
+      "outcome": "success",
+      "stop": "saturated"
+    }
+  },
+  "stops": {
+    "saturated": 6
+  },
+  "errors": {}
+}

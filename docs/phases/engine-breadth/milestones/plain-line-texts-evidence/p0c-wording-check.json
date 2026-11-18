@@ -1,0 +1,553 @@
+{
+  "checked_properties": 57,
+  "kept": 41,
+  "revised": 16,
+  "sources": "Local 2025 witnesses in p0b-sources.json and adopted producer/context cited by each row.",
+  "checks": [
+    {
+      "id": "tax.us.2025.rule.attachment.f8949",
+      "property": "title",
+      "source_check": "2025 Schedule D instructions, Exception 1 and Part III; 2025 Form 1040 line 7a. Current line7a v9 has both Schedule D and distribution-only routes.",
+      "recorded_lists": 691,
+      "synthetic_lists": 8,
+      "verdict": "kept",
+      "reason": "Retains the original absence or completed calculation in the drawn census context; local source uses the same line and tax concept."
+    },
+    {
+      "id": "tax.us.2025.rule.attachment.schedule-a",
+      "property": "title",
+      "source_check": "2025 Schedule A instructions, heading and line 8a.",
+      "recorded_lists": 691,
+      "synthetic_lists": 8,
+      "verdict": "kept",
+      "reason": "Retains the original absence or completed calculation in the drawn census context; local source uses the same line and tax concept."
+    },
+    {
+      "id": "tax.us.2025.rule.attachment.schedule-d",
+      "property": "title",
+      "source_check": "2025 Schedule D instructions, Exception 1 and Part III; 2025 Form 1040 line 7a. Current line7a v9 has both Schedule D and distribution-only routes.",
+      "recorded_lists": 691,
+      "synthetic_lists": 8,
+      "verdict": "kept",
+      "reason": "Retains the original absence or completed calculation in the drawn census context; local source uses the same line and tax concept."
+    },
+    {
+      "id": "tax.us.2025.form.eic-worksheet-a.line-2",
+      "property": "dispositions.computed_zero.explain",
+      "source_check": "2025 Form 1040 instructions, Earned Income Credit Worksheet A, lines 1-6 and EIC Table; current rule threshold branches retained.",
+      "recorded_lists": 689,
+      "synthetic_lists": 8,
+      "verdict": "revised",
+      "reason": "Avoid attributing the application's explicit below-$1 branch to a literal IRS worksheet instruction; keep both existing zero branches.",
+      "p0b_replacement": "Worksheet A line 2 is zero under the worksheet rule for earned income below $1 or the EIC Table amount for line 1.",
+      "p0c_replacement": "Worksheet A line 2 is zero because the earned income on line 1 is below $1 or gives a zero credit in the EIC Table."
+    },
+    {
+      "id": "tax.us.2025.form.eic-worksheet-a.line-5",
+      "property": "dispositions.computed_zero.explain",
+      "source_check": "2025 Form 1040 instructions, Earned Income Credit Worksheet A, lines 1-6 and EIC Table; current rule threshold branches retained.",
+      "recorded_lists": 319,
+      "synthetic_lists": 4,
+      "verdict": "kept",
+      "reason": "Retains the original absence or completed calculation in the drawn census context; local source uses the same line and tax concept."
+    },
+    {
+      "id": "tax.us.2025.form.eic-worksheet-a.line-5",
+      "property": "dispositions.guard_inapplicable.explain",
+      "source_check": "2025 Form 1040 instructions, Earned Income Credit Worksheet A, lines 1-6 and EIC Table; current rule threshold branches retained.",
+      "recorded_lists": 2,
+      "synthetic_lists": 0,
+      "verdict": "kept",
+      "reason": "Retains the original absence or completed calculation in the drawn census context; local source uses the same line and tax concept."
+    },
+    {
+      "id": "tax.us.2025.form.eic-worksheet-a.line-6",
+      "property": "dispositions.computed_zero.explain",
+      "source_check": "2025 Form 1040 instructions, Earned Income Credit Worksheet A, lines 1-6 and EIC Table; current rule threshold branches retained.",
+      "recorded_lists": 319,
+      "synthetic_lists": 4,
+      "verdict": "kept",
+      "reason": "Retains the original absence or completed calculation in the drawn census context; local source uses the same line and tax concept."
+    },
+    {
+      "id": "tax.us.2025.form.sch8812.line-14",
+      "property": "dispositions.computed_zero.explain",
+      "source_check": "2025 Schedule 8812, Parts I and II-A, lines 4, 6, 7, 14, 16a, 16b and 17; current rule eligibility branches retained.",
+      "recorded_lists": 0,
+      "synthetic_lists": 2,
+      "verdict": "kept",
+      "reason": "Retains the original absence or completed calculation in the drawn census context; local source uses the same line and tax concept."
+    },
+    {
+      "id": "tax.us.2025.form.sch8812.line-17",
+      "property": "dispositions.computed_zero.explain",
+      "source_check": "2025 Schedule 8812, Parts I and II-A, lines 4, 6, 7, 14, 16a, 16b and 17; current rule eligibility branches retained.",
+      "recorded_lists": 0,
+      "synthetic_lists": 2,
+      "verdict": "kept",
+      "reason": "Retains the original absence or completed calculation in the drawn census context; local source uses the same line and tax concept."
+    },
+    {
+      "id": "tax.us.2025.form.sch8812.line-4",
+      "property": "dispositions.closure_backed_zero.explain",
+      "source_check": "2025 Schedule 8812, Parts I and II-A, lines 4, 6, 7, 14, 16a, 16b and 17; current rule eligibility branches retained.",
+      "recorded_lists": 689,
+      "synthetic_lists": 8,
+      "verdict": "kept",
+      "reason": "Retains the original absence or completed calculation in the drawn census context; local source uses the same line and tax concept."
+    },
+    {
+      "id": "tax.us.2025.form.sch8812.line-6",
+      "property": "dispositions.computed_zero.explain",
+      "source_check": "2025 Schedule 8812, Parts I and II-A, lines 4, 6, 7, 14, 16a, 16b and 17; current rule eligibility branches retained.",
+      "recorded_lists": 691,
+      "synthetic_lists": 8,
+      "verdict": "kept",
+      "reason": "Retains the original absence or completed calculation in the drawn census context; local source uses the same line and tax concept."
+    },
+    {
+      "id": "tax.us.2025.form.sch8812.line-7",
+      "property": "dispositions.computed_zero.explain",
+      "source_check": "2025 Schedule 8812, Parts I and II-A, lines 4, 6, 7, 14, 16a, 16b and 17; current rule eligibility branches retained.",
+      "recorded_lists": 691,
+      "synthetic_lists": 8,
+      "verdict": "kept",
+      "reason": "Retains the original absence or completed calculation in the drawn census context; local source uses the same line and tax concept."
+    },
+    {
+      "id": "tax.us.2025.form1040.line-10",
+      "property": "dispositions.published_value.explain",
+      "source_check": "2025 Form 1040 instructions, corresponding line heading; current adopted producer confirms which calculation or absence supports the result.",
+      "recorded_lists": 2,
+      "synthetic_lists": 0,
+      "verdict": "kept",
+      "reason": "Retains the original absence or completed calculation in the drawn census context; local source uses the same line and tax concept."
+    },
+    {
+      "id": "tax.us.2025.form1040.line-11a",
+      "property": "dispositions.published_value.explain",
+      "source_check": "2025 Form 1040 instructions, corresponding line heading; current adopted producer confirms which calculation or absence supports the result.",
+      "recorded_lists": 321,
+      "synthetic_lists": 4,
+      "verdict": "kept",
+      "reason": "Retains the original absence or completed calculation in the drawn census context; local source uses the same line and tax concept."
+    },
+    {
+      "id": "tax.us.2025.form1040.line-11b",
+      "property": "dispositions.published_value.explain",
+      "source_check": "2025 Form 1040 instructions, corresponding line heading; current adopted producer confirms which calculation or absence supports the result.",
+      "recorded_lists": 321,
+      "synthetic_lists": 4,
+      "verdict": "kept",
+      "reason": "Retains the original absence or completed calculation in the drawn census context; local source uses the same line and tax concept."
+    },
+    {
+      "id": "tax.us.2025.form1040.line-19",
+      "property": "dispositions.computed_zero.explain",
+      "source_check": "2025 Form 1040 instructions, corresponding line heading; current adopted producer confirms which calculation or absence supports the result.",
+      "recorded_lists": 0,
+      "synthetic_lists": 2,
+      "verdict": "kept",
+      "reason": "Retains the original absence or completed calculation in the drawn census context; local source uses the same line and tax concept."
+    },
+    {
+      "id": "tax.us.2025.form1040.line-25a",
+      "property": "dispositions.computed_zero.explain",
+      "source_check": "2025 Form 1040 instructions, corresponding line heading; current adopted producer confirms which calculation or absence supports the result.",
+      "recorded_lists": 2,
+      "synthetic_lists": 0,
+      "verdict": "revised",
+      "reason": "The existing producer rounds the total. A displayed zero does not prove raw cents total zero or an entered amount was literally zero. Preserve the completed rounded calculation; IRS rounding instructions, Rounding Off to Whole Dollars section.",
+      "p0b_replacement": "The federal income tax withholding in box 2 of your recorded Forms W-2 adds to zero.",
+      "p0c_replacement": "The federal income tax withholding in box 2 of your recorded Forms W-2 totals zero after rounding."
+    },
+    {
+      "id": "tax.us.2025.form1040.line-25b",
+      "property": "dispositions.computed_zero.explain",
+      "source_check": "2025 Form 1040 instructions, corresponding line heading; current adopted producer confirms which calculation or absence supports the result.",
+      "recorded_lists": 57,
+      "synthetic_lists": 4,
+      "verdict": "revised",
+      "reason": "The existing producer rounds the total. A displayed zero does not prove raw cents total zero or an entered amount was literally zero. Preserve the completed rounded calculation; IRS rounding instructions, Rounding Off to Whole Dollars section.",
+      "p0b_replacement": "The recorded federal income tax withholding from Forms 1099 and SSA-1099 adds to zero.",
+      "p0c_replacement": "The recorded federal income tax withholding from Forms 1099 and SSA-1099 totals zero after rounding."
+    },
+    {
+      "id": "tax.us.2025.form1040.line-25c",
+      "property": "dispositions.computed_zero.explain",
+      "source_check": "2025 Form 1040 instructions, corresponding line heading; current adopted producer confirms which calculation or absence supports the result.",
+      "recorded_lists": 691,
+      "synthetic_lists": 8,
+      "verdict": "revised",
+      "reason": "The existing producer rounds the total. A displayed zero does not prove raw cents total zero or an entered amount was literally zero. Preserve the completed rounded calculation; IRS rounding instructions, Rounding Off to Whole Dollars section.",
+      "p0b_replacement": "The federal income tax withholding in box 4 of your recorded Forms W-2G adds to zero.",
+      "p0c_replacement": "The federal income tax withholding in box 4 of your recorded Forms W-2G totals zero after rounding."
+    },
+    {
+      "id": "tax.us.2025.form1040.line-25d",
+      "property": "dispositions.computed_zero.explain",
+      "source_check": "2025 Form 1040 instructions, corresponding line heading; current adopted producer confirms which calculation or absence supports the result.",
+      "recorded_lists": 1,
+      "synthetic_lists": 0,
+      "verdict": "kept",
+      "reason": "Retains the original absence or completed calculation in the drawn census context; local source uses the same line and tax concept."
+    },
+    {
+      "id": "tax.us.2025.form1040.line-26",
+      "property": "dispositions.computed_zero.explain",
+      "source_check": "2025 Form 1040 instructions, corresponding line heading; current adopted producer confirms which calculation or absence supports the result.",
+      "recorded_lists": 691,
+      "synthetic_lists": 8,
+      "verdict": "revised",
+      "reason": "The existing producer rounds the total. A displayed zero does not prove raw cents total zero or an entered amount was literally zero. Preserve the completed rounded calculation; IRS rounding instructions, Rounding Off to Whole Dollars section.",
+      "p0b_replacement": "Your estimated tax payments and amount applied from your 2024 return are zero because you entered zero for that amount.",
+      "p0c_replacement": "Your estimated tax payments and amount applied from your 2024 return are zero after the amount you entered is rounded to whole dollars."
+    },
+    {
+      "id": "tax.us.2025.form1040.line-27a",
+      "property": "dispositions.computed_zero.explain",
+      "source_check": "2025 Form 1040 instructions, corresponding line heading; current adopted producer confirms which calculation or absence supports the result.",
+      "recorded_lists": 319,
+      "synthetic_lists": 4,
+      "verdict": "kept",
+      "reason": "Retains the original absence or completed calculation in the drawn census context; local source uses the same line and tax concept."
+    },
+    {
+      "id": "tax.us.2025.form1040.line-28",
+      "property": "dispositions.computed_zero.explain",
+      "source_check": "2025 Form 1040 instructions, corresponding line heading; current adopted producer confirms which calculation or absence supports the result.",
+      "recorded_lists": 0,
+      "synthetic_lists": 2,
+      "verdict": "kept",
+      "reason": "Retains the original absence or completed calculation in the drawn census context; local source uses the same line and tax concept."
+    },
+    {
+      "id": "tax.us.2025.form1040.line-2a",
+      "property": "dispositions.computed_zero.explain",
+      "source_check": "2025 Form 1040 instructions, corresponding line heading; current adopted producer confirms which calculation or absence supports the result.",
+      "recorded_lists": 690,
+      "synthetic_lists": 7,
+      "verdict": "revised",
+      "reason": "The existing producer rounds the total. A displayed zero does not prove raw cents total zero or an entered amount was literally zero. Preserve the completed rounded calculation; IRS rounding instructions, Rounding Off to Whole Dollars section.",
+      "p0b_replacement": "You confirmed the tax-exempt interest records are complete, and the combined Form 1099-INT box 8 and Form 1099-DIV box 12 amount is zero.",
+      "p0c_replacement": "You confirmed the tax-exempt interest records are complete, and the combined Form 1099-INT box 8 and Form 1099-DIV box 12 amount is zero after rounding."
+    },
+    {
+      "id": "tax.us.2025.form1040.line-2a",
+      "property": "dispositions.published_value.explain",
+      "source_check": "2025 Form 1040 instructions, corresponding line heading; current adopted producer confirms which calculation or absence supports the result.",
+      "recorded_lists": 1,
+      "synthetic_lists": 1,
+      "verdict": "kept",
+      "reason": "Retains the original absence or completed calculation in the drawn census context; local source uses the same line and tax concept."
+    },
+    {
+      "id": "tax.us.2025.form1040.line-2b",
+      "property": "dispositions.computed_zero.explain",
+      "source_check": "2025 Form 1040 instructions lines 2b/3b and Schedule B Parts I/II; existing rounding and adjustments retained.",
+      "recorded_lists": 684,
+      "synthetic_lists": 8,
+      "verdict": "revised",
+      "reason": "The existing producer rounds the total. A displayed zero does not prove raw cents total zero or an entered amount was literally zero. Preserve the completed rounded calculation; IRS rounding instructions, Rounding Off to Whole Dollars section.",
+      "p0b_replacement": "Your taxable interest is zero because the completed interest totals, after the recorded adjustments, add to zero.",
+      "p0c_replacement": "Your taxable interest is zero after the completed interest totals and recorded adjustments are combined and rounded."
+    },
+    {
+      "id": "tax.us.2025.form1040.line-2b",
+      "property": "dispositions.published_value.explain",
+      "source_check": "2025 Form 1040 instructions lines 2b/3b and Schedule B Parts I/II; existing rounding and adjustments retained.",
+      "recorded_lists": 7,
+      "synthetic_lists": 0,
+      "verdict": "kept",
+      "reason": "Retains the original absence or completed calculation in the drawn census context; local source uses the same line and tax concept."
+    },
+    {
+      "id": "tax.us.2025.form1040.line-32",
+      "property": "dispositions.computed_zero.explain",
+      "source_check": "2025 Form 1040 instructions, corresponding line heading; current adopted producer confirms which calculation or absence supports the result.",
+      "recorded_lists": 0,
+      "synthetic_lists": 2,
+      "verdict": "revised",
+      "reason": "The existing producer rounds the total. A displayed zero does not prove raw cents total zero or an entered amount was literally zero. Preserve the completed rounded calculation; IRS rounding instructions, Rounding Off to Whole Dollars section.",
+      "p0b_replacement": "Your other payments and refundable credits total zero because the completed payment and credit amounts add to zero.",
+      "p0c_replacement": "Your other payments and refundable credits round to zero when the completed payment and credit amounts are totaled."
+    },
+    {
+      "id": "tax.us.2025.form1040.line-37",
+      "property": "dispositions.computed_zero.explain",
+      "source_check": "2025 Form 1040 instructions, corresponding line heading; current adopted producer confirms which calculation or absence supports the result.",
+      "recorded_lists": 0,
+      "synthetic_lists": 2,
+      "verdict": "revised",
+      "reason": "The existing producer rounds the total. A displayed zero does not prove raw cents total zero or an entered amount was literally zero. Preserve the completed rounded calculation; IRS rounding instructions, Rounding Off to Whole Dollars section.",
+      "p0b_replacement": "You owe no additional tax on line 37 because your total payments are at least your total tax.",
+      "p0c_replacement": "The amount still owed after comparing your total tax with your payments is zero after rounding."
+    },
+    {
+      "id": "tax.us.2025.form1040.line-38",
+      "property": "dispositions.computed_zero.explain",
+      "source_check": "2025 Form 1040 instructions, corresponding line heading; current adopted producer confirms which calculation or absence supports the result.",
+      "recorded_lists": 691,
+      "synthetic_lists": 8,
+      "verdict": "kept",
+      "reason": "Retains the original absence or completed calculation in the drawn census context; local source uses the same line and tax concept."
+    },
+    {
+      "id": "tax.us.2025.form1040.line-3a",
+      "property": "dispositions.computed_zero.explain",
+      "source_check": "2025 Form 1040 instructions, corresponding line heading; current adopted producer confirms which calculation or absence supports the result.",
+      "recorded_lists": 691,
+      "synthetic_lists": 8,
+      "verdict": "revised",
+      "reason": "The existing producer rounds the total. A displayed zero does not prove raw cents total zero or an entered amount was literally zero. Preserve the completed rounded calculation; IRS rounding instructions, Rounding Off to Whole Dollars section.",
+      "p0b_replacement": "The qualified dividends in box 1b of your recorded Forms 1099-DIV add to zero, and those records are complete.",
+      "p0c_replacement": "The qualified dividends in box 1b of your recorded Forms 1099-DIV total zero after rounding, and those records are complete."
+    },
+    {
+      "id": "tax.us.2025.form1040.line-3b",
+      "property": "dispositions.computed_zero.explain",
+      "source_check": "2025 Form 1040 instructions lines 2b/3b and Schedule B Parts I/II; existing rounding and adjustments retained.",
+      "recorded_lists": 683,
+      "synthetic_lists": 7,
+      "verdict": "revised",
+      "reason": "The existing producer rounds the total. A displayed zero does not prove raw cents total zero or an entered amount was literally zero. Preserve the completed rounded calculation; IRS rounding instructions, Rounding Off to Whole Dollars section.",
+      "p0b_replacement": "The ordinary dividends in box 1a of your recorded Forms 1099-DIV add to zero, and those records are complete.",
+      "p0c_replacement": "The ordinary dividends in box 1a of your recorded Forms 1099-DIV total zero after rounding, and those records are complete."
+    },
+    {
+      "id": "tax.us.2025.form1040.line-3b",
+      "property": "dispositions.published_value.explain",
+      "source_check": "2025 Form 1040 instructions lines 2b/3b and Schedule B Parts I/II; existing rounding and adjustments retained.",
+      "recorded_lists": 8,
+      "synthetic_lists": 1,
+      "verdict": "kept",
+      "reason": "Retains the original absence or completed calculation in the drawn census context; local source uses the same line and tax concept."
+    },
+    {
+      "id": "tax.us.2025.form1040.line-4b",
+      "property": "dispositions.computed_zero.explain",
+      "source_check": "2025 Form 1040 instructions, corresponding line heading; current adopted producer confirms which calculation or absence supports the result.",
+      "recorded_lists": 685,
+      "synthetic_lists": 8,
+      "verdict": "revised",
+      "reason": "The existing producer rounds the total. A displayed zero does not prove raw cents total zero or an entered amount was literally zero. Preserve the completed rounded calculation; IRS rounding instructions, Rounding Off to Whole Dollars section.",
+      "p0b_replacement": "Your fully taxable IRA distributions total zero because none are recorded or their amounts add to zero, and those records are complete.",
+      "p0c_replacement": "Your fully taxable IRA distributions total zero because none are recorded or their total rounds to zero, and those records are complete."
+    },
+    {
+      "id": "tax.us.2025.form1040.line-6b",
+      "property": "dispositions.blocked.explain",
+      "source_check": "2025 Form 1040 instructions, corresponding line heading; current adopted producer confirms which calculation or absence supports the result.",
+      "recorded_lists": 147,
+      "synthetic_lists": 0,
+      "verdict": "kept",
+      "reason": "Retains the original absence or completed calculation in the drawn census context; local source uses the same line and tax concept."
+    },
+    {
+      "id": "tax.us.2025.form1040.line-6d-not-checked",
+      "property": "dispositions.guard_inapplicable.explain",
+      "source_check": "2025 Form 1040 instructions, corresponding line heading; current adopted producer confirms which calculation or absence supports the result.",
+      "recorded_lists": 691,
+      "synthetic_lists": 8,
+      "verdict": "kept",
+      "reason": "Retains the original absence or completed calculation in the drawn census context; local source uses the same line and tax concept."
+    },
+    {
+      "id": "tax.us.2025.form1040.line-6d",
+      "property": "dispositions.guard_inapplicable.explain",
+      "source_check": "2025 Form 1040 instructions, corresponding line heading; current adopted producer confirms which calculation or absence supports the result.",
+      "recorded_lists": 691,
+      "synthetic_lists": 7,
+      "verdict": "kept",
+      "reason": "Retains the original absence or completed calculation in the drawn census context; local source uses the same line and tax concept."
+    },
+    {
+      "id": "tax.us.2025.form1040.line-7a",
+      "property": "dispositions.computed_zero.explain",
+      "source_check": "2025 Schedule D instructions, Exception 1 and Part III; 2025 Form 1040 line 7a. Current line7a v9 has both Schedule D and distribution-only routes.",
+      "recorded_lists": 77,
+      "synthetic_lists": 3,
+      "verdict": "revised",
+      "reason": "The existing producer rounds the total. A displayed zero does not prove raw cents total zero or an entered amount was literally zero. Preserve the completed rounded calculation; IRS rounding instructions, Rounding Off to Whole Dollars section.",
+      "p0b_replacement": "Your capital gain or loss is zero after the Schedule D calculation, or the box 2a capital gain distributions add to zero when Schedule D is not required.",
+      "p0c_replacement": "Your capital gain or loss is zero after the Schedule D calculation, or after rounding the box 2a capital gain distributions when Schedule D is not required."
+    },
+    {
+      "id": "tax.us.2025.form1040.line-7a",
+      "property": "dispositions.published_value.explain",
+      "source_check": "2025 Schedule D instructions, Exception 1 and Part III; 2025 Form 1040 line 7a. Current line7a v9 has both Schedule D and distribution-only routes.",
+      "recorded_lists": 244,
+      "synthetic_lists": 1,
+      "verdict": "kept",
+      "reason": "Retains the original absence or completed calculation in the drawn census context; local source uses the same line and tax concept."
+    },
+    {
+      "id": "tax.us.2025.form1040.line-7b",
+      "property": "dispositions.guard_inapplicable.explain",
+      "source_check": "2025 Schedule D instructions, Exception 1 and Part III; 2025 Form 1040 line 7a. Current line7a v9 has both Schedule D and distribution-only routes.",
+      "recorded_lists": 580,
+      "synthetic_lists": 1,
+      "verdict": "kept",
+      "reason": "Retains the original absence or completed calculation in the drawn census context; local source uses the same line and tax concept."
+    },
+    {
+      "id": "tax.us.2025.form1040.line-8",
+      "property": "dispositions.published_value.explain",
+      "source_check": "2025 Form 1040 instructions, corresponding line heading; current adopted producer confirms which calculation or absence supports the result.",
+      "recorded_lists": 6,
+      "synthetic_lists": 0,
+      "verdict": "kept",
+      "reason": "Retains the original absence or completed calculation in the drawn census context; local source uses the same line and tax concept."
+    },
+    {
+      "id": "tax.us.2025.form1040.tax-after-credits",
+      "property": "dispositions.blocked.explain",
+      "source_check": "2025 Form 1040 instructions, corresponding line heading; current adopted producer confirms which calculation or absence supports the result.",
+      "recorded_lists": 148,
+      "synthetic_lists": 0,
+      "verdict": "kept",
+      "reason": "Retains the original absence or completed calculation in the drawn census context; local source uses the same line and tax concept."
+    },
+    {
+      "id": "tax.us.2025.rule.attachment.schedule-1",
+      "property": "title",
+      "source_check": "2025 Form 1040 instructions, corresponding line heading; current adopted producer confirms which calculation or absence supports the result.",
+      "recorded_lists": 691,
+      "synthetic_lists": 8,
+      "verdict": "kept",
+      "reason": "Retains the original absence or completed calculation in the drawn census context; local source uses the same line and tax concept."
+    },
+    {
+      "id": "tax.us.2025.schedule-d.line-13",
+      "property": "dispositions.computed_zero.explain",
+      "source_check": "2025 Schedule D instructions, Exception 1 and Part III; 2025 Form 1040 line 7a. Current line7a v9 has both Schedule D and distribution-only routes.",
+      "recorded_lists": 685,
+      "synthetic_lists": 8,
+      "verdict": "revised",
+      "reason": "The existing producer rounds the total. A displayed zero does not prove raw cents total zero or an entered amount was literally zero. Preserve the completed rounded calculation; IRS rounding instructions, Rounding Off to Whole Dollars section.",
+      "p0b_replacement": "Your capital gain distributions are zero because the amounts in box 2a of your recorded Forms 1099-DIV add to zero.",
+      "p0c_replacement": "Your capital gain distributions are zero after the amounts in box 2a of your recorded Forms 1099-DIV are totaled and rounded."
+    },
+    {
+      "id": "tax.us.2025.schedule-d.line-13",
+      "property": "dispositions.published_value.explain",
+      "source_check": "2025 Schedule D instructions, Exception 1 and Part III; 2025 Form 1040 line 7a. Current line7a v9 has both Schedule D and distribution-only routes.",
+      "recorded_lists": 6,
+      "synthetic_lists": 0,
+      "verdict": "kept",
+      "reason": "Retains the original absence or completed calculation in the drawn census context; local source uses the same line and tax concept."
+    },
+    {
+      "id": "tax.us.2025.schedule-d.line-16",
+      "property": "dispositions.published_value.explain",
+      "source_check": "2025 Schedule D instructions, Exception 1 and Part III; 2025 Form 1040 line 7a. Current line7a v9 has both Schedule D and distribution-only routes.",
+      "recorded_lists": 252,
+      "synthetic_lists": 1,
+      "verdict": "kept",
+      "reason": "Retains the original absence or completed calculation in the drawn census context; local source uses the same line and tax concept."
+    },
+    {
+      "id": "tax.us.2025.schedule1.line-10",
+      "property": "dispositions.published_value.explain",
+      "source_check": "2025 Form 1040 instructions, corresponding line heading; current adopted producer confirms which calculation or absence supports the result.",
+      "recorded_lists": 6,
+      "synthetic_lists": 0,
+      "verdict": "kept",
+      "reason": "Retains the original absence or completed calculation in the drawn census context; local source uses the same line and tax concept."
+    },
+    {
+      "id": "tax.us.2025.schedule1.line-21",
+      "property": "dispositions.closure_backed_zero.explain",
+      "source_check": "2025 Form 1040 instructions, Schedule 1 line 21; Publication 970 chapter 4. No new eligibility or deduction rule.",
+      "recorded_lists": 689,
+      "synthetic_lists": 7,
+      "verdict": "kept",
+      "reason": "Retains the original absence or completed calculation in the drawn census context; local source uses the same line and tax concept."
+    },
+    {
+      "id": "tax.us.2025.schedule1.line-21",
+      "property": "dispositions.published_value.explain",
+      "source_check": "2025 Form 1040 instructions, Schedule 1 line 21; Publication 970 chapter 4. No new eligibility or deduction rule.",
+      "recorded_lists": 2,
+      "synthetic_lists": 0,
+      "verdict": "kept",
+      "reason": "Retains the original absence or completed calculation in the drawn census context; local source uses the same line and tax concept."
+    },
+    {
+      "id": "tax.us.2025.schedule1.line-7",
+      "property": "dispositions.published_value.explain",
+      "source_check": "2025 Form 1040 instructions, corresponding line heading; current adopted producer confirms which calculation or absence supports the result.",
+      "recorded_lists": 6,
+      "synthetic_lists": 0,
+      "verdict": "kept",
+      "reason": "Retains the original absence or completed calculation in the drawn census context; local source uses the same line and tax concept."
+    },
+    {
+      "id": "tax.us.2025.schedule3.line-1",
+      "property": "dispositions.blocked.explain",
+      "source_check": "2025 Schedule 3 Part I and Form 1116 instructions, election to claim foreign tax credit without filing Form 1116; existing bounded checks retained.",
+      "recorded_lists": 147,
+      "synthetic_lists": 0,
+      "verdict": "revised",
+      "reason": "Preserve incomplete OR failed conditions; a completed negative answer does not unblock this calculation.",
+      "p0b_replacement": "Your foreign tax credit cannot be calculated until the foreign tax records are complete and the answers about claiming the credit, the related income, the applicable dollar limit, and the tax calculation are settled.",
+      "p0c_replacement": "Your foreign tax credit cannot be calculated because the required foreign tax records or answers about claiming the credit, eligible taxes and related income, the dollar limit, or the tax calculation are incomplete or do not meet the conditions for this calculation."
+    },
+    {
+      "id": "tax.us.2025.schedule3.line-8",
+      "property": "dispositions.blocked.explain",
+      "source_check": "2025 Schedule 3 Part I and Form 1116 instructions, election to claim foreign tax credit without filing Form 1116; existing bounded checks retained.",
+      "recorded_lists": 148,
+      "synthetic_lists": 0,
+      "verdict": "kept",
+      "reason": "Retains the original absence or completed calculation in the drawn census context; local source uses the same line and tax concept."
+    },
+    {
+      "id": "tax.us.2025.rule.effective-proceeds-support-count",
+      "property": "notes",
+      "source_check": "2025 Publication 936, Parts I and II, and Schedule A line 8a instructions. The 1/0 checks, record matching and two-form safeguards are existing application behavior, not new IRS requirements.",
+      "recorded_lists": 0,
+      "synthetic_lists": 1,
+      "verdict": "revised",
+      "reason": "The old sentence requires a current affirmed link. Say current confirmation, so a withdrawn or replaced historical confirmation does not appear to count.",
+      "p0b_replacement": "This check gives 1 only when exactly one recorded confirmation links the loan to how its proceeds were used and all five current answers about that use are available. It checks that the answers are complete; it does not count uses of the proceeds.",
+      "p0c_replacement": "This check gives 1 only when exactly one current confirmation links the loan to how its proceeds were used and all five current answers about that use are available. It checks that the answers are complete; it does not count uses of the proceeds."
+    },
+    {
+      "id": "tax.us.2025.rule.f1098-line8a",
+      "property": "notes",
+      "source_check": "2025 Publication 936, Parts I and II, and Schedule A line 8a instructions. The 1/0 checks, record matching and two-form safeguards are existing application behavior, not new IRS requirements.",
+      "recorded_lists": 0,
+      "synthetic_lists": 1,
+      "verdict": "kept",
+      "reason": "Retains the original absence or completed calculation in the drawn census context; local source uses the same line and tax concept."
+    },
+    {
+      "id": "tax.us.2025.rule.mortgage-account-readiness",
+      "property": "notes",
+      "source_check": "2025 Publication 936, Parts I and II, and Schedule A line 8a instructions. The 1/0 checks, record matching and two-form safeguards are existing application behavior, not new IRS requirements.",
+      "recorded_lists": 0,
+      "synthetic_lists": 1,
+      "verdict": "kept",
+      "reason": "Retains the original absence or completed calculation in the drawn census context; local source uses the same line and tax concept."
+    },
+    {
+      "id": "tax.us.2025.rule.mortgage-link-support",
+      "property": "notes",
+      "source_check": "2025 Publication 936, Parts I and II, and Schedule A line 8a instructions. The 1/0 checks, record matching and two-form safeguards are existing application behavior, not new IRS requirements.",
+      "recorded_lists": 0,
+      "synthetic_lists": 1,
+      "verdict": "kept",
+      "reason": "Retains the original absence or completed calculation in the drawn census context; local source uses the same line and tax concept."
+    },
+    {
+      "id": "tax.us.2025.rule.mortgage-payment-comparison-support-count",
+      "property": "notes",
+      "source_check": "2025 Publication 936, Parts I and II, and Schedule A line 8a instructions. The 1/0 checks, record matching and two-form safeguards are existing application behavior, not new IRS requirements.",
+      "recorded_lists": 0,
+      "synthetic_lists": 1,
+      "verdict": "kept",
+      "reason": "Retains the original absence or completed calculation in the drawn census context; local source uses the same line and tax concept."
+    }
+  ]
+}

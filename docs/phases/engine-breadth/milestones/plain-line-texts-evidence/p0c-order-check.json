@@ -1,0 +1,56 @@
+{
+  "status": "pass",
+  "source": "Published v95 live runs; no scratch validator injection.",
+  "observations": [
+    {
+      "core": "v95",
+      "hash_seed": "original P0b worker",
+      "observations": [
+        {
+          "factType": "tax.us.2025.f1098.box3-origination-date",
+          "findingId": "demo.gl.f1098.1",
+          "value": "2020-06-01"
+        },
+        {
+          "factType": "tax.us.2025.f1098.box2-outstanding-principal",
+          "findingId": "demo.gl.f1098.0",
+          "value": 200000.0
+        }
+      ]
+    },
+    {
+      "core": "v95",
+      "hash_seed": 1,
+      "observations": [
+        {
+          "factType": "tax.us.2025.f1098.box2-outstanding-principal",
+          "findingId": "demo.gl.f1098.0",
+          "value": 200000.0
+        },
+        {
+          "factType": "tax.us.2025.f1098.box3-origination-date",
+          "findingId": "demo.gl.f1098.1",
+          "value": "2020-06-01"
+        }
+      ]
+    },
+    {
+      "core": "v95",
+      "hash_seed": 2,
+      "observations": [
+        {
+          "factType": "tax.us.2025.f1098.box3-origination-date",
+          "findingId": "demo.gl.f1098.1",
+          "value": "2020-06-01"
+        },
+        {
+          "factType": "tax.us.2025.f1098.box2-outstanding-principal",
+          "findingId": "demo.gl.f1098.0",
+          "value": 200000.0
+        }
+      ]
+    }
+  ],
+  "conclusion": "The same keyed box observations can be returned in different list orders on v95. Compare every factType/findingId/value record with multiplicity, independently of incidental order.",
+  "source_file": "packages/derivation/presentation_projection.py:2941"
+}

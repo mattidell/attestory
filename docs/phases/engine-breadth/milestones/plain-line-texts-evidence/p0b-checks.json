@@ -1,0 +1,29 @@
+{
+  "status": "local_checks_passed_with_charter_stop",
+  "checks": [
+    {
+      "command": "python3 -m py_compile census.py p0b_scan.py p0b_build.py",
+      "result": "passed"
+    },
+    {
+      "command": "node --check observe.mjs",
+      "result": "passed"
+    },
+    {
+      "command": "Coverage, DOM, path exclusion, wording, source references, predecessor/successor SHA witnesses",
+      "result": "passed; 775 recorded lists, 699 drawn pages, 57 properties, 50 byte witnesses"
+    },
+    {
+      "command": "git diff --check",
+      "result": "passed"
+    },
+    {
+      "command": "pytest tests/test_envelope_hooks.py",
+      "result": "12 passed in 1.52 seconds"
+    }
+  ],
+  "scratch_validation": "Failed once with NOMINEE_RETURN_SUCCESSOR_GRAPH_MIXED; engine boundary recorded and no bypass attempted.",
+  "strict_replay": "not run",
+  "mutation_controls": "not run",
+  "ci": "No push or PR; local checks do not replace required verify."
+}

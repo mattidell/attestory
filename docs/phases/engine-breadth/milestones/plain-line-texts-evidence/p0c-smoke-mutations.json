@@ -1,0 +1,69 @@
+{
+  "case": "demo.plt.wage.married_filing_separately",
+  "controls": {
+    "value": {
+      "rejected": true,
+      "gate": "publication value or symbol"
+    },
+    "page_value": {
+      "rejected": true,
+      "gate": "page value/disposition/code/reason/question"
+    },
+    "boolean_value": {
+      "rejected": true,
+      "gate": "page value/disposition/code/reason/question"
+    },
+    "disposition": {
+      "rejected": true,
+      "gate": "disposition/code/missing/guard"
+    },
+    "code": {
+      "rejected": true,
+      "gate": "disposition/code/missing/guard"
+    },
+    "missing_name": {
+      "rejected": true,
+      "gate": "disposition/code/missing/guard"
+    },
+    "unplanned_sentence": {
+      "rejected": true,
+      "gate": "whole model allowlist"
+    },
+    "question_identity": {
+      "rejected": true,
+      "gate": "page value/disposition/code/reason/question"
+    },
+    "added_row": {
+      "rejected": true,
+      "gate": "added/removed row"
+    },
+    "removed_row": {
+      "rejected": true,
+      "gate": "added/removed row"
+    },
+    "added_field": {
+      "rejected": true,
+      "gate": "added/removed page field"
+    },
+    "removed_field": {
+      "rejected": true,
+      "gate": "added/removed page field"
+    },
+    "planned_text_wrong_property": {
+      "rejected": true,
+      "gate": "whole model allowlist"
+    },
+    "box_value": {
+      "rejected": true,
+      "gate": "whole model allowlist"
+    },
+    "added_box_observation": {
+      "rejected": true,
+      "gate": "whole model allowlist"
+    },
+    "removed_box_observation": {
+      "rejected": true,
+      "gate": "whole model allowlist"
+    }
+  }
+}
