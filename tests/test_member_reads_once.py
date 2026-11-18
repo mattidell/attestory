@@ -102,6 +102,25 @@ class MemberReadsOnceTests(unittest.TestCase):
         self.assertNotIn("demo.member.b", ids)
         self.assertEqual(pr._json_candidates(self.root), _reference_candidates(self.root))
 
+    def test_changed_content_with_the_same_id_gets_a_new_checksum(self) -> None:
+        # A checksum cached per (id, version) rather than per content would
+        # pass the test above, which edits the id itself (review MRO-R3).
+        target = self.root / "b.json"
+        before = target.read_bytes()
+        stat = target.stat()
+        first = {c.view["id"]: c for c in pr._member_candidates(self.root)}
+        old = first["demo.member.b"].checksum()
+        after = before.replace(b'"z": 1', b'"z": 7')
+        self.assertNotEqual(before, after)
+        self.assertEqual(len(before), len(after))
+        target.write_bytes(after)
+        os.utime(target, ns=(stat.st_atime_ns, stat.st_mtime_ns))
+        again = {c.view["id"]: c for c in pr._member_candidates(self.root)}
+        edited = again["demo.member.b"]
+        self.assertEqual(edited.view["z"], 7)
+        self.assertEqual(edited.checksum(), citizen_checksum(edited.body()))
+        self.assertNotEqual(edited.checksum(), old)
+
     def test_file_that_becomes_malformed_or_missing_is_dropped(self) -> None:
         pr._member_candidates(self.root)
         (self.root / "b.json").write_text("{broken", "utf-8")
