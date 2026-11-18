@@ -1,0 +1,199 @@
+{
+  "status": "pass",
+  "source": "published core v95 / registry v93 / release v93",
+  "rebuilt": "core v96 / registry v94 / release v94 in place",
+  "track0_citizens": 50,
+  "repair_successors": 11,
+  "repair_inplace": 3,
+  "member_replacements": 61,
+  "entrypoint_replacements": 22,
+  "generation": {
+    "package": {
+      "id": "tax.us.2025.package.core-calculations",
+      "version": "v96",
+      "checksum": "97eece5abc1fbb39e4a72623bb7944608ee35dc67bdbb4e1526c7ae6f6409ee8"
+    },
+    "registry_sha256": "eddbfc806b24148d4599c3e293182c217619a13b381314e4d36cfe2e25899579",
+    "release": {
+      "id": "demo.release.sli-worksheet-integration.2025",
+      "version": "v94",
+      "sha256": "a51c213f67c251a931636c9fcdcf50856382c1c744ae8ad869a085254aba0f43"
+    },
+    "inherited_inconsistencies": [],
+    "publication_boundary": "Candidate only: successor companion declaration and live release evidence are separate duties under ADR-0082."
+  },
+  "successors": [
+    {
+      "id": "tax.us.2025.form1040.line-6a",
+      "old_version": "v2",
+      "new_version": "v3",
+      "predecessor": "packages/content/tax/2025/form1040.line-6a.form-field.v2.json",
+      "successor_filename": "form1040.line-6a.form-field.v3.json",
+      "changed_properties": [
+        "dispositions.computed_zero.explain"
+      ],
+      "predecessor_sha256": "36b527b6235beea55a85a62392678a69ed93434587f73cedc8577433aa8f04dc",
+      "successor_sha256": "71e99b28bb63d8e7834e19044b3f7b2de7c4521711dca215103b40037ea72459",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.rule.mortgage-borrowing-readiness",
+      "old_version": "v2",
+      "new_version": "v3",
+      "predecessor": "packages/content/tax/2025/tax.us.2025.rule.mortgage-borrowing-readiness.v2.json",
+      "successor_filename": "tax.us.2025.rule.mortgage-borrowing-readiness.v3.json",
+      "changed_properties": [
+        "notes"
+      ],
+      "predecessor_sha256": "f62ff752c87a7e04451802e808066943d5e41ba803e425ba596be5e484acf378",
+      "successor_sha256": "cc21c49772cb9d44482ffbe2f9e4074386b93ae3355665949b30ff0d05c789c0",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.rule.mortgage-account-ceiling-selection",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/tax.us.2025.rule.mortgage-account-ceiling-selection.v1.json",
+      "successor_filename": "tax.us.2025.rule.mortgage-account-ceiling-selection.v2.json",
+      "changed_properties": [
+        "notes"
+      ],
+      "predecessor_sha256": "0f4be24b10fac55265eb26d02b430905bd9258afa94b55aab999aabac671c3df",
+      "successor_sha256": "1d43947491ef75d501317cea70ffa9c3f655769c2faeee08bcac1df159c21cac",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.rule.mortgage-affirmed-link-coverage",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/tax.us.2025.rule.mortgage-affirmed-link-coverage.v1.json",
+      "successor_filename": "tax.us.2025.rule.mortgage-affirmed-link-coverage.v2.json",
+      "changed_properties": [
+        "notes"
+      ],
+      "predecessor_sha256": "3c3f0edcb761a0b4ebbbe82a1c4451d1da9bc722361d733eb90c11f4c26b4369",
+      "successor_sha256": "b4a5717bcafda633f9a1c8ca75085a0e40f26c1d43244d0ae212f0480ee37136",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.rule.f1098-residence-interest-reason",
+      "old_version": "v5",
+      "new_version": "v6",
+      "predecessor": "packages/content/tax/2025/tax.us.2025.rule.f1098-residence-interest-reason.v5.json",
+      "successor_filename": "tax.us.2025.rule.f1098-residence-interest-reason.v6.json",
+      "changed_properties": [
+        "notes"
+      ],
+      "predecessor_sha256": "9c276447ed879b8d0bc67e56dccdf3a82d0cda7869d6c95d033bfee68805dc35",
+      "successor_sha256": "6e3f9f96582ea4162260795a24af8d32c9ddb228ffbb41efb0c588908233f11c",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.rule.report-effective-support-coverage",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/tax.us.2025.rule.report-effective-support-coverage.v1.json",
+      "successor_filename": "tax.us.2025.rule.report-effective-support-coverage.v2.json",
+      "changed_properties": [
+        "notes"
+      ],
+      "predecessor_sha256": "ba695d82636b13fe731d62392661cb255080ca2f8d598313880943ded74c6c55",
+      "successor_sha256": "5e9f361091c249fd0681a38c4ad03d2619cdc5157fe74359c7a8e657dd41ef79",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.rule.mortgage-shared-mortgage-credit-certificate-received-count",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/tax.us.2025.rule.mortgage-shared-mortgage-credit-certificate-received-count.json",
+      "successor_filename": "tax.us.2025.rule.mortgage-shared-mortgage-credit-certificate-received-count.v2.json",
+      "changed_properties": [
+        "notes"
+      ],
+      "predecessor_sha256": "70f779ce94473409fa3e1bea1941f63fab4e0c120fb5e245cc5bc5ee526fcfef",
+      "successor_sha256": "150b97fefe1ff85d159de8f9a749403dffd8ed564b325742d0a940692ea4d253",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.rule.mortgage-shared-no-one-else-owes-it-count",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/tax.us.2025.rule.mortgage-shared-no-one-else-owes-it-count.json",
+      "successor_filename": "tax.us.2025.rule.mortgage-shared-no-one-else-owes-it-count.v2.json",
+      "changed_properties": [
+        "notes"
+      ],
+      "predecessor_sha256": "3d9923fb176e49a192fc5591e0065ebcd93193004175d363eca863b55f8160ca",
+      "successor_sha256": "bc9b3dc42fea79c19bc82bc85474703fed6921ac257baf10c941aecae63db9e5",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.rule.mortgage-shared-owes-the-loan-count",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/tax.us.2025.rule.mortgage-shared-owes-the-loan-count.json",
+      "successor_filename": "tax.us.2025.rule.mortgage-shared-owes-the-loan-count.v2.json",
+      "changed_properties": [
+        "notes"
+      ],
+      "predecessor_sha256": "f8429ba3c0f40940c435d1d833a6a8133465d913b41d7c9d84b43cd4bcbbd84a",
+      "successor_sha256": "d2b3fa54f517d0fc30f97df91030a4090340ac7f00370ae7b8284392d15ecfc4",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.rule.mortgage-shared-this-is-the-original-loan-count",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/tax.us.2025.rule.mortgage-shared-this-is-the-original-loan-count.json",
+      "successor_filename": "tax.us.2025.rule.mortgage-shared-this-is-the-original-loan-count.v2.json",
+      "changed_properties": [
+        "notes"
+      ],
+      "predecessor_sha256": "6514af3d473d78fcc9f86e36d8a4fcc77966cb3cb327ac66b7197bd75bdd3d8f",
+      "successor_sha256": "83073fc9e8ea685e314ac5e933acaa0f558c0e03e538aac2a973e220ad8bf46b",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.rule.mortgage-shared-what-the-money-paid-for-count",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/tax.us.2025.rule.mortgage-shared-what-the-money-paid-for-count.json",
+      "successor_filename": "tax.us.2025.rule.mortgage-shared-what-the-money-paid-for-count.v2.json",
+      "changed_properties": [
+        "notes"
+      ],
+      "predecessor_sha256": "076e5b4edf834e8b1634baac891f992aebc789ab26e9b2d899d72a4a0fe75acc",
+      "successor_sha256": "d96b961abbaba21125e9fd8ac28e3bc00b59ca9f11d31e956d3580b54deb74f3",
+      "byte_undo_proof": true
+    }
+  ],
+  "inplace": [
+    {
+      "id": "tax.us.2025.form1040.line-6b",
+      "version": "v3",
+      "file": "packages/content/tax/2025/form1040.line-6b.form-field.v3.json",
+      "changed_properties": [
+        "dispositions.computed_zero.explain"
+      ],
+      "successor_sha256": "cb6c711ec12f003154e4210bad83cae6b94a87918051d95c9744da2044226d58"
+    },
+    {
+      "id": "tax.us.2025.form1040.line-7b",
+      "version": "v4",
+      "file": "packages/content/tax/2025/form1040.line-7b.form-field.v4.json",
+      "changed_properties": [
+        "dispositions.published_value.explain"
+      ],
+      "successor_sha256": "d7e6f456e19c6f54f79463d4c2feca13f040db116592f6f33a807c639d137ab2"
+    },
+    {
+      "id": "tax.us.2025.form1040.tax-after-credits",
+      "version": "v3",
+      "file": "packages/content/tax/2025/form1040.tax-after-credits.form-field.v3.json",
+      "changed_properties": [
+        "dispositions.published_value.explain"
+      ],
+      "successor_sha256": "efc02e35b1209b23c2b790b9e0f328be1878c2d2fd94710df70c8d84652927f0"
+    }
+  ]
+}

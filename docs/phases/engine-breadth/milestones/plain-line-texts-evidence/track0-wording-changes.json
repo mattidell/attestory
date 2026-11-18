@@ -1,0 +1,226 @@
+{
+  "changed_count": 22,
+  "retained_count": 35,
+  "changes": [
+    {
+      "index": 11,
+      "id": "tax.us.2025.form.sch8812.line-6",
+      "version": "v1",
+      "property": "dispositions.computed_zero.explain",
+      "old_shown": "Schedule 8812 line 6 publishes a computed zero.",
+      "p0c_shown": "The number of other dependents for this credit is zero after your answers and dependent records are checked.",
+      "track0_shown": "Schedule 8812 line 6 is zero because you confirmed that you have no other dependents for this credit, or no recorded dependent qualifies.",
+      "reason": "Item 1 failure in P0c: drawn on 699 pages including returns with no dependent records where tax.us.2025.ctc.no-other-dependent is yes; P0c claimed dependent records were checked."
+    },
+    {
+      "index": 13,
+      "id": "tax.us.2025.form1040.line-10",
+      "version": "v2",
+      "property": "dispositions.published_value.explain",
+      "old_shown": "A current derived finding publishes Form 1040 line 10 from complete Schedule 1 line 26. This amount is subtracted from line 9 on line 11a.",
+      "p0c_shown": "Your adjustments to income come from Schedule 1 line 26 and are subtracted from total income to get adjusted gross income.",
+      "track0_shown": "Your adjustments to income come from the completed Schedule 1 line 26 total and are subtracted from line 9 total income on line 11a.",
+      "reason": "Item 2 failure in P0c: predecessor proved Schedule 1 line 26 completeness and named lines 9 and 11a; P0c dropped completeness and the line references."
+    },
+    {
+      "index": 17,
+      "id": "tax.us.2025.form1040.line-25a",
+      "version": "v1",
+      "property": "dispositions.computed_zero.explain",
+      "old_shown": "Form 1040 line 25a publishes a computed zero.",
+      "p0c_shown": "The federal income tax withholding in box 2 of your recorded Forms W-2 totals zero after rounding.",
+      "track0_shown": "Your Form W-2 federal income tax withholding on line 25a is zero because no Forms W-2 are recorded or the box 2 amounts on the completed Forms W-2 round to zero.",
+      "reason": "Item 1 and Item 3 failure in P0c: rule.form1040-line25a.v3 pins rounding.convention so closed-empty w2/w2-box2 also selects computed_zero; P0c claimed recorded Forms W-2 exist when none are recorded and dropped completeness."
+    },
+    {
+      "index": 18,
+      "id": "tax.us.2025.form1040.line-25b",
+      "version": "v6",
+      "property": "dispositions.computed_zero.explain",
+      "old_shown": "Form 1040 line 25b publishes a computed zero.",
+      "p0c_shown": "The recorded federal income tax withholding from Forms 1099 and SSA-1099 totals zero after rounding.",
+      "track0_shown": "Your Form 1099 and Form SSA-1099 federal income tax withholding on line 25b is zero because none is recorded or the completed withholding amounts round to zero.",
+      "reason": "Item 1 and Item 3 failure in P0c: drawn on 61 pages where all six withholding families are closed-empty; P0c claimed recorded withholding from Forms 1099 and SSA-1099 exists and dropped completeness."
+    },
+    {
+      "index": 19,
+      "id": "tax.us.2025.form1040.line-25c",
+      "version": "v2",
+      "property": "dispositions.computed_zero.explain",
+      "old_shown": "Form 1040 line 25c publishes a computed zero.",
+      "p0c_shown": "The federal income tax withholding in box 4 of your recorded Forms W-2G totals zero after rounding.",
+      "track0_shown": "Your other-form federal income tax withholding on line 25c is zero because no Forms W-2G are recorded or the box 4 amounts on the completed Forms W-2G round to zero.",
+      "reason": "Item 1 and Item 3 failure in P0c: drawn on 699 pages including 695+ pages where w2g.b4 is closed-empty; P0c claimed recorded Forms W-2G exist when none are recorded and dropped completeness."
+    },
+    {
+      "index": 24,
+      "id": "tax.us.2025.form1040.line-2a",
+      "version": "v2",
+      "property": "dispositions.computed_zero.explain",
+      "old_shown": "A current derived finding publishes a computed zero from present box-12 and/or box-8 findings that sum to zero under explicit scope authority.",
+      "p0c_shown": "You confirmed the tax-exempt interest records are complete, and the combined Form 1099-INT box 8 and Form 1099-DIV box 12 amount is zero after rounding.",
+      "track0_shown": "Your tax-exempt interest on line 2a is zero because no Form 1099-INT box 8 or Form 1099-DIV box 12 amounts are recorded or their total rounds to zero, with the required tax-exempt interest records and answers complete.",
+      "reason": "Item 1 and Item 2 failure in P0c: drawn on 697 pages where neither Form 1099-INT box 8 nor Form 1099-DIV box 12 is recorded; P0c implied tax-exempt interest records exist and omitted the required scope answers."
+    },
+    {
+      "index": 25,
+      "id": "tax.us.2025.form1040.line-2a",
+      "version": "v2",
+      "property": "dispositions.published_value.explain",
+      "old_shown": "A current derived finding publishes this tax-exempt interest amount on line 2a from the closed box-12 and/or closed box-8 families under explicit scope-completeness authority. The amount is reported but not directly taxable on this return graph.",
+      "p0c_shown": "Your tax-exempt interest is the combined amount from the completed Form 1099-INT box 8 and Form 1099-DIV box 12 records, with the other required tax-exempt interest answers complete. It is reported on line 2a but is not included in taxable income.",
+      "track0_shown": "Your tax-exempt interest on line 2a is the rounded total from any recorded Form 1099-INT box 8 and Form 1099-DIV box 12 amounts, with the required tax-exempt interest records and answers complete. It is reported on line 2a but is not included in taxable income.",
+      "reason": "Item 1 and Item 2 failure in P0c: drawn on carried_one_exempt_dividend where Path A (no-f1099int-tax-exempt=yes) has no Form 1099-INT box 8 records; P0c replaced predecessor 'and/or' with 'completed Form 1099-INT box 8 and Form 1099-DIV box 12 records' and dropped rounding."
+    },
+    {
+      "index": 26,
+      "id": "tax.us.2025.form1040.line-2b",
+      "version": "v6",
+      "property": "dispositions.computed_zero.explain",
+      "old_shown": "A current derived finding publishes a computed zero from present subtotals that sum to zero. All constituent families are closed.",
+      "p0c_shown": "Your taxable interest is zero after the completed interest totals and recorded adjustments are combined and rounded.",
+      "track0_shown": "Your taxable interest on line 2b is zero because no taxable interest is recorded or the completed interest amounts, after any applicable adjustments, round to zero.",
+      "reason": "Item 1 failure in P0c: drawn on 692 pages where no interest and no adjustments are recorded; P0c claimed 'recorded adjustments' exist."
+    },
+    {
+      "index": 27,
+      "id": "tax.us.2025.form1040.line-2b",
+      "version": "v6",
+      "property": "dispositions.published_value.explain",
+      "old_shown": "A current cited derived finding publishes the Schedule B Part I taxable interest total, rounded once, as line 2b.",
+      "p0c_shown": "Your taxable interest on line 2b is the Schedule B Part I total, rounded once to whole dollars.",
+      "track0_shown": "Your taxable interest on line 2b is the completed taxable interest total (including any Schedule B Part I adjustments), rounded once to whole dollars.",
+      "reason": "Item 1 and Item 3 failure in P0c: in all 7 recorded lists drawing this text, Schedule B is guard_inapplicable (not required); P0c unconditionally called the value 'the Schedule B Part I total'."
+    },
+    {
+      "index": 31,
+      "id": "tax.us.2025.form1040.line-3a",
+      "version": "v1",
+      "property": "dispositions.computed_zero.explain",
+      "old_shown": "A current derived finding publishes a computed zero from present box-1b findings that sum to zero. The box-1b family is closed.",
+      "p0c_shown": "The qualified dividends in box 1b of your recorded Forms 1099-DIV total zero after rounding, and those records are complete.",
+      "track0_shown": "Your qualified dividends on line 3a are zero because no Form 1099-DIV box 1b amounts are recorded or their total rounds to zero, and those records are complete.",
+      "reason": "Item 1 failure in P0c: drawn on 699 pages including 690+ pages where f1099div.1b is closed-empty; P0c claimed 'box 1b of your recorded Forms 1099-DIV' exists when no Form 1099-DIV is recorded."
+    },
+    {
+      "index": 32,
+      "id": "tax.us.2025.form1040.line-3b",
+      "version": "v1",
+      "property": "dispositions.computed_zero.explain",
+      "old_shown": "A current derived finding publishes a computed zero from present box-1a findings that sum to zero. The box-1a family is closed.",
+      "p0c_shown": "The ordinary dividends in box 1a of your recorded Forms 1099-DIV total zero after rounding, and those records are complete.",
+      "track0_shown": "Your ordinary dividends on line 3b are zero because no Form 1099-DIV box 1a amounts are recorded or their total rounds to zero, and those records are complete.",
+      "reason": "Item 1 failure in P0c: drawn on 690 pages including 685+ pages where f1099div.1a is closed-empty; P0c claimed 'box 1a of your recorded Forms 1099-DIV' exists when no Form 1099-DIV is recorded."
+    },
+    {
+      "index": 33,
+      "id": "tax.us.2025.form1040.line-3b",
+      "version": "v1",
+      "property": "dispositions.published_value.explain",
+      "old_shown": "A current derived finding publishes this ordinary-dividend amount; its lineage pins the box-1a subtotal.",
+      "p0c_shown": "Your ordinary dividends are the total of box 1a on your recorded Forms 1099-DIV.",
+      "track0_shown": "Your ordinary dividends on line 3b are the completed Form 1099-DIV box 1a total, rounded once to whole dollars.",
+      "reason": "Item 1, Item 2, and Item 3 failure in P0c: rule.form1040-line3b.v2 requires f1099div.1a closure and rounds the box 1a subtotal to whole dollars; P0c omitted rounding and completeness, diverging from sibling lines 2b and Schedule D line 13."
+    },
+    {
+      "index": 35,
+      "id": "tax.us.2025.form1040.line-6b",
+      "version": "v2",
+      "property": "dispositions.blocked.explain",
+      "old_shown": "line 6b is blocked because a worksheet or source dependency is incomplete",
+      "p0c_shown": "The taxable part of your Social Security benefits cannot be calculated until the benefit records and worksheet information are complete.",
+      "track0_shown": "The taxable part of your Social Security benefits cannot be calculated because the Social Security benefit records, required income amounts, or worksheet answers are incomplete.",
+      "reason": "Item 1 and Item 2 failure in P0c: in all 147 recorded lists drawing this text, ssa1099.benefits is already closed-empty and line 6b is blocked on required income symbol line7a-total; P0c replaced predecessor 'or' with 'until the benefit records and worksheet information are complete'."
+    },
+    {
+      "index": 38,
+      "id": "tax.us.2025.form1040.line-7a",
+      "version": "v2",
+      "property": "dispositions.computed_zero.explain",
+      "old_shown": "A current derived finding publishes a computed zero from present box-2a findings that sum to zero under Exception-1 eligibility.",
+      "p0c_shown": "Your capital gain or loss is zero after the Schedule D calculation, or after rounding the box 2a capital gain distributions when Schedule D is not required.",
+      "track0_shown": "Your capital gain or loss on line 7a is zero because no sales, capital loss carryovers, or Form 1099-DIV box 2a capital gain distributions are recorded, or the completed Schedule D or box 2a calculation rounds to zero.",
+      "reason": "Item 1 and Item 2 failure in P0c: drawn on 80 pages including wage-only returns with no sales and no Form 1099-DIV box 2a distributions; P0c claimed 'rounding the box 2a capital gain distributions' or 'the Schedule D calculation' occurred and dropped completeness."
+    },
+    {
+      "index": 40,
+      "id": "tax.us.2025.form1040.line-7b",
+      "version": "v3",
+      "property": "dispositions.guard_inapplicable.explain",
+      "old_shown": "No affirmative Schedule-D-not-required disposition: you recorded a sale, which is reported on Form 8949 or Schedule D, so Exception 1 does not apply; or the checked Schedule-D-required conclusion is yes (an Exception-1 component is no).",
+      "p0c_shown": "The no-Schedule-D box is not checked because you recorded a sale for Form 8949 or Schedule D, or an answer shows that you do not meet the exception for filing without Schedule D.",
+      "track0_shown": "The Schedule D not required box on line 7b is not checked because you recorded a sale for Form 8949 or Schedule D, or an answer shows that you do not meet the exception for filing without Schedule D.",
+      "reason": "Item 3 failure in P0c: 2025 Form 1040 and instructions name the line 7b checkbox 'Schedule D not required', not 'no-Schedule-D box'."
+    },
+    {
+      "index": 41,
+      "id": "tax.us.2025.form1040.line-8",
+      "version": "v3",
+      "property": "dispositions.published_value.explain",
+      "old_shown": "A current derived finding publishes Form 1040 line 8 from complete Schedule 1 line 10 (unemployment compensation and Form W-2G gambling winnings). This amount is added exactly once to total income on line 9.",
+      "p0c_shown": "Your additional income comes from Schedule 1 line 10. It is included once in your total income on Form 1040 line 9.",
+      "track0_shown": "Your additional income comes from the completed Schedule 1 line 10 total. It is included once in your total income on Form 1040 line 9.",
+      "reason": "Item 2 failure in P0c: predecessor proved Schedule 1 line 10 completeness ('from complete Schedule 1 line 10'); P0c dropped completeness."
+    },
+    {
+      "index": 42,
+      "id": "tax.us.2025.form1040.tax-after-credits",
+      "version": "v2",
+      "property": "dispositions.blocked.explain",
+      "old_shown": "Tax after credits is blocked because line 16, line 20, or line 17/19 absence authority is incomplete.",
+      "p0c_shown": "Tax after credits is waiting for the tax on line 16, credits on line 20, or confirmation that lines 17 and 19 have no amount.",
+      "track0_shown": "Tax after credits is waiting for the tax on line 16, the credits on lines 19 and 20, or confirmation that line 17 has no amount.",
+      "reason": "Item 1 failure in P0c: rule.form1040-tax-after-credits.v2 requires the computed line 19 credit (tax.us.2025.ctc.form1040-line19) and notes that v1's line 19 absence is no longer read; P0c falsely claimed line 19 needs confirmation that it has no amount."
+    },
+    {
+      "index": 44,
+      "id": "tax.us.2025.schedule-d.line-13",
+      "version": "v2",
+      "property": "dispositions.computed_zero.explain",
+      "old_shown": "A current derived finding publishes a computed zero from present box-2a findings that sum to zero.",
+      "p0c_shown": "Your capital gain distributions are zero after the amounts in box 2a of your recorded Forms 1099-DIV are totaled and rounded.",
+      "track0_shown": "Your capital gain distributions on Schedule D line 13 are zero because no Form 1099-DIV box 2a amounts are recorded or their total rounds to zero, and those records are complete.",
+      "reason": "Item 1 and Item 3 failure in P0c: drawn on 693 pages including 685+ pages where f1099div.2a is closed-empty; P0c claimed 'box 2a of your recorded Forms 1099-DIV' exists when no Form 1099-DIV is recorded and dropped completeness."
+    },
+    {
+      "index": 45,
+      "id": "tax.us.2025.schedule-d.line-13",
+      "version": "v2",
+      "property": "dispositions.published_value.explain",
+      "old_shown": "A current derived finding publishes the box-2a capital-gain-distributions subtotal, rounded once, as line 13.",
+      "p0c_shown": "Your capital gain distributions on Schedule D line 13 are the total of Form 1099-DIV box 2a, rounded once to whole dollars.",
+      "track0_shown": "Your capital gain distributions on Schedule D line 13 are the completed Form 1099-DIV box 2a total, rounded once to whole dollars.",
+      "reason": "Item 2 and Item 3 failure in P0c: rule.f1099div-2a-subtotal.v3 requires f1099div.2a closure; stating 'completed' preserves closure basis and aligns with sibling lines 2b, 3b, and Schedule 1 line 7."
+    },
+    {
+      "index": 47,
+      "id": "tax.us.2025.schedule1.line-10",
+      "version": "v4",
+      "property": "dispositions.published_value.explain",
+      "old_shown": "A current derived finding publishes complete Schedule 1 line 10 additional income (unemployment plus Form W-2G gambling winnings) under explicit Part I absence authority.",
+      "p0c_shown": "Your additional income on Schedule 1 line 10 is the completed total, including the recorded unemployment compensation and gambling winnings, with the answers about other income complete.",
+      "track0_shown": "Your additional income on Schedule 1 line 10 is the sum of line 7 (unemployment compensation) and line 8b (gambling winnings), with the required records and answers about other Schedule 1 Part I income complete.",
+      "reason": "Item 1 failure in P0c: in all 6 recorded lists drawing this text (e.g. reuse_unemp_alone), no gambling winnings are recorded (line 8b is 0); P0c claimed 'including the recorded unemployment compensation and gambling winnings'."
+    },
+    {
+      "index": 48,
+      "id": "tax.us.2025.schedule1.line-21",
+      "version": "v1",
+      "property": "dispositions.closure_backed_zero.explain",
+      "old_shown": "A current derived finding publishes zero because the supporting Form 1098-E box-1 family is attested closed-empty under complete authority.",
+      "p0c_shown": "You confirmed that no student loan interest from Forms 1098-E needs to be included, so this deduction is zero.",
+      "track0_shown": "Your student loan interest deduction on Schedule 1 line 21 is zero because no Form 1098-E box 1 interest is recorded and those records are complete.",
+      "reason": "Item 1 and Item 2 failure in P0c: closure_backed_zero on Schedule 1 line 21 is reached only when count(f1098e.box1-student-loan-interest) == 0 and f1098e.1 is closed-empty; P0c conflated closed-empty absence with per-statement inclusion ('needs to be included')."
+    },
+    {
+      "index": 50,
+      "id": "tax.us.2025.schedule1.line-7",
+      "version": "v2",
+      "property": "dispositions.published_value.explain",
+      "old_shown": "A current derived finding publishes this unemployment compensation amount on Schedule 1 line 7 from the closed Form 1099-G box-1 family.",
+      "p0c_shown": "Your unemployment compensation on Schedule 1 line 7 is the total of box 1 on the completed Forms 1099-G records.",
+      "track0_shown": "Your unemployment compensation on Schedule 1 line 7 is the completed Form 1099-G box 1 total, rounded once to whole dollars.",
+      "reason": "Item 1 and Item 3 failure in P0c: rule.schedule1-line7.v3 rounds unemployment.box1-subtotal to whole dollars; P0c omitted rounding and used inconsistent phrasing ('Forms 1099-G records')."
+    }
+  ]
+}

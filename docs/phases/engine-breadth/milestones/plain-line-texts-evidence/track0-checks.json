@@ -1,0 +1,42 @@
+{
+  "status": "pass",
+  "checks": [
+    {
+      "command": "python3 -m py_compile track0_validate.py track0_states.py p0c_runtime.py p0c_validate.py p0c_compare.py p0c_replay.py p0c_drawn_check.py",
+      "result": "passed"
+    },
+    {
+      "command": "P0c part-file reuse check before wording edits (track0-p0c-reuse-check.json)",
+      "result": "passed; 50 citizens verified, 775 recorded + 9 synthetic pairs reclassified with 0 unexpected"
+    },
+    {
+      "command": "Track 0 scratch v96 validation, 50 byte-undo proofs, and 3 Decision 5 validator controls (track0_validate.py)",
+      "result": "passed; 50 citizens, 57 replacements (35 retained, 22 refined), core v96 / registry v94 / release v94 valid"
+    },
+    {
+      "command": "Track 0 state-matrix and 7 supplementary demo.t0.* synthetic cases (track0_states.py)",
+      "result": "passed; Items 1, 2, and 3 verified across all 699 census pages + 7 supplementary demo.t0.* cases"
+    },
+    {
+      "command": "Full strict replay and 16 negative mutation controls on rebuilt scratch v96 (p0c_replay.py)",
+      "result": "passed; 775 recorded (691 expected_sentences, 84 same_error), 9 synthetic (8 expected_sentences, 1 same_refusal), 223157 rows, 60114 page fields, 0 unexpected, 16/16 mutation controls rejected"
+    },
+    {
+      "command": "Headless Chrome initial/detail DOM verification (observe.mjs + p0c_drawn_check.py)",
+      "result": "passed; 699 replay pages + 7 supplementary demo.t0.* pages (706 total) drawn in Chrome/157.0.8103.79; all 57 new texts drawn with exact census list coverage; 0 old flagged texts; 0 render alerts; 0 non-loopback requests; plain attachment headings verified"
+    },
+    {
+      "command": "pytest tests/test_envelope_hooks.py",
+      "result": "12 passed in 1.52s"
+    },
+    {
+      "command": "python3 tools/envelope_scan.py --range main..HEAD",
+      "result": "passed"
+    },
+    {
+      "command": "git diff --check",
+      "result": "passed"
+    }
+  ],
+  "ci": "No push or PR requested; local checks do not replace required verify."
+}

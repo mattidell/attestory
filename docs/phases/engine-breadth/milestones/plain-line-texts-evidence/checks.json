@@ -1,0 +1,27 @@
+{
+  "status": "local_checks_passed",
+  "scope": "Stopped P0 evidence only; no production changes and no comparative replay claim.",
+  "checks": [
+    {
+      "command": "python3 -m py_compile census.py summarize.py",
+      "result": "pass"
+    },
+    {
+      "command": "node --check observe.mjs",
+      "result": "pass"
+    },
+    {
+      "command": "JSON parse, local-path exclusion, coverage and source-reference assertions",
+      "result": "pass"
+    },
+    {
+      "command": "pytest tests/test_envelope_hooks.py",
+      "result": "12 passed; 1.48 seconds"
+    },
+    {
+      "command": "git diff --check",
+      "result": "pass"
+    }
+  ],
+  "ci": "No push or PR check requested; local checks do not replace required verify."
+}

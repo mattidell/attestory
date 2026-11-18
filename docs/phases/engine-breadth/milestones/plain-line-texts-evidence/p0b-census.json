@@ -1,0 +1,53 @@
+{
+  "source": "published v95",
+  "recorded_lists": 775,
+  "recorded_outcomes": {
+    "success": 691,
+    "error": 84
+  },
+  "synthetic_lists": 9,
+  "drawn_pages": 699,
+  "content_properties": 410,
+  "content_citizens": 157,
+  "flagged_properties": 57,
+  "flagged_distinct_drawn_texts": 57,
+  "flagged_citizens": 50,
+  "flagged_detail_only_properties": 5,
+  "trace_only_properties": 0,
+  "terms": [
+    "derived finding",
+    "finding",
+    "closed-empty",
+    "closed with members",
+    "authority",
+    "authorizes",
+    "subtotal 0",
+    "publishes",
+    "honest",
+    "family",
+    "citizen",
+    "id",
+    "version",
+    "published",
+    "closure",
+    "guard",
+    "dependency",
+    "disposition",
+    "pin",
+    "computation",
+    "applicability",
+    "field-mapping",
+    "cross-form-bridge",
+    "source_nonempty",
+    "source_empty",
+    "identifier",
+    "version string"
+  ],
+  "render_alerts": {},
+  "non_loopback_requests": 0,
+  "parked_page_text": {
+    "counted_once": "Seven template groups from P0 page-trace.json; no page design or edits.",
+    "template_groups": 7
+  },
+  "limits": "84 recorded lists error before a saved page; these have no visible-text census. Source matching records adopted prose properties actually found in DOM, including concatenated detail text; raw graph identity metadata is parked."
+}

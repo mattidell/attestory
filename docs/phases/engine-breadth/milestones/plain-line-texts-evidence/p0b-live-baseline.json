@@ -1,0 +1,62 @@
+{
+  "source": {
+    "core": "v95",
+    "registry": "v93",
+    "release": "v93"
+  },
+  "workers": 9,
+  "lists": 784,
+  "wall_time_s": 688.08,
+  "recorded_outcomes": {
+    "success": 691,
+    "error": 84
+  },
+  "synthetic_outcomes": {
+    "demo.plt.blocked-names": {
+      "outcome": "success",
+      "stop": "saturated"
+    },
+    "demo.plt.interest-dividends": {
+      "outcome": "success",
+      "stop": "saturated"
+    },
+    "demo.plt.mortgage-detail": {
+      "outcome": "success",
+      "stop": "saturated",
+      "pin": "e41b33ea8f35ce35432f.pin.json"
+    },
+    "demo.plt.refused": {
+      "outcome": "refused",
+      "reason": "ADOPTION_NONE_CURRENT"
+    },
+    "demo.plt.sale": {
+      "outcome": "success",
+      "stop": "saturated"
+    },
+    "demo.plt.student-loan-detail": {
+      "outcome": "success",
+      "stop": "saturated",
+      "pin": "9de56b3dd5958b13aa3a.pin.json"
+    },
+    "demo.plt.wage.married_filing_jointly": {
+      "outcome": "success",
+      "stop": "saturated"
+    },
+    "demo.plt.wage.married_filing_separately": {
+      "outcome": "success",
+      "stop": "saturated"
+    },
+    "demo.plt.wage.single": {
+      "outcome": "success",
+      "stop": "saturated"
+    }
+  },
+  "stops": {
+    "saturated": 699
+  },
+  "errors": {
+    "FindingModelError": 82,
+    "SourceAuthorityError": 1,
+    "HorizonModelError": 1
+  }
+}

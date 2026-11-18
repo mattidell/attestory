@@ -411,8 +411,9 @@ class Line7FormAndCitation(TrackOneRegistry):
         self.assertEqual(line_7b["line"], "7b")
         self.assertEqual(line_7a["binds_symbol"], "tax.us.2025.capital-gains.line7a-total")
         # The loader reads the newest field: core v82 (sale family audit, review F2) adds line 7b
-        # field v3, which binds the same symbol. v2 stays published history, checked below.
-        self.assertEqual(line_7b["version"], "v3")
+        # field v3, which binds the same symbol; core v96 (plain line texts) loads its
+        # v4 successor, which changes only drawn texts. v2 stays published history, checked below.
+        self.assertEqual(line_7b["version"], "v4")
         line_7b_v2 = load(TAX_CONTENT_DIR / "form1040.line-7b.form-field.v2.json")
         self.registry.validate_declared(line_7b_v2)
         self.assertEqual(line_7b_v2["version"], "v2")

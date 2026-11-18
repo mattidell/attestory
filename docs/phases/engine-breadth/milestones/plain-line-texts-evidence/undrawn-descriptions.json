@@ -1,0 +1,2883 @@
+{
+  "limit": "Not seen in six sampled pages; renderLine does not read these properties. Other detail surfaces are not proven invisible.",
+  "count": 242,
+  "entries": [
+    {
+      "terms": [
+        "published"
+      ],
+      "file": "packages/content/tax/2025/form.sch8812.line-14.form-field.v2.json",
+      "line": 7,
+      "id": "tax.us.2025.form.sch8812.line-14",
+      "version": "v2",
+      "property": "description"
+    },
+    {
+      "terms": [
+        "computation"
+      ],
+      "file": "packages/content/tax/2025/form1040.line-11b.form-field.v2.json",
+      "line": 7,
+      "id": "tax.us.2025.form1040.line-11b",
+      "version": "v2",
+      "property": "description"
+    },
+    {
+      "terms": [
+        "disposition",
+        "honest"
+      ],
+      "file": "packages/content/tax/2025/form1040.line-12d-spouse-age-not-checked.form-field.json",
+      "line": 13,
+      "id": "tax.us.2025.form1040.line-12d-spouse-age-not-checked",
+      "version": "v1",
+      "property": "description"
+    },
+    {
+      "terms": [
+        "disposition",
+        "honest"
+      ],
+      "file": "packages/content/tax/2025/form1040.line-12d-spouse-blind-not-checked.form-field.json",
+      "line": 13,
+      "id": "tax.us.2025.form1040.line-12d-spouse-blind-not-checked",
+      "version": "v1",
+      "property": "description"
+    },
+    {
+      "terms": [
+        "disposition",
+        "honest"
+      ],
+      "file": "packages/content/tax/2025/form1040.line-12d-you-age-not-checked.form-field.json",
+      "line": 13,
+      "id": "tax.us.2025.form1040.line-12d-you-age-not-checked",
+      "version": "v1",
+      "property": "description"
+    },
+    {
+      "terms": [
+        "disposition",
+        "honest"
+      ],
+      "file": "packages/content/tax/2025/form1040.line-12d-you-blind-not-checked.form-field.json",
+      "line": 13,
+      "id": "tax.us.2025.form1040.line-12d-you-blind-not-checked",
+      "version": "v1",
+      "property": "description"
+    },
+    {
+      "terms": [
+        "guard"
+      ],
+      "file": "packages/content/tax/2025/form1040.line-12e.form-field.v2.json",
+      "line": 13,
+      "id": "tax.us.2025.form1040.line-12e",
+      "version": "v2",
+      "property": "description"
+    },
+    {
+      "terms": [
+        "id",
+        "identifier",
+        "published",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/form1040.line-14.form-field.v2.json",
+      "line": 13,
+      "id": "tax.us.2025.form1040.line-14",
+      "version": "v2",
+      "property": "description"
+    },
+    {
+      "terms": [
+        "family"
+      ],
+      "file": "packages/content/tax/2025/form1040.line-25c.form-field.v2.json",
+      "line": 7,
+      "id": "tax.us.2025.form1040.line-25c",
+      "version": "v2",
+      "property": "description"
+    },
+    {
+      "terms": [
+        "dependency",
+        "family"
+      ],
+      "file": "packages/content/tax/2025/form1040.line-2a.form-field.v2.json",
+      "line": 7,
+      "id": "tax.us.2025.form1040.line-2a",
+      "version": "v2",
+      "property": "description"
+    },
+    {
+      "terms": [
+        "family"
+      ],
+      "file": "packages/content/tax/2025/form1040.line-2b.form-field.v6.json",
+      "line": 7,
+      "id": "tax.us.2025.form1040.line-2b",
+      "version": "v6",
+      "property": "description"
+    },
+    {
+      "terms": [
+        "closure",
+        "family",
+        "identifier"
+      ],
+      "file": "packages/content/tax/2025/form1040.line-3a.form-field.json",
+      "line": 13,
+      "id": "tax.us.2025.form1040.line-3a",
+      "version": "v1",
+      "property": "description"
+    },
+    {
+      "terms": [
+        "closure",
+        "family",
+        "identifier"
+      ],
+      "file": "packages/content/tax/2025/form1040.line-3b.form-field.json",
+      "line": 13,
+      "id": "tax.us.2025.form1040.line-3b",
+      "version": "v1",
+      "property": "description"
+    },
+    {
+      "terms": [
+        "disposition"
+      ],
+      "file": "packages/content/tax/2025/form1040.line-6c.form-field.v2.json",
+      "line": 7,
+      "id": "tax.us.2025.form1040.line-6c",
+      "version": "v2",
+      "property": "description"
+    },
+    {
+      "terms": [
+        "disposition",
+        "honest"
+      ],
+      "file": "packages/content/tax/2025/form1040.line-6d-not-checked.form-field.json",
+      "line": 7,
+      "id": "tax.us.2025.form1040.line-6d-not-checked",
+      "version": "v1",
+      "property": "description"
+    },
+    {
+      "terms": [
+        "disposition"
+      ],
+      "file": "packages/content/tax/2025/form1040.line-6d.form-field.json",
+      "line": 7,
+      "id": "tax.us.2025.form1040.line-6d",
+      "version": "v1",
+      "property": "description"
+    },
+    {
+      "terms": [
+        "family"
+      ],
+      "file": "packages/content/tax/2025/form1040.line-7a.form-field.v2.json",
+      "line": 13,
+      "id": "tax.us.2025.form1040.line-7a",
+      "version": "v2",
+      "property": "description"
+    },
+    {
+      "terms": [
+        "disposition",
+        "identifier",
+        "pin",
+        "publishes",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/form1040.line-7b.form-field.v3.json",
+      "line": 7,
+      "id": "tax.us.2025.form1040.line-7b",
+      "version": "v3",
+      "property": "description"
+    },
+    {
+      "terms": [
+        "closed-empty",
+        "published",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/form1040.line-8.form-field.v3.json",
+      "line": 7,
+      "id": "tax.us.2025.form1040.line-8",
+      "version": "v3",
+      "property": "description"
+    },
+    {
+      "terms": [
+        "identifier"
+      ],
+      "file": "packages/content/tax/2025/form1040.tax-after-credits.form-field.v2.json",
+      "line": 7,
+      "id": "tax.us.2025.form1040.tax-after-credits",
+      "version": "v2",
+      "property": "description"
+    },
+    {
+      "terms": [
+        "disposition",
+        "finding"
+      ],
+      "file": "packages/content/tax/2025/rule.basis.item-level-consequence.pairing-scoped.json",
+      "line": 15,
+      "id": "tax.us.2025.rule.basis.item-level-consequence.pairing-scoped",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "publishes"
+      ],
+      "file": "packages/content/tax/2025/rule.capital-loss-carryover.long-term.json",
+      "line": 9,
+      "id": "tax.us.2025.rule.capital-loss-carryover.long-term",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "publishes"
+      ],
+      "file": "packages/content/tax/2025/rule.capital-loss-carryover.short-term.json",
+      "line": 9,
+      "id": "tax.us.2025.rule.capital-loss-carryover.short-term",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "closure",
+        "identifier",
+        "published"
+      ],
+      "file": "packages/content/tax/2025/rule.closure-check.f1099b-covered-lt.json",
+      "line": 9,
+      "id": "tax.us.2025.rule.closure-check.f1099b-covered-lt",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "closure",
+        "identifier",
+        "published"
+      ],
+      "file": "packages/content/tax/2025/rule.closure-check.f1099b-covered-st.json",
+      "line": 9,
+      "id": "tax.us.2025.rule.closure-check.f1099b-covered-st",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "closure",
+        "identifier",
+        "published"
+      ],
+      "file": "packages/content/tax/2025/rule.closure-check.f1099b-covered-w-lt-adjustment.json",
+      "line": 18,
+      "id": "tax.us.2025.rule.closure-check.f1099b-covered-w-lt-adjustment",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "closure",
+        "identifier",
+        "published"
+      ],
+      "file": "packages/content/tax/2025/rule.closure-check.f1099b-covered-w-lt-basis.json",
+      "line": 18,
+      "id": "tax.us.2025.rule.closure-check.f1099b-covered-w-lt-basis",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "closure",
+        "identifier",
+        "published"
+      ],
+      "file": "packages/content/tax/2025/rule.closure-check.f1099b-covered-w-lt-proceeds.json",
+      "line": 18,
+      "id": "tax.us.2025.rule.closure-check.f1099b-covered-w-lt-proceeds",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "closure",
+        "identifier",
+        "published"
+      ],
+      "file": "packages/content/tax/2025/rule.closure-check.f1099b-covered-w-st-adjustment.json",
+      "line": 18,
+      "id": "tax.us.2025.rule.closure-check.f1099b-covered-w-st-adjustment",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "closure",
+        "identifier",
+        "published"
+      ],
+      "file": "packages/content/tax/2025/rule.closure-check.f1099b-covered-w-st-basis.json",
+      "line": 18,
+      "id": "tax.us.2025.rule.closure-check.f1099b-covered-w-st-basis",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "closure",
+        "identifier",
+        "published"
+      ],
+      "file": "packages/content/tax/2025/rule.closure-check.f1099b-covered-w-st-proceeds.json",
+      "line": 18,
+      "id": "tax.us.2025.rule.closure-check.f1099b-covered-w-st-proceeds",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "closure",
+        "identifier",
+        "published"
+      ],
+      "file": "packages/content/tax/2025/rule.closure-check.f1099div-7.json",
+      "line": 9,
+      "id": "tax.us.2025.rule.closure-check.f1099div-7",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "closure",
+        "identifier",
+        "published"
+      ],
+      "file": "packages/content/tax/2025/rule.closure-check.w2.json",
+      "line": 9,
+      "id": "tax.us.2025.rule.closure-check.w2",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "citizen"
+      ],
+      "file": "packages/content/tax/2025/rule.ctc-child.citizen-met.json",
+      "line": 41,
+      "id": "tax.us.2025.rule.ctc-child.citizen-met",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.ctc-sch8812-line-21.v2.json",
+      "line": 15,
+      "id": "tax.us.2025.rule.ctc-sch8812-line-21",
+      "version": "v2",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.ctc-sch8812-line-6.v2.json",
+      "line": 153,
+      "id": "tax.us.2025.rule.ctc-sch8812-line-6",
+      "version": "v2",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "publishes",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.dependents-worksheet-line-1.v2.json",
+      "line": 297,
+      "id": "tax.us.2025.rule.dependents-worksheet-line-1",
+      "version": "v2",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "identifier",
+        "published"
+      ],
+      "file": "packages/content/tax/2025/rule.dependents-worksheet-line-2.json",
+      "line": 39,
+      "id": "tax.us.2025.rule.dependents-worksheet-line-2",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "identifier",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.dependents-worksheet-line-3.json",
+      "line": 31,
+      "id": "tax.us.2025.rule.dependents-worksheet-line-3",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "identifier",
+        "publishes",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.dependents-worksheet-line-4b.json",
+      "line": 37,
+      "id": "tax.us.2025.rule.dependents-worksheet-line-4b",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.dependents-worksheet-line-4c.json",
+      "line": 35,
+      "id": "tax.us.2025.rule.dependents-worksheet-line-4c",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "publishes"
+      ],
+      "file": "packages/content/tax/2025/rule.eic-answer.not-nonresident-alien.json",
+      "line": 86,
+      "id": "tax.us.2025.rule.eic-answer.not-nonresident-alien",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "publishes"
+      ],
+      "file": "packages/content/tax/2025/rule.eic-answer.separated-spouse.json",
+      "line": 18,
+      "id": "tax.us.2025.rule.eic-answer.separated-spouse",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "publishes"
+      ],
+      "file": "packages/content/tax/2025/rule.eic-answer.spouse-valid-ssn.json",
+      "line": 107,
+      "id": "tax.us.2025.rule.eic-answer.spouse-valid-ssn",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "publishes"
+      ],
+      "file": "packages/content/tax/2025/rule.eic-answer.taxpayer-valid-ssn.json",
+      "line": 86,
+      "id": "tax.us.2025.rule.eic-answer.taxpayer-valid-ssn",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "identifier",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.eic-investment-income.v2.json",
+      "line": 87,
+      "id": "tax.us.2025.rule.eic-investment-income",
+      "version": "v2",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "published"
+      ],
+      "file": "packages/content/tax/2025/rule.eic-worksheet-a.line-3.json",
+      "line": 40,
+      "id": "tax.us.2025.rule.eic-worksheet-a.line-3",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "family"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099b-b4-withholding-subtotal.v2.json",
+      "line": 71,
+      "id": "tax.us.2025.rule.f1099b-b4-withholding-subtotal",
+      "version": "v2",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "published"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099b-box4-amounts-ready.json",
+      "line": 192,
+      "id": "tax.us.2025.rule.f1099b-box4-amounts-ready",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "family",
+        "publishes"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099b-code-b-lt-adjustment-subtotal.json",
+      "line": 5,
+      "id": "tax.us.2025.rule.f1099b-code-b-lt-adjustment-subtotal",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "family",
+        "publishes"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099b-code-b-lt-basis-subtotal.json",
+      "line": 5,
+      "id": "tax.us.2025.rule.f1099b-code-b-lt-basis-subtotal",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "family",
+        "publishes"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099b-code-b-lt-proceeds-subtotal.json",
+      "line": 5,
+      "id": "tax.us.2025.rule.f1099b-code-b-lt-proceeds-subtotal",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "family",
+        "publishes"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099b-code-b-st-adjustment-subtotal.json",
+      "line": 5,
+      "id": "tax.us.2025.rule.f1099b-code-b-st-adjustment-subtotal",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "family",
+        "publishes"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099b-code-b-st-basis-subtotal.json",
+      "line": 5,
+      "id": "tax.us.2025.rule.f1099b-code-b-st-basis-subtotal",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "family",
+        "publishes"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099b-code-b-st-proceeds-subtotal.json",
+      "line": 5,
+      "id": "tax.us.2025.rule.f1099b-code-b-st-proceeds-subtotal",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "closure",
+        "identifier"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099b-covered-lt-basis-subtotal.v2.json",
+      "line": 9,
+      "id": "tax.us.2025.rule.f1099b-covered-lt-basis-subtotal",
+      "version": "v2",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "closure",
+        "identifier"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099b-covered-lt-proceeds-subtotal.v2.json",
+      "line": 9,
+      "id": "tax.us.2025.rule.f1099b-covered-lt-proceeds-subtotal",
+      "version": "v2",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "closure",
+        "identifier"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099b-covered-st-basis-subtotal.v2.json",
+      "line": 9,
+      "id": "tax.us.2025.rule.f1099b-covered-st-basis-subtotal",
+      "version": "v2",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "closure",
+        "identifier"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099b-covered-st-proceeds-subtotal.v2.json",
+      "line": 9,
+      "id": "tax.us.2025.rule.f1099b-covered-st-proceeds-subtotal",
+      "version": "v2",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "closure",
+        "guard",
+        "identifier",
+        "version"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099b-covered-w-lt-adjustment-subtotal.v4.json",
+      "line": 18,
+      "id": "tax.us.2025.rule.f1099b-covered-w-lt-adjustment-subtotal",
+      "version": "v4",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "closure",
+        "guard",
+        "identifier",
+        "version"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099b-covered-w-lt-basis-subtotal.v4.json",
+      "line": 18,
+      "id": "tax.us.2025.rule.f1099b-covered-w-lt-basis-subtotal",
+      "version": "v4",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "closure",
+        "guard",
+        "identifier",
+        "version"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099b-covered-w-lt-proceeds-subtotal.v4.json",
+      "line": 18,
+      "id": "tax.us.2025.rule.f1099b-covered-w-lt-proceeds-subtotal",
+      "version": "v4",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "closure",
+        "guard",
+        "identifier",
+        "version"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099b-covered-w-st-adjustment-subtotal.v4.json",
+      "line": 18,
+      "id": "tax.us.2025.rule.f1099b-covered-w-st-adjustment-subtotal",
+      "version": "v4",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "closure",
+        "guard",
+        "identifier",
+        "version"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099b-covered-w-st-basis-subtotal.v4.json",
+      "line": 18,
+      "id": "tax.us.2025.rule.f1099b-covered-w-st-basis-subtotal",
+      "version": "v4",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "closure",
+        "guard",
+        "identifier",
+        "version"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099b-covered-w-st-proceeds-subtotal.v4.json",
+      "line": 18,
+      "id": "tax.us.2025.rule.f1099b-covered-w-st-proceeds-subtotal",
+      "version": "v4",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "family",
+        "publishes",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099b-noncovered-lt-adjustment-subtotal.v3.json",
+      "line": 5,
+      "id": "tax.us.2025.rule.f1099b-noncovered-lt-adjustment-subtotal",
+      "version": "v3",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "family",
+        "publishes",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099b-noncovered-lt-basis-subtotal.v3.json",
+      "line": 5,
+      "id": "tax.us.2025.rule.f1099b-noncovered-lt-basis-subtotal",
+      "version": "v3",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "family",
+        "publishes",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099b-noncovered-lt-proceeds-subtotal.v3.json",
+      "line": 5,
+      "id": "tax.us.2025.rule.f1099b-noncovered-lt-proceeds-subtotal",
+      "version": "v3",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "family",
+        "publishes",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099b-noncovered-st-adjustment-subtotal.v3.json",
+      "line": 5,
+      "id": "tax.us.2025.rule.f1099b-noncovered-st-adjustment-subtotal",
+      "version": "v3",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "family",
+        "publishes",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099b-noncovered-st-basis-subtotal.v3.json",
+      "line": 5,
+      "id": "tax.us.2025.rule.f1099b-noncovered-st-basis-subtotal",
+      "version": "v3",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "family",
+        "publishes",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099b-noncovered-st-proceeds-subtotal.v3.json",
+      "line": 5,
+      "id": "tax.us.2025.rule.f1099b-noncovered-st-proceeds-subtotal",
+      "version": "v3",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "closure",
+        "family"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099b.code-b-lt-txn.amounts-check.v2.json",
+      "line": 136,
+      "id": "tax.us.2025.rule.f1099b.code-b-lt-txn.amounts-check",
+      "version": "v2",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "family",
+        "publishes"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099b.code-b-lt-txn.box7-loss-check.json",
+      "line": 116,
+      "id": "tax.us.2025.rule.f1099b.code-b-lt-txn.box7-loss-check",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "closure",
+        "family"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099b.code-b-st-txn.amounts-check.v2.json",
+      "line": 136,
+      "id": "tax.us.2025.rule.f1099b.code-b-st-txn.amounts-check",
+      "version": "v2",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "family",
+        "publishes"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099b.code-b-st-txn.box7-loss-check.json",
+      "line": 116,
+      "id": "tax.us.2025.rule.f1099b.code-b-st-txn.box7-loss-check",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099b.covered-lt-txn.admission-check.v2.json",
+      "line": 129,
+      "id": "tax.us.2025.rule.f1099b.covered-lt-txn.admission-check",
+      "version": "v2",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "family",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099b.covered-lt-txn.admission.v2.json",
+      "line": 342,
+      "id": "tax.us.2025.rule.f1099b.covered-lt-txn.admission",
+      "version": "v2",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "family",
+        "publishes"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099b.covered-lt-txn.box7-loss-check.json",
+      "line": 116,
+      "id": "tax.us.2025.rule.f1099b.covered-lt-txn.box7-loss-check",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099b.covered-st-txn.admission-check.v2.json",
+      "line": 129,
+      "id": "tax.us.2025.rule.f1099b.covered-st-txn.admission-check",
+      "version": "v2",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "family",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099b.covered-st-txn.admission.v2.json",
+      "line": 342,
+      "id": "tax.us.2025.rule.f1099b.covered-st-txn.admission",
+      "version": "v2",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "family",
+        "publishes"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099b.covered-st-txn.box7-loss-check.json",
+      "line": 116,
+      "id": "tax.us.2025.rule.f1099b.covered-st-txn.box7-loss-check",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099b.covered-w-lt-txn.admission-check.v3.json",
+      "line": 160,
+      "id": "tax.us.2025.rule.f1099b.covered-w-lt-txn.admission-check",
+      "version": "v3",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "family",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099b.covered-w-lt-txn.admission.v2.json",
+      "line": 385,
+      "id": "tax.us.2025.rule.f1099b.covered-w-lt-txn.admission",
+      "version": "v2",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "family",
+        "publishes"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099b.covered-w-lt-txn.box7-loss-check.json",
+      "line": 116,
+      "id": "tax.us.2025.rule.f1099b.covered-w-lt-txn.box7-loss-check",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099b.covered-w-st-txn.admission-check.v3.json",
+      "line": 160,
+      "id": "tax.us.2025.rule.f1099b.covered-w-st-txn.admission-check",
+      "version": "v3",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "family",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099b.covered-w-st-txn.admission.v2.json",
+      "line": 385,
+      "id": "tax.us.2025.rule.f1099b.covered-w-st-txn.admission",
+      "version": "v2",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "family",
+        "publishes"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099b.covered-w-st-txn.box7-loss-check.json",
+      "line": 116,
+      "id": "tax.us.2025.rule.f1099b.covered-w-st-txn.box7-loss-check",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "family",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099b.noncovered-lt-txn.amounts-agree.v2.json",
+      "line": 269,
+      "id": "tax.us.2025.rule.f1099b.noncovered-lt-txn.amounts-agree",
+      "version": "v2",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "family",
+        "publishes"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099b.noncovered-lt-txn.box7-loss-check.json",
+      "line": 116,
+      "id": "tax.us.2025.rule.f1099b.noncovered-lt-txn.box7-loss-check",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "family",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099b.noncovered-st-txn.amounts-agree.v2.json",
+      "line": 269,
+      "id": "tax.us.2025.rule.f1099b.noncovered-st-txn.amounts-agree",
+      "version": "v2",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "family",
+        "publishes"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099b.noncovered-st-txn.box7-loss-check.json",
+      "line": 116,
+      "id": "tax.us.2025.rule.f1099b.noncovered-st-txn.box7-loss-check",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "closed-empty",
+        "closure",
+        "family",
+        "finding",
+        "guard",
+        "publishes",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099div-12-subtotal.v2.json",
+      "line": 15,
+      "id": "tax.us.2025.rule.f1099div-12-subtotal",
+      "version": "v2",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "closure",
+        "family",
+        "finding",
+        "guard",
+        "identifier",
+        "publishes",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099div-1a-subtotal.v2.json",
+      "line": 9,
+      "id": "tax.us.2025.rule.f1099div-1a-subtotal",
+      "version": "v2",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "closure",
+        "family",
+        "finding",
+        "identifier",
+        "publishes"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099div-1b-subtotal.json",
+      "line": 33,
+      "id": "tax.us.2025.rule.f1099div-1b-subtotal",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "closed-empty",
+        "closure",
+        "family",
+        "finding",
+        "guard",
+        "published",
+        "publishes",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099div-2a-subtotal.v3.json",
+      "line": 9,
+      "id": "tax.us.2025.rule.f1099div-2a-subtotal",
+      "version": "v3",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "closed-empty",
+        "closure",
+        "family",
+        "finding",
+        "publishes"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099div-7-subtotal.json",
+      "line": 15,
+      "id": "tax.us.2025.rule.f1099div-7-subtotal",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "closed-empty",
+        "closure",
+        "family",
+        "finding",
+        "guard",
+        "published",
+        "publishes",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099div-b4-subtotal.v2.json",
+      "line": 15,
+      "id": "tax.us.2025.rule.f1099div-b4-subtotal",
+      "version": "v2",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "closed-empty",
+        "closure",
+        "family",
+        "finding",
+        "guard",
+        "identifier",
+        "publishes",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099g-1-subtotal.v3.json",
+      "line": 15,
+      "id": "tax.us.2025.rule.f1099g-1-subtotal",
+      "version": "v3",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "closed-empty",
+        "closure",
+        "family",
+        "finding",
+        "guard",
+        "published",
+        "publishes",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099g-b4-subtotal.v2.json",
+      "line": 15,
+      "id": "tax.us.2025.rule.f1099g-b4-subtotal",
+      "version": "v2",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "closure",
+        "family",
+        "finding",
+        "guard",
+        "identifier",
+        "publishes",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099int-b1-subtotal.v3.json",
+      "line": 9,
+      "id": "tax.us.2025.rule.f1099int-b1-subtotal",
+      "version": "v3",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "closure",
+        "family",
+        "guard",
+        "identifier",
+        "publishes",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099int-b10-subtotal.v3.json",
+      "line": 15,
+      "id": "tax.us.2025.rule.f1099int-b10-subtotal",
+      "version": "v3",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "closure",
+        "finding",
+        "guard",
+        "identifier",
+        "publishes",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099int-b3-subtotal.v3.json",
+      "line": 9,
+      "id": "tax.us.2025.rule.f1099int-b3-subtotal",
+      "version": "v3",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "closed-empty",
+        "closure",
+        "family",
+        "finding",
+        "guard",
+        "published",
+        "publishes",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099int-b4-subtotal.v2.json",
+      "line": 15,
+      "id": "tax.us.2025.rule.f1099int-b4-subtotal",
+      "version": "v2",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "closed-empty",
+        "closure",
+        "family",
+        "finding",
+        "guard",
+        "publishes",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099int-b8-subtotal.v2.json",
+      "line": 15,
+      "id": "tax.us.2025.rule.f1099int-b8-subtotal",
+      "version": "v2",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "publishes"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099k-adjusted-basis.json",
+      "line": 118,
+      "id": "tax.us.2025.rule.f1099k-adjusted-basis",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "publishes"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099k-amount-realized.json",
+      "line": 213,
+      "id": "tax.us.2025.rule.f1099k-amount-realized",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "authority",
+        "family"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099k-box1a-subtotal.json",
+      "line": 30,
+      "id": "tax.us.2025.rule.f1099k-box1a-subtotal",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "publishes"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099k-expected-box1a-gross-amount.json",
+      "line": 157,
+      "id": "tax.us.2025.rule.f1099k-expected-box1a-gross-amount",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "publishes"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099k-net-proceeds.json",
+      "line": 86,
+      "id": "tax.us.2025.rule.f1099k-net-proceeds",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "publishes"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099k-selling-expenses.v2.json",
+      "line": 235,
+      "id": "tax.us.2025.rule.f1099k-selling-expenses",
+      "version": "v2",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "closure",
+        "family",
+        "guard",
+        "identifier",
+        "publishes",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099oid-b5-subtotal.v3.json",
+      "line": 15,
+      "id": "tax.us.2025.rule.f1099oid-b5-subtotal",
+      "version": "v3",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "closure",
+        "finding",
+        "guard",
+        "identifier",
+        "publishes",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099oid-subtotal.v3.json",
+      "line": 9,
+      "id": "tax.us.2025.rule.f1099oid-subtotal",
+      "version": "v3",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "authority",
+        "closed-empty",
+        "closure",
+        "family",
+        "finding",
+        "guard",
+        "identifier",
+        "published",
+        "publishes",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099r-box4-subtotal.v2.json",
+      "line": 15,
+      "id": "tax.us.2025.rule.f1099r-box4-subtotal",
+      "version": "v2",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "authority",
+        "closure",
+        "family",
+        "guard",
+        "pin",
+        "published",
+        "publishes",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.f1099r-ira-fully-taxable-subtotal.v4.json",
+      "line": 35,
+      "id": "tax.us.2025.rule.f1099r-ira-fully-taxable-subtotal",
+      "version": "v4",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "family",
+        "publishes",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.f8949-no1099b-lt-adjustment-subtotal.v2.json",
+      "line": 5,
+      "id": "tax.us.2025.rule.f8949-no1099b-lt-adjustment-subtotal",
+      "version": "v2",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "family",
+        "publishes",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.f8949-no1099b-lt-basis-subtotal.v2.json",
+      "line": 5,
+      "id": "tax.us.2025.rule.f8949-no1099b-lt-basis-subtotal",
+      "version": "v2",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "family",
+        "publishes",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.f8949-no1099b-lt-proceeds-subtotal.v2.json",
+      "line": 5,
+      "id": "tax.us.2025.rule.f8949-no1099b-lt-proceeds-subtotal",
+      "version": "v2",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "family",
+        "publishes",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.f8949-no1099b-st-adjustment-subtotal.v2.json",
+      "line": 5,
+      "id": "tax.us.2025.rule.f8949-no1099b-st-adjustment-subtotal",
+      "version": "v2",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "family",
+        "publishes",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.f8949-no1099b-st-basis-subtotal.v2.json",
+      "line": 5,
+      "id": "tax.us.2025.rule.f8949-no1099b-st-basis-subtotal",
+      "version": "v2",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "family",
+        "publishes",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.f8949-no1099b-st-proceeds-subtotal.v2.json",
+      "line": 5,
+      "id": "tax.us.2025.rule.f8949-no1099b-st-proceeds-subtotal",
+      "version": "v2",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "authority",
+        "citizen",
+        "computation",
+        "dependency",
+        "identifier",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.form1040-line10.json",
+      "line": 19,
+      "id": "tax.us.2025.rule.form1040-line10",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "authority",
+        "finding",
+        "identifier",
+        "publishes",
+        "version",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.form1040-line11.v2.json",
+      "line": 28,
+      "id": "tax.us.2025.rule.form1040-line11",
+      "version": "v2",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "publishes"
+      ],
+      "file": "packages/content/tax/2025/rule.form1040-line12d-spouse-age-not-checked.json",
+      "line": 156,
+      "id": "tax.us.2025.rule.form1040-line12d-spouse-age-not-checked",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "publishes"
+      ],
+      "file": "packages/content/tax/2025/rule.form1040-line12d-spouse-age.json",
+      "line": 150,
+      "id": "tax.us.2025.rule.form1040-line12d-spouse-age",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "publishes"
+      ],
+      "file": "packages/content/tax/2025/rule.form1040-line12d-spouse-blind-not-checked.json",
+      "line": 156,
+      "id": "tax.us.2025.rule.form1040-line12d-spouse-blind-not-checked",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "publishes"
+      ],
+      "file": "packages/content/tax/2025/rule.form1040-line12d-spouse-blind.json",
+      "line": 150,
+      "id": "tax.us.2025.rule.form1040-line12d-spouse-blind",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "publishes"
+      ],
+      "file": "packages/content/tax/2025/rule.form1040-line12d-you-age-not-checked.json",
+      "line": 58,
+      "id": "tax.us.2025.rule.form1040-line12d-you-age-not-checked",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "publishes"
+      ],
+      "file": "packages/content/tax/2025/rule.form1040-line12d-you-age.json",
+      "line": 55,
+      "id": "tax.us.2025.rule.form1040-line12d-you-age",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "publishes"
+      ],
+      "file": "packages/content/tax/2025/rule.form1040-line12d-you-blind-not-checked.json",
+      "line": 58,
+      "id": "tax.us.2025.rule.form1040-line12d-you-blind-not-checked",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "publishes"
+      ],
+      "file": "packages/content/tax/2025/rule.form1040-line12d-you-blind.json",
+      "line": 55,
+      "id": "tax.us.2025.rule.form1040-line12d-you-blind",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "closed-empty",
+        "dependency",
+        "family",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.form1040-line12e.v4.json",
+      "line": 17,
+      "id": "tax.us.2025.rule.form1040-line12e",
+      "version": "v4",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "authority",
+        "finding",
+        "identifier",
+        "published"
+      ],
+      "file": "packages/content/tax/2025/rule.form1040-line13a.json",
+      "line": 34,
+      "id": "tax.us.2025.rule.form1040-line13a",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "disposition",
+        "guard",
+        "identifier",
+        "published",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.form1040-line13b.v2.json",
+      "line": 41,
+      "id": "tax.us.2025.rule.form1040-line13b",
+      "version": "v2",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "citizen",
+        "published"
+      ],
+      "file": "packages/content/tax/2025/rule.form1040-line14.json",
+      "line": 42,
+      "id": "tax.us.2025.rule.form1040-line14",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "identifier",
+        "publishes",
+        "version",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.form1040-line15.v2.json",
+      "line": 36,
+      "id": "tax.us.2025.rule.form1040-line15",
+      "version": "v2",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "finding",
+        "published",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.form1040-line16.v9.json",
+      "line": 23,
+      "id": "tax.us.2025.rule.form1040-line16",
+      "version": "v9",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "published"
+      ],
+      "file": "packages/content/tax/2025/rule.form1040-line23.json",
+      "line": 52,
+      "id": "tax.us.2025.rule.form1040-line23",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "identifier"
+      ],
+      "file": "packages/content/tax/2025/rule.form1040-line24.json",
+      "line": 72,
+      "id": "tax.us.2025.rule.form1040-line24",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "closure",
+        "family",
+        "guard",
+        "identifier",
+        "published",
+        "version",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.form1040-line25a.v3.json",
+      "line": 16,
+      "id": "tax.us.2025.rule.form1040-line25a",
+      "version": "v3",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "guard",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.form1040-line25b.v9.json",
+      "line": 21,
+      "id": "tax.us.2025.rule.form1040-line25b",
+      "version": "v9",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "family",
+        "published",
+        "publishes",
+        "version",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.form1040-line25c.v2.json",
+      "line": 16,
+      "id": "tax.us.2025.rule.form1040-line25c",
+      "version": "v2",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "family",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.form1040-line2a.v4.json",
+      "line": 35,
+      "id": "tax.us.2025.rule.form1040-line2a",
+      "version": "v4",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "identifier"
+      ],
+      "file": "packages/content/tax/2025/rule.form1040-line2b-rounded.json",
+      "line": 15,
+      "id": "tax.us.2025.rule.form1040-line2b-rounded",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "dependency",
+        "family",
+        "pin",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.form1040-line2b.v8.json",
+      "line": 28,
+      "id": "tax.us.2025.rule.form1040-line2b",
+      "version": "v8",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.form1040-line32.v2.json",
+      "line": 55,
+      "id": "tax.us.2025.rule.form1040-line32",
+      "version": "v2",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "published"
+      ],
+      "file": "packages/content/tax/2025/rule.form1040-line34.json",
+      "line": 86,
+      "id": "tax.us.2025.rule.form1040-line34",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "publishes"
+      ],
+      "file": "packages/content/tax/2025/rule.form1040-line36.json",
+      "line": 102,
+      "id": "tax.us.2025.rule.form1040-line36",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "published",
+        "publishes"
+      ],
+      "file": "packages/content/tax/2025/rule.form1040-line37.json",
+      "line": 86,
+      "id": "tax.us.2025.rule.form1040-line37",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "published"
+      ],
+      "file": "packages/content/tax/2025/rule.form1040-line38.json",
+      "line": 52,
+      "id": "tax.us.2025.rule.form1040-line38",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "closed-empty",
+        "closure",
+        "family",
+        "honest",
+        "identifier",
+        "publishes"
+      ],
+      "file": "packages/content/tax/2025/rule.form1040-line3a.json",
+      "line": 29,
+      "id": "tax.us.2025.rule.form1040-line3a",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "closed-empty",
+        "closure",
+        "family",
+        "honest",
+        "identifier",
+        "publishes",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.form1040-line3b.v2.json",
+      "line": 9,
+      "id": "tax.us.2025.rule.form1040-line3b",
+      "version": "v2",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "closure",
+        "family",
+        "guard",
+        "published",
+        "publishes",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.form1040-line6a.v2.json",
+      "line": 15,
+      "id": "tax.us.2025.rule.form1040-line6a",
+      "version": "v2",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "disposition",
+        "publishes"
+      ],
+      "file": "packages/content/tax/2025/rule.form1040-line6c-checked.json",
+      "line": 15,
+      "id": "tax.us.2025.rule.form1040-line6c-checked",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "publishes"
+      ],
+      "file": "packages/content/tax/2025/rule.form1040-line6c.v2.json",
+      "line": 15,
+      "id": "tax.us.2025.rule.form1040-line6c",
+      "version": "v2",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "disposition",
+        "publishes"
+      ],
+      "file": "packages/content/tax/2025/rule.form1040-line6d-not-checked.json",
+      "line": 16,
+      "id": "tax.us.2025.rule.form1040-line6d-not-checked",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "authority",
+        "dependency",
+        "disposition",
+        "publishes"
+      ],
+      "file": "packages/content/tax/2025/rule.form1040-line6d.json",
+      "line": 16,
+      "id": "tax.us.2025.rule.form1040-line6d",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.form1040-line7a.v9.json",
+      "line": 5,
+      "id": "tax.us.2025.rule.form1040-line7a",
+      "version": "v9",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "disposition",
+        "publishes",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.form1040-line7b.v2.json",
+      "line": 27,
+      "id": "tax.us.2025.rule.form1040-line7b",
+      "version": "v2",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "closed-empty",
+        "published",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.form1040-line8.json",
+      "line": 19,
+      "id": "tax.us.2025.rule.form1040-line8",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "identifier",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.form1040-line9.v8.json",
+      "line": 21,
+      "id": "tax.us.2025.rule.form1040-line9",
+      "version": "v8",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.form1040-lines27-31-total.v2.json",
+      "line": 57,
+      "id": "tax.us.2025.rule.form1040-lines27-31-total",
+      "version": "v2",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "publishes",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.form1040-lines28-31.v2.json",
+      "line": 71,
+      "id": "tax.us.2025.rule.form1040-lines28-31",
+      "version": "v2",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "computation",
+        "identifier",
+        "pin",
+        "publishes",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.form1040-standard-deduction.v3.json",
+      "line": 58,
+      "id": "tax.us.2025.rule.form1040-standard-deduction",
+      "version": "v3",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.form1040-tax-after-credits.v2.json",
+      "line": 19,
+      "id": "tax.us.2025.rule.form1040-tax-after-credits",
+      "version": "v2",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "closure",
+        "family",
+        "guard",
+        "identifier",
+        "publishes",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.form1065-k1-box5-subtotal.v3.json",
+      "line": 15,
+      "id": "tax.us.2025.rule.form1065-k1-box5-subtotal",
+      "version": "v3",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "closed-empty",
+        "family",
+        "guard",
+        "published",
+        "publishes"
+      ],
+      "file": "packages/content/tax/2025/rule.gambling-losses-subtotal.json",
+      "line": 10,
+      "id": "tax.us.2025.rule.gambling-losses-subtotal",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "family",
+        "publishes",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.interest-positive-total.v2.json",
+      "line": 25,
+      "id": "tax.us.2025.rule.interest-positive-total",
+      "version": "v2",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "family",
+        "finding",
+        "identifier",
+        "published",
+        "publishes"
+      ],
+      "file": "packages/content/tax/2025/rule.interest.current-year-adjustment-subtotal.json",
+      "line": 13,
+      "id": "tax.us.2025.rule.interest.current-year-adjustment-subtotal",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "id",
+        "identifier"
+      ],
+      "file": "packages/content/tax/2025/rule.interest.current-year-adjustment.aggregate-supportability.json",
+      "line": 13,
+      "id": "tax.us.2025.rule.interest.current-year-adjustment.aggregate-supportability",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "closure",
+        "finding",
+        "guard",
+        "identifier",
+        "publishes",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.non-form-interest-subtotal.v3.json",
+      "line": 9,
+      "id": "tax.us.2025.rule.non-form-interest-subtotal",
+      "version": "v3",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "citizen"
+      ],
+      "file": "packages/content/tax/2025/rule.odc-child.other-tests-met.v2.json",
+      "line": 144,
+      "id": "tax.us.2025.rule.odc-child.other-tests-met",
+      "version": "v2",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "citizen"
+      ],
+      "file": "packages/content/tax/2025/rule.odc-relative.tests-b-met.json",
+      "line": 107,
+      "id": "tax.us.2025.rule.odc-relative.tests-b-met",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "computation",
+        "identifier"
+      ],
+      "file": "packages/content/tax/2025/rule.qdcg-worksheet.line-22.json",
+      "line": 181,
+      "id": "tax.us.2025.rule.qdcg-worksheet.line-22",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "computation",
+        "identifier"
+      ],
+      "file": "packages/content/tax/2025/rule.qdcg-worksheet.line-24.json",
+      "line": 181,
+      "id": "tax.us.2025.rule.qdcg-worksheet.line-24",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "computation"
+      ],
+      "file": "packages/content/tax/2025/rule.qdcg-worksheet.line-25.json",
+      "line": 54,
+      "id": "tax.us.2025.rule.qdcg-worksheet.line-25",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "computation"
+      ],
+      "file": "packages/content/tax/2025/rule.qdcg-worksheet.line-5.json",
+      "line": 59,
+      "id": "tax.us.2025.rule.qdcg-worksheet.line-5",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "finding"
+      ],
+      "file": "packages/content/tax/2025/rule.relationship.accrued-supported.json",
+      "line": 46,
+      "id": "tax.us.2025.rule.relationship.accrued-supported",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "authority",
+        "computation",
+        "finding",
+        "identifier",
+        "published"
+      ],
+      "file": "packages/content/tax/2025/rule.schedule-a-boundary-no-casualty-theft.json",
+      "line": 56,
+      "id": "tax.us.2025.rule.schedule-a-boundary-no-casualty-theft",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "authority",
+        "computation",
+        "finding",
+        "identifier",
+        "published"
+      ],
+      "file": "packages/content/tax/2025/rule.schedule-a-boundary-no-charitable.json",
+      "line": 56,
+      "id": "tax.us.2025.rule.schedule-a-boundary-no-charitable",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "authority",
+        "computation",
+        "finding",
+        "identifier",
+        "published"
+      ],
+      "file": "packages/content/tax/2025/rule.schedule-a-boundary-no-investment-interest.json",
+      "line": 56,
+      "id": "tax.us.2025.rule.schedule-a-boundary-no-investment-interest",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "authority",
+        "computation",
+        "finding",
+        "identifier",
+        "published"
+      ],
+      "file": "packages/content/tax/2025/rule.schedule-a-boundary-no-medical.json",
+      "line": 56,
+      "id": "tax.us.2025.rule.schedule-a-boundary-no-medical",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "authority",
+        "computation",
+        "finding",
+        "identifier",
+        "published"
+      ],
+      "file": "packages/content/tax/2025/rule.schedule-a-boundary-no-other-interest.json",
+      "line": 56,
+      "id": "tax.us.2025.rule.schedule-a-boundary-no-other-interest",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "authority",
+        "computation",
+        "finding",
+        "identifier",
+        "published"
+      ],
+      "file": "packages/content/tax/2025/rule.schedule-a-boundary-no-salt.json",
+      "line": 56,
+      "id": "tax.us.2025.rule.schedule-a-boundary-no-salt",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "closed-empty",
+        "guard",
+        "identifier",
+        "publishes",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.schedule-a-excess-over-standard.json",
+      "line": 28,
+      "id": "tax.us.2025.rule.schedule-a-excess-over-standard",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "family"
+      ],
+      "file": "packages/content/tax/2025/rule.schedule-a-line16.json",
+      "line": 14,
+      "id": "tax.us.2025.rule.schedule-a-line16",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "closure",
+        "dependency",
+        "guard",
+        "identifier",
+        "published",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.schedule-a-total-closed-empty.v2.json",
+      "line": 57,
+      "id": "tax.us.2025.rule.schedule-a-total-closed-empty",
+      "version": "v2",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "closed-empty",
+        "dependency",
+        "guard",
+        "identifier",
+        "published",
+        "publishes",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.schedule-a-total.v2.json",
+      "line": 73,
+      "id": "tax.us.2025.rule.schedule-a-total",
+      "version": "v2",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.schedule-d-line10.v3.json",
+      "line": 5,
+      "id": "tax.us.2025.rule.schedule-d-line10",
+      "version": "v3",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.schedule-d-line15.v7.json",
+      "line": 20,
+      "id": "tax.us.2025.rule.schedule-d-line15",
+      "version": "v7",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "family",
+        "publishes",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.schedule-d-line16.v4.json",
+      "line": 32,
+      "id": "tax.us.2025.rule.schedule-d-line16",
+      "version": "v4",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "closed-empty",
+        "closure",
+        "family",
+        "guard",
+        "identifier",
+        "published",
+        "publishes",
+        "version",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.schedule-d-line1a-gain.v6.json",
+      "line": 17,
+      "id": "tax.us.2025.rule.schedule-d-line1a-gain",
+      "version": "v6",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "family",
+        "guard",
+        "identifier",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.schedule-d-line1b.v3.json",
+      "line": 5,
+      "id": "tax.us.2025.rule.schedule-d-line1b",
+      "version": "v3",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "closed-empty",
+        "publishes",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.schedule-d-line2.v3.json",
+      "line": 5,
+      "id": "tax.us.2025.rule.schedule-d-line2",
+      "version": "v3",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.schedule-d-line3.v3.json",
+      "line": 5,
+      "id": "tax.us.2025.rule.schedule-d-line3",
+      "version": "v3",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.schedule-d-line7.v5.json",
+      "line": 5,
+      "id": "tax.us.2025.rule.schedule-d-line7",
+      "version": "v5",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "closed-empty",
+        "closure",
+        "family",
+        "guard",
+        "identifier",
+        "published",
+        "publishes",
+        "version",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.schedule-d-line8a-gain.v7.json",
+      "line": 17,
+      "id": "tax.us.2025.rule.schedule-d-line8a-gain",
+      "version": "v7",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "family",
+        "guard",
+        "identifier",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.schedule-d-line8b.v3.json",
+      "line": 5,
+      "id": "tax.us.2025.rule.schedule-d-line8b",
+      "version": "v3",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "closed-empty",
+        "publishes",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.schedule-d-line9.v3.json",
+      "line": 5,
+      "id": "tax.us.2025.rule.schedule-d-line9",
+      "version": "v3",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "identifier",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.schedule1-line10.v3.json",
+      "line": 668,
+      "id": "tax.us.2025.rule.schedule1-line10",
+      "version": "v3",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "family",
+        "honest",
+        "identifier",
+        "published"
+      ],
+      "file": "packages/content/tax/2025/rule.schedule1-line26.json",
+      "line": 31,
+      "id": "tax.us.2025.rule.schedule1-line26",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "closure",
+        "family",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.schedule1-line7.v3.json",
+      "line": 19,
+      "id": "tax.us.2025.rule.schedule1-line7",
+      "version": "v3",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "family",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.schedule1-line8b.v2.json",
+      "line": 15,
+      "id": "tax.us.2025.rule.schedule1-line8b",
+      "version": "v2",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "identifier"
+      ],
+      "file": "packages/content/tax/2025/rule.schedule1a-part-v-line-33.json",
+      "line": 37,
+      "id": "tax.us.2025.rule.schedule1a-part-v-line-33",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "identifier"
+      ],
+      "file": "packages/content/tax/2025/rule.schedule1a-part-v-line-34.json",
+      "line": 37,
+      "id": "tax.us.2025.rule.schedule1a-part-v-line-34",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "identifier"
+      ],
+      "file": "packages/content/tax/2025/rule.schedule1a-part-v-line-35.json",
+      "line": 37,
+      "id": "tax.us.2025.rule.schedule1a-part-v-line-35",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "identifier",
+        "published",
+        "publishes"
+      ],
+      "file": "packages/content/tax/2025/rule.schedule1a-part-v-line-36a.json",
+      "line": 88,
+      "id": "tax.us.2025.rule.schedule1a-part-v-line-36a",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "publishes",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.schedule1a-part-v-line-36b.v2.json",
+      "line": 155,
+      "id": "tax.us.2025.rule.schedule1a-part-v-line-36b",
+      "version": "v2",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "closure",
+        "guard",
+        "identifier",
+        "pin",
+        "publishes",
+        "version",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.schedule3-line1-direct-ftc.v5.json",
+      "line": 55,
+      "id": "tax.us.2025.rule.schedule3-line1-direct-ftc",
+      "version": "v5",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "closure",
+        "family",
+        "guard",
+        "identifier",
+        "publishes",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.scheduleb-adjustment.abp-adjustment-subtotal.v3.json",
+      "line": 15,
+      "id": "tax.us.2025.rule.scheduleb-adjustment.abp-adjustment-subtotal",
+      "version": "v3",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "closure",
+        "family",
+        "guard",
+        "identifier",
+        "publishes",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.scheduleb-adjustment.nominee-subtotal.v3.json",
+      "line": 15,
+      "id": "tax.us.2025.rule.scheduleb-adjustment.nominee-subtotal",
+      "version": "v3",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "dependency",
+        "publishes",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.selected-preferential-base.v12.json",
+      "line": 32,
+      "id": "tax.us.2025.rule.selected-preferential-base",
+      "version": "v12",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "identifier"
+      ],
+      "file": "packages/content/tax/2025/rule.sli-answer-status-no-employer-educational-assistance-interest.json",
+      "line": 72,
+      "id": "tax.us.2025.rule.sli-answer-status-no-employer-educational-assistance-interest",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "identifier"
+      ],
+      "file": "packages/content/tax/2025/rule.sli-answer-status-no-non-qualified-loan-component.json",
+      "line": 72,
+      "id": "tax.us.2025.rule.sli-answer-status-no-non-qualified-loan-component",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "identifier"
+      ],
+      "file": "packages/content/tax/2025/rule.sli-answer-status-no-qtp-earnings-used.json",
+      "line": 72,
+      "id": "tax.us.2025.rule.sli-answer-status-no-qtp-earnings-used",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "identifier"
+      ],
+      "file": "packages/content/tax/2025/rule.sli-answer-status-no-qualified-employer-plan-interest.json",
+      "line": 72,
+      "id": "tax.us.2025.rule.sli-answer-status-no-qualified-employer-plan-interest",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "identifier"
+      ],
+      "file": "packages/content/tax/2025/rule.sli-answer-status-no-related-person-interest.json",
+      "line": 72,
+      "id": "tax.us.2025.rule.sli-answer-status-no-related-person-interest",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "applicability"
+      ],
+      "file": "packages/content/tax/2025/rule.sli-applicability-marker-refusal.json",
+      "line": 28,
+      "id": "tax.us.2025.rule.sli-applicability-marker-refusal",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "publishes"
+      ],
+      "file": "packages/content/tax/2025/rule.sli-financing-schooling-link.json",
+      "line": 47,
+      "id": "tax.us.2025.rule.sli-financing-schooling-link",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "publishes"
+      ],
+      "file": "packages/content/tax/2025/rule.sli-inclusion-support-reason.json",
+      "line": 259,
+      "id": "tax.us.2025.rule.sli-inclusion-support-reason",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "applicability"
+      ],
+      "file": "packages/content/tax/2025/rule.sli-statement-applicability-marker-count.json",
+      "line": 32,
+      "id": "tax.us.2025.rule.sli-statement-applicability-marker-count",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "publishes"
+      ],
+      "file": "packages/content/tax/2025/rule.sli-statement-combined-standing.json",
+      "line": 1476,
+      "id": "tax.us.2025.rule.sli-statement-combined-standing",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "applicability",
+        "published"
+      ],
+      "file": "packages/content/tax/2025/rule.sli-statement-loan-support.json",
+      "line": 196,
+      "id": "tax.us.2025.rule.sli-statement-loan-support",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "applicability"
+      ],
+      "file": "packages/content/tax/2025/rule.sli-statement-support-reason.json",
+      "line": 411,
+      "id": "tax.us.2025.rule.sli-statement-support-reason",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "authority",
+        "closure",
+        "computation",
+        "family",
+        "guard",
+        "identifier",
+        "publishes",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.sli-worksheet-line1-subtotal.v2.json",
+      "line": 15,
+      "id": "tax.us.2025.rule.sli-worksheet-line1-subtotal",
+      "version": "v2",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "applicability",
+        "family",
+        "identifier",
+        "publishes",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.sli-worksheet.v6.json",
+      "line": 17,
+      "id": "tax.us.2025.rule.sli-worksheet",
+      "version": "v6",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "authority",
+        "closed-empty",
+        "closure",
+        "dependency",
+        "family",
+        "finding",
+        "identifier",
+        "pin",
+        "published",
+        "publishes",
+        "version",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.ss-benefits-worksheet.v4.json",
+      "line": 29,
+      "id": "tax.us.2025.rule.ss-benefits-worksheet",
+      "version": "v4",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "closed-empty",
+        "closure",
+        "family",
+        "finding",
+        "guard",
+        "published",
+        "publishes",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.ssa1099-b6-subtotal.v2.json",
+      "line": 19,
+      "id": "tax.us.2025.rule.ssa1099-b6-subtotal",
+      "version": "v2",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "family",
+        "guard"
+      ],
+      "file": "packages/content/tax/2025/rule.ssa1099-benefits-subtotal.json",
+      "line": 27,
+      "id": "tax.us.2025.rule.ssa1099-benefits-subtotal",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "guard",
+        "identifier",
+        "publishes",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.w2-box4-total.v2.json",
+      "line": 15,
+      "id": "tax.us.2025.rule.w2-box4-total",
+      "version": "v2",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "guard",
+        "identifier",
+        "publishes",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.w2-box6-total.v2.json",
+      "line": 15,
+      "id": "tax.us.2025.rule.w2-box6-total",
+      "version": "v2",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "family",
+        "guard",
+        "publishes",
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/rule.w2g-b1-subtotal.v3.json",
+      "line": 15,
+      "id": "tax.us.2025.rule.w2g-b1-subtotal",
+      "version": "v3",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "closed-empty",
+        "closure",
+        "family",
+        "finding",
+        "guard",
+        "publishes"
+      ],
+      "file": "packages/content/tax/2025/rule.w2g-b4-subtotal.json",
+      "line": 15,
+      "id": "tax.us.2025.rule.w2g-b4-subtotal",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "closure",
+        "family",
+        "publishes"
+      ],
+      "file": "packages/content/tax/2025/rule.wages-line1a.v2.json",
+      "line": 9,
+      "id": "tax.us.2025.rule.w2-box1-to-line1a",
+      "version": "v2",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "version string"
+      ],
+      "file": "packages/content/tax/2025/schedule-d.line-13.form-field.v2.json",
+      "line": 7,
+      "id": "tax.us.2025.schedule-d.line-13",
+      "version": "v2",
+      "property": "description"
+    },
+    {
+      "terms": [
+        "family"
+      ],
+      "file": "packages/content/tax/2025/schedule1.line-21.form-field.json",
+      "line": 7,
+      "id": "tax.us.2025.schedule1.line-21",
+      "version": "v1",
+      "property": "description"
+    },
+    {
+      "terms": [
+        "family"
+      ],
+      "file": "packages/content/tax/2025/schedule1.line-7.form-field.v2.json",
+      "line": 7,
+      "id": "tax.us.2025.schedule1.line-7",
+      "version": "v2",
+      "property": "description"
+    },
+    {
+      "terms": [
+        "family"
+      ],
+      "file": "packages/content/tax/2025/schedule1.line-8b.form-field.v2.json",
+      "line": 7,
+      "id": "tax.us.2025.schedule1.line-8b",
+      "version": "v2",
+      "property": "description"
+    },
+    {
+      "terms": [
+        "id",
+        "publishes"
+      ],
+      "file": "packages/content/tax/2025/tax.us.2025.rule.effective-proceeds-support-count.v1.json",
+      "line": 19,
+      "id": "tax.us.2025.rule.effective-proceeds-support-count",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "publishes"
+      ],
+      "file": "packages/content/tax/2025/tax.us.2025.rule.f1098-line8a.v5.json",
+      "line": 29,
+      "id": "tax.us.2025.rule.f1098-line8a",
+      "version": "v5",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "finding"
+      ],
+      "file": "packages/content/tax/2025/tax.us.2025.rule.mortgage-account-readiness.v1.json",
+      "line": 15,
+      "id": "tax.us.2025.rule.mortgage-account-readiness",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "publishes"
+      ],
+      "file": "packages/content/tax/2025/tax.us.2025.rule.mortgage-link-support.v1.json",
+      "line": 13,
+      "id": "tax.us.2025.rule.mortgage-link-support",
+      "version": "v1",
+      "property": "notes"
+    },
+    {
+      "terms": [
+        "finding"
+      ],
+      "file": "packages/content/tax/2025/tax.us.2025.rule.mortgage-payment-comparison-support-count.v1.json",
+      "line": 13,
+      "id": "tax.us.2025.rule.mortgage-payment-comparison-support-count",
+      "version": "v1",
+      "property": "notes"
+    }
+  ]
+}

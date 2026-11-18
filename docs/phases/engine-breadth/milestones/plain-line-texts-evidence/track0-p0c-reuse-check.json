@@ -1,0 +1,22 @@
+{
+  "status": "pass",
+  "p0c_content_bytes_unchanged": true,
+  "p0c_citizens_verified": 50,
+  "cores_verified": [
+    "v95",
+    "v96"
+  ],
+  "recorded_lists": 775,
+  "recorded_counts": {
+    "expected_sentences": 691,
+    "same_error": 84
+  },
+  "synthetic_lists": 9,
+  "synthetic_counts": {
+    "expected_sentences": 8,
+    "same_refusal": 1
+  },
+  "rows_compared": 223157,
+  "page_fields_compared": 60114,
+  "unexpected": {}
+}

@@ -1,0 +1,68 @@
+{
+  "sources": [
+    {
+      "filename": "f1040--2025.pdf",
+      "url": "https://www.irs.gov/pub/irs-prior/f1040--2025.pdf",
+      "pdf_sha256": "3d31c226df0d189ced80e039d01cf0f8820c1019681a0f0ca6264de277b7e982",
+      "text_sha256": "ac32f00aed489e0722d0b409c0eb12915801d66f3a2fab05bc8391af61426383"
+    },
+    {
+      "filename": "f1040s8--2025.pdf",
+      "url": "https://www.irs.gov/pub/irs-prior/f1040s8--2025.pdf",
+      "pdf_sha256": "6936462d67e2309d14a795aa0b88ef613cc6d79617431cfda3a2edf44aea52db",
+      "text_sha256": "9b38295071c42fe489ec8f93e117b31eda11355b5a95e3fe388eeee69601c8c9"
+    },
+    {
+      "filename": "i1040sb--2025.pdf",
+      "url": "https://www.irs.gov/pub/irs-prior/i1040sb--2025.pdf",
+      "pdf_sha256": "b92f31ece57a82ea576ac96507fe5df637dbda7489a80eb28aaab88e7c87b287",
+      "text_sha256": "2bf62267574473b36fd9a69b6e0837ef74d72ac7d5dcbf1d26e7047d099f1e05"
+    },
+    {
+      "filename": "p936--2025.pdf",
+      "url": "https://www.irs.gov/pub/irs-prior/p936--2025.pdf",
+      "pdf_sha256": "a4ef802b92ddd40ce2d00331b5012834dd274fd6ce74624586a1ea7dc31c32de",
+      "text_sha256": "2506899efa7530e4f22038bee4a20538b2459157fb7c5156762e323343a53e5c"
+    },
+    {
+      "filename": "p970--2025.pdf",
+      "url": "https://www.irs.gov/pub/irs-prior/p970--2025.pdf",
+      "pdf_sha256": "167f3d6df0d9370a3980b25b7a2e7b479ab7f336cce763d1f0c1c4962b18285e",
+      "text_sha256": "a5c80030374da420bbaf3118a8a42fe79092e8529663d02ef601b6ae06657e00"
+    },
+    {
+      "filename": "i1040sca--2025.pdf",
+      "url": "https://www.irs.gov/pub/irs-prior/i1040sca--2025.pdf",
+      "pdf_sha256": "b0999b12d9dc4b13868501a9c1879011c00d2fc035f13a1391251d355a6242c8",
+      "text_sha256": "18001c3e295230bbac198d1982e4c52265139aa983ef9cb9fb69d2a41a06119b"
+    },
+    {
+      "filename": "i1116--2025.pdf",
+      "url": "https://www.irs.gov/pub/irs-prior/i1116--2025.pdf",
+      "pdf_sha256": "6998cf8cd04b659b60ccf0b3a3ffaa507cc1dbdb31da40850f38a599dc39e0b1",
+      "text_sha256": "ca3e843c3bead1e7991566852707530b6bb7c2fd6008c1dbda0ac0bbd40c48ff"
+    },
+    {
+      "filename": "f1040s1--2025.pdf",
+      "url": "https://www.irs.gov/pub/irs-prior/f1040s1--2025.pdf",
+      "pdf_sha256": "8dafec719f6a4716c259a2bdaca546d9bb9e262d1eabef885fe116a7327458fa",
+      "text_sha256": "30004f72691a7078d8720e432e83110aa2bc3852ce9b45867becdb8c28222956"
+    },
+    {
+      "filename": "f1040s3--2025.pdf",
+      "url": "https://www.irs.gov/pub/irs-prior/f1040s3--2025.pdf",
+      "pdf_sha256": "008cfd3fe3ebd0860452069b90fd0a3d53dda6dd8a5d870278370aa899a63f82",
+      "text_sha256": "43c7ba36b506a538179465978807938c64bde632d7e1bff225bb6b13b19f37bd"
+    },
+    {
+      "filename": "i1040gi-2025.txt",
+      "text_sha256": "6024dc94dd1f545ed6e2068a42ea11859be546e8fe18ec3082021259f9b45ff1",
+      "source": "Existing local 2025 IRS instruction text from P0; printed-page headings used for wording."
+    },
+    {
+      "filename": "i1040sd--2025.txt",
+      "text_sha256": "145b3d02ba6ce4257939dfbd8f99d519875224cb4ceb4237a1aa24ed862360f1",
+      "source": "Existing local 2025 IRS instruction text from P0; printed-page headings used for wording."
+    }
+  ]
+}

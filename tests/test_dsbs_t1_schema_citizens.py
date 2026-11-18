@@ -224,7 +224,8 @@ class ReconciledVocabularies(TrackOneRegistry):
     def test_form_field_v3_carries_the_emitted_code_and_line_2b_v6_rides_it(self) -> None:
         line_2b = load_form_fields()["tax.us.2025.form1040.line-2b"]
         self.assertEqual(line_2b["schema"], "form-field.v3")
-        self.assertEqual(line_2b["version"], "v6")
+        # Core v96 (plain line texts) loads the v7 successor; only drawn texts differ.
+        self.assertEqual(line_2b["version"], "v7")
         codes = line_2b["dispositions"]["blocked"]["codes"]
         self.assertIn("SOURCE_SET_UNCLOSED", codes)
         self.assertNotIn("SOURCE_SET_OPEN", codes)

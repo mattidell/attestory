@@ -1,0 +1,731 @@
+{
+  "status": "pass",
+  "source": "published core v95 / registry v93 / release v93",
+  "scratch": "core v96 / registry v94 / release v94",
+  "injection": {
+    "entry": {
+      "v96": [
+        "NOMINEE_RETURN_SUCCESSOR_GRAPH_MIXED",
+        {
+          "tax.us.2025.interest-composition": [
+            "taxable-interest-composition.v1",
+            "v4"
+          ],
+          "tax.us.2025.rule.form1040-line2b": [
+            "rule-artifact.v9",
+            "v8"
+          ],
+          "tax.us.2025.form1040.line-2b": [
+            "form-field.v3",
+            "v7"
+          ],
+          "tax.us.2025.rule.attachment.schedule-b": [
+            "attachment-rule.v11",
+            "v7"
+          ]
+        }
+      ]
+    },
+    "only_declared_ast_delta": true
+  },
+  "controls": {
+    "v96_with_v6_rejected": {
+      "passed": true,
+      "ok": false,
+      "codes": [
+        "NOMINEE_RETURN_SUCCESSOR_GRAPH_MIXED"
+      ]
+    },
+    "v95_with_v7_rejected": {
+      "passed": true,
+      "ok": false,
+      "codes": [
+        "NOMINEE_RETURN_SUCCESSOR_GRAPH_MIXED"
+      ]
+    },
+    "v95_unchanged_under_injection": {
+      "passed": true,
+      "ok": true,
+      "codes": []
+    }
+  },
+  "v95_before_and_after_injection": "valid",
+  "citizens": 50,
+  "replacements": 57,
+  "wording_changes_from_p0c": 22,
+  "byte_undo_proofs": 50,
+  "generation": {
+    "package": {
+      "id": "tax.us.2025.package.core-calculations",
+      "version": "v96",
+      "checksum": "c9fbc4776be9bc54a5164f03c91336e93381a6b0ad768f8517bb6f353a888ef4"
+    },
+    "registry_sha256": "7759e541d00e3ca01e346033d9fd5f1bfab9c032bef696a5f64f272176b8d7c2",
+    "release": {
+      "id": "demo.release.sli-worksheet-integration.2025",
+      "version": "v94",
+      "sha256": "9b18deae240d5667ca783b3c1726abb670951c327b09669eaf5b3c14022fe65e"
+    },
+    "inherited_inconsistencies": [],
+    "publication_boundary": "Candidate only: successor companion declaration and live release evidence are separate duties under ADR-0082."
+  },
+  "successors": [
+    {
+      "id": "tax.us.2025.rule.attachment.f8949",
+      "old_version": "v6",
+      "new_version": "v7",
+      "predecessor": "packages/content/tax/2025/attachment.f8949.v6.json",
+      "successor_filename": "attachment.f8949.v7.json",
+      "changed_properties": [
+        "title"
+      ],
+      "predecessor_sha256": "a44b4f8a50f7c7f9b6e2612ea66da18fa6e799ecfb6cc803f1c48b83e02602c9",
+      "successor_sha256": "738d0d1f56c6582c8253e94584a68ab7086daf3884f5a0609ba23020bc6072e2",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.rule.attachment.schedule-a",
+      "old_version": "v4",
+      "new_version": "v5",
+      "predecessor": "packages/content/tax/2025/attachment.schedule-a.v4.json",
+      "successor_filename": "attachment.schedule-a.v5.json",
+      "changed_properties": [
+        "title"
+      ],
+      "predecessor_sha256": "3808808053fcbba69742817a69f167e14027247b4ecbb86d37b378ca1150284b",
+      "successor_sha256": "11c35f23b0794c18f7d2fa45077d89d9cd91f5321f07a6f070a10c35dff9792d",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.rule.attachment.schedule-d",
+      "old_version": "v10",
+      "new_version": "v11",
+      "predecessor": "packages/content/tax/2025/attachment.schedule-d.v10.json",
+      "successor_filename": "attachment.schedule-d.v11.json",
+      "changed_properties": [
+        "title"
+      ],
+      "predecessor_sha256": "01de696bc0fedb990fa3e995b5bd512f38c653244e1c783fe440c94c0de485de",
+      "successor_sha256": "12ec790b0730c228c0eed61788eaf4f9f886257679c816a43b3313091e3f1b21",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.form.eic-worksheet-a.line-2",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/eic-worksheet-a.line-2.form-field.json",
+      "successor_filename": "eic-worksheet-a.line-2.form-field.v2.json",
+      "changed_properties": [
+        "dispositions.computed_zero.explain"
+      ],
+      "predecessor_sha256": "916cdd2a71723b917524f559635f08eaad9813b79842f5332d968c5ab87e4f25",
+      "successor_sha256": "50fda65cece5b23bbb6dde63ba2b9137d95780700f3c5016815e0ed32288c50e",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.form.eic-worksheet-a.line-5",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/eic-worksheet-a.line-5.form-field.json",
+      "successor_filename": "eic-worksheet-a.line-5.form-field.v2.json",
+      "changed_properties": [
+        "dispositions.computed_zero.explain",
+        "dispositions.guard_inapplicable.explain"
+      ],
+      "predecessor_sha256": "0682d647b0b8c66b304c7428655cfd874a9cc5b8a579ad885231c8051dba2c36",
+      "successor_sha256": "bedf2d1a365a5e3c88a078ad0ac24d4f8afe52b1f4c27cbcdad332303bfe19ad",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.form.eic-worksheet-a.line-6",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/eic-worksheet-a.line-6.form-field.json",
+      "successor_filename": "eic-worksheet-a.line-6.form-field.v2.json",
+      "changed_properties": [
+        "dispositions.computed_zero.explain"
+      ],
+      "predecessor_sha256": "75bd1db385a682a296b285cec4974ad028c4dcc8841456c85de2c28ad472d73e",
+      "successor_sha256": "fe2dcdd76386b9fe8d5b4ce158377f402091bc784257e7dfe7a62a114bbacf06",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.form.sch8812.line-14",
+      "old_version": "v2",
+      "new_version": "v3",
+      "predecessor": "packages/content/tax/2025/form.sch8812.line-14.form-field.v2.json",
+      "successor_filename": "form.sch8812.line-14.form-field.v3.json",
+      "changed_properties": [
+        "dispositions.computed_zero.explain"
+      ],
+      "predecessor_sha256": "a8eca71ab63cdb524b3cfd88f356992b6d44f469ca7a252c910bca1a458aa22e",
+      "successor_sha256": "162430cc0b83b5a7cbad5f5d818518b15a616784f2cfd34b68bdb60733755aa0",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.form.sch8812.line-17",
+      "old_version": "v2",
+      "new_version": "v3",
+      "predecessor": "packages/content/tax/2025/form.sch8812.line-17.form-field.v2.json",
+      "successor_filename": "form.sch8812.line-17.form-field.v3.json",
+      "changed_properties": [
+        "dispositions.computed_zero.explain"
+      ],
+      "predecessor_sha256": "0d2ddb30d054f22c0d0b979eb082801a21f34e51a2442b41d135c02467c9914b",
+      "successor_sha256": "34be3b3085f684394e9e087d46b6fc4de075fb83d0136b86a87fb4607d097816",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.form.sch8812.line-4",
+      "old_version": "v2",
+      "new_version": "v3",
+      "predecessor": "packages/content/tax/2025/form.sch8812.line-4.form-field.v2.json",
+      "successor_filename": "form.sch8812.line-4.form-field.v3.json",
+      "changed_properties": [
+        "dispositions.closure_backed_zero.explain"
+      ],
+      "predecessor_sha256": "7a81102b0d7592d324f5df5e6db70275061dd8c07bbc2367f19b091b54b051d2",
+      "successor_sha256": "e8ac2a9aac25397fcccbdc7cb359600e051eb8fd6a22baf21fd38a68e298101b",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.form.sch8812.line-6",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/form.sch8812.line-6.form-field.json",
+      "successor_filename": "form.sch8812.line-6.form-field.v2.json",
+      "changed_properties": [
+        "dispositions.computed_zero.explain"
+      ],
+      "predecessor_sha256": "8eb60d6dc5a32f81ec99941315c8c1331768197a48963b04d3a1944182bfbefc",
+      "successor_sha256": "9319b11501671b7c46188da41311c43c19dd79e2f11665457e30ae7f62c690ca",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.form.sch8812.line-7",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/form.sch8812.line-7.form-field.json",
+      "successor_filename": "form.sch8812.line-7.form-field.v2.json",
+      "changed_properties": [
+        "dispositions.computed_zero.explain"
+      ],
+      "predecessor_sha256": "cabac93f2cfec9500abb549dc5c82c2b78da5becf36773f5013409313aaae90a",
+      "successor_sha256": "4576ba02e9e494aed23abe5f76bf7ae742e28e742514b2912bcf25d83d2c2be7",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.form1040.line-10",
+      "old_version": "v2",
+      "new_version": "v3",
+      "predecessor": "packages/content/tax/2025/form1040.line-10.form-field.v2.json",
+      "successor_filename": "form1040.line-10.form-field.v3.json",
+      "changed_properties": [
+        "dispositions.published_value.explain"
+      ],
+      "predecessor_sha256": "c84a1c0ee085601bd36a733afcc87e37de7a489b50381cac6aaaa0ffb31f45a0",
+      "successor_sha256": "a7a5ce6bff6e2609971fca8758cc184f23d024fce1e9f36955eb0d782af0e4cf",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.form1040.line-11a",
+      "old_version": "v2",
+      "new_version": "v3",
+      "predecessor": "packages/content/tax/2025/form1040.line-11a.form-field.v2.json",
+      "successor_filename": "form1040.line-11a.form-field.v3.json",
+      "changed_properties": [
+        "dispositions.published_value.explain"
+      ],
+      "predecessor_sha256": "134e58cbd17c6e576afe41d000041a23d11726b0218bbb4290f5ac5a2d25f13e",
+      "successor_sha256": "b8091e45b9e3507bf381db4bb60513af2aa8f4410e0e4fa8cb5cfb08efc5c2be",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.form1040.line-11b",
+      "old_version": "v2",
+      "new_version": "v3",
+      "predecessor": "packages/content/tax/2025/form1040.line-11b.form-field.v2.json",
+      "successor_filename": "form1040.line-11b.form-field.v3.json",
+      "changed_properties": [
+        "dispositions.published_value.explain"
+      ],
+      "predecessor_sha256": "4aabc027e3d8764bc552b2a3d58f4794a4dfba44521a7e60eaa252d8720a9161",
+      "successor_sha256": "ad55b4d7ab29aa53d04dc98f179303d684491ddaf26d9e3124a1ec9f86b77a0e",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.form1040.line-19",
+      "old_version": "v2",
+      "new_version": "v3",
+      "predecessor": "packages/content/tax/2025/form1040.line-19.form-field.v2.json",
+      "successor_filename": "form1040.line-19.form-field.v3.json",
+      "changed_properties": [
+        "dispositions.computed_zero.explain"
+      ],
+      "predecessor_sha256": "2b59555a1860459d3b49130184eb73d52ebae127a220b93159f49ee83c6076c9",
+      "successor_sha256": "efb612f48aca66f9bf077090b83f14a82b054593fb4bb78e226109fb3207f492",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.form1040.line-25a",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/form1040.line-25a.form-field.json",
+      "successor_filename": "form1040.line-25a.form-field.v2.json",
+      "changed_properties": [
+        "dispositions.computed_zero.explain"
+      ],
+      "predecessor_sha256": "25758188e60133dc1095322db26f4ede11f88ff5e1558afb97e55073d1e0b773",
+      "successor_sha256": "469cd94ef6fb39399b82f59abcb9f39ce511d3628a43576db87923694d59bf0c",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.form1040.line-25b",
+      "old_version": "v6",
+      "new_version": "v7",
+      "predecessor": "packages/content/tax/2025/form1040.line-25b.form-field.v6.json",
+      "successor_filename": "form1040.line-25b.form-field.v7.json",
+      "changed_properties": [
+        "dispositions.computed_zero.explain"
+      ],
+      "predecessor_sha256": "a0db6105c168baffe3ea47e56bae038def49ef6ae4946ec6fe22f7ceabad244f",
+      "successor_sha256": "41c641612983d3eb662511c1519956052227f4494862b87eb6babbd6e352f7f1",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.form1040.line-25c",
+      "old_version": "v2",
+      "new_version": "v3",
+      "predecessor": "packages/content/tax/2025/form1040.line-25c.form-field.v2.json",
+      "successor_filename": "form1040.line-25c.form-field.v3.json",
+      "changed_properties": [
+        "dispositions.computed_zero.explain"
+      ],
+      "predecessor_sha256": "ee20091e2bc234727451af6bd90a78876b1ea8f028889baa30ca213b5df68086",
+      "successor_sha256": "e5869ae833aef8aa0005bb881bfb94eae3f4ee1b7a8ea836f182f86379ee63eb",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.form1040.line-25d",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/form1040.line-25d.form-field.json",
+      "successor_filename": "form1040.line-25d.form-field.v2.json",
+      "changed_properties": [
+        "dispositions.computed_zero.explain"
+      ],
+      "predecessor_sha256": "bca317112de7b8025fd7296a1e111a5ba1126d1cafd9447b151a959ac943ef43",
+      "successor_sha256": "4ce592c96b39849e4fb81aa26a1854c934fbd42d430dee87dedafb095d05137f",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.form1040.line-26",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/form1040.line-26.form-field.json",
+      "successor_filename": "form1040.line-26.form-field.v2.json",
+      "changed_properties": [
+        "dispositions.computed_zero.explain"
+      ],
+      "predecessor_sha256": "9b4b7456e8900db61fb74cecf041d4a4182201b2870af620919db7c48efc592d",
+      "successor_sha256": "2611f0355f7aca7c52503f2c08d3c3bf2514bddd4f4b333323c8de34faff72f6",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.form1040.line-27a",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/form1040.line-27a.form-field.json",
+      "successor_filename": "form1040.line-27a.form-field.v2.json",
+      "changed_properties": [
+        "dispositions.computed_zero.explain"
+      ],
+      "predecessor_sha256": "6a7a671e4ddcb7523447a5b3c08d7a4e02fd6f664685722342af420f220581ed",
+      "successor_sha256": "7fda12bbe6c7d0f0b37f60cdb59ddc39187e666b4d7c50c7c418cc1d72c629bc",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.form1040.line-28",
+      "old_version": "v2",
+      "new_version": "v3",
+      "predecessor": "packages/content/tax/2025/form1040.line-28.form-field.v2.json",
+      "successor_filename": "form1040.line-28.form-field.v3.json",
+      "changed_properties": [
+        "dispositions.computed_zero.explain"
+      ],
+      "predecessor_sha256": "d9756913656f87c4aad97d509d38f2406c6085a78488b98ace9d1b37a3a7db5a",
+      "successor_sha256": "708478de05ae1bcf3d562703ea0ecccc1e7ed05b3156b977fa82d4b8c7409cc2",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.form1040.line-2a",
+      "old_version": "v2",
+      "new_version": "v3",
+      "predecessor": "packages/content/tax/2025/form1040.line-2a.form-field.v2.json",
+      "successor_filename": "form1040.line-2a.form-field.v3.json",
+      "changed_properties": [
+        "dispositions.computed_zero.explain",
+        "dispositions.published_value.explain"
+      ],
+      "predecessor_sha256": "a1d65d84927822ede164096b8490ec9d99894d4725fea99a90deb0784a340d6b",
+      "successor_sha256": "ac483fb186420ef71dffdfed67b12a7068054fa77159dea565e61d68fe44af1b",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.form1040.line-2b",
+      "old_version": "v6",
+      "new_version": "v7",
+      "predecessor": "packages/content/tax/2025/form1040.line-2b.form-field.v6.json",
+      "successor_filename": "form1040.line-2b.form-field.v7.json",
+      "changed_properties": [
+        "dispositions.computed_zero.explain",
+        "dispositions.published_value.explain"
+      ],
+      "predecessor_sha256": "171afa21f6ad21267224d1d658e04854c5f75e4db4355b808b2c36ba1339f433",
+      "successor_sha256": "c873b8136a348d8024dcd9f5883118b996a46c23d40b123f8bb9be9d239c1444",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.form1040.line-32",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/form1040.line-32.form-field.json",
+      "successor_filename": "form1040.line-32.form-field.v2.json",
+      "changed_properties": [
+        "dispositions.computed_zero.explain"
+      ],
+      "predecessor_sha256": "e5e9c04b9a79fcefb5f7cb5e465a09c467c0ea5a2f84e9088bcc02f3f18debe6",
+      "successor_sha256": "0ba45266018a92af40f7886031805457485568aa972336b12e57abe998a01e4f",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.form1040.line-37",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/form1040.line-37.form-field.json",
+      "successor_filename": "form1040.line-37.form-field.v2.json",
+      "changed_properties": [
+        "dispositions.computed_zero.explain"
+      ],
+      "predecessor_sha256": "60955cb0f6995a6eff5179a230e9d790a8f4134e7527d3b6ba70f5a529c6b775",
+      "successor_sha256": "757c805cfe3d2e1642084cd364dc0ee21e0ae13b37d5e5ed39af450338b412ee",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.form1040.line-38",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/form1040.line-38.form-field.json",
+      "successor_filename": "form1040.line-38.form-field.v2.json",
+      "changed_properties": [
+        "dispositions.computed_zero.explain"
+      ],
+      "predecessor_sha256": "00d4af54248ef656390b8b33af6671b8022f44441404ec3fa12207507d9db6d8",
+      "successor_sha256": "e684810be63065667afb5bbfeb19711505afd95592e62a7cb347d4983d2fe833",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.form1040.line-3a",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/form1040.line-3a.form-field.json",
+      "successor_filename": "form1040.line-3a.form-field.v2.json",
+      "changed_properties": [
+        "dispositions.computed_zero.explain"
+      ],
+      "predecessor_sha256": "8948081a8af267070cdcfc9556b8ab2f27fffc49599908850de752b55d878e56",
+      "successor_sha256": "fe38c23d5f7331024b5c60e0bed21e0f9696640f119dff33fd45a66514123c27",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.form1040.line-3b",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/form1040.line-3b.form-field.json",
+      "successor_filename": "form1040.line-3b.form-field.v2.json",
+      "changed_properties": [
+        "dispositions.computed_zero.explain",
+        "dispositions.published_value.explain"
+      ],
+      "predecessor_sha256": "52b6549a084a1b9e8bb7b64a7aefc50ee4c4f9e3dd3a484f15d84b0e2565376a",
+      "successor_sha256": "6493ce759e802ecf38812bf5a43719e5a8d9034e23c238951a9cc1d7aa9b46d9",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.form1040.line-4b",
+      "old_version": "v2",
+      "new_version": "v3",
+      "predecessor": "packages/content/tax/2025/form1040.line-4b.form-field.v2.json",
+      "successor_filename": "form1040.line-4b.form-field.v3.json",
+      "changed_properties": [
+        "dispositions.computed_zero.explain"
+      ],
+      "predecessor_sha256": "bd0c3184bfaac6e528e3f067906d1a3416b2c4e890d56c3c79ff56a282e8d79f",
+      "successor_sha256": "394624550c6f036d8b504299f0d00710bb466d2b58ecd9637a9135bd5763b3fd",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.form1040.line-6b",
+      "old_version": "v2",
+      "new_version": "v3",
+      "predecessor": "packages/content/tax/2025/form1040.line-6b.form-field.v2.json",
+      "successor_filename": "form1040.line-6b.form-field.v3.json",
+      "changed_properties": [
+        "dispositions.blocked.explain"
+      ],
+      "predecessor_sha256": "317173655525f74b37cc02b4d9ec25f310b75215e3747bdfd1f7b104eee6f83c",
+      "successor_sha256": "5c07891d69e6d4e84f726d386b124f82b69566de79421b5ff03beafa5891c7a5",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.form1040.line-6d-not-checked",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/form1040.line-6d-not-checked.form-field.json",
+      "successor_filename": "form1040.line-6d-not-checked.form-field.v2.json",
+      "changed_properties": [
+        "dispositions.guard_inapplicable.explain"
+      ],
+      "predecessor_sha256": "8d296efd24eb750a45e8a5faa6d14fec50f54eb24d4d900a38ad61b174542cbc",
+      "successor_sha256": "e02c0fd65d53567fb69383a8790a5cdf56f42aef875cfaa48e10df5c9131018a",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.form1040.line-6d",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/form1040.line-6d.form-field.json",
+      "successor_filename": "form1040.line-6d.form-field.v2.json",
+      "changed_properties": [
+        "dispositions.guard_inapplicable.explain"
+      ],
+      "predecessor_sha256": "1a5f9cf6581f388ef7cda3d2dd5daea30be93782c6d17eb3de57e294d72e6cc4",
+      "successor_sha256": "fea2cad50c5878153aefb669a51b30eda0e72af3581577b9cab71c16f1a25f1d",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.form1040.line-7a",
+      "old_version": "v2",
+      "new_version": "v3",
+      "predecessor": "packages/content/tax/2025/form1040.line-7a.form-field.v2.json",
+      "successor_filename": "form1040.line-7a.form-field.v3.json",
+      "changed_properties": [
+        "dispositions.computed_zero.explain",
+        "dispositions.published_value.explain"
+      ],
+      "predecessor_sha256": "e7695b98fb9c4be9b7f01789fe9968b32c2a748247d1a1146a9a4f1857051e0a",
+      "successor_sha256": "d6adb38b23995f02617d51ddf4dfbefd85bcd260d290ff47bb9d79ded462595e",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.form1040.line-7b",
+      "old_version": "v3",
+      "new_version": "v4",
+      "predecessor": "packages/content/tax/2025/form1040.line-7b.form-field.v3.json",
+      "successor_filename": "form1040.line-7b.form-field.v4.json",
+      "changed_properties": [
+        "dispositions.guard_inapplicable.explain"
+      ],
+      "predecessor_sha256": "5c0b8cd33fb99e543560447e57c643c7233c8f43384a866893220852270fa5de",
+      "successor_sha256": "8aebc003c4cb9df02d5245fc085c4dbfe8c1d85cec4ae861edfd9838ce2dd58b",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.form1040.line-8",
+      "old_version": "v3",
+      "new_version": "v4",
+      "predecessor": "packages/content/tax/2025/form1040.line-8.form-field.v3.json",
+      "successor_filename": "form1040.line-8.form-field.v4.json",
+      "changed_properties": [
+        "dispositions.published_value.explain"
+      ],
+      "predecessor_sha256": "c834e2b4d8f8f80d43646d16d10123829cc873edc1e6f0c5461cc33dcd9f0e3c",
+      "successor_sha256": "1def751d8d90e4a0db699a37ef5cbb0601e2e5f96002686201e1a45e61f27a70",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.form1040.tax-after-credits",
+      "old_version": "v2",
+      "new_version": "v3",
+      "predecessor": "packages/content/tax/2025/form1040.tax-after-credits.form-field.v2.json",
+      "successor_filename": "form1040.tax-after-credits.form-field.v3.json",
+      "changed_properties": [
+        "dispositions.blocked.explain"
+      ],
+      "predecessor_sha256": "772a3e2546d186f5f2d5fa75ca3a758e6835d9001c1378e0a00bb916a6779d79",
+      "successor_sha256": "6799851fdaef47160290374a3bcda955fd4ab8919aecea563b15882e36017b3d",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.rule.attachment.schedule-1",
+      "old_version": "v5",
+      "new_version": "v6",
+      "predecessor": "packages/content/tax/2025/rule.attachment.schedule-1.v5.json",
+      "successor_filename": "rule.attachment.schedule-1.v6.json",
+      "changed_properties": [
+        "title"
+      ],
+      "predecessor_sha256": "2abfb2b9c2edfa3297ef9605c315ef64bdf0e132fcf84f33ab83fbbf5463b83e",
+      "successor_sha256": "dfe0b87862e3c5ea0f6e58526676cede67973f999a9661447995fb1cd242a9a2",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.schedule-d.line-13",
+      "old_version": "v2",
+      "new_version": "v3",
+      "predecessor": "packages/content/tax/2025/schedule-d.line-13.form-field.v2.json",
+      "successor_filename": "schedule-d.line-13.form-field.v3.json",
+      "changed_properties": [
+        "dispositions.computed_zero.explain",
+        "dispositions.published_value.explain"
+      ],
+      "predecessor_sha256": "ba191beb6e97cafe3f3f10b8e7570212f0dbb833bca7fa1b0d6648c72fe671be",
+      "successor_sha256": "cd697a5507a2e45300a21d4e003d6db3aac17afaf9f700b9523a60098bf6f55a",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.schedule-d.line-16",
+      "old_version": "v4",
+      "new_version": "v5",
+      "predecessor": "packages/content/tax/2025/schedule-d.line-16.form-field.v4.json",
+      "successor_filename": "schedule-d.line-16.form-field.v5.json",
+      "changed_properties": [
+        "dispositions.published_value.explain"
+      ],
+      "predecessor_sha256": "3416597a1228bd10ac291818bbcb7c251fb6670e911648a07919de940402a3a2",
+      "successor_sha256": "ceda5f26f887330b25f49f96b2e02142ebd541150424af22483d7b78eb1e2bb7",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.schedule1.line-10",
+      "old_version": "v4",
+      "new_version": "v5",
+      "predecessor": "packages/content/tax/2025/schedule1.line-10.form-field.v4.json",
+      "successor_filename": "schedule1.line-10.form-field.v5.json",
+      "changed_properties": [
+        "dispositions.published_value.explain"
+      ],
+      "predecessor_sha256": "b34b9b244cea8af1cdab1ba4ea874ad405d4f7fc19f3397e8c21410acd95e779",
+      "successor_sha256": "824929b4f11a682ec7804daa845267114052eaf5560ddeb375147d08520c122c",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.schedule1.line-21",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/schedule1.line-21.form-field.json",
+      "successor_filename": "schedule1.line-21.form-field.v2.json",
+      "changed_properties": [
+        "dispositions.closure_backed_zero.explain",
+        "dispositions.published_value.explain"
+      ],
+      "predecessor_sha256": "444d5580400d35d9e6ec74408894fef4271a1654b40813dadc0df9ac69dce3dc",
+      "successor_sha256": "ba3ec0276611cdb3829eb578fa156dac30abfbde75825ddb3adfdb4291f7cb80",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.schedule1.line-7",
+      "old_version": "v2",
+      "new_version": "v3",
+      "predecessor": "packages/content/tax/2025/schedule1.line-7.form-field.v2.json",
+      "successor_filename": "schedule1.line-7.form-field.v3.json",
+      "changed_properties": [
+        "dispositions.published_value.explain"
+      ],
+      "predecessor_sha256": "377afdecec6c7c19ec6a9f451d50765afc89a2cfcfb9c3fe7e915d53436ec0a1",
+      "successor_sha256": "db1cee6c65880b9a50d7e1be21c77b3ea74acb85fa0de53c77db7922f61dbde3",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.schedule3.line-1",
+      "old_version": "v2",
+      "new_version": "v3",
+      "predecessor": "packages/content/tax/2025/schedule3.line-1.form-field.v2.json",
+      "successor_filename": "schedule3.line-1.form-field.v3.json",
+      "changed_properties": [
+        "dispositions.blocked.explain"
+      ],
+      "predecessor_sha256": "8c2931ffdffd3ece0f7c1d321cb02f111ec4511614003f909015f890a1754692",
+      "successor_sha256": "97b23051bb8bd53538d822b31cedbe6f5cdd27bf029757e96660324bdecc6e86",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.schedule3.line-8",
+      "old_version": "v2",
+      "new_version": "v3",
+      "predecessor": "packages/content/tax/2025/schedule3.line-8.form-field.v2.json",
+      "successor_filename": "schedule3.line-8.form-field.v3.json",
+      "changed_properties": [
+        "dispositions.blocked.explain"
+      ],
+      "predecessor_sha256": "cf577c7716888c3e8638611074e93c28e949e9e89b26e9d95ca2c550b5be64ba",
+      "successor_sha256": "9f2c3cdcd663881190c7ae579b2def0ac2d9a4688f891cd2c8451e58dc4e6e0a",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.rule.effective-proceeds-support-count",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/tax.us.2025.rule.effective-proceeds-support-count.v1.json",
+      "successor_filename": "tax.us.2025.rule.effective-proceeds-support-count.v2.json",
+      "changed_properties": [
+        "notes"
+      ],
+      "predecessor_sha256": "2f37320e9099a429fe0e1d767a7ce3eb91829e79b85db3d0ef4f27732fa20f66",
+      "successor_sha256": "d4798daa0b1aceb2eee33b4e2dd8c3aee35b86b442142fe72f158ae50fa77070",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.rule.f1098-line8a",
+      "old_version": "v5",
+      "new_version": "v6",
+      "predecessor": "packages/content/tax/2025/tax.us.2025.rule.f1098-line8a.v5.json",
+      "successor_filename": "tax.us.2025.rule.f1098-line8a.v6.json",
+      "changed_properties": [
+        "notes"
+      ],
+      "predecessor_sha256": "7e7d2ed42c0706dc01e8b4ae6ee3a6a24665e66b7f9a9f82cb8177d19d851d64",
+      "successor_sha256": "463293da87a310e93d3b653ecd8d533ce555d66658d10c76094ce228d34e4cb2",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.rule.mortgage-account-readiness",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/tax.us.2025.rule.mortgage-account-readiness.v1.json",
+      "successor_filename": "tax.us.2025.rule.mortgage-account-readiness.v2.json",
+      "changed_properties": [
+        "notes"
+      ],
+      "predecessor_sha256": "5b55387a9959aeb9fdb42b70365545649c7e397f7892c88fc82082a44b5fd7d9",
+      "successor_sha256": "87b14232b34705dda7cd60c1d865be270024ab962d116b1d00ac68644d9340a4",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.rule.mortgage-link-support",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/tax.us.2025.rule.mortgage-link-support.v1.json",
+      "successor_filename": "tax.us.2025.rule.mortgage-link-support.v2.json",
+      "changed_properties": [
+        "notes"
+      ],
+      "predecessor_sha256": "a8c0e09f7e507c5558f4af6e7e92479f283f7d19e60f59921caf245e295addc0",
+      "successor_sha256": "7861795e3a534c01334478efab42f0a4d6fef3c9290d84f50a4eadabc60564b0",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.rule.mortgage-payment-comparison-support-count",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/tax.us.2025.rule.mortgage-payment-comparison-support-count.v1.json",
+      "successor_filename": "tax.us.2025.rule.mortgage-payment-comparison-support-count.v2.json",
+      "changed_properties": [
+        "notes"
+      ],
+      "predecessor_sha256": "83e795c05586b1915f006c986c60d58ba014352ebabb640a9bc9436a11dcc5e0",
+      "successor_sha256": "a171d3eb6f59995e031052845edc1bbe41646402cf4a26cffc96653329a20999",
+      "byte_undo_proof": true
+    }
+  ]
+}

@@ -1,0 +1,2798 @@
+{
+  "status": "pass",
+  "checked_replacements": 57,
+  "retained_from_p0c": 35,
+  "refined_in_track0": 22,
+  "supplementary_synthetic_cases": {
+    "demo.t0.mfs-lived-with": {
+      "description": "Married filing separately with mfs-lived-apart-all-year='no': draws line-6d guard_inapplicable on the MFS lived-with branch and line-6d-not-checked published_categorical.",
+      "outcome": "success",
+      "stop": "saturated",
+      "acts_count": 337,
+      "published_rows": 235,
+      "blocked_rows": 65,
+      "key_fields": {
+        "tax.us.2025.form.eic-worksheet-a.line-2": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form.eic-worksheet-a.line-5": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form.eic-worksheet-a.line-6": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form.sch8812.line-14": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.form.sch8812.line-17": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.form.sch8812.line-6": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-10": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-11a": {
+          "disposition": "published_value",
+          "value": 50000
+        },
+        "tax.us.2025.form1040.line-11b": {
+          "disposition": "published_value",
+          "value": 50000
+        },
+        "tax.us.2025.form1040.line-19": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.form1040.line-25a": {
+          "disposition": "published_value",
+          "value": 4500
+        },
+        "tax.us.2025.form1040.line-25b": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-25c": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-25d": {
+          "disposition": "published_value",
+          "value": 4500
+        },
+        "tax.us.2025.form1040.line-26": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-27a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-28": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.form1040.line-2a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-2b": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-32": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.form1040.line-37": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.form1040.line-38": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-3a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-3b": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-4b": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-6b": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-6d": {
+          "disposition": "guard_inapplicable",
+          "value": null
+        },
+        "tax.us.2025.form1040.line-6d-not-checked": {
+          "disposition": "published_categorical",
+          "value": null
+        },
+        "tax.us.2025.form1040.line-7a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-7b": {
+          "disposition": "published_categorical",
+          "value": null
+        },
+        "tax.us.2025.form1040.line-8": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.tax-after-credits": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.schedule-d.line-13": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-16": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule1.line-10": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule1.line-21": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule1.line-7": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule3.line-1": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.schedule3.line-8": {
+          "disposition": "blocked",
+          "value": null
+        }
+      }
+    },
+    "demo.t0.mfj-spouse-records": {
+      "description": "Married filing jointly with a second W-2 slip for the spouse plus Form 1099-INT box 8 and Form 1099-DIV box 12 records and zero Form 1099 withholding.",
+      "outcome": "success",
+      "stop": "saturated",
+      "acts_count": 352,
+      "published_rows": 294,
+      "blocked_rows": 0,
+      "key_fields": {
+        "tax.us.2025.form.eic-worksheet-a.line-2": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form.eic-worksheet-a.line-5": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form.eic-worksheet-a.line-6": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form.sch8812.line-14": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form.sch8812.line-17": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form.sch8812.line-6": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-10": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-11a": {
+          "disposition": "published_value",
+          "value": 80000
+        },
+        "tax.us.2025.form1040.line-11b": {
+          "disposition": "published_value",
+          "value": 80000
+        },
+        "tax.us.2025.form1040.line-19": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-25a": {
+          "disposition": "published_value",
+          "value": 7000
+        },
+        "tax.us.2025.form1040.line-25b": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-25c": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-25d": {
+          "disposition": "published_value",
+          "value": 7000
+        },
+        "tax.us.2025.form1040.line-26": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-27a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-28": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-2a": {
+          "disposition": "published_value",
+          "value": 250
+        },
+        "tax.us.2025.form1040.line-2b": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-32": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-37": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-38": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-3a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-3b": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-4b": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-6b": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-6d": {
+          "disposition": "guard_inapplicable",
+          "value": null
+        },
+        "tax.us.2025.form1040.line-6d-not-checked": {
+          "disposition": "guard_inapplicable",
+          "value": null
+        },
+        "tax.us.2025.form1040.line-7a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-7b": {
+          "disposition": "published_categorical",
+          "value": null
+        },
+        "tax.us.2025.form1040.line-8": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.tax-after-credits": {
+          "disposition": "published_value",
+          "value": 5346
+        },
+        "tax.us.2025.schedule-d.line-13": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-16": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule1.line-10": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule1.line-21": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule1.line-7": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule3.line-1": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule3.line-8": {
+          "disposition": "computed_zero",
+          "value": 0
+        }
+      }
+    },
+    "demo.t0.no-w2-interest-only": {
+      "description": "Single return with closed-empty W-2 and W-2 box 2 families (line 25a computed_zero by absence) and $100 taxable interest on line 2b (Schedule B not required).",
+      "outcome": "success",
+      "stop": "saturated",
+      "acts_count": 339,
+      "published_rows": 279,
+      "blocked_rows": 12,
+      "key_fields": {
+        "tax.us.2025.form.eic-worksheet-a.line-2": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form.eic-worksheet-a.line-5": {
+          "disposition": "guard_inapplicable",
+          "value": null
+        },
+        "tax.us.2025.form.eic-worksheet-a.line-6": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form.sch8812.line-14": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form.sch8812.line-17": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form.sch8812.line-6": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-10": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-11a": {
+          "disposition": "published_value",
+          "value": 100
+        },
+        "tax.us.2025.form1040.line-11b": {
+          "disposition": "published_value",
+          "value": 100
+        },
+        "tax.us.2025.form1040.line-19": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-25a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-25b": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-25c": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-25d": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-26": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-27a": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.form1040.line-28": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-2a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-2b": {
+          "disposition": "published_value",
+          "value": 100
+        },
+        "tax.us.2025.form1040.line-32": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.form1040.line-37": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.form1040.line-38": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-3a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-3b": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-4b": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-6b": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-6d": {
+          "disposition": "guard_inapplicable",
+          "value": null
+        },
+        "tax.us.2025.form1040.line-6d-not-checked": {
+          "disposition": "guard_inapplicable",
+          "value": null
+        },
+        "tax.us.2025.form1040.line-7a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-7b": {
+          "disposition": "published_categorical",
+          "value": null
+        },
+        "tax.us.2025.form1040.line-8": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.tax-after-credits": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-13": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-16": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule1.line-10": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule1.line-21": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule1.line-7": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule3.line-1": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule3.line-8": {
+          "disposition": "computed_zero",
+          "value": 0
+        }
+      }
+    },
+    "demo.t0.rounding-zeros-and-w2g-only": {
+      "description": "Sub-50-cent positive amounts rounding to $0 on lines 2a, 2b, 3a, 3b, 4b, 7a, 25a, 25b, 25c, 25d, 26, and Schedule D line 13, plus W-2G gambling winnings ($200) alone on Schedule 1 line 10 and Form 1040 line 8.",
+      "outcome": "success",
+      "stop": "saturated",
+      "acts_count": 364,
+      "published_rows": 237,
+      "blocked_rows": 60,
+      "key_fields": {
+        "tax.us.2025.form.eic-worksheet-a.line-2": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form.eic-worksheet-a.line-5": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form.eic-worksheet-a.line-6": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form.sch8812.line-14": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.form.sch8812.line-17": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.form.sch8812.line-6": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-10": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-11a": {
+          "disposition": "published_value",
+          "value": 50200
+        },
+        "tax.us.2025.form1040.line-11b": {
+          "disposition": "published_value",
+          "value": 50200
+        },
+        "tax.us.2025.form1040.line-19": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.form1040.line-25a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-25b": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-25c": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-25d": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-26": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-27a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-28": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.form1040.line-2a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-2b": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-32": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.form1040.line-37": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.form1040.line-38": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-3a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-3b": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-4b": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-6b": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-6d": {
+          "disposition": "guard_inapplicable",
+          "value": null
+        },
+        "tax.us.2025.form1040.line-6d-not-checked": {
+          "disposition": "guard_inapplicable",
+          "value": null
+        },
+        "tax.us.2025.form1040.line-7a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-7b": {
+          "disposition": "published_categorical",
+          "value": null
+        },
+        "tax.us.2025.form1040.line-8": {
+          "disposition": "published_value",
+          "value": 200
+        },
+        "tax.us.2025.form1040.tax-after-credits": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.schedule-d.line-13": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-16": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule1.line-10": {
+          "disposition": "published_value",
+          "value": 200
+        },
+        "tax.us.2025.schedule1.line-21": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule1.line-7": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule3.line-1": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.schedule3.line-8": {
+          "disposition": "blocked",
+          "value": null
+        }
+      }
+    },
+    "demo.t0.int8-only-and-unemp-plus-w2g": {
+      "description": "Form 1099-INT box 8 only ($300.40 rounded to $300) on line 2a, plus both Form 1099-G unemployment ($500.40 rounded to $500) and Form W-2G gambling winnings ($300) on Schedule 1 line 10 and Form 1040 line 8.",
+      "outcome": "success",
+      "stop": "saturated",
+      "acts_count": 352,
+      "published_rows": 237,
+      "blocked_rows": 60,
+      "key_fields": {
+        "tax.us.2025.form.eic-worksheet-a.line-2": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form.eic-worksheet-a.line-5": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form.eic-worksheet-a.line-6": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form.sch8812.line-14": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.form.sch8812.line-17": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.form.sch8812.line-6": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-10": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-11a": {
+          "disposition": "published_value",
+          "value": 50800
+        },
+        "tax.us.2025.form1040.line-11b": {
+          "disposition": "published_value",
+          "value": 50800
+        },
+        "tax.us.2025.form1040.line-19": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.form1040.line-25a": {
+          "disposition": "published_value",
+          "value": 4500
+        },
+        "tax.us.2025.form1040.line-25b": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-25c": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-25d": {
+          "disposition": "published_value",
+          "value": 4500
+        },
+        "tax.us.2025.form1040.line-26": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-27a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-28": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.form1040.line-2a": {
+          "disposition": "published_value",
+          "value": 300
+        },
+        "tax.us.2025.form1040.line-2b": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-32": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.form1040.line-37": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.form1040.line-38": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-3a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-3b": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-4b": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-6b": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-6d": {
+          "disposition": "guard_inapplicable",
+          "value": null
+        },
+        "tax.us.2025.form1040.line-6d-not-checked": {
+          "disposition": "guard_inapplicable",
+          "value": null
+        },
+        "tax.us.2025.form1040.line-7a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-7b": {
+          "disposition": "published_categorical",
+          "value": null
+        },
+        "tax.us.2025.form1040.line-8": {
+          "disposition": "published_value",
+          "value": 800
+        },
+        "tax.us.2025.form1040.tax-after-credits": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.schedule-d.line-13": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-16": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule1.line-10": {
+          "disposition": "published_value",
+          "value": 800
+        },
+        "tax.us.2025.schedule1.line-21": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule1.line-7": {
+          "disposition": "published_value",
+          "value": 500
+        },
+        "tax.us.2025.schedule3.line-1": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.schedule3.line-8": {
+          "disposition": "blocked",
+          "value": null
+        }
+      }
+    },
+    "demo.t0.odc-no-and-corrected-retracted": {
+      "description": "Schedule 8812 line 6 computed_zero via the ctc.no-other-dependent='no' branch with zero qualifying dependents, plus a superseded estimated-tax answer ($250 -> $0) and a retracted-and-reasserted line 38 answer.",
+      "outcome": "success",
+      "stop": "saturated",
+      "acts_count": 339,
+      "published_rows": 292,
+      "blocked_rows": 0,
+      "key_fields": {
+        "tax.us.2025.form.eic-worksheet-a.line-2": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form.eic-worksheet-a.line-5": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form.eic-worksheet-a.line-6": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form.sch8812.line-14": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form.sch8812.line-17": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form.sch8812.line-6": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-10": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-11a": {
+          "disposition": "published_value",
+          "value": 50000
+        },
+        "tax.us.2025.form1040.line-11b": {
+          "disposition": "published_value",
+          "value": 50000
+        },
+        "tax.us.2025.form1040.line-19": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-25a": {
+          "disposition": "published_value",
+          "value": 4500
+        },
+        "tax.us.2025.form1040.line-25b": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-25c": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-25d": {
+          "disposition": "published_value",
+          "value": 4500
+        },
+        "tax.us.2025.form1040.line-26": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-27a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-28": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-2a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-2b": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-32": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-37": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-38": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-3a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-3b": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-4b": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-6b": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-6d": {
+          "disposition": "guard_inapplicable",
+          "value": null
+        },
+        "tax.us.2025.form1040.line-6d-not-checked": {
+          "disposition": "guard_inapplicable",
+          "value": null
+        },
+        "tax.us.2025.form1040.line-7a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-7b": {
+          "disposition": "published_categorical",
+          "value": null
+        },
+        "tax.us.2025.form1040.line-8": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.tax-after-credits": {
+          "disposition": "published_value",
+          "value": 3875
+        },
+        "tax.us.2025.schedule-d.line-13": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-16": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule1.line-10": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule1.line-21": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule1.line-7": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule3.line-1": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule3.line-8": {
+          "disposition": "computed_zero",
+          "value": 0
+        }
+      }
+    },
+    "demo.t0.retracted-member-and-sch1-rounding": {
+      "description": "Form 1099-INT box 1 member ($500) asserted and then removed via member-transition (line 2b computed_zero after removal), W-2 wages $0.40 rounding to $0 (EIC Worksheet A line 2 computed_zero via line 1 < $1), and Form 1099-G box 1 $0.40 rounding to $0 (Schedule 1 lines 7/10 and Form 1040 line 8 computed_zero by rounding).",
+      "outcome": "success",
+      "stop": "saturated",
+      "acts_count": 347,
+      "published_rows": 280,
+      "blocked_rows": 12,
+      "key_fields": {
+        "tax.us.2025.form.eic-worksheet-a.line-2": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form.eic-worksheet-a.line-5": {
+          "disposition": "guard_inapplicable",
+          "value": null
+        },
+        "tax.us.2025.form.eic-worksheet-a.line-6": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form.sch8812.line-14": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form.sch8812.line-17": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form.sch8812.line-6": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-10": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-11a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-11b": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-19": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-25a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-25b": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-25c": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-25d": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-26": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-27a": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.form1040.line-28": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-2a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-2b": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-32": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.form1040.line-37": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.form1040.line-38": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-3a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-3b": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-4b": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-6b": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-6d": {
+          "disposition": "guard_inapplicable",
+          "value": null
+        },
+        "tax.us.2025.form1040.line-6d-not-checked": {
+          "disposition": "guard_inapplicable",
+          "value": null
+        },
+        "tax.us.2025.form1040.line-7a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-7b": {
+          "disposition": "published_categorical",
+          "value": null
+        },
+        "tax.us.2025.form1040.line-8": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.tax-after-credits": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-13": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-16": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule1.line-10": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule1.line-21": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule1.line-7": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule3.line-1": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule3.line-8": {
+          "disposition": "computed_zero",
+          "value": 0
+        }
+      }
+    }
+  },
+  "item1_true_in_every_drawn_state": "PASS",
+  "item2_nothing_proved_is_dropped": "PASS",
+  "item3_plain_and_consistent": "PASS",
+  "replacements": [
+    {
+      "index": 1,
+      "id": "tax.us.2025.rule.attachment.f8949",
+      "version": "v6",
+      "property": "title",
+      "old_shown": "Form 8949 attachment v6",
+      "p0c_shown": "Form 8949 (Sales and Other Dispositions of Capital Assets)",
+      "final_shown": "Form 8949 (Sales and Other Dispositions of Capital Assets)",
+      "action_in_track0": "retained",
+      "track0_reason": "True in all census and supplementary drawn states; basis preserved; plain 2025 instruction naming.",
+      "basis_preserved": "Identifies the Form 8949 attachment heading before the colon and keeps the box C/F sale-count requirement after the colon.",
+      "recorded_lists": 691,
+      "p0b_synthetic_lists": 8,
+      "track0_supplementary_lists": [
+        "demo.t0.mfs-lived-with",
+        "demo.t0.mfj-spouse-records",
+        "demo.t0.no-w2-interest-only",
+        "demo.t0.rounding-zeros-and-w2g-only",
+        "demo.t0.int8-only-and-unemp-plus-w2g",
+        "demo.t0.odc-no-and-corrected-retracted",
+        "demo.t0.retracted-member-and-sch1-rounding"
+      ],
+      "example_lists": [
+        "demo.plt.blocked-names",
+        "demo.plt.interest-dividends",
+        "demo.plt.mortgage-detail"
+      ],
+      "flagged_terms_remaining": [],
+      "item1_verdict": "PASS",
+      "item2_verdict": "PASS",
+      "item3_verdict": "PASS"
+    },
+    {
+      "index": 2,
+      "id": "tax.us.2025.rule.attachment.schedule-a",
+      "version": "v4",
+      "property": "title",
+      "old_shown": "Schedule A itemized deductions attachment. Requires the derived Schedule A excess-over-standard result and the seven explicit non-mortgage category boundaries. Core v70 (attachment-limited-part)",
+      "p0c_shown": "Schedule A (Itemized Deductions)",
+      "final_shown": "Schedule A (Itemized Deductions)",
+      "action_in_track0": "retained",
+      "track0_reason": "True in all census and supplementary drawn states; basis preserved; plain 2025 instruction naming.",
+      "basis_preserved": "Identifies the Schedule A (Itemized Deductions) attachment heading before the colon and keeps the two-part line 8a / line 16 condition after the colon.",
+      "recorded_lists": 691,
+      "p0b_synthetic_lists": 8,
+      "track0_supplementary_lists": [
+        "demo.t0.mfs-lived-with",
+        "demo.t0.mfj-spouse-records",
+        "demo.t0.no-w2-interest-only",
+        "demo.t0.rounding-zeros-and-w2g-only",
+        "demo.t0.int8-only-and-unemp-plus-w2g",
+        "demo.t0.odc-no-and-corrected-retracted",
+        "demo.t0.retracted-member-and-sch1-rounding"
+      ],
+      "example_lists": [
+        "demo.plt.blocked-names",
+        "demo.plt.interest-dividends",
+        "demo.plt.mortgage-detail"
+      ],
+      "flagged_terms_remaining": [],
+      "item1_verdict": "PASS",
+      "item2_verdict": "PASS",
+      "item3_verdict": "PASS"
+    },
+    {
+      "index": 3,
+      "id": "tax.us.2025.rule.attachment.schedule-d",
+      "version": "v10",
+      "property": "title",
+      "old_shown": "Schedule D attachment v10",
+      "p0c_shown": "Schedule D (Capital Gains and Losses)",
+      "final_shown": "Schedule D (Capital Gains and Losses)",
+      "action_in_track0": "retained",
+      "track0_reason": "True in all census and supplementary drawn states; basis preserved; plain 2025 instruction naming.",
+      "basis_preserved": "Identifies the Schedule D (Capital Gains and Losses) attachment heading before the colon and keeps the box C/F sale-count requirement after the colon.",
+      "recorded_lists": 691,
+      "p0b_synthetic_lists": 8,
+      "track0_supplementary_lists": [
+        "demo.t0.mfs-lived-with",
+        "demo.t0.mfj-spouse-records",
+        "demo.t0.no-w2-interest-only",
+        "demo.t0.rounding-zeros-and-w2g-only",
+        "demo.t0.int8-only-and-unemp-plus-w2g",
+        "demo.t0.odc-no-and-corrected-retracted",
+        "demo.t0.retracted-member-and-sch1-rounding"
+      ],
+      "example_lists": [
+        "demo.plt.blocked-names",
+        "demo.plt.interest-dividends",
+        "demo.plt.mortgage-detail"
+      ],
+      "flagged_terms_remaining": [],
+      "item1_verdict": "PASS",
+      "item2_verdict": "PASS",
+      "item3_verdict": "PASS"
+    },
+    {
+      "index": 4,
+      "id": "tax.us.2025.form.eic-worksheet-a.line-2",
+      "version": "v1",
+      "property": "dispositions.computed_zero.explain",
+      "old_shown": "Worksheet A line 2 publishes a computed zero.",
+      "p0c_shown": "Worksheet A line 2 is zero because the earned income on line 1 is below $1 or gives a zero credit in the EIC Table.",
+      "final_shown": "Worksheet A line 2 is zero because the earned income on line 1 is below $1 or gives a zero credit in the EIC Table.",
+      "action_in_track0": "retained",
+      "track0_reason": "True in all census and supplementary drawn states; basis preserved; plain 2025 instruction naming.",
+      "basis_preserved": "Preserves the zero result on EIC Worksheet A line 2 and states the two rule branches (line 1 below $1 or EIC Table zero credit).",
+      "recorded_lists": 689,
+      "p0b_synthetic_lists": 8,
+      "track0_supplementary_lists": [
+        "demo.t0.mfs-lived-with",
+        "demo.t0.mfj-spouse-records",
+        "demo.t0.no-w2-interest-only",
+        "demo.t0.rounding-zeros-and-w2g-only",
+        "demo.t0.int8-only-and-unemp-plus-w2g",
+        "demo.t0.odc-no-and-corrected-retracted",
+        "demo.t0.retracted-member-and-sch1-rounding"
+      ],
+      "example_lists": [
+        "demo.plt.blocked-names",
+        "demo.plt.interest-dividends",
+        "demo.plt.mortgage-detail"
+      ],
+      "flagged_terms_remaining": [],
+      "item1_verdict": "PASS",
+      "item2_verdict": "PASS",
+      "item3_verdict": "PASS"
+    },
+    {
+      "index": 5,
+      "id": "tax.us.2025.form.eic-worksheet-a.line-5",
+      "version": "v1",
+      "property": "dispositions.computed_zero.explain",
+      "old_shown": "Worksheet A line 5 publishes a computed zero.",
+      "p0c_shown": "Worksheet A line 5 is zero because the EIC Table gives zero for the income on line 3.",
+      "final_shown": "Worksheet A line 5 is zero because the EIC Table gives zero for the income on line 3.",
+      "action_in_track0": "retained",
+      "track0_reason": "True in all census and supplementary drawn states; basis preserved; plain 2025 instruction naming.",
+      "basis_preserved": "Preserves the zero result on EIC Worksheet A line 5 from the EIC Table lookup on line 3.",
+      "recorded_lists": 319,
+      "p0b_synthetic_lists": 4,
+      "track0_supplementary_lists": [
+        "demo.t0.mfs-lived-with",
+        "demo.t0.mfj-spouse-records",
+        "demo.t0.rounding-zeros-and-w2g-only",
+        "demo.t0.int8-only-and-unemp-plus-w2g",
+        "demo.t0.odc-no-and-corrected-retracted"
+      ],
+      "example_lists": [
+        "demo.plt.sale",
+        "demo.plt.wage.married_filing_jointly",
+        "demo.plt.wage.married_filing_separately"
+      ],
+      "flagged_terms_remaining": [],
+      "item1_verdict": "PASS",
+      "item2_verdict": "PASS",
+      "item3_verdict": "PASS"
+    },
+    {
+      "index": 6,
+      "id": "tax.us.2025.form.eic-worksheet-a.line-5",
+      "version": "v1",
+      "property": "dispositions.guard_inapplicable.explain",
+      "old_shown": "No value is published for Worksheet A line 5 because its worksheet guard is not satisfied.",
+      "p0c_shown": "Worksheet A line 5 is not needed because the income on line 3 is below the limit for using that line.",
+      "final_shown": "Worksheet A line 5 is not needed because the income on line 3 is below the limit for using that line.",
+      "action_in_track0": "retained",
+      "track0_reason": "True in all census and supplementary drawn states; basis preserved; plain 2025 instruction naming.",
+      "basis_preserved": "Preserves inapplicability of EIC Worksheet A line 5 when line 3 is below the line 4 threshold.",
+      "recorded_lists": 2,
+      "p0b_synthetic_lists": 0,
+      "track0_supplementary_lists": [
+        "demo.t0.no-w2-interest-only",
+        "demo.t0.retracted-member-and-sch1-rounding"
+      ],
+      "example_lists": [
+        "v81/v80/carried_one_part_ii_b",
+        "v83/returns/v80/carried_one_part_ii_b/recorded"
+      ],
+      "flagged_terms_remaining": [],
+      "item1_verdict": "PASS",
+      "item2_verdict": "PASS",
+      "item3_verdict": "PASS"
+    },
+    {
+      "index": 7,
+      "id": "tax.us.2025.form.eic-worksheet-a.line-6",
+      "version": "v1",
+      "property": "dispositions.computed_zero.explain",
+      "old_shown": "Worksheet A line 6 publishes a computed zero.",
+      "p0c_shown": "Worksheet A line 6 is zero: the worksheet uses line 2, or the smaller of line 2 and the EIC Table amount for line 3.",
+      "final_shown": "Worksheet A line 6 is zero: the worksheet uses line 2, or the smaller of line 2 and the EIC Table amount for line 3.",
+      "action_in_track0": "retained",
+      "track0_reason": "True in all census and supplementary drawn states; basis preserved; plain 2025 instruction naming.",
+      "basis_preserved": "Preserves the zero result on EIC Worksheet A line 6 from line 2 or min(line 2, line 5).",
+      "recorded_lists": 319,
+      "p0b_synthetic_lists": 4,
+      "track0_supplementary_lists": [
+        "demo.t0.mfs-lived-with",
+        "demo.t0.mfj-spouse-records",
+        "demo.t0.no-w2-interest-only",
+        "demo.t0.rounding-zeros-and-w2g-only",
+        "demo.t0.int8-only-and-unemp-plus-w2g",
+        "demo.t0.odc-no-and-corrected-retracted",
+        "demo.t0.retracted-member-and-sch1-rounding"
+      ],
+      "example_lists": [
+        "demo.plt.sale",
+        "demo.plt.wage.married_filing_jointly",
+        "demo.plt.wage.married_filing_separately"
+      ],
+      "flagged_terms_remaining": [],
+      "item1_verdict": "PASS",
+      "item2_verdict": "PASS",
+      "item3_verdict": "PASS"
+    },
+    {
+      "index": 8,
+      "id": "tax.us.2025.form.sch8812.line-14",
+      "version": "v2",
+      "property": "dispositions.computed_zero.explain",
+      "old_shown": "Schedule 8812 line 14 publishes a computed zero.",
+      "p0c_shown": "The child tax credit and credit for other dependents on Schedule 8812 line 14 total zero after the eligibility checks and credit limit are applied.",
+      "final_shown": "The child tax credit and credit for other dependents on Schedule 8812 line 14 total zero after the eligibility checks and credit limit are applied.",
+      "action_in_track0": "retained",
+      "track0_reason": "True in all census and supplementary drawn states; basis preserved; plain 2025 instruction naming.",
+      "basis_preserved": "Preserves the zero result on Schedule 8812 line 14 after eligibility checks and the Worksheet A / Part I credit limit.",
+      "recorded_lists": 0,
+      "p0b_synthetic_lists": 2,
+      "track0_supplementary_lists": [
+        "demo.t0.mfj-spouse-records",
+        "demo.t0.no-w2-interest-only",
+        "demo.t0.odc-no-and-corrected-retracted",
+        "demo.t0.retracted-member-and-sch1-rounding"
+      ],
+      "example_lists": [
+        "demo.plt.wage.married_filing_jointly",
+        "demo.plt.wage.single"
+      ],
+      "flagged_terms_remaining": [],
+      "item1_verdict": "PASS",
+      "item2_verdict": "PASS",
+      "item3_verdict": "PASS"
+    },
+    {
+      "index": 9,
+      "id": "tax.us.2025.form.sch8812.line-17",
+      "version": "v2",
+      "property": "dispositions.computed_zero.explain",
+      "old_shown": "Schedule 8812 line 17 publishes a computed zero.",
+      "p0c_shown": "Schedule 8812 line 17 is zero because the smaller of lines 16a and 16b is zero.",
+      "final_shown": "Schedule 8812 line 17 is zero because the smaller of lines 16a and 16b is zero.",
+      "action_in_track0": "retained",
+      "track0_reason": "True in all census and supplementary drawn states; basis preserved; plain 2025 instruction naming.",
+      "basis_preserved": "Preserves the zero result on Schedule 8812 line 17 from comparing line 16a and line 16b.",
+      "recorded_lists": 0,
+      "p0b_synthetic_lists": 2,
+      "track0_supplementary_lists": [
+        "demo.t0.mfj-spouse-records",
+        "demo.t0.no-w2-interest-only",
+        "demo.t0.odc-no-and-corrected-retracted",
+        "demo.t0.retracted-member-and-sch1-rounding"
+      ],
+      "example_lists": [
+        "demo.plt.wage.married_filing_jointly",
+        "demo.plt.wage.single"
+      ],
+      "flagged_terms_remaining": [],
+      "item1_verdict": "PASS",
+      "item2_verdict": "PASS",
+      "item3_verdict": "PASS"
+    },
+    {
+      "index": 10,
+      "id": "tax.us.2025.form.sch8812.line-4",
+      "version": "v2",
+      "property": "dispositions.closure_backed_zero.explain",
+      "old_shown": "Schedule 8812 line 4 publishes zero through an honest closed-empty source family.",
+      "p0c_shown": "Your completed child list has no qualifying children for this credit, so Schedule 8812 line 4 is zero.",
+      "final_shown": "Your completed child list has no qualifying children for this credit, so Schedule 8812 line 4 is zero.",
+      "action_in_track0": "retained",
+      "track0_reason": "True in all census and supplementary drawn states; basis preserved; plain 2025 instruction naming.",
+      "basis_preserved": "Preserves the zero result on Schedule 8812 line 4 because the completed child list has no qualifying children for this credit.",
+      "recorded_lists": 689,
+      "p0b_synthetic_lists": 8,
+      "track0_supplementary_lists": [
+        "demo.t0.mfs-lived-with",
+        "demo.t0.mfj-spouse-records",
+        "demo.t0.no-w2-interest-only",
+        "demo.t0.rounding-zeros-and-w2g-only",
+        "demo.t0.int8-only-and-unemp-plus-w2g",
+        "demo.t0.odc-no-and-corrected-retracted",
+        "demo.t0.retracted-member-and-sch1-rounding"
+      ],
+      "example_lists": [
+        "demo.plt.blocked-names",
+        "demo.plt.interest-dividends",
+        "demo.plt.mortgage-detail"
+      ],
+      "flagged_terms_remaining": [],
+      "item1_verdict": "PASS",
+      "item2_verdict": "PASS",
+      "item3_verdict": "PASS"
+    },
+    {
+      "index": 11,
+      "id": "tax.us.2025.form.sch8812.line-6",
+      "version": "v1",
+      "property": "dispositions.computed_zero.explain",
+      "old_shown": "Schedule 8812 line 6 publishes a computed zero.",
+      "p0c_shown": "The number of other dependents for this credit is zero after your answers and dependent records are checked.",
+      "final_shown": "Schedule 8812 line 6 is zero because you confirmed that you have no other dependents for this credit, or no recorded dependent qualifies.",
+      "action_in_track0": "refined",
+      "track0_reason": "Item 1 failure in P0c: drawn on 699 pages including returns with no dependent records where tax.us.2025.ctc.no-other-dependent is yes; P0c claimed dependent records were checked.",
+      "basis_preserved": "Preserves the zero result on Schedule 8812 line 6 across both branches: confirmed no other dependents or zero qualifying dependents.",
+      "recorded_lists": 691,
+      "p0b_synthetic_lists": 8,
+      "track0_supplementary_lists": [
+        "demo.t0.mfs-lived-with",
+        "demo.t0.mfj-spouse-records",
+        "demo.t0.no-w2-interest-only",
+        "demo.t0.rounding-zeros-and-w2g-only",
+        "demo.t0.int8-only-and-unemp-plus-w2g",
+        "demo.t0.odc-no-and-corrected-retracted",
+        "demo.t0.retracted-member-and-sch1-rounding"
+      ],
+      "example_lists": [
+        "demo.plt.blocked-names",
+        "demo.plt.interest-dividends",
+        "demo.plt.mortgage-detail"
+      ],
+      "flagged_terms_remaining": [],
+      "item1_verdict": "PASS",
+      "item2_verdict": "PASS",
+      "item3_verdict": "PASS"
+    },
+    {
+      "index": 12,
+      "id": "tax.us.2025.form.sch8812.line-7",
+      "version": "v1",
+      "property": "dispositions.computed_zero.explain",
+      "old_shown": "Schedule 8812 line 7 publishes a computed zero.",
+      "p0c_shown": "The credit for other dependents on Schedule 8812 line 7 is zero because line 6 counts no other dependents.",
+      "final_shown": "The credit for other dependents on Schedule 8812 line 7 is zero because line 6 counts no other dependents.",
+      "action_in_track0": "retained",
+      "track0_reason": "True in all census and supplementary drawn states; basis preserved; plain 2025 instruction naming.",
+      "basis_preserved": "Preserves the zero result on Schedule 8812 line 7 when line 6 counts zero other dependents.",
+      "recorded_lists": 691,
+      "p0b_synthetic_lists": 8,
+      "track0_supplementary_lists": [
+        "demo.t0.mfs-lived-with",
+        "demo.t0.mfj-spouse-records",
+        "demo.t0.no-w2-interest-only",
+        "demo.t0.rounding-zeros-and-w2g-only",
+        "demo.t0.int8-only-and-unemp-plus-w2g",
+        "demo.t0.odc-no-and-corrected-retracted",
+        "demo.t0.retracted-member-and-sch1-rounding"
+      ],
+      "example_lists": [
+        "demo.plt.blocked-names",
+        "demo.plt.interest-dividends",
+        "demo.plt.mortgage-detail"
+      ],
+      "flagged_terms_remaining": [],
+      "item1_verdict": "PASS",
+      "item2_verdict": "PASS",
+      "item3_verdict": "PASS"
+    },
+    {
+      "index": 13,
+      "id": "tax.us.2025.form1040.line-10",
+      "version": "v2",
+      "property": "dispositions.published_value.explain",
+      "old_shown": "A current derived finding publishes Form 1040 line 10 from complete Schedule 1 line 26. This amount is subtracted from line 9 on line 11a.",
+      "p0c_shown": "Your adjustments to income come from Schedule 1 line 26 and are subtracted from total income to get adjusted gross income.",
+      "final_shown": "Your adjustments to income come from the completed Schedule 1 line 26 total and are subtracted from line 9 total income on line 11a.",
+      "action_in_track0": "refined",
+      "track0_reason": "Item 2 failure in P0c: predecessor proved Schedule 1 line 26 completeness and named lines 9 and 11a; P0c dropped completeness and the line references.",
+      "basis_preserved": "Preserves that line 10 comes from the completed Schedule 1 line 26 total and is subtracted from line 9 total income on line 11a.",
+      "recorded_lists": 2,
+      "p0b_synthetic_lists": 0,
+      "track0_supplementary_lists": [],
+      "example_lists": [
+        "v81/v80/carried_one_student_loan",
+        "v83/returns/v80/carried_one_student_loan/recorded"
+      ],
+      "flagged_terms_remaining": [],
+      "item1_verdict": "PASS",
+      "item2_verdict": "PASS",
+      "item3_verdict": "PASS"
+    },
+    {
+      "index": 14,
+      "id": "tax.us.2025.form1040.line-11a",
+      "version": "v2",
+      "property": "dispositions.published_value.explain",
+      "old_shown": "A current derived finding publishes Form 1040 line 11a, adjusted gross income, as total income minus Schedule 1 line 26.",
+      "p0c_shown": "Your adjusted gross income is your total income on line 9 minus your adjustments to income on line 10.",
+      "final_shown": "Your adjusted gross income is your total income on line 9 minus your adjustments to income on line 10.",
+      "action_in_track0": "retained",
+      "track0_reason": "True in all census and supplementary drawn states; basis preserved; plain 2025 instruction naming.",
+      "basis_preserved": "Preserves that line 11a adjusted gross income is line 9 total income minus line 10 adjustments to income.",
+      "recorded_lists": 321,
+      "p0b_synthetic_lists": 4,
+      "track0_supplementary_lists": [
+        "demo.t0.mfs-lived-with",
+        "demo.t0.mfj-spouse-records",
+        "demo.t0.no-w2-interest-only",
+        "demo.t0.rounding-zeros-and-w2g-only",
+        "demo.t0.int8-only-and-unemp-plus-w2g",
+        "demo.t0.odc-no-and-corrected-retracted"
+      ],
+      "example_lists": [
+        "demo.plt.sale",
+        "demo.plt.wage.married_filing_jointly",
+        "demo.plt.wage.married_filing_separately"
+      ],
+      "flagged_terms_remaining": [],
+      "item1_verdict": "PASS",
+      "item2_verdict": "PASS",
+      "item3_verdict": "PASS"
+    },
+    {
+      "index": 15,
+      "id": "tax.us.2025.form1040.line-11b",
+      "version": "v2",
+      "property": "dispositions.published_value.explain",
+      "old_shown": "A current derived finding publishes Form 1040 line 11b, carried forward from line 11a's adjusted gross income.",
+      "p0c_shown": "Line 11b repeats your adjusted gross income from line 11a.",
+      "final_shown": "Line 11b repeats your adjusted gross income from line 11a.",
+      "action_in_track0": "retained",
+      "track0_reason": "True in all census and supplementary drawn states; basis preserved; plain 2025 instruction naming.",
+      "basis_preserved": "Preserves that line 11b repeats adjusted gross income from line 11a.",
+      "recorded_lists": 321,
+      "p0b_synthetic_lists": 4,
+      "track0_supplementary_lists": [
+        "demo.t0.mfs-lived-with",
+        "demo.t0.mfj-spouse-records",
+        "demo.t0.no-w2-interest-only",
+        "demo.t0.rounding-zeros-and-w2g-only",
+        "demo.t0.int8-only-and-unemp-plus-w2g",
+        "demo.t0.odc-no-and-corrected-retracted"
+      ],
+      "example_lists": [
+        "demo.plt.sale",
+        "demo.plt.wage.married_filing_jointly",
+        "demo.plt.wage.married_filing_separately"
+      ],
+      "flagged_terms_remaining": [],
+      "item1_verdict": "PASS",
+      "item2_verdict": "PASS",
+      "item3_verdict": "PASS"
+    },
+    {
+      "index": 16,
+      "id": "tax.us.2025.form1040.line-19",
+      "version": "v2",
+      "property": "dispositions.computed_zero.explain",
+      "old_shown": "Form 1040 line 19 publishes a computed zero.",
+      "p0c_shown": "Your child tax credit and credit for other dependents are zero because Schedule 8812 line 14 is zero.",
+      "final_shown": "Your child tax credit and credit for other dependents are zero because Schedule 8812 line 14 is zero.",
+      "action_in_track0": "retained",
+      "track0_reason": "True in all census and supplementary drawn states; basis preserved; plain 2025 instruction naming.",
+      "basis_preserved": "Preserves the zero result on Form 1040 line 19 when Schedule 8812 line 14 is zero.",
+      "recorded_lists": 0,
+      "p0b_synthetic_lists": 2,
+      "track0_supplementary_lists": [
+        "demo.t0.mfj-spouse-records",
+        "demo.t0.no-w2-interest-only",
+        "demo.t0.odc-no-and-corrected-retracted",
+        "demo.t0.retracted-member-and-sch1-rounding"
+      ],
+      "example_lists": [
+        "demo.plt.wage.married_filing_jointly",
+        "demo.plt.wage.single"
+      ],
+      "flagged_terms_remaining": [],
+      "item1_verdict": "PASS",
+      "item2_verdict": "PASS",
+      "item3_verdict": "PASS"
+    },
+    {
+      "index": 17,
+      "id": "tax.us.2025.form1040.line-25a",
+      "version": "v1",
+      "property": "dispositions.computed_zero.explain",
+      "old_shown": "Form 1040 line 25a publishes a computed zero.",
+      "p0c_shown": "The federal income tax withholding in box 2 of your recorded Forms W-2 totals zero after rounding.",
+      "final_shown": "Your Form W-2 federal income tax withholding on line 25a is zero because no Forms W-2 are recorded or the box 2 amounts on the completed Forms W-2 round to zero.",
+      "action_in_track0": "refined",
+      "track0_reason": "Item 1 and Item 3 failure in P0c: rule.form1040-line25a.v3 pins rounding.convention so closed-empty w2/w2-box2 also selects computed_zero; P0c claimed recorded Forms W-2 exist when none are recorded and dropped completeness.",
+      "basis_preserved": "Preserves the zero result on line 25a across both absence of recorded Forms W-2 and completed W-2 box 2 amounts rounding to zero.",
+      "recorded_lists": 2,
+      "p0b_synthetic_lists": 0,
+      "track0_supplementary_lists": [
+        "demo.t0.no-w2-interest-only",
+        "demo.t0.rounding-zeros-and-w2g-only",
+        "demo.t0.retracted-member-and-sch1-rounding"
+      ],
+      "example_lists": [
+        "v81/v80/carried_one_part_ii_b",
+        "v83/returns/v80/carried_one_part_ii_b/recorded"
+      ],
+      "flagged_terms_remaining": [],
+      "item1_verdict": "PASS",
+      "item2_verdict": "PASS",
+      "item3_verdict": "PASS"
+    },
+    {
+      "index": 18,
+      "id": "tax.us.2025.form1040.line-25b",
+      "version": "v6",
+      "property": "dispositions.computed_zero.explain",
+      "old_shown": "Form 1040 line 25b publishes a computed zero.",
+      "p0c_shown": "The recorded federal income tax withholding from Forms 1099 and SSA-1099 totals zero after rounding.",
+      "final_shown": "Your Form 1099 and Form SSA-1099 federal income tax withholding on line 25b is zero because none is recorded or the completed withholding amounts round to zero.",
+      "action_in_track0": "refined",
+      "track0_reason": "Item 1 and Item 3 failure in P0c: drawn on 61 pages where all six withholding families are closed-empty; P0c claimed recorded withholding from Forms 1099 and SSA-1099 exists and dropped completeness.",
+      "basis_preserved": "Preserves the zero result on line 25b across both absence of Form 1099/SSA-1099 withholding and completed withholding amounts rounding to zero.",
+      "recorded_lists": 57,
+      "p0b_synthetic_lists": 4,
+      "track0_supplementary_lists": [
+        "demo.t0.mfs-lived-with",
+        "demo.t0.mfj-spouse-records",
+        "demo.t0.no-w2-interest-only",
+        "demo.t0.rounding-zeros-and-w2g-only",
+        "demo.t0.int8-only-and-unemp-plus-w2g",
+        "demo.t0.odc-no-and-corrected-retracted",
+        "demo.t0.retracted-member-and-sch1-rounding"
+      ],
+      "example_lists": [
+        "demo.plt.sale",
+        "demo.plt.wage.married_filing_jointly",
+        "demo.plt.wage.married_filing_separately"
+      ],
+      "flagged_terms_remaining": [],
+      "item1_verdict": "PASS",
+      "item2_verdict": "PASS",
+      "item3_verdict": "PASS"
+    },
+    {
+      "index": 19,
+      "id": "tax.us.2025.form1040.line-25c",
+      "version": "v2",
+      "property": "dispositions.computed_zero.explain",
+      "old_shown": "Form 1040 line 25c publishes a computed zero.",
+      "p0c_shown": "The federal income tax withholding in box 4 of your recorded Forms W-2G totals zero after rounding.",
+      "final_shown": "Your other-form federal income tax withholding on line 25c is zero because no Forms W-2G are recorded or the box 4 amounts on the completed Forms W-2G round to zero.",
+      "action_in_track0": "refined",
+      "track0_reason": "Item 1 and Item 3 failure in P0c: drawn on 699 pages including 695+ pages where w2g.b4 is closed-empty; P0c claimed recorded Forms W-2G exist when none are recorded and dropped completeness.",
+      "basis_preserved": "Preserves the zero result on line 25c across both absence of Forms W-2G and completed W-2G box 4 amounts rounding to zero.",
+      "recorded_lists": 691,
+      "p0b_synthetic_lists": 8,
+      "track0_supplementary_lists": [
+        "demo.t0.mfs-lived-with",
+        "demo.t0.mfj-spouse-records",
+        "demo.t0.no-w2-interest-only",
+        "demo.t0.rounding-zeros-and-w2g-only",
+        "demo.t0.int8-only-and-unemp-plus-w2g",
+        "demo.t0.odc-no-and-corrected-retracted",
+        "demo.t0.retracted-member-and-sch1-rounding"
+      ],
+      "example_lists": [
+        "demo.plt.blocked-names",
+        "demo.plt.interest-dividends",
+        "demo.plt.mortgage-detail"
+      ],
+      "flagged_terms_remaining": [],
+      "item1_verdict": "PASS",
+      "item2_verdict": "PASS",
+      "item3_verdict": "PASS"
+    },
+    {
+      "index": 20,
+      "id": "tax.us.2025.form1040.line-25d",
+      "version": "v1",
+      "property": "dispositions.computed_zero.explain",
+      "old_shown": "Form 1040 line 25d publishes a computed zero.",
+      "p0c_shown": "Your total federal income tax withheld is zero because lines 25a, 25b and 25c add to zero.",
+      "final_shown": "Your total federal income tax withheld is zero because lines 25a, 25b and 25c add to zero.",
+      "action_in_track0": "retained",
+      "track0_reason": "True in all census and supplementary drawn states; basis preserved; plain 2025 instruction naming.",
+      "basis_preserved": "Preserves the zero result on line 25d when lines 25a, 25b, and 25c add to zero.",
+      "recorded_lists": 1,
+      "p0b_synthetic_lists": 0,
+      "track0_supplementary_lists": [
+        "demo.t0.no-w2-interest-only",
+        "demo.t0.rounding-zeros-and-w2g-only",
+        "demo.t0.retracted-member-and-sch1-rounding"
+      ],
+      "example_lists": [
+        "v83/returns/v80/carried_one_part_ii_b/recorded"
+      ],
+      "flagged_terms_remaining": [],
+      "item1_verdict": "PASS",
+      "item2_verdict": "PASS",
+      "item3_verdict": "PASS"
+    },
+    {
+      "index": 21,
+      "id": "tax.us.2025.form1040.line-26",
+      "version": "v1",
+      "property": "dispositions.computed_zero.explain",
+      "old_shown": "Form 1040 line 26 publishes a computed zero.",
+      "p0c_shown": "Your estimated tax payments and amount applied from your 2024 return are zero after the amount you entered is rounded to whole dollars.",
+      "final_shown": "Your estimated tax payments and amount applied from your 2024 return are zero after the amount you entered is rounded to whole dollars.",
+      "action_in_track0": "retained",
+      "track0_reason": "True in all census and supplementary drawn states; basis preserved; plain 2025 instruction naming.",
+      "basis_preserved": "Preserves the zero result on line 26 after rounding the entered estimated tax payments and prior-year applied amount to whole dollars.",
+      "recorded_lists": 691,
+      "p0b_synthetic_lists": 8,
+      "track0_supplementary_lists": [
+        "demo.t0.mfs-lived-with",
+        "demo.t0.mfj-spouse-records",
+        "demo.t0.no-w2-interest-only",
+        "demo.t0.rounding-zeros-and-w2g-only",
+        "demo.t0.int8-only-and-unemp-plus-w2g",
+        "demo.t0.odc-no-and-corrected-retracted",
+        "demo.t0.retracted-member-and-sch1-rounding"
+      ],
+      "example_lists": [
+        "demo.plt.blocked-names",
+        "demo.plt.interest-dividends",
+        "demo.plt.mortgage-detail"
+      ],
+      "flagged_terms_remaining": [],
+      "item1_verdict": "PASS",
+      "item2_verdict": "PASS",
+      "item3_verdict": "PASS"
+    },
+    {
+      "index": 22,
+      "id": "tax.us.2025.form1040.line-27a",
+      "version": "v1",
+      "property": "dispositions.computed_zero.explain",
+      "old_shown": "Earned income credit publishes a computed zero.",
+      "p0c_shown": "Your earned income credit is zero under the eligibility checks or the Worksheet A calculation.",
+      "final_shown": "Your earned income credit is zero under the eligibility checks or the Worksheet A calculation.",
+      "action_in_track0": "retained",
+      "track0_reason": "True in all census and supplementary drawn states; basis preserved; plain 2025 instruction naming.",
+      "basis_preserved": "Preserves the zero result on line 27a from the EIC eligibility checks or Worksheet A calculation.",
+      "recorded_lists": 319,
+      "p0b_synthetic_lists": 4,
+      "track0_supplementary_lists": [
+        "demo.t0.mfs-lived-with",
+        "demo.t0.mfj-spouse-records",
+        "demo.t0.rounding-zeros-and-w2g-only",
+        "demo.t0.int8-only-and-unemp-plus-w2g",
+        "demo.t0.odc-no-and-corrected-retracted"
+      ],
+      "example_lists": [
+        "demo.plt.sale",
+        "demo.plt.wage.married_filing_jointly",
+        "demo.plt.wage.married_filing_separately"
+      ],
+      "flagged_terms_remaining": [],
+      "item1_verdict": "PASS",
+      "item2_verdict": "PASS",
+      "item3_verdict": "PASS"
+    },
+    {
+      "index": 23,
+      "id": "tax.us.2025.form1040.line-28",
+      "version": "v2",
+      "property": "dispositions.computed_zero.explain",
+      "old_shown": "Form 1040 line 28 publishes a computed zero.",
+      "p0c_shown": "Your additional child tax credit is zero after Schedule 8812 applies the limits on the refundable credit.",
+      "final_shown": "Your additional child tax credit is zero after Schedule 8812 applies the limits on the refundable credit.",
+      "action_in_track0": "retained",
+      "track0_reason": "True in all census and supplementary drawn states; basis preserved; plain 2025 instruction naming.",
+      "basis_preserved": "Preserves the zero result on line 28 after Schedule 8812 applies the refundable credit limits.",
+      "recorded_lists": 0,
+      "p0b_synthetic_lists": 2,
+      "track0_supplementary_lists": [
+        "demo.t0.mfj-spouse-records",
+        "demo.t0.no-w2-interest-only",
+        "demo.t0.odc-no-and-corrected-retracted",
+        "demo.t0.retracted-member-and-sch1-rounding"
+      ],
+      "example_lists": [
+        "demo.plt.wage.married_filing_jointly",
+        "demo.plt.wage.single"
+      ],
+      "flagged_terms_remaining": [],
+      "item1_verdict": "PASS",
+      "item2_verdict": "PASS",
+      "item3_verdict": "PASS"
+    },
+    {
+      "index": 24,
+      "id": "tax.us.2025.form1040.line-2a",
+      "version": "v2",
+      "property": "dispositions.computed_zero.explain",
+      "old_shown": "A current derived finding publishes a computed zero from present box-12 and/or box-8 findings that sum to zero under explicit scope authority.",
+      "p0c_shown": "You confirmed the tax-exempt interest records are complete, and the combined Form 1099-INT box 8 and Form 1099-DIV box 12 amount is zero after rounding.",
+      "final_shown": "Your tax-exempt interest on line 2a is zero because no Form 1099-INT box 8 or Form 1099-DIV box 12 amounts are recorded or their total rounds to zero, with the required tax-exempt interest records and answers complete.",
+      "action_in_track0": "refined",
+      "track0_reason": "Item 1 and Item 2 failure in P0c: drawn on 697 pages where neither Form 1099-INT box 8 nor Form 1099-DIV box 12 is recorded; P0c implied tax-exempt interest records exist and omitted the required scope answers.",
+      "basis_preserved": "Preserves the zero result on line 2a across closed-empty absence and sub-50-cent rounding of Form 1099-INT box 8 and Form 1099-DIV box 12, with records and scope answers complete.",
+      "recorded_lists": 690,
+      "p0b_synthetic_lists": 7,
+      "track0_supplementary_lists": [
+        "demo.t0.mfs-lived-with",
+        "demo.t0.no-w2-interest-only",
+        "demo.t0.rounding-zeros-and-w2g-only",
+        "demo.t0.odc-no-and-corrected-retracted",
+        "demo.t0.retracted-member-and-sch1-rounding"
+      ],
+      "example_lists": [
+        "demo.plt.blocked-names",
+        "demo.plt.mortgage-detail",
+        "demo.plt.sale"
+      ],
+      "flagged_terms_remaining": [],
+      "item1_verdict": "PASS",
+      "item2_verdict": "PASS",
+      "item3_verdict": "PASS"
+    },
+    {
+      "index": 25,
+      "id": "tax.us.2025.form1040.line-2a",
+      "version": "v2",
+      "property": "dispositions.published_value.explain",
+      "old_shown": "A current derived finding publishes this tax-exempt interest amount on line 2a from the closed box-12 and/or closed box-8 families under explicit scope-completeness authority. The amount is reported but not directly taxable on this return graph.",
+      "p0c_shown": "Your tax-exempt interest is the combined amount from the completed Form 1099-INT box 8 and Form 1099-DIV box 12 records, with the other required tax-exempt interest answers complete. It is reported on line 2a but is not included in taxable income.",
+      "final_shown": "Your tax-exempt interest on line 2a is the rounded total from any recorded Form 1099-INT box 8 and Form 1099-DIV box 12 amounts, with the required tax-exempt interest records and answers complete. It is reported on line 2a but is not included in taxable income.",
+      "action_in_track0": "refined",
+      "track0_reason": "Item 1 and Item 2 failure in P0c: drawn on carried_one_exempt_dividend where Path A (no-f1099int-tax-exempt=yes) has no Form 1099-INT box 8 records; P0c replaced predecessor 'and/or' with 'completed Form 1099-INT box 8 and Form 1099-DIV box 12 records' and dropped rounding.",
+      "basis_preserved": "Preserves that line 2a is the rounded total from any recorded Form 1099-INT box 8 and Form 1099-DIV box 12 amounts with records and answers complete, and is not included in taxable income.",
+      "recorded_lists": 1,
+      "p0b_synthetic_lists": 1,
+      "track0_supplementary_lists": [
+        "demo.t0.mfj-spouse-records",
+        "demo.t0.int8-only-and-unemp-plus-w2g"
+      ],
+      "example_lists": [
+        "demo.plt.interest-dividends",
+        "v83/returns/v80/carried_one_exempt_dividend/recorded"
+      ],
+      "flagged_terms_remaining": [],
+      "item1_verdict": "PASS",
+      "item2_verdict": "PASS",
+      "item3_verdict": "PASS"
+    },
+    {
+      "index": 26,
+      "id": "tax.us.2025.form1040.line-2b",
+      "version": "v6",
+      "property": "dispositions.computed_zero.explain",
+      "old_shown": "A current derived finding publishes a computed zero from present subtotals that sum to zero. All constituent families are closed.",
+      "p0c_shown": "Your taxable interest is zero after the completed interest totals and recorded adjustments are combined and rounded.",
+      "final_shown": "Your taxable interest on line 2b is zero because no taxable interest is recorded or the completed interest amounts, after any applicable adjustments, round to zero.",
+      "action_in_track0": "refined",
+      "track0_reason": "Item 1 failure in P0c: drawn on 692 pages where no interest and no adjustments are recorded; P0c claimed 'recorded adjustments' exist.",
+      "basis_preserved": "Preserves the zero result on line 2b across closed-empty absence and sub-50-cent rounding of completed taxable interest and any applicable adjustments.",
+      "recorded_lists": 684,
+      "p0b_synthetic_lists": 8,
+      "track0_supplementary_lists": [
+        "demo.t0.mfs-lived-with",
+        "demo.t0.mfj-spouse-records",
+        "demo.t0.rounding-zeros-and-w2g-only",
+        "demo.t0.int8-only-and-unemp-plus-w2g",
+        "demo.t0.odc-no-and-corrected-retracted",
+        "demo.t0.retracted-member-and-sch1-rounding"
+      ],
+      "example_lists": [
+        "demo.plt.blocked-names",
+        "demo.plt.interest-dividends",
+        "demo.plt.mortgage-detail"
+      ],
+      "flagged_terms_remaining": [],
+      "item1_verdict": "PASS",
+      "item2_verdict": "PASS",
+      "item3_verdict": "PASS"
+    },
+    {
+      "index": 27,
+      "id": "tax.us.2025.form1040.line-2b",
+      "version": "v6",
+      "property": "dispositions.published_value.explain",
+      "old_shown": "A current cited derived finding publishes the Schedule B Part I taxable interest total, rounded once, as line 2b.",
+      "p0c_shown": "Your taxable interest on line 2b is the Schedule B Part I total, rounded once to whole dollars.",
+      "final_shown": "Your taxable interest on line 2b is the completed taxable interest total (including any Schedule B Part I adjustments), rounded once to whole dollars.",
+      "action_in_track0": "refined",
+      "track0_reason": "Item 1 and Item 3 failure in P0c: in all 7 recorded lists drawing this text, Schedule B is guard_inapplicable (not required); P0c unconditionally called the value 'the Schedule B Part I total'.",
+      "basis_preserved": "Preserves that line 2b is the completed taxable interest total (including any Schedule B Part I adjustments), rounded once to whole dollars.",
+      "recorded_lists": 7,
+      "p0b_synthetic_lists": 0,
+      "track0_supplementary_lists": [
+        "demo.t0.no-w2-interest-only"
+      ],
+      "example_lists": [
+        "v83/track0/s0/b4_beside_int_div",
+        "v83/track0/s5/reuse_all_five_alone",
+        "v83/track0/s5/reuse_all_with_b4"
+      ],
+      "flagged_terms_remaining": [],
+      "item1_verdict": "PASS",
+      "item2_verdict": "PASS",
+      "item3_verdict": "PASS"
+    },
+    {
+      "index": 28,
+      "id": "tax.us.2025.form1040.line-32",
+      "version": "v1",
+      "property": "dispositions.computed_zero.explain",
+      "old_shown": "Total other payments and refundable credits publishes a computed zero.",
+      "p0c_shown": "Your other payments and refundable credits round to zero when the completed payment and credit amounts are totaled.",
+      "final_shown": "Your other payments and refundable credits round to zero when the completed payment and credit amounts are totaled.",
+      "action_in_track0": "retained",
+      "track0_reason": "True in all census and supplementary drawn states; basis preserved; plain 2025 instruction naming.",
+      "basis_preserved": "Preserves the zero result on line 32 when completed other payments and refundable credits (lines 27a-31) add/round to zero.",
+      "recorded_lists": 0,
+      "p0b_synthetic_lists": 2,
+      "track0_supplementary_lists": [
+        "demo.t0.mfj-spouse-records",
+        "demo.t0.odc-no-and-corrected-retracted"
+      ],
+      "example_lists": [
+        "demo.plt.wage.married_filing_jointly",
+        "demo.plt.wage.single"
+      ],
+      "flagged_terms_remaining": [],
+      "item1_verdict": "PASS",
+      "item2_verdict": "PASS",
+      "item3_verdict": "PASS"
+    },
+    {
+      "index": 29,
+      "id": "tax.us.2025.form1040.line-37",
+      "version": "v1",
+      "property": "dispositions.computed_zero.explain",
+      "old_shown": "Form 1040 line 37 publishes a computed zero.",
+      "p0c_shown": "The amount still owed after comparing your total tax with your payments is zero after rounding.",
+      "final_shown": "The amount still owed after comparing your total tax with your payments is zero after rounding.",
+      "action_in_track0": "retained",
+      "track0_reason": "True in all census and supplementary drawn states; basis preserved; plain 2025 instruction naming.",
+      "basis_preserved": "Preserves the zero result on line 37 when total tax compared with total payments leaves zero amount owed after rounding.",
+      "recorded_lists": 0,
+      "p0b_synthetic_lists": 2,
+      "track0_supplementary_lists": [
+        "demo.t0.mfj-spouse-records",
+        "demo.t0.odc-no-and-corrected-retracted"
+      ],
+      "example_lists": [
+        "demo.plt.wage.married_filing_jointly",
+        "demo.plt.wage.single"
+      ],
+      "flagged_terms_remaining": [],
+      "item1_verdict": "PASS",
+      "item2_verdict": "PASS",
+      "item3_verdict": "PASS"
+    },
+    {
+      "index": 30,
+      "id": "tax.us.2025.form1040.line-38",
+      "version": "v1",
+      "property": "dispositions.computed_zero.explain",
+      "old_shown": "Form 1040 line 38 publishes a computed zero.",
+      "p0c_shown": "Your estimated tax penalty is zero because you confirmed that no estimated tax penalty applies.",
+      "final_shown": "Your estimated tax penalty is zero because you confirmed that no estimated tax penalty applies.",
+      "action_in_track0": "retained",
+      "track0_reason": "True in all census and supplementary drawn states; basis preserved; plain 2025 instruction naming.",
+      "basis_preserved": "Preserves the zero result on line 38 when the filer confirms no estimated tax penalty applies.",
+      "recorded_lists": 691,
+      "p0b_synthetic_lists": 8,
+      "track0_supplementary_lists": [
+        "demo.t0.mfs-lived-with",
+        "demo.t0.mfj-spouse-records",
+        "demo.t0.no-w2-interest-only",
+        "demo.t0.rounding-zeros-and-w2g-only",
+        "demo.t0.int8-only-and-unemp-plus-w2g",
+        "demo.t0.odc-no-and-corrected-retracted",
+        "demo.t0.retracted-member-and-sch1-rounding"
+      ],
+      "example_lists": [
+        "demo.plt.blocked-names",
+        "demo.plt.interest-dividends",
+        "demo.plt.mortgage-detail"
+      ],
+      "flagged_terms_remaining": [],
+      "item1_verdict": "PASS",
+      "item2_verdict": "PASS",
+      "item3_verdict": "PASS"
+    },
+    {
+      "index": 31,
+      "id": "tax.us.2025.form1040.line-3a",
+      "version": "v1",
+      "property": "dispositions.computed_zero.explain",
+      "old_shown": "A current derived finding publishes a computed zero from present box-1b findings that sum to zero. The box-1b family is closed.",
+      "p0c_shown": "The qualified dividends in box 1b of your recorded Forms 1099-DIV total zero after rounding, and those records are complete.",
+      "final_shown": "Your qualified dividends on line 3a are zero because no Form 1099-DIV box 1b amounts are recorded or their total rounds to zero, and those records are complete.",
+      "action_in_track0": "refined",
+      "track0_reason": "Item 1 failure in P0c: drawn on 699 pages including 690+ pages where f1099div.1b is closed-empty; P0c claimed 'box 1b of your recorded Forms 1099-DIV' exists when no Form 1099-DIV is recorded.",
+      "basis_preserved": "Preserves the zero result on line 3a across closed-empty absence and sub-50-cent rounding of Form 1099-DIV box 1b, with records complete.",
+      "recorded_lists": 691,
+      "p0b_synthetic_lists": 8,
+      "track0_supplementary_lists": [
+        "demo.t0.mfs-lived-with",
+        "demo.t0.mfj-spouse-records",
+        "demo.t0.no-w2-interest-only",
+        "demo.t0.rounding-zeros-and-w2g-only",
+        "demo.t0.int8-only-and-unemp-plus-w2g",
+        "demo.t0.odc-no-and-corrected-retracted",
+        "demo.t0.retracted-member-and-sch1-rounding"
+      ],
+      "example_lists": [
+        "demo.plt.blocked-names",
+        "demo.plt.interest-dividends",
+        "demo.plt.mortgage-detail"
+      ],
+      "flagged_terms_remaining": [],
+      "item1_verdict": "PASS",
+      "item2_verdict": "PASS",
+      "item3_verdict": "PASS"
+    },
+    {
+      "index": 32,
+      "id": "tax.us.2025.form1040.line-3b",
+      "version": "v1",
+      "property": "dispositions.computed_zero.explain",
+      "old_shown": "A current derived finding publishes a computed zero from present box-1a findings that sum to zero. The box-1a family is closed.",
+      "p0c_shown": "The ordinary dividends in box 1a of your recorded Forms 1099-DIV total zero after rounding, and those records are complete.",
+      "final_shown": "Your ordinary dividends on line 3b are zero because no Form 1099-DIV box 1a amounts are recorded or their total rounds to zero, and those records are complete.",
+      "action_in_track0": "refined",
+      "track0_reason": "Item 1 failure in P0c: drawn on 690 pages including 685+ pages where f1099div.1a is closed-empty; P0c claimed 'box 1a of your recorded Forms 1099-DIV' exists when no Form 1099-DIV is recorded.",
+      "basis_preserved": "Preserves the zero result on line 3b across closed-empty absence and sub-50-cent rounding of Form 1099-DIV box 1a, with records complete.",
+      "recorded_lists": 683,
+      "p0b_synthetic_lists": 7,
+      "track0_supplementary_lists": [
+        "demo.t0.mfs-lived-with",
+        "demo.t0.mfj-spouse-records",
+        "demo.t0.no-w2-interest-only",
+        "demo.t0.rounding-zeros-and-w2g-only",
+        "demo.t0.int8-only-and-unemp-plus-w2g",
+        "demo.t0.odc-no-and-corrected-retracted",
+        "demo.t0.retracted-member-and-sch1-rounding"
+      ],
+      "example_lists": [
+        "demo.plt.blocked-names",
+        "demo.plt.mortgage-detail",
+        "demo.plt.sale"
+      ],
+      "flagged_terms_remaining": [],
+      "item1_verdict": "PASS",
+      "item2_verdict": "PASS",
+      "item3_verdict": "PASS"
+    },
+    {
+      "index": 33,
+      "id": "tax.us.2025.form1040.line-3b",
+      "version": "v1",
+      "property": "dispositions.published_value.explain",
+      "old_shown": "A current derived finding publishes this ordinary-dividend amount; its lineage pins the box-1a subtotal.",
+      "p0c_shown": "Your ordinary dividends are the total of box 1a on your recorded Forms 1099-DIV.",
+      "final_shown": "Your ordinary dividends on line 3b are the completed Form 1099-DIV box 1a total, rounded once to whole dollars.",
+      "action_in_track0": "refined",
+      "track0_reason": "Item 1, Item 2, and Item 3 failure in P0c: rule.form1040-line3b.v2 requires f1099div.1a closure and rounds the box 1a subtotal to whole dollars; P0c omitted rounding and completeness, diverging from sibling lines 2b and Schedule D line 13.",
+      "basis_preserved": "Preserves that line 3b is the completed Form 1099-DIV box 1a total, rounded once to whole dollars.",
+      "recorded_lists": 8,
+      "p0b_synthetic_lists": 1,
+      "track0_supplementary_lists": [],
+      "example_lists": [
+        "demo.plt.interest-dividends",
+        "v83/returns/v80/carried_one_foreign_tax/recorded",
+        "v83/track0/s0/b4_beside_int_div"
+      ],
+      "flagged_terms_remaining": [],
+      "item1_verdict": "PASS",
+      "item2_verdict": "PASS",
+      "item3_verdict": "PASS"
+    },
+    {
+      "index": 34,
+      "id": "tax.us.2025.form1040.line-4b",
+      "version": "v2",
+      "property": "dispositions.computed_zero.explain",
+      "old_shown": "computed zero under the admitted family",
+      "p0c_shown": "Your fully taxable IRA distributions total zero because none are recorded or their total rounds to zero, and those records are complete.",
+      "final_shown": "Your fully taxable IRA distributions total zero because none are recorded or their total rounds to zero, and those records are complete.",
+      "action_in_track0": "retained",
+      "track0_reason": "True in all census and supplementary drawn states; basis preserved; plain 2025 instruction naming.",
+      "basis_preserved": "Preserves the zero result on line 4b across closed-empty absence and sub-50-cent rounding of fully taxable IRA distributions, with records complete.",
+      "recorded_lists": 685,
+      "p0b_synthetic_lists": 8,
+      "track0_supplementary_lists": [
+        "demo.t0.mfs-lived-with",
+        "demo.t0.mfj-spouse-records",
+        "demo.t0.no-w2-interest-only",
+        "demo.t0.rounding-zeros-and-w2g-only",
+        "demo.t0.int8-only-and-unemp-plus-w2g",
+        "demo.t0.odc-no-and-corrected-retracted",
+        "demo.t0.retracted-member-and-sch1-rounding"
+      ],
+      "example_lists": [
+        "demo.plt.blocked-names",
+        "demo.plt.interest-dividends",
+        "demo.plt.mortgage-detail"
+      ],
+      "flagged_terms_remaining": [],
+      "item1_verdict": "PASS",
+      "item2_verdict": "PASS",
+      "item3_verdict": "PASS"
+    },
+    {
+      "index": 35,
+      "id": "tax.us.2025.form1040.line-6b",
+      "version": "v2",
+      "property": "dispositions.blocked.explain",
+      "old_shown": "line 6b is blocked because a worksheet or source dependency is incomplete",
+      "p0c_shown": "The taxable part of your Social Security benefits cannot be calculated until the benefit records and worksheet information are complete.",
+      "final_shown": "The taxable part of your Social Security benefits cannot be calculated because the Social Security benefit records, required income amounts, or worksheet answers are incomplete.",
+      "action_in_track0": "refined",
+      "track0_reason": "Item 1 and Item 2 failure in P0c: in all 147 recorded lists drawing this text, ssa1099.benefits is already closed-empty and line 6b is blocked on required income symbol line7a-total; P0c replaced predecessor 'or' with 'until the benefit records and worksheet information are complete'.",
+      "basis_preserved": "Preserves that line 6b is blocked because Social Security benefit records, required income amounts, or worksheet answers are incomplete.",
+      "recorded_lists": 147,
+      "p0b_synthetic_lists": 0,
+      "track0_supplementary_lists": [],
+      "example_lists": [
+        "v81/case/a_duplicate_on_direct",
+        "v81/case/a_ic3_no",
+        "v81/case/b_code_b_ic3"
+      ],
+      "flagged_terms_remaining": [],
+      "item1_verdict": "PASS",
+      "item2_verdict": "PASS",
+      "item3_verdict": "PASS"
+    },
+    {
+      "index": 36,
+      "id": "tax.us.2025.form1040.line-6d-not-checked",
+      "version": "v1",
+      "property": "dispositions.guard_inapplicable.explain",
+      "old_shown": "Line 6d not-checked disposition does not apply (not MFS lived-with).",
+      "p0c_shown": "The line 6d entry for living with your spouse does not apply because you are not married filing separately or you lived apart all year.",
+      "final_shown": "The line 6d entry for living with your spouse does not apply because you are not married filing separately or you lived apart all year.",
+      "action_in_track0": "retained",
+      "track0_reason": "True in all census and supplementary drawn states; basis preserved; plain 2025 instruction naming.",
+      "basis_preserved": "Preserves that the line 6d lived-with-spouse entry does not apply when not MFS or when MFS lived apart all year.",
+      "recorded_lists": 691,
+      "p0b_synthetic_lists": 8,
+      "track0_supplementary_lists": [
+        "demo.t0.mfj-spouse-records",
+        "demo.t0.no-w2-interest-only",
+        "demo.t0.rounding-zeros-and-w2g-only",
+        "demo.t0.int8-only-and-unemp-plus-w2g",
+        "demo.t0.odc-no-and-corrected-retracted",
+        "demo.t0.retracted-member-and-sch1-rounding"
+      ],
+      "example_lists": [
+        "demo.plt.blocked-names",
+        "demo.plt.interest-dividends",
+        "demo.plt.mortgage-detail"
+      ],
+      "flagged_terms_remaining": [],
+      "item1_verdict": "PASS",
+      "item2_verdict": "PASS",
+      "item3_verdict": "PASS"
+    },
+    {
+      "index": 37,
+      "id": "tax.us.2025.form1040.line-6d",
+      "version": "v1",
+      "property": "dispositions.guard_inapplicable.explain",
+      "old_shown": "line 6d disposition is inapplicable for the current class",
+      "p0c_shown": "The line 6d entry for living apart all year does not apply because you are not married filing separately or you lived with your spouse during the year.",
+      "final_shown": "The line 6d entry for living apart all year does not apply because you are not married filing separately or you lived with your spouse during the year.",
+      "action_in_track0": "retained",
+      "track0_reason": "True in all census and supplementary drawn states; basis preserved; plain 2025 instruction naming.",
+      "basis_preserved": "Preserves that the line 6d lived-apart-all-year entry does not apply when not MFS or when MFS lived with spouse during the year.",
+      "recorded_lists": 691,
+      "p0b_synthetic_lists": 7,
+      "track0_supplementary_lists": [
+        "demo.t0.mfs-lived-with",
+        "demo.t0.mfj-spouse-records",
+        "demo.t0.no-w2-interest-only",
+        "demo.t0.rounding-zeros-and-w2g-only",
+        "demo.t0.int8-only-and-unemp-plus-w2g",
+        "demo.t0.odc-no-and-corrected-retracted",
+        "demo.t0.retracted-member-and-sch1-rounding"
+      ],
+      "example_lists": [
+        "demo.plt.blocked-names",
+        "demo.plt.interest-dividends",
+        "demo.plt.mortgage-detail"
+      ],
+      "flagged_terms_remaining": [],
+      "item1_verdict": "PASS",
+      "item2_verdict": "PASS",
+      "item3_verdict": "PASS"
+    },
+    {
+      "index": 38,
+      "id": "tax.us.2025.form1040.line-7a",
+      "version": "v2",
+      "property": "dispositions.computed_zero.explain",
+      "old_shown": "A current derived finding publishes a computed zero from present box-2a findings that sum to zero under Exception-1 eligibility.",
+      "p0c_shown": "Your capital gain or loss is zero after the Schedule D calculation, or after rounding the box 2a capital gain distributions when Schedule D is not required.",
+      "final_shown": "Your capital gain or loss on line 7a is zero because no sales, capital loss carryovers, or Form 1099-DIV box 2a capital gain distributions are recorded, or the completed Schedule D or box 2a calculation rounds to zero.",
+      "action_in_track0": "refined",
+      "track0_reason": "Item 1 and Item 2 failure in P0c: drawn on 80 pages including wage-only returns with no sales and no Form 1099-DIV box 2a distributions; P0c claimed 'rounding the box 2a capital gain distributions' or 'the Schedule D calculation' occurred and dropped completeness.",
+      "basis_preserved": "Preserves the zero result on line 7a across absence of sales, carryovers, and box 2a distributions and rounding to zero on the Schedule D or box 2a route.",
+      "recorded_lists": 77,
+      "p0b_synthetic_lists": 3,
+      "track0_supplementary_lists": [
+        "demo.t0.mfs-lived-with",
+        "demo.t0.mfj-spouse-records",
+        "demo.t0.no-w2-interest-only",
+        "demo.t0.rounding-zeros-and-w2g-only",
+        "demo.t0.int8-only-and-unemp-plus-w2g",
+        "demo.t0.odc-no-and-corrected-retracted",
+        "demo.t0.retracted-member-and-sch1-rounding"
+      ],
+      "example_lists": [
+        "demo.plt.wage.married_filing_jointly",
+        "demo.plt.wage.married_filing_separately",
+        "demo.plt.wage.single"
+      ],
+      "flagged_terms_remaining": [],
+      "item1_verdict": "PASS",
+      "item2_verdict": "PASS",
+      "item3_verdict": "PASS"
+    },
+    {
+      "index": 39,
+      "id": "tax.us.2025.form1040.line-7a",
+      "version": "v2",
+      "property": "dispositions.published_value.explain",
+      "old_shown": "A current derived finding publishes this capital-gain distributions amount on the direct line-7a route.",
+      "p0c_shown": "Your capital gain or loss comes from Schedule D, or from qualifying Form 1099-DIV box 2a capital gain distributions when Schedule D is not required.",
+      "final_shown": "Your capital gain or loss comes from Schedule D, or from qualifying Form 1099-DIV box 2a capital gain distributions when Schedule D is not required.",
+      "action_in_track0": "retained",
+      "track0_reason": "True in all census and supplementary drawn states; basis preserved; plain 2025 instruction naming.",
+      "basis_preserved": "Preserves that line 7a comes from Schedule D or from qualifying Form 1099-DIV box 2a capital gain distributions when Schedule D is not required.",
+      "recorded_lists": 244,
+      "p0b_synthetic_lists": 1,
+      "track0_supplementary_lists": [],
+      "example_lists": [
+        "demo.plt.sale",
+        "v81/v80/v80_c_loss",
+        "v81/v80/v80_c_wash"
+      ],
+      "flagged_terms_remaining": [],
+      "item1_verdict": "PASS",
+      "item2_verdict": "PASS",
+      "item3_verdict": "PASS"
+    },
+    {
+      "index": 40,
+      "id": "tax.us.2025.form1040.line-7b",
+      "version": "v3",
+      "property": "dispositions.guard_inapplicable.explain",
+      "old_shown": "No affirmative Schedule-D-not-required disposition: you recorded a sale, which is reported on Form 8949 or Schedule D, so Exception 1 does not apply; or the checked Schedule-D-required conclusion is yes (an Exception-1 component is no).",
+      "p0c_shown": "The no-Schedule-D box is not checked because you recorded a sale for Form 8949 or Schedule D, or an answer shows that you do not meet the exception for filing without Schedule D.",
+      "final_shown": "The Schedule D not required box on line 7b is not checked because you recorded a sale for Form 8949 or Schedule D, or an answer shows that you do not meet the exception for filing without Schedule D.",
+      "action_in_track0": "refined",
+      "track0_reason": "Item 3 failure in P0c: 2025 Form 1040 and instructions name the line 7b checkbox 'Schedule D not required', not 'no-Schedule-D box'.",
+      "basis_preserved": "Preserves that the Schedule D not required box on line 7b is not checked because a sale is recorded for Form 8949/Schedule D or an Exception 1 answer is no.",
+      "recorded_lists": 580,
+      "p0b_synthetic_lists": 1,
+      "track0_supplementary_lists": [],
+      "example_lists": [
+        "demo.plt.sale",
+        "v81/case/a_8949_yes",
+        "v81/case/a_adjustment_row_missing"
+      ],
+      "flagged_terms_remaining": [],
+      "item1_verdict": "PASS",
+      "item2_verdict": "PASS",
+      "item3_verdict": "PASS"
+    },
+    {
+      "index": 41,
+      "id": "tax.us.2025.form1040.line-8",
+      "version": "v3",
+      "property": "dispositions.published_value.explain",
+      "old_shown": "A current derived finding publishes Form 1040 line 8 from complete Schedule 1 line 10 (unemployment compensation and Form W-2G gambling winnings). This amount is added exactly once to total income on line 9.",
+      "p0c_shown": "Your additional income comes from Schedule 1 line 10. It is included once in your total income on Form 1040 line 9.",
+      "final_shown": "Your additional income comes from the completed Schedule 1 line 10 total. It is included once in your total income on Form 1040 line 9.",
+      "action_in_track0": "refined",
+      "track0_reason": "Item 2 failure in P0c: predecessor proved Schedule 1 line 10 completeness ('from complete Schedule 1 line 10'); P0c dropped completeness.",
+      "basis_preserved": "Preserves that line 8 comes from the completed Schedule 1 line 10 total and is included once in Form 1040 line 9 total income.",
+      "recorded_lists": 6,
+      "p0b_synthetic_lists": 0,
+      "track0_supplementary_lists": [
+        "demo.t0.rounding-zeros-and-w2g-only",
+        "demo.t0.int8-only-and-unemp-plus-w2g"
+      ],
+      "example_lists": [
+        "v83/track0/s5/reuse_all_five_alone",
+        "v83/track0/s5/reuse_all_with_b4",
+        "v83/track0/s5/reuse_unemp_alone"
+      ],
+      "flagged_terms_remaining": [],
+      "item1_verdict": "PASS",
+      "item2_verdict": "PASS",
+      "item3_verdict": "PASS"
+    },
+    {
+      "index": 42,
+      "id": "tax.us.2025.form1040.tax-after-credits",
+      "version": "v2",
+      "property": "dispositions.blocked.explain",
+      "old_shown": "Tax after credits is blocked because line 16, line 20, or line 17/19 absence authority is incomplete.",
+      "p0c_shown": "Tax after credits is waiting for the tax on line 16, credits on line 20, or confirmation that lines 17 and 19 have no amount.",
+      "final_shown": "Tax after credits is waiting for the tax on line 16, the credits on lines 19 and 20, or confirmation that line 17 has no amount.",
+      "action_in_track0": "refined",
+      "track0_reason": "Item 1 failure in P0c: rule.form1040-tax-after-credits.v2 requires the computed line 19 credit (tax.us.2025.ctc.form1040-line19) and notes that v1's line 19 absence is no longer read; P0c falsely claimed line 19 needs confirmation that it has no amount.",
+      "basis_preserved": "Preserves that tax after credits is waiting for line 16 tax, lines 19 and 20 credits, or confirmation that line 17 has no amount.",
+      "recorded_lists": 148,
+      "p0b_synthetic_lists": 0,
+      "track0_supplementary_lists": [
+        "demo.t0.mfs-lived-with",
+        "demo.t0.rounding-zeros-and-w2g-only",
+        "demo.t0.int8-only-and-unemp-plus-w2g"
+      ],
+      "example_lists": [
+        "v81/case/a_duplicate_on_direct",
+        "v81/case/a_ic3_no",
+        "v81/case/b_code_b_ic3"
+      ],
+      "flagged_terms_remaining": [],
+      "item1_verdict": "PASS",
+      "item2_verdict": "PASS",
+      "item3_verdict": "PASS"
+    },
+    {
+      "index": 43,
+      "id": "tax.us.2025.rule.attachment.schedule-1",
+      "version": "v5",
+      "property": "title",
+      "old_shown": "Schedule 1 (Additional Income and Adjustments to Income) v5",
+      "p0c_shown": "Schedule 1 (Additional Income and Adjustments to Income)",
+      "final_shown": "Schedule 1 (Additional Income and Adjustments to Income)",
+      "action_in_track0": "retained",
+      "track0_reason": "True in all census and supplementary drawn states; basis preserved; plain 2025 instruction naming.",
+      "basis_preserved": "Identifies the Schedule 1 (Additional Income and Adjustments to Income) attachment heading before the colon and keeps the requirement details after the colon.",
+      "recorded_lists": 691,
+      "p0b_synthetic_lists": 8,
+      "track0_supplementary_lists": [
+        "demo.t0.mfs-lived-with",
+        "demo.t0.mfj-spouse-records",
+        "demo.t0.no-w2-interest-only",
+        "demo.t0.rounding-zeros-and-w2g-only",
+        "demo.t0.int8-only-and-unemp-plus-w2g",
+        "demo.t0.odc-no-and-corrected-retracted",
+        "demo.t0.retracted-member-and-sch1-rounding"
+      ],
+      "example_lists": [
+        "demo.plt.blocked-names",
+        "demo.plt.interest-dividends",
+        "demo.plt.mortgage-detail"
+      ],
+      "flagged_terms_remaining": [],
+      "item1_verdict": "PASS",
+      "item2_verdict": "PASS",
+      "item3_verdict": "PASS"
+    },
+    {
+      "index": 44,
+      "id": "tax.us.2025.schedule-d.line-13",
+      "version": "v2",
+      "property": "dispositions.computed_zero.explain",
+      "old_shown": "A current derived finding publishes a computed zero from present box-2a findings that sum to zero.",
+      "p0c_shown": "Your capital gain distributions are zero after the amounts in box 2a of your recorded Forms 1099-DIV are totaled and rounded.",
+      "final_shown": "Your capital gain distributions on Schedule D line 13 are zero because no Form 1099-DIV box 2a amounts are recorded or their total rounds to zero, and those records are complete.",
+      "action_in_track0": "refined",
+      "track0_reason": "Item 1 and Item 3 failure in P0c: drawn on 693 pages including 685+ pages where f1099div.2a is closed-empty; P0c claimed 'box 2a of your recorded Forms 1099-DIV' exists when no Form 1099-DIV is recorded and dropped completeness.",
+      "basis_preserved": "Preserves the zero result on Schedule D line 13 across closed-empty absence and sub-50-cent rounding of Form 1099-DIV box 2a, with records complete.",
+      "recorded_lists": 685,
+      "p0b_synthetic_lists": 8,
+      "track0_supplementary_lists": [
+        "demo.t0.mfs-lived-with",
+        "demo.t0.mfj-spouse-records",
+        "demo.t0.no-w2-interest-only",
+        "demo.t0.rounding-zeros-and-w2g-only",
+        "demo.t0.int8-only-and-unemp-plus-w2g",
+        "demo.t0.odc-no-and-corrected-retracted",
+        "demo.t0.retracted-member-and-sch1-rounding"
+      ],
+      "example_lists": [
+        "demo.plt.blocked-names",
+        "demo.plt.interest-dividends",
+        "demo.plt.mortgage-detail"
+      ],
+      "flagged_terms_remaining": [],
+      "item1_verdict": "PASS",
+      "item2_verdict": "PASS",
+      "item3_verdict": "PASS"
+    },
+    {
+      "index": 45,
+      "id": "tax.us.2025.schedule-d.line-13",
+      "version": "v2",
+      "property": "dispositions.published_value.explain",
+      "old_shown": "A current derived finding publishes the box-2a capital-gain-distributions subtotal, rounded once, as line 13.",
+      "p0c_shown": "Your capital gain distributions on Schedule D line 13 are the total of Form 1099-DIV box 2a, rounded once to whole dollars.",
+      "final_shown": "Your capital gain distributions on Schedule D line 13 are the completed Form 1099-DIV box 2a total, rounded once to whole dollars.",
+      "action_in_track0": "refined",
+      "track0_reason": "Item 2 and Item 3 failure in P0c: rule.f1099div-2a-subtotal.v3 requires f1099div.2a closure; stating 'completed' preserves closure basis and aligns with sibling lines 2b, 3b, and Schedule 1 line 7.",
+      "basis_preserved": "Preserves that Schedule D line 13 is the completed Form 1099-DIV box 2a total, rounded once to whole dollars.",
+      "recorded_lists": 6,
+      "p0b_synthetic_lists": 0,
+      "track0_supplementary_lists": [],
+      "example_lists": [
+        "v82/m_2a_box_f_loss/honest",
+        "v82/m_2a_only/honest",
+        "v82/m_2a_only_exc1_only2a_no/honest"
+      ],
+      "flagged_terms_remaining": [],
+      "item1_verdict": "PASS",
+      "item2_verdict": "PASS",
+      "item3_verdict": "PASS"
+    },
+    {
+      "index": 46,
+      "id": "tax.us.2025.schedule-d.line-16",
+      "version": "v4",
+      "property": "dispositions.published_value.explain",
+      "old_shown": "A current derived finding publishes line 16 equal to line 7 plus line 15.",
+      "p0c_shown": "Your combined short-term and long-term capital gain or loss on Schedule D line 16 is line 7 plus line 15.",
+      "final_shown": "Your combined short-term and long-term capital gain or loss on Schedule D line 16 is line 7 plus line 15.",
+      "action_in_track0": "retained",
+      "track0_reason": "True in all census and supplementary drawn states; basis preserved; plain 2025 instruction naming.",
+      "basis_preserved": "Preserves that Schedule D line 16 is the sum of line 7 and line 15.",
+      "recorded_lists": 252,
+      "p0b_synthetic_lists": 1,
+      "track0_supplementary_lists": [],
+      "example_lists": [
+        "demo.plt.sale",
+        "v81/v80/v80_c_loss",
+        "v81/v80/v80_c_loss_path_b_unanswered"
+      ],
+      "flagged_terms_remaining": [],
+      "item1_verdict": "PASS",
+      "item2_verdict": "PASS",
+      "item3_verdict": "PASS"
+    },
+    {
+      "index": 47,
+      "id": "tax.us.2025.schedule1.line-10",
+      "version": "v4",
+      "property": "dispositions.published_value.explain",
+      "old_shown": "A current derived finding publishes complete Schedule 1 line 10 additional income (unemployment plus Form W-2G gambling winnings) under explicit Part I absence authority.",
+      "p0c_shown": "Your additional income on Schedule 1 line 10 is the completed total, including the recorded unemployment compensation and gambling winnings, with the answers about other income complete.",
+      "final_shown": "Your additional income on Schedule 1 line 10 is the sum of line 7 (unemployment compensation) and line 8b (gambling winnings), with the required records and answers about other Schedule 1 Part I income complete.",
+      "action_in_track0": "refined",
+      "track0_reason": "Item 1 failure in P0c: in all 6 recorded lists drawing this text (e.g. reuse_unemp_alone), no gambling winnings are recorded (line 8b is 0); P0c claimed 'including the recorded unemployment compensation and gambling winnings'.",
+      "basis_preserved": "Preserves that Schedule 1 line 10 is the sum of line 7 (unemployment compensation) and line 8b (gambling winnings) with all required records and Part I absence answers complete.",
+      "recorded_lists": 6,
+      "p0b_synthetic_lists": 0,
+      "track0_supplementary_lists": [
+        "demo.t0.rounding-zeros-and-w2g-only",
+        "demo.t0.int8-only-and-unemp-plus-w2g"
+      ],
+      "example_lists": [
+        "v83/track0/s5/reuse_all_five_alone",
+        "v83/track0/s5/reuse_all_with_b4",
+        "v83/track0/s5/reuse_unemp_alone"
+      ],
+      "flagged_terms_remaining": [],
+      "item1_verdict": "PASS",
+      "item2_verdict": "PASS",
+      "item3_verdict": "PASS"
+    },
+    {
+      "index": 48,
+      "id": "tax.us.2025.schedule1.line-21",
+      "version": "v1",
+      "property": "dispositions.closure_backed_zero.explain",
+      "old_shown": "A current derived finding publishes zero because the supporting Form 1098-E box-1 family is attested closed-empty under complete authority.",
+      "p0c_shown": "You confirmed that no student loan interest from Forms 1098-E needs to be included, so this deduction is zero.",
+      "final_shown": "Your student loan interest deduction on Schedule 1 line 21 is zero because no Form 1098-E box 1 interest is recorded and those records are complete.",
+      "action_in_track0": "refined",
+      "track0_reason": "Item 1 and Item 2 failure in P0c: closure_backed_zero on Schedule 1 line 21 is reached only when count(f1098e.box1-student-loan-interest) == 0 and f1098e.1 is closed-empty; P0c conflated closed-empty absence with per-statement inclusion ('needs to be included').",
+      "basis_preserved": "Preserves the zero result on Schedule 1 line 21 because no Form 1098-E box 1 interest is recorded and those records are complete.",
+      "recorded_lists": 689,
+      "p0b_synthetic_lists": 7,
+      "track0_supplementary_lists": [
+        "demo.t0.mfs-lived-with",
+        "demo.t0.mfj-spouse-records",
+        "demo.t0.no-w2-interest-only",
+        "demo.t0.rounding-zeros-and-w2g-only",
+        "demo.t0.int8-only-and-unemp-plus-w2g",
+        "demo.t0.odc-no-and-corrected-retracted",
+        "demo.t0.retracted-member-and-sch1-rounding"
+      ],
+      "example_lists": [
+        "demo.plt.blocked-names",
+        "demo.plt.interest-dividends",
+        "demo.plt.mortgage-detail"
+      ],
+      "flagged_terms_remaining": [],
+      "item1_verdict": "PASS",
+      "item2_verdict": "PASS",
+      "item3_verdict": "PASS"
+    },
+    {
+      "index": 49,
+      "id": "tax.us.2025.schedule1.line-21",
+      "version": "v1",
+      "property": "dispositions.published_value.explain",
+      "old_shown": "A current derived finding publishes the computed Student Loan Interest Deduction from the closed Form 1098-E box-1 family under complete eligibility authority.",
+      "p0c_shown": "Your student loan interest deduction has been calculated from the completed Form 1098-E interest records and eligibility answers.",
+      "final_shown": "Your student loan interest deduction has been calculated from the completed Form 1098-E interest records and eligibility answers.",
+      "action_in_track0": "retained",
+      "track0_reason": "True in all census and supplementary drawn states; basis preserved; plain 2025 instruction naming.",
+      "basis_preserved": "Preserves that Schedule 1 line 21 is calculated from the completed Form 1098-E interest records and eligibility answers.",
+      "recorded_lists": 2,
+      "p0b_synthetic_lists": 0,
+      "track0_supplementary_lists": [],
+      "example_lists": [
+        "v81/v80/carried_one_student_loan",
+        "v83/returns/v80/carried_one_student_loan/recorded"
+      ],
+      "flagged_terms_remaining": [],
+      "item1_verdict": "PASS",
+      "item2_verdict": "PASS",
+      "item3_verdict": "PASS"
+    },
+    {
+      "index": 50,
+      "id": "tax.us.2025.schedule1.line-7",
+      "version": "v2",
+      "property": "dispositions.published_value.explain",
+      "old_shown": "A current derived finding publishes this unemployment compensation amount on Schedule 1 line 7 from the closed Form 1099-G box-1 family.",
+      "p0c_shown": "Your unemployment compensation on Schedule 1 line 7 is the total of box 1 on the completed Forms 1099-G records.",
+      "final_shown": "Your unemployment compensation on Schedule 1 line 7 is the completed Form 1099-G box 1 total, rounded once to whole dollars.",
+      "action_in_track0": "refined",
+      "track0_reason": "Item 1 and Item 3 failure in P0c: rule.schedule1-line7.v3 rounds unemployment.box1-subtotal to whole dollars; P0c omitted rounding and used inconsistent phrasing ('Forms 1099-G records').",
+      "basis_preserved": "Preserves that Schedule 1 line 7 is the completed Form 1099-G box 1 total, rounded once to whole dollars.",
+      "recorded_lists": 6,
+      "p0b_synthetic_lists": 0,
+      "track0_supplementary_lists": [
+        "demo.t0.int8-only-and-unemp-plus-w2g"
+      ],
+      "example_lists": [
+        "v83/track0/s5/reuse_all_five_alone",
+        "v83/track0/s5/reuse_all_with_b4",
+        "v83/track0/s5/reuse_unemp_alone"
+      ],
+      "flagged_terms_remaining": [],
+      "item1_verdict": "PASS",
+      "item2_verdict": "PASS",
+      "item3_verdict": "PASS"
+    },
+    {
+      "index": 51,
+      "id": "tax.us.2025.schedule3.line-1",
+      "version": "v2",
+      "property": "dispositions.blocked.explain",
+      "old_shown": "Schedule 3 line 1 is blocked because election, creditability, associated-income, threshold, closure, or regular-tax scope authority is incomplete or failed.",
+      "p0c_shown": "Your foreign tax credit cannot be calculated because the required foreign tax records or answers about claiming the credit, eligible taxes and related income, the dollar limit, or the tax calculation are incomplete or do not meet the conditions for this calculation.",
+      "final_shown": "Your foreign tax credit cannot be calculated because the required foreign tax records or answers about claiming the credit, eligible taxes and related income, the dollar limit, or the tax calculation are incomplete or do not meet the conditions for this calculation.",
+      "action_in_track0": "retained",
+      "track0_reason": "True in all census and supplementary drawn states; basis preserved; plain 2025 instruction naming.",
+      "basis_preserved": "Preserves that Schedule 3 line 1 is blocked because foreign tax records or answers about election, eligible taxes/income, dollar limit, or regular tax are incomplete or failed.",
+      "recorded_lists": 147,
+      "p0b_synthetic_lists": 0,
+      "track0_supplementary_lists": [
+        "demo.t0.mfs-lived-with",
+        "demo.t0.rounding-zeros-and-w2g-only",
+        "demo.t0.int8-only-and-unemp-plus-w2g"
+      ],
+      "example_lists": [
+        "v81/case/a_duplicate_on_direct",
+        "v81/case/a_ic3_no",
+        "v81/case/b_code_b_ic3"
+      ],
+      "flagged_terms_remaining": [],
+      "item1_verdict": "PASS",
+      "item2_verdict": "PASS",
+      "item3_verdict": "PASS"
+    },
+    {
+      "index": 52,
+      "id": "tax.us.2025.schedule3.line-8",
+      "version": "v2",
+      "property": "dispositions.blocked.explain",
+      "old_shown": "Schedule 3 line 8 is blocked because line 1 is blocked or another Part I credit absence authority is incomplete.",
+      "p0c_shown": "Your total nonrefundable credits on Schedule 3 are waiting for line 1 or confirmation that no other Part I credits apply.",
+      "final_shown": "Your total nonrefundable credits on Schedule 3 are waiting for line 1 or confirmation that no other Part I credits apply.",
+      "action_in_track0": "retained",
+      "track0_reason": "True in all census and supplementary drawn states; basis preserved; plain 2025 instruction naming.",
+      "basis_preserved": "Preserves that Schedule 3 line 8 is waiting for line 1 or confirmation that no other Part I credits apply.",
+      "recorded_lists": 148,
+      "p0b_synthetic_lists": 0,
+      "track0_supplementary_lists": [
+        "demo.t0.mfs-lived-with",
+        "demo.t0.rounding-zeros-and-w2g-only",
+        "demo.t0.int8-only-and-unemp-plus-w2g"
+      ],
+      "example_lists": [
+        "v81/case/a_duplicate_on_direct",
+        "v81/case/a_ic3_no",
+        "v81/case/b_code_b_ic3"
+      ],
+      "flagged_terms_remaining": [],
+      "item1_verdict": "PASS",
+      "item2_verdict": "PASS",
+      "item3_verdict": "PASS"
+    },
+    {
+      "index": 53,
+      "id": "tax.us.2025.rule.effective-proceeds-support-count",
+      "version": "v1",
+      "property": "notes",
+      "old_shown": "This retained candidate rule id publishes numeric 1 only when one exact affirmed link has all five current effective-answer categories; it is a completion witness, not a proceeds count.",
+      "p0c_shown": "This check gives 1 only when exactly one current confirmation links the loan to how its proceeds were used and all five current answers about that use are available. It checks that the answers are complete; it does not count uses of the proceeds.",
+      "final_shown": "This check gives 1 only when exactly one current confirmation links the loan to how its proceeds were used and all five current answers about that use are available. It checks that the answers are complete; it does not count uses of the proceeds.",
+      "action_in_track0": "retained",
+      "track0_reason": "True in all census and supplementary drawn states; basis preserved; plain 2025 instruction naming.",
+      "basis_preserved": "Preserves that the rule outputs 1 only when one current confirmation links the loan to its proceeds use and all five current use-category answers are present (completion check, not a proceeds count).",
+      "recorded_lists": 0,
+      "p0b_synthetic_lists": 1,
+      "track0_supplementary_lists": [
+        "demo.plt.mortgage-detail"
+      ],
+      "example_lists": [
+        "demo.plt.mortgage-detail"
+      ],
+      "flagged_terms_remaining": [],
+      "item1_verdict": "PASS",
+      "item2_verdict": "PASS",
+      "item3_verdict": "PASS"
+    },
+    {
+      "index": 54,
+      "id": "tax.us.2025.rule.f1098-line8a",
+      "version": "v5",
+      "property": "notes",
+      "old_shown": "Publishes the selected Schedule A line 8a result from included Form 1098 Box 1 amounts after the applicable readiness gate; connected reports are not summed until the borrowing-level requirements are satisfied.",
+      "p0c_shown": "Schedule A line 8a uses the included Form 1098 box 1 interest only after all required checks for the borrowing are complete. Connected forms are not added together before those checks pass.",
+      "final_shown": "Schedule A line 8a uses the included Form 1098 box 1 interest only after all required checks for the borrowing are complete. Connected forms are not added together before those checks pass.",
+      "action_in_track0": "retained",
+      "track0_reason": "True in all census and supplementary drawn states; basis preserved; plain 2025 instruction naming.",
+      "basis_preserved": "Preserves that Schedule A line 8a sums included Form 1098 box 1 amounts only after borrowing-level readiness checks pass.",
+      "recorded_lists": 0,
+      "p0b_synthetic_lists": 1,
+      "track0_supplementary_lists": [
+        "demo.plt.mortgage-detail"
+      ],
+      "example_lists": [
+        "demo.plt.mortgage-detail"
+      ],
+      "flagged_terms_remaining": [],
+      "item1_verdict": "PASS",
+      "item2_verdict": "PASS",
+      "item3_verdict": "PASS"
+    },
+    {
+      "index": 55,
+      "id": "tax.us.2025.rule.mortgage-account-readiness",
+      "version": "v1",
+      "property": "notes",
+      "old_shown": "Per recognized opaque borrowing/year: same-key ceiling and link coverage. Two-report readiness additionally requires exact current different-payments support for both reports, including each source, inclusion and recognition finding; a singleton follows its existing route without a phantom comparison.",
+      "p0c_shown": "For each recorded borrowing and tax year, the principal must fit the applicable limit and each form must be connected to that borrowing. When two forms are used, both need current confirmation that they report different payments, tied to the forms and the answers that include them and identify the borrowing. A borrowing with one form does not need a two-form comparison.",
+      "final_shown": "For each recorded borrowing and tax year, the principal must fit the applicable limit and each form must be connected to that borrowing. When two forms are used, both need current confirmation that they report different payments, tied to the forms and the answers that include them and identify the borrowing. A borrowing with one form does not need a two-form comparison.",
+      "action_in_track0": "retained",
+      "track0_reason": "True in all census and supplementary drawn states; basis preserved; plain 2025 instruction naming.",
+      "basis_preserved": "Preserves per-borrowing/year ceiling and link coverage plus two-form different-payments confirmation tied to source, inclusion, and borrowing-recognition answers, while a single-form borrowing needs no comparison.",
+      "recorded_lists": 0,
+      "p0b_synthetic_lists": 1,
+      "track0_supplementary_lists": [
+        "demo.plt.mortgage-detail"
+      ],
+      "example_lists": [
+        "demo.plt.mortgage-detail"
+      ],
+      "flagged_terms_remaining": [],
+      "item1_verdict": "PASS",
+      "item2_verdict": "PASS",
+      "item3_verdict": "PASS"
+    },
+    {
+      "index": 56,
+      "id": "tax.us.2025.rule.mortgage-link-support",
+      "version": "v1",
+      "property": "notes",
+      "old_shown": "Publishes one when this exact linked report has a qualifying interest reason and its Box 2 principal fits within the selected annual ceiling; otherwise publishes zero.",
+      "p0c_shown": "This check gives 1 when the interest on this linked Form 1098 qualifies and the outstanding principal in box 2 fits within the annual limit used for the borrowing; otherwise it gives 0.",
+      "final_shown": "This check gives 1 when the interest on this linked Form 1098 qualifies and the outstanding principal in box 2 fits within the annual limit used for the borrowing; otherwise it gives 0.",
+      "action_in_track0": "retained",
+      "track0_reason": "True in all census and supplementary drawn states; basis preserved; plain 2025 instruction naming.",
+      "basis_preserved": "Preserves that the rule outputs 1 when the linked Form 1098 has a qualifying interest reason and box 2 principal within the annual ceiling, and 0 otherwise.",
+      "recorded_lists": 0,
+      "p0b_synthetic_lists": 1,
+      "track0_supplementary_lists": [
+        "demo.plt.mortgage-detail"
+      ],
+      "example_lists": [
+        "demo.plt.mortgage-detail"
+      ],
+      "flagged_terms_remaining": [],
+      "item1_verdict": "PASS",
+      "item2_verdict": "PASS",
+      "item3_verdict": "PASS"
+    },
+    {
+      "index": 57,
+      "id": "tax.us.2025.rule.mortgage-payment-comparison-support-count",
+      "version": "v1",
+      "property": "notes",
+      "old_shown": "Per borrowing, counts only current exact-pair comparison rows and their Box 1, inclusion, and recognition finding identities. The run adapter emits these typed rows only for a current, evidence-bound different-payments answer.",
+      "p0c_shown": "For each borrowing, this counts only comparisons that use the two current forms and their box 1 amounts, together with the answers that include each form and identify the borrowing. A comparison is included only when a current answer, tied to those exact records, confirms that the forms report different payments.",
+      "final_shown": "For each borrowing, this counts only comparisons that use the two current forms and their box 1 amounts, together with the answers that include each form and identify the borrowing. A comparison is included only when a current answer, tied to those exact records, confirms that the forms report different payments.",
+      "action_in_track0": "retained",
+      "track0_reason": "True in all census and supplementary drawn states; basis preserved; plain 2025 instruction naming.",
+      "basis_preserved": "Preserves per-borrowing counting of current exact-pair comparison rows and their box 1, inclusion, and borrowing-recognition identities from a current evidence-backed different-payments answer.",
+      "recorded_lists": 0,
+      "p0b_synthetic_lists": 1,
+      "track0_supplementary_lists": [
+        "demo.plt.mortgage-detail"
+      ],
+      "example_lists": [
+        "demo.plt.mortgage-detail"
+      ],
+      "flagged_terms_remaining": [],
+      "item1_verdict": "PASS",
+      "item2_verdict": "PASS",
+      "item3_verdict": "PASS"
+    }
+  ]
+}

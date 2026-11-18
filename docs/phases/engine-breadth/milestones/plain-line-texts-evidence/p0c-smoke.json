@@ -1,0 +1,27 @@
+{
+  "recorded_lists": 0,
+  "counts": {},
+  "synthetic_counts": {
+    "same_refusal": 1,
+    "expected_sentences": 8
+  },
+  "synthetic_lists": 9,
+  "workers": 9,
+  "successor_replay_wall_time_s": 29.439,
+  "invocation_wall_time_s": 32.293,
+  "baseline_reused": true,
+  "rows_compared": 2566,
+  "page_fields_compared": 688,
+  "unexpected": {},
+  "classification_by_list": {
+    "demo.plt.refused": "same_refusal",
+    "demo.plt.wage.married_filing_separately": "expected_sentences",
+    "demo.plt.sale": "expected_sentences",
+    "demo.plt.wage.single": "expected_sentences",
+    "demo.plt.wage.married_filing_jointly": "expected_sentences",
+    "demo.plt.interest-dividends": "expected_sentences",
+    "demo.plt.blocked-names": "expected_sentences",
+    "demo.plt.mortgage-detail": "expected_sentences",
+    "demo.plt.student-loan-detail": "expected_sentences"
+  }
+}

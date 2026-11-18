@@ -1,0 +1,32 @@
+{
+  "status": "stopped",
+  "code": "NOMINEE_RETURN_SUCCESSOR_GRAPH_MIXED",
+  "source_file": "packages/derivation/package_validation.py",
+  "expected_map_line": 2884,
+  "field_pin_line": 2887,
+  "inheritance_lines": [
+    2896,
+    2897,
+    2898,
+    2899
+  ],
+  "gate_issue_line": 2910,
+  "old_pin": {
+    "id": "tax.us.2025.form1040.line-2b",
+    "version": "v6",
+    "schema": "form-field.v3"
+  },
+  "proposed_pin": {
+    "id": "tax.us.2025.form1040.line-2b",
+    "version": "v7",
+    "schema": "form-field.v3"
+  },
+  "affected_properties": [
+    "dispositions.computed_zero.explain",
+    "dispositions.published_value.explain"
+  ],
+  "recorded_page_coverage": 691,
+  "other_proposed_package_issues": 0,
+  "smallest_necessary_change": "An explicit v96 successor graph with this field at v7 and the other three member pins unchanged; no validation bypass and no change to historical entries.",
+  "comparison_and_mutations": "not run"
+}
