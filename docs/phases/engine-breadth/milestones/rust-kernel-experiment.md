@@ -85,7 +85,36 @@ The plan is updated after P0 with the decisions it needs.
 
 ## P0 result
 
-Pending.
+Evidence: `rust-kernel-experiment-evidence/p0.md` and the JSON beside it.
+All 775 recorded lists were timed on core v96 (787 s wall on 9 workers;
+median list 7.8 s, a narrow tail of 28 lists above 10 s). Profiled in one
+process: the median list (6.6 s), the slowest (39 s) and test K13
+(5.2 s), with cProfile, a stack sampler and no-profiler cost centres.
+
+- The kernel is not where replays spend time: about 6 % of the median
+  list and 1 % of the slowest. The actual rule evaluation is about 2 %.
+- The dominant costs are algorithmic, in `packages/derivation/`:
+  `validate_package` loops members inside members for every source
+  family (about 49 M steps, half of the median list) and runs twice per
+  replay on the same package; the presentation closure-question walk
+  re-walks the blocked-row graph once per path and rescans every
+  resolved member per step (84 % of the slowest list).
+- Growth: replay time is flat in log length and jumps with the shape of
+  the blocked-row graph. One kernel projection is mildly superlinear
+  (lattice metadata rebuilt per assertion, 0.2 s at 350 acts); recorder
+  stories re-project the whole log on every save, which is why K13
+  spends 52 % in kernel projection.
+- Python fixes (validation index and memo, file-load memo, closure-walk
+  memo, marshal precompute) are estimated to take the median replay from
+  6.6 s to about 1.5 s and the slowest from 39 s to about 2 s.
+- Port candidate if the owner continues: the kernel replay fold
+  (`findings.project` and the `facts.py` lattice). Upside today is under
+  6 % per replay; the binding must call back into Python for schema
+  validation per assertion, and the state it returns is read as Python
+  objects throughout derivation.
+
+Recommendation: fix the algorithms in Python first and re-measure; the
+decisions this needs are listed at the end of `p0.md`.
 
 ## Decisions
 
