@@ -1,0 +1,85 @@
+{
+  "basis": "Draft P0 wording; one sentence per reason, the same in every family that declares it (see p0.md, Draft).",
+  "replacements": [
+    {
+      "file": "packages/content/tax/2025/family.f1099b-noncovered-st.json",
+      "id": "tax.us.2025.f1099b.noncovered-st",
+      "version": "v1",
+      "constraint_id": "tax.us.2025.constraint.noncovered-st.holding-period",
+      "block_code": "HOLDING_PERIOD_MISMATCH",
+      "property": "member_constraints.1.meaning",
+      "old": "The holding period does not match this short-term or long-term family.",
+      "new": "This sale is marked long-term but was entered with short-term sales, or marked short-term but entered with long-term sales; check the dates you acquired and sold it (more than 1 year is long-term) and, if you have a Form 1099-B, whether its box 2 shows short-term or long-term."
+    },
+    {
+      "file": "packages/content/tax/2025/family.f1099b-noncovered-lt.json",
+      "id": "tax.us.2025.f1099b.noncovered-lt",
+      "version": "v1",
+      "constraint_id": "tax.us.2025.constraint.noncovered-lt.holding-period",
+      "block_code": "HOLDING_PERIOD_MISMATCH",
+      "property": "member_constraints.1.meaning",
+      "old": "The holding period does not match this short-term or long-term family.",
+      "new": "This sale is marked long-term but was entered with short-term sales, or marked short-term but entered with long-term sales; check the dates you acquired and sold it (more than 1 year is long-term) and, if you have a Form 1099-B, whether its box 2 shows short-term or long-term."
+    },
+    {
+      "file": "packages/content/tax/2025/family.f1099b-code-b-st.json",
+      "id": "tax.us.2025.f1099b.code-b-st",
+      "version": "v1",
+      "constraint_id": "tax.us.2025.constraint.code-b-st.holding-period",
+      "block_code": "HOLDING_PERIOD_MISMATCH",
+      "property": "member_constraints.0.meaning",
+      "old": "The holding period does not match this short-term or long-term family.",
+      "new": "This sale is marked long-term but was entered with short-term sales, or marked short-term but entered with long-term sales; check the dates you acquired and sold it (more than 1 year is long-term) and, if you have a Form 1099-B, whether its box 2 shows short-term or long-term."
+    },
+    {
+      "file": "packages/content/tax/2025/family.f1099b-code-b-lt.json",
+      "id": "tax.us.2025.f1099b.code-b-lt",
+      "version": "v1",
+      "constraint_id": "tax.us.2025.constraint.code-b-lt.holding-period",
+      "block_code": "HOLDING_PERIOD_MISMATCH",
+      "property": "member_constraints.0.meaning",
+      "old": "The holding period does not match this short-term or long-term family.",
+      "new": "This sale is marked long-term but was entered with short-term sales, or marked short-term but entered with long-term sales; check the dates you acquired and sold it (more than 1 year is long-term) and, if you have a Form 1099-B, whether its box 2 shows short-term or long-term."
+    },
+    {
+      "file": "packages/content/tax/2025/family.f8949-no1099b-st.json",
+      "id": "tax.us.2025.f8949.no1099b-st",
+      "version": "v1",
+      "constraint_id": "tax.us.2025.constraint.no1099b-st.holding-period",
+      "block_code": "HOLDING_PERIOD_MISMATCH",
+      "property": "member_constraints.0.meaning",
+      "old": "The holding period does not match this short-term or long-term family.",
+      "new": "This sale is marked long-term but was entered with short-term sales, or marked short-term but entered with long-term sales; check the dates you acquired and sold it (more than 1 year is long-term) and, if you have a Form 1099-B, whether its box 2 shows short-term or long-term."
+    },
+    {
+      "file": "packages/content/tax/2025/family.f8949-no1099b-lt.json",
+      "id": "tax.us.2025.f8949.no1099b-lt",
+      "version": "v1",
+      "constraint_id": "tax.us.2025.constraint.no1099b-lt.holding-period",
+      "block_code": "HOLDING_PERIOD_MISMATCH",
+      "property": "member_constraints.0.meaning",
+      "old": "The holding period does not match this short-term or long-term family.",
+      "new": "This sale is marked long-term but was entered with short-term sales, or marked short-term but entered with long-term sales; check the dates you acquired and sold it (more than 1 year is long-term) and, if you have a Form 1099-B, whether its box 2 shows short-term or long-term."
+    },
+    {
+      "file": "packages/content/tax/2025/family.f1099b-covered-w-st.v2.json",
+      "id": "tax.us.2025.f1099b.covered-w-st",
+      "version": "v2",
+      "constraint_id": "tax.us.2025.constraint.f8949.adjustment-exceeds-loss",
+      "block_code": "ADJUSTMENT_EXCEEDS_LOSS",
+      "property": "member_constraints.3.meaning",
+      "old": "The wash-sale disallowed amount exceeds this transaction's own otherwise-deductible loss, floor_zero(basis - proceeds). Existing block code: tax.us.2025.block.f8949.adjustment-exceeds-loss.",
+      "new": "The wash-sale loss disallowed in box 1g of this Form 1099-B is more than this sale's loss (its basis minus its proceeds, or zero if it is not a loss); check the box 1g amount against the proceeds in box 1d and the cost or other basis in box 1e."
+    },
+    {
+      "file": "packages/content/tax/2025/family.f1099b-covered-w-lt.v2.json",
+      "id": "tax.us.2025.f1099b.covered-w-lt",
+      "version": "v2",
+      "constraint_id": "tax.us.2025.constraint.f8949.adjustment-exceeds-loss",
+      "block_code": "ADJUSTMENT_EXCEEDS_LOSS",
+      "property": "member_constraints.3.meaning",
+      "old": "The wash-sale disallowed amount exceeds this transaction's own otherwise-deductible loss, floor_zero(basis - proceeds). Existing block code: tax.us.2025.block.f8949.adjustment-exceeds-loss.",
+      "new": "The wash-sale loss disallowed in box 1g of this Form 1099-B is more than this sale's loss (its basis minus its proceeds, or zero if it is not a loss); check the box 1g amount against the proceeds in box 1d and the cost or other basis in box 1e."
+    }
+  ]
+}
