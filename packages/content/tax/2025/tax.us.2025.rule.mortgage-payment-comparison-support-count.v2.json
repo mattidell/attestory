@@ -1,0 +1,34 @@
+{
+  "blocked": {
+    "code": "DEPENDENCY_INVALID",
+    "missing": []
+  },
+  "citations": [],
+  "direction": "joined_contains_subject",
+  "id": "tax.us.2025.rule.mortgage-payment-comparison-support-count",
+  "joined": {
+    "id": "tax.us.2025.mortgage.payment-comparison-support-marker",
+    "version": "v1"
+  },
+  "notes": "For each borrowing, this counts only comparisons that use the two current forms and their box 1 amounts, together with the answers that include each form and identify the borrowing. A comparison is included only when a current answer, tied to those exact records, confirms that the forms report different payments.",
+  "pins": [],
+  "publishes": "tax.us.2025.mortgage.payment-comparison-support-count",
+  "requires": [],
+  "role": "computation",
+  "schema": "rule-artifact.v13",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "subject": {
+    "id": "tax.us.2025.mortgage.continuing-borrowing",
+    "version": "v1"
+  },
+  "value": {
+    "links": "tax.us.2025.mortgage.payment-comparison-support-marker",
+    "op": "link_count"
+  },
+  "version": "v2",
+  "when": true
+}

@@ -2887,6 +2887,12 @@ def validate_package(
             "tax.us.2025.form1040.line-2b": ("form-field.v3", "v6"),
             "tax.us.2025.rule.attachment.schedule-b": ("attachment-rule.v11", "v7"),
         }),
+        "v96": ("NOMINEE_RETURN_SUCCESSOR_GRAPH_MIXED", {
+            "tax.us.2025.interest-composition": ("taxable-interest-composition.v1", "v4"),
+            "tax.us.2025.rule.form1040-line2b": ("rule-artifact.v9", "v8"),
+            "tax.us.2025.form1040.line-2b": ("form-field.v3", "v7"),
+            "tax.us.2025.rule.attachment.schedule-b": ("attachment-rule.v11", "v7"),
+        }),
     }
     # v38's nominee return graph holds for every later core-calculations
     # version until a later entry in the table replaces it, so a new package
