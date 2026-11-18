@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "rust-kernel-experiment",
-  "status": "Track 1 (Python algorithmic fixes) chartered 2026-11-18; Rust port parked behind owner gates.",
+  "status": "Track 1 (Python algorithmic fixes) built and proven byte-identical 2026-11-18; Rust port parked behind owner gates.",
   "scope": [
     "measure where the time goes when one recorded return is replayed on published core v96, by function and by layer (kernel, derivation, projection, schema validation, I/O)",
     "decide, from that measurement, whether a Rust port of a bounded kernel slice behind a Python binding is the right lever, and which slice",
