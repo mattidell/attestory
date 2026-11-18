@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "rust-kernel-experiment",
-  "status": "Track 1 (Python algorithmic fixes) built and proven byte-identical 2026-11-18; Rust port parked behind owner gates.",
+  "status": "Review READY with notes; repair chartered 2026-11-18. Rust port parked behind owner gates.",
   "scope": [
     "measure where the time goes when one recorded return is replayed on published core v96, by function and by layer (kernel, derivation, projection, schema validation, I/O)",
     "decide, from that measurement, whether a Rust port of a bounded kernel slice behind a Python binding is the right lever, and which slice",
@@ -133,8 +133,19 @@ decisions this needs are listed at the end of `p0.md`.
 3. **Byte-identical is the contract.** Every recorded list's result,
    page and error (class and message) must match the pre-change code
    exactly; any difference stops the track. Package validation must
-   report the same errors in the same order.
+   report the same errors always, in the same order under any fixed
+   hash seed (Decision 5).
 4. **Keep the projection change local.** The blocked-sale-pages
    milestone (another foreman) will touch the page and renderer; the
    closure-walk memo stays inside the walk functions so a later rebase
    is small.
+5. **Repair the review notes (2026-11-18).** The fresh review
+   (`docs/reviews/rust-kernel-experiment/review.md`) is READY with three
+   low notes. RKE-R1: add a deterministic closure-walk case that fails
+   when either cycle guard is dropped. RKE-R2: put the member corpus in
+   the validation memo key (or verify it against the checksums inside
+   `_validate_once`), and add a unit test for the marshal precompute.
+   RKE-R3: Decision 3's order contract is "the same errors always, in
+   the same order under any fixed hash seed", because the pristine
+   validator already iterates a set; and align track1.md's
+   finding-model row with its samples.
