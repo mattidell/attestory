@@ -1,8 +1,9 @@
 """Track 1 controls on one real saved output (core v96, one recorded list).
 
 Run: python3 track1_controls.py
-Two saved outputs are used: a recorded list (blocked rows with missing names
-and questions) and a synthetic wage return whose line 12e publishes a value.
+Three saved outputs are used: a recorded list (blocked rows with missing names
+and questions) and a synthetic wage return whose line 12e publishes a value, and a synthetic mortgage return whose
+saved model holds the mortgage borrowing explanation block.
 A control that has no target on one output is judged on the other.  The saved model and report are mutated before the snapshot is taken; each
 mutation must fail the strict comparison and the one expected sentence change
 must pass.  Writes track1-controls.json next to this file.
@@ -17,6 +18,7 @@ import sys
 HERE = Path(__file__).resolve().parent
 REPO = HERE.parents[4]
 sys.path.insert(0, str(REPO))
+from tests import test_recorded_replay_full_surface as suite  # noqa: E402
 from tools import recorded_replay as rr  # noqa: E402
 
 KEY = "v83/returns/case/a_duplicate_on_direct/recorded"
@@ -33,7 +35,10 @@ def wage_return() -> list[dict]:
 
 def main() -> None:
     outputs = {}
-    for name, acts in (("recorded", dict(rr.recorded_lists())[KEY]), ("wage", wage_return())):
+    # the mortgage list is synthetic (suite.mortgage_explanation_acts): the only one that reaches an
+    # optional explanation block, so the only output the notes controls can be judged on
+    for name, acts in (("recorded", dict(rr.recorded_lists())[KEY]), ("wage", wage_return()),
+                       ("mortgage", suite.mortgage_explanation_acts())):
         saved = rr.saved_output("v96", acts, "demo.fsr.controls." + name)
         assert saved["outcome"] == "success"
         outputs[name] = saved
