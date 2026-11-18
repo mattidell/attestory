@@ -119,7 +119,10 @@ changed).
   members.
 - **Key** (all must match): the validator's code object, SHA-256 of the
   canonical package bytes, the exact `(id, version, checksum)` of every
-  member pin, and SHA-256 of every schema document in the registry.
+  member pin, the sorted `(id, version, checksum)` of every body in the
+  corpus handed to the validator (computed from the bodies themselves, added
+  by the repair of RKE-R2), and SHA-256 of every schema document in the
+  registry.
 - **A changed file cannot hit a stale entry.** Member bodies enter
   `validate_package` only through `_resolve_member_corpus`, which admits a
   body only when its canonical SHA-256 equals the registry checksum for
@@ -130,14 +133,26 @@ changed).
   checksum comparison itself runs on every call (it precedes the memo), so
   the memo cannot skip it. I/O is not memoized: member files are still
   read and hashed each time. `validate_package` reads no files and no
-  environment; the only other input is `corpus`, which is the above.
+  environment; the only other input is `corpus`, which is now in the key
+  directly, so a direct caller (or a test) that passes a different corpus
+  under the same checksums misses instead of hitting. Cost, measured on the
+  median list (1053 corpus members): 0.021 s per key, two keys per replay,
+  about 0.04 s, 1 to 2 % of that replay. Verifying the corpus against
+  `citizen_checksums` inside `_validate_once` would hash the same bodies,
+  so it is no cheaper; the digest in the key was chosen because it needs
+  no second rule.
 - **Limit.** The key does not see a monkeypatch of a helper inside
   `package_validation` other than `validate_package` itself. No test or
   tool does that; tests that patch `validate_package` (as the new tests do)
   change the code-object part of the key.
 - Tests: `tests/test_track1_memos.py` (identical bytes validate once and
   equal the plain call; a hit shares no mutable members; changed package,
-  member checksum, schema document and validator each miss; bounded).
+  member checksum, schema document and validator each miss; the same
+  checksums with a different corpus miss; bounded). A separate synthetic
+  test pins the `marshal.py` precompute: the once-computed union of rule
+  required symbols binds exactly the types the per-rule check bound
+  (`ordinary requires`, rule-artifact `when`/`value` refs, attachment-rule
+  subtotals and answers; an unrequired type stays unbound).
 
 ## Item 3 review: the closure-walk memo
 
@@ -156,6 +171,28 @@ walk in the test and the **actual pristine function** (checked once
 outside the suite). Plus a 40-layer diamond (2^40 paths) that finishes
 instantly, and a changed-row test. The identity dump covers the real
 lists.
+
+**Cycle guards (repair of RKE-R1).** The random graphs do not exercise the
+guards, so one deterministic case does:
+`test_two_paths_to_a_synthesized_row_keep_both_cycle_guards_honest`. A
+synthesized member-validation row `C` is reached first through
+`P -> K -> C` (key `K` in `seen`, so `C` is walked without explaining `K`
+and returns true through the family) and second through `Q -> C` (`K` not in
+`seen`, so `C` explains `K` and adds the family meaning). Mutation checks
+(in memory on a scratch copy; nothing mutated is committed):
+
+- dropping `frame.hits.isdisjoint(seen)` from the store condition: the test
+  **fails** (the meaning sentence is lost);
+- dropping `seen.isdisjoint(known.examined)` from the reuse condition: the
+  test passes, and so does everything else, including 60 000 random graphs
+  compared with the reference walk (0 mismatches). It is an equivalent
+  mutation, not a gap in the test: a false walk aborts the whole closure, so
+  every true walk's additions reach the final sets whichever way it is
+  reached, and a reused walk can only add what its first run already added;
+  skipping a key under a larger `seen` can only turn a walk toward true. The
+  guard keeps the memo's reuse condition exact (and its absorbed
+  `examined`/`hits` sets equal to a fresh walk's) but cannot change the
+  reasons. I could not construct a graph that observes it.
 
 ## Timing
 
@@ -191,7 +228,7 @@ median plus 0.6 s). The three P0 workloads, one process each
 | Layer | median | slowest | K13 |
 | --- | --- | --- | --- |
 | kernel: fact store | 6.3 to 19.7 | 1.4 to 22.8 | 54.8 to 58.2 |
-| kernel: finding model | 0.2 to 0.6 | 0.1 to 1.5 | 4.2 to 3.5 |
+| kernel: finding model | 0.2 to 0.0 | 0.1 to 0.3 | 4.2 to 4.7 |
 | derivation: evaluator/runner | 8.7 to 4.9 | 1.6 to 3.3 | 3.8 to 1.8 |
 | derivation: package validation | 59.0 to 18.9 | 10.5 to 18.0 | 5.6 to 2.8 |
 | derivation: live coordination | 0.6 to 2.0 | 0.1 to 2.1 | 0.3 to 0.5 |
@@ -238,10 +275,19 @@ above deliberately clear it. Left in place, the same replay measures prep
 about 0.3 s lower per list; that is a real saving for a worker process but
 not one a one-shot run sees, so it is not counted here.
 
+## Repair of the review notes (RKE-R1 to RKE-R3)
+
+Identity dump rerun on all 775 lists after the repair
+(`track1-summary-repair.json`): `per_list_digest` equals the baseline,
+`3def5f6f845f2c0bee7500a17f6cdda0f0577a84de0331144b10a26f5356cab1`
+(691 success, 84 error, 0 refused). The changes are the corpus in the
+validation memo key, three tests, and this document.
+
 ## Gate
 
 Run on the final code, before the report commit:
 
 - `pytest`: 7069 passed, 25 skipped, 10947 subtests passed (36 min 57 s
-  wall on this machine while other work shared the CPUs).
+  wall on this machine while other work shared the CPUs). After the
+  repair: 7072 passed, 25 skipped, 10947 subtests passed (37 min 7 s).
 - `python3 -m mypy`: Success: no issues found in 514 source files.
