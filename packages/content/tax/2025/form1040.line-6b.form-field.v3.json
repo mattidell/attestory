@@ -21,7 +21,7 @@
       "render": "0"
     },
     "computed_zero": {
-      "explain": "computed zero for Form 1040 line 6b",
+      "explain": "The taxable amount of your Social Security benefits on line 6b is zero because the Social Security Benefits Worksheet calculates zero, including when no benefits are recorded or none of your benefits are taxable.",
       "render": "0"
     },
     "guard_inapplicable": {

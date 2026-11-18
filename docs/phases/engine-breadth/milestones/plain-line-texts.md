@@ -3,7 +3,8 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "plain-line-texts",
-  "status": "Open. Track 0 passed; Decisions 1-10; Track 1 chartered.",
+  "status": "Closed 2026-11-18. Core v96, registry v94, release v94.",
+  "retrospective": "docs/milestone-retrospectives/2026-11-17-plain-line-texts.md",
   "scope": [
     "every text a filer can see on a saved page says what the line is and why it is blocked in plain words, without engine terms such as derived finding, closed-empty, authority or subtotal 0",
     "every recorded return keeps its numbers, dispositions, refusal codes and missing names; only the changed sentences differ"
@@ -330,3 +331,68 @@ Foreman, 2026-11-17, on `docs/reviews/plain-line-texts/review.md`
     disposition's text, attachment headings and mortgage notes, and
     asserts no flagged term in any drawn content text.
 Repair charter `docs/reviews/plain-line-texts/charter-repair.md`.
+
+## Repair result
+
+Builder, 2026-11-17, against `docs/reviews/plain-line-texts/charter-repair.md`
+(Decisions 11-12).
+
+- **Every drawn text read** (`repair-drawn-texts.json`): 243 distinct content
+  texts across the 699 saved pages (691 recorded successes, 8 synthetic
+  successes); 231 plain, 12 not plain, plus 2 parked not-plain texts.
+  The review's four texts are among the 12.
+- **Replaced** (`repair-wording.json`, 14 citizens): line 6a (successor v3),
+  line 6b (v3), line 7b (v4) and tax after credits (v3) form-field citizens;
+  and ten rule citizens that draw reasons or counts (mortgage borrowing
+  readiness, account ceiling selection, affirmed link coverage, F1098
+  residence interest reason, report effective support coverage, and the five
+  mortgage shared-count rules). Citizens on `github/main` received
+  successors; branch-only citizens were edited in place (3 in place, 11
+  successors).
+- **Package rebuild** (`repair-validation.json`, status pass): core v96,
+  registry v94 and release v94 rebuilt in place from published v95/v93/v93
+  with `tools.package_successor`; 61 member and 22 entrypoint replacements,
+  member count unchanged; package test digests and counts updated.
+- **Replay**: 775 recorded lists, 691 `expected_sentences` and 84
+  `same_error`; 9 synthetic lists, 8 `expected_sentences` and 1
+  `same_refusal`; 0 unexpected; 223157 rows and 60114 page fields compared;
+  successor replay 722.983 s. The classifier is unchanged and still rejects
+  any value, disposition, code, missing-name or question-identity change
+  before an expected label; expected sentences now include
+  `repair-wording.json`, so each changed sentence must equal its manifest text.
+- **Mutation controls**: all 16 strict controls rejected against the new
+  replay (`track1-mutations.json`).
+- **Tests and checks**: `tests/test_plain_line_texts_v96*.py` 17 passed;
+  `pytest -m "not live"` 1844 passed, 8 skipped; `python3 -m mypy` no issues
+  in 512 files; `tools/envelope_scan.py --range github/main..HEAD` exit 0.
+  The full suite was not run (the merge gate of record is CI).
+- **Deviations**: item 5's replay was completed by a second builder after the
+  first ran out of credit; the saved replay part was reclassified with
+  `--classify-only` rather than replayed again. Mutation output was
+  byte-identical to the previous run.
+
+## Repair disposition
+
+Foreman, 2026-11-18. The repair's counts were checked against the
+committed evidence (784 lists: 699 expected sentences, 84 same error, 1
+same refusal; 16 mutation controls rejected; no published file modified;
+envelope scan exit 0). No re-review: the repair applies the review's own
+notes and the strict replay holds.
+
+13. **The two sale reasons are parked as content, not with
+    blocked-sale-pages.** "The holding period does not match this
+    short-term or long-term family." and the wash-sale "exceeds ... loss,
+    floor_zero(basis - proceeds). Existing block code: ..." reason are
+    content texts; blocked-sale-pages changes only the page. They are
+    parked as their own item.
+
+## Closeout
+
+Closed 2026-11-18. Core v96, registry v94, release v94: 61 content
+successors (50 from Track 0's manifest, 11 from the repair) and the
+Decision 5 validator entry. Of 243 distinct content texts drawn on the
+699 saved pages, 241 are plain; two sale reasons are parked. Every
+recorded return keeps its values, dispositions, refusal codes, missing
+names and question identities. Page-owned support-trace captions,
+badges and banners are parked (Decision 1). Retrospective:
+`docs/milestone-retrospectives/2026-11-17-plain-line-texts.md`.

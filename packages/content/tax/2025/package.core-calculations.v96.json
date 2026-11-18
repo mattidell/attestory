@@ -1053,7 +1053,7 @@
     },
     {
       "id": "tax.us.2025.rule.f1098-residence-interest-reason",
-      "version": "v5"
+      "version": "v6"
     },
     {
       "id": "tax.us.2025.rule.form1040-line12e",
@@ -1069,23 +1069,23 @@
     },
     {
       "id": "tax.us.2025.rule.mortgage-shared-mortgage-credit-certificate-received-count",
-      "version": "v1"
+      "version": "v2"
     },
     {
       "id": "tax.us.2025.rule.mortgage-shared-no-one-else-owes-it-count",
-      "version": "v1"
+      "version": "v2"
     },
     {
       "id": "tax.us.2025.rule.mortgage-shared-owes-the-loan-count",
-      "version": "v1"
+      "version": "v2"
     },
     {
       "id": "tax.us.2025.rule.mortgage-shared-this-is-the-original-loan-count",
-      "version": "v1"
+      "version": "v2"
     },
     {
       "id": "tax.us.2025.rule.mortgage-shared-what-the-money-paid-for-count",
-      "version": "v1"
+      "version": "v2"
     },
     {
       "id": "tax.us.2025.rule.no-one-else-owes-it-effective-answer",
@@ -3902,7 +3902,7 @@
       "id": "tax.us.2025.form1040.line-6a",
       "role": "form-field",
       "schema": "form-field.v3",
-      "version": "v2"
+      "version": "v3"
     },
     {
       "id": "tax.us.2025.form1040.line-6b",
@@ -4736,13 +4736,13 @@
       "id": "tax.us.2025.rule.f1098-residence-interest-reason",
       "role": "computation",
       "schema": "rule-artifact.v14",
-      "version": "v5"
+      "version": "v6"
     },
     {
       "id": "tax.us.2025.rule.report-effective-support-coverage",
       "role": "computation",
       "schema": "rule-artifact.v13",
-      "version": "v1"
+      "version": "v2"
     },
     {
       "id": "tax.us.2025.rule.effective-proceeds-support-count",
@@ -5276,7 +5276,7 @@
       "id": "tax.us.2025.rule.mortgage-account-ceiling-selection",
       "role": "computation",
       "schema": "rule-artifact.v13",
-      "version": "v1"
+      "version": "v2"
     },
     {
       "id": "tax.us.2025.rule.mortgage-account-readiness",
@@ -5294,13 +5294,13 @@
       "id": "tax.us.2025.rule.mortgage-affirmed-link-coverage",
       "role": "computation",
       "schema": "rule-artifact.v13",
-      "version": "v1"
+      "version": "v2"
     },
     {
       "id": "tax.us.2025.rule.mortgage-borrowing-readiness",
       "role": "computation",
       "schema": "rule-artifact.v14",
-      "version": "v2"
+      "version": "v3"
     },
     {
       "id": "tax.us.2025.rule.mortgage-link-support",
@@ -5318,31 +5318,31 @@
       "id": "tax.us.2025.rule.mortgage-shared-mortgage-credit-certificate-received-count",
       "role": "computation",
       "schema": "rule-artifact.v13",
-      "version": "v1"
+      "version": "v2"
     },
     {
       "id": "tax.us.2025.rule.mortgage-shared-no-one-else-owes-it-count",
       "role": "computation",
       "schema": "rule-artifact.v13",
-      "version": "v1"
+      "version": "v2"
     },
     {
       "id": "tax.us.2025.rule.mortgage-shared-owes-the-loan-count",
       "role": "computation",
       "schema": "rule-artifact.v13",
-      "version": "v1"
+      "version": "v2"
     },
     {
       "id": "tax.us.2025.rule.mortgage-shared-this-is-the-original-loan-count",
       "role": "computation",
       "schema": "rule-artifact.v13",
-      "version": "v1"
+      "version": "v2"
     },
     {
       "id": "tax.us.2025.rule.mortgage-shared-what-the-money-paid-for-count",
       "role": "computation",
       "schema": "rule-artifact.v13",
-      "version": "v1"
+      "version": "v2"
     },
     {
       "id": "tax.us.2025.rule.non-form-interest-subtotal",
@@ -8771,7 +8771,7 @@
       "role": "computation"
     }
   ],
-  "package_checksum": "c9fbc4776be9bc54a5164f03c91336e93381a6b0ad768f8517bb6f353a888ef4",
+  "package_checksum": "97eece5abc1fbb39e4a72623bb7944608ee35dc67bdbb4e1526c7ae6f6409ee8",
   "schema": "artifact-package.v43",
   "scope": {
     "family": "individual-income-tax",

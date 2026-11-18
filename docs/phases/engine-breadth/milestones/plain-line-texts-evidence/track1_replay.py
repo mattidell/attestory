@@ -138,7 +138,7 @@ def main():
     rr._write_part(part,results,{"cores":[rr.core_fingerprint(old),rr.core_fingerprint(core)],
         "format":"plain-line-texts.strict-replay.v1",
         "baseline_part":os.path.relpath(base_root/"census-part.json",target),
-        "wording_sha256":hashlib.sha256((HERE/"p0c-wording.json").read_bytes()).hexdigest(),
+        "wording_sha256":hashlib.sha256((HERE/"p0c-wording.json").read_bytes()+(HERE/"repair-wording.json").read_bytes()).hexdigest(),
         "validator_injection":"none: published validator carries the Decision 5 v96 graph"})
     counts=Counter(r["class"] for k,r in classified.items() if not k.startswith("demo.plt."))
     extra=Counter(r["class"] for k,r in classified.items() if k.startswith("demo.plt."))

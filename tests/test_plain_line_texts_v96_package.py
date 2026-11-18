@@ -1,7 +1,7 @@
 """Fast publication checks for core v96, registry v94 and release v94.
 
-The 50 successor citizens carry the accepted Track 0 manifest texts and
-nothing else. v95 and earlier stay as published.
+The 50 Track 0 successor citizens plus the repair successors and in-place
+edits carry the accepted wording. v95 and earlier stay as published.
 """
 from __future__ import annotations
 
@@ -38,9 +38,37 @@ def _successors() -> list[dict[str, Any]]:
     return rows
 
 
+def _repair() -> dict[str, Any]:
+    body = cast(dict[str, Any], _read(EVIDENCE / "repair-validation.json"))
+    assert len(body["successors"]) == 11
+    assert len(body["inplace"]) == 3
+    return body
+
+
+def _published_successors() -> list[dict[str, Any]]:
+    overlay = {row["id"]: row for row in _repair()["inplace"]}
+    rows = []
+    for row in _successors():
+        item = dict(row)
+        extra = overlay.get(row["id"])
+        if extra is not None:
+            item["successor_sha256"] = extra["successor_sha256"]
+            item["changed_properties"] = list(row["changed_properties"]) + extra["changed_properties"]
+        rows.append(item)
+    rows.extend(cast(list[dict[str, Any]], _repair()["successors"]))
+    assert len(rows) == 61
+    return rows
+
+
 def _manifest() -> list[dict[str, Any]]:
     rows = cast(list[dict[str, Any]], _read(EVIDENCE / "track0-wording.json")["replacements"])
     assert len(rows) == 57
+    return rows
+
+
+def _repair_manifest() -> list[dict[str, Any]]:
+    rows = cast(list[dict[str, Any]], _read(EVIDENCE / "repair-wording.json")["replacements"])
+    assert len(rows) == 14
     return rows
 
 
@@ -66,43 +94,43 @@ def _index(rows: list[dict[str, Any]]) -> dict[tuple[str, str], dict[str, Any]]:
 
 
 def test_successor_bytes_match_the_accepted_digests() -> None:
-    for row in _successors():
+    for row in _published_successors():
         path = CONTENT / row["successor_filename"]
         assert hashlib.sha256(path.read_bytes()).hexdigest() == row["successor_sha256"], row["id"]
         assert hashlib.sha256((REPO / row["predecessor"]).read_bytes()).hexdigest() == row["predecessor_sha256"]
 
 
 def test_successors_carry_exactly_the_manifest_texts() -> None:
-    by_file: dict[str, list[dict[str, Any]]] = {}
-    for row in _manifest():
-        by_file.setdefault(row["file"], []).append(row)
-    assert len(by_file) == 50
-    for row in _successors():
+    by_id: dict[str, list[dict[str, Any]]] = {}
+    for row in _manifest() + _repair_manifest():
+        by_id.setdefault(row["id"], []).append(row)
+    for row in _published_successors():
         old = _read(REPO / row["predecessor"])
         new = _read(CONTENT / row["successor_filename"])
         expected = copy.deepcopy(old)
-        for item in by_file[row["predecessor"]]:
-            assert _at(old, item["property"]) == item["old"]
+        for item in by_id[row["id"]]:
+            current = _at(expected, item["property"])
+            assert current == item["old"], (row["id"], item["property"])
             assert _at(new, item["property"]) == item["new"]
             _put(expected, item["property"], item["new"])
         expected["version"] = row["new_version"]
         assert new == expected, row["id"]
-        assert [item["property"] for item in by_file[row["predecessor"]]] == row["changed_properties"]
+        assert [item["property"] for item in by_id[row["id"]]] == row["changed_properties"]
 
 
-def test_core_v96_replaces_exactly_the_50_members_and_entrypoints() -> None:
+def test_core_v96_replaces_exactly_the_published_members_and_entrypoints() -> None:
     before = _read(CONTENT / "package.core-calculations.v95.json")
     after = _read(CONTENT / "package.core-calculations.v96.json")
     old = {row["id"]: row for row in before["members"]}
     expected = dict(old)
-    for row in _successors():
+    for row in _published_successors():
         assert old[row["id"]]["version"] == row["old_version"]
         expected[row["id"]] = {**old[row["id"]], "version": row["new_version"]}
     assert {row["id"]: row for row in after["members"]} == expected
     assert len(after["members"]) == len(before["members"])
     old_entries = {(row["id"], row["version"]) for row in before["entrypoints"]}
     new_entries = {(row["id"], row["version"]) for row in after["entrypoints"]}
-    ids = {row["id"]: row for row in _successors()}
+    ids = {row["id"]: row for row in _published_successors()}
     assert old_entries - new_entries == {(i, r["old_version"]) for i, r in ids.items() if (i, r["old_version"]) in old_entries}
     assert new_entries - old_entries == {(i, r["new_version"]) for i, r in ids.items() if (i, r["old_version"]) in old_entries}
     skip = {"version", "members", "entrypoints", "package_checksum"}
@@ -121,7 +149,7 @@ def test_registry_v94_is_add_only() -> None:
         if kind == "citizens":
             assert added == {(r["id"], r["new_version"]): {
                 "id": r["id"], "version": r["new_version"],
-                "checksum": citizen_checksum(_read(CONTENT / r["successor_filename"]))} for r in _successors()}
+                "checksum": citizen_checksum(_read(CONTENT / r["successor_filename"]))} for r in _published_successors()}
         else:
             package = _read(CONTENT / "package.core-calculations.v96.json")
             assert added == {(CORE, "v96"): {"id": CORE, "version": "v96", "checksum": package["package_checksum"]}}
@@ -147,9 +175,9 @@ def test_v96_loader_entries_carry_v95_unchanged() -> None:
 def test_every_earlier_published_citizen_is_untouched() -> None:
     # Published v95 and earlier members still exist byte-for-byte: each
     # predecessor file keeps the digest recorded when it was replaced.
-    for row in _successors():
+    for row in _published_successors():
         assert hashlib.sha256((REPO / row["predecessor"]).read_bytes()).hexdigest() == row["predecessor_sha256"]
     registry = _index(_read(CONTENT / "published-packages.v94.json")["citizens"])
-    for row in _successors():
+    for row in _published_successors():
         old = _read(REPO / row["predecessor"])
         assert registry[(row["id"], row["old_version"])]["checksum"] == citizen_checksum(old)

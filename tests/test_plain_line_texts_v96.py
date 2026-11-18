@@ -1,10 +1,11 @@
 """Six distinct act lists, once each on published v95 and published v96.
 
 Each list goes through live_coordinate_run, the real presentation projection
-and the saved page model. The drawn texts the Track 0 manifest replaces
-appear in the v96 page exactly as the manifest words them, no replaced text
-and no census term remains in a drawn content text, and every value,
-disposition and refusal code equals v95's.
+and the saved page model. The live test reads only the active disposition
+explain text, attachment headings and drawn mortgage notes. The Track 0 and
+repair manifest texts appear in the v96 page exactly as the manifests word
+them, no text judged not-plain in the repair table remains drawn, and every
+value, disposition and refusal code equals v95's.
 
 Measured reason for the live marker: each live_coordinate_run with page
 rendering took about 20 s per core at standard xdist concurrency, above the
@@ -30,7 +31,6 @@ MILESTONES = REPO / "docs/phases/engine-breadth/milestones"
 EVIDENCE = MILESTONES / "plain-line-texts-evidence"
 BNQ = MILESTONES / "blocked-names-question-evidence"
 CASES = ("wage-only", "interest-dividends", "closed-empty", "rounds-to-zero", "sale", "mortgage-detail")
-CENSUS_TERMS = ("derived finding", "closed-empty", "subtotal 0", "computed zero")
 Acts = list[dict[str, Any]]
 
 
@@ -97,24 +97,41 @@ def _run(acts: Acts, case: str, version: str, root: Path) -> tuple[dict[str, Any
     return cast(dict[str, Any], saved), report
 
 
-def _leaves(node: Any) -> list[str]:
-    if isinstance(node, str):
-        return [node]
-    if isinstance(node, list):
-        return [leaf for item in node for leaf in _leaves(item)]
-    if isinstance(node, dict):
-        return [leaf for item in node.values() for leaf in _leaves(item)]
-    return []
-
-
 def _manifest() -> list[dict[str, Any]]:
     rows = cast(list[dict[str, Any]], json.loads((EVIDENCE / "track0-wording.json").read_text())["replacements"])
-    assert len(rows) == 57
+    rows += cast(list[dict[str, Any]], json.loads((EVIDENCE / "repair-wording.json").read_text())["replacements"])
+    assert len(rows) == 71
     return rows
 
 
+def _not_plain() -> list[str]:
+    rows = cast(list[dict[str, Any]], json.loads((EVIDENCE / "repair-drawn-texts.json").read_text())["texts"])
+    return [row["text"] for row in rows if not row["plain"] and not row.get("parked")]
+
+
 def _drawn(model: dict[str, Any]) -> list[str]:
-    return _leaves(model["sections"]) + _leaves({k: v for k, v in model.items() if k != "sections"})
+    drawn: list[str] = []
+    for section in model["sections"]:
+        resolved = section["resolved"]
+        disposition = resolved.get("disposition")
+        instruction_key = "published_value" if disposition == "published_categorical" else disposition
+        reasons = resolved.get("reasons") or []
+        if disposition == "blocked" and reasons:
+            continue
+        instruction = (section["field"].get("dispositions") or {}).get(instruction_key) or {}
+        explain = instruction.get("explain")
+        if isinstance(explain, str) and explain:
+            drawn.append(explain)
+    for attachment in model.get("attachments") or []:
+        title = attachment.get("title")
+        if isinstance(title, str) and title:
+            drawn.append(title.split(":", 1)[0].strip())
+    chain = (model.get("mortgageBorrowingExplanation") or {}).get("calculationChain") or {}
+    for member in chain.get("resolvedContent") or []:
+        note = member.get("notes")
+        if isinstance(note, str) and note:
+            drawn.append(note)
+    return drawn
 
 
 def _dispositions(report: dict[str, Any]) -> list[Any]:
@@ -143,11 +160,8 @@ def test_published_v96_draws_the_manifest_texts_and_keeps_v95_values(
                 assert after in new_drawn, (row["id"], row["property"])
             assert before not in new_drawn, (row["id"], row["property"])
     assert replaced >= 1
-    spoken = [r["sentence"] for s in new_model["sections"] for r in s["resolved"].get("reasons", [])]
-    spoken += [s["field"]["label"] for s in new_model["sections"] if isinstance(s["field"].get("label"), str)]
-    assert spoken
-    for term in CENSUS_TERMS:
-        assert not [t for t in spoken if term in t.lower()], term
+    leftover = [text for text in _not_plain() if text in new_drawn]
+    assert leftover == []
     assert _states(new_model) == _states(old_model)
     assert (new_report["stop_reason"], new_report["values"] if "values" in new_report else None) == (
         old_report["stop_reason"], old_report["values"] if "values" in old_report else None)

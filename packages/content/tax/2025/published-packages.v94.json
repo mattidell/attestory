@@ -2516,6 +2516,11 @@
       "version": "v2"
     },
     {
+      "id": "tax.us.2025.form1040.line-6a",
+      "version": "v3",
+      "checksum": "bb44528a22a89f78466d03e690c007a1b195aab4a4f176d26c904992dde8ca9d"
+    },
+    {
       "checksum": "cc38012474c051e89de65912835629cf0b9bbe89b40a34aafdfc5b6365bfecd1",
       "id": "tax.us.2025.form1040.line-6b",
       "version": "v1"
@@ -2528,7 +2533,7 @@
     {
       "id": "tax.us.2025.form1040.line-6b",
       "version": "v3",
-      "checksum": "af8b8887ef77955ee2a6835160c47bb21d49ec9516ff7611d87611c8437be01b"
+      "checksum": "7fbd9b197b973895411c97056dde1a409f537e69051108c55a47d387f47cb60a"
     },
     {
       "checksum": "7389600e92af4c65d6282608003eaf7f13710ed4697a0fb06b87a8c948b7cc41",
@@ -2598,7 +2603,7 @@
     {
       "id": "tax.us.2025.form1040.line-7b",
       "version": "v4",
-      "checksum": "45a685f8e9303d0dbcf36c01140d0f2b9ce660e65171e05c29eab0a19db0ed62"
+      "checksum": "7e3be5f612c98736a03f7e32c6ba1f747cdb98d712e5139d0953b24bcf8d6749"
     },
     {
       "checksum": "4c6ae89e08a80fd204659940548332079eba0c212bc7b9eff7010f0d18c14920",
@@ -2643,7 +2648,7 @@
     {
       "id": "tax.us.2025.form1040.tax-after-credits",
       "version": "v3",
-      "checksum": "bcf6950a17c08e2f73804e60a2cabcafae7b7a040063e58d88a4243cfda7ce60"
+      "checksum": "7e524df8038718c0d048a7696bceb3cb2f193bca25654dc55eb41d526920be42"
     },
     {
       "checksum": "beb1f103382c82bfcdd40a1ff1a9208cef4816c07d3a618250a6f4b10a80ad9c",
@@ -4646,6 +4651,11 @@
       "version": "v5"
     },
     {
+      "id": "tax.us.2025.rule.f1098-residence-interest-reason",
+      "version": "v6",
+      "checksum": "ad9356a8af0018704efe7896f556926c0e89182a672ed24111a11b167b48158b"
+    },
+    {
       "checksum": "9e0da3151c1a265999243aeb83712a76bb06a08c295a8deb335eb577382b4854",
       "id": "tax.us.2025.rule.f1098-residence-interest-unresolved",
       "version": "v1"
@@ -6306,6 +6316,11 @@
       "version": "v1"
     },
     {
+      "id": "tax.us.2025.rule.mortgage-account-ceiling-selection",
+      "version": "v2",
+      "checksum": "8cc4b554e38e76d9d9ad7c893e146580d25fb69a095d69e6fdd87740f1738977"
+    },
+    {
       "checksum": "69d7bb18e57d7ac2b590b9b68ff47294fd059c08b81caa3a7a10c3a2c6cd8902",
       "id": "tax.us.2025.rule.mortgage-account-readiness",
       "version": "v1"
@@ -6326,9 +6341,19 @@
       "version": "v1"
     },
     {
+      "id": "tax.us.2025.rule.mortgage-affirmed-link-coverage",
+      "version": "v2",
+      "checksum": "fab1fdd399828014e9f4417624d0a3d1ba134030c3843a4b1e8db2107868a398"
+    },
+    {
       "checksum": "ce51584d5107d82e6094fc965204519b74d2b9dd582547ac097a6b2dc3c3f53f",
       "id": "tax.us.2025.rule.mortgage-borrowing-readiness",
       "version": "v2"
+    },
+    {
+      "id": "tax.us.2025.rule.mortgage-borrowing-readiness",
+      "version": "v3",
+      "checksum": "e7a5532ea21ccd10830ac6a7258ae1b29a8390a00c69ce4988e5177d1881dda1"
     },
     {
       "checksum": "d3c69db18cacdfa0f4feceaab12eddbef15db05b44f83d8ea8ba8158ff87e7ae",
@@ -6361,9 +6386,19 @@
       "version": "v1"
     },
     {
+      "id": "tax.us.2025.rule.mortgage-shared-mortgage-credit-certificate-received-count",
+      "version": "v2",
+      "checksum": "33eadf954db0338c898c4334a1db0595e5905b1c4157610f3ead21ebf16e8294"
+    },
+    {
       "checksum": "7b4a7bf7b6ea3bfaba7b767016cfacf195fe571dcb9157651358e9f792b611ac",
       "id": "tax.us.2025.rule.mortgage-shared-no-one-else-owes-it-count",
       "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.mortgage-shared-no-one-else-owes-it-count",
+      "version": "v2",
+      "checksum": "e29e30a8bdb42a440dac1071cb5f70ef1fa2ca179556524709663cbf1dfcdbee"
     },
     {
       "checksum": "3dd635722165f7870407aaa9de79a0d8eb41efcd11cee38ac67f933bab7104e6",
@@ -6371,14 +6406,29 @@
       "version": "v1"
     },
     {
+      "id": "tax.us.2025.rule.mortgage-shared-owes-the-loan-count",
+      "version": "v2",
+      "checksum": "8bb415a934cb5219bd6238a289727379ac6776920530015aaf86dee562504022"
+    },
+    {
       "checksum": "448270cb12a3605450a2a3525142c13f766237c95ac3cb4f0a457b17694b6fa4",
       "id": "tax.us.2025.rule.mortgage-shared-this-is-the-original-loan-count",
       "version": "v1"
     },
     {
+      "id": "tax.us.2025.rule.mortgage-shared-this-is-the-original-loan-count",
+      "version": "v2",
+      "checksum": "248b32eb9155184ea29d6f54fa099561802574cd8b05c5cc07802884b86d06b1"
+    },
+    {
       "checksum": "fac1fa121b488b8a9b0841ee466c85477f072ca02e8fc4cfd60000ffb701f513",
       "id": "tax.us.2025.rule.mortgage-shared-what-the-money-paid-for-count",
       "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.mortgage-shared-what-the-money-paid-for-count",
+      "version": "v2",
+      "checksum": "58e78e071f29eb937a4c5476e1ce14daf2d7aafca593f44b58717534a49e6ba9"
     },
     {
       "checksum": "fb5c8575433dcc982cf60fafb38d75f3eb5209963726ac333c01f2f928d2c499",
@@ -6599,6 +6649,11 @@
       "checksum": "29bf4a132fe7980564d33a371d36ea8a04585879f5ddcb16e7fb6c6e9f5b62f5",
       "id": "tax.us.2025.rule.report-effective-support-coverage",
       "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.report-effective-support-coverage",
+      "version": "v2",
+      "checksum": "69514fa2b7c740708cb2da53326797133698a6bf6938d98634cb1dfed7a6588d"
     },
     {
       "checksum": "52eb85d67390ff8f7b034cb79ef64844ac4550bf9ea9337678119f57b984c07f",
@@ -8550,7 +8605,7 @@
     {
       "id": "tax.us.2025.package.core-calculations",
       "version": "v96",
-      "checksum": "c9fbc4776be9bc54a5164f03c91336e93381a6b0ad768f8517bb6f353a888ef4"
+      "checksum": "97eece5abc1fbb39e4a72623bb7944608ee35dc67bdbb4e1526c7ae6f6409ee8"
     },
     {
       "checksum": "b99406e3e391e30491c09fbd9402f6373eec69a7f6a109dfeac39115e547ef4d",

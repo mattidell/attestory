@@ -28,8 +28,11 @@ def read_pin(root, row):
 
 def versions():
     rows = json.loads((HERE / "p0c-validation.json").read_text())["successors"]
-    return {**{r["id"]: (r["old_version"], r["new_version"]) for r in rows},
-            "tax.us.2025.package.core-calculations": ("v95", "v96")}
+    mapping = {r["id"]: (r["old_version"], r["new_version"]) for r in rows}
+    mapping["tax.us.2025.package.core-calculations"] = ("v95", "v96")
+    for row in json.loads((HERE / "repair-validation.json").read_text())["successors"]:
+        mapping[row["id"]] = (row["old_version"], row["new_version"])
+    return mapping
 
 def reference_versions(node, mapping):
     if not isinstance(node, dict): return node
@@ -95,6 +98,7 @@ def canonical(node, mapping, rename, path=()):
 def expected_model(model):
     result = copy.deepcopy(model)
     replacements = json.loads((HERE / "p0c-wording.json").read_text())["replacements"]
+    replacements += json.loads((HERE / "repair-wording.json").read_text())["replacements"]
     by_id = {}
     for row in replacements: by_id.setdefault(row["id"], []).append(row)
     def visit(node):

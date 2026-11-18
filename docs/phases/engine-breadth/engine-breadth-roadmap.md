@@ -951,6 +951,21 @@ question. Of 775 recorded lists, the four honest returns in that state
 change their names; on the replay's retained surface no value,
 disposition or refusal code changed.
 
+## Bounded return — Every Line Speaks Plainly (2025)
+
+[Plan](milestones/plain-line-texts.md); retrospective:
+`docs/milestone-retrospectives/2026-11-17-plain-line-texts.md`.
+
+Core v96 (registry v94, release v94) rewords the content texts a filer
+sees on a saved page: line explanations, attachment headings, blocked
+reasons and drawn mortgage notes no longer say "derived finding",
+"closed-empty", "authority" or "computed zero for line X". A zero says
+whether it comes from no record or from amounts that round to zero. 61
+content successors, plus one validator entry admitting line 2b's
+wording successor. Of 775 recorded lists, 691 change only these
+sentences and 84 fail as before; no value, disposition, refusal code,
+missing name or question changed.
+
 ## Saved-page observation — Mortgage and Sales (2025)
 
 [Plan](milestones/sale-page-observation.md); retrospective:
@@ -1042,11 +1057,20 @@ delivers an item removes it.
   credit for other dependents; lines 29-31 refundable credits, Schedule 2
   Part II taxes and the estimated tax penalty, each declared absent.
 - No presentation line names the tie-breaker step that decided a child.
-- A rule still names only its first cause when it blocks. Since core v78
-  every line a filer sees has a plain text; the page hides a blocked
-  line's own text when it shows questions, and shows nothing for a numeric
-  line with no citation (none remains since core v92). Several kept texts
-  still say "derived finding" or "closed-empty".
+- A rule still names only its first cause when it blocks. The page hides
+  a blocked line's own text when it shows questions.
+- Page-owned wording on the saved page: support-trace captions print
+  symbol, finding and rule IDs and "Show ..." pin labels; status badges
+  show the disposition enum; the "No value published — cannot compute."
+  and "Missing dependency code(s):" banners are engine words. Sequence
+  after blocked-sale-pages, which owns the same page (plain-line-texts
+  Decision 1).
+- Two shared sale blocked reasons are not plain: "The holding period does
+  not match this short-term or long-term family." and the wash-sale
+  reason naming `floor_zero(basis - proceeds)` and its block code
+  (plain-line-texts Decision 13; content successors).
+- Undrawn rule descriptions and notes still carry engine terms; plain
+  wording covers only text a page draws (plain-line-texts).
 - Two answers the record proves are still asked: line 2a Form 1099-INT
   tax-exempt interest (a closed box 8 above 0) and the other-dependent answer
   (a marked roster row). Deriving them needs the proof's family closed, so a

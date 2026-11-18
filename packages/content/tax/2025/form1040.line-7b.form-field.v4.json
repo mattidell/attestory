@@ -29,7 +29,7 @@
       "render": ""
     },
     "published_value": {
-      "explain": "No sale is recorded and the checked Schedule-D-required conclusion is no; Exception 1 applies and the Schedule D not required box on line 7b is affirmative.",
+      "explain": "No sale is recorded, so Exception 1 applies and the Schedule D not required box on line 7b is checked.",
       "render": "checked"
     }
   },

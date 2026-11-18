@@ -29,7 +29,7 @@
       "render": ""
     },
     "published_value": {
-      "explain": "Tax after nonrefundable credits floors at zero: line 16 regular tax minus line 20 credits under line 17/19 absence. Line 16 meaning is preserved.",
+      "explain": "Your tax after nonrefundable credits is your tax on line 16 minus your child tax credit on line 19 and your other nonrefundable credits on line 20, and is not below zero. This return has no additional tax from Schedule 2 on line 17.",
       "render": "{value}"
     }
   },
