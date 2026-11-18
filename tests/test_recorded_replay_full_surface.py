@@ -249,6 +249,25 @@ def test_local_paths_in_saved_strings_are_compared_not_masked() -> None:
     assert rr.classify_full(labelled("demo-a"), labelled("demo-b"))["class"] == "unexpected"
 
 
+def test_generated_ids_outside_the_graph_and_rows_are_aliased_by_position() -> None:
+    def with_block(first: str, second: str) -> dict[str, Any]:
+        m, r = _saved()
+        m["mortgageBorrowingExplanation"] = {"calculationChain": {"dispositions": [
+            {"artifact_id": "demo.rule.one", "pins": [{"id": "finding:derived:" + first, "role": "input", "version": "v1"}]},
+            {"artifact_id": "demo.rule.two", "pins": [{"id": "finding:derived:" + second, "role": "input", "version": "v1"}]},
+        ]}}
+        return rr.snapshot(m, r)
+
+    same = rr.diff_snapshots(with_block("1" * 24, "2" * 24), with_block("3" * 24, "4" * 24))
+    assert same == []
+    assert "1" * 24 not in json.dumps(with_block("1" * 24, "2" * 24))
+    # a changed version on such a pin is still a difference, on the aliased identity
+    changed = with_block("3" * 24, "4" * 24)
+    changed["records"] = [[k, i, a, "v2" if a == "version" and "demo.rule.two" in i else v] for k, i, a, v in changed["records"]]
+    found = rr.diff_snapshots(with_block("1" * 24, "2" * 24), changed)
+    assert len(found) == 1 and "demo.rule.two" in found[0]["identity"] and found[0]["attribute"] == "version"
+
+
 def test_run_full_reports_every_unused_expectation_by_identity(monkeypatch: pytest.MonkeyPatch) -> None:
     model, report = _saved("v1")
     new_model, new_report = _saved("v2")
@@ -387,7 +406,7 @@ def mortgage_explanation_acts() -> list[dict[str, Any]]:
     from tests import test_mortgage_borrowing_calculation as mortgage
 
     captured: list[list[dict[str, Any]]] = []
-    real = mortgage.live_coordinate_run
+    real = getattr(mortgage, "live_coordinate_run")
 
     def spy(*args: Any, **kwargs: Any) -> Any:
         captured.append(copy.deepcopy(list(kwargs["authoritative_acts"])))

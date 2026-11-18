@@ -45,8 +45,11 @@ summary).  Named blind spots, all of them narrower than the snapshot itself:
   `recordedApplicableClaims`, the one place the page renders it
   (`recordedApplicableClaims@keys`).
 * Generated finding and act hashes, run ids and graph-node keys are aliased or
-  masked (see `_generated_aliases`).  Local paths are masked only in the
-  messages of failed lists (`failure_snapshot`), not in saved strings.
+  masked (see `_generated_aliases`); a generated id that names no graph node
+  or report row is aliased by its enclosing record and pin role, so two such
+  ids under one record and role are numbered in hash order.  Local paths are
+  masked only in the messages of failed lists (`failure_snapshot`), not in
+  saved strings.
 * Unused expectations are reported (`unused_expectations`), not failed: a
   declared change no list exercised cannot hide a difference but is not proof.
 """
@@ -783,6 +786,31 @@ def _generated_aliases(model: dict[str, Any], report: dict[str, Any]) -> tuple[d
         if isinstance(act, str) and act not in final:
             final[act] = "act~" + (final.get(fid, row_alias) if isinstance(fid, str) else row_alias)
 
+    # A generated id that names no graph node and no report row (for example a
+    # pin in an explanation block's disposition record) is aliased by where it
+    # sits: the nearest enclosing identified record and the pin's role.
+    unseen: Counter[str] = Counter()
+
+    def walk(node: Any, owner: str, role: str) -> None:
+        if isinstance(node, dict):
+            own = next((str(node[key]) for key in ("artifact_id", "id", "symbol")
+                        if isinstance(node.get(key), str) and not GENERATED_ID.fullmatch(node[key])), owner)
+            here = str(node["role"]) if isinstance(node.get("role"), str) else role
+            for value in node.values():
+                walk(value, own, here)
+        elif isinstance(node, list):
+            for item in node:
+                walk(item, owner, role)
+        elif isinstance(node, str):
+            for found in GENERATED_ID.findall(node):
+                if found not in final:
+                    stem = f"finding~unseen~{owner}~{role}"
+                    unseen[stem] += 1
+                    final[found] = stem if unseen[stem] == 1 else f"{stem}#{unseen[stem]}"
+
+    walk(report, "report", "")
+    walk(model, "model", "")
+
     def transform(text: str) -> str:
         return GENERATED_ID.sub(lambda m: final.get(m.group(0), m.group(0)), text)
 
@@ -846,7 +874,7 @@ def _role_id_order(pins: Any) -> bool:
     """True when pins (or edges' pins) are in the (role, raw id) order the page requires."""
     keys = [(p.get("role"), p.get("id")) for p in pins if isinstance(p, dict)]
     try:
-        return keys == sorted(keys)  # type: ignore[type-var]
+        return keys == sorted(keys)
     except TypeError:
         return False
 
@@ -1345,12 +1373,12 @@ def standard_controls(model: dict[str, Any], report: dict[str, Any]) -> dict[str
 
     m, r, e = make("changed_disposition_node")
     disposition_nodes = m.get("dispositionNodes") or {}
-    holder = next((n for n in disposition_nodes.values() if isinstance(n, dict) and n.get("records")), None)
-    if holder is None:
+    with_records = next((n for n in disposition_nodes.values() if isinstance(n, dict) and n.get("records")), None)
+    if with_records is None:
         e["available"] = False
     else:
-        holder["records"][0]["disposition"] = "demo.changed-disposition"
-        e["target"] = holder.get("symbol")
+        with_records["records"][0]["disposition"] = "demo.changed-disposition"
+        e["target"] = with_records.get("symbol")
 
     m, r, e = make("changed_section_root")
     roots = m.get("sectionRoots") or {}

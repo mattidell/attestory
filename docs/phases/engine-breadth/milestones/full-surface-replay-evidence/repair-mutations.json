@@ -1,0 +1,83 @@
+{
+ "none": {
+  "controls_that_stop_failing": {
+   "wage return": [],
+   "mortgage return": []
+  },
+  "tests_that_fail": []
+ },
+ "drop every graph record": {
+  "controls_that_stop_failing": {
+   "wage return": [
+    "changed_graph_node_value"
+   ],
+   "mortgage return": [
+    "changed_graph_node_value"
+   ]
+  },
+  "tests_that_fail": [
+   "test_graph_and_other_model_keys_are_compared[disposition node record-_disposition_node-model]",
+   "test_graph_and_other_model_keys_are_compared[graph edge pin-_edge_target-graph]",
+   "test_graph_and_other_model_keys_are_compared[graph node value-_graph_value-graph]",
+   "test_graph_and_other_model_keys_are_compared[section roots and authorization-_other_model_keys-model]",
+   "test_hash_keyed_order_and_rendered_key_order_are_recorded_as_named_blind_spot_substitutes",
+   "test_values_compare_by_type_not_plain_equality[-None]",
+   "test_values_compare_by_type_not_plain_equality[0-False]",
+   "test_values_compare_by_type_not_plain_equality[1-True]",
+   "test_values_compare_by_type_not_plain_equality[1.0-True]",
+   "test_values_compare_by_type_not_plain_equality[100-100.0]",
+   "test_values_compare_by_type_not_plain_equality[100-100]",
+   "test_values_compare_by_type_not_plain_equality[None-0]"
+  ]
+ },
+ "drop every other-model-key record": {
+  "controls_that_stop_failing": {
+   "wage return": [
+    "changed_authorization",
+    "changed_disposition_node",
+    "changed_section_root"
+   ],
+   "mortgage return": [
+    "changed_authorization",
+    "changed_disposition_node",
+    "changed_explanation_block_note",
+    "changed_section_root",
+    "expected_explanation_block_note"
+   ]
+  },
+  "tests_that_fail": [
+   "test_generated_ids_outside_the_graph_and_rows_are_aliased_by_position",
+   "test_graph_and_other_model_keys_are_compared[disposition node record-_disposition_node-model]",
+   "test_graph_and_other_model_keys_are_compared[graph edge pin-_edge_target-graph]",
+   "test_graph_and_other_model_keys_are_compared[graph node value-_graph_value-graph]",
+   "test_graph_and_other_model_keys_are_compared[section roots and authorization-_other_model_keys-model]",
+   "test_hash_keyed_order_and_rendered_key_order_are_recorded_as_named_blind_spot_substitutes"
+  ]
+ },
+ "drop the mortgage explanation block": {
+  "controls_that_stop_failing": {
+   "wage return": [],
+   "mortgage return": [
+    "changed_explanation_block_note",
+    "expected_explanation_block_note"
+   ]
+  },
+  "tests_that_fail": [
+   "test_generated_ids_outside_the_graph_and_rows_are_aliased_by_position",
+   "test_hash_keyed_order_and_rendered_key_order_are_recorded_as_named_blind_spot_substitutes"
+  ]
+ },
+ "compare values with plain ==": {
+  "controls_that_stop_failing": {
+   "wage return": [],
+   "mortgage return": []
+  },
+  "tests_that_fail": [
+   "test_value_expectation_does_not_accept_an_equal_but_different_type",
+   "test_values_compare_by_type_not_plain_equality[0-False]",
+   "test_values_compare_by_type_not_plain_equality[1-True]",
+   "test_values_compare_by_type_not_plain_equality[1.0-True]",
+   "test_values_compare_by_type_not_plain_equality[100-100.0]"
+  ]
+ }
+}
