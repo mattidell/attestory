@@ -19,7 +19,7 @@ from packages.derivation import production_resolver as pr
 from packages.derivation.package_validation import citizen_checksum
 
 
-def _reference_candidates(directory: Path) -> tuple[dict, ...]:
+def _reference_candidates(directory: Path) -> tuple[dict[str, object], ...]:
     """The pre-cache implementation, verbatim: read text, parse, keep objects."""
     out = []
     for path in sorted(directory.rglob("*.json")):
@@ -74,7 +74,7 @@ class MemberReadsOnceTests(unittest.TestCase):
 
     def test_each_distinct_content_is_parsed_once(self) -> None:
         real = json.loads
-        with mock.patch.object(pr.json, "loads", side_effect=real) as spy:
+        with mock.patch.object(json, "loads", side_effect=real) as spy:
             pr._member_candidates(self.root)
             # a.json and dup.json hold identical bytes: one parse. Four
             # distinct objects (a/dup, b, c, crlf) plus three files that fail

@@ -124,13 +124,13 @@ def resolve_surface_artifact(
 
     pkg_pin = payload["package"]
     matching: dict[str, dict[str, Any]] = {}
-    for candidate in _member_candidates(surface.member_dir):
-        seen = candidate.view
+    for member in _member_candidates(surface.member_dir):
+        seen = member.view
         if seen.get("schema") != SURFACE_SCHEMA:
             continue
         if seen.get("id") != pkg_pin["id"] or str(seen.get("version", "")) != pkg_pin["version"]:
             continue
-        body = candidate.body()
+        body = member.body()
         try:
             digest = package_instance_checksum(body)
         except (TypeError, ValueError):
