@@ -23,6 +23,32 @@ must name a kind and an attribute, never "anything on this list".  Example:
 `standard_controls(model, report)` mutates a saved output before the snapshot
 so a milestone can show the comparison sees every field and row.  See
 docs/phases/engine-breadth/milestones/full-surface-replay-evidence/track1.md.
+
+What a passing full-surface comparison does and does not mean
+-------------------------------------------------------------
+"Nothing else changed" holds only for the saved surfaces the recorded corpus
+reaches.  The optional model blocks (`provenanceGroups`, `calculationView`,
+`line21Explanation`, `mortgageInterestExplanation`,
+`mortgageBorrowingExplanation`, `f1099kStatementExplanation`) are held by the
+snapshot, but no recorded list produces most of them; a milestone that touches
+one needs its own list (see the mortgage control in track1.md) and should state
+which blocks the run reached (`optional_blocks_reached` in the `run_full`
+summary).  Named blind spots, all of them narrower than the snapshot itself:
+
+* Order of hash-keyed list items.  Pins and graph edges that name a derived
+  finding sit in the order of the masked hashes, so their relative order is not
+  recorded as a sequence.  One boolean per list stands in for it: whether every
+  derived node's edges, and every page finding's pins, are in the (role, raw id)
+  order the page requires (`graph|edges-in-role-id-order`,
+  `page|pins-in-role-id-order`).
+* Dictionary key order is not recorded, except the keys of
+  `recordedApplicableClaims`, the one place the page renders it
+  (`recordedApplicableClaims@keys`).
+* Generated finding and act hashes, run ids and graph-node keys are aliased or
+  masked (see `_generated_aliases`).  Local paths are masked only in the
+  messages of failed lists (`failure_snapshot`), not in saved strings.
+* Unused expectations are reported (`unused_expectations`), not failed: a
+  declared change no list exercised cannot hide a difference but is not proof.
 """
 
 from __future__ import annotations
@@ -651,6 +677,9 @@ SNAPSHOT_FORMAT = "full-surface.v1"
 GENERATED_ID = re.compile(r"(?:finding:derived|act:publication):[0-9a-f]{24}")
 LOCAL_PATH = re.compile(r"/(?:Users|private|tmp|var|opt)/\S+")
 IDENTITY_KEYS = ("id", "siteId", "artifact_id", "symbol", "role", "target")
+OPTIONAL_BLOCKS = ("provenanceGroups", "calculationView", "line21Explanation", "mortgageInterestExplanation",
+                   "mortgageBorrowingExplanation", "f1099kStatementExplanation")
+KEY_ORDER_RENDERED = "recordedApplicableClaims"  # the one dictionary whose key order the page renders
 MODEL_KINDS = {"sections": "page", "attachments": "attachment", "explanationGraph": "graph"}
 
 
@@ -774,7 +803,7 @@ def _canonical(node: Any, final: dict[str, str], labels: dict[str, str], masks: 
         value = GENERATED_ID.sub(lambda m: final.get(m.group(0), m.group(0)), value)
         for mask in masks:
             value = value.replace(mask, "<run>")
-        return LOCAL_PATH.sub("<path>", value)
+        return value
 
     if isinstance(node, str):
         return text(node)
@@ -792,6 +821,8 @@ def _flatten(node: Any, kind: str, ident: str, rel: str, out: list[list[Any]]) -
             return
         for key, value in node.items():
             child = f"{rel}.{key}" if rel else str(key)
+            if key == KEY_ORDER_RENDERED and isinstance(value, dict):
+                out.append([kind, ident, f"{child}@keys", list(value)])
             if isinstance(value, dict) and value and isinstance(value.get("id"), str):
                 _flatten(value, kind, f"{ident}/{child}={value['id']}" if ident else f"{child}={value['id']}", "", out)
             else:
@@ -811,6 +842,38 @@ def _flatten(node: Any, kind: str, ident: str, rel: str, out: list[list[Any]]) -
         out.append([kind, ident, rel, node])
 
 
+def _role_id_order(pins: Any) -> bool:
+    """True when pins (or edges' pins) are in the (role, raw id) order the page requires."""
+    keys = [(p.get("role"), p.get("id")) for p in pins if isinstance(p, dict)]
+    try:
+        return keys == sorted(keys)  # type: ignore[type-var]
+    except TypeError:
+        return False
+
+
+def _order_invariants(model: dict[str, Any]) -> list[list[Any]]:
+    """Whether hash-keyed pins and edges are in the order the page requires.
+
+    Their relative order is not recorded as a sequence (the hashes are masked),
+    so one boolean per saved output stands in for it, taken before aliasing.
+    """
+    graph = model.get("explanationGraph")
+    nodes = graph.get("nodes") if isinstance(graph, dict) else None
+    edges_ok = all(
+        _role_id_order([e.get("pin") for e in node.get("edges") or [] if isinstance(e, dict)])
+        for node in (nodes.values() if isinstance(nodes, dict) else ())
+        if isinstance(node, dict) and node.get("kind") == "derived"
+    )
+    pins_ok = True
+    for section in model.get("sections") or []:
+        resolved = section.get("resolved") if isinstance(section, dict) else None
+        act = resolved.get("act") if isinstance(resolved, dict) else None
+        finding = act.get("finding") if isinstance(act, dict) else None
+        if isinstance(finding, dict) and isinstance(finding.get("pins"), list) and not _role_id_order(finding["pins"]):
+            pins_ok = False
+    return [["graph", "", "edges-in-role-id-order", edges_ok], ["page", "", "pins-in-role-id-order", pins_ok]]
+
+
 def snapshot(model: dict[str, Any], report: dict[str, Any]) -> dict[str, Any]:
     """Full-surface snapshot of one saved presentation model and report.
 
@@ -819,11 +882,12 @@ def snapshot(model: dict[str, Any], report: dict[str, Any]) -> dict[str, Any]:
     value, disposition, all text, reasons, questions, categorical render text),
     attachments, every explanation-graph node and edge, every other model key,
     and every report row with its full identity (kind "row") plus the
-    remaining report keys.  Nothing is selected by line.  Run ids, local paths
-    and generated finding/act hashes are masked or aliased (see
-    `_generated_aliases`), and the relative order of list items keyed by such
-    a hash (their order is the order of the masked hashes) is not recorded;
-    that is all it leaves out.
+    remaining report keys.  Nothing is selected by line.  Run ids and generated
+    finding/act hashes are masked or aliased (see `_generated_aliases`), and the
+    relative order of list items keyed by such a hash is replaced by one boolean
+    per output (`_order_invariants`).  Dictionary key order is not recorded
+    except for `recordedApplicableClaims`.  The module docstring names these
+    blind spots.
     """
     final, labels = _generated_aliases(model, report)
     masks = tuple(
@@ -842,7 +906,9 @@ def snapshot(model: dict[str, Any], report: dict[str, Any]) -> dict[str, Any]:
         _flatten(value, MODEL_KINDS.get(key, "model"), "", key, records)
     for key, value in canon_report.items():
         _flatten(value, "row" if key == "dispositions" else "report", "", key, records)
-    return {"format": SNAPSHOT_FORMAT, "outcome": "success", "records": records}
+    records.extend(_order_invariants(model))
+    blocks = [name for name in OPTIONAL_BLOCKS if name in model]
+    return {"format": SNAPSHOT_FORMAT, "outcome": "success", "blocks": blocks, "records": records}
 
 
 def failure_snapshot(outcome: str, error_class: str, message: str) -> dict[str, Any]:
@@ -932,6 +998,16 @@ class Expectation:
         return isinstance(self.after, _AnyType) or _same(self.after, diff["after"])
 
 
+def describe_expectation(spec: Expectation) -> dict[str, Any]:
+    """An expectation by identity: its note, kinds, attribute, identity, change and values."""
+    return {
+        "note": spec.note, "kind": list(spec.kind), "attribute": spec.attribute, "identity": spec.identity,
+        "change": spec.change,
+        "before": "ANY" if isinstance(spec.before, _AnyType) else spec.before,
+        "after": "ANY" if isinstance(spec.after, _AnyType) else spec.after,
+    }
+
+
 def _id_pattern(ident: str) -> str:
     return r"(?<![\w.-])" + re.escape(ident) + r"(?![\w.-])"
 
@@ -967,21 +1043,25 @@ def classify_full(
     """Classify two snapshots.  Strict: any difference not expected fails.
 
     Returns class "identical", "expected_changes" or "unexpected", with
-    `differences`, `expected_by_note` and the full `unexpected` list.
+    `differences`, `expected_by_note`, the indexes of the expectations that
+    matched something (`used`) and the full `unexpected` list.
     """
     specs = [e if isinstance(e, Expectation) else Expectation(**e) for e in expectations]
     diffs = diff_snapshots(left, right)
     expected_by_note: Counter[str] = Counter()
+    used: set[int] = set()
     unexpected: list[dict[str, Any]] = []
     for item in diffs:
-        for spec in specs:
+        for index, spec in enumerate(specs):
             if spec.matches(item):
                 expected_by_note[spec.note or spec.attribute] += 1
+                used.add(index)
                 break
         else:
             unexpected.append(item)
     cls = "identical" if not diffs else ("unexpected" if unexpected else "expected_changes")
-    return {"class": cls, "differences": len(diffs), "expected_by_note": dict(expected_by_note), "unexpected": unexpected}
+    return {"class": cls, "differences": len(diffs), "expected_by_note": dict(expected_by_note),
+            "used": sorted(used), "unexpected": unexpected}
 
 
 def saved_output(core: Any, acts: Acts, run_id: str) -> dict[str, Any]:
@@ -1043,6 +1123,7 @@ class FullSurfaceCompare:
         verdict["unexpected"] = unexpected[: self.max_unexpected]
         verdict["outcomes"] = [snap_a["outcome"], snap_b["outcome"]]
         verdict["records"] = [len(snap_a["records"]), len(snap_b["records"])]
+        verdict["blocks"] = sorted(set(snap_a.get("blocks", [])) | set(snap_b.get("blocks", [])))
         verdict["sha256"] = [snapshot_sha256(snap_a), snapshot_sha256(snap_b)]
         return verdict
 
@@ -1065,6 +1146,9 @@ def run_full(
     chosen = recorded_lists() if lists is None else lists
     results = replay(chosen, (core_a, core_b), FullSurfaceCompare(expectations), workers=workers, part=part)
     classes = Counter(row["class"] for row in results.values())
+    specs = [_as_expectation(e) for e in expectations]
+    used_anywhere = {index for row in results.values() for index in row.get("used", [])}
+    unused = [describe_expectation(spec) for index, spec in enumerate(specs) if index not in used_anywhere]
     by_attribute: dict[str, dict[str, Any]] = {}
     for key, row in results.items():
         for item in row["unexpected"]:
@@ -1085,6 +1169,11 @@ def run_full(
         "unexpected_by_kind_attribute": {
             name: {"lists": len(slot["lists"]), "samples": slot["samples"]} for name, slot in sorted(by_attribute.items())
         },
+        "expectations_declared": len(specs),
+        "expectations_used": len(specs) - len(unused),
+        "unused_expectations": unused,
+        "optional_blocks_reached": dict(sorted(sum(
+            (Counter(row.get("blocks", [])) for row in results.values()), Counter()).items())),
         "expected_by_note": dict(sorted(sum((Counter(row["expected_by_note"]) for row in results.values()), Counter()).items())),
         "outcomes": dict(sorted(Counter("/".join(row["outcomes"]) for row in results.values()).items())),
         "list_classes": {key: row["class"] for key, row in sorted(results.items())},
@@ -1122,6 +1211,16 @@ def _first_sentence_holder(model: dict[str, Any]) -> tuple[Any, Any] | None:
                             return first, field_name
                 elif isinstance(first, str):
                     return items, 0
+    return None
+
+
+def _first_explanation_note(model: dict[str, Any]) -> dict[str, Any] | None:
+    """The first resolved member with a `notes` text in an optional explanation block, if any."""
+    block = model.get("mortgageBorrowingExplanation")
+    chain = block.get("calculationChain") if isinstance(block, dict) else None
+    for member in (chain.get("resolvedContent") if isinstance(chain, dict) else None) or []:
+        if isinstance(member, dict) and isinstance(member.get("notes"), str) and isinstance(member.get("id"), str):
+            return member
     return None
 
 
@@ -1228,6 +1327,63 @@ def standard_controls(model: dict[str, Any], report: dict[str, Any]) -> dict[str
         target["field"]["label"] = after
         e["expectations"] = [text_change(target["field"]["id"], "label", before, after, note="demo planned sentence")]
         e["target"] = target["id"]
+
+    m, r, e = make("changed_graph_node_value")
+    nodes = (m.get("explanationGraph") or {}).get("nodes") or {}
+    shown = {
+        (x.get("resolved", {}).get("act") or {}).get("finding", {}).get("id")
+        for x in m.get("sections") or []
+    }
+    derived = [n for n in nodes.values() if isinstance(n, dict) and n.get("kind") == "derived"]
+    # prefer a worksheet finding no page field shows, so only the graph holds its value
+    graph_only = [n for n in derived if n.get("id") not in shown] or derived
+    if not graph_only:
+        e["available"] = False
+    else:
+        graph_only[0]["value"] = "demo.changed-graph-value"
+        e["target"] = graph_only[0].get("id")
+
+    m, r, e = make("changed_disposition_node")
+    disposition_nodes = m.get("dispositionNodes") or {}
+    holder = next((n for n in disposition_nodes.values() if isinstance(n, dict) and n.get("records")), None)
+    if holder is None:
+        e["available"] = False
+    else:
+        holder["records"][0]["disposition"] = "demo.changed-disposition"
+        e["target"] = holder.get("symbol")
+
+    m, r, e = make("changed_section_root")
+    roots = m.get("sectionRoots") or {}
+    if not roots:
+        e["available"] = False
+    else:
+        first = next(iter(roots))
+        roots[first]["root"] = "demo.changed-root"
+        e["target"] = first
+
+    m, r, e = make("changed_authorization")
+    if isinstance(m.get("authorization"), dict):
+        m["authorization"]["status"] = "demo.changed-status"
+    else:
+        e["available"] = False
+
+    m, r, e = make("changed_explanation_block_note")
+    member = _first_explanation_note(m)
+    if member is None:
+        e["available"] = False
+    else:
+        member["notes"] = member["notes"] + " demo.unplanned sentence"
+        e["target"] = member.get("id")
+
+    m, r, e = make("expected_explanation_block_note", must="accept")
+    member = _first_explanation_note(m)
+    if member is None:
+        e["available"] = False
+    else:
+        before = member["notes"]
+        member["notes"] = after = before + " (demo.planned sentence)"
+        e["expectations"] = [text_change(member["id"], "notes", before, after, note="demo planned note")]
+        e["target"] = member.get("id")
     return controls
 
 
@@ -1281,7 +1437,9 @@ def main() -> None:
     if args.subcommand == "full":
         expectations = json.loads(args.expect.read_text(encoding="utf-8")) if args.expect else []
         full = run_full(args.core_a, args.core_b, expectations, workers=args.workers, part=args.part, out=args.out)
-        print(json.dumps({k: full[k] for k in ("lists", "classes", "passing", "failing", "unexpected_differences")}, indent=2))
+        print(json.dumps({k: full[k] for k in (
+            "lists", "classes", "passing", "failing", "unexpected_differences",
+            "expectations_declared", "expectations_used", "unused_expectations", "optional_blocks_reached")}, indent=2))
     elif args.subcommand == "neighbour":
         summary = run_neighbour(
             args.core_a,
