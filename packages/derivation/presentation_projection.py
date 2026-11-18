@@ -34,7 +34,7 @@ import re
 import inspect
 import math
 from decimal import Decimal, InvalidOperation
-from typing import Any, Mapping, Sequence, cast
+from typing import Any, Callable, Mapping, Sequence, cast
 
 from packages.derivation.derived_enumeration import derived_activity_present, fact_type_matches_symbol
 from packages.derivation.explanation_graph import GraphBuilder, validate_graph, validate_output_schema
@@ -532,6 +532,20 @@ def _closure_question_reasons(
     extras: set[str] = set()
     meanings = constraint_meanings or {}
 
+    # Resolved members by id, with each member's own constraint meanings
+    # computed at most once, so ``meaning_for`` does not rescan every member.
+    members_by_id: dict[str, list[Mapping[str, Any]]] = {}
+    for member in resolved_members:
+        members_by_id.setdefault(str(member.get("id")), []).append(member)
+    owned_meanings: dict[int, Mapping[str, str]] = {}
+
+    def owned_by(member: Mapping[str, Any]) -> Mapping[str, str]:
+        found = owned_meanings.get(id(member))
+        if found is None:
+            found = _constraint_meanings([member])
+            owned_meanings[id(member)] = found
+        return found
+
     def meaning_for(current: Mapping[str, Any], key: str) -> str | None:
         """The blocking family's own wording when this row is its validation.
 
@@ -544,21 +558,51 @@ def _closure_question_reasons(
         marker = ".member-validation.synthesized"
         if artifact.endswith(marker):
             family_id = artifact[: -len(marker)]
-            for member in resolved_members:
-                if str(member.get("id")) != family_id:
-                    continue
-                owned = _constraint_meanings([member])
+            for member in members_by_id.get(family_id, ()):
+                owned = owned_by(member)
                 if key in owned:
                     return owned[key]
         return meanings.get(key)
 
+    # The walk memo. A walk of one blocked row is a function of the row and of
+    # ``seen`` only through the keys it examines: a key in ``seen`` is skipped,
+    # any other is explored. Every walk records, in a frame, what it adds to
+    # the three result sets, which keys it examined, and which of those it
+    # skipped as already seen. A walk that returned True and skipped nothing
+    # it was handed (no hit in its incoming ``seen``) gives the same answer
+    # and the same additions under any other ``seen`` that holds none of the
+    # keys it examined, so shared rows are walked once. A False walk ends the
+    # whole closure, so it is never reused. The memo lives only for this call.
+    root = _WalkFrame(families, facts, extras)
+    frames: list[_WalkFrame] = [root]
+    memo: dict[tuple[str, int], _WalkFrame] = {}
+
+    def memoized(name: str, walk: Callable[[Mapping[str, Any], frozenset[str]], bool]) -> Callable[[Mapping[str, Any], frozenset[str]], bool]:
+        def run(current: Mapping[str, Any], seen: frozenset[str]) -> bool:
+            slot = (name, id(current))
+            known = memo.get(slot)
+            if known is not None and seen.isdisjoint(known.examined):
+                frames[-1].absorb(known)
+                return True
+            frame = _WalkFrame()
+            frames.append(frame)
+            try:
+                result = walk(current, seen)
+            finally:
+                frames.pop()
+            frames[-1].absorb(frame)
+            if result and frame.hits.isdisjoint(seen):
+                memo[slot] = frame
+            return result
+        return run
+
     def explain(current: Mapping[str, Any], key: str) -> bool:
         sentence = meaning_for(current, key)
         if sentence:
-            extras.add(sentence)
+            frames[-1].extras.add(sentence)
             return True
         if refusal_sentence and refusal_token and key == refusal_token:
-            extras.add(refusal_sentence)
+            frames[-1].extras.add(refusal_sentence)
             return True
         return False
 
@@ -566,23 +610,26 @@ def _closure_question_reasons(
         missing = current.get("missing")
         if not isinstance(missing, list) or not missing:
             return False
+        frame = frames[-1]
         for entry in missing:
             key = str(entry)
+            frame.examined.add(key)
             if key in seen:
+                frame.hits.add(key)
                 continue
             if key in questions:
-                families.add(key)
+                frame.families.add(key)
                 continue
             if explain(current, key):
                 continue
             blocked = [r for r in by_symbol.get(key, []) if r.get("disposition") == "blocked"]
             if blocked:
-                if not all(reach_mixed(r, seen | {key}) for r in blocked):
+                if not all(walk_mixed(r, seen | {key}) for r in blocked):
                     return False
                 continue
             bound = (symbol_fact_types or {}).get(key, key)
             if bound in input_questions:
-                facts.add(bound)
+                frame.facts.add(bound)
                 continue
             # The later arm of a blocked count is recorded on this same
             # SOURCE_SET_UNCLOSED row. When that ref is not itself a question,
@@ -592,21 +639,22 @@ def _closure_question_reasons(
             return False
         return True
 
-    def reach(current: Mapping[str, Any], seen: frozenset[str]) -> bool:
-        if later_any_arm_refs:
-            return reach_mixed(current, seen)
+    def reach_plain(current: Mapping[str, Any], seen: frozenset[str]) -> bool:
+        frame = frames[-1]
         if current.get("code") == "SOURCE_SET_UNCLOSED":
             missing = current.get("missing")
             if not isinstance(missing, list) or not missing:
                 return False
-            families.update(str(family) for family in missing)
+            frame.families.update(str(family) for family in missing)
             return True
         missing = current.get("missing")
         if not isinstance(missing, list) or not missing:
             return False
         for symbol in missing:
             key = str(symbol)
+            frame.examined.add(key)
             if key in seen:
+                frame.hits.add(key)
                 continue
             if explain(current, key):
                 continue
@@ -614,12 +662,20 @@ def _closure_question_reasons(
             if not blocked:
                 bound = (symbol_fact_types or {}).get(key, key)
                 if current.get("code") == "DEPENDENCY_ABSENT" and bound in input_questions:
-                    facts.add(bound)
+                    frame.facts.add(bound)
                     continue
                 return False
-            if not all(reach(r, seen | {key}) for r in blocked):
+            if not all(walk_plain(r, seen | {key}) for r in blocked):
                 return False
         return True
+
+    walk_mixed = memoized("mixed", reach_mixed)
+    walk_plain = memoized("plain", reach_plain)
+
+    def reach(current: Mapping[str, Any], seen: frozenset[str]) -> bool:
+        if later_any_arm_refs:
+            return walk_mixed(current, seen)
+        return walk_plain(current, seen)
 
     if (not reach(row, frozenset()) or not (families or facts or extras)
             or any(family not in questions for family in families)):
@@ -639,6 +695,31 @@ def _closure_question_reasons(
     ):
         reasons = [{"sentence": refusal_sentence}, *reasons]
     return reasons
+
+
+class _WalkFrame:
+    """What one closure walk added, examined and skipped (see the walk memo)."""
+
+    __slots__ = ("families", "facts", "extras", "examined", "hits")
+
+    def __init__(
+        self,
+        families: set[str] | None = None,
+        facts: set[str] | None = None,
+        extras: set[str] | None = None,
+    ) -> None:
+        self.families: set[str] = set() if families is None else families
+        self.facts: set[str] = set() if facts is None else facts
+        self.extras: set[str] = set() if extras is None else extras
+        self.examined: set[str] = set()
+        self.hits: set[str] = set()
+
+    def absorb(self, other: "_WalkFrame") -> None:
+        self.families |= other.families
+        self.facts |= other.facts
+        self.extras |= other.extras
+        self.examined |= other.examined
+        self.hits |= other.hits
 
 
 def _reasons_beside(
