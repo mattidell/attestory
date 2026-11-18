@@ -1,0 +1,268 @@
+{
+ "core": "v96",
+ "outputs": {
+  "recorded": {
+   "records": 22144,
+   "page_fields": 86,
+   "report_rows": 323
+  },
+  "wage": {
+   "records": 29987,
+   "page_fields": 86,
+   "report_rows": 315
+  }
+ },
+ "recorded_list": "v83/returns/case/a_duplicate_on_direct/recorded",
+ "second_snapshot_identical": true,
+ "controls": {
+  "changed_field_value": {
+   "judged_on": [
+    "recorded",
+    "wage"
+   ],
+   "ok": true,
+   "per_output": {
+    "recorded": {
+     "available": true,
+     "target": "line-eic-a-1",
+     "must": "reject",
+     "class": "unexpected",
+     "differences": 1,
+     "ok": true
+    },
+    "wage": {
+     "available": true,
+     "target": "line-12e",
+     "must": "reject",
+     "class": "unexpected",
+     "differences": 1,
+     "ok": true
+    }
+   }
+  },
+  "changed_line_12e_value": {
+   "judged_on": [
+    "wage"
+   ],
+   "ok": true,
+   "per_output": {
+    "wage": {
+     "available": true,
+     "target": "line-12e",
+     "must": "reject",
+     "class": "unexpected",
+     "differences": 1,
+     "ok": true
+    }
+   }
+  },
+  "changed_unwatched_row_code": {
+   "judged_on": [
+    "recorded",
+    "wage"
+   ],
+   "ok": true,
+   "per_output": {
+    "recorded": {
+     "available": true,
+     "target": "tax.us.2025.rule.interest.nominee-reduction",
+     "must": "reject",
+     "class": "unexpected",
+     "differences": 1,
+     "ok": true
+    },
+    "wage": {
+     "available": true,
+     "target": "tax.us.2025.rule.interest.nominee-reduction",
+     "must": "reject",
+     "class": "unexpected",
+     "differences": 1,
+     "ok": true
+    }
+   }
+  },
+  "removed_field": {
+   "judged_on": [
+    "recorded",
+    "wage"
+   ],
+   "ok": true,
+   "per_output": {
+    "recorded": {
+     "available": true,
+     "target": "line-Sch3-8",
+     "must": "reject",
+     "class": "unexpected",
+     "differences": 30,
+     "ok": true
+    },
+    "wage": {
+     "available": true,
+     "target": "line-Sch3-8",
+     "must": "reject",
+     "class": "unexpected",
+     "differences": 241,
+     "ok": true
+    }
+   }
+  },
+  "added_field": {
+   "judged_on": [
+    "recorded",
+    "wage"
+   ],
+   "ok": true,
+   "per_output": {
+    "recorded": {
+     "available": true,
+     "target": null,
+     "must": "reject",
+     "class": "unexpected",
+     "differences": 57,
+     "ok": true
+    },
+    "wage": {
+     "available": true,
+     "target": null,
+     "must": "reject",
+     "class": "unexpected",
+     "differences": 57,
+     "ok": true
+    }
+   }
+  },
+  "changed_page_disposition": {
+   "judged_on": [
+    "recorded",
+    "wage"
+   ],
+   "ok": true,
+   "per_output": {
+    "recorded": {
+     "available": true,
+     "target": "line-12e",
+     "must": "reject",
+     "class": "unexpected",
+     "differences": 1,
+     "ok": true
+    },
+    "wage": {
+     "available": true,
+     "target": "line-12e",
+     "must": "reject",
+     "class": "unexpected",
+     "differences": 1,
+     "ok": true
+    }
+   }
+  },
+  "changed_row_disposition": {
+   "judged_on": [
+    "recorded",
+    "wage"
+   ],
+   "ok": true,
+   "per_output": {
+    "recorded": {
+     "available": true,
+     "target": null,
+     "must": "reject",
+     "class": "unexpected",
+     "differences": 1,
+     "ok": true
+    },
+    "wage": {
+     "available": true,
+     "target": null,
+     "must": "reject",
+     "class": "unexpected",
+     "differences": 1,
+     "ok": true
+    }
+   }
+  },
+  "changed_missing_name": {
+   "judged_on": [
+    "recorded"
+   ],
+   "ok": true,
+   "per_output": {
+    "recorded": {
+     "available": true,
+     "target": null,
+     "must": "reject",
+     "class": "unexpected",
+     "differences": 1,
+     "ok": true
+    }
+   }
+  },
+  "changed_question": {
+   "judged_on": [
+    "recorded"
+   ],
+   "ok": true,
+   "per_output": {
+    "recorded": {
+     "available": true,
+     "target": null,
+     "must": "reject",
+     "class": "unexpected",
+     "differences": 1,
+     "ok": true
+    }
+   }
+  },
+  "unexpected_sentence": {
+   "judged_on": [
+    "recorded",
+    "wage"
+   ],
+   "ok": true,
+   "per_output": {
+    "recorded": {
+     "available": true,
+     "target": "line-12e",
+     "must": "reject",
+     "class": "unexpected",
+     "differences": 1,
+     "ok": true
+    },
+    "wage": {
+     "available": true,
+     "target": "line-12e",
+     "must": "reject",
+     "class": "unexpected",
+     "differences": 1,
+     "ok": true
+    }
+   }
+  },
+  "expected_sentence": {
+   "judged_on": [
+    "recorded",
+    "wage"
+   ],
+   "ok": true,
+   "per_output": {
+    "recorded": {
+     "available": true,
+     "target": "line-12e",
+     "must": "accept",
+     "class": "expected_changes",
+     "differences": 1,
+     "ok": true
+    },
+    "wage": {
+     "available": true,
+     "target": "line-12e",
+     "must": "accept",
+     "class": "expected_changes",
+     "differences": 1,
+     "ok": true
+    }
+   }
+  }
+ },
+ "all_ok": true
+}
