@@ -1,0 +1,44 @@
+{
+ "citizen_checksum_calls_by_caller": {
+  "derivation/package_validation.py:validate_package": 422,
+  "derivation/production_resolver.py:<genexpr>": 422,
+  "derivation/production_resolver.py:checksum": 1719
+ },
+ "distinct_files_read": 1813,
+ "json_candidates_calls_by_caller": {
+  "derivation/production_resolver.py:_resolve_member_corpus": 1,
+  "derivation/production_resolver.py:resolve_production_package": 1
+ },
+ "json_loads_in_production_resolver_by_function": {
+  "_read_member": 1813,
+  "_verify_release_and_registry": 57
+ },
+ "label": "after-cold",
+ "load_json_calls": 0,
+ "member_cache": "cold at start",
+ "member_dir_reads_total": 3630,
+ "read_callers": {
+  "": 1,
+  "derivation/package_validation.py:load_published_citizen_checksums < derivation/production_resolver.py:resolve_production_package < derivation/live.py:live_coordinate_run": 1,
+  "derivation/package_validation.py:load_published_package_checksums < derivation/production_resolver.py:resolve_production_package < derivation/live.py:live_coordinate_run": 1,
+  "derivation/production_resolver.py:_read_member < derivation/production_resolver.py:_member_candidates < derivation/production_resolver.py:_resolve_member_corpus": 1813,
+  "derivation/production_resolver.py:_read_member < derivation/production_resolver.py:_member_candidates < derivation/production_resolver.py:resolve_production_package": 1813,
+  "derivation/production_resolver.py:_verify_release_and_registry < derivation/production_resolver.py:resolve_production_package < derivation/live.py:live_coordinate_run": 1
+ },
+ "reads_per_file_histogram": {
+  "2": 1811,
+  "3": 1,
+  "5": 1
+ },
+ "run": {
+  "acts": 268,
+  "assertions": 130,
+  "bundle_adoptions": 36,
+  "distinct_asserted_facts": 129,
+  "record_and_check_s": 3.996,
+  "run_v42_s": 0.831,
+  "test": "tests/test_sli_track1_combined_standing.py::CoverDetail::test_case_K13",
+  "total_s": 4.827
+ },
+ "workload": "k13"
+}

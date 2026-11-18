@@ -1,0 +1,53 @@
+{
+ "citizen_checksum_calls_by_caller": {
+  "derivation/package_validation.py:validate_package": 1053,
+  "derivation/production_resolver.py:<genexpr>": 2106,
+  "derivation/production_resolver.py:checksum": 1719
+ },
+ "distinct_files_read": 1813,
+ "json_candidates_calls_by_caller": {
+  "derivation/production_resolver.py:_resolve_member_corpus": 2,
+  "derivation/production_resolver.py:resolve_production_package": 2
+ },
+ "json_loads_in_production_resolver_by_function": {
+  "_read_member": 1813,
+  "_verify_release_and_registry": 114
+ },
+ "label": "after-cold",
+ "list": "v81/case/m_8949_no_ic3_yes_q3_no",
+ "load_json_calls": 0,
+ "member_cache": "cold at start",
+ "member_dir_reads_total": 7259,
+ "read_callers": {
+  "": 1,
+  "derivation/package_validation.py:load_published_citizen_checksums < derivation/production_resolver.py:resolve_production_package < derivation/live.py:live_coordinate_run": 1,
+  "derivation/package_validation.py:load_published_citizen_checksums < derivation/production_resolver.py:resolve_production_package < tax/ssa_family_handover.py:ssa_family_version_for_acts": 1,
+  "derivation/package_validation.py:load_published_package_checksums < derivation/production_resolver.py:resolve_production_package < derivation/live.py:live_coordinate_run": 1,
+  "derivation/package_validation.py:load_published_package_checksums < derivation/production_resolver.py:resolve_production_package < tax/ssa_family_handover.py:ssa_family_version_for_acts": 1,
+  "derivation/production_resolver.py:_read_member < derivation/production_resolver.py:_member_candidates < derivation/production_resolver.py:_resolve_member_corpus": 3626,
+  "derivation/production_resolver.py:_read_member < derivation/production_resolver.py:_member_candidates < derivation/production_resolver.py:resolve_production_package": 3626,
+  "derivation/production_resolver.py:_verify_release_and_registry < derivation/production_resolver.py:resolve_production_package < derivation/live.py:live_coordinate_run": 1,
+  "derivation/production_resolver.py:_verify_release_and_registry < derivation/production_resolver.py:resolve_production_package < tax/ssa_family_handover.py:ssa_family_version_for_acts": 1
+ },
+ "reads_per_file_histogram": {
+  "10": 1,
+  "4": 1811,
+  "5": 1
+ },
+ "run": {
+  "acts": 334,
+  "assertions": 181,
+  "bundle_adoptions": 70,
+  "distinct_asserted_facts": 181,
+  "outcome": "success",
+  "page_bytes": 691757,
+  "pin_sha256": "5da4e93a4baf35a8992188f589da73ffed56b3432f3559ca99a8d3c13ebf316d",
+  "prep_s": 0.924,
+  "publications": 208,
+  "render_s": 0.019,
+  "rows": 315,
+  "run_s": 0.904,
+  "total_s": 1.852
+ },
+ "workload": "median"
+}

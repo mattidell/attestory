@@ -23,6 +23,7 @@ import json
 from collections import OrderedDict
 from dataclasses import dataclass
 from pathlib import Path
+from types import MappingProxyType
 from typing import Any, Mapping, Sequence
 
 from packages.derivation.loader import DerivationSchemas
@@ -86,13 +87,6 @@ class PublicationSurface:
 
 def _sha256_bytes(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
-
-
-def _load_json(path: Path) -> dict[str, Any]:
-    loaded = json.loads(path.read_text("utf-8"))
-    if not isinstance(loaded, dict):
-        raise ValueError("JSON document must be an object")
-    return loaded
 
 
 # Validation memo (Track 1, rust-kernel-experiment). ``validate_package`` is a
@@ -163,8 +157,101 @@ def _validate_once(
     return validation
 
 
-def _json_candidates(directory: Path) -> tuple[dict[str, Any], ...]:
-    """Return parseable object candidates in a deterministic order.
+# Member-file cache (member-reads-once). A replay lists the publication
+# surface's member directory several times (two resolutions, two callers
+# each), and every listing parsed and canonically checksummed every file. The
+# cache is keyed on the bytes this call read, never on a path, size or
+# modification time: ``_member_candidates`` reads each file, hashes those
+# bytes, and reuses the parse and the canonical checksum only for an entry of
+# the same SHA-256. A file edited between calls therefore re-parses, and a
+# cache hit can only serve a parse of bytes it has just seen. Entries are
+# shared and never handed out: callers get a read-only top-level view for
+# inspection and a private copy (``body()``) for anything they keep. The cache
+# lives in this module for the life of the process, keeps the last
+# ``_MEMBER_CACHE_LIMIT`` distinct contents (about twice the published
+# member corpus, which must fit or a sequential scan thrashes), and
+# ``clear_member_cache`` empties it.
+_MEMBER_CACHE_LIMIT = 4096
+_MEMBER_CACHE: "OrderedDict[str, _MemberEntry]" = OrderedDict()
+
+
+def clear_member_cache() -> None:
+    """Forget every cached member-file parse and checksum."""
+    _MEMBER_CACHE.clear()
+
+
+def _copy_json(value: Any) -> Any:
+    """A private deep copy of a parsed JSON value (dict, list, scalars only)."""
+    kind = type(value)
+    if kind is dict:
+        return {key: _copy_json(item) for key, item in value.items()}
+    if kind is list:
+        return [_copy_json(item) for item in value]
+    return value
+
+
+class _MemberEntry:
+    """One distinct file content: its parse and (lazily) its canonical checksum."""
+
+    __slots__ = ("_body", "view", "_checksum")
+
+    def __init__(self, body: dict[str, Any]) -> None:
+        self._body = body
+        self.view: Mapping[str, Any] = MappingProxyType(body)
+        self._checksum: str | None = None
+
+    def checksum(self) -> str:
+        if self._checksum is None:
+            self._checksum = citizen_checksum(self._body)
+        return self._checksum
+
+    def body(self) -> dict[str, Any]:
+        return _copy_json(self._body)  # type: ignore[no-any-return]
+
+
+@dataclass(frozen=True)
+class MemberCandidate:
+    """A parseable object file on a surface.
+
+    ``view`` is a read-only top-level mapping over a parse shared with other
+    callers: read scalar fields from it, never keep it or anything nested in
+    it. ``body()`` returns a private copy a caller may keep or mutate.
+    ``checksum()`` is the canonical citizen checksum of the parse.
+    """
+
+    _entry: _MemberEntry
+
+    @property
+    def view(self) -> Mapping[str, Any]:
+        return self._entry.view
+
+    def checksum(self) -> str:
+        return self._entry.checksum()
+
+    def body(self) -> dict[str, Any]:
+        return self._entry.body()
+
+
+def _read_member(path: Path) -> _MemberEntry:
+    """Parse ``path`` (strict UTF-8, one JSON object), reusing a parse of identical bytes."""
+    raw = path.read_bytes()
+    key = hashlib.sha256(raw).hexdigest()
+    entry = _MEMBER_CACHE.get(key)
+    if entry is not None:
+        _MEMBER_CACHE.move_to_end(key)
+        return entry
+    loaded = json.loads(raw.decode("utf-8"))
+    if not isinstance(loaded, dict):
+        raise ValueError("JSON document must be an object")
+    entry = _MemberEntry(loaded)
+    _MEMBER_CACHE[key] = entry
+    while len(_MEMBER_CACHE) > _MEMBER_CACHE_LIMIT:
+        _MEMBER_CACHE.popitem(last=False)
+    return entry
+
+
+def _member_candidates(directory: Path) -> tuple[MemberCandidate, ...]:
+    """Parseable object candidates in a deterministic order, parsed once per content.
 
     A publication surface is allowed to have unrelated or malformed co-located
     files.  They cannot become authority merely by being present, so callers
@@ -174,13 +261,18 @@ def _json_candidates(directory: Path) -> tuple[dict[str, Any], ...]:
         paths = sorted(directory.rglob("*.json"))
     except OSError:
         return ()
-    candidates: list[dict[str, Any]] = []
+    candidates: list[MemberCandidate] = []
     for path in paths:
         try:
-            candidates.append(_load_json(path))
+            candidates.append(MemberCandidate(_read_member(path)))
         except (OSError, UnicodeDecodeError, ValueError, json.JSONDecodeError):
             continue
     return tuple(candidates)
+
+
+def _json_candidates(directory: Path) -> tuple[dict[str, Any], ...]:
+    """The candidates as private, freely mutable bodies (the uncached contract)."""
+    return tuple(candidate.body() for candidate in _member_candidates(directory))
 
 
 # --- Decision 1: release-rooted, current-user adoption ----------------------
@@ -414,14 +506,13 @@ def _resolve_member_corpus(
     order). Co-located unpinned files are never candidates for any key.
     """
     # Index candidate bodies by (id, version) -> set of distinct canonical checksums.
-    by_key: dict[tuple[str, str], dict[str, dict[str, Any]]] = {}
-    for body in _json_candidates(surface.member_dir):
-        cid = body.get("id")
+    by_key: dict[tuple[str, str], dict[str, MemberCandidate]] = {}
+    for candidate in _member_candidates(surface.member_dir):
+        cid = candidate.view.get("id")
         if not isinstance(cid, str):
             continue
-        key = (cid, str(body.get("version", "v1")))
-        digest = citizen_checksum(body)
-        by_key.setdefault(key, {})[digest] = body
+        key = (cid, str(candidate.view.get("version", "v1")))
+        by_key.setdefault(key, {})[candidate.checksum()] = candidate
 
     corpus: dict[tuple[str, str], dict[str, Any]] = {}
     for pin in package.get("members", []):
@@ -429,12 +520,12 @@ def _resolve_member_corpus(
         expected = citizen_checksums.get(key)
         if expected is None:
             return Refusal("MEMBER_UNPUBLISHED", f"member {key[0]}@{key[1]} not in verified registry")
-        matches = [body for digest, body in by_key.get(key, {}).items() if digest == expected]
+        matches = [found for digest, found in by_key.get(key, {}).items() if digest == expected]
         if not matches:
             return Refusal("MEMBER_ABSENT_OR_MISMATCH", f"no verified body for member {key[0]}@{key[1]}")
         if len(matches) > 1:  # pragma: no cover - identical digests dedupe in the dict
             return Refusal("MEMBER_AMBIGUOUS", f"ambiguous verified bodies for member {key[0]}@{key[1]}")
-        corpus[key] = matches[0]
+        corpus[key] = matches[0].body()
     return corpus
 
 
@@ -481,9 +572,11 @@ def resolve_production_package(
     # against the adoption pin and the verified registry (no self-checksum evasion).
     pkg_pin = payload["package"]
     matching_packages: dict[str, dict[str, Any]] = {}
-    for body in _json_candidates(surface.member_dir):
-        if body.get("id") != pkg_pin["id"] or str(body.get("version", "")) != pkg_pin["version"]:
+    for candidate in _member_candidates(surface.member_dir):
+        seen = candidate.view
+        if seen.get("id") != pkg_pin["id"] or str(seen.get("version", "")) != pkg_pin["version"]:
             continue
+        body = candidate.body()
         try:
             digest = package_instance_checksum(body)
         except (TypeError, ValueError):

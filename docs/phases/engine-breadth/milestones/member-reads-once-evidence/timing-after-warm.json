@@ -1,0 +1,3125 @@
+{
+ "label": "after-warm",
+ "lists": 775,
+ "median_key": "v83/returns/neighbour/n_covered_lt_zero_proceeds/recorded",
+ "mode": "warm",
+ "outcomes": {
+  "error": 84,
+  "refused": 0,
+  "success": 691
+ },
+ "per_list": {
+  "v81/case/a_8949_yes": [
+   "success",
+   3.3137
+  ],
+  "v81/case/a_adjustment_row_missing": [
+   "success",
+   3.4648
+  ],
+  "v81/case/a_basis_row_missing": [
+   "success",
+   3.4176
+  ],
+  "v81/case/a_bw": [
+   "success",
+   3.5485
+  ],
+  "v81/case/a_corrected_basis_missing": [
+   "error",
+   1.5272
+  ],
+  "v81/case/a_duplicate_on_direct": [
+   "success",
+   3.6611
+  ],
+  "v81/case/a_g_disagrees": [
+   "success",
+   3.6384
+  ],
+  "v81/case/a_gain_to_loss": [
+   "success",
+   3.6349
+  ],
+  "v81/case/a_high": [
+   "success",
+   3.4486
+  ],
+  "v81/case/a_high_and_w_row": [
+   "error",
+   1.44
+  ],
+  "v81/case/a_holding_mismatch": [
+   "success",
+   3.2804
+  ],
+  "v81/case/a_ic3_no": [
+   "success",
+   3.1243
+  ],
+  "v81/case/a_ic3_unanswered": [
+   "success",
+   3.3037
+  ],
+  "v81/case/a_no_correction": [
+   "success",
+   3.2518
+  ],
+  "v81/case/a_path_b_unanswered": [
+   "success",
+   3.3275
+  ],
+  "v81/case/a_proceeds_row_missing": [
+   "success",
+   3.2939
+  ],
+  "v81/case/a_q3_no_with_member": [
+   "success",
+   3.1153
+  ],
+  "v81/case/a_same_sale_both_terms": [
+   "success",
+   3.0926
+  ],
+  "v81/case/a_w_exceeds_corrected_loss": [
+   "success",
+   3.4127
+  ],
+  "v81/case/a_w_on_gain_after_correction": [
+   "success",
+   3.3556
+  ],
+  "v81/case/b_code_b_ic3": [
+   "success",
+   3.5237
+  ],
+  "v81/case/b_code_b_v80_route": [
+   "success",
+   3.5793
+  ],
+  "v81/case/d_bw": [
+   "success",
+   3.5074
+  ],
+  "v81/case/d_low": [
+   "success",
+   3.49
+  ],
+  "v81/case/late_member_after_no": [
+   "success",
+   3.4855
+  ],
+  "v81/case/late_member_reanswered_yes": [
+   "success",
+   3.4652
+  ],
+  "v81/case/m_8949_no_ic3_yes_q3_no": [
+   "success",
+   3.4671
+  ],
+  "v81/case/m_a_and_b": [
+   "success",
+   3.4513
+  ],
+  "v81/case/m_a_and_b_q1_no": [
+   "success",
+   3.4586
+  ],
+  "v81/case/m_a_c_ic3_no_v80_ic_yes": [
+   "success",
+   3.3029
+  ],
+  "v81/case/m_a_c_ic3_unanswered_v80_ic_yes": [
+   "success",
+   3.456
+  ],
+  "v81/case/m_a_c_ic3_yes_v80_ic_no": [
+   "success",
+   3.4838
+  ],
+  "v81/case/m_a_c_ic3_yes_v80_ic_yes": [
+   "success",
+   3.2137
+  ],
+  "v81/case/m_a_q3_no_v80_ic_yes": [
+   "success",
+   3.2626
+  ],
+  "v81/case/m_a_v79_ic_only": [
+   "success",
+   3.3683
+  ],
+  "v81/case/m_a_v80_ic_only": [
+   "success",
+   3.0581
+  ],
+  "v81/case/m_d_and_e": [
+   "success",
+   3.481
+  ],
+  "v81/case/m_d_ic3_no": [
+   "success",
+   3.1797
+  ],
+  "v81/case/m_d_q3_no_with_member": [
+   "success",
+   3.1606
+  ],
+  "v81/case/m_q3_yes_nothing_8949_yes": [
+   "success",
+   3.8994
+  ],
+  "v81/case/m_q3_yes_nothing_beside_b": [
+   "success",
+   3.6376
+  ],
+  "v81/case/m_q3_yes_nothing_beside_c": [
+   "success",
+   3.5428
+  ],
+  "v81/case/m_q3_yes_nothing_beside_direct": [
+   "error",
+   1.6631
+  ],
+  "v81/case/m_q3_yes_nothing_beside_w": [
+   "error",
+   1.5615
+  ],
+  "v81/case/mixed_a_d_c_direct": [
+   "error",
+   1.6793
+  ],
+  "v81/case/q3_yes_nothing_recorded": [
+   "success",
+   3.1778
+  ],
+  "v81/case/t1_stage1": [
+   "success",
+   3.1576
+  ],
+  "v81/case/t1_stage2": [
+   "success",
+   3.3062
+  ],
+  "v81/case/t1_stage3": [
+   "success",
+   3.289
+  ],
+  "v81/case/t1_stage4": [
+   "success",
+   3.2994
+  ],
+  "v81/case/t2_stage0": [
+   "error",
+   1.2791
+  ],
+  "v81/case/t2_stage1": [
+   "error",
+   1.2749
+  ],
+  "v81/case/t2_stage2": [
+   "error",
+   1.3732
+  ],
+  "v81/case/t2_stage3": [
+   "error",
+   1.3496
+  ],
+  "v81/case/t2_stage4": [
+   "error",
+   1.1753
+  ],
+  "v81/case/t2_stage4_keep_covered": [
+   "error",
+   1.4701
+  ],
+  "v81/case/t3_stage0": [
+   "error",
+   1.3963
+  ],
+  "v81/case/t3_stage1": [
+   "error",
+   1.4957
+  ],
+  "v81/case/t3_stage2": [
+   "error",
+   1.4582
+  ],
+  "v81/case/t3_stage3": [
+   "error",
+   1.5288
+  ],
+  "v81/case/wage_q3_no": [
+   "success",
+   3.2875
+  ],
+  "v81/case/x_a_gain_d_loss": [
+   "success",
+   4.1144
+  ],
+  "v81/case/x_a_loss_d_gain": [
+   "success",
+   3.5465
+  ],
+  "v81/case/x_a_loss_to_gain": [
+   "success",
+   3.4781
+  ],
+  "v81/case/x_basis_row_is_corrected": [
+   "success",
+   3.2574
+  ],
+  "v81/case/x_bw_g_omits_w": [
+   "success",
+   3.3752
+  ],
+  "v81/case/x_bw_w_equals_correct_loss": [
+   "success",
+   3.3834
+  ],
+  "v81/case/x_bw_w_exceeds_correct_loss_within_shown": [
+   "success",
+   3.3433
+  ],
+  "v81/case/x_corrected_basis_changed_g_fixed": [
+   "success",
+   3.2785
+  ],
+  "v81/case/x_corrected_basis_changed_g_stale": [
+   "success",
+   3.1409
+  ],
+  "v81/case/x_d_adjustment_row_missing": [
+   "success",
+   3.1576
+  ],
+  "v81/case/x_d_basis_row_missing": [
+   "success",
+   3.1456
+  ],
+  "v81/case/x_d_bw_w_exceeds_correct_loss": [
+   "success",
+   3.255
+  ],
+  "v81/case/x_d_gain_to_loss": [
+   "success",
+   3.4355
+  ],
+  "v81/case/x_d_holding_mismatch": [
+   "success",
+   3.2041
+  ],
+  "v81/case/x_d_loss_to_gain": [
+   "success",
+   3.3402
+  ],
+  "v81/case/x_d_proceeds_row_missing": [
+   "success",
+   3.3934
+  ],
+  "v81/case/x_d_zero_proceeds_zero_shown": [
+   "success",
+   3.4931
+  ],
+  "v81/case/x_dup_box_c_ic3_no": [
+   "success",
+   3.4261
+  ],
+  "v81/case/x_dup_box_c_ic3_yes": [
+   "success",
+   3.5027
+  ],
+  "v81/case/x_dup_covered_lt": [
+   "error",
+   1.4937
+  ],
+  "v81/case/x_dup_covered_st": [
+   "error",
+   1.4288
+  ],
+  "v81/case/x_dup_covered_w_lt": [
+   "error",
+   1.567
+  ],
+  "v81/case/x_dup_covered_w_st": [
+   "error",
+   1.4943
+  ],
+  "v81/case/x_dup_noncovered_lt": [
+   "success",
+   3.4096
+  ],
+  "v81/case/x_dup_noncovered_st": [
+   "success",
+   3.4218
+  ],
+  "v81/case/x_g_sign_flipped": [
+   "success",
+   3.4801
+  ],
+  "v81/case/x_no_correction_with_w": [
+   "success",
+   3.2825
+  ],
+  "v81/case/x_path_b_yes": [
+   "success",
+   3.2096
+  ],
+  "v81/case/x_q3_no_late_both_terms": [
+   "success",
+   3.2919
+  ],
+  "v81/case/x_q3_no_late_both_terms_reanswered": [
+   "success",
+   3.3364
+  ],
+  "v81/case/x_q3_yes_late_member": [
+   "success",
+   3.4265
+  ],
+  "v81/case/x_q3_yes_late_member_reanswered": [
+   "success",
+   3.2455
+  ],
+  "v81/case/x_shared_transaction_complete": [
+   "success",
+   3.4825
+  ],
+  "v81/case/x_shared_transaction_missing_g": [
+   "success",
+   3.5151
+  ],
+  "v81/case/x_zero_proceeds_zero_shown": [
+   "success",
+   3.3991
+  ],
+  "v81/neighbour/n_b_zero_proceeds": [
+   "success",
+   3.479
+  ],
+  "v81/neighbour/n_b_zero_proceeds_zero_basis": [
+   "success",
+   3.4324
+  ],
+  "v81/neighbour/n_covered_lt_collectibles_yes": [
+   "error",
+   1.5438
+  ],
+  "v81/neighbour/n_covered_lt_market_discount_yes": [
+   "error",
+   1.6725
+  ],
+  "v81/neighbour/n_covered_lt_qof_yes": [
+   "error",
+   1.4528
+  ],
+  "v81/neighbour/n_covered_lt_tsa_yes": [
+   "error",
+   1.6471
+  ],
+  "v81/neighbour/n_covered_lt_zero_proceeds": [
+   "error",
+   1.4093
+  ],
+  "v81/neighbour/n_covered_st_ordinary_yes": [
+   "error",
+   1.5623
+  ],
+  "v81/neighbour/n_covered_st_zero_proceeds": [
+   "error",
+   1.501
+  ],
+  "v81/neighbour/n_covered_st_zero_proceeds_zero_basis": [
+   "error",
+   1.3306
+  ],
+  "v81/neighbour/n_covered_tsa_no": [
+   "error",
+   1.429
+  ],
+  "v81/neighbour/n_covered_tsa_yes_no8949": [
+   "error",
+   1.3194
+  ],
+  "v81/neighbour/n_dup_b_and_covered_lt": [
+   "error",
+   1.367
+  ],
+  "v81/neighbour/n_dup_b_and_e": [
+   "success",
+   2.98
+  ],
+  "v81/neighbour/n_dup_covered_st_and_covered_lt": [
+   "error",
+   1.3726
+  ],
+  "v81/neighbour/n_dup_covered_st_and_w_lt": [
+   "error",
+   1.4682
+  ],
+  "v81/neighbour/n_dup_e_and_covered_st": [
+   "error",
+   1.474
+  ],
+  "v81/neighbour/n_dup_w_st_and_covered_lt": [
+   "error",
+   1.3875
+  ],
+  "v81/neighbour/n_dup_w_st_and_w_lt": [
+   "error",
+   1.2954
+  ],
+  "v81/neighbour/n_e_zero_proceeds": [
+   "success",
+   2.7173
+  ],
+  "v81/neighbour/n_two_b_and_covered_lt": [
+   "error",
+   1.4218
+  ],
+  "v81/neighbour/n_two_covered_st_and_covered_lt": [
+   "error",
+   1.2329
+  ],
+  "v81/neighbour/n_two_w_st_and_w_lt": [
+   "error",
+   1.0936
+  ],
+  "v81/neighbour/n_w_lt_collectibles_yes": [
+   "error",
+   0.9927
+  ],
+  "v81/neighbour/n_w_lt_zero_proceeds": [
+   "error",
+   1.0539
+  ],
+  "v81/neighbour/n_w_st_tsa_yes": [
+   "error",
+   1.0468
+  ],
+  "v81/neighbour/n_w_zero_proceeds": [
+   "error",
+   1.0587
+  ],
+  "v81/v80/carried_boundary_no_with_member": [
+   "success",
+   3.3896
+  ],
+  "v81/v80/carried_boundary_no_without_member": [
+   "success",
+   3.2847
+  ],
+  "v81/v80/carried_code_w_on_gain": [
+   "success",
+   3.3133
+  ],
+  "v81/v80/carried_covered_both_boundaries_no": [
+   "error",
+   1.5543
+  ],
+  "v81/v80/carried_covered_flag_corrected_to_no": [
+   "error",
+   1.6203
+  ],
+  "v81/v80/carried_covered_flag_corrected_to_yes": [
+   "error",
+   1.5235
+  ],
+  "v81/v80/carried_covered_flag_no_path_a": [
+   "error",
+   1.2705
+  ],
+  "v81/v80/carried_covered_flag_no_st": [
+   "error",
+   1.4184
+  ],
+  "v81/v80/carried_covered_flag_no_w_lt": [
+   "error",
+   1.471
+  ],
+  "v81/v80/carried_covered_flag_no_w_st": [
+   "error",
+   1.4459
+  ],
+  "v81/v80/carried_late_member_reopened": [
+   "success",
+   3.4847
+  ],
+  "v81/v80/carried_late_member_unclosed": [
+   "success",
+   3.3251
+  ],
+  "v81/v80/carried_late_yes_stale": [
+   "success",
+   3.529
+  ],
+  "v81/v80/carried_one_part_ii_b": [
+   "success",
+   3.5672
+  ],
+  "v81/v80/carried_one_student_loan": [
+   "success",
+   3.4785
+  ],
+  "v81/v80/carried_probe_c_loss_on_b_in_class_no": [
+   "success",
+   3.0046
+  ],
+  "v81/v80/carried_probe_c_loss_on_b_in_class_yes": [
+   "success",
+   3.1925
+  ],
+  "v81/v80/carried_probe_c_unrecorded_8949_no": [
+   "success",
+   2.9867
+  ],
+  "v81/v80/carried_probe_c_wash_on_b_in_class_no": [
+   "success",
+   3.2654
+  ],
+  "v81/v80/carried_probe_c_wash_on_b_in_class_yes": [
+   "success",
+   3.5028
+  ],
+  "v81/v80/carried_probe_e_basis_object_missing": [
+   "error",
+   1.2458
+  ],
+  "v81/v80/carried_probe_e_basis_scalar_missing": [
+   "success",
+   3.3239
+  ],
+  "v81/v80/carried_probe_e_proceeds_scalar_missing": [
+   "success",
+   3.221
+  ],
+  "v81/v80/carried_probe_f_gain_on_e_in_class_no": [
+   "success",
+   3.4367
+  ],
+  "v81/v80/carried_probe_mixed_abcf_in_class_no": [
+   "error",
+   1.4732
+  ],
+  "v81/v80/carried_probe_mixed_abcf_in_class_yes": [
+   "error",
+   1.7586
+  ],
+  "v81/v80/carried_t0_b_loss_8949_yes": [
+   "success",
+   3.5591
+  ],
+  "v81/v80/carried_t0_b_w_scalar_only_on_gain": [
+   "success",
+   3.6594
+  ],
+  "v81/v80/carried_wash": [
+   "success",
+   3.5381
+  ],
+  "v81/v80/carried_yes_then_no_with_member": [
+   "success",
+   3.1857
+  ],
+  "v81/v80/probe_a_bw_on_w_broker": [
+   "error",
+   1.3708
+  ],
+  "v81/v80/probe_a_bw_on_w_fixed": [
+   "error",
+   1.4535
+  ],
+  "v81/v80/probe_a_bw_on_w_fixed_path_b_yes": [
+   "error",
+   1.4039
+  ],
+  "v81/v80/probe_a_high_direct_broker_honest": [
+   "error",
+   1.4912
+  ],
+  "v81/v80/probe_a_high_direct_broker_no8949": [
+   "error",
+   1.2838
+  ],
+  "v81/v80/probe_a_high_direct_fixed_honest": [
+   "error",
+   1.3078
+  ],
+  "v81/v80/probe_a_high_direct_fixed_no8949": [
+   "error",
+   1.3177
+  ],
+  "v81/v80/probe_a_high_on_b_fixed": [
+   "success",
+   3.4897
+  ],
+  "v81/v80/probe_a_high_on_w_broker": [
+   "error",
+   1.3275
+  ],
+  "v81/v80/probe_a_loss_direct_broker_no8949": [
+   "error",
+   1.3706
+  ],
+  "v81/v80/probe_a_loss_direct_fixed_no8949": [
+   "error",
+   1.425
+  ],
+  "v81/v80/probe_a_loss_on_b_fixed": [
+   "success",
+   3.405
+  ],
+  "v81/v80/probe_b_code_b_on_b": [
+   "success",
+   3.3408
+  ],
+  "v81/v80/probe_d_low_direct_broker_honest": [
+   "error",
+   1.3508
+  ],
+  "v81/v80/probe_d_low_direct_fixed_no8949": [
+   "error",
+   1.3307
+  ],
+  "v81/v80/probe_d_low_on_e_fixed": [
+   "success",
+   3.3912
+  ],
+  "v81/v80/v80_c_and_f_same_sale": [
+   "success",
+   3.3867
+  ],
+  "v81/v80/v80_c_basis_missing": [
+   "success",
+   3.39
+  ],
+  "v81/v80/v80_c_code_w_on_gain": [
+   "success",
+   3.5045
+  ],
+  "v81/v80/v80_c_loss": [
+   "success",
+   3.4784
+  ],
+  "v81/v80/v80_c_loss_path_b_unanswered": [
+   "success",
+   3.4776
+  ],
+  "v81/v80/v80_c_proceeds_missing": [
+   "success",
+   3.4133
+  ],
+  "v81/v80/v80_c_wash": [
+   "success",
+   3.4047
+  ],
+  "v81/v80/v80_d3_b_basis_missing": [
+   "success",
+   3.2088
+  ],
+  "v81/v80/v80_d3_b_code_w_on_gain": [
+   "success",
+   3.2335
+  ],
+  "v81/v80/v80_d3_b_orphan_basis": [
+   "error",
+   1.4515
+  ],
+  "v81/v80/v80_d3_b_proceeds_missing": [
+   "success",
+   3.1849
+  ],
+  "v81/v80/v80_dup_b_and_c_ic_no": [
+   "success",
+   3.3848
+  ],
+  "v81/v80/v80_dup_b_and_c_ic_yes": [
+   "success",
+   3.3736
+  ],
+  "v81/v80/v80_f_gain": [
+   "success",
+   3.3392
+  ],
+  "v81/v80/v80_f_gain_new_ic_no": [
+   "success",
+   3.1335
+  ],
+  "v81/v80/v80_f_gain_new_ic_unanswered": [
+   "success",
+   3.2975
+  ],
+  "v81/v80/v80_f_gain_path_b_unanswered": [
+   "success",
+   3.3868
+  ],
+  "v81/v80/v80_f_gain_q2_no_with_member": [
+   "success",
+   3.2996
+  ],
+  "v81/v80/v80_f_holding_mismatch": [
+   "success",
+   3.2457
+  ],
+  "v81/v80/v80_m_b_q1_no_with_member": [
+   "success",
+   3.1722
+  ],
+  "v81/v80/v80_m_bf_yes_yes": [
+   "success",
+   3.9678
+  ],
+  "v81/v80/v80_m_c_8949_yes_pathb_no": [
+   "success",
+   3.5869
+  ],
+  "v81/v80/v80_m_c_new_ic_no": [
+   "success",
+   3.5586
+  ],
+  "v81/v80/v80_m_c_q2_no_with_member": [
+   "success",
+   3.1745
+  ],
+  "v81/v80/v80_m_e_yes_q2_yes_nothing": [
+   "success",
+   3.4429
+  ],
+  "v81/v80/v80_m_f_q1_yes_nothing": [
+   "success",
+   3.403
+  ],
+  "v81/v80/v80_mixed_abcf": [
+   "error",
+   1.4202
+  ],
+  "v81/v80/v80_q2_late_yes_reanswered": [
+   "success",
+   3.3201
+  ],
+  "v81/v80/v80_q2_late_yes_stale": [
+   "success",
+   3.224
+  ],
+  "v81/v80/v80_t1_stage2": [
+   "success",
+   3.0822
+  ],
+  "v81/v80/v80_t1_stage3": [
+   "success",
+   3.3446
+  ],
+  "v81/v80/v80_t2_stage0": [
+   "success",
+   3.4392
+  ],
+  "v81/v80/v80_t2_stage1": [
+   "success",
+   3.4056
+  ],
+  "v81/v80/v80_t2_stage2": [
+   "success",
+   3.243
+  ],
+  "v81/v80/v80_t2_stage3": [
+   "success",
+   3.5478
+  ],
+  "v81/v80/v80_w_c_amounts_disagree": [
+   "success",
+   3.356
+  ],
+  "v81/v80/v80_wage_q2_unanswered": [
+   "success",
+   3.3467
+  ],
+  "v82/b47_unanswered/honest": [
+   "success",
+   3.3461
+  ],
+  "v82/b4_box_c_only/honest": [
+   "success",
+   3.4077
+  ],
+  "v82/b4_same_statement_two_sales/honest": [
+   "success",
+   3.4847
+  ],
+  "v82/b4_two_statements_one_unanswered/honest": [
+   "success",
+   3.6116
+  ],
+  "v82/b4_two_statements_one_yes/honest": [
+   "success",
+   3.5824
+  ],
+  "v82/b4_yes_codeb/honest": [
+   "success",
+   3.5082
+  ],
+  "v82/b4_yes_covered/honest": [
+   "success",
+   3.3011
+  ],
+  "v82/b4_yes_noncovered/honest": [
+   "success",
+   3.7142
+  ],
+  "v82/b4_yes_w/honest": [
+   "success",
+   3.3293
+  ],
+  "v82/b7_two_statements_one_unanswered/honest": [
+   "success",
+   3.3082
+  ],
+  "v82/b7_yes_codeb/honest": [
+   "success",
+   3.6094
+  ],
+  "v82/b7_yes_covered/honest": [
+   "success",
+   3.1921
+  ],
+  "v82/b7_yes_gain/honest": [
+   "success",
+   3.6391
+  ],
+  "v82/b7_yes_noncovered/honest": [
+   "success",
+   3.6119
+  ],
+  "v82/b7_yes_w/honest": [
+   "success",
+   3.2051
+  ],
+  "v82/m_2a_box_f_loss/honest": [
+   "success",
+   3.4975
+  ],
+  "v82/m_2a_only/honest": [
+   "success",
+   3.4975
+  ],
+  "v82/m_2a_only_exc1_only2a_no/honest": [
+   "success",
+   3.379
+  ],
+  "v82/m_empty_box4_yes_no_sale/honest": [
+   "success",
+   3.4871
+  ],
+  "v82/m_empty_exc1_nolosses_no/honest": [
+   "success",
+   3.3298
+  ],
+  "v82/m_empty_exc1_only2a_no/honest": [
+   "success",
+   3.2767
+  ],
+  "v82/m_empty_exc1_unanswered/honest": [
+   "success",
+   3.4616
+  ],
+  "v82/m_empty_q2_unanswered/honest": [
+   "success",
+   3.3271
+  ],
+  "v82/n_box_c_q2_no/base_exception1": [
+   "success",
+   3.3806
+  ],
+  "v82/n_box_c_q2_no/honest": [
+   "success",
+   3.2371
+  ],
+  "v82/n_box_e_q1_no/base_exception1": [
+   "success",
+   3.3318
+  ],
+  "v82/n_box_e_q1_no/honest": [
+   "success",
+   3.3744
+  ],
+  "v82/n_code_b_q3_no/base_exception1": [
+   "success",
+   3.182
+  ],
+  "v82/n_code_b_q3_no/honest": [
+   "success",
+   3.2463
+  ],
+  "v82/n_covered_basis_row_missing/honest": [
+   "success",
+   3.301
+  ],
+  "v82/n_covered_lt_box1g/honest": [
+   "success",
+   3.3717
+  ],
+  "v82/n_covered_lt_says_short/honest": [
+   "success",
+   3.1064
+  ],
+  "v82/n_covered_two_sales/honest": [
+   "success",
+   3.4498
+  ],
+  "v82/n_covered_two_sales_one_disagrees/honest": [
+   "success",
+   3.4847
+  ],
+  "v82/n_covered_two_sales_one_rowless/honest": [
+   "success",
+   3.477
+  ],
+  "v82/n_w_adjustment_row_missing/honest": [
+   "success",
+   3.324
+  ],
+  "v82/n_w_lt_says_short/honest": [
+   "success",
+   3.2186
+  ],
+  "v82/n_w_proceeds_row_disagrees/honest": [
+   "success",
+   3.4467
+  ],
+  "v82/n_w_two_sales/honest": [
+   "success",
+   3.7014
+  ],
+  "v82/p0_a1_direct_flagged_wash/honest": [
+   "success",
+   3.2514
+  ],
+  "v82/p0_a2_direct_st_family_long_term/honest": [
+   "success",
+   3.5883
+  ],
+  "v82/p0_a3_w_st_family_long_term/honest": [
+   "success",
+   3.7606
+  ],
+  "v82/p0_a4_covered_security_no/honest": [
+   "success",
+   3.6132
+  ],
+  "v82/p0_a5_covered_basis_not_reported/honest": [
+   "success",
+   3.2426
+  ],
+  "v82/p0_b1_box4_backup_withholding/honest": [
+   "success",
+   3.2968
+  ],
+  "v82/p0_b2_box7_loss_not_allowed/honest": [
+   "success",
+   3.2414
+  ],
+  "v82/p0_b3_code_e_on_direct_refused/honest": [
+   "success",
+   3.4948
+  ],
+  "v82/p0_b4_collectibles_box_b/honest": [
+   "success",
+   3.2436
+  ],
+  "v82/p0_b5_ordinary_box_e/honest": [
+   "success",
+   3.2014
+  ],
+  "v82/p0_b6_qof_box_e/honest": [
+   "success",
+   3.344
+  ],
+  "v82/p0_c1_direct_zero_proceeds/honest": [
+   "success",
+   3.3621
+  ],
+  "v82/p0_c2_w_full_disallowance/honest": [
+   "success",
+   3.3876
+  ],
+  "v82/p0_c3_direct_zero_proceeds_with_2a/honest": [
+   "success",
+   3.5642
+  ],
+  "v82/p0_c4_no1099b_zero_zero/honest": [
+   "success",
+   3.3178
+  ],
+  "v82/p0_d1_codeb_negative_proceeds/honest": [
+   "error",
+   1.617
+  ],
+  "v82/p0_d1_covered_negative_proceeds/honest": [
+   "error",
+   1.5453
+  ],
+  "v82/p0_d1_no1099b_negative_proceeds/honest": [
+   "error",
+   1.2669
+  ],
+  "v82/p0_d1_noncovered_negative_proceeds/honest": [
+   "error",
+   1.2691
+  ],
+  "v82/p0_d1_w_negative_proceeds/honest": [
+   "error",
+   1.3006
+  ],
+  "v82/p0_d2_codeb_zero_proceeds/honest": [
+   "success",
+   3.533
+  ],
+  "v82/p0_d2_covered_zero_proceeds/honest": [
+   "success",
+   3.6744
+  ],
+  "v82/p0_d2_no1099b_zero_proceeds/honest": [
+   "success",
+   3.2024
+  ],
+  "v82/p0_d2_noncovered_zero_proceeds/honest": [
+   "success",
+   3.2611
+  ],
+  "v82/p0_d2_w_zero_proceeds/honest": [
+   "success",
+   3.2927
+  ],
+  "v82/p0_d3_codeb_zero_zero/honest": [
+   "success",
+   3.58
+  ],
+  "v82/p0_d3_covered_zero_zero/honest": [
+   "success",
+   3.6489
+  ],
+  "v82/p0_d3_no1099b_zero_zero/honest": [
+   "success",
+   3.5662
+  ],
+  "v82/p0_d3_noncovered_zero_zero/honest": [
+   "success",
+   3.6902
+  ],
+  "v82/p0_d3_w_zero_zero/honest": [
+   "success",
+   3.3167
+  ],
+  "v82/p0_d4_codeb_equal/honest": [
+   "success",
+   3.6847
+  ],
+  "v82/p0_d4_covered_equal/honest": [
+   "success",
+   3.5752
+  ],
+  "v82/p0_d4_no1099b_equal/honest": [
+   "success",
+   3.6444
+  ],
+  "v82/p0_d4_noncovered_equal/honest": [
+   "success",
+   3.3956
+  ],
+  "v82/p0_d4_w_equal/honest": [
+   "success",
+   3.3399
+  ],
+  "v82/p0_d5_codeb_wash_full/honest": [
+   "success",
+   3.5216
+  ],
+  "v82/p0_d5_no1099b_wash_full/honest": [
+   "success",
+   3.4038
+  ],
+  "v82/p0_d5_noncovered_wash_full/honest": [
+   "success",
+   3.5916
+  ],
+  "v82/p0_d5_w_wash_full/honest": [
+   "success",
+   3.437
+  ],
+  "v82/p0_d6_w_adjustment_row_disagrees/honest": [
+   "success",
+   3.386
+  ],
+  "v82/p0_d7_covered_rows_disagree/honest": [
+   "success",
+   3.2367
+  ],
+  "v82/p0_d8_covered_rows_missing/honest": [
+   "success",
+   3.1794
+  ],
+  "v82/p0_e_codeb_st__codeb_lt/honest": [
+   "success",
+   3.458
+  ],
+  "v82/p0_e_covered_lt__codeb_lt/honest": [
+   "success",
+   3.3846
+  ],
+  "v82/p0_e_covered_lt__codeb_st/honest": [
+   "success",
+   3.5298
+  ],
+  "v82/p0_e_covered_lt__noncovered_lt/honest": [
+   "success",
+   3.3411
+  ],
+  "v82/p0_e_covered_lt__noncovered_st/honest": [
+   "success",
+   3.3769
+  ],
+  "v82/p0_e_covered_lt__w_lt/honest": [
+   "success",
+   3.3349
+  ],
+  "v82/p0_e_covered_lt__w_st/honest": [
+   "success",
+   3.619
+  ],
+  "v82/p0_e_covered_st__codeb_lt/honest": [
+   "success",
+   3.5391
+  ],
+  "v82/p0_e_covered_st__codeb_st/honest": [
+   "success",
+   3.6305
+  ],
+  "v82/p0_e_covered_st__covered_lt/honest": [
+   "success",
+   3.3879
+  ],
+  "v82/p0_e_covered_st__noncovered_lt/honest": [
+   "success",
+   3.5009
+  ],
+  "v82/p0_e_covered_st__noncovered_st/honest": [
+   "success",
+   3.1908
+  ],
+  "v82/p0_e_covered_st__w_lt/honest": [
+   "success",
+   3.2351
+  ],
+  "v82/p0_e_covered_st__w_st/honest": [
+   "success",
+   3.3084
+  ],
+  "v82/p0_e_noncovered_lt__codeb_lt/honest": [
+   "success",
+   3.5812
+  ],
+  "v82/p0_e_noncovered_lt__codeb_st/honest": [
+   "success",
+   3.5374
+  ],
+  "v82/p0_e_noncovered_st__codeb_lt/honest": [
+   "success",
+   3.3887
+  ],
+  "v82/p0_e_noncovered_st__codeb_st/honest": [
+   "success",
+   3.344
+  ],
+  "v82/p0_e_noncovered_st__noncovered_lt/honest": [
+   "success",
+   3.5819
+  ],
+  "v82/p0_e_w_lt__codeb_lt/honest": [
+   "success",
+   3.4286
+  ],
+  "v82/p0_e_w_lt__codeb_st/honest": [
+   "success",
+   3.6456
+  ],
+  "v82/p0_e_w_lt__noncovered_lt/honest": [
+   "success",
+   3.3372
+  ],
+  "v82/p0_e_w_lt__noncovered_st/honest": [
+   "success",
+   3.2486
+  ],
+  "v82/p0_e_w_st__codeb_lt/honest": [
+   "success",
+   2.9758
+  ],
+  "v82/p0_e_w_st__codeb_st/honest": [
+   "success",
+   3.3216
+  ],
+  "v82/p0_e_w_st__noncovered_lt/honest": [
+   "success",
+   3.3374
+  ],
+  "v82/p0_e_w_st__noncovered_st/honest": [
+   "success",
+   3.4822
+  ],
+  "v82/p0_e_w_st__w_lt/honest": [
+   "success",
+   3.4828
+  ],
+  "v82/p0_f_codeb_lt/honest": [
+   "success",
+   3.2368
+  ],
+  "v82/p0_f_codeb_st/honest": [
+   "success",
+   3.1408
+  ],
+  "v82/p0_f_covered_lt/honest": [
+   "success",
+   3.3619
+  ],
+  "v82/p0_f_covered_st/honest": [
+   "success",
+   3.46
+  ],
+  "v82/p0_f_no1099b_lt/honest": [
+   "success",
+   3.3651
+  ],
+  "v82/p0_f_no1099b_st/honest": [
+   "success",
+   3.244
+  ],
+  "v82/p0_f_noncovered_lt/honest": [
+   "success",
+   3.3178
+  ],
+  "v82/p0_f_noncovered_st/honest": [
+   "success",
+   3.3385
+  ],
+  "v82/p0_f_two_unrelated_covered/honest": [
+   "success",
+   3.5141
+  ],
+  "v82/p0_f_w_lt/honest": [
+   "success",
+   3.3037
+  ],
+  "v82/p0_f_w_st/honest": [
+   "success",
+   3.2721
+  ],
+  "v82/p_codeb_st_only2a_no_nolosses_no/honest": [
+   "success",
+   3.2692
+  ],
+  "v82/p_codeb_st_only2a_no_nolosses_yes/honest": [
+   "success",
+   3.2287
+  ],
+  "v82/p_codeb_st_only2a_yes_nolosses_no/honest": [
+   "success",
+   3.4608
+  ],
+  "v82/p_codeb_st_only2a_yes_nolosses_yes/honest": [
+   "success",
+   3.4538
+  ],
+  "v82/p_covered_st_only2a_no_nolosses_no/honest": [
+   "success",
+   3.3749
+  ],
+  "v82/p_covered_st_only2a_no_nolosses_yes/honest": [
+   "success",
+   3.3635
+  ],
+  "v82/p_covered_st_only2a_yes_nolosses_no/honest": [
+   "success",
+   3.2465
+  ],
+  "v82/p_covered_st_only2a_yes_nolosses_yes/honest": [
+   "success",
+   3.3365
+  ],
+  "v82/p_no1099b_st_only2a_no_nolosses_no/honest": [
+   "success",
+   3.3369
+  ],
+  "v82/p_no1099b_st_only2a_no_nolosses_yes/honest": [
+   "success",
+   3.2151
+  ],
+  "v82/p_no1099b_st_only2a_yes_nolosses_no/honest": [
+   "success",
+   3.4428
+  ],
+  "v82/p_no1099b_st_only2a_yes_nolosses_yes/honest": [
+   "success",
+   3.3935
+  ],
+  "v82/p_noncovered_lt_only2a_no_nolosses_no/honest": [
+   "success",
+   3.3791
+  ],
+  "v82/p_noncovered_lt_only2a_no_nolosses_yes/honest": [
+   "success",
+   3.2565
+  ],
+  "v82/p_noncovered_lt_only2a_yes_nolosses_no/honest": [
+   "success",
+   3.4314
+  ],
+  "v82/p_noncovered_lt_only2a_yes_nolosses_yes/honest": [
+   "success",
+   3.467
+  ],
+  "v82/p_w_lt_only2a_no_nolosses_no/honest": [
+   "success",
+   3.4752
+  ],
+  "v82/p_w_lt_only2a_no_nolosses_yes/honest": [
+   "success",
+   3.296
+  ],
+  "v82/p_w_lt_only2a_yes_nolosses_no/honest": [
+   "success",
+   3.5497
+  ],
+  "v82/p_w_lt_only2a_yes_nolosses_yes/honest": [
+   "success",
+   3.5685
+  ],
+  "v82/r_f1_covered_extra_rows/honest": [
+   "error",
+   1.3928
+  ],
+  "v82/r_f1_covered_lt_rows_alone/honest": [
+   "error",
+   1.3427
+  ],
+  "v82/r_f1_covered_rows_alone/honest": [
+   "error",
+   1.3791
+  ],
+  "v82/r_f1_covered_sale_and_rows_removed/honest": [
+   "success",
+   3.4266
+  ],
+  "v82/r_f1_covered_sale_removed/honest": [
+   "error",
+   1.3177
+  ],
+  "v82/r_f1_covered_sale_removed_after_basis_row/honest": [
+   "error",
+   2.4841
+  ],
+  "v82/r_f1_w_adjustment_row_alone/honest": [
+   "error",
+   1.3129
+  ],
+  "v82/r_f1_w_extra_rows/honest": [
+   "error",
+   1.3209
+  ],
+  "v82/r_f2_box_c_zero/honest": [
+   "success",
+   3.5683
+  ],
+  "v82/r_f2_box_e_gain_base_answers/honest": [
+   "success",
+   3.5874
+  ],
+  "v82/r_f2_box_e_zero_net_beside_2a/honest": [
+   "success",
+   3.3584
+  ],
+  "v82/r_f2_covered_zero_net_beside_2a/honest": [
+   "success",
+   3.2201
+  ],
+  "v82/t1_s1/honest": [
+   "success",
+   3.2261
+  ],
+  "v82/t1_s2/honest": [
+   "success",
+   3.6271
+  ],
+  "v82/t2_s0/honest": [
+   "success",
+   3.591
+  ],
+  "v82/t2_s1/base_exception1": [
+   "success",
+   3.363
+  ],
+  "v82/t2_s1/honest": [
+   "success",
+   3.2021
+  ],
+  "v82/t2_s2/honest": [
+   "success",
+   3.4731
+  ],
+  "v82/t2_s3_no/honest": [
+   "success",
+   3.4682
+  ],
+  "v82/t2_s3_yes/honest": [
+   "success",
+   3.3108
+  ],
+  "v82/t2_same_statement/honest": [
+   "success",
+   3.3271
+  ],
+  "v82/t2c_s1/honest": [
+   "success",
+   3.1238
+  ],
+  "v82/t3_s0/honest": [
+   "success",
+   3.4304
+  ],
+  "v82/t3_s2/honest": [
+   "success",
+   3.4765
+  ],
+  "v82/t3_s3_yes/honest": [
+   "success",
+   3.3741
+  ],
+  "v82/t4_s0/honest": [
+   "success",
+   3.4263
+  ],
+  "v82/t4_s1_removed/base_exception1": [
+   "success",
+   3.5012
+  ],
+  "v82/t4_s1_removed/honest": [
+   "success",
+   3.3678
+  ],
+  "v82/t5_s1/honest": [
+   "success",
+   3.3592
+  ],
+  "v82/t5_s2/honest": [
+   "success",
+   3.5235
+  ],
+  "v83/returns/case/a_8949_yes/recorded": [
+   "success",
+   3.4223
+  ],
+  "v83/returns/case/a_adjustment_row_missing/recorded": [
+   "success",
+   3.3359
+  ],
+  "v83/returns/case/a_basis_row_missing/recorded": [
+   "success",
+   3.2349
+  ],
+  "v83/returns/case/a_bw/recorded": [
+   "success",
+   3.5485
+  ],
+  "v83/returns/case/a_corrected_basis_missing/recorded": [
+   "error",
+   1.3719
+  ],
+  "v83/returns/case/a_duplicate_on_direct/recorded": [
+   "success",
+   3.1848
+  ],
+  "v83/returns/case/a_g_disagrees/recorded": [
+   "success",
+   3.1407
+  ],
+  "v83/returns/case/a_gain_to_loss/recorded": [
+   "success",
+   3.4201
+  ],
+  "v83/returns/case/a_high/recorded": [
+   "success",
+   3.1846
+  ],
+  "v83/returns/case/a_high_and_w_row/recorded": [
+   "success",
+   3.3094
+  ],
+  "v83/returns/case/a_holding_mismatch/recorded": [
+   "success",
+   3.3078
+  ],
+  "v83/returns/case/a_ic3_no/recorded": [
+   "success",
+   3.2689
+  ],
+  "v83/returns/case/a_ic3_unanswered/recorded": [
+   "success",
+   3.2706
+  ],
+  "v83/returns/case/a_no_correction/recorded": [
+   "success",
+   3.3719
+  ],
+  "v83/returns/case/a_path_b_unanswered/recorded": [
+   "success",
+   3.319
+  ],
+  "v83/returns/case/a_proceeds_row_missing/recorded": [
+   "success",
+   3.3348
+  ],
+  "v83/returns/case/a_q3_no_with_member/recorded": [
+   "success",
+   3.4673
+  ],
+  "v83/returns/case/a_same_sale_both_terms/recorded": [
+   "success",
+   3.5379
+  ],
+  "v83/returns/case/a_w_exceeds_corrected_loss/recorded": [
+   "success",
+   3.4289
+  ],
+  "v83/returns/case/a_w_on_gain_after_correction/recorded": [
+   "success",
+   3.4489
+  ],
+  "v83/returns/case/b_code_b_ic3/recorded": [
+   "success",
+   3.2174
+  ],
+  "v83/returns/case/b_code_b_v80_route/recorded": [
+   "success",
+   3.3004
+  ],
+  "v83/returns/case/d_bw/recorded": [
+   "success",
+   3.4165
+  ],
+  "v83/returns/case/d_low/recorded": [
+   "success",
+   3.397
+  ],
+  "v83/returns/case/late_member_after_no/recorded": [
+   "success",
+   3.2235
+  ],
+  "v83/returns/case/late_member_reanswered_yes/recorded": [
+   "success",
+   3.262
+  ],
+  "v83/returns/case/m_8949_no_ic3_yes_q3_no/recorded": [
+   "success",
+   3.2278
+  ],
+  "v83/returns/case/m_a_and_b/recorded": [
+   "success",
+   3.3789
+  ],
+  "v83/returns/case/m_a_and_b_q1_no/recorded": [
+   "success",
+   3.2735
+  ],
+  "v83/returns/case/m_a_c_ic3_no_v80_ic_yes/recorded": [
+   "success",
+   3.1591
+  ],
+  "v83/returns/case/m_a_c_ic3_unanswered_v80_ic_yes/recorded": [
+   "success",
+   3.43
+  ],
+  "v83/returns/case/m_a_c_ic3_yes_v80_ic_no/recorded": [
+   "success",
+   3.6014
+  ],
+  "v83/returns/case/m_a_c_ic3_yes_v80_ic_yes/recorded": [
+   "success",
+   3.634
+  ],
+  "v83/returns/case/m_a_q3_no_v80_ic_yes/recorded": [
+   "success",
+   3.4892
+  ],
+  "v83/returns/case/m_a_v79_ic_only/recorded": [
+   "success",
+   3.4304
+  ],
+  "v83/returns/case/m_a_v80_ic_only/recorded": [
+   "success",
+   3.3731
+  ],
+  "v83/returns/case/m_d_and_e/recorded": [
+   "success",
+   3.5546
+  ],
+  "v83/returns/case/m_d_ic3_no/recorded": [
+   "success",
+   3.4334
+  ],
+  "v83/returns/case/m_d_q3_no_with_member/recorded": [
+   "success",
+   3.2794
+  ],
+  "v83/returns/case/m_q3_yes_nothing_8949_yes/recorded": [
+   "success",
+   3.2421
+  ],
+  "v83/returns/case/m_q3_yes_nothing_beside_b/recorded": [
+   "success",
+   3.2503
+  ],
+  "v83/returns/case/m_q3_yes_nothing_beside_c/recorded": [
+   "success",
+   3.5673
+  ],
+  "v83/returns/case/m_q3_yes_nothing_beside_direct/recorded": [
+   "success",
+   3.3129
+  ],
+  "v83/returns/case/m_q3_yes_nothing_beside_w/recorded": [
+   "success",
+   3.1363
+  ],
+  "v83/returns/case/mixed_a_d_c_direct/recorded": [
+   "success",
+   3.8458
+  ],
+  "v83/returns/case/q3_yes_nothing_recorded/recorded": [
+   "success",
+   3.1005
+  ],
+  "v83/returns/case/t1_stage1/recorded": [
+   "success",
+   3.6536
+  ],
+  "v83/returns/case/t1_stage2/recorded": [
+   "success",
+   2.8813
+  ],
+  "v83/returns/case/t1_stage3/recorded": [
+   "success",
+   3.3126
+  ],
+  "v83/returns/case/t1_stage4/recorded": [
+   "success",
+   3.5262
+  ],
+  "v83/returns/case/t2_stage0/recorded": [
+   "success",
+   3.5648
+  ],
+  "v83/returns/case/t2_stage1/recorded": [
+   "success",
+   3.5678
+  ],
+  "v83/returns/case/t2_stage2/recorded": [
+   "success",
+   3.5585
+  ],
+  "v83/returns/case/t2_stage3/recorded": [
+   "success",
+   3.5822
+  ],
+  "v83/returns/case/t2_stage4/recorded": [
+   "success",
+   3.5071
+  ],
+  "v83/returns/case/t2_stage4_keep_covered/recorded": [
+   "success",
+   3.2478
+  ],
+  "v83/returns/case/t3_stage0/recorded": [
+   "success",
+   3.4685
+  ],
+  "v83/returns/case/t3_stage1/recorded": [
+   "success",
+   3.3705
+  ],
+  "v83/returns/case/t3_stage2/recorded": [
+   "success",
+   3.66
+  ],
+  "v83/returns/case/t3_stage3/recorded": [
+   "success",
+   3.5297
+  ],
+  "v83/returns/case/wage_q3_no/recorded": [
+   "success",
+   3.0961
+  ],
+  "v83/returns/case/wage_q3_unanswered/recorded": [
+   "success",
+   3.1515
+  ],
+  "v83/returns/case/x_a_gain_d_loss/recorded": [
+   "success",
+   3.3268
+  ],
+  "v83/returns/case/x_a_loss_d_gain/recorded": [
+   "success",
+   3.5631
+  ],
+  "v83/returns/case/x_a_loss_to_gain/recorded": [
+   "success",
+   3.3117
+  ],
+  "v83/returns/case/x_basis_row_is_corrected/recorded": [
+   "success",
+   3.4585
+  ],
+  "v83/returns/case/x_bw_g_omits_w/recorded": [
+   "success",
+   3.4237
+  ],
+  "v83/returns/case/x_bw_w_equals_correct_loss/recorded": [
+   "success",
+   3.4608
+  ],
+  "v83/returns/case/x_bw_w_exceeds_correct_loss_within_shown/recorded": [
+   "success",
+   3.3887
+  ],
+  "v83/returns/case/x_corrected_basis_changed_g_fixed/recorded": [
+   "success",
+   3.3417
+  ],
+  "v83/returns/case/x_corrected_basis_changed_g_stale/recorded": [
+   "success",
+   3.4396
+  ],
+  "v83/returns/case/x_d_adjustment_row_missing/recorded": [
+   "success",
+   3.2351
+  ],
+  "v83/returns/case/x_d_basis_row_missing/recorded": [
+   "success",
+   3.2983
+  ],
+  "v83/returns/case/x_d_bw_w_exceeds_correct_loss/recorded": [
+   "success",
+   3.2065
+  ],
+  "v83/returns/case/x_d_gain_to_loss/recorded": [
+   "success",
+   3.1443
+  ],
+  "v83/returns/case/x_d_holding_mismatch/recorded": [
+   "success",
+   3.2527
+  ],
+  "v83/returns/case/x_d_loss_to_gain/recorded": [
+   "success",
+   3.5221
+  ],
+  "v83/returns/case/x_d_proceeds_row_missing/recorded": [
+   "success",
+   3.1508
+  ],
+  "v83/returns/case/x_d_zero_proceeds_zero_shown/recorded": [
+   "success",
+   3.3703
+  ],
+  "v83/returns/case/x_dup_box_c_ic3_no/recorded": [
+   "success",
+   3.2575
+  ],
+  "v83/returns/case/x_dup_box_c_ic3_yes/recorded": [
+   "success",
+   3.6313
+  ],
+  "v83/returns/case/x_dup_covered_lt/recorded": [
+   "success",
+   3.5559
+  ],
+  "v83/returns/case/x_dup_covered_st/recorded": [
+   "success",
+   3.5091
+  ],
+  "v83/returns/case/x_dup_covered_w_lt/recorded": [
+   "success",
+   3.384
+  ],
+  "v83/returns/case/x_dup_covered_w_st/recorded": [
+   "success",
+   3.458
+  ],
+  "v83/returns/case/x_dup_noncovered_lt/recorded": [
+   "success",
+   3.4005
+  ],
+  "v83/returns/case/x_dup_noncovered_st/recorded": [
+   "success",
+   3.3427
+  ],
+  "v83/returns/case/x_g_sign_flipped/recorded": [
+   "success",
+   3.3819
+  ],
+  "v83/returns/case/x_no_correction_with_w/recorded": [
+   "success",
+   3.2721
+  ],
+  "v83/returns/case/x_path_b_yes/recorded": [
+   "success",
+   3.3514
+  ],
+  "v83/returns/case/x_q3_no_late_both_terms/recorded": [
+   "success",
+   3.4317
+  ],
+  "v83/returns/case/x_q3_no_late_both_terms_reanswered/recorded": [
+   "success",
+   3.4242
+  ],
+  "v83/returns/case/x_q3_yes_late_member/recorded": [
+   "success",
+   3.194
+  ],
+  "v83/returns/case/x_q3_yes_late_member_reanswered/recorded": [
+   "success",
+   3.3627
+  ],
+  "v83/returns/case/x_remove_sale_keep_rows/recorded": [
+   "error",
+   1.3253
+  ],
+  "v83/returns/case/x_shared_transaction_complete/recorded": [
+   "success",
+   3.6172
+  ],
+  "v83/returns/case/x_shared_transaction_missing_g/recorded": [
+   "success",
+   3.4368
+  ],
+  "v83/returns/case/x_zero_proceeds_zero_shown/recorded": [
+   "success",
+   3.6167
+  ],
+  "v83/returns/neighbour/n_b_zero_proceeds/recorded": [
+   "success",
+   3.5241
+  ],
+  "v83/returns/neighbour/n_b_zero_proceeds_zero_basis/recorded": [
+   "success",
+   3.7236
+  ],
+  "v83/returns/neighbour/n_covered_lt_collectibles_yes/recorded": [
+   "success",
+   3.5112
+  ],
+  "v83/returns/neighbour/n_covered_lt_market_discount_yes/recorded": [
+   "success",
+   3.4336
+  ],
+  "v83/returns/neighbour/n_covered_lt_qof_yes/recorded": [
+   "success",
+   3.3863
+  ],
+  "v83/returns/neighbour/n_covered_lt_tsa_yes/recorded": [
+   "success",
+   3.3881
+  ],
+  "v83/returns/neighbour/n_covered_lt_zero_proceeds/recorded": [
+   "success",
+   3.3701
+  ],
+  "v83/returns/neighbour/n_covered_st_ordinary_yes/recorded": [
+   "success",
+   3.2321
+  ],
+  "v83/returns/neighbour/n_covered_st_zero_proceeds/recorded": [
+   "success",
+   3.3663
+  ],
+  "v83/returns/neighbour/n_covered_st_zero_proceeds_zero_basis/recorded": [
+   "success",
+   3.4334
+  ],
+  "v83/returns/neighbour/n_covered_tsa_no/recorded": [
+   "success",
+   3.3025
+  ],
+  "v83/returns/neighbour/n_covered_tsa_yes_no8949/recorded": [
+   "success",
+   3.1977
+  ],
+  "v83/returns/neighbour/n_dup_b_and_covered_lt/recorded": [
+   "success",
+   3.3308
+  ],
+  "v83/returns/neighbour/n_dup_b_and_e/recorded": [
+   "success",
+   3.3615
+  ],
+  "v83/returns/neighbour/n_dup_covered_st_and_covered_lt/recorded": [
+   "success",
+   3.2951
+  ],
+  "v83/returns/neighbour/n_dup_covered_st_and_w_lt/recorded": [
+   "success",
+   3.7484
+  ],
+  "v83/returns/neighbour/n_dup_e_and_covered_st/recorded": [
+   "success",
+   3.6594
+  ],
+  "v83/returns/neighbour/n_dup_w_st_and_covered_lt/recorded": [
+   "success",
+   3.4906
+  ],
+  "v83/returns/neighbour/n_dup_w_st_and_w_lt/recorded": [
+   "success",
+   3.8144
+  ],
+  "v83/returns/neighbour/n_e_zero_proceeds/recorded": [
+   "success",
+   3.7102
+  ],
+  "v83/returns/neighbour/n_two_b_and_covered_lt/recorded": [
+   "success",
+   3.9894
+  ],
+  "v83/returns/neighbour/n_two_covered_st_and_covered_lt/recorded": [
+   "success",
+   4.1026
+  ],
+  "v83/returns/neighbour/n_two_w_st_and_w_lt/recorded": [
+   "success",
+   4.5278
+  ],
+  "v83/returns/neighbour/n_w_lt_collectibles_yes/recorded": [
+   "success",
+   3.5667
+  ],
+  "v83/returns/neighbour/n_w_lt_zero_proceeds/recorded": [
+   "success",
+   3.489
+  ],
+  "v83/returns/neighbour/n_w_st_tsa_yes/recorded": [
+   "success",
+   3.4811
+  ],
+  "v83/returns/neighbour/n_w_zero_proceeds/recorded": [
+   "success",
+   3.4338
+  ],
+  "v83/returns/v80/carried_boundary_no_with_member/recorded": [
+   "success",
+   3.27
+  ],
+  "v83/returns/v80/carried_boundary_no_without_member/recorded": [
+   "success",
+   3.0136
+  ],
+  "v83/returns/v80/carried_code_w_on_gain/recorded": [
+   "success",
+   3.3513
+  ],
+  "v83/returns/v80/carried_covered_both_boundaries_no/recorded": [
+   "success",
+   3.3834
+  ],
+  "v83/returns/v80/carried_covered_flag_corrected_to_no/recorded": [
+   "success",
+   3.4632
+  ],
+  "v83/returns/v80/carried_covered_flag_corrected_to_yes/recorded": [
+   "success",
+   3.3075
+  ],
+  "v83/returns/v80/carried_covered_flag_no_path_a/recorded": [
+   "success",
+   3.6183
+  ],
+  "v83/returns/v80/carried_covered_flag_no_st/recorded": [
+   "success",
+   3.5976
+  ],
+  "v83/returns/v80/carried_covered_flag_no_w_lt/recorded": [
+   "success",
+   3.4951
+  ],
+  "v83/returns/v80/carried_covered_flag_no_w_st/recorded": [
+   "success",
+   3.443
+  ],
+  "v83/returns/v80/carried_duplicate_horizon/recorded": [
+   "error",
+   1.2494
+  ],
+  "v83/returns/v80/carried_late_member_reopened/recorded": [
+   "success",
+   3.567
+  ],
+  "v83/returns/v80/carried_late_member_unclosed/recorded": [
+   "success",
+   3.2453
+  ],
+  "v83/returns/v80/carried_late_yes_stale/recorded": [
+   "success",
+   3.3118
+  ],
+  "v83/returns/v80/carried_one_exempt_dividend/recorded": [
+   "success",
+   3.1575
+  ],
+  "v83/returns/v80/carried_one_foreign_tax/recorded": [
+   "success",
+   3.3761
+  ],
+  "v83/returns/v80/carried_one_part_ii_b/recorded": [
+   "success",
+   3.7095
+  ],
+  "v83/returns/v80/carried_one_student_loan/recorded": [
+   "success",
+   3.5184
+  ],
+  "v83/returns/v80/carried_probe_c_loss_on_b_in_class_no/recorded": [
+   "success",
+   3.2274
+  ],
+  "v83/returns/v80/carried_probe_c_loss_on_b_in_class_yes/recorded": [
+   "success",
+   3.2977
+  ],
+  "v83/returns/v80/carried_probe_c_unrecorded_8949_no/recorded": [
+   "success",
+   3.2101
+  ],
+  "v83/returns/v80/carried_probe_c_wash_on_b_in_class_no/recorded": [
+   "success",
+   3.3473
+  ],
+  "v83/returns/v80/carried_probe_c_wash_on_b_in_class_yes/recorded": [
+   "success",
+   3.3079
+  ],
+  "v83/returns/v80/carried_probe_e_basis_object_missing/recorded": [
+   "error",
+   1.2296
+  ],
+  "v83/returns/v80/carried_probe_e_basis_scalar_missing/recorded": [
+   "success",
+   3.5324
+  ],
+  "v83/returns/v80/carried_probe_e_proceeds_scalar_missing/recorded": [
+   "success",
+   3.4023
+  ],
+  "v83/returns/v80/carried_probe_f_gain_on_e_in_class_no/recorded": [
+   "success",
+   3.3574
+  ],
+  "v83/returns/v80/carried_probe_mixed_abcf_in_class_no/recorded": [
+   "success",
+   4.2252
+  ],
+  "v83/returns/v80/carried_probe_mixed_abcf_in_class_yes/recorded": [
+   "success",
+   4.1427
+  ],
+  "v83/returns/v80/carried_t0_b_loss_8949_yes/recorded": [
+   "success",
+   3.5153
+  ],
+  "v83/returns/v80/carried_t0_b_w_scalar_only_on_gain/recorded": [
+   "success",
+   3.4832
+  ],
+  "v83/returns/v80/carried_wage_unclosed/recorded": [
+   "success",
+   3.2781
+  ],
+  "v83/returns/v80/carried_wash/recorded": [
+   "success",
+   3.5867
+  ],
+  "v83/returns/v80/carried_yes_then_no_with_member/recorded": [
+   "success",
+   3.3438
+  ],
+  "v83/returns/v80/probe_a_bw_on_w_broker/recorded": [
+   "success",
+   3.4849
+  ],
+  "v83/returns/v80/probe_a_bw_on_w_fixed/recorded": [
+   "success",
+   3.3988
+  ],
+  "v83/returns/v80/probe_a_bw_on_w_fixed_path_b_yes/recorded": [
+   "success",
+   3.4511
+  ],
+  "v83/returns/v80/probe_a_high_direct_broker_honest/recorded": [
+   "success",
+   3.6043
+  ],
+  "v83/returns/v80/probe_a_high_direct_broker_no8949/recorded": [
+   "success",
+   3.4882
+  ],
+  "v83/returns/v80/probe_a_high_direct_fixed_honest/recorded": [
+   "success",
+   3.504
+  ],
+  "v83/returns/v80/probe_a_high_direct_fixed_no8949/recorded": [
+   "success",
+   3.4978
+  ],
+  "v83/returns/v80/probe_a_high_on_b_fixed/recorded": [
+   "success",
+   3.3376
+  ],
+  "v83/returns/v80/probe_a_high_on_w_broker/recorded": [
+   "success",
+   3.5201
+  ],
+  "v83/returns/v80/probe_a_loss_direct_broker_no8949/recorded": [
+   "success",
+   3.6662
+  ],
+  "v83/returns/v80/probe_a_loss_direct_fixed_no8949/recorded": [
+   "success",
+   3.5594
+  ],
+  "v83/returns/v80/probe_a_loss_on_b_fixed/recorded": [
+   "success",
+   3.4031
+  ],
+  "v83/returns/v80/probe_b_code_b_on_b/recorded": [
+   "success",
+   3.5797
+  ],
+  "v83/returns/v80/probe_d_low_direct_broker_honest/recorded": [
+   "success",
+   3.6244
+  ],
+  "v83/returns/v80/probe_d_low_direct_fixed_no8949/recorded": [
+   "success",
+   3.6125
+  ],
+  "v83/returns/v80/probe_d_low_on_e_fixed/recorded": [
+   "success",
+   3.4771
+  ],
+  "v83/returns/v80/v80_c_and_f_same_sale/recorded": [
+   "success",
+   3.3816
+  ],
+  "v83/returns/v80/v80_c_basis_missing/recorded": [
+   "success",
+   3.1601
+  ],
+  "v83/returns/v80/v80_c_basis_object_missing/recorded": [
+   "error",
+   1.3731
+  ],
+  "v83/returns/v80/v80_c_code_w_on_gain/recorded": [
+   "success",
+   3.2259
+  ],
+  "v83/returns/v80/v80_c_loss/recorded": [
+   "success",
+   3.3116
+  ],
+  "v83/returns/v80/v80_c_loss_path_b_unanswered/recorded": [
+   "success",
+   3.3735
+  ],
+  "v83/returns/v80/v80_c_proceeds_missing/recorded": [
+   "success",
+   3.4595
+  ],
+  "v83/returns/v80/v80_c_wash/recorded": [
+   "success",
+   3.686
+  ],
+  "v83/returns/v80/v80_d3_b_basis_missing/recorded": [
+   "success",
+   3.368
+  ],
+  "v83/returns/v80/v80_d3_b_code_w_on_gain/recorded": [
+   "success",
+   3.6567
+  ],
+  "v83/returns/v80/v80_d3_b_orphan_basis/recorded": [
+   "error",
+   1.5027
+  ],
+  "v83/returns/v80/v80_d3_b_proceeds_missing/recorded": [
+   "success",
+   3.3737
+  ],
+  "v83/returns/v80/v80_dup_b_and_c_ic_no/recorded": [
+   "success",
+   3.4705
+  ],
+  "v83/returns/v80/v80_dup_b_and_c_ic_yes/recorded": [
+   "success",
+   3.7755
+  ],
+  "v83/returns/v80/v80_f_gain/recorded": [
+   "success",
+   3.429
+  ],
+  "v83/returns/v80/v80_f_gain_new_ic_no/recorded": [
+   "success",
+   3.1057
+  ],
+  "v83/returns/v80/v80_f_gain_new_ic_unanswered/recorded": [
+   "success",
+   3.3267
+  ],
+  "v83/returns/v80/v80_f_gain_path_b_unanswered/recorded": [
+   "success",
+   3.3852
+  ],
+  "v83/returns/v80/v80_f_gain_q2_no_with_member/recorded": [
+   "success",
+   3.1859
+  ],
+  "v83/returns/v80/v80_f_holding_mismatch/recorded": [
+   "success",
+   3.162
+  ],
+  "v83/returns/v80/v80_m_b_q1_no_with_member/recorded": [
+   "success",
+   3.3375
+  ],
+  "v83/returns/v80/v80_m_bf_yes_yes/recorded": [
+   "success",
+   3.4691
+  ],
+  "v83/returns/v80/v80_m_c_8949_yes_pathb_no/recorded": [
+   "success",
+   3.4044
+  ],
+  "v83/returns/v80/v80_m_c_new_ic_no/recorded": [
+   "success",
+   3.3175
+  ],
+  "v83/returns/v80/v80_m_c_q2_no_with_member/recorded": [
+   "success",
+   3.7289
+  ],
+  "v83/returns/v80/v80_m_e_yes_q2_yes_nothing/recorded": [
+   "success",
+   3.3042
+  ],
+  "v83/returns/v80/v80_m_f_q1_yes_nothing/recorded": [
+   "success",
+   3.285
+  ],
+  "v83/returns/v80/v80_mixed_abcf/recorded": [
+   "success",
+   3.7631
+  ],
+  "v83/returns/v80/v80_q2_late_yes_reanswered/recorded": [
+   "success",
+   3.4585
+  ],
+  "v83/returns/v80/v80_q2_late_yes_stale/recorded": [
+   "success",
+   3.3193
+  ],
+  "v83/returns/v80/v80_t1_stage2/recorded": [
+   "success",
+   3.3137
+  ],
+  "v83/returns/v80/v80_t1_stage3/recorded": [
+   "success",
+   3.2959
+  ],
+  "v83/returns/v80/v80_t2_stage0/recorded": [
+   "success",
+   3.4033
+  ],
+  "v83/returns/v80/v80_t2_stage1/recorded": [
+   "success",
+   3.5484
+  ],
+  "v83/returns/v80/v80_t2_stage2/recorded": [
+   "success",
+   3.3264
+  ],
+  "v83/returns/v80/v80_t2_stage3/recorded": [
+   "success",
+   3.3974
+  ],
+  "v83/returns/v80/v80_w_c_amounts_disagree/recorded": [
+   "success",
+   3.0204
+  ],
+  "v83/returns/v80/v80_wage_q2_unanswered/recorded": [
+   "success",
+   3.092
+  ],
+  "v83/track0/s0/b4_amount_no_answer": [
+   "success",
+   3.6698
+  ],
+  "v83/track0/s0/b4_answer_no_amount": [
+   "success",
+   3.7438
+  ],
+  "v83/track0/s0/b4_beside_int_div": [
+   "success",
+   3.7908
+  ],
+  "v83/track0/s0/b4_extra_statement_no_sales": [
+   "success",
+   3.634
+  ],
+  "v83/track0/s0/b4_no_one_statement": [
+   "success",
+   3.6644
+  ],
+  "v83/track0/s0/b4_no_sales": [
+   "success",
+   3.5186
+  ],
+  "v83/track0/s0/b4_no_with_amount": [
+   "success",
+   3.5342
+  ],
+  "v83/track0/s0/b4_one_statement": [
+   "success",
+   3.4795
+  ],
+  "v83/track0/s0/b4_orphan_150": [
+   "success",
+   3.4331
+  ],
+  "v83/track0/s0/b4_orphan_beside_sale": [
+   "success",
+   3.6657
+  ],
+  "v83/track0/s0/b4_st_and_lt": [
+   "success",
+   3.6406
+  ],
+  "v83/track0/s0/b4_statement_removed": [
+   "success",
+   3.6345
+  ],
+  "v83/track0/s0/b4_two_statements": [
+   "success",
+   3.8603
+  ],
+  "v83/track0/s0/b4_two_statements_both_no": [
+   "success",
+   3.825
+  ],
+  "v83/track0/s0/b4_two_statements_both_yes": [
+   "success",
+   3.8234
+  ],
+  "v83/track0/s0/b4_two_statements_one_unanswered": [
+   "success",
+   3.6646
+  ],
+  "v83/track0/s0/b4_two_statements_one_yes": [
+   "success",
+   3.7079
+  ],
+  "v83/track0/s0/b4_yes_codeb": [
+   "success",
+   3.7746
+  ],
+  "v83/track0/s0/b4_yes_covered": [
+   "success",
+   3.3212
+  ],
+  "v83/track0/s0/b4_yes_noncovered": [
+   "success",
+   3.2401
+  ],
+  "v83/track0/s0/b4_yes_w": [
+   "success",
+   3.664
+  ],
+  "v83/track0/s1/d2_mixed_statements": [
+   "success",
+   3.4193
+  ],
+  "v83/track0/s1/d2_single_v82_no": [
+   "success",
+   3.2003
+  ],
+  "v83/track0/s1/d2_two_statements_both_v82_no": [
+   "success",
+   3.6331
+  ],
+  "v83/track0/s1/d2_unanswered_statement": [
+   "success",
+   3.5472
+  ],
+  "v83/track0/s2/alc_b4_amount_missing": [
+   "success",
+   3.4501
+  ],
+  "v83/track0/s2/alc_b4_amount_superseded": [
+   "success",
+   3.4078
+  ],
+  "v83/track0/s2/alc_b4_amount_valid": [
+   "success",
+   3.3517
+  ],
+  "v83/track0/s2/alc_count_positive": [
+   "success",
+   3.2965
+  ],
+  "v83/track0/s2/alc_count_transition": [
+   "success",
+   3.392
+  ],
+  "v83/track0/s2/alc_stmt_orphan": [
+   "success",
+   3.5826
+  ],
+  "v83/track0/s2/alc_v82_answer_on_v83": [
+   "success",
+   3.6183
+  ],
+  "v83/track0/s3/m_code_b_lt_positive": [
+   "success",
+   3.5022
+  ],
+  "v83/track0/s3/m_code_b_lt_unrecorded": [
+   "success",
+   3.5432
+  ],
+  "v83/track0/s3/m_code_b_lt_v82_only": [
+   "success",
+   3.5516
+  ],
+  "v83/track0/s3/m_code_b_lt_zero": [
+   "success",
+   3.4606
+  ],
+  "v83/track0/s3/m_code_b_st_positive": [
+   "success",
+   3.215
+  ],
+  "v83/track0/s3/m_code_b_st_unrecorded": [
+   "success",
+   3.1616
+  ],
+  "v83/track0/s3/m_code_b_st_v82_only": [
+   "success",
+   3.1942
+  ],
+  "v83/track0/s3/m_code_b_st_zero": [
+   "success",
+   3.3819
+  ],
+  "v83/track0/s3/m_covered_lt_positive": [
+   "success",
+   3.4857
+  ],
+  "v83/track0/s3/m_covered_lt_unrecorded": [
+   "success",
+   3.6481
+  ],
+  "v83/track0/s3/m_covered_lt_v82_only": [
+   "success",
+   3.533
+  ],
+  "v83/track0/s3/m_covered_lt_zero": [
+   "success",
+   3.5341
+  ],
+  "v83/track0/s3/m_covered_st_positive": [
+   "success",
+   3.4409
+  ],
+  "v83/track0/s3/m_covered_st_unrecorded": [
+   "success",
+   3.5157
+  ],
+  "v83/track0/s3/m_covered_st_v82_only": [
+   "success",
+   3.6562
+  ],
+  "v83/track0/s3/m_covered_st_zero": [
+   "success",
+   3.0922
+  ],
+  "v83/track0/s3/m_covered_w_lt_positive": [
+   "success",
+   2.9644
+  ],
+  "v83/track0/s3/m_covered_w_lt_unrecorded": [
+   "success",
+   3.3821
+  ],
+  "v83/track0/s3/m_covered_w_lt_v82_only": [
+   "success",
+   3.5273
+  ],
+  "v83/track0/s3/m_covered_w_lt_zero": [
+   "success",
+   3.2196
+  ],
+  "v83/track0/s3/m_covered_w_st_positive": [
+   "success",
+   3.3829
+  ],
+  "v83/track0/s3/m_covered_w_st_unrecorded": [
+   "success",
+   3.568
+  ],
+  "v83/track0/s3/m_covered_w_st_v82_only": [
+   "success",
+   3.2629
+  ],
+  "v83/track0/s3/m_covered_w_st_zero": [
+   "success",
+   3.2899
+  ],
+  "v83/track0/s3/m_noncovered_lt_positive": [
+   "success",
+   3.4081
+  ],
+  "v83/track0/s3/m_noncovered_lt_unrecorded": [
+   "success",
+   3.378
+  ],
+  "v83/track0/s3/m_noncovered_lt_v82_only": [
+   "success",
+   3.4536
+  ],
+  "v83/track0/s3/m_noncovered_lt_zero": [
+   "success",
+   3.3347
+  ],
+  "v83/track0/s3/m_noncovered_st_positive": [
+   "success",
+   3.3663
+  ],
+  "v83/track0/s3/m_noncovered_st_unrecorded": [
+   "success",
+   3.3545
+  ],
+  "v83/track0/s3/m_noncovered_st_v82_only": [
+   "success",
+   4.3723
+  ],
+  "v83/track0/s3/m_noncovered_st_zero": [
+   "success",
+   3.3069
+  ],
+  "v83/track0/s4/trace1_initial": [
+   "success",
+   3.4551
+  ],
+  "v83/track0/s4/trace1_new_stmt_answered": [
+   "success",
+   3.2413
+  ],
+  "v83/track0/s4/trace1_new_stmt_unanswered": [
+   "success",
+   3.405
+  ],
+  "v83/track0/s4/trace2_initial": [
+   "success",
+   3.2426
+  ],
+  "v83/track0/s4/trace2_sale_removed": [
+   "success",
+   3.3172
+  ],
+  "v83/track0/s5/reuse_all_five_alone": [
+   "success",
+   3.5371
+  ],
+  "v83/track0/s5/reuse_all_with_b4": [
+   "success",
+   3.6378
+  ],
+  "v83/track0/s5/reuse_div_alone": [
+   "success",
+   3.3216
+  ],
+  "v83/track0/s5/reuse_int_alone": [
+   "success",
+   3.2526
+  ],
+  "v83/track0/s5/reuse_ira_alone": [
+   "success",
+   3.3979
+  ],
+  "v83/track0/s5/reuse_ssa_alone": [
+   "success",
+   3.483
+  ],
+  "v83/track0/s5/reuse_unemp_alone": [
+   "success",
+   3.4446
+  ],
+  "v83/track0/s7/surface_blocked_missing_b4": [
+   "success",
+   3.3339
+  ],
+  "v83/track0/s7/surface_published_owed": [
+   "success",
+   3.4171
+  ],
+  "v83/track0/s7/surface_published_refund": [
+   "success",
+   3.4118
+  ],
+  "v83/zero/case/a_8949_yes/recorded": [
+   "success",
+   3.2493
+  ],
+  "v83/zero/case/m_a_v80_ic_only/recorded": [
+   "success",
+   3.1361
+  ],
+  "v83/zero/case/x_d_gain_to_loss/recorded": [
+   "success",
+   3.4576
+  ],
+  "v83/zero/neighbour/n_covered_st_zero_proceeds_zero_basis/recorded": [
+   "success",
+   3.4283
+  ],
+  "v83/zero/v80/carried_t0_b_loss_8949_yes/recorded": [
+   "success",
+   3.2868
+  ],
+  "v83/zero/v80/v80_t2_stage3/recorded": [
+   "success",
+   3.5016
+  ],
+  "v84/authority/alc_closed_empty": [
+   "success",
+   3.9462
+  ],
+  "v84/authority/alc_code-b-lt_gain": [
+   "success",
+   3.4542
+  ],
+  "v84/authority/alc_code-b-lt_loss": [
+   "success",
+   3.3499
+  ],
+  "v84/authority/alc_code-b-st_gain": [
+   "success",
+   3.3469
+  ],
+  "v84/authority/alc_code-b-st_loss": [
+   "success",
+   3.2609
+  ],
+  "v84/authority/alc_count_two": [
+   "success",
+   3.2666
+  ],
+  "v84/authority/alc_covered-lt_gain": [
+   "success",
+   3.1947
+  ],
+  "v84/authority/alc_covered-lt_loss": [
+   "success",
+   3.2241
+  ],
+  "v84/authority/alc_covered-st_gain": [
+   "success",
+   3.3965
+  ],
+  "v84/authority/alc_covered-st_loss": [
+   "success",
+   3.2598
+  ],
+  "v84/authority/alc_covered-w-lt_gain": [
+   "success",
+   3.3264
+  ],
+  "v84/authority/alc_covered-w-lt_loss": [
+   "success",
+   3.193
+  ],
+  "v84/authority/alc_covered-w-st_gain": [
+   "success",
+   3.2737
+  ],
+  "v84/authority/alc_covered-w-st_loss": [
+   "success",
+   3.2435
+  ],
+  "v84/authority/alc_covered_st_unanswered": [
+   "success",
+   3.2357
+  ],
+  "v84/authority/alc_noncovered-lt_gain": [
+   "success",
+   3.8883
+  ],
+  "v84/authority/alc_noncovered-lt_loss": [
+   "success",
+   3.1226
+  ],
+  "v84/authority/alc_noncovered-st_gain": [
+   "success",
+   3.581
+  ],
+  "v84/authority/alc_noncovered-st_loss": [
+   "success",
+   3.555
+  ],
+  "v84/authority/alc_same_statement": [
+   "success",
+   3.5201
+  ],
+  "v84/authority/alc_statement_scope": [
+   "success",
+   3.4356
+  ],
+  "v84/late/late_gain_then_loss/0": [
+   "success",
+   3.5321
+  ],
+  "v84/late/late_gain_then_loss/1": [
+   "success",
+   3.3771
+  ],
+  "v84/late/late_loss_removed/0": [
+   "success",
+   3.2631
+  ],
+  "v84/late/late_loss_removed/1": [
+   "success",
+   3.4602
+  ],
+  "v84/late/late_new_statement_unanswered/0": [
+   "success",
+   3.5136
+  ],
+  "v84/late/late_new_statement_unanswered/1": [
+   "success",
+   3.6441
+  ],
+  "v84/late/late_yes_to_no/1": [
+   "success",
+   3.4874
+  ],
+  "v84/matrix/m_absence_code-b-lt": [
+   "success",
+   3.3115
+  ],
+  "v84/matrix/m_absence_covered-lt": [
+   "success",
+   3.1792
+  ],
+  "v84/matrix/m_absence_covered-st": [
+   "success",
+   3.3182
+  ],
+  "v84/matrix/m_absence_covered-w-lt": [
+   "success",
+   2.9589
+  ],
+  "v84/matrix/m_absence_covered-w-st": [
+   "success",
+   3.2795
+  ],
+  "v84/matrix/m_absence_noncovered-lt": [
+   "success",
+   3.4028
+  ],
+  "v84/matrix/m_code-b-lt_no": [
+   "success",
+   3.4677
+  ],
+  "v84/matrix/m_code-b-lt_unanswered": [
+   "success",
+   3.2418
+  ],
+  "v84/matrix/m_code-b-lt_yes_zero": [
+   "success",
+   3.3169
+  ],
+  "v84/matrix/m_code-b-st_no": [
+   "success",
+   3.4734
+  ],
+  "v84/matrix/m_code-b-st_unanswered": [
+   "success",
+   3.0511
+  ],
+  "v84/matrix/m_code-b-st_yes_zero": [
+   "success",
+   3.5946
+  ],
+  "v84/matrix/m_covered-lt_no": [
+   "success",
+   3.5003
+  ],
+  "v84/matrix/m_covered-lt_unanswered": [
+   "success",
+   3.3893
+  ],
+  "v84/matrix/m_covered-lt_yes_zero": [
+   "success",
+   3.6181
+  ],
+  "v84/matrix/m_covered-st_no": [
+   "success",
+   3.6265
+  ],
+  "v84/matrix/m_covered-st_yes_zero": [
+   "success",
+   3.6416
+  ],
+  "v84/matrix/m_covered-w-lt_no": [
+   "success",
+   3.7352
+  ],
+  "v84/matrix/m_covered-w-lt_unanswered": [
+   "success",
+   3.4901
+  ],
+  "v84/matrix/m_covered-w-lt_yes_zero": [
+   "success",
+   3.4771
+  ],
+  "v84/matrix/m_covered-w-st_no": [
+   "success",
+   3.5988
+  ],
+  "v84/matrix/m_covered-w-st_unanswered": [
+   "success",
+   3.4901
+  ],
+  "v84/matrix/m_covered-w-st_yes_zero": [
+   "success",
+   3.3235
+  ],
+  "v84/matrix/m_noncovered-lt_no": [
+   "success",
+   3.5627
+  ],
+  "v84/matrix/m_noncovered-lt_unanswered": [
+   "success",
+   3.4894
+  ],
+  "v84/matrix/m_noncovered-lt_yes_zero": [
+   "success",
+   3.015
+  ],
+  "v84/matrix/m_noncovered-st_no": [
+   "success",
+   3.4585
+  ],
+  "v84/matrix/m_noncovered-st_unanswered": [
+   "success",
+   3.7162
+  ],
+  "v84/matrix/m_noncovered-st_yes_zero": [
+   "success",
+   3.4204
+  ],
+  "v84/reuse/reuse_covered_flag": [
+   "success",
+   3.496
+  ],
+  "v85/authority/alc_double_count": [
+   "success",
+   3.4683
+  ],
+  "v85/authority/alc_present_no": [
+   "success",
+   3.2263
+  ],
+  "v85/authority/alc_present_yes_amount": [
+   "success",
+   3.3129
+  ],
+  "v85/authority/alc_present_yes_amount_unanswered": [
+   "success",
+   3.356
+  ],
+  "v85/authority/alc_stmt_identity": [
+   "success",
+   3.3084
+  ],
+  "v85/authority/alc_stmt_with_sale": [
+   "success",
+   3.2724
+  ],
+  "v85/authority/alc_stmt_without_sale": [
+   "success",
+   3.4384
+  ],
+  "v85/late/late_amount_corrected/0": [
+   "success",
+   3.0746
+  ],
+  "v85/late/late_amount_corrected/1": [
+   "success",
+   3.2603
+  ],
+  "v85/late/late_sale_removed/0": [
+   "success",
+   3.4475
+  ],
+  "v85/late/late_sale_removed/1": [
+   "success",
+   3.323
+  ],
+  "v85/late/late_yes_then_sale_then_no/0": [
+   "success",
+   3.2998
+  ],
+  "v85/late/late_yes_then_sale_then_no/1": [
+   "success",
+   3.2981
+  ],
+  "v85/late/late_yes_to_no/0": [
+   "success",
+   3.3184
+  ],
+  "v85/late/late_yes_to_no/1": [
+   "success",
+   3.2835
+  ],
+  "v85/matrix/m_both_no_sale200": [
+   "success",
+   3.4439
+  ],
+  "v85/matrix/m_both_no_sale200_stmt0": [
+   "success",
+   3.5491
+  ],
+  "v85/matrix/m_both_no_sale200_stmt150": [
+   "success",
+   3.4472
+  ],
+  "v85/matrix/m_both_unanswered_sale200": [
+   "success",
+   3.5764
+  ],
+  "v85/matrix/m_both_yes_amount0_sale200_stmt150": [
+   "success",
+   3.6393
+  ],
+  "v85/matrix/m_both_yes_amount_unanswered_sale200": [
+   "success",
+   3.6458
+  ],
+  "v85/matrix/m_nosale_no": [
+   "success",
+   3.2007
+  ],
+  "v85/matrix/m_nosale_no_stmt0": [
+   "success",
+   3.2597
+  ],
+  "v85/matrix/m_nosale_no_stmt150": [
+   "success",
+   3.4486
+  ],
+  "v85/matrix/m_nosale_unanswered": [
+   "success",
+   3.3423
+  ],
+  "v85/matrix/m_nosale_yes_amount": [
+   "success",
+   3.3273
+  ],
+  "v85/matrix/m_nosale_yes_amount_stmt0": [
+   "success",
+   3.3135
+  ],
+  "v85/matrix/m_nosale_yes_amount_unanswered": [
+   "success",
+   3.2242
+  ],
+  "v85/matrix/m_sale_no_stmt0": [
+   "success",
+   3.2854
+  ],
+  "v85/matrix/m_sale_unanswered_stmt0": [
+   "success",
+   3.313
+  ],
+  "v85/matrix/m_sale_unanswered_stmt200": [
+   "success",
+   3.2786
+  ],
+  "v85/matrix/m_sale_yes_amount_stmt200": [
+   "success",
+   3.2781
+  ],
+  "v85/matrix/m_sale_yes_amount_unanswered_stmt200": [
+   "success",
+   3.2502
+  ],
+  "v85/reuse/reuse_all_five_alone": [
+   "success",
+   3.6537
+  ],
+  "v85/reuse/reuse_all_with_b4": [
+   "success",
+   3.7062
+  ],
+  "v85/reuse/reuse_box4_question": [
+   "success",
+   3.3867
+  ],
+  "v85/reuse/reuse_box7_check": [
+   "success",
+   3.356
+  ],
+  "v85/reuse/reuse_div_alone": [
+   "success",
+   3.2924
+  ],
+  "v85/reuse/reuse_int_alone": [
+   "success",
+   3.4364
+  ],
+  "v85/reuse/reuse_ira_alone": [
+   "success",
+   3.2983
+  ],
+  "v85/reuse/reuse_ssa_alone": [
+   "success",
+   3.2942
+  ],
+  "v85/reuse/reuse_unemp_alone": [
+   "success",
+   3.3195
+  ],
+  "v85/surface/surface_blocked_sale_box4": [
+   "success",
+   3.2238
+  ]
+ },
+ "replay_wall_s": 307.6,
+ "slowest_key": "v83/returns/neighbour/n_two_w_st_and_w_lt/recorded",
+ "total_s_all_median": 3.3701,
+ "total_s_quartiles_all": [
+  3.2426,
+  3.3701,
+  3.4897
+ ],
+ "total_s_success_median": 3.3893,
+ "total_s_success_slowest": 4.5278,
+ "total_s_sum_all": 2473.1,
+ "workers": 9
+}

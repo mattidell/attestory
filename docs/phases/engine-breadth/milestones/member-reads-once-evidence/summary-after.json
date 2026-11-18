@@ -1,0 +1,20 @@
+{
+ "baseline_per_list_digest": "3def5f6f845f2c0bee7500a17f6cdda0f0577a84de0331144b10a26f5356cab1",
+ "core": "v96",
+ "equal_to_baseline": true,
+ "errors": [
+  "FindingModelError",
+  "HorizonModelError",
+  "SourceAuthorityError"
+ ],
+ "label": "after",
+ "lists": 775,
+ "outcomes": {
+  "error": 84,
+  "refused": 0,
+  "success": 691
+ },
+ "per_list_digest": "3def5f6f845f2c0bee7500a17f6cdda0f0577a84de0331144b10a26f5356cab1",
+ "replay_wall_s": 263.5,
+ "workers": 9
+}
