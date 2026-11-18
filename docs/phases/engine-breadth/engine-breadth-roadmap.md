@@ -979,6 +979,18 @@ walk, a marshal precompute) took the median list from 7.76 s to 2.94 s
 and the slowest from 49.6 s to 3.55 s, with every recorded list
 byte-identical. No package version change. The Rust port is parked.
 
+## Bounded return — Member Files Are Read Once (2025)
+
+[Plan](milestones/member-reads-once.md); retrospective:
+`docs/milestone-retrospectives/2026-11-18-member-reads-once.md`.
+
+Each replay read, parsed and checksummed all 1,813 member files four
+times. A per-process cache keyed on the bytes read now parses and
+checksums each distinct file once; an edited file is always re-parsed,
+and callers get read-only views or private copies. All 775 recorded
+lists replay byte-identically. Paired timing of the median list: 2.12 s
+uncached, 1.67 s cold, 1.62 s warm. No package version change.
+
 ## Saved-page observation — Mortgage and Sales (2025)
 
 [Plan](milestones/sale-page-observation.md); retrospective:
@@ -1022,12 +1034,13 @@ delivers an item removes it.
 
 ### Parked
 
-- Replay speed, next Python levers (rust-kernel-experiment, 2026-11-18):
-  each replay reads and hashes the 7,252 member files twice (about 40 %
-  of a recorded replay); recorder stories re-project the whole act log
-  on every save and rebuild the fact lattice metadata per assertion
-  (about 60 % of test K13). The second is a kernel edit and needs the
-  owner's confirmation.
+- Replay speed, next levers (rust-kernel-experiment and member-reads-once,
+  2026-11-18): recorder stories re-project the whole act log on every
+  save and rebuild the fact lattice metadata per assertion (about 60 % of
+  test K13; a kernel edit that needs the owner's confirmation); about
+  3,159 citizen checksums per median list are still recomputed in the
+  validation memo key and `validate_package` rather than reused from the
+  member cache.
 - Form 8949 adjustment codes other than B and W (refused by answer on
   core v81).
 - Per-row Form 8949 column (f) code letters: B on a box B/E row with a
