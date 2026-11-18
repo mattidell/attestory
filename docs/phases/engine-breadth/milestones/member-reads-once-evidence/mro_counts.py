@@ -36,6 +36,7 @@ REPO = wl.REPO
 
 def main() -> None:
     name, label = sys.argv[1], sys.argv[2]
+    cold = "--cold" in sys.argv
     import pathlib
     from packages.derivation import production_resolver as pr
     from packages.derivation import package_validation as pv
@@ -90,6 +91,24 @@ def main() -> None:
             checksum_calls[caller_chain(1)] += 1
         return orig_cc(body)
 
+    loads_by_caller: collections.Counter[str] = collections.Counter()
+    orig_loads = json.loads
+
+    def loads(*a, **k):  # type: ignore[no-untyped-def]
+        if on[0] and str(sys._getframe(1).f_code.co_filename).endswith("production_resolver.py"):
+            loads_by_caller[sys._getframe(1).f_code.co_name] += 1
+        return orig_loads(*a, **k)
+
+    json.loads = loads  # type: ignore[assignment]
+    if hasattr(pr, "_member_candidates"):
+        orig_mc = pr._member_candidates
+
+        def mc(directory):  # type: ignore[no-untyped-def]
+            if on[0]:
+                cand_callers[caller_chain(1)] += 1
+            return orig_mc(directory)
+
+        pr._member_candidates = sr._member_candidates = mc  # type: ignore[assignment]
     pathlib.Path.read_bytes, pathlib.Path.read_text = read_bytes, read_text  # type: ignore[method-assign]
     pr._json_candidates = sr._json_candidates = cand  # type: ignore[assignment]
     pr._load_json = lj  # type: ignore[assignment]
@@ -102,6 +121,8 @@ def main() -> None:
     if name == "k13":
         prof.k13_module()
         prof.run_k13("K1", None)
+        if cold:
+            getattr(pr, "clear_member_cache", lambda: None)()
         on[0] = True
         body["run"] = prof.run_k13("K13", None)
         on[0] = False
@@ -114,6 +135,8 @@ def main() -> None:
         h = rr._get_harness()
         with h.loader_entries(core):
             prof.run_recorded("demo.rke.warmup", h.ccr.base_return(), core, None)
+            if cold:
+                getattr(pr, "clear_member_cache", lambda: None)()
             on[0] = True
             body["run"] = prof.run_recorded(key, acts, core, None)
             on[0] = False
@@ -124,6 +147,8 @@ def main() -> None:
     body["read_callers"] = dict(read_callers.most_common())
     body["json_candidates_calls_by_caller"] = dict(cand_callers)
     body["load_json_calls"] = load_json_calls[0]
+    body["json_loads_in_production_resolver_by_function"] = dict(loads_by_caller)
+    body["member_cache"] = "cold at start" if cold else "warm from warm-up"
     body["citizen_checksum_calls_by_caller"] = dict(checksum_calls)
     wl.write(HERE / f"counts-{label}-{name}.json", body)
     print(json.dumps({k: v for k, v in body.items() if k != "run"}, indent=1))

@@ -1,0 +1,51 @@
+{
+ "citizen_checksum_calls_by_caller": {
+  "derivation/package_validation.py:validate_package": 1053,
+  "derivation/production_resolver.py:<genexpr>": 2106
+ },
+ "distinct_files_read": 1813,
+ "json_candidates_calls_by_caller": {
+  "derivation/production_resolver.py:_resolve_member_corpus": 2,
+  "derivation/production_resolver.py:resolve_production_package": 2
+ },
+ "json_loads_in_production_resolver_by_function": {
+  "_verify_release_and_registry": 114
+ },
+ "label": "after-warm",
+ "list": "v83/returns/v80/carried_covered_flag_no_w_lt/recorded",
+ "load_json_calls": 0,
+ "member_cache": "warm from warm-up",
+ "member_dir_reads_total": 7259,
+ "read_callers": {
+  "": 1,
+  "derivation/package_validation.py:load_published_citizen_checksums < derivation/production_resolver.py:resolve_production_package < derivation/live.py:live_coordinate_run": 1,
+  "derivation/package_validation.py:load_published_citizen_checksums < derivation/production_resolver.py:resolve_production_package < tax/ssa_family_handover.py:ssa_family_version_for_acts": 1,
+  "derivation/package_validation.py:load_published_package_checksums < derivation/production_resolver.py:resolve_production_package < derivation/live.py:live_coordinate_run": 1,
+  "derivation/package_validation.py:load_published_package_checksums < derivation/production_resolver.py:resolve_production_package < tax/ssa_family_handover.py:ssa_family_version_for_acts": 1,
+  "derivation/production_resolver.py:_read_member < derivation/production_resolver.py:_member_candidates < derivation/production_resolver.py:_resolve_member_corpus": 3626,
+  "derivation/production_resolver.py:_read_member < derivation/production_resolver.py:_member_candidates < derivation/production_resolver.py:resolve_production_package": 3626,
+  "derivation/production_resolver.py:_verify_release_and_registry < derivation/production_resolver.py:resolve_production_package < derivation/live.py:live_coordinate_run": 1,
+  "derivation/production_resolver.py:_verify_release_and_registry < derivation/production_resolver.py:resolve_production_package < tax/ssa_family_handover.py:ssa_family_version_for_acts": 1
+ },
+ "reads_per_file_histogram": {
+  "10": 1,
+  "4": 1811,
+  "5": 1
+ },
+ "run": {
+  "acts": 350,
+  "assertions": 181,
+  "bundle_adoptions": 70,
+  "distinct_asserted_facts": 181,
+  "outcome": "success",
+  "page_bytes": 672252,
+  "pin_sha256": "6ca955a5ac08828c283628bd406478f302c7da6d3330d0a0ea91d7366054100f",
+  "prep_s": 0.744,
+  "publications": 204,
+  "render_s": 0.019,
+  "rows": 319,
+  "run_s": 0.966,
+  "total_s": 1.735
+ },
+ "workload": "slowest"
+}

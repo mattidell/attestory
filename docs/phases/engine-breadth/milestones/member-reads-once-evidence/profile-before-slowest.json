@@ -1,0 +1,621 @@
+{
+ "core": "v96",
+ "label": "before",
+ "layers_inclusive_s": {
+  "JSON (de)serialization": 0.836,
+  "builtins (dict/list/set/str etc.)": 1.369,
+  "copy.deepcopy": 0.326,
+  "derivation: evaluator/runner": 0.74,
+  "derivation: live coordination/resolution": 4.647,
+  "derivation: package validation": 1.308,
+  "file I/O": 0.849,
+  "hashing": 0.022,
+  "jsonschema validation": 0.008,
+  "kernel: fact store": 1.368,
+  "kernel: finding model": 1.066,
+  "kernel: schema registry wrapper": 0.125,
+  "other stdlib": 0.211,
+  "presentation projection": 0.51,
+  "regex": 0.008,
+  "tax domain loader": 2.451,
+  "test/evidence harness": 0.002
+ },
+ "layers_own_pct": {
+  "JSON (de)serialization": 16.4,
+  "builtins (dict/list/set/str etc.)": 0.0,
+  "copy.deepcopy": 6.4,
+  "derivation: evaluator/runner": 8.1,
+  "derivation: live coordination/resolution": 3.8,
+  "derivation: package validation": 17.8,
+  "file I/O": 16.3,
+  "hashing": 0.4,
+  "jsonschema validation": 0.1,
+  "kernel: fact store": 21.1,
+  "kernel: finding model": 0.9,
+  "kernel: schema registry wrapper": 0.2,
+  "other stdlib": 2.7,
+  "presentation projection": 3.7,
+  "regex": 0.2,
+  "tax domain loader": 1.8,
+  "test/evidence harness": 0.1
+ },
+ "layers_own_s": {
+  "JSON (de)serialization": 0.832,
+  "builtins (dict/list/set/str etc.)": 0.0,
+  "copy.deepcopy": 0.326,
+  "derivation: evaluator/runner": 0.412,
+  "derivation: live coordination/resolution": 0.192,
+  "derivation: package validation": 0.907,
+  "file I/O": 0.829,
+  "hashing": 0.022,
+  "jsonschema validation": 0.006,
+  "kernel: fact store": 1.074,
+  "kernel: finding model": 0.043,
+  "kernel: schema registry wrapper": 0.011,
+  "other stdlib": 0.138,
+  "presentation projection": 0.189,
+  "regex": 0.008,
+  "tax domain loader": 0.091,
+  "test/evidence harness": 0.003
+ },
+ "list": "v83/returns/v80/carried_covered_flag_no_w_lt/recorded",
+ "member_cache": "warm from warm-up",
+ "profiled": {
+  "acts": 350,
+  "assertions": 181,
+  "bundle_adoptions": 70,
+  "distinct_asserted_facts": 181,
+  "outcome": "success",
+  "page_bytes": 672252,
+  "pin_sha256": "6ca955a5ac08828c283628bd406478f302c7da6d3330d0a0ea91d7366054100f",
+  "prep_s": 2.42,
+  "publications": 204,
+  "render_s": 0.031,
+  "rows": 319,
+  "run_s": 2.736,
+  "total_s": 5.197
+ },
+ "profiled_total_s": 5.085,
+ "profiler": "cProfile (py-spy not installed)",
+ "top_cumulative": [
+  {
+   "calls": 1,
+   "cum_s": 2.777,
+   "function": "docs/phases/engine-breadth/milestones/rust-kernel-experiment-evidence/p0_workload.py:50(run)",
+   "layer": "test/evidence harness",
+   "own_s": 0.0,
+   "primitive_calls": 1
+  },
+  {
+   "calls": 1,
+   "cum_s": 2.736,
+   "function": "packages/derivation/live.py:631(live_coordinate_run)",
+   "layer": "derivation: live coordination/resolution",
+   "own_s": 0.005,
+   "primitive_calls": 1
+  },
+  {
+   "calls": 2,
+   "cum_s": 2.658,
+   "function": "packages/derivation/production_resolver.py:441(resolve_production_package)",
+   "layer": "derivation: live coordination/resolution",
+   "own_s": 0.05,
+   "primitive_calls": 2
+  },
+  {
+   "calls": 1,
+   "cum_s": 2.42,
+   "function": "docs/phases/engine-breadth/milestones/rust-kernel-experiment-evidence/p0_workload.py:41(prepare)",
+   "layer": "test/evidence harness",
+   "own_s": 0.0,
+   "primitive_calls": 1
+  },
+  {
+   "calls": 1,
+   "cum_s": 2.401,
+   "function": "tests/test_form_1099_k_income.py:113(_handover)",
+   "layer": "test/evidence harness",
+   "own_s": 0.002,
+   "primitive_calls": 1
+  },
+  {
+   "calls": 1,
+   "cum_s": 1.801,
+   "function": "packages/tax/ssa_family_handover.py:58(ssa_family_version_for_acts)",
+   "layer": "tax domain loader",
+   "own_s": 0.0,
+   "primitive_calls": 1
+  },
+  {
+   "calls": 4,
+   "cum_s": 1.253,
+   "function": "packages/derivation/production_resolver.py:166(_json_candidates)",
+   "layer": "derivation: live coordination/resolution",
+   "own_s": 0.004,
+   "primitive_calls": 4
+  },
+  {
+   "calls": 7252,
+   "cum_s": 1.144,
+   "function": "packages/derivation/production_resolver.py:91(_load_json)",
+   "layer": "derivation: live coordination/resolution",
+   "own_s": 0.008,
+   "primitive_calls": 7252
+  },
+  {
+   "calls": 2,
+   "cum_s": 1.11,
+   "function": "packages/derivation/production_resolver.py:144(_validate_once)",
+   "layer": "derivation: live coordination/resolution",
+   "own_s": 0.002,
+   "primitive_calls": 2
+  },
+  {
+   "calls": 2,
+   "cum_s": 1.066,
+   "function": "packages/kernel/findings.py:1703(project)",
+   "layer": "kernel: finding model",
+   "own_s": 0.001,
+   "primitive_calls": 2
+  },
+  {
+   "calls": 698,
+   "cum_s": 1.054,
+   "function": "packages/kernel/findings.py:1686(_apply_project_act)",
+   "layer": "kernel: finding model",
+   "own_s": 0.009,
+   "primitive_calls": 698
+  },
+  {
+   "calls": 361,
+   "cum_s": 0.92,
+   "function": "packages/kernel/findings.py:863(_apply_assertion)",
+   "layer": "kernel: finding model",
+   "own_s": 0.007,
+   "primitive_calls": 361
+  },
+  {
+   "calls": 841,
+   "cum_s": 0.843,
+   "function": "packages/kernel/facts.py:555(view)",
+   "layer": "kernel: fact store",
+   "own_s": 0.001,
+   "primitive_calls": 841
+  },
+  {
+   "calls": 1,
+   "cum_s": 0.802,
+   "function": "packages/derivation/package_validation.py:1796(validate_package)",
+   "layer": "derivation: package validation",
+   "own_s": 0.06,
+   "primitive_calls": 1
+  },
+  {
+   "calls": 2,
+   "cum_s": 0.796,
+   "function": "packages/derivation/production_resolver.py:402(_resolve_member_corpus)",
+   "layer": "derivation: live coordination/resolution",
+   "own_s": 0.015,
+   "primitive_calls": 2
+  },
+  {
+   "calls": 7277,
+   "cum_s": 0.686,
+   "function": "stdlib/pathlib/__init__.py:780(read_text)",
+   "layer": "file I/O",
+   "own_s": 0.007,
+   "primitive_calls": 7277
+  },
+  {
+   "calls": 732,
+   "cum_s": 0.587,
+   "function": "packages/kernel/findings.py:734(for_state)",
+   "layer": "kernel: finding model",
+   "own_s": 0.0,
+   "primitive_calls": 732
+  },
+  {
+   "calls": 732,
+   "cum_s": 0.587,
+   "function": "packages/kernel/facts.py:667(_current_lattice_for_replay)",
+   "layer": "kernel: fact store",
+   "own_s": 0.0,
+   "primitive_calls": 732
+  },
+  {
+   "calls": 1,
+   "cum_s": 0.557,
+   "function": "packages/tax/ssa_family_handover.py:132(stage_ssa_family_handover)",
+   "layer": "tax domain loader",
+   "own_s": 0.0,
+   "primitive_calls": 1
+  },
+  {
+   "calls": 1,
+   "cum_s": 0.479,
+   "function": "packages/derivation/presentation_projection.py:4718(build_presentation_model)",
+   "layer": "presentation projection",
+   "own_s": 0.004,
+   "primitive_calls": 1
+  },
+  {
+   "calls": 7277,
+   "cum_s": 0.467,
+   "function": "<method 'read' of '_io.TextIOWrapper' objects>",
+   "layer": "file I/O",
+   "own_s": 0.453,
+   "primitive_calls": 7277
+  },
+  {
+   "calls": 7404,
+   "cum_s": 0.465,
+   "function": "stdlib/json/__init__.py:304(loads)",
+   "layer": "JSON (de)serialization",
+   "own_s": 0.005,
+   "primitive_calls": 7404
+  },
+  {
+   "calls": 7404,
+   "cum_s": 0.459,
+   "function": "stdlib/json/decoder.py:340(decode)",
+   "layer": "JSON (de)serialization",
+   "own_s": 0.007,
+   "primitive_calls": 7404
+  },
+  {
+   "calls": 841,
+   "cum_s": 0.447,
+   "function": "packages/kernel/facts.py:449(_lattice_metadata)",
+   "layer": "kernel: fact store",
+   "own_s": 0.018,
+   "primitive_calls": 841
+  },
+  {
+   "calls": 7404,
+   "cum_s": 0.445,
+   "function": "stdlib/json/decoder.py:351(raw_decode)",
+   "layer": "JSON (de)serialization",
+   "own_s": 0.445,
+   "primitive_calls": 7404
+  },
+  {
+   "calls": 378,
+   "cum_s": 0.431,
+   "function": "packages/kernel/currency.py:203(compute_currency)",
+   "layer": "kernel: fact store",
+   "own_s": 0.004,
+   "primitive_calls": 378
+  },
+  {
+   "calls": 229,
+   "cum_s": 0.428,
+   "function": "packages/kernel/facts.py:563(update)",
+   "layer": "kernel: fact store",
+   "own_s": 0.081,
+   "primitive_calls": 229
+  },
+  {
+   "calls": 371,
+   "cum_s": 0.42,
+   "function": "packages/kernel/findings.py:745(_validate_finding)",
+   "layer": "kernel: finding model",
+   "own_s": 0.005,
+   "primitive_calls": 371
+  },
+  {
+   "calls": 168156,
+   "cum_s": 0.416,
+   "function": "packages/kernel/facts.py:455(<genexpr>)",
+   "layer": "kernel: fact store",
+   "own_s": 0.138,
+   "primitive_calls": 168156
+  },
+  {
+   "calls": 378,
+   "cum_s": 0.411,
+   "function": "packages/kernel/currency.py:152(_declared_edges)",
+   "layer": "kernel: fact store",
+   "own_s": 0.02,
+   "primitive_calls": 378
+  },
+  {
+   "calls": 1103,
+   "cum_s": 0.396,
+   "function": "packages/kernel/facts.py:558(view_metadata)",
+   "layer": "kernel: fact store",
+   "own_s": 0.013,
+   "primitive_calls": 1103
+  },
+  {
+   "calls": 371,
+   "cum_s": 0.377,
+   "function": "packages/kernel/findings.py:200(_admission_view_if_declared)",
+   "layer": "kernel: finding model",
+   "own_s": 0.0,
+   "primitive_calls": 371
+  },
+  {
+   "calls": 371,
+   "cum_s": 0.376,
+   "function": "packages/kernel/findings.py:189(_compute_view)",
+   "layer": "kernel: finding model",
+   "own_s": 0.001,
+   "primitive_calls": 371
+  },
+  {
+   "calls": 11572,
+   "cum_s": 0.371,
+   "function": "stdlib/json/__init__.py:185(dumps)",
+   "layer": "JSON (de)serialization",
+   "own_s": 0.01,
+   "primitive_calls": 11572
+  },
+  {
+   "calls": 11572,
+   "cum_s": 0.359,
+   "function": "stdlib/json/encoder.py:185(encode)",
+   "layer": "JSON (de)serialization",
+   "own_s": 0.009,
+   "primitive_calls": 11572
+  },
+  {
+   "calls": 11572,
+   "cum_s": 0.347,
+   "function": "stdlib/json/encoder.py:207(iterencode)",
+   "layer": "JSON (de)serialization",
+   "own_s": 0.347,
+   "primitive_calls": 11572
+  },
+  {
+   "calls": 523351,
+   "cum_s": 0.326,
+   "function": "stdlib/copy.py:110(deepcopy)",
+   "layer": "copy.deepcopy",
+   "own_s": 0.117,
+   "primitive_calls": 1652
+  },
+  {
+   "calls": 72014,
+   "cum_s": 0.322,
+   "function": "stdlib/copy.py:198(_deepcopy_dict)",
+   "layer": "copy.deepcopy",
+   "own_s": 0.103,
+   "primitive_calls": 2460
+  },
+  {
+   "calls": 378,
+   "cum_s": 0.312,
+   "function": "packages/kernel/facts.py:672(_historical_lattice_for_currency)",
+   "layer": "kernel: fact store",
+   "own_s": 0.001,
+   "primitive_calls": 378
+  },
+  {
+   "calls": 2601297,
+   "cum_s": 0.295,
+   "function": "<method 'get' of 'dict' objects>",
+   "layer": "builtins (dict/list/set/str etc.)",
+   "own_s": 0.295,
+   "primitive_calls": 2601297
+  }
+ ],
+ "top_own": [
+  {
+   "calls": 7277,
+   "cum_s": 0.467,
+   "function": "<method 'read' of '_io.TextIOWrapper' objects>",
+   "layer": "file I/O",
+   "own_s": 0.453,
+   "primitive_calls": 7277
+  },
+  {
+   "calls": 7404,
+   "cum_s": 0.445,
+   "function": "stdlib/json/decoder.py:351(raw_decode)",
+   "layer": "JSON (de)serialization",
+   "own_s": 0.445,
+   "primitive_calls": 7404
+  },
+  {
+   "calls": 11572,
+   "cum_s": 0.347,
+   "function": "stdlib/json/encoder.py:207(iterencode)",
+   "layer": "JSON (de)serialization",
+   "own_s": 0.347,
+   "primitive_calls": 11572
+  },
+  {
+   "calls": 2601297,
+   "cum_s": 0.295,
+   "function": "<method 'get' of 'dict' objects>",
+   "layer": "builtins (dict/list/set/str etc.)",
+   "own_s": 0.295,
+   "primitive_calls": 2601297
+  },
+  {
+   "calls": 2528952,
+   "cum_s": 0.242,
+   "function": "<built-in method builtins.isinstance>",
+   "layer": "builtins (dict/list/set/str etc.)",
+   "own_s": 0.207,
+   "primitive_calls": 2466778
+  },
+  {
+   "calls": 7940,
+   "cum_s": 0.21,
+   "function": "<built-in method _io.open>",
+   "layer": "file I/O",
+   "own_s": 0.203,
+   "primitive_calls": 7940
+  },
+  {
+   "calls": 168156,
+   "cum_s": 0.416,
+   "function": "packages/kernel/facts.py:455(<genexpr>)",
+   "layer": "kernel: fact store",
+   "own_s": 0.138,
+   "primitive_calls": 168156
+  },
+  {
+   "calls": 484498,
+   "cum_s": 0.227,
+   "function": "packages/kernel/facts.py:456(<genexpr>)",
+   "layer": "kernel: fact store",
+   "own_s": 0.133,
+   "primitive_calls": 484498
+  },
+  {
+   "calls": 523351,
+   "cum_s": 0.326,
+   "function": "stdlib/copy.py:110(deepcopy)",
+   "layer": "copy.deepcopy",
+   "own_s": 0.117,
+   "primitive_calls": 1652
+  },
+  {
+   "calls": 72014,
+   "cum_s": 0.322,
+   "function": "stdlib/copy.py:198(_deepcopy_dict)",
+   "layer": "copy.deepcopy",
+   "own_s": 0.103,
+   "primitive_calls": 2460
+  },
+  {
+   "calls": 40366,
+   "cum_s": 0.22,
+   "function": "packages/kernel/facts.py:486(_add)",
+   "layer": "kernel: fact store",
+   "own_s": 0.099,
+   "primitive_calls": 40366
+  },
+  {
+   "calls": 5,
+   "cum_s": 0.213,
+   "function": "packages/kernel/facts.py:315(_project_fact_lattice)",
+   "layer": "kernel: fact store",
+   "own_s": 0.092,
+   "primitive_calls": 5
+  },
+  {
+   "calls": 786,
+   "cum_s": 0.09,
+   "function": "packages/derivation/package_validation.py:2638(get_input_quantity)",
+   "layer": "derivation: package validation",
+   "own_s": 0.083,
+   "primitive_calls": 786
+  },
+  {
+   "calls": 229,
+   "cum_s": 0.428,
+   "function": "packages/kernel/facts.py:563(update)",
+   "layer": "kernel: fact store",
+   "own_s": 0.081,
+   "primitive_calls": 229
+  },
+  {
+   "calls": 10380,
+   "cum_s": 0.234,
+   "function": "<built-in method builtins.sorted>",
+   "layer": "builtins (dict/list/set/str etc.)",
+   "own_s": 0.074,
+   "primitive_calls": 10380
+  },
+  {
+   "calls": 137362,
+   "cum_s": 0.093,
+   "function": "packages/derivation/package_validation.py:510(_iter_parameter_and_table_refs)",
+   "layer": "derivation: package validation",
+   "own_s": 0.066,
+   "primitive_calls": 5122
+  },
+  {
+   "calls": 492695,
+   "cum_s": 0.066,
+   "function": "<built-in method __new__ of type object at 0x101c2f260>",
+   "layer": "builtins (dict/list/set/str etc.)",
+   "own_s": 0.066,
+   "primitive_calls": 492695
+  },
+  {
+   "calls": 40,
+   "cum_s": 0.149,
+   "function": "packages/derivation/presentation_projection.py:465(_closure_question_reasons)",
+   "layer": "presentation projection",
+   "own_s": 0.063,
+   "primitive_calls": 40
+  },
+  {
+   "calls": 132910,
+   "cum_s": 0.089,
+   "function": "packages/derivation/package_validation.py:549(_iter_bound_source_names)",
+   "layer": "derivation: package validation",
+   "own_s": 0.063,
+   "primitive_calls": 4558
+  },
+  {
+   "calls": 1,
+   "cum_s": 0.802,
+   "function": "packages/derivation/package_validation.py:1796(validate_package)",
+   "layer": "derivation: package validation",
+   "own_s": 0.06,
+   "primitive_calls": 1
+  },
+  {
+   "calls": 157080,
+   "cum_s": 0.08,
+   "function": "packages/derivation/package_validation.py:577(_iter_ref_names)",
+   "layer": "derivation: package validation",
+   "own_s": 0.058,
+   "primitive_calls": 10356
+  },
+  {
+   "calls": 1,
+   "cum_s": 0.243,
+   "function": "packages/derivation/authorization_closure.py:117(build_dependency_edges)",
+   "layer": "derivation: evaluator/runner",
+   "own_s": 0.056,
+   "primitive_calls": 1
+  },
+  {
+   "calls": 87240,
+   "cum_s": 0.083,
+   "function": "packages/tax/coverage.py:127(_walk_semantic_fact_type_refs)",
+   "layer": "tax domain loader",
+   "own_s": 0.054,
+   "primitive_calls": 969
+  },
+  {
+   "calls": 2,
+   "cum_s": 2.658,
+   "function": "packages/derivation/production_resolver.py:441(resolve_production_package)",
+   "layer": "derivation: live coordination/resolution",
+   "own_s": 0.05,
+   "primitive_calls": 2
+  },
+  {
+   "calls": 90611,
+   "cum_s": 0.077,
+   "function": "<method 'join' of 'str' objects>",
+   "layer": "builtins (dict/list/set/str etc.)",
+   "own_s": 0.049,
+   "primitive_calls": 90611
+  }
+ ],
+ "unprofiled": {
+  "acts": 350,
+  "assertions": 181,
+  "bundle_adoptions": 70,
+  "distinct_asserted_facts": 181,
+  "outcome": "success",
+  "page_bytes": 672252,
+  "pin_sha256": "6ca955a5ac08828c283628bd406478f302c7da6d3330d0a0ea91d7366054100f",
+  "prep_s": 1.366,
+  "publications": 204,
+  "render_s": 0.019,
+  "rows": 319,
+  "run_s": 1.909,
+  "total_s": 3.3
+ },
+ "warmup_s": 5.53,
+ "workload": "slowest"
+}
