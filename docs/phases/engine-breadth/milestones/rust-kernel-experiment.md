@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "rust-kernel-experiment",
-  "status": "P0 (profile) chartered 2026-11-18.",
+  "status": "Track 1 (Python algorithmic fixes) chartered 2026-11-18; Rust port parked behind owner gates.",
   "scope": [
     "measure where the time goes when one recorded return is replayed on published core v96, by function and by layer (kernel, derivation, projection, schema validation, I/O)",
     "decide, from that measurement, whether a Rust port of a bounded kernel slice behind a Python binding is the right lever, and which slice",
@@ -118,4 +118,23 @@ decisions this needs are listed at the end of `p0.md`.
 
 ## Decisions
 
-Pending.
+1. **Fix the algorithms first (2026-11-18, foreman, on P0's
+   recommendation; the owner may redirect).** The kernel is about 6 % of
+   a median replay and 1 % of the slowest, so a Rust port of it cannot
+   pay for itself in speed today. Track 1 makes the four derivation-side
+   fixes P0 names in Python, plus the harness memo, and proves every
+   recorded list byte-identical. No edit under `packages/kernel/`.
+2. **The Rust port stays open, not dropped.** After Track 1 the foreman
+   re-profiles. If the kernel then dominates, or the owner wants the
+   language and agent-fluency evidence regardless, the port resumes at
+   the slice P0 named (kernel replay fold), behind gates 2a and 2b
+   unchanged. The kernel algorithmic fix (incremental re-projection,
+   lattice metadata) waits on the same kernel-edit confirmation.
+3. **Byte-identical is the contract.** Every recorded list's result,
+   page and error (class and message) must match the pre-change code
+   exactly; any difference stops the track. Package validation must
+   report the same errors in the same order.
+4. **Keep the projection change local.** The blocked-sale-pages
+   milestone (another foreman) will touch the page and renderer; the
+   closure-walk memo stays inside the walk functions so a later rebase
+   is small.
