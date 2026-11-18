@@ -63,16 +63,32 @@ compare.versions = versions
 compare.expected_model = expected_model
 
 
+def classify(a, am, b, bm):
+    """p0c classify, with the page-reason gate read against the expected v96 model.
+
+    p0c compares page reasons exactly before any allowlist; here the declared
+    reason sentences are the planned change, so the gates see the v96 model
+    with only those sentences replaced. Every other reason property, row,
+    value and field is still compared before the label.
+    """
+    if am is None or bm is None: return compare.classify(a, am, b, bm)
+    expected = expected_model(am)
+    verdict = compare.classify(a, expected, b, bm)
+    if verdict["class"] == "identical_success" and not compare.exact(expected, am):
+        verdict["class"] = "expected_sentences"
+    return verdict
+
+
 def other_texts():
     """Every other prose string in the eight wording citizens (titles, claims, meanings)."""
     out = {}
     for row in WORDING:
         body = json.loads((REPO / row["file"]).read_text())
-        out[body["title"]] = (body["id"], "title")
-        out[body["closure_claim"]] = (body["id"], "closure_claim")
+        out.setdefault(body["title"], []).append(f'{body["id"]}@{body["version"]} title')
+        out.setdefault(body["closure_claim"], []).append(f'{body["id"]}@{body["version"]} closure_claim')
         for i, c in enumerate(body["member_constraints"]):
             if c["meaning"] not in OLD_TO_NEW:
-                out[c["meaning"]] = (body["id"], f"member_constraints.{i}.meaning ({c['block_code']})")
+                out.setdefault(c["meaning"], []).append(f'{body["id"]}@{body["version"]} member_constraints.{i}.meaning ({c["block_code"]})')
     return out
 
 
@@ -112,7 +128,7 @@ def per_list(key, acts, cores):
         out[side] = census.per_list(key, acts, core)
     a, am = compare.read_pin(root / "v96", out["v96"])
     b, bm = compare.read_pin(root / "next", out["next"])
-    verdict = compare.classify(a, am, b, bm)
+    verdict = classify(a, am, b, bm)
     record = {"class": verdict["class"], "comparison": verdict, "v96": out["v96"], "next": out["next"],
               "input_sha256": hashlib.sha256(compare.encoded(acts).encode()).hexdigest()}
     if am is not None:
