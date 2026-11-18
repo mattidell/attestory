@@ -73,7 +73,7 @@ def main() -> None:
             read_callers[caller_chain()] += 1
         return orig_text(self, *a, **k)
 
-    orig_cand, orig_lj, orig_cc = pr._json_candidates, pr._load_json, pr.citizen_checksum
+    orig_cand, orig_lj, orig_cc = pr._json_candidates, getattr(pr, '_load_json', None), pr.citizen_checksum
 
     def cand(directory):  # type: ignore[no-untyped-def]
         if on[0]:

@@ -1,0 +1,41 @@
+{
+ "hashseed": "0",
+ "label": "after",
+ "validation": {
+  "mutation_drop_every_seventh": {
+   "count": 327,
+   "issues_digest": "8cdf46d290e8cde742b37cb48f5f40ab892cb851f969ee66c92e6beddac20820",
+   "ok": false,
+   "output_owners_sha": "66630d57a868f597f52b6d53cc43eb361a7e82bcec8a3c6f81d6a241a14d6dc0",
+   "resolved_members_sha": "9b1131bb1a7bfabc1c49a701cdecc5ea90b5d50f8a6570e9895240de8809a99f"
+  },
+  "mutation_remove_source_families": {
+   "count": 211,
+   "issues_digest": "acbfe750c18fa52732e02651942ae28ec56e07f0527c93eaf10b106bd16aeafb",
+   "ok": false,
+   "output_owners_sha": "d6d653b4820066a5ebc58d67043cba0d7b7bc1209b8332d6bc9be03ada637578",
+   "resolved_members_sha": "c15e47fa7ce180286594ba332c30a47dd367e503e8eaadf77f8acfe8e34bfb78"
+  },
+  "mutation_tampered_citizens": {
+   "count": 9,
+   "issues_digest": "d85f5fd8fe08e38ec92886109bc97d0a56b66130e1f31e1226facdf7ff8282ce",
+   "ok": false,
+   "output_owners_sha": "d6d653b4820066a5ebc58d67043cba0d7b7bc1209b8332d6bc9be03ada637578",
+   "resolved_members_sha": "a218fdb14f5cc57a74d08eb8df2c70caa3b570934313c79221350098f6fff691"
+  },
+  "mutation_unknown_versions": {
+   "count": 3,
+   "issues_digest": "62a0bd2aefaa8e4bc72cb6abb46fe63f1d84c536458301fa040f42c6393451cc",
+   "ok": false,
+   "output_owners_sha": "072f3f4aa0373e7befcfcb27a1404cdb0ebc50d8d193af25a2997d97cc88ba17",
+   "resolved_members_sha": "c6eb61717bd07560e430326f9de704513ee46850f0b8cee45598251867b158e2"
+  },
+  "published_v96": {
+   "count": 0,
+   "issues_digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+   "ok": true,
+   "output_owners_sha": "d6d653b4820066a5ebc58d67043cba0d7b7bc1209b8332d6bc9be03ada637578",
+   "resolved_members_sha": "a2bdf1bc3f1c1aa4e965805d65212bf29ed3d719047fb208912c363aa87b1503"
+  }
+ }
+}
