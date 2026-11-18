@@ -3,7 +3,8 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "rust-kernel-experiment",
-  "status": "Review READY with notes; repair chartered 2026-11-18. Rust port parked behind owner gates.",
+  "status": "Closed 2026-11-18. No package version change; Rust port parked.",
+  "retrospective": "docs/milestone-retrospectives/2026-11-18-rust-kernel-experiment.md",
   "scope": [
     "measure where the time goes when one recorded return is replayed on published core v96, by function and by layer (kernel, derivation, projection, schema validation, I/O)",
     "decide, from that measurement, whether a Rust port of a bounded kernel slice behind a Python binding is the right lever, and which slice",
@@ -149,3 +150,28 @@ decisions this needs are listed at the end of `p0.md`.
    the same order under any fixed hash seed", because the pristine
    validator already iterates a set; and align track1.md's
    finding-model row with its samples.
+6. **Keep the second cycle guard (2026-11-18).** The repair showed that
+   dropping `seen.isdisjoint(known.examined)` changes no output (a false
+   walk aborts the whole closure, so reuse adds only what the first walk
+   added; 60,000 random graphs agree). It stays as a documented exactness
+   guard: it is cheap, and removing it would make the memo's soundness
+   depend on that whole-walk property.
+7. **Park the Rust port (2026-11-18, foreman; the owner may reopen).**
+   After Track 1 the kernel is at most about 20 % of a recorded replay
+   (about 0.5 s of 2.6 s); file reads and JSON are about 40 %. A port
+   would not pay on recorded lists today. It is parked with its slice,
+   design question and both owner gates, beside the next Python levers.
+
+## Closeout
+
+Closed 2026-11-18. P0 profiled all 775 recorded lists on core v96 and
+found the time in derivation algorithms, not the kernel. Track 1 fixed
+four of them in Python: package validation indexes members once and
+runs once per identical package, the blocked-line question walk is
+memoized, and marshal computes required symbols once. Every recorded
+list stays byte-identical (results, pages, errors); validation reports
+the same errors, in the same order under any fixed hash seed. The
+median list went from 7.76 s to 2.94 s, the slowest from 49.6 s to
+3.55 s, and the 775-list replay from 787 s to 278 s of wall time. The
+fresh review was READY with three low notes, all repaired.
+
