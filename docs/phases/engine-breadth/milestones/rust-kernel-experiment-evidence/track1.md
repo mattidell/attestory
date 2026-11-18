@@ -240,4 +240,8 @@ not one a one-shot run sees, so it is not counted here.
 
 ## Gate
 
-See the end of this file for the suite and type-check lines.
+Run on the final code, before the report commit:
+
+- `pytest`: 7069 passed, 25 skipped, 10947 subtests passed (36 min 57 s
+  wall on this machine while other work shared the CPUs).
+- `python3 -m mypy`: Success: no issues found in 514 source files.
