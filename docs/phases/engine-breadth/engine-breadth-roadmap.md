@@ -991,6 +991,17 @@ and callers get read-only views or private copies. All 775 recorded
 lists replay byte-identically. Paired timing of the median list: 2.12 s
 uncached, 1.67 s cold, 1.62 s warm. No package version change.
 
+## Bounded return — Sale Reasons Speak Plainly (2025), closed on P0
+
+[Plan](milestones/sale-reasons-plain.md); retrospective:
+`docs/milestone-retrospectives/2026-11-18-sale-reasons-plain.md`.
+
+The two parked sale reasons cannot be reworded by content: they are the
+meaning text of sale source-family checks, pinned by version in every
+saved sale record and copied into a published value. P0 drafted plain
+sentences and parked the change behind a projection and schema route.
+No package version change.
+
 ## Saved-page observation — Mortgage and Sales (2025)
 
 [Plan](milestones/sale-page-observation.md); retrospective:
@@ -1105,10 +1116,16 @@ delivers an item removes it.
   and "Missing dependency code(s):" banners are engine words. Sequence
   after blocked-sale-pages, which owns the same page (plain-line-texts
   Decision 1).
-- Two shared sale blocked reasons are not plain: "The holding period does
-  not match this short-term or long-term family." and the wash-sale
-  reason naming `floor_zero(basis - proceeds)` and its block code
-  (plain-line-texts Decision 13; content successors).
+- Three sale blocked reasons are not plain: "The holding period does
+  not match this short-term or long-term family.", the wash-sale reason
+  naming `floor_zero(basis - proceeds)` and its block code, and the
+  covered-W "code W on a gain" reason. They are the `meaning` text on
+  sale source-family checks, which saved sale records pin by version and
+  which a run copies into a published value, so a content successor
+  breaks every sale workspace (sale-reasons-plain, closed on P0). The
+  route that keeps every number is a projection change with a schema
+  home for the page sentence (an ADR for the owner), after
+  blocked-sale-pages. Drafts: `sale-reasons-plain-evidence/wording.json`.
 - Undrawn rule descriptions and notes still carry engine terms; plain
   wording covers only text a page draws (plain-line-texts).
 - Two answers the record proves are still asked: line 2a Form 1099-INT
