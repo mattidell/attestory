@@ -699,6 +699,10 @@ def marshal_run_context(
     # too — it is read via `sources` above (every member), never via this
     # single-symbol fallback.
     fallback_matches: dict[str, list[dict[str, Any]]] = {}
+    # Each rule's required symbols are computed once, on the first finding
+    # that needs them (as before, a run with no such finding computes none); a
+    # type id is required by some rule exactly when it is in the union.
+    required_by_any_rule: set[str] | None = None
     for finding in current_findings:
         if finding["id"] in used_finding_ids:
             continue
@@ -712,9 +716,11 @@ def marshal_run_context(
         # completeness answer symbol (base and branch-triggered) - the
         # legacy-path fallback must see those too, or a live Part III
         # answer assertion would never reach the run at all.
-        required_by_rules = any(
-            type_id in _rule_required_symbols(rule) for rule in rules
-        )
+        if required_by_any_rule is None:
+            required_by_any_rule = set()
+            for rule in rules:
+                required_by_any_rule.update(_rule_required_symbols(rule))
+        required_by_rules = type_id in required_by_any_rule
         if not required_by_rules:
             continue
         fallback_matches.setdefault(type_id, []).append(finding)
