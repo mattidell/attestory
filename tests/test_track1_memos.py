@@ -8,7 +8,12 @@ Synthetic ``demo.*`` data only. Three things are pinned here:
 * the closure-question walk memo in ``presentation_projection`` gives the
   same reasons as the walk it replaced (copied below verbatim in shape) on
   many random blocked-row graphs, including cycles and shared rows, and a
-  changed row changes the answer rather than hitting a stale entry;
+  changed row changes the answer rather than hitting a stale entry, and a
+  two-path synthesized-meaning graph fails if either cycle guard is dropped;
+* the validation memo key covers the corpus actually validated, so the same
+  checksums with a different corpus miss;
+* the marshal fallback's once-computed union of required symbols equals the
+  per-rule check it replaced.
 
 The source-family index of package validation is pinned in
 ``test_track1_validation_index.py`` (it loads the whole published corpus, so it
@@ -22,7 +27,10 @@ import unittest
 from typing import Any, Mapping, cast
 from unittest import mock
 
+from packages.kernel.currency import CurrencyView
+
 from packages.derivation import production_resolver as pr
+from packages.derivation.marshal import _rule_required_symbols, marshal_run_context
 from packages.derivation.package_validation import MemberIssue, PackageValidation
 from packages.derivation.presentation_projection import (
     _closure_question_reasons, _constraint_meanings, _missing_mentions)
@@ -95,6 +103,16 @@ class ValidationMemo(unittest.TestCase):
         self.run_once(_package())
         self.run_once(_package(), checks={**self.checks, ("demo.b", "v1"): "changed"})
         self.assertEqual(self.calls, 2)
+
+    def test_the_same_checksums_with_a_different_corpus_miss(self) -> None:
+        corpus_a: dict[tuple[str, str], dict[str, Any]] = {("demo.a", "v1"): {"id": "demo.a", "n": 1}}
+        corpus_b: dict[tuple[str, str], dict[str, Any]] = {("demo.a", "v1"): {"id": "demo.a", "n": 2}}
+        with mock.patch.object(pr, "validate_package", self.fake):
+            pr._validate_once(_package(), corpus_a, cast(Any, self.schemas), self.checks)
+            pr._validate_once(_package(), copy.deepcopy(corpus_a), cast(Any, self.schemas), self.checks)
+            self.assertEqual(self.calls, 1)  # an equal corpus still hits
+            pr._validate_once(_package(), corpus_b, cast(Any, self.schemas), self.checks)
+        self.assertEqual(self.calls, 2)  # identical checksums, different corpus: a miss
 
     def test_a_changed_schema_document_misses(self) -> None:
         self.run_once(_package())
@@ -305,6 +323,40 @@ class ClosureWalkMemo(unittest.TestCase):
         got = _closure_question_reasons(row, resolved_members=members, by_symbol=by_symbol)
         self.assertEqual(got, [{"sentence": "demo question"}])  # 2**40 paths unmemoized
 
+    def test_two_paths_to_a_synthesized_row_keep_both_cycle_guards_honest(self) -> None:
+        """The row C is reached under two different ``seen`` sets.
+
+        Via P -> K -> C the key ``demo.K`` is in ``seen``, so C is walked
+        without explaining K and reaches True through ``demo.fam0``. Via
+        Q -> C ``demo.K`` is not in ``seen``, so C explains K and adds its
+        family meaning. C's first (True) walk skipped a key it was handed, so
+        it must not be cached; and a cached walk must not be reused under a
+        ``seen`` that holds a key it examined. Dropping either guard loses
+        the family meaning sentence.
+        """
+        synthesized = "demo.famA.member-validation.synthesized"
+        by_symbol = {
+            "demo.P": [{"disposition": "blocked", "code": "OTHER", "missing": ["demo.K"],
+                        "artifact_id": "demo.rule.p"}],
+            "demo.K": [{"disposition": "blocked", "code": "OTHER", "missing": ["demo.C"],
+                        "artifact_id": "demo.rule.k"}],
+            "demo.C": [{"disposition": "blocked", "code": "OTHER", "missing": ["demo.K", "demo.fam0"],
+                        "artifact_id": synthesized}],
+            "demo.Q": [{"disposition": "blocked", "code": "OTHER", "missing": ["demo.C"],
+                        "artifact_id": "demo.rule.q"}],
+        }
+        members = [
+            {"schema": "source-closure-mapping.v2", "family": {"id": "demo.fam0"}, "closure_question": "Q0"},
+            {"schema": "source-family.v1", "id": "demo.famA",
+             "member_constraints": [{"block_code": "demo.K", "meaning": "famA meaning of K"}]},
+        ]
+        row = {"disposition": "blocked", "code": "OTHER", "artifact_id": "demo.rule.top",
+               "missing": ["demo.P", "demo.Q"]}
+        args: dict[str, Any] = {"resolved_members": members, "by_symbol": by_symbol, "later_any_arm_refs": True}
+        want = _reference_reasons(row, **args)
+        self.assertEqual(want, [{"sentence": "Q0"}, {"sentence": "famA meaning of K"}])
+        self.assertEqual(_closure_question_reasons(row, **args), want)
+
     def test_a_changed_row_changes_the_answer(self) -> None:
         members = [{"schema": "source-closure-mapping.v2", "family": {"id": "demo.fam0"},
                     "closure_question": "demo question"}]
@@ -317,6 +369,53 @@ class ClosureWalkMemo(unittest.TestCase):
         other = [{**members[0], "closure_question": "demo other"}]
         self.assertEqual(_closure_question_reasons(row, resolved_members=other, by_symbol=by_symbol),
                          [{"sentence": "demo other"}])
+
+
+# --- marshal precompute ------------------------------------------------------------------------
+
+
+class _Horizon:
+    current_by_chain: dict[Any, str] = {}
+
+
+class _State:
+    def __init__(self, findings: dict[str, dict[str, Any]]) -> None:
+        self.findings = findings
+        self.horizon_state = _Horizon()
+
+
+class MarshalRequiredSymbols(unittest.TestCase):
+    """The fallback binds a type exactly when some rule names it, as the per-rule check did."""
+
+    RULES: list[dict[str, Any]] = [
+        {"schema": "rule-artifact.v2", "id": "demo.rule.one", "requires": ["demo.t.one"]},
+        {"schema": "rule-artifact.v3", "id": "demo.rule.two", "requires": [],
+         "when": {"op": "ref", "name": "demo.t.when"}, "value": {"op": "ref", "name": "demo.t.value"}},
+        {"schema": "attachment-rule.v1", "id": "demo.rule.three",
+         "requirement": {"subtotals": ["demo.t.subtotal"], "triggers": []},
+         "completeness": {"required_answers": [{"symbol": "demo.t.answer"}], "branch_requirements": []}},
+    ]
+    TYPES = ["demo.t.one", "demo.t.when", "demo.t.value", "demo.t.subtotal", "demo.t.answer",
+             "demo.t.unrequired"]
+
+    def test_the_union_matches_the_per_rule_path(self) -> None:
+        findings = {
+            f"demo.finding.{index}": {"id": f"demo.finding.{index}", "fact_id": type_id, "value": index}
+            for index, type_id in enumerate(self.TYPES)
+        }
+        ids = frozenset(findings)
+        currency = CurrencyView(current_finding_ids=ids, displaced_finding_ids=frozenset(),
+                                current_evidence_ids=frozenset(), displaced_evidence_ids=frozenset())
+        context = marshal_run_context(
+            run_id="demo.run.marshal", state=cast(Any, _State(findings)), currency=currency,
+            rules=copy.deepcopy(self.RULES), parameters={}, canon={},
+            adoption_pin={"role": "adoption", "id": "demo.package", "version": "v1"},
+            governance_pins=[])
+        bound = {item.symbol for item in context.inputs}
+        per_rule = {t for t in self.TYPES if any(t in _rule_required_symbols(r) for r in self.RULES)}
+        self.assertEqual(bound, per_rule)
+        self.assertNotIn("demo.t.unrequired", bound)
+        self.assertEqual(len(bound), 5)
 
 
 if __name__ == "__main__":

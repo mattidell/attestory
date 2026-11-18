@@ -100,8 +100,10 @@ def _load_json(path: Path) -> dict[str, Any]:
 # checksums, the schema documents and its own code. A replay validates the same
 # package bytes twice (the Social Security handover, then the run), so the
 # verdict is kept per process, keyed on content: a SHA-256 of the canonical
-# package bytes, the exact (id, version, checksum) of every member (member
-# bodies were admitted only because their checksum equals it), a SHA-256 of
+# package bytes, the exact (id, version, checksum) of every member, the
+# (id, version, checksum) of every member body actually in the corpus handed
+# to the validator (computed from the bodies, so a corpus that disagrees with
+# the registry checksums misses rather than hits), a SHA-256 of
 # every schema document in the registry, and the validator's code object (so
 # a swapped validator never hits). Any changed byte changes the key. It lives
 # in this module's globals for the life of the process and keeps the last
@@ -118,6 +120,7 @@ def clear_validation_memo() -> None:
 
 def _validation_memo_key(
     package: Mapping[str, Any],
+    corpus: Mapping[tuple[str, str], dict[str, Any]],
     citizen_checksums: Mapping[tuple[str, str], str],
     schemas: DerivationSchemas,
 ) -> tuple[Any, ...]:
@@ -128,11 +131,14 @@ def _validation_memo_key(
         (pin["id"], pin["version"], citizen_checksums.get((pin["id"], pin["version"])))
         for pin in package.get("members", [])
     )
+    corpus_digest = tuple(
+        sorted((ident, version, citizen_checksum(body)) for (ident, version), body in corpus.items())
+    )
     schema_digest = hashlib.sha256(
         json.dumps([[sid, schemas.get(sid)] for sid in schemas.schema_ids()],
                    sort_keys=True, separators=(",", ":")).encode("utf-8")
     ).hexdigest()
-    return (validate_package.__code__, package_digest, members, schema_digest)
+    return (validate_package.__code__, package_digest, members, corpus_digest, schema_digest)
 
 
 def _validate_once(
@@ -143,7 +149,7 @@ def _validate_once(
 ) -> PackageValidation:
     """``validate_package``, computed once per identical package bytes."""
     try:
-        key = _validation_memo_key(package, citizen_checksums, schemas)
+        key = _validation_memo_key(package, corpus, citizen_checksums, schemas)
     except (TypeError, ValueError, KeyError):
         return validate_package(package, corpus, schemas, citizen_checksums)
     cached = _VALIDATION_MEMO.get(key)
