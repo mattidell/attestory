@@ -17,8 +17,10 @@ validator, more mandatory verification, and a hard gate the fixture path skips.
 
 from __future__ import annotations
 
+import copy
 import hashlib
 import json
+from collections import OrderedDict
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Mapping, Sequence
@@ -26,6 +28,7 @@ from typing import Any, Mapping, Sequence
 from packages.derivation.loader import DerivationSchemas
 from packages.derivation.package_validation import (
     PackageIntegrityError,
+    PackageValidation,
     citizen_checksum,
     load_published_citizen_checksums,
     load_published_package_checksums,
@@ -90,6 +93,68 @@ def _load_json(path: Path) -> dict[str, Any]:
     if not isinstance(loaded, dict):
         raise ValueError("JSON document must be an object")
     return loaded
+
+
+# Validation memo (Track 1, rust-kernel-experiment). ``validate_package`` is a
+# pure function of the package body, the member bodies, the published member
+# checksums, the schema documents and its own code. A replay validates the same
+# package bytes twice (the Social Security handover, then the run), so the
+# verdict is kept per process, keyed on content: a SHA-256 of the canonical
+# package bytes, the exact (id, version, checksum) of every member (member
+# bodies were admitted only because their checksum equals it), a SHA-256 of
+# every schema document in the registry, and the validator's code object (so
+# a swapped validator never hits). Any changed byte changes the key. It lives
+# in this module's globals for the life of the process and keeps the last
+# ``_VALIDATION_MEMO_LIMIT`` keys; ``clear_validation_memo`` empties it. A hit
+# returns a deep copy, so callers never share mutable members.
+_VALIDATION_MEMO_LIMIT = 4
+_VALIDATION_MEMO: "OrderedDict[tuple[Any, ...], PackageValidation]" = OrderedDict()
+
+
+def clear_validation_memo() -> None:
+    """Forget every memoized validation verdict."""
+    _VALIDATION_MEMO.clear()
+
+
+def _validation_memo_key(
+    package: Mapping[str, Any],
+    citizen_checksums: Mapping[tuple[str, str], str],
+    schemas: DerivationSchemas,
+) -> tuple[Any, ...]:
+    package_digest = hashlib.sha256(
+        json.dumps(package, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    ).hexdigest()
+    members = tuple(
+        (pin["id"], pin["version"], citizen_checksums.get((pin["id"], pin["version"])))
+        for pin in package.get("members", [])
+    )
+    schema_digest = hashlib.sha256(
+        json.dumps([[sid, schemas.get(sid)] for sid in schemas.schema_ids()],
+                   sort_keys=True, separators=(",", ":")).encode("utf-8")
+    ).hexdigest()
+    return (validate_package.__code__, package_digest, members, schema_digest)
+
+
+def _validate_once(
+    package: dict[str, Any],
+    corpus: dict[tuple[str, str], dict[str, Any]],
+    schemas: DerivationSchemas,
+    citizen_checksums: Mapping[tuple[str, str], str],
+) -> PackageValidation:
+    """``validate_package``, computed once per identical package bytes."""
+    try:
+        key = _validation_memo_key(package, citizen_checksums, schemas)
+    except (TypeError, ValueError, KeyError):
+        return validate_package(package, corpus, schemas, citizen_checksums)
+    cached = _VALIDATION_MEMO.get(key)
+    if cached is not None:
+        _VALIDATION_MEMO.move_to_end(key)
+        return copy.deepcopy(cached)
+    validation = validate_package(package, corpus, schemas, citizen_checksums)
+    _VALIDATION_MEMO[key] = copy.deepcopy(validation)
+    while len(_VALIDATION_MEMO) > _VALIDATION_MEMO_LIMIT:
+        _VALIDATION_MEMO.popitem(last=False)
+    return validation
 
 
 def _json_candidates(directory: Path) -> tuple[dict[str, Any], ...]:
@@ -433,7 +498,7 @@ def resolve_production_package(
     if isinstance(corpus, Refusal):
         return corpus
 
-    validation = validate_package(package, corpus, schemas, citizen_checksums)
+    validation = _validate_once(package, corpus, schemas, citizen_checksums)
     if not validation.ok:
         # Contained issues are reported in the refusal; they never authorize a
         # clean subset or an allowlist (ADR-0033 Decision 3 / Decision 5).
