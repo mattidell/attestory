@@ -1,0 +1,71 @@
+{
+ "centres_s": {
+  "act_log.ActLog._contents_of": {
+   "outer_calls": 0,
+   "s": 0.0
+  },
+  "facts._lattice_metadata": {
+   "outer_calls": 841,
+   "s": 0.239
+  },
+  "facts.facts_of": {
+   "outer_calls": 14,
+   "s": 0.432
+  },
+  "findings.project": {
+   "outer_calls": 2,
+   "s": 0.494
+  },
+  "marshal.marshal_run_context": {
+   "outer_calls": 1,
+   "s": 0.042
+  },
+  "package_validation.validate_package": {
+   "outer_calls": 1,
+   "s": 0.272
+  },
+  "presentation_projection._closure_question_reasons": {
+   "outer_calls": 40,
+   "s": 0.02
+  },
+  "presentation_projection.build_presentation_model": {
+   "outer_calls": 1,
+   "s": 0.242
+  },
+  "production_executor.execute_and_record_marshaled": {
+   "outer_calls": 1,
+   "s": 0.14
+  },
+  "production_resolver._json_candidates": {
+   "outer_calls": 4,
+   "s": 0.68
+  },
+  "production_resolver.resolve_production_package": {
+   "outer_calls": 2,
+   "s": 1.281
+  },
+  "schema_registry.SchemaRegistry.validate": {
+   "outer_calls": 2811,
+   "s": 0.243
+  }
+ },
+ "core": "v96",
+ "list": "v83/returns/v80/carried_covered_flag_no_w_lt/recorded",
+ "method": "outermost-call perf_counter accumulators, no profiler, after one warmup",
+ "run": {
+  "acts": 350,
+  "assertions": 181,
+  "bundle_adoptions": 70,
+  "distinct_asserted_facts": 181,
+  "outcome": "success",
+  "page_bytes": 672252,
+  "pin_sha256": "6ca955a5ac08828c283628bd406478f302c7da6d3330d0a0ea91d7366054100f",
+  "prep_s": 1.036,
+  "publications": 204,
+  "render_s": 0.019,
+  "rows": 319,
+  "run_s": 1.62,
+  "total_s": 2.679
+ },
+ "workload": "slowest"
+}

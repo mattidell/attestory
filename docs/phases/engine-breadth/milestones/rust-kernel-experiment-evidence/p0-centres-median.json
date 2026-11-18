@@ -1,0 +1,71 @@
+{
+ "centres_s": {
+  "act_log.ActLog._contents_of": {
+   "outer_calls": 0,
+   "s": 0.0
+  },
+  "facts._lattice_metadata": {
+   "outer_calls": 829,
+   "s": 0.166
+  },
+  "facts.facts_of": {
+   "outer_calls": 14,
+   "s": 0.089
+  },
+  "findings.project": {
+   "outer_calls": 2,
+   "s": 0.373
+  },
+  "marshal.marshal_run_context": {
+   "outer_calls": 1,
+   "s": 0.515
+  },
+  "package_validation.validate_package": {
+   "outer_calls": 2,
+   "s": 3.782
+  },
+  "presentation_projection._closure_question_reasons": {
+   "outer_calls": 41,
+   "s": 0.509
+  },
+  "presentation_projection.build_presentation_model": {
+   "outer_calls": 1,
+   "s": 0.705
+  },
+  "production_executor.execute_and_record_marshaled": {
+   "outer_calls": 1,
+   "s": 0.137
+  },
+  "production_resolver._json_candidates": {
+   "outer_calls": 4,
+   "s": 0.676
+  },
+  "production_resolver.resolve_production_package": {
+   "outer_calls": 2,
+   "s": 4.706
+  },
+  "schema_registry.SchemaRegistry.validate": {
+   "outer_calls": 3835,
+   "s": 0.261
+  }
+ },
+ "core": "v96",
+ "list": "v81/case/m_8949_no_ic3_yes_q3_no",
+ "method": "outermost-call perf_counter accumulators, no profiler, after one warmup",
+ "run": {
+  "acts": 334,
+  "assertions": 181,
+  "bundle_adoptions": 70,
+  "distinct_asserted_facts": 181,
+  "outcome": "success",
+  "page_bytes": 691757,
+  "pin_sha256": "5da4e93a4baf35a8992188f589da73ffed56b3432f3559ca99a8d3c13ebf316d",
+  "prep_s": 2.588,
+  "publications": 208,
+  "render_s": 0.019,
+  "rows": 315,
+  "run_s": 3.993,
+  "total_s": 6.605
+ },
+ "workload": "median"
+}
