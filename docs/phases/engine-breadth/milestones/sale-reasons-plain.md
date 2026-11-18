@@ -3,7 +3,8 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "sale-reasons-plain",
-  "status": "P0 chartered 2026-11-18.",
+  "status": "Closed on P0 2026-11-18. No package version change.",
+  "retrospective": "docs/milestone-retrospectives/2026-11-18-sale-reasons-plain.md",
   "scope": [
     "the two shared sale blocked reasons a filer can see (the holding-period mismatch and the wash-sale reason naming floor_zero(basis - proceeds) and its block code) say in plain words what is wrong and what to check",
     "every recorded return keeps its numbers, dispositions, refusal codes, missing names and questions; only those sentences change"
@@ -77,7 +78,28 @@ adversarial check.
 
 ## Decisions
 
-Pending P0.
+1. **Close on P0 and park (2026-11-18, foreman; the owner may reopen).**
+   P0 stopped on its charter condition. Both reasons are the `meaning`
+   text on the sale source families' checks. A family successor changes
+   the version every saved sale record is tied to, so every sale family
+   on a recorded return reads as unclosed and 51,095 published values
+   disappear; the sentence is also copied into a published value, so
+   even a migrated successor would change values on the 16 lists that
+   show it. The smallest route that keeps every number is a projection
+   change with a schema home for the page sentence. That needs an ADR
+   the owner accepts and overlaps the projection that the open
+   blocked-sale-pages milestone (another foreman) is working on. The
+   drafted sentences (`sale-reasons-plain-evidence/wording.json`) and
+   the third reason found (covered-W "code W on a gain") carry over to
+   whichever route is chosen.
+
+## Closeout
+
+Closed on P0 2026-11-18. No package, engine or schema change. The
+evidence records where both reasons are drawn (8 recorded lists, 72 page
+fields), why content successors cannot carry them, two drafted sentences
+checked against the 2025 Form 8949 and Schedule D instructions, and a
+strict classifier that rejects all 15 mutation controls.
 
 ## P0 result
 
