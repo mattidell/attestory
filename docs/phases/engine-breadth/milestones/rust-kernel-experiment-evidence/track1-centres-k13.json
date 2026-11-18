@@ -1,0 +1,65 @@
+{
+ "centres_s": {
+  "act_log.ActLog._contents_of": {
+   "outer_calls": 109,
+   "s": 0.628
+  },
+  "facts._lattice_metadata": {
+   "outer_calls": 12351,
+   "s": 1.655
+  },
+  "facts.facts_of": {
+   "outer_calls": 205,
+   "s": 0.629
+  },
+  "findings.project": {
+   "outer_calls": 51,
+   "s": 2.747
+  },
+  "marshal.marshal_run_context": {
+   "outer_calls": 1,
+   "s": 0.01
+  },
+  "package_validation.validate_package": {
+   "outer_calls": 1,
+   "s": 0.057
+  },
+  "presentation_projection._closure_question_reasons": {
+   "outer_calls": 13,
+   "s": 0.002
+  },
+  "presentation_projection.build_presentation_model": {
+   "outer_calls": 1,
+   "s": 0.075
+  },
+  "production_executor.execute_and_record_marshaled": {
+   "outer_calls": 1,
+   "s": 0.084
+  },
+  "production_resolver._json_candidates": {
+   "outer_calls": 2,
+   "s": 0.382
+  },
+  "production_resolver.resolve_production_package": {
+   "outer_calls": 1,
+   "s": 0.579
+  },
+  "schema_registry.SchemaRegistry.validate": {
+   "outer_calls": 75003,
+   "s": 0.733
+  }
+ },
+ "core": "v96",
+ "method": "outermost-call perf_counter accumulators, no profiler, after one warmup",
+ "run": {
+  "acts": 268,
+  "assertions": 130,
+  "bundle_adoptions": 36,
+  "distinct_asserted_facts": 129,
+  "record_and_check_s": 4.062,
+  "run_v42_s": 0.948,
+  "test": "tests/test_sli_track1_combined_standing.py::CoverDetail::test_case_K13",
+  "total_s": 5.011
+ },
+ "workload": "k13"
+}
