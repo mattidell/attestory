@@ -3,7 +3,8 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "member-reads-once",
-  "status": "Track 1 chartered 2026-11-18.",
+  "status": "Closed 2026-11-18. No package version change.",
+  "retrospective": "docs/milestone-retrospectives/2026-11-18-member-reads-once.md",
   "scope": [
     "a replay parses and checksums each package member file at most once per distinct file content, instead of reading, parsing and hashing all 7,252 member files several times per recorded list",
     "every recorded list stays byte-identical in result, page and error"
@@ -72,3 +73,27 @@ byte-identical contract, not a design choice with rival shapes.
    content the call has read, or prove in the evidence that a cheaper
    key cannot be stale on any filesystem the project runs on (macOS
    developer machines and the CI Linux runner).
+2. **Repair the review notes (2026-11-18, foreman).** The fresh review
+   (`docs/reviews/member-reads-once/review.md`) is READY with notes.
+   MRO-R2: track1.md now quotes the reviewer's paired timing (median
+   -21 % cold, -24 % warm), not the cross-run ratios. MRO-R3: a test
+   edits a non-id field at the same size and modification time and
+   requires a new checksum; the foreman checked that it fails a
+   checksum cached per id and version. MRO-R1 is a fast-lane budget
+   overrun (3.1 s against 3.0 s) on a test that never touches the
+   cache, on a loaded machine; the `quick` lane is not the gate and the
+   test is left alone. MRO-R4 to R6 are informational and accepted: the
+   cache bound counts entries (about 125 MiB if every JSON file under
+   packages/ were loaded), and the read-only view guards only the top
+   level, which every consumer respects.
+
+## Closeout
+
+Closed 2026-11-18. The member cache parses and checksums each distinct
+file content once per process, keyed on the bytes read. 775/775 recorded
+lists byte-identical; package validation unchanged under a fixed seed.
+Paired median: 2.12 s uncached, 1.67 s cold, 1.62 s warm. What remains
+on recorded lists is the kernel fact store (about a quarter), package
+validation and the byte reads; on recorder stories, per-save
+re-projection in the kernel.
+
