@@ -29,6 +29,512 @@
  "failing": 0,
  "unexpected_differences": 0,
  "unexpected_by_kind_attribute": {},
+ "expectations_declared": 133,
+ "expectations_used": 99,
+ "unused_expectations": [
+  {
+   "note": "text:tax.us.2025.rule.effective-proceeds-support-count:notes",
+   "kind": [
+    "page",
+    "attachment",
+    "model"
+   ],
+   "attribute": "notes",
+   "identity": "(?<![\\w.-])tax\\.us\\.2025\\.rule\\.effective\\-proceeds\\-support\\-count(?![\\w.-])",
+   "change": "changed",
+   "before": "This retained candidate rule id publishes numeric 1 only when one exact affirmed link has all five current effective-answer categories; it is a completion witness, not a proceeds count.",
+   "after": "This check gives 1 only when exactly one current confirmation links the loan to how its proceeds were used and all five current answers about that use are available. It checks that the answers are complete; it does not count uses of the proceeds."
+  },
+  {
+   "note": "text:tax.us.2025.rule.f1098-line8a:notes",
+   "kind": [
+    "page",
+    "attachment",
+    "model"
+   ],
+   "attribute": "notes",
+   "identity": "(?<![\\w.-])tax\\.us\\.2025\\.rule\\.f1098\\-line8a(?![\\w.-])",
+   "change": "changed",
+   "before": "Publishes the selected Schedule A line 8a result from included Form 1098 Box 1 amounts after the applicable readiness gate; connected reports are not summed until the borrowing-level requirements are satisfied.",
+   "after": "Schedule A line 8a uses the included Form 1098 box 1 interest only after all required checks for the borrowing are complete. Connected forms are not added together before those checks pass."
+  },
+  {
+   "note": "text:tax.us.2025.rule.f1098-residence-interest-reason:notes",
+   "kind": [
+    "page",
+    "attachment",
+    "model"
+   ],
+   "attribute": "notes",
+   "identity": "(?<![\\w.-])tax\\.us\\.2025\\.rule\\.f1098\\-residence\\-interest\\-reason(?![\\w.-])",
+   "change": "changed",
+   "before": "One report-local reason producer: status selects exact connected proceeds support or retained independent local answer; end outcomes never fall back.",
+   "after": "For this Form 1098, the reason the interest qualifies uses the connected answers about how the proceeds were used, or the answers recorded on this form. It does not fall back to a different answer."
+  },
+  {
+   "note": "text:tax.us.2025.rule.mortgage-account-ceiling-selection:notes",
+   "kind": [
+    "page",
+    "attachment",
+    "model"
+   ],
+   "attribute": "notes",
+   "identity": "(?<![\\w.-])tax\\.us\\.2025\\.rule\\.mortgage\\-account\\-ceiling\\-selection(?![\\w.-])",
+   "change": "changed",
+   "before": "Exact borrowing/year join selects the current ceiling for each recognized opaque account.",
+   "after": "The annual principal limit used for this borrowing and tax year is the current limit recorded for that borrowing."
+  },
+  {
+   "note": "text:tax.us.2025.rule.mortgage-account-readiness:notes",
+   "kind": [
+    "page",
+    "attachment",
+    "model"
+   ],
+   "attribute": "notes",
+   "identity": "(?<![\\w.-])tax\\.us\\.2025\\.rule\\.mortgage\\-account\\-readiness(?![\\w.-])",
+   "change": "changed",
+   "before": "Per recognized opaque borrowing/year: same-key ceiling and link coverage. Two-report readiness additionally requires exact current different-payments support for both reports, including each source, inclusion and recognition finding; a singleton follows its existing route without a phantom comparison.",
+   "after": "For each recorded borrowing and tax year, the principal must fit the applicable limit and each form must be connected to that borrowing. When two forms are used, both need current confirmation that they report different payments, tied to the forms and the answers that include them and identify the borrowing. A borrowing with one form does not need a two-form comparison."
+  },
+  {
+   "note": "text:tax.us.2025.rule.mortgage-affirmed-link-coverage:notes",
+   "kind": [
+    "page",
+    "attachment",
+    "model"
+   ],
+   "attribute": "notes",
+   "identity": "(?<![\\w.-])tax\\.us\\.2025\\.rule\\.mortgage\\-affirmed\\-link\\-coverage(?![\\w.-])",
+   "change": "changed",
+   "before": "Exact full-link-key numerical coverage; no scalar or label joins.",
+   "after": "Each Form 1098 is counted only when it is linked to this borrowing by the recorded connection, not by matching names or amounts."
+  },
+  {
+   "note": "text:tax.us.2025.rule.mortgage-borrowing-readiness:notes",
+   "kind": [
+    "page",
+    "attachment",
+    "model"
+   ],
+   "attribute": "notes",
+   "identity": "(?<![\\w.-])tax\\.us\\.2025\\.rule\\.mortgage\\-borrowing\\-readiness(?![\\w.-])",
+   "change": "changed",
+   "before": "Account-level readiness for the recognized borrowing and tax year requires complete coverage of one or two exact report links and the borrowing-level prerequisites. Report-specific eligibility is evaluated for each linked Form 1098; the five shared propositions are selected at borrowing scope with local conflicts blocked.",
+   "after": "For each recorded borrowing and tax year, every linked Form 1098 must be connected to that borrowing and the shared answers about the loan must be complete. Each linked form is checked on its own; if a form-level answer disagrees with the shared answer, the line is blocked."
+  },
+  {
+   "note": "text:tax.us.2025.rule.mortgage-link-support:notes",
+   "kind": [
+    "page",
+    "attachment",
+    "model"
+   ],
+   "attribute": "notes",
+   "identity": "(?<![\\w.-])tax\\.us\\.2025\\.rule\\.mortgage\\-link\\-support(?![\\w.-])",
+   "change": "changed",
+   "before": "Publishes one when this exact linked report has a qualifying interest reason and its Box 2 principal fits within the selected annual ceiling; otherwise publishes zero.",
+   "after": "This check gives 1 when the interest on this linked Form 1098 qualifies and the outstanding principal in box 2 fits within the annual limit used for the borrowing; otherwise it gives 0."
+  },
+  {
+   "note": "text:tax.us.2025.rule.mortgage-payment-comparison-support-count:notes",
+   "kind": [
+    "page",
+    "attachment",
+    "model"
+   ],
+   "attribute": "notes",
+   "identity": "(?<![\\w.-])tax\\.us\\.2025\\.rule\\.mortgage\\-payment\\-comparison\\-support\\-count(?![\\w.-])",
+   "change": "changed",
+   "before": "Per borrowing, counts only current exact-pair comparison rows and their Box 1, inclusion, and recognition finding identities. The run adapter emits these typed rows only for a current, evidence-bound different-payments answer.",
+   "after": "For each borrowing, this counts only comparisons that use the two current forms and their box 1 amounts, together with the answers that include each form and identify the borrowing. A comparison is included only when a current answer, tied to those exact records, confirms that the forms report different payments."
+  },
+  {
+   "note": "text:tax.us.2025.rule.mortgage-shared-mortgage-credit-certificate-received-count:notes",
+   "kind": [
+    "page",
+    "attachment",
+    "model"
+   ],
+   "attribute": "notes",
+   "identity": "(?<![\\w.-])tax\\.us\\.2025\\.rule\\.mortgage\\-shared\\-mortgage\\-credit\\-certificate\\-received\\-count(?![\\w.-])",
+   "change": "changed",
+   "before": "Count current raw answers after exact structured-key subject admission.",
+   "after": "Count the current shared answers that belong to this exact borrowing."
+  },
+  {
+   "note": "text:tax.us.2025.rule.mortgage-shared-no-one-else-owes-it-count:notes",
+   "kind": [
+    "page",
+    "attachment",
+    "model"
+   ],
+   "attribute": "notes",
+   "identity": "(?<![\\w.-])tax\\.us\\.2025\\.rule\\.mortgage\\-shared\\-no\\-one\\-else\\-owes\\-it\\-count(?![\\w.-])",
+   "change": "changed",
+   "before": "Count current raw answers after exact structured-key subject admission.",
+   "after": "Count the current shared answers that belong to this exact borrowing."
+  },
+  {
+   "note": "text:tax.us.2025.rule.mortgage-shared-owes-the-loan-count:notes",
+   "kind": [
+    "page",
+    "attachment",
+    "model"
+   ],
+   "attribute": "notes",
+   "identity": "(?<![\\w.-])tax\\.us\\.2025\\.rule\\.mortgage\\-shared\\-owes\\-the\\-loan\\-count(?![\\w.-])",
+   "change": "changed",
+   "before": "Count current raw answers after exact structured-key subject admission.",
+   "after": "Count the current shared answers that belong to this exact borrowing."
+  },
+  {
+   "note": "text:tax.us.2025.rule.mortgage-shared-this-is-the-original-loan-count:notes",
+   "kind": [
+    "page",
+    "attachment",
+    "model"
+   ],
+   "attribute": "notes",
+   "identity": "(?<![\\w.-])tax\\.us\\.2025\\.rule\\.mortgage\\-shared\\-this\\-is\\-the\\-original\\-loan\\-count(?![\\w.-])",
+   "change": "changed",
+   "before": "Count current raw answers after exact structured-key subject admission.",
+   "after": "Count the current shared answers that belong to this exact borrowing."
+  },
+  {
+   "note": "text:tax.us.2025.rule.mortgage-shared-what-the-money-paid-for-count:notes",
+   "kind": [
+    "page",
+    "attachment",
+    "model"
+   ],
+   "attribute": "notes",
+   "identity": "(?<![\\w.-])tax\\.us\\.2025\\.rule\\.mortgage\\-shared\\-what\\-the\\-money\\-paid\\-for\\-count(?![\\w.-])",
+   "change": "changed",
+   "before": "Count current raw answers after exact structured-key subject admission.",
+   "after": "Count the current shared answers that belong to this exact borrowing."
+  },
+  {
+   "note": "text:tax.us.2025.rule.report-effective-support-coverage:notes",
+   "kind": [
+    "page",
+    "attachment",
+    "model"
+   ],
+   "attribute": "notes",
+   "identity": "(?<![\\w.-])tax\\.us\\.2025\\.rule\\.report\\-effective\\-support\\-coverage(?![\\w.-])",
+   "change": "changed",
+   "before": "The link_coverage reductions edge makes connected effective production a real wait; empty exact-link sets yield zero.",
+   "after": "This check waits until the connected answers about how the proceeds were used are complete for this Form 1098. If no form is linked, the check is zero."
+  },
+  {
+   "note": "version:tax.us.2025.rule.attachment.f8949",
+   "kind": [
+    "page",
+    "attachment",
+    "graph",
+    "model",
+    "row",
+    "report"
+   ],
+   "attribute": "(?:.*\\.)?(?:version|pinVersion)",
+   "identity": "(?<![\\w.-])tax\\.us\\.2025\\.rule\\.attachment\\.f8949(?![\\w.-])",
+   "change": "changed",
+   "before": "v6",
+   "after": "v7"
+  },
+  {
+   "note": "version:tax.us.2025.rule.attachment.schedule-1",
+   "kind": [
+    "page",
+    "attachment",
+    "graph",
+    "model",
+    "row",
+    "report"
+   ],
+   "attribute": "(?:.*\\.)?(?:version|pinVersion)",
+   "identity": "(?<![\\w.-])tax\\.us\\.2025\\.rule\\.attachment\\.schedule\\-1(?![\\w.-])",
+   "change": "changed",
+   "before": "v5",
+   "after": "v6"
+  },
+  {
+   "note": "version:tax.us.2025.rule.attachment.schedule-a",
+   "kind": [
+    "page",
+    "attachment",
+    "graph",
+    "model",
+    "row",
+    "report"
+   ],
+   "attribute": "(?:.*\\.)?(?:version|pinVersion)",
+   "identity": "(?<![\\w.-])tax\\.us\\.2025\\.rule\\.attachment\\.schedule\\-a(?![\\w.-])",
+   "change": "changed",
+   "before": "v4",
+   "after": "v5"
+  },
+  {
+   "note": "version:tax.us.2025.rule.attachment.schedule-d",
+   "kind": [
+    "page",
+    "attachment",
+    "graph",
+    "model",
+    "row",
+    "report"
+   ],
+   "attribute": "(?:.*\\.)?(?:version|pinVersion)",
+   "identity": "(?<![\\w.-])tax\\.us\\.2025\\.rule\\.attachment\\.schedule\\-d(?![\\w.-])",
+   "change": "changed",
+   "before": "v10",
+   "after": "v11"
+  },
+  {
+   "note": "version:tax.us.2025.rule.effective-proceeds-support-count",
+   "kind": [
+    "page",
+    "attachment",
+    "graph",
+    "model",
+    "row",
+    "report"
+   ],
+   "attribute": "(?:.*\\.)?(?:version|pinVersion)",
+   "identity": "(?<![\\w.-])tax\\.us\\.2025\\.rule\\.effective\\-proceeds\\-support\\-count(?![\\w.-])",
+   "change": "changed",
+   "before": "v1",
+   "after": "v2"
+  },
+  {
+   "note": "version:tax.us.2025.rule.f1098-line8a",
+   "kind": [
+    "page",
+    "attachment",
+    "graph",
+    "model",
+    "row",
+    "report"
+   ],
+   "attribute": "(?:.*\\.)?(?:version|pinVersion)",
+   "identity": "(?<![\\w.-])tax\\.us\\.2025\\.rule\\.f1098\\-line8a(?![\\w.-])",
+   "change": "changed",
+   "before": "v5",
+   "after": "v6"
+  },
+  {
+   "note": "version:tax.us.2025.rule.f1098-residence-interest-reason",
+   "kind": [
+    "page",
+    "attachment",
+    "graph",
+    "model",
+    "row",
+    "report"
+   ],
+   "attribute": "(?:.*\\.)?(?:version|pinVersion)",
+   "identity": "(?<![\\w.-])tax\\.us\\.2025\\.rule\\.f1098\\-residence\\-interest\\-reason(?![\\w.-])",
+   "change": "changed",
+   "before": "v5",
+   "after": "v6"
+  },
+  {
+   "note": "version:tax.us.2025.rule.mortgage-account-ceiling-selection",
+   "kind": [
+    "page",
+    "attachment",
+    "graph",
+    "model",
+    "row",
+    "report"
+   ],
+   "attribute": "(?:.*\\.)?(?:version|pinVersion)",
+   "identity": "(?<![\\w.-])tax\\.us\\.2025\\.rule\\.mortgage\\-account\\-ceiling\\-selection(?![\\w.-])",
+   "change": "changed",
+   "before": "v1",
+   "after": "v2"
+  },
+  {
+   "note": "version:tax.us.2025.rule.mortgage-account-readiness",
+   "kind": [
+    "page",
+    "attachment",
+    "graph",
+    "model",
+    "row",
+    "report"
+   ],
+   "attribute": "(?:.*\\.)?(?:version|pinVersion)",
+   "identity": "(?<![\\w.-])tax\\.us\\.2025\\.rule\\.mortgage\\-account\\-readiness(?![\\w.-])",
+   "change": "changed",
+   "before": "v1",
+   "after": "v2"
+  },
+  {
+   "note": "version:tax.us.2025.rule.mortgage-affirmed-link-coverage",
+   "kind": [
+    "page",
+    "attachment",
+    "graph",
+    "model",
+    "row",
+    "report"
+   ],
+   "attribute": "(?:.*\\.)?(?:version|pinVersion)",
+   "identity": "(?<![\\w.-])tax\\.us\\.2025\\.rule\\.mortgage\\-affirmed\\-link\\-coverage(?![\\w.-])",
+   "change": "changed",
+   "before": "v1",
+   "after": "v2"
+  },
+  {
+   "note": "version:tax.us.2025.rule.mortgage-borrowing-readiness",
+   "kind": [
+    "page",
+    "attachment",
+    "graph",
+    "model",
+    "row",
+    "report"
+   ],
+   "attribute": "(?:.*\\.)?(?:version|pinVersion)",
+   "identity": "(?<![\\w.-])tax\\.us\\.2025\\.rule\\.mortgage\\-borrowing\\-readiness(?![\\w.-])",
+   "change": "changed",
+   "before": "v2",
+   "after": "v3"
+  },
+  {
+   "note": "version:tax.us.2025.rule.mortgage-link-support",
+   "kind": [
+    "page",
+    "attachment",
+    "graph",
+    "model",
+    "row",
+    "report"
+   ],
+   "attribute": "(?:.*\\.)?(?:version|pinVersion)",
+   "identity": "(?<![\\w.-])tax\\.us\\.2025\\.rule\\.mortgage\\-link\\-support(?![\\w.-])",
+   "change": "changed",
+   "before": "v1",
+   "after": "v2"
+  },
+  {
+   "note": "version:tax.us.2025.rule.mortgage-payment-comparison-support-count",
+   "kind": [
+    "page",
+    "attachment",
+    "graph",
+    "model",
+    "row",
+    "report"
+   ],
+   "attribute": "(?:.*\\.)?(?:version|pinVersion)",
+   "identity": "(?<![\\w.-])tax\\.us\\.2025\\.rule\\.mortgage\\-payment\\-comparison\\-support\\-count(?![\\w.-])",
+   "change": "changed",
+   "before": "v1",
+   "after": "v2"
+  },
+  {
+   "note": "version:tax.us.2025.rule.mortgage-shared-mortgage-credit-certificate-received-count",
+   "kind": [
+    "page",
+    "attachment",
+    "graph",
+    "model",
+    "row",
+    "report"
+   ],
+   "attribute": "(?:.*\\.)?(?:version|pinVersion)",
+   "identity": "(?<![\\w.-])tax\\.us\\.2025\\.rule\\.mortgage\\-shared\\-mortgage\\-credit\\-certificate\\-received\\-count(?![\\w.-])",
+   "change": "changed",
+   "before": "v1",
+   "after": "v2"
+  },
+  {
+   "note": "version:tax.us.2025.rule.mortgage-shared-no-one-else-owes-it-count",
+   "kind": [
+    "page",
+    "attachment",
+    "graph",
+    "model",
+    "row",
+    "report"
+   ],
+   "attribute": "(?:.*\\.)?(?:version|pinVersion)",
+   "identity": "(?<![\\w.-])tax\\.us\\.2025\\.rule\\.mortgage\\-shared\\-no\\-one\\-else\\-owes\\-it\\-count(?![\\w.-])",
+   "change": "changed",
+   "before": "v1",
+   "after": "v2"
+  },
+  {
+   "note": "version:tax.us.2025.rule.mortgage-shared-owes-the-loan-count",
+   "kind": [
+    "page",
+    "attachment",
+    "graph",
+    "model",
+    "row",
+    "report"
+   ],
+   "attribute": "(?:.*\\.)?(?:version|pinVersion)",
+   "identity": "(?<![\\w.-])tax\\.us\\.2025\\.rule\\.mortgage\\-shared\\-owes\\-the\\-loan\\-count(?![\\w.-])",
+   "change": "changed",
+   "before": "v1",
+   "after": "v2"
+  },
+  {
+   "note": "version:tax.us.2025.rule.mortgage-shared-this-is-the-original-loan-count",
+   "kind": [
+    "page",
+    "attachment",
+    "graph",
+    "model",
+    "row",
+    "report"
+   ],
+   "attribute": "(?:.*\\.)?(?:version|pinVersion)",
+   "identity": "(?<![\\w.-])tax\\.us\\.2025\\.rule\\.mortgage\\-shared\\-this\\-is\\-the\\-original\\-loan\\-count(?![\\w.-])",
+   "change": "changed",
+   "before": "v1",
+   "after": "v2"
+  },
+  {
+   "note": "version:tax.us.2025.rule.mortgage-shared-what-the-money-paid-for-count",
+   "kind": [
+    "page",
+    "attachment",
+    "graph",
+    "model",
+    "row",
+    "report"
+   ],
+   "attribute": "(?:.*\\.)?(?:version|pinVersion)",
+   "identity": "(?<![\\w.-])tax\\.us\\.2025\\.rule\\.mortgage\\-shared\\-what\\-the\\-money\\-paid\\-for\\-count(?![\\w.-])",
+   "change": "changed",
+   "before": "v1",
+   "after": "v2"
+  },
+  {
+   "note": "version:tax.us.2025.rule.report-effective-support-coverage",
+   "kind": [
+    "page",
+    "attachment",
+    "graph",
+    "model",
+    "row",
+    "report"
+   ],
+   "attribute": "(?:.*\\.)?(?:version|pinVersion)",
+   "identity": "(?<![\\w.-])tax\\.us\\.2025\\.rule\\.report\\-effective\\-support\\-coverage(?![\\w.-])",
+   "change": "changed",
+   "before": "v1",
+   "after": "v2"
+  }
+ ],
+ "optional_blocks_reached": {
+  "line21Explanation": 2
+ },
  "expected_by_note": {
   "text:tax.us.2025.form.eic-worksheet-a.line-2:dispositions.computed_zero.explain": 691,
   "text:tax.us.2025.form.eic-worksheet-a.line-5:dispositions.computed_zero.explain": 691,
@@ -912,6 +1418,5 @@
   "v85/surface/surface_blocked_sale_box4": "expected_changes"
  },
  "failing_lists": {},
- "wall_time_s": 341.0,
- "expectations_declared": 133
+ "wall_time_s": 341.9
 }

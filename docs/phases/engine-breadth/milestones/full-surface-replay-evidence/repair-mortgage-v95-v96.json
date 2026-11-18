@@ -1,0 +1,49 @@
+{
+ "lists": 1,
+ "classes": {
+  "expected_changes": 1
+ },
+ "unexpected_differences": 0,
+ "optional_blocks_reached": {
+  "mortgageBorrowingExplanation": 1
+ },
+ "expectations_used": 129,
+ "used_here_but_unused_on_the_775": [
+  "text:tax.us.2025.rule.effective-proceeds-support-count:notes",
+  "text:tax.us.2025.rule.f1098-line8a:notes",
+  "text:tax.us.2025.rule.f1098-residence-interest-reason:notes",
+  "text:tax.us.2025.rule.mortgage-account-ceiling-selection:notes",
+  "text:tax.us.2025.rule.mortgage-account-readiness:notes",
+  "text:tax.us.2025.rule.mortgage-affirmed-link-coverage:notes",
+  "text:tax.us.2025.rule.mortgage-borrowing-readiness:notes",
+  "text:tax.us.2025.rule.mortgage-link-support:notes",
+  "text:tax.us.2025.rule.mortgage-payment-comparison-support-count:notes",
+  "text:tax.us.2025.rule.mortgage-shared-mortgage-credit-certificate-received-count:notes",
+  "text:tax.us.2025.rule.mortgage-shared-no-one-else-owes-it-count:notes",
+  "text:tax.us.2025.rule.mortgage-shared-owes-the-loan-count:notes",
+  "text:tax.us.2025.rule.mortgage-shared-this-is-the-original-loan-count:notes",
+  "text:tax.us.2025.rule.mortgage-shared-what-the-money-paid-for-count:notes",
+  "text:tax.us.2025.rule.report-effective-support-coverage:notes",
+  "version:tax.us.2025.rule.effective-proceeds-support-count",
+  "version:tax.us.2025.rule.f1098-line8a",
+  "version:tax.us.2025.rule.f1098-residence-interest-reason",
+  "version:tax.us.2025.rule.mortgage-account-ceiling-selection",
+  "version:tax.us.2025.rule.mortgage-account-readiness",
+  "version:tax.us.2025.rule.mortgage-affirmed-link-coverage",
+  "version:tax.us.2025.rule.mortgage-borrowing-readiness",
+  "version:tax.us.2025.rule.mortgage-link-support",
+  "version:tax.us.2025.rule.mortgage-payment-comparison-support-count",
+  "version:tax.us.2025.rule.mortgage-shared-mortgage-credit-certificate-received-count",
+  "version:tax.us.2025.rule.mortgage-shared-no-one-else-owes-it-count",
+  "version:tax.us.2025.rule.mortgage-shared-owes-the-loan-count",
+  "version:tax.us.2025.rule.mortgage-shared-this-is-the-original-loan-count",
+  "version:tax.us.2025.rule.mortgage-shared-what-the-money-paid-for-count",
+  "version:tax.us.2025.rule.report-effective-support-coverage"
+ ],
+ "still_unused": [
+  "version:tax.us.2025.rule.attachment.f8949",
+  "version:tax.us.2025.rule.attachment.schedule-1",
+  "version:tax.us.2025.rule.attachment.schedule-a",
+  "version:tax.us.2025.rule.attachment.schedule-d"
+ ]
+}

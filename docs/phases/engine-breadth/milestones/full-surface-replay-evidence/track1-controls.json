@@ -2,14 +2,19 @@
  "core": "v96",
  "outputs": {
   "recorded": {
-   "records": 22144,
+   "records": 22146,
    "page_fields": 86,
    "report_rows": 323
   },
   "wage": {
-   "records": 29987,
+   "records": 29989,
    "page_fields": 86,
    "report_rows": 315
+  },
+  "mortgage": {
+   "records": 20534,
+   "page_fields": 86,
+   "report_rows": 383
   }
  },
  "recorded_list": "v83/returns/case/a_duplicate_on_direct/recorded",
@@ -17,6 +22,7 @@
  "controls": {
   "changed_field_value": {
    "judged_on": [
+    "mortgage",
     "recorded",
     "wage"
    ],
@@ -33,6 +39,14 @@
     "wage": {
      "available": true,
      "target": "line-12e",
+     "must": "reject",
+     "class": "unexpected",
+     "differences": 1,
+     "ok": true
+    },
+    "mortgage": {
+     "available": true,
+     "target": "line-eic-a-1",
      "must": "reject",
      "class": "unexpected",
      "differences": 1,
@@ -58,6 +72,7 @@
   },
   "changed_unwatched_row_code": {
    "judged_on": [
+    "mortgage",
     "recorded",
     "wage"
    ],
@@ -78,11 +93,20 @@
      "class": "unexpected",
      "differences": 1,
      "ok": true
+    },
+    "mortgage": {
+     "available": true,
+     "target": "tax.us.2025.rule.interest.nominee-reduction",
+     "must": "reject",
+     "class": "unexpected",
+     "differences": 1,
+     "ok": true
     }
    }
   },
   "removed_field": {
    "judged_on": [
+    "mortgage",
     "recorded",
     "wage"
    ],
@@ -103,11 +127,20 @@
      "class": "unexpected",
      "differences": 241,
      "ok": true
+    },
+    "mortgage": {
+     "available": true,
+     "target": "line-Sch3-8",
+     "must": "reject",
+     "class": "unexpected",
+     "differences": 30,
+     "ok": true
     }
    }
   },
   "added_field": {
    "judged_on": [
+    "mortgage",
     "recorded",
     "wage"
    ],
@@ -122,6 +155,14 @@
      "ok": true
     },
     "wage": {
+     "available": true,
+     "target": null,
+     "must": "reject",
+     "class": "unexpected",
+     "differences": 57,
+     "ok": true
+    },
+    "mortgage": {
      "available": true,
      "target": null,
      "must": "reject",
@@ -133,6 +174,7 @@
   },
   "changed_page_disposition": {
    "judged_on": [
+    "mortgage",
     "recorded",
     "wage"
    ],
@@ -147,6 +189,14 @@
      "ok": true
     },
     "wage": {
+     "available": true,
+     "target": "line-12e",
+     "must": "reject",
+     "class": "unexpected",
+     "differences": 1,
+     "ok": true
+    },
+    "mortgage": {
      "available": true,
      "target": "line-12e",
      "must": "reject",
@@ -158,6 +208,7 @@
   },
   "changed_row_disposition": {
    "judged_on": [
+    "mortgage",
     "recorded",
     "wage"
    ],
@@ -172,6 +223,14 @@
      "ok": true
     },
     "wage": {
+     "available": true,
+     "target": null,
+     "must": "reject",
+     "class": "unexpected",
+     "differences": 1,
+     "ok": true
+    },
+    "mortgage": {
      "available": true,
      "target": null,
      "must": "reject",
@@ -183,11 +242,20 @@
   },
   "changed_missing_name": {
    "judged_on": [
+    "mortgage",
     "recorded"
    ],
    "ok": true,
    "per_output": {
     "recorded": {
+     "available": true,
+     "target": null,
+     "must": "reject",
+     "class": "unexpected",
+     "differences": 1,
+     "ok": true
+    },
+    "mortgage": {
      "available": true,
      "target": null,
      "must": "reject",
@@ -199,6 +267,7 @@
   },
   "changed_question": {
    "judged_on": [
+    "mortgage",
     "recorded"
    ],
    "ok": true,
@@ -210,11 +279,20 @@
      "class": "unexpected",
      "differences": 1,
      "ok": true
+    },
+    "mortgage": {
+     "available": true,
+     "target": null,
+     "must": "reject",
+     "class": "unexpected",
+     "differences": 1,
+     "ok": true
     }
    }
   },
   "unexpected_sentence": {
    "judged_on": [
+    "mortgage",
     "recorded",
     "wage"
    ],
@@ -235,11 +313,20 @@
      "class": "unexpected",
      "differences": 1,
      "ok": true
+    },
+    "mortgage": {
+     "available": true,
+     "target": "line-12e",
+     "must": "reject",
+     "class": "unexpected",
+     "differences": 1,
+     "ok": true
     }
    }
   },
   "expected_sentence": {
    "judged_on": [
+    "mortgage",
     "recorded",
     "wage"
    ],
@@ -256,6 +343,182 @@
     "wage": {
      "available": true,
      "target": "line-12e",
+     "must": "accept",
+     "class": "expected_changes",
+     "differences": 1,
+     "ok": true
+    },
+    "mortgage": {
+     "available": true,
+     "target": "line-12e",
+     "must": "accept",
+     "class": "expected_changes",
+     "differences": 1,
+     "ok": true
+    }
+   }
+  },
+  "changed_graph_node_value": {
+   "judged_on": [
+    "mortgage",
+    "recorded",
+    "wage"
+   ],
+   "ok": true,
+   "per_output": {
+    "recorded": {
+     "available": true,
+     "target": "finding:derived:01d64db880aa04d0ed4768a3",
+     "must": "reject",
+     "class": "unexpected",
+     "differences": 1,
+     "ok": true
+    },
+    "wage": {
+     "available": true,
+     "target": "finding:derived:02de509f0c17b4669a6ebde0",
+     "must": "reject",
+     "class": "unexpected",
+     "differences": 1,
+     "ok": true
+    },
+    "mortgage": {
+     "available": true,
+     "target": "finding:derived:0acda40c13e12a02b135ff7b",
+     "must": "reject",
+     "class": "unexpected",
+     "differences": 1,
+     "ok": true
+    }
+   }
+  },
+  "changed_disposition_node": {
+   "judged_on": [
+    "mortgage",
+    "recorded",
+    "wage"
+   ],
+   "ok": true,
+   "per_output": {
+    "recorded": {
+     "available": true,
+     "target": "demo.form1040.standard_deduction",
+     "must": "reject",
+     "class": "unexpected",
+     "differences": 1,
+     "ok": true
+    },
+    "wage": {
+     "available": true,
+     "target": "tax.us.2025.f1098.residence-interest-unresolved",
+     "must": "reject",
+     "class": "unexpected",
+     "differences": 1,
+     "ok": true
+    },
+    "mortgage": {
+     "available": true,
+     "target": "demo.form1040.standard_deduction",
+     "must": "reject",
+     "class": "unexpected",
+     "differences": 1,
+     "ok": true
+    }
+   }
+  },
+  "changed_section_root": {
+   "judged_on": [
+    "mortgage",
+    "recorded",
+    "wage"
+   ],
+   "ok": true,
+   "per_output": {
+    "recorded": {
+     "available": true,
+     "target": "line-10",
+     "must": "reject",
+     "class": "unexpected",
+     "differences": 1,
+     "ok": true
+    },
+    "wage": {
+     "available": true,
+     "target": "line-10",
+     "must": "reject",
+     "class": "unexpected",
+     "differences": 1,
+     "ok": true
+    },
+    "mortgage": {
+     "available": true,
+     "target": "line-10",
+     "must": "reject",
+     "class": "unexpected",
+     "differences": 1,
+     "ok": true
+    }
+   }
+  },
+  "changed_authorization": {
+   "judged_on": [
+    "mortgage",
+    "recorded",
+    "wage"
+   ],
+   "ok": true,
+   "per_output": {
+    "recorded": {
+     "available": true,
+     "target": null,
+     "must": "reject",
+     "class": "unexpected",
+     "differences": 1,
+     "ok": true
+    },
+    "wage": {
+     "available": true,
+     "target": null,
+     "must": "reject",
+     "class": "unexpected",
+     "differences": 1,
+     "ok": true
+    },
+    "mortgage": {
+     "available": true,
+     "target": null,
+     "must": "reject",
+     "class": "unexpected",
+     "differences": 1,
+     "ok": true
+    }
+   }
+  },
+  "changed_explanation_block_note": {
+   "judged_on": [
+    "mortgage"
+   ],
+   "ok": true,
+   "per_output": {
+    "mortgage": {
+     "available": true,
+     "target": "tax.us.2025.rule.f1098-line8a",
+     "must": "reject",
+     "class": "unexpected",
+     "differences": 1,
+     "ok": true
+    }
+   }
+  },
+  "expected_explanation_block_note": {
+   "judged_on": [
+    "mortgage"
+   ],
+   "ok": true,
+   "per_output": {
+    "mortgage": {
+     "available": true,
+     "target": "tax.us.2025.rule.f1098-line8a",
      "must": "accept",
      "class": "expected_changes",
      "differences": 1,

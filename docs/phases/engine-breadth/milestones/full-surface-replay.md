@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "full-surface-replay",
-  "status": "Track 1 chartered 2026-11-18.",
+  "status": "Review READY with notes; repair chartered 2026-11-18.",
   "scope": [
     "the shared recorded-replay tool can compare the complete saved output of two cores on every recorded list (every page field's value, disposition, text and questions, every report row with its full identity) and classify each difference, so a milestone can claim that nothing else changed",
     "controls that mutate the saved output before projection prove the comparison sees every field and row"
@@ -76,3 +76,13 @@ Track 0: it is tooling, checked by its controls.
    saved output. Expectations name a field or row kind and an attribute
    (for example "explain text of these fields"), never "anything on
    this list".
+2. **Repair the review notes (2026-11-18, foreman).** The fresh review
+   (`docs/reviews/full-surface-replay/review.md`) is READY with notes.
+   Repair FSR-R1 (correct the `notes` claim; state that "nothing else
+   changed" holds for the parts of the saved output the corpus reaches,
+   and name the optional model blocks no recorded list produces), FSR-R2
+   (`run_full` reports unused expectations), FSR-R3 (controls that fail
+   when the explanation graph, the other model keys or typed value
+   comparison are dropped), and document FSR-R4 and FSR-R5 as named
+   blind spots. FSR-R6 is the CI gate, run at ready.
+

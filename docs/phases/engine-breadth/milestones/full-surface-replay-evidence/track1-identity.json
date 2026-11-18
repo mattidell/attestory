@@ -28,6 +28,12 @@
  "failing": 0,
  "unexpected_differences": 0,
  "unexpected_by_kind_attribute": {},
+ "expectations_declared": 0,
+ "expectations_used": 0,
+ "unused_expectations": [],
+ "optional_blocks_reached": {
+  "line21Explanation": 2
+ },
  "expected_by_note": {},
  "outcomes": {
   "error/error": 84,
@@ -811,6 +817,5 @@
   "v85/surface/surface_blocked_sale_box4": "identical"
  },
  "failing_lists": {},
- "wall_time_s": 315.0,
- "expectations_declared": 0
+ "wall_time_s": 316.4
 }
