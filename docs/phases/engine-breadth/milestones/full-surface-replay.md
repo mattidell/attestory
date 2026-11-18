@@ -3,7 +3,8 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "full-surface-replay",
-  "status": "Review READY with notes; repair chartered 2026-11-18.",
+  "status": "Closed 2026-11-18. No package version change.",
+  "retrospective": "docs/milestone-retrospectives/2026-11-18-full-surface-replay.md",
   "scope": [
     "the shared recorded-replay tool can compare the complete saved output of two cores on every recorded list (every page field's value, disposition, text and questions, every report row with its full identity) and classify each difference, so a milestone can claim that nothing else changed",
     "controls that mutate the saved output before projection prove the comparison sees every field and row"
@@ -85,4 +86,24 @@ Track 0: it is tooling, checked by its controls.
    when the explanation graph, the other model keys or typed value
    comparison are dropped), and document FSR-R4 and FSR-R5 as named
    blind spots. FSR-R6 is the CI gate, run at ready.
+3. **Keep the mutation script (2026-11-18, foreman).** The repair's
+   `repair_mutations.py` patches the tool in memory at run time to show
+   each control fails when its part is dropped; no mutation is
+   committed. It stays as reproducible evidence.
+
+## Closeout
+
+Closed 2026-11-18. `tools/recorded_replay.py` holds the whole saved
+return as typed records, diffs two cores per list, and fails any
+difference a milestone did not declare (`Expectation`, `text_change`,
+`version_change`, `classify_full`, `run_full`, the `full` subcommand).
+It reports unused expectations and which optional model blocks a run
+reached. Controls mutate the saved output before the snapshot, including
+the two L16-R1 cases. v96 against v96: 775 identical. v95 against v96
+with plain-line-texts' declared changes: 775 pass, 0 unexpected. The
+claim covers what the corpus reaches: of the six optional model blocks,
+recorded lists produce only `line21Explanation`; a synthetic mortgage
+list covers the mortgage explanation. Named blind spots: pin order in
+report rows and the explanation block, and key order of dictionaries
+other than `recordedApplicableClaims`.
 
