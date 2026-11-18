@@ -966,6 +966,19 @@ wording successor. Of 775 recorded lists, 691 change only these
 sentences and 84 fail as before; no value, disposition, refusal code,
 missing name or question changed.
 
+## Bounded return — Replays Run Three Times Faster (2025)
+
+[Plan](milestones/rust-kernel-experiment.md); retrospective:
+`docs/milestone-retrospectives/2026-11-18-rust-kernel-experiment.md`.
+
+An engineering experiment on whether to move the engine to Rust. P0
+profiled the 775 recorded lists and found the kernel at about 6 % of a
+replay; the time was in derivation algorithms. Four Python fixes
+(package-validation index and memo, a memoized blocked-line question
+walk, a marshal precompute) took the median list from 7.76 s to 2.94 s
+and the slowest from 49.6 s to 3.55 s, with every recorded list
+byte-identical. No package version change. The Rust port is parked.
+
 ## Saved-page observation — Mortgage and Sales (2025)
 
 [Plan](milestones/sale-page-observation.md); retrospective:
@@ -989,6 +1002,14 @@ delivers an item removes it.
 
 ### Open owner-held questions
 
+- Rust kernel port (rust-kernel-experiment, parked 2026-11-18): the
+  slice is the kernel replay fold (`findings.project` and the `facts.py`
+  lattice) behind a PyO3 binding; the first design question is the
+  per-assertion schema-validation callback into Python. Before it: a
+  governance check on implementation language and the kernel boundary
+  (owner or advisor) and the owner's confirmation of the
+  `packages/kernel/` edit. It pays only if the kernel comes to dominate
+  replays or the owner wants the language evidence regardless.
 - Whether a representation-transfer adjudication act should exist, so a
   nonzero legacy claim on a superseded entity could resolve honestly
   (ADR-0072). Until then, the withdrawal policy blocks it.
@@ -1001,6 +1022,12 @@ delivers an item removes it.
 
 ### Parked
 
+- Replay speed, next Python levers (rust-kernel-experiment, 2026-11-18):
+  each replay reads and hashes the 7,252 member files twice (about 40 %
+  of a recorded replay); recorder stories re-project the whole act log
+  on every save and rebuild the fact lattice metadata per assertion
+  (about 60 % of test K13). The second is a kernel edit and needs the
+  owner's confirmation.
 - Form 8949 adjustment codes other than B and W (refused by answer on
   core v81).
 - Per-row Form 8949 column (f) code letters: B on a box B/E row with a
