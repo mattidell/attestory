@@ -20,7 +20,13 @@ byte-identically (per-list digest equal to the baseline). The median replay
 fell from 4.64 s to 3.83 s with the cache cleared before every list (-18 %)
 and to 3.37 s with it kept across the lists a worker runs (-27 %); in a single
 process the median fell 3.37 s to 2.12 s cold and 1.92 s warm (-37 %, -43 %).
-The saving clears the charter's 10 % stop line in every measurement. No kernel,
+The before and after runs above were taken at different times under load,
+so their percentages are indicative only. The fresh review's paired,
+interleaved run in one process (median list, five rounds, uncached, cold and
+warm in turn) gives the figure to quote: uncached 2.12 s, cold 1.67 s
+(-21 %), warm 1.62 s (-24 %); one listing of the 2025 content directory
+0.277 s uncached and 0.060 s warm (review MRO-R2). The saving clears the
+charter's 10 % stop line in every measurement. No kernel,
 content or schema file changed.
 
 ## 1. Read counts (before the change)
