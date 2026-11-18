@@ -3039,6 +3039,31 @@ def validate_package(
             pin["id"] for pin, citizen in resolved
             if citizen["schema"] == "role-canon.v1"
         }
+        # Source-family edges look members up by bundle id and closure mappings
+        # by listed fact type. Index them once (linear) instead of scanning the
+        # resolved members inside every family's scan; the insertion order of
+        # each list follows ``resolved`` exactly as the scans did.
+        bundle_fact_type_ids: dict[str, set[str]] = {}
+        closure_ids_by_fact_type: dict[Any, list[str]] = {}
+        closure_v4_ids_by_fact_type: dict[Any, list[str]] = {}
+        for _p2, c2 in resolved:
+            if c2["schema"] in {"bundle.v1", "bundle.v2"}:
+                bundle_fact_type_ids.setdefault(c2["id"], set()).update(
+                    ft["id"] for ft in c2.get("fact_types", [])
+                )
+            if c2["schema"] in CLOSURE_MAPPING_SCHEMAS:
+                if c2["schema"] == "source-closure-mapping.v4":
+                    for listed_id in dict.fromkeys(
+                        (row.get("member_fact_type") or {}).get("id")
+                        for row in c2.get("families") or []
+                        if isinstance(row, dict)
+                    ):
+                        closure_ids_by_fact_type.setdefault(listed_id, []).append(c2["id"])
+                        closure_v4_ids_by_fact_type.setdefault(listed_id, []).append(c2["id"])
+                else:
+                    closure_ids_by_fact_type.setdefault(
+                        c2.get("member_fact_type", {}).get("id"), []
+                    ).append(c2["id"])
         for pin, citizen in resolved:
             m_id = pin["id"]
             # The immutable role canon is authority for every package pin.  It
@@ -3268,35 +3293,15 @@ def validate_package(
             elif citizen["schema"] == "source-family.v1":
                 ft_id = citizen["member_predicate"]["fact_type"]
                 for p_id in member_ids:
-                    for p2, c2 in resolved:
-                        if c2["id"] == p_id and c2["schema"] in {"bundle.v1", "bundle.v2"}:
-                            if any(ft["id"] == ft_id for ft in c2.get("fact_types", [])):
-                                adj[m_id].add(p_id)
+                    if ft_id in bundle_fact_type_ids.get(p_id, ()):
+                        adj[m_id].add(p_id)
                 # ALSO depend on source-closure-mapping for this family
-                for p2, c2 in resolved:
-                    if c2["schema"] in CLOSURE_MAPPING_SCHEMAS:
-                        if c2["schema"] == "source-closure-mapping.v4":
-                            listed = [
-                                (row.get("member_fact_type") or {}).get("id")
-                                for row in c2.get("families") or []
-                                if isinstance(row, dict)
-                            ]
-                            if ft_id in listed:
-                                adj[m_id].add(c2["id"])
-                        elif c2.get("member_fact_type", {}).get("id") == ft_id:
-                            adj[m_id].add(c2["id"])
+                for closure_id in closure_ids_by_fact_type.get(ft_id, ()):
+                    adj[m_id].add(closure_id)
             elif citizen["schema"] == "source-family.v2":
                 ft_id = citizen["member_predicate"]["fact_type"]
-                for _p2, c2 in resolved:
-                    if c2["schema"] != "source-closure-mapping.v4":
-                        continue
-                    listed = [
-                        (row.get("member_fact_type") or {}).get("id")
-                        for row in c2.get("families") or []
-                        if isinstance(row, dict)
-                    ]
-                    if ft_id in listed:
-                        adj[m_id].add(c2["id"])
+                for closure_id in closure_v4_ids_by_fact_type.get(ft_id, ()):
+                    adj[m_id].add(closure_id)
             elif citizen["schema"] in {"attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11", "attachment-rule.v12"}:
                 for part in citizen.get("itemizations", []):
                     authority = part.get("authority", {})
