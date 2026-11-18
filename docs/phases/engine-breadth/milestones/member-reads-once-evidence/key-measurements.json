@@ -1,0 +1,21 @@
+{
+ "byte_key_sees_edit": true,
+ "byte_keyed_first_call_s": 0.4027,
+ "byte_keyed_warm_listing_s": 0.0868,
+ "cache_entries": 1813,
+ "cache_rss_growth_mib": 79.1,
+ "content_bytes": 31334990,
+ "copy_bodies": 1053,
+ "deepcopy_s": 0.107,
+ "files": 1813,
+ "json_tree_copy_s": 0.0464,
+ "listing_only_s": 0.0111,
+ "per_list_byte_keyed_warm_s": 0.347,
+ "per_list_stat_keyed_warm_s": 0.06,
+ "per_list_uncached_s": 1.695,
+ "read_and_hash_all_files_s": 0.0931,
+ "reparse_same_bodies_s": 0.1194,
+ "stat_key_unchanged_after_same_size_same_mtime_edit": true,
+ "stat_keyed_warm_listing_s": 0.015,
+ "uncached_listing_s": 0.4237
+}

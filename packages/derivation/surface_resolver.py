@@ -45,7 +45,7 @@ from packages.derivation.package_validation import (
 from packages.derivation.production_resolver import (
     PublicationSurface,
     Refusal,
-    _json_candidates,
+    _member_candidates,
     _sha256_bytes,
     _verify_release_and_registry,
     select_current_adoption,
@@ -124,11 +124,13 @@ def resolve_surface_artifact(
 
     pkg_pin = payload["package"]
     matching: dict[str, dict[str, Any]] = {}
-    for body in _json_candidates(surface.member_dir):
-        if body.get("schema") != SURFACE_SCHEMA:
+    for member in _member_candidates(surface.member_dir):
+        seen = member.view
+        if seen.get("schema") != SURFACE_SCHEMA:
             continue
-        if body.get("id") != pkg_pin["id"] or str(body.get("version", "")) != pkg_pin["version"]:
+        if seen.get("id") != pkg_pin["id"] or str(seen.get("version", "")) != pkg_pin["version"]:
             continue
+        body = member.body()
         try:
             digest = package_instance_checksum(body)
         except (TypeError, ValueError):
