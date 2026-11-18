@@ -309,3 +309,24 @@ Charter `docs/reviews/plain-line-texts/charter-track1.md`.
 2. The validator test is `@pytest.mark.live` with a measured reason instead of fast.
 3. Two existing tests pinned the newest `form-field` versions of line 7b (v3) and line 2b (v6);
    they now pin v4 and v7, the successors this build publishes.
+
+## Review disposition
+
+Foreman, 2026-11-17, on `docs/reviews/plain-line-texts/review.md`
+(READY, two notes).
+
+11. **PLT-R2 is repaired here.** The census term list missed "computed
+    zero", "closure-backed zero", "conclusion", "absence", "disposition
+    is inapplicable" and "floors", so drawn texts on line 6a (693 pages),
+    line 6b, line 7b and tax after credits still read as engine output.
+    The repair replaces the census's term filter with a reading of every
+    distinct drawn content text: each active text on the 699 saved pages
+    is listed once and judged plain or not. Texts in citizens this branch
+    adds (not yet on main) are edited in place; a citizen already
+    published (line 6a v2) gets a successor. Core v96, registry v94 and
+    release v94 are rebuilt in place, since they are not yet published.
+12. **PLT-R1 (test reads every declared disposition, not only the drawn
+    one) is fixed with the repair:** the live test checks the active
+    disposition's text, attachment headings and mortgage notes, and
+    asserts no flagged term in any drawn content text.
+Repair charter `docs/reviews/plain-line-texts/charter-repair.md`.
