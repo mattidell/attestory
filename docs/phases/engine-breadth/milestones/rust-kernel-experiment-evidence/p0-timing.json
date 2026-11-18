@@ -1,0 +1,5588 @@
+{
+ "chosen": {
+  "median": "v81/case/m_8949_no_ic3_yes_q3_no",
+  "rule": "sort all 775 lists by total_s (prep + live_coordinate_run + page render) under parallel replay; median is index 387, slowest is the last",
+  "slowest": "v83/returns/v80/carried_covered_flag_no_w_lt/recorded"
+ },
+ "core": {
+  "registry": "v94",
+  "release": "v94",
+  "version": "v96"
+ },
+ "errors": [
+  "FindingModelError",
+  "HorizonModelError",
+  "SourceAuthorityError"
+ ],
+ "invocations": [
+  {
+   "lists": 270,
+   "replay_wall_s": 303.4
+  },
+  {
+   "lists": 330,
+   "replay_wall_s": 319.1
+  },
+  {
+   "lists": 175,
+   "replay_wall_s": 164.5
+  }
+ ],
+ "lists": 775,
+ "outcomes": {
+  "error": 84,
+  "refused": 0,
+  "success": 691
+ },
+ "per_list": {
+  "v81/case/a_8949_yes": [
+   "success",
+   7.2771,
+   4.4087,
+   339,
+   180
+  ],
+  "v81/case/a_adjustment_row_missing": [
+   "success",
+   8.1378,
+   4.85,
+   340,
+   181
+  ],
+  "v81/case/a_basis_row_missing": [
+   "success",
+   8.2627,
+   5.0303,
+   340,
+   181
+  ],
+  "v81/case/a_bw": [
+   "success",
+   7.8888,
+   4.6465,
+   341,
+   181
+  ],
+  "v81/case/a_corrected_basis_missing": [
+   "error",
+   3.362,
+   null,
+   null,
+   null
+  ],
+  "v81/case/a_duplicate_on_direct": [
+   "success",
+   7.3193,
+   4.0394,
+   342,
+   181
+  ],
+  "v81/case/a_g_disagrees": [
+   "success",
+   7.4967,
+   4.4572,
+   341,
+   181
+  ],
+  "v81/case/a_gain_to_loss": [
+   "success",
+   8.0883,
+   4.6729,
+   341,
+   181
+  ],
+  "v81/case/a_high": [
+   "success",
+   7.285,
+   4.2519,
+   341,
+   181
+  ],
+  "v81/case/a_high_and_w_row": [
+   "error",
+   3.368,
+   null,
+   null,
+   null
+  ],
+  "v81/case/a_holding_mismatch": [
+   "success",
+   18.5551,
+   15.2958,
+   341,
+   181
+  ],
+  "v81/case/a_ic3_no": [
+   "success",
+   7.6806,
+   4.2826,
+   341,
+   181
+  ],
+  "v81/case/a_ic3_unanswered": [
+   "success",
+   8.5358,
+   5.2589,
+   340,
+   180
+  ],
+  "v81/case/a_no_correction": [
+   "success",
+   19.1045,
+   15.6784,
+   341,
+   181
+  ],
+  "v81/case/a_path_b_unanswered": [
+   "success",
+   7.8835,
+   4.5826,
+   339,
+   180
+  ],
+  "v81/case/a_proceeds_row_missing": [
+   "success",
+   7.2856,
+   4.354,
+   340,
+   181
+  ],
+  "v81/case/a_q3_no_with_member": [
+   "success",
+   8.6725,
+   5.4771,
+   341,
+   181
+  ],
+  "v81/case/a_same_sale_both_terms": [
+   "success",
+   8.6325,
+   5.1967,
+   345,
+   181
+  ],
+  "v81/case/a_w_exceeds_corrected_loss": [
+   "success",
+   19.4131,
+   15.9184,
+   341,
+   181
+  ],
+  "v81/case/a_w_on_gain_after_correction": [
+   "success",
+   26.9295,
+   23.7402,
+   341,
+   181
+  ],
+  "v81/case/b_code_b_ic3": [
+   "success",
+   7.5784,
+   4.2916,
+   345,
+   186
+  ],
+  "v81/case/b_code_b_v80_route": [
+   "success",
+   7.7913,
+   4.6037,
+   343,
+   184
+  ],
+  "v81/case/d_bw": [
+   "success",
+   7.679,
+   4.4669,
+   341,
+   181
+  ],
+  "v81/case/d_low": [
+   "success",
+   7.6526,
+   4.4634,
+   341,
+   181
+  ],
+  "v81/case/late_member_after_no": [
+   "success",
+   8.9517,
+   5.7572,
+   341,
+   181
+  ],
+  "v81/case/late_member_reanswered_yes": [
+   "success",
+   7.5355,
+   4.3304,
+   342,
+   182
+  ],
+  "v81/case/m_8949_no_ic3_yes_q3_no": [
+   "success",
+   7.6975,
+   4.4951,
+   334,
+   181
+  ],
+  "v81/case/m_a_and_b": [
+   "success",
+   7.4993,
+   4.3015,
+   350,
+   184
+  ],
+  "v81/case/m_a_and_b_q1_no": [
+   "success",
+   7.2112,
+   3.9779,
+   350,
+   184
+  ],
+  "v81/case/m_a_c_ic3_no_v80_ic_yes": [
+   "success",
+   7.0481,
+   3.8881,
+   346,
+   182
+  ],
+  "v81/case/m_a_c_ic3_unanswered_v80_ic_yes": [
+   "success",
+   7.8292,
+   4.746,
+   345,
+   181
+  ],
+  "v81/case/m_a_c_ic3_yes_v80_ic_no": [
+   "success",
+   7.3055,
+   4.2759,
+   346,
+   182
+  ],
+  "v81/case/m_a_c_ic3_yes_v80_ic_yes": [
+   "success",
+   8.2259,
+   4.717,
+   346,
+   182
+  ],
+  "v81/case/m_a_q3_no_v80_ic_yes": [
+   "success",
+   8.8078,
+   5.4857,
+   341,
+   181
+  ],
+  "v81/case/m_a_v79_ic_only": [
+   "success",
+   8.7532,
+   5.3847,
+   341,
+   181
+  ],
+  "v81/case/m_a_v80_ic_only": [
+   "success",
+   7.9837,
+   4.9115,
+   341,
+   181
+  ],
+  "v81/case/m_d_and_e": [
+   "success",
+   8.0746,
+   4.7449,
+   350,
+   184
+  ],
+  "v81/case/m_d_ic3_no": [
+   "success",
+   8.2031,
+   4.6021,
+   341,
+   181
+  ],
+  "v81/case/m_d_q3_no_with_member": [
+   "success",
+   9.5135,
+   6.1156,
+   341,
+   181
+  ],
+  "v81/case/m_q3_yes_nothing_8949_yes": [
+   "success",
+   8.3153,
+   5.0039,
+   331,
+   179
+  ],
+  "v81/case/m_q3_yes_nothing_beside_b": [
+   "success",
+   8.2385,
+   4.9712,
+   343,
+   184
+  ],
+  "v81/case/m_q3_yes_nothing_beside_c": [
+   "success",
+   8.0743,
+   4.8261,
+   338,
+   181
+  ],
+  "v81/case/m_q3_yes_nothing_beside_direct": [
+   "error",
+   2.9099,
+   null,
+   null,
+   null
+  ],
+  "v81/case/m_q3_yes_nothing_beside_w": [
+   "error",
+   3.2943,
+   null,
+   null,
+   null
+  ],
+  "v81/case/mixed_a_d_c_direct": [
+   "error",
+   3.3409,
+   null,
+   null,
+   null
+  ],
+  "v81/case/q3_yes_nothing_recorded": [
+   "success",
+   8.6214,
+   5.1104,
+   334,
+   181
+  ],
+  "v81/case/t1_stage1": [
+   "success",
+   8.81,
+   5.5123,
+   338,
+   179
+  ],
+  "v81/case/t1_stage2": [
+   "success",
+   8.0577,
+   4.8494,
+   339,
+   180
+  ],
+  "v81/case/t1_stage3": [
+   "success",
+   8.181,
+   4.8883,
+   340,
+   181
+  ],
+  "v81/case/t1_stage4": [
+   "success",
+   7.3606,
+   4.2484,
+   342,
+   182
+  ],
+  "v81/case/t2_stage0": [
+   "error",
+   3.2546,
+   null,
+   null,
+   null
+  ],
+  "v81/case/t2_stage1": [
+   "error",
+   3.1198,
+   null,
+   null,
+   null
+  ],
+  "v81/case/t2_stage2": [
+   "error",
+   3.1041,
+   null,
+   null,
+   null
+  ],
+  "v81/case/t2_stage3": [
+   "error",
+   3.1929,
+   null,
+   null,
+   null
+  ],
+  "v81/case/t2_stage4": [
+   "error",
+   3.2315,
+   null,
+   null,
+   null
+  ],
+  "v81/case/t2_stage4_keep_covered": [
+   "error",
+   3.0927,
+   null,
+   null,
+   null
+  ],
+  "v81/case/t3_stage0": [
+   "error",
+   3.3546,
+   null,
+   null,
+   null
+  ],
+  "v81/case/t3_stage1": [
+   "error",
+   3.6331,
+   null,
+   null,
+   null
+  ],
+  "v81/case/t3_stage2": [
+   "error",
+   3.4469,
+   null,
+   null,
+   null
+  ],
+  "v81/case/t3_stage3": [
+   "error",
+   2.8849,
+   null,
+   null,
+   null
+  ],
+  "v81/case/wage_q3_no": [
+   "success",
+   7.3417,
+   4.3666,
+   331,
+   179
+  ],
+  "v81/case/x_a_gain_d_loss": [
+   "success",
+   8.3376,
+   4.77,
+   348,
+   181
+  ],
+  "v81/case/x_a_loss_d_gain": [
+   "success",
+   8.2447,
+   4.7947,
+   348,
+   181
+  ],
+  "v81/case/x_a_loss_to_gain": [
+   "success",
+   7.527,
+   4.5428,
+   341,
+   181
+  ],
+  "v81/case/x_basis_row_is_corrected": [
+   "success",
+   7.4861,
+   4.6232,
+   341,
+   181
+  ],
+  "v81/case/x_bw_g_omits_w": [
+   "success",
+   7.9379,
+   4.7392,
+   341,
+   181
+  ],
+  "v81/case/x_bw_w_equals_correct_loss": [
+   "success",
+   8.2284,
+   4.7981,
+   341,
+   181
+  ],
+  "v81/case/x_bw_w_exceeds_correct_loss_within_shown": [
+   "success",
+   18.5964,
+   15.3693,
+   341,
+   181
+  ],
+  "v81/case/x_corrected_basis_changed_g_fixed": [
+   "success",
+   7.7912,
+   4.6104,
+   343,
+   183
+  ],
+  "v81/case/x_corrected_basis_changed_g_stale": [
+   "success",
+   8.1507,
+   4.8654,
+   342,
+   182
+  ],
+  "v81/case/x_d_adjustment_row_missing": [
+   "success",
+   8.0969,
+   4.7851,
+   340,
+   181
+  ],
+  "v81/case/x_d_basis_row_missing": [
+   "success",
+   8.0918,
+   4.8093,
+   340,
+   181
+  ],
+  "v81/case/x_d_bw_w_exceeds_correct_loss": [
+   "success",
+   20.5623,
+   17.3618,
+   341,
+   181
+  ],
+  "v81/case/x_d_gain_to_loss": [
+   "success",
+   7.4918,
+   4.5127,
+   341,
+   181
+  ],
+  "v81/case/x_d_holding_mismatch": [
+   "success",
+   20.7446,
+   17.4886,
+   341,
+   181
+  ],
+  "v81/case/x_d_loss_to_gain": [
+   "success",
+   7.7075,
+   4.4832,
+   341,
+   181
+  ],
+  "v81/case/x_d_proceeds_row_missing": [
+   "success",
+   8.4328,
+   4.9582,
+   340,
+   181
+  ],
+  "v81/case/x_d_zero_proceeds_zero_shown": [
+   "success",
+   7.7649,
+   4.4825,
+   341,
+   181
+  ],
+  "v81/case/x_dup_box_c_ic3_no": [
+   "success",
+   7.8094,
+   4.4929,
+   345,
+   181
+  ],
+  "v81/case/x_dup_box_c_ic3_yes": [
+   "success",
+   7.9294,
+   4.6193,
+   345,
+   181
+  ],
+  "v81/case/x_dup_covered_lt": [
+   "error",
+   3.2748,
+   null,
+   null,
+   null
+  ],
+  "v81/case/x_dup_covered_st": [
+   "error",
+   3.1507,
+   null,
+   null,
+   null
+  ],
+  "v81/case/x_dup_covered_w_lt": [
+   "error",
+   3.3882,
+   null,
+   null,
+   null
+  ],
+  "v81/case/x_dup_covered_w_st": [
+   "error",
+   3.2204,
+   null,
+   null,
+   null
+  ],
+  "v81/case/x_dup_noncovered_lt": [
+   "success",
+   7.3524,
+   4.0975,
+   347,
+   184
+  ],
+  "v81/case/x_dup_noncovered_st": [
+   "success",
+   7.1115,
+   3.9942,
+   347,
+   184
+  ],
+  "v81/case/x_g_sign_flipped": [
+   "success",
+   8.7604,
+   5.281,
+   341,
+   181
+  ],
+  "v81/case/x_no_correction_with_w": [
+   "success",
+   19.7573,
+   16.3554,
+   341,
+   181
+  ],
+  "v81/case/x_path_b_yes": [
+   "success",
+   8.2017,
+   4.763,
+   341,
+   181
+  ],
+  "v81/case/x_q3_no_late_both_terms": [
+   "success",
+   9.9207,
+   6.4661,
+   345,
+   179
+  ],
+  "v81/case/x_q3_no_late_both_terms_reanswered": [
+   "success",
+   8.3396,
+   4.8206,
+   349,
+   182
+  ],
+  "v81/case/x_q3_yes_late_member": [
+   "success",
+   8.9648,
+   5.6786,
+   348,
+   181
+  ],
+  "v81/case/x_q3_yes_late_member_reanswered": [
+   "success",
+   8.0483,
+   4.6652,
+   349,
+   182
+  ],
+  "v81/case/x_shared_transaction_complete": [
+   "success",
+   7.2732,
+   4.4102,
+   347,
+   181
+  ],
+  "v81/case/x_shared_transaction_missing_g": [
+   "success",
+   7.7947,
+   4.7546,
+   346,
+   181
+  ],
+  "v81/case/x_zero_proceeds_zero_shown": [
+   "success",
+   7.7778,
+   4.5271,
+   341,
+   181
+  ],
+  "v81/neighbour/n_b_zero_proceeds": [
+   "success",
+   7.5405,
+   4.366,
+   343,
+   184
+  ],
+  "v81/neighbour/n_b_zero_proceeds_zero_basis": [
+   "success",
+   7.8224,
+   4.6822,
+   343,
+   184
+  ],
+  "v81/neighbour/n_covered_lt_collectibles_yes": [
+   "error",
+   3.2519,
+   null,
+   null,
+   null
+  ],
+  "v81/neighbour/n_covered_lt_market_discount_yes": [
+   "error",
+   3.1725,
+   null,
+   null,
+   null
+  ],
+  "v81/neighbour/n_covered_lt_qof_yes": [
+   "error",
+   3.2375,
+   null,
+   null,
+   null
+  ],
+  "v81/neighbour/n_covered_lt_tsa_yes": [
+   "error",
+   2.897,
+   null,
+   null,
+   null
+  ],
+  "v81/neighbour/n_covered_lt_zero_proceeds": [
+   "error",
+   3.252,
+   null,
+   null,
+   null
+  ],
+  "v81/neighbour/n_covered_st_ordinary_yes": [
+   "error",
+   3.2351,
+   null,
+   null,
+   null
+  ],
+  "v81/neighbour/n_covered_st_zero_proceeds": [
+   "error",
+   3.2326,
+   null,
+   null,
+   null
+  ],
+  "v81/neighbour/n_covered_st_zero_proceeds_zero_basis": [
+   "error",
+   3.204,
+   null,
+   null,
+   null
+  ],
+  "v81/neighbour/n_covered_tsa_no": [
+   "error",
+   3.2531,
+   null,
+   null,
+   null
+  ],
+  "v81/neighbour/n_covered_tsa_yes_no8949": [
+   "error",
+   3.1184,
+   null,
+   null,
+   null
+  ],
+  "v81/neighbour/n_dup_b_and_covered_lt": [
+   "error",
+   2.8251,
+   null,
+   null,
+   null
+  ],
+  "v81/neighbour/n_dup_b_and_e": [
+   "success",
+   7.3011,
+   4.1049,
+   349,
+   187
+  ],
+  "v81/neighbour/n_dup_covered_st_and_covered_lt": [
+   "error",
+   3.194,
+   null,
+   null,
+   null
+  ],
+  "v81/neighbour/n_dup_covered_st_and_w_lt": [
+   "error",
+   3.4024,
+   null,
+   null,
+   null
+  ],
+  "v81/neighbour/n_dup_e_and_covered_st": [
+   "error",
+   3.1247,
+   null,
+   null,
+   null
+  ],
+  "v81/neighbour/n_dup_w_st_and_covered_lt": [
+   "error",
+   3.2202,
+   null,
+   null,
+   null
+  ],
+  "v81/neighbour/n_dup_w_st_and_w_lt": [
+   "error",
+   3.1536,
+   null,
+   null,
+   null
+  ],
+  "v81/neighbour/n_e_zero_proceeds": [
+   "success",
+   7.2442,
+   3.997,
+   343,
+   184
+  ],
+  "v81/neighbour/n_two_b_and_covered_lt": [
+   "error",
+   3.141,
+   null,
+   null,
+   null
+  ],
+  "v81/neighbour/n_two_covered_st_and_covered_lt": [
+   "error",
+   2.8608,
+   null,
+   null,
+   null
+  ],
+  "v81/neighbour/n_two_w_st_and_w_lt": [
+   "error",
+   3.0227,
+   null,
+   null,
+   null
+  ],
+  "v81/neighbour/n_w_lt_collectibles_yes": [
+   "error",
+   2.9298,
+   null,
+   null,
+   null
+  ],
+  "v81/neighbour/n_w_lt_zero_proceeds": [
+   "error",
+   3.0963,
+   null,
+   null,
+   null
+  ],
+  "v81/neighbour/n_w_st_tsa_yes": [
+   "error",
+   2.9471,
+   null,
+   null,
+   null
+  ],
+  "v81/neighbour/n_w_zero_proceeds": [
+   "error",
+   2.7639,
+   null,
+   null,
+   null
+  ],
+  "v81/v80/carried_boundary_no_with_member": [
+   "success",
+   7.9882,
+   4.5273,
+   340,
+   181
+  ],
+  "v81/v80/carried_boundary_no_without_member": [
+   "success",
+   8.1077,
+   4.8657,
+   334,
+   181
+  ],
+  "v81/v80/carried_code_w_on_gain": [
+   "success",
+   33.0106,
+   29.6545,
+   345,
+   185
+  ],
+  "v81/v80/carried_covered_both_boundaries_no": [
+   "error",
+   3.0514,
+   null,
+   null,
+   null
+  ],
+  "v81/v80/carried_covered_flag_corrected_to_no": [
+   "error",
+   3.1654,
+   null,
+   null,
+   null
+  ],
+  "v81/v80/carried_covered_flag_corrected_to_yes": [
+   "error",
+   3.12,
+   null,
+   null,
+   null
+  ],
+  "v81/v80/carried_covered_flag_no_path_a": [
+   "error",
+   3.1289,
+   null,
+   null,
+   null
+  ],
+  "v81/v80/carried_covered_flag_no_st": [
+   "error",
+   3.2052,
+   null,
+   null,
+   null
+  ],
+  "v81/v80/carried_covered_flag_no_w_lt": [
+   "error",
+   3.1547,
+   null,
+   null,
+   null
+  ],
+  "v81/v80/carried_covered_flag_no_w_st": [
+   "error",
+   3.1455,
+   null,
+   null,
+   null
+  ],
+  "v81/v80/carried_late_member_reopened": [
+   "success",
+   7.8452,
+   4.6213,
+   341,
+   182
+  ],
+  "v81/v80/carried_late_member_unclosed": [
+   "success",
+   6.7882,
+   3.8965,
+   340,
+   181
+  ],
+  "v81/v80/carried_late_yes_stale": [
+   "success",
+   7.7853,
+   4.4127,
+   340,
+   181
+  ],
+  "v81/v80/carried_one_part_ii_b": [
+   "success",
+   8.0166,
+   4.6666,
+   390,
+   222
+  ],
+  "v81/v80/carried_one_student_loan": [
+   "success",
+   7.8839,
+   4.583,
+   340,
+   185
+  ],
+  "v81/v80/carried_probe_c_loss_on_b_in_class_no": [
+   "success",
+   7.6142,
+   4.3858,
+   343,
+   184
+  ],
+  "v81/v80/carried_probe_c_loss_on_b_in_class_yes": [
+   "success",
+   7.4206,
+   4.3647,
+   343,
+   184
+  ],
+  "v81/v80/carried_probe_c_unrecorded_8949_no": [
+   "success",
+   8.1448,
+   4.7857,
+   331,
+   179
+  ],
+  "v81/v80/carried_probe_c_wash_on_b_in_class_no": [
+   "success",
+   7.6351,
+   4.3715,
+   345,
+   185
+  ],
+  "v81/v80/carried_probe_c_wash_on_b_in_class_yes": [
+   "success",
+   7.7718,
+   4.5339,
+   345,
+   185
+  ],
+  "v81/v80/carried_probe_e_basis_object_missing": [
+   "error",
+   3.2127,
+   null,
+   null,
+   null
+  ],
+  "v81/v80/carried_probe_e_basis_scalar_missing": [
+   "success",
+   8.0256,
+   4.805,
+   341,
+   183
+  ],
+  "v81/v80/carried_probe_e_proceeds_scalar_missing": [
+   "success",
+   7.5549,
+   4.3868,
+   341,
+   183
+  ],
+  "v81/v80/carried_probe_f_gain_on_e_in_class_no": [
+   "success",
+   7.6828,
+   4.2338,
+   343,
+   184
+  ],
+  "v81/v80/carried_probe_mixed_abcf_in_class_no": [
+   "error",
+   3.3975,
+   null,
+   null,
+   null
+  ],
+  "v81/v80/carried_probe_mixed_abcf_in_class_yes": [
+   "error",
+   3.3473,
+   null,
+   null,
+   null
+  ],
+  "v81/v80/carried_t0_b_loss_8949_yes": [
+   "success",
+   7.8834,
+   4.5888,
+   341,
+   183
+  ],
+  "v81/v80/carried_t0_b_w_scalar_only_on_gain": [
+   "success",
+   7.7946,
+   4.4694,
+   345,
+   185
+  ],
+  "v81/v80/carried_wash": [
+   "success",
+   8.1086,
+   4.7622,
+   345,
+   185
+  ],
+  "v81/v80/carried_yes_then_no_with_member": [
+   "success",
+   6.8948,
+   3.902,
+   341,
+   182
+  ],
+  "v81/v80/probe_a_bw_on_w_broker": [
+   "error",
+   2.9233,
+   null,
+   null,
+   null
+  ],
+  "v81/v80/probe_a_bw_on_w_fixed": [
+   "error",
+   3.2484,
+   null,
+   null,
+   null
+  ],
+  "v81/v80/probe_a_bw_on_w_fixed_path_b_yes": [
+   "error",
+   3.5162,
+   null,
+   null,
+   null
+  ],
+  "v81/v80/probe_a_high_direct_broker_honest": [
+   "error",
+   3.2996,
+   null,
+   null,
+   null
+  ],
+  "v81/v80/probe_a_high_direct_broker_no8949": [
+   "error",
+   2.8708,
+   null,
+   null,
+   null
+  ],
+  "v81/v80/probe_a_high_direct_fixed_honest": [
+   "error",
+   3.3191,
+   null,
+   null,
+   null
+  ],
+  "v81/v80/probe_a_high_direct_fixed_no8949": [
+   "error",
+   3.1253,
+   null,
+   null,
+   null
+  ],
+  "v81/v80/probe_a_high_on_b_fixed": [
+   "success",
+   7.6874,
+   4.4532,
+   343,
+   184
+  ],
+  "v81/v80/probe_a_high_on_w_broker": [
+   "error",
+   2.7919,
+   null,
+   null,
+   null
+  ],
+  "v81/v80/probe_a_loss_direct_broker_no8949": [
+   "error",
+   3.4123,
+   null,
+   null,
+   null
+  ],
+  "v81/v80/probe_a_loss_direct_fixed_no8949": [
+   "error",
+   3.2665,
+   null,
+   null,
+   null
+  ],
+  "v81/v80/probe_a_loss_on_b_fixed": [
+   "success",
+   7.7663,
+   4.414,
+   343,
+   184
+  ],
+  "v81/v80/probe_b_code_b_on_b": [
+   "success",
+   8.0686,
+   4.6544,
+   343,
+   184
+  ],
+  "v81/v80/probe_d_low_direct_broker_honest": [
+   "error",
+   3.2496,
+   null,
+   null,
+   null
+  ],
+  "v81/v80/probe_d_low_direct_fixed_no8949": [
+   "error",
+   3.0062,
+   null,
+   null,
+   null
+  ],
+  "v81/v80/probe_d_low_on_e_fixed": [
+   "success",
+   7.5886,
+   4.5215,
+   343,
+   184
+  ],
+  "v81/v80/v80_c_and_f_same_sale": [
+   "success",
+   8.2026,
+   4.9629,
+   341,
+   181
+  ],
+  "v81/v80/v80_c_basis_missing": [
+   "success",
+   8.1123,
+   4.8117,
+   337,
+   181
+  ],
+  "v81/v80/v80_c_code_w_on_gain": [
+   "success",
+   28.4894,
+   25.2738,
+   339,
+   181
+  ],
+  "v81/v80/v80_c_loss": [
+   "success",
+   7.8198,
+   4.6119,
+   338,
+   181
+  ],
+  "v81/v80/v80_c_loss_path_b_unanswered": [
+   "success",
+   7.5057,
+   4.412,
+   336,
+   180
+  ],
+  "v81/v80/v80_c_proceeds_missing": [
+   "success",
+   7.6005,
+   4.3652,
+   337,
+   181
+  ],
+  "v81/v80/v80_c_wash": [
+   "success",
+   7.3959,
+   4.1172,
+   339,
+   181
+  ],
+  "v81/v80/v80_d3_b_basis_missing": [
+   "success",
+   7.3307,
+   4.3653,
+   341,
+   183
+  ],
+  "v81/v80/v80_d3_b_code_w_on_gain": [
+   "success",
+   28.3855,
+   25.0411,
+   345,
+   185
+  ],
+  "v81/v80/v80_d3_b_orphan_basis": [
+   "error",
+   3.7773,
+   null,
+   null,
+   null
+  ],
+  "v81/v80/v80_d3_b_proceeds_missing": [
+   "success",
+   7.3342,
+   4.338,
+   341,
+   183
+  ],
+  "v81/v80/v80_dup_b_and_c_ic_no": [
+   "success",
+   7.5903,
+   4.2946,
+   348,
+   185
+  ],
+  "v81/v80/v80_dup_b_and_c_ic_yes": [
+   "success",
+   8.0345,
+   4.6345,
+   348,
+   185
+  ],
+  "v81/v80/v80_f_gain": [
+   "success",
+   7.5865,
+   4.3513,
+   338,
+   181
+  ],
+  "v81/v80/v80_f_gain_new_ic_no": [
+   "success",
+   7.8933,
+   4.5034,
+   338,
+   181
+  ],
+  "v81/v80/v80_f_gain_new_ic_unanswered": [
+   "success",
+   7.9388,
+   4.7779,
+   337,
+   180
+  ],
+  "v81/v80/v80_f_gain_path_b_unanswered": [
+   "success",
+   7.6587,
+   4.4077,
+   336,
+   180
+  ],
+  "v81/v80/v80_f_gain_q2_no_with_member": [
+   "success",
+   7.4071,
+   4.2025,
+   338,
+   181
+  ],
+  "v81/v80/v80_f_holding_mismatch": [
+   "success",
+   20.023,
+   16.9338,
+   338,
+   181
+  ],
+  "v81/v80/v80_m_b_q1_no_with_member": [
+   "success",
+   7.8544,
+   4.6476,
+   343,
+   184
+  ],
+  "v81/v80/v80_m_bf_yes_yes": [
+   "success",
+   7.7361,
+   4.4211,
+   347,
+   184
+  ],
+  "v81/v80/v80_m_c_8949_yes_pathb_no": [
+   "success",
+   8.0782,
+   4.5114,
+   336,
+   180
+  ],
+  "v81/v80/v80_m_c_new_ic_no": [
+   "success",
+   7.7429,
+   4.4733,
+   338,
+   181
+  ],
+  "v81/v80/v80_m_c_q2_no_with_member": [
+   "success",
+   6.9423,
+   3.95,
+   338,
+   181
+  ],
+  "v81/v80/v80_m_e_yes_q2_yes_nothing": [
+   "success",
+   7.6977,
+   4.6783,
+   344,
+   185
+  ],
+  "v81/v80/v80_m_f_q1_yes_nothing": [
+   "success",
+   8.0504,
+   4.6599,
+   338,
+   181
+  ],
+  "v81/v80/v80_mixed_abcf": [
+   "error",
+   3.2516,
+   null,
+   null,
+   null
+  ],
+  "v81/v80/v80_q2_late_yes_reanswered": [
+   "success",
+   7.8147,
+   4.4689,
+   343,
+   182
+  ],
+  "v81/v80/v80_q2_late_yes_stale": [
+   "success",
+   8.018,
+   4.5119,
+   342,
+   181
+  ],
+  "v81/v80/v80_t1_stage2": [
+   "success",
+   7.9202,
+   4.7199,
+   336,
+   180
+  ],
+  "v81/v80/v80_t1_stage3": [
+   "success",
+   8.0397,
+   4.7585,
+   337,
+   181
+  ],
+  "v81/v80/v80_t2_stage0": [
+   "success",
+   7.7649,
+   4.5711,
+   343,
+   184
+  ],
+  "v81/v80/v80_t2_stage1": [
+   "success",
+   7.6971,
+   4.3582,
+   347,
+   184
+  ],
+  "v81/v80/v80_t2_stage2": [
+   "success",
+   8.5733,
+   5.3426,
+   348,
+   185
+  ],
+  "v81/v80/v80_t2_stage3": [
+   "success",
+   7.8297,
+   4.6401,
+   349,
+   186
+  ],
+  "v81/v80/v80_w_c_amounts_disagree": [
+   "success",
+   7.9748,
+   4.7072,
+   339,
+   181
+  ],
+  "v81/v80/v80_wage_q2_unanswered": [
+   "success",
+   9.0898,
+   5.5998,
+   330,
+   178
+  ],
+  "v82/b47_unanswered/honest": [
+   "success",
+   7.3679,
+   4.2082,
+   340,
+   181
+  ],
+  "v82/b4_box_c_only/honest": [
+   "success",
+   7.8866,
+   4.5244,
+   338,
+   181
+  ],
+  "v82/b4_same_statement_two_sales/honest": [
+   "success",
+   7.851,
+   4.5666,
+   347,
+   183
+  ],
+  "v82/b4_two_statements_one_unanswered/honest": [
+   "success",
+   7.4145,
+   4.0852,
+   350,
+   184
+  ],
+  "v82/b4_two_statements_one_yes/honest": [
+   "success",
+   7.4079,
+   4.0768,
+   351,
+   185
+  ],
+  "v82/b4_yes_codeb/honest": [
+   "success",
+   6.9779,
+   4.0621,
+   344,
+   183
+  ],
+  "v82/b4_yes_covered/honest": [
+   "success",
+   7.6434,
+   4.4142,
+   341,
+   181
+  ],
+  "v82/b4_yes_noncovered/honest": [
+   "success",
+   7.6757,
+   4.431,
+   343,
+   183
+  ],
+  "v82/b4_yes_w/honest": [
+   "success",
+   7.5063,
+   4.3184,
+   343,
+   182
+  ],
+  "v82/b7_two_statements_one_unanswered/honest": [
+   "success",
+   8.0061,
+   4.7084,
+   350,
+   184
+  ],
+  "v82/b7_yes_codeb/honest": [
+   "success",
+   7.4981,
+   4.0965,
+   344,
+   183
+  ],
+  "v82/b7_yes_covered/honest": [
+   "success",
+   7.571,
+   4.3782,
+   341,
+   181
+  ],
+  "v82/b7_yes_gain/honest": [
+   "success",
+   7.8021,
+   4.4885,
+   343,
+   183
+  ],
+  "v82/b7_yes_noncovered/honest": [
+   "success",
+   8.1429,
+   4.6941,
+   343,
+   183
+  ],
+  "v82/b7_yes_w/honest": [
+   "success",
+   7.1875,
+   3.985,
+   343,
+   182
+  ],
+  "v82/m_2a_box_f_loss/honest": [
+   "success",
+   7.2451,
+   3.9948,
+   342,
+   181
+  ],
+  "v82/m_2a_only/honest": [
+   "success",
+   7.6827,
+   4.4216,
+   336,
+   179
+  ],
+  "v82/m_2a_only_exc1_only2a_no/honest": [
+   "success",
+   7.4809,
+   4.2875,
+   336,
+   179
+  ],
+  "v82/m_empty_box4_yes_no_sale/honest": [
+   "success",
+   7.7829,
+   4.4199,
+   335,
+   180
+  ],
+  "v82/m_empty_exc1_nolosses_no/honest": [
+   "success",
+   6.9266,
+   3.9039,
+   332,
+   179
+  ],
+  "v82/m_empty_exc1_only2a_no/honest": [
+   "success",
+   7.6141,
+   4.336,
+   332,
+   179
+  ],
+  "v82/m_empty_exc1_unanswered/honest": [
+   "success",
+   7.6209,
+   4.4039,
+   328,
+   175
+  ],
+  "v82/m_empty_q2_unanswered/honest": [
+   "success",
+   9.0225,
+   5.5757,
+   331,
+   178
+  ],
+  "v82/n_box_c_q2_no/base_exception1": [
+   "success",
+   7.4812,
+   4.2366,
+   338,
+   181
+  ],
+  "v82/n_box_c_q2_no/honest": [
+   "success",
+   7.7283,
+   4.3522,
+   338,
+   181
+  ],
+  "v82/n_box_e_q1_no/base_exception1": [
+   "success",
+   7.4257,
+   4.2889,
+   343,
+   183
+  ],
+  "v82/n_box_e_q1_no/honest": [
+   "success",
+   7.4802,
+   4.2278,
+   343,
+   183
+  ],
+  "v82/n_code_b_q3_no/base_exception1": [
+   "success",
+   9.055,
+   5.8412,
+   344,
+   183
+  ],
+  "v82/n_code_b_q3_no/honest": [
+   "success",
+   9.0454,
+   5.8144,
+   344,
+   183
+  ],
+  "v82/n_covered_basis_row_missing/honest": [
+   "success",
+   7.6077,
+   4.3342,
+   340,
+   181
+  ],
+  "v82/n_covered_lt_box1g/honest": [
+   "success",
+   6.8792,
+   3.9195,
+   341,
+   181
+  ],
+  "v82/n_covered_lt_says_short/honest": [
+   "success",
+   7.6931,
+   4.3171,
+   341,
+   181
+  ],
+  "v82/n_covered_two_sales/honest": [
+   "success",
+   7.7348,
+   4.4071,
+   349,
+   183
+  ],
+  "v82/n_covered_two_sales_one_disagrees/honest": [
+   "success",
+   7.6061,
+   4.3023,
+   349,
+   183
+  ],
+  "v82/n_covered_two_sales_one_rowless/honest": [
+   "success",
+   7.4747,
+   4.2613,
+   347,
+   183
+  ],
+  "v82/n_w_adjustment_row_missing/honest": [
+   "success",
+   7.5203,
+   4.2613,
+   342,
+   182
+  ],
+  "v82/n_w_lt_says_short/honest": [
+   "success",
+   7.5816,
+   4.3503,
+   343,
+   182
+  ],
+  "v82/n_w_proceeds_row_disagrees/honest": [
+   "success",
+   7.9148,
+   4.4704,
+   343,
+   182
+  ],
+  "v82/n_w_two_sales/honest": [
+   "success",
+   7.5993,
+   4.3827,
+   352,
+   184
+  ],
+  "v82/p0_a1_direct_flagged_wash/honest": [
+   "success",
+   7.1216,
+   3.9407,
+   342,
+   182
+  ],
+  "v82/p0_a2_direct_st_family_long_term/honest": [
+   "success",
+   7.5358,
+   4.3098,
+   341,
+   181
+  ],
+  "v82/p0_a3_w_st_family_long_term/honest": [
+   "success",
+   7.6033,
+   4.3888,
+   359,
+   186
+  ],
+  "v82/p0_a4_covered_security_no/honest": [
+   "success",
+   7.4955,
+   4.3742,
+   341,
+   181
+  ],
+  "v82/p0_a5_covered_basis_not_reported/honest": [
+   "success",
+   7.812,
+   4.6138,
+   341,
+   181
+  ],
+  "v82/p0_b1_box4_backup_withholding/honest": [
+   "success",
+   7.6094,
+   4.3845,
+   343,
+   183
+  ],
+  "v82/p0_b2_box7_loss_not_allowed/honest": [
+   "success",
+   8.0199,
+   4.5521,
+   343,
+   183
+  ],
+  "v82/p0_b3_code_e_on_direct_refused/honest": [
+   "success",
+   7.5748,
+   4.3175,
+   342,
+   182
+  ],
+  "v82/p0_b4_collectibles_box_b/honest": [
+   "success",
+   7.6161,
+   4.3891,
+   343,
+   183
+  ],
+  "v82/p0_b5_ordinary_box_e/honest": [
+   "success",
+   7.5021,
+   4.2665,
+   343,
+   183
+  ],
+  "v82/p0_b6_qof_box_e/honest": [
+   "success",
+   7.1941,
+   3.9864,
+   343,
+   183
+  ],
+  "v82/p0_c1_direct_zero_proceeds/honest": [
+   "success",
+   7.5323,
+   4.3838,
+   341,
+   181
+  ],
+  "v82/p0_c2_w_full_disallowance/honest": [
+   "success",
+   7.6504,
+   4.4008,
+   343,
+   182
+  ],
+  "v82/p0_c3_direct_zero_proceeds_with_2a/honest": [
+   "success",
+   7.6943,
+   4.4397,
+   345,
+   181
+  ],
+  "v82/p0_c4_no1099b_zero_zero/honest": [
+   "success",
+   7.5576,
+   4.3506,
+   338,
+   181
+  ],
+  "v82/p0_d1_codeb_negative_proceeds/honest": [
+   "error",
+   3.1326,
+   null,
+   null,
+   null
+  ],
+  "v82/p0_d1_covered_negative_proceeds/honest": [
+   "error",
+   3.1688,
+   null,
+   null,
+   null
+  ],
+  "v82/p0_d1_no1099b_negative_proceeds/honest": [
+   "error",
+   2.8455,
+   null,
+   null,
+   null
+  ],
+  "v82/p0_d1_noncovered_negative_proceeds/honest": [
+   "error",
+   3.2128,
+   null,
+   null,
+   null
+  ],
+  "v82/p0_d1_w_negative_proceeds/honest": [
+   "error",
+   3.0671,
+   null,
+   null,
+   null
+  ],
+  "v82/p0_d2_codeb_zero_proceeds/honest": [
+   "success",
+   7.5934,
+   4.3905,
+   344,
+   183
+  ],
+  "v82/p0_d2_covered_zero_proceeds/honest": [
+   "success",
+   7.714,
+   4.4611,
+   341,
+   181
+  ],
+  "v82/p0_d2_no1099b_zero_proceeds/honest": [
+   "success",
+   7.5269,
+   4.3216,
+   338,
+   181
+  ],
+  "v82/p0_d2_noncovered_zero_proceeds/honest": [
+   "success",
+   7.7203,
+   4.3325,
+   343,
+   183
+  ],
+  "v82/p0_d2_w_zero_proceeds/honest": [
+   "success",
+   7.5208,
+   4.3705,
+   343,
+   182
+  ],
+  "v82/p0_d3_codeb_zero_zero/honest": [
+   "success",
+   7.6428,
+   4.3986,
+   344,
+   183
+  ],
+  "v82/p0_d3_covered_zero_zero/honest": [
+   "success",
+   7.7562,
+   4.4547,
+   341,
+   181
+  ],
+  "v82/p0_d3_no1099b_zero_zero/honest": [
+   "success",
+   7.5362,
+   4.3687,
+   338,
+   181
+  ],
+  "v82/p0_d3_noncovered_zero_zero/honest": [
+   "success",
+   7.4834,
+   4.3738,
+   343,
+   183
+  ],
+  "v82/p0_d3_w_zero_zero/honest": [
+   "success",
+   7.7829,
+   4.6113,
+   343,
+   182
+  ],
+  "v82/p0_d4_codeb_equal/honest": [
+   "success",
+   7.5682,
+   4.3381,
+   344,
+   183
+  ],
+  "v82/p0_d4_covered_equal/honest": [
+   "success",
+   7.768,
+   4.3771,
+   341,
+   181
+  ],
+  "v82/p0_d4_no1099b_equal/honest": [
+   "success",
+   7.4344,
+   4.279,
+   338,
+   181
+  ],
+  "v82/p0_d4_noncovered_equal/honest": [
+   "success",
+   7.8278,
+   4.3887,
+   343,
+   183
+  ],
+  "v82/p0_d4_w_equal/honest": [
+   "success",
+   6.9574,
+   4.0381,
+   343,
+   182
+  ],
+  "v82/p0_d5_codeb_wash_full/honest": [
+   "success",
+   7.8936,
+   4.5619,
+   344,
+   183
+  ],
+  "v82/p0_d5_no1099b_wash_full/honest": [
+   "success",
+   7.5445,
+   4.3749,
+   339,
+   181
+  ],
+  "v82/p0_d5_noncovered_wash_full/honest": [
+   "success",
+   8.0651,
+   4.5475,
+   344,
+   183
+  ],
+  "v82/p0_d5_w_wash_full/honest": [
+   "success",
+   7.3381,
+   4.1153,
+   343,
+   182
+  ],
+  "v82/p0_d6_w_adjustment_row_disagrees/honest": [
+   "success",
+   7.4079,
+   4.2357,
+   343,
+   182
+  ],
+  "v82/p0_d7_covered_rows_disagree/honest": [
+   "success",
+   7.5123,
+   4.3236,
+   341,
+   181
+  ],
+  "v82/p0_d8_covered_rows_missing/honest": [
+   "success",
+   7.4556,
+   4.2406,
+   339,
+   181
+  ],
+  "v82/p0_e_codeb_st__codeb_lt/honest": [
+   "success",
+   8.5878,
+   5.1596,
+   348,
+   183
+  ],
+  "v82/p0_e_covered_lt__codeb_lt/honest": [
+   "success",
+   7.675,
+   4.3665,
+   347,
+   183
+  ],
+  "v82/p0_e_covered_lt__codeb_st/honest": [
+   "success",
+   7.5079,
+   4.2862,
+   347,
+   183
+  ],
+  "v82/p0_e_covered_lt__noncovered_lt/honest": [
+   "success",
+   7.1953,
+   4.0166,
+   346,
+   183
+  ],
+  "v82/p0_e_covered_lt__noncovered_st/honest": [
+   "success",
+   7.6321,
+   4.4197,
+   346,
+   183
+  ],
+  "v82/p0_e_covered_lt__w_lt/honest": [
+   "success",
+   7.5777,
+   4.3337,
+   346,
+   182
+  ],
+  "v82/p0_e_covered_lt__w_st/honest": [
+   "success",
+   7.4656,
+   4.2583,
+   346,
+   182
+  ],
+  "v82/p0_e_covered_st__codeb_lt/honest": [
+   "success",
+   7.8589,
+   4.4344,
+   347,
+   183
+  ],
+  "v82/p0_e_covered_st__codeb_st/honest": [
+   "success",
+   7.475,
+   4.2357,
+   347,
+   183
+  ],
+  "v82/p0_e_covered_st__covered_lt/honest": [
+   "success",
+   7.5399,
+   4.2856,
+   344,
+   181
+  ],
+  "v82/p0_e_covered_st__noncovered_lt/honest": [
+   "success",
+   7.6506,
+   4.3917,
+   346,
+   183
+  ],
+  "v82/p0_e_covered_st__noncovered_st/honest": [
+   "success",
+   7.4789,
+   4.337,
+   346,
+   183
+  ],
+  "v82/p0_e_covered_st__w_lt/honest": [
+   "success",
+   7.4315,
+   4.283,
+   346,
+   182
+  ],
+  "v82/p0_e_covered_st__w_st/honest": [
+   "success",
+   7.4558,
+   4.3269,
+   346,
+   182
+  ],
+  "v82/p0_e_noncovered_lt__codeb_lt/honest": [
+   "success",
+   6.8563,
+   3.9648,
+   347,
+   183
+  ],
+  "v82/p0_e_noncovered_lt__codeb_st/honest": [
+   "success",
+   7.7662,
+   4.3918,
+   347,
+   183
+  ],
+  "v82/p0_e_noncovered_st__codeb_lt/honest": [
+   "success",
+   8.0662,
+   4.5568,
+   347,
+   183
+  ],
+  "v82/p0_e_noncovered_st__codeb_st/honest": [
+   "success",
+   7.7547,
+   4.5479,
+   347,
+   183
+  ],
+  "v82/p0_e_noncovered_st__noncovered_lt/honest": [
+   "success",
+   7.6967,
+   4.4465,
+   346,
+   183
+  ],
+  "v82/p0_e_w_lt__codeb_lt/honest": [
+   "success",
+   7.2297,
+   4.0261,
+   348,
+   183
+  ],
+  "v82/p0_e_w_lt__codeb_st/honest": [
+   "success",
+   7.2701,
+   4.0928,
+   348,
+   183
+  ],
+  "v82/p0_e_w_lt__noncovered_lt/honest": [
+   "success",
+   7.5221,
+   4.346,
+   347,
+   183
+  ],
+  "v82/p0_e_w_lt__noncovered_st/honest": [
+   "success",
+   7.6152,
+   4.3413,
+   347,
+   183
+  ],
+  "v82/p0_e_w_st__codeb_lt/honest": [
+   "success",
+   7.447,
+   4.2527,
+   348,
+   183
+  ],
+  "v82/p0_e_w_st__codeb_st/honest": [
+   "success",
+   7.5011,
+   4.3003,
+   348,
+   183
+  ],
+  "v82/p0_e_w_st__noncovered_lt/honest": [
+   "success",
+   7.8582,
+   4.4789,
+   347,
+   183
+  ],
+  "v82/p0_e_w_st__noncovered_st/honest": [
+   "success",
+   7.6307,
+   4.3344,
+   347,
+   183
+  ],
+  "v82/p0_e_w_st__w_lt/honest": [
+   "success",
+   7.5836,
+   4.2954,
+   347,
+   182
+  ],
+  "v82/p0_f_codeb_lt/honest": [
+   "success",
+   7.7972,
+   4.4497,
+   344,
+   183
+  ],
+  "v82/p0_f_codeb_st/honest": [
+   "success",
+   7.3812,
+   4.0857,
+   344,
+   183
+  ],
+  "v82/p0_f_covered_lt/honest": [
+   "success",
+   7.6547,
+   4.529,
+   341,
+   181
+  ],
+  "v82/p0_f_covered_st/honest": [
+   "success",
+   7.654,
+   4.4138,
+   341,
+   181
+  ],
+  "v82/p0_f_no1099b_lt/honest": [
+   "success",
+   7.8443,
+   4.5727,
+   338,
+   181
+  ],
+  "v82/p0_f_no1099b_st/honest": [
+   "success",
+   7.3572,
+   4.2132,
+   338,
+   181
+  ],
+  "v82/p0_f_noncovered_lt/honest": [
+   "success",
+   7.0229,
+   4.0404,
+   343,
+   183
+  ],
+  "v82/p0_f_noncovered_st/honest": [
+   "success",
+   7.8137,
+   4.5955,
+   343,
+   183
+  ],
+  "v82/p0_f_two_unrelated_covered/honest": [
+   "success",
+   7.8367,
+   4.4485,
+   349,
+   183
+  ],
+  "v82/p0_f_w_lt/honest": [
+   "success",
+   7.9694,
+   4.7392,
+   343,
+   182
+  ],
+  "v82/p0_f_w_st/honest": [
+   "success",
+   7.3162,
+   4.1013,
+   343,
+   182
+  ],
+  "v82/p_codeb_st_only2a_no_nolosses_no/honest": [
+   "success",
+   7.6912,
+   4.3083,
+   344,
+   183
+  ],
+  "v82/p_codeb_st_only2a_no_nolosses_yes/honest": [
+   "success",
+   7.8702,
+   4.4799,
+   344,
+   183
+  ],
+  "v82/p_codeb_st_only2a_yes_nolosses_no/honest": [
+   "success",
+   7.8914,
+   4.4168,
+   344,
+   183
+  ],
+  "v82/p_codeb_st_only2a_yes_nolosses_yes/honest": [
+   "success",
+   6.956,
+   4.0367,
+   344,
+   183
+  ],
+  "v82/p_covered_st_only2a_no_nolosses_no/honest": [
+   "success",
+   7.4665,
+   4.321,
+   341,
+   181
+  ],
+  "v82/p_covered_st_only2a_no_nolosses_yes/honest": [
+   "success",
+   7.4978,
+   4.2805,
+   341,
+   181
+  ],
+  "v82/p_covered_st_only2a_yes_nolosses_no/honest": [
+   "success",
+   7.633,
+   4.4227,
+   341,
+   181
+  ],
+  "v82/p_covered_st_only2a_yes_nolosses_yes/honest": [
+   "success",
+   7.5728,
+   4.3518,
+   341,
+   181
+  ],
+  "v82/p_no1099b_st_only2a_no_nolosses_no/honest": [
+   "success",
+   7.5381,
+   4.3326,
+   338,
+   181
+  ],
+  "v82/p_no1099b_st_only2a_no_nolosses_yes/honest": [
+   "success",
+   7.5123,
+   4.2924,
+   338,
+   181
+  ],
+  "v82/p_no1099b_st_only2a_yes_nolosses_no/honest": [
+   "success",
+   7.606,
+   4.412,
+   338,
+   181
+  ],
+  "v82/p_no1099b_st_only2a_yes_nolosses_yes/honest": [
+   "success",
+   7.6317,
+   4.374,
+   338,
+   181
+  ],
+  "v82/p_noncovered_lt_only2a_no_nolosses_no/honest": [
+   "success",
+   7.576,
+   4.3126,
+   343,
+   183
+  ],
+  "v82/p_noncovered_lt_only2a_no_nolosses_yes/honest": [
+   "success",
+   7.6078,
+   4.3985,
+   343,
+   183
+  ],
+  "v82/p_noncovered_lt_only2a_yes_nolosses_no/honest": [
+   "success",
+   7.6043,
+   4.3371,
+   343,
+   183
+  ],
+  "v82/p_noncovered_lt_only2a_yes_nolosses_yes/honest": [
+   "success",
+   7.9167,
+   4.5691,
+   343,
+   183
+  ],
+  "v82/p_w_lt_only2a_no_nolosses_no/honest": [
+   "success",
+   7.7748,
+   4.452,
+   343,
+   182
+  ],
+  "v82/p_w_lt_only2a_no_nolosses_yes/honest": [
+   "success",
+   8.0007,
+   4.4868,
+   343,
+   182
+  ],
+  "v82/p_w_lt_only2a_yes_nolosses_no/honest": [
+   "success",
+   7.2848,
+   4.1801,
+   343,
+   182
+  ],
+  "v82/p_w_lt_only2a_yes_nolosses_yes/honest": [
+   "success",
+   7.239,
+   4.0414,
+   343,
+   182
+  ],
+  "v82/r_f1_covered_extra_rows/honest": [
+   "error",
+   3.4064,
+   null,
+   null,
+   null
+  ],
+  "v82/r_f1_covered_lt_rows_alone/honest": [
+   "error",
+   3.2712,
+   null,
+   null,
+   null
+  ],
+  "v82/r_f1_covered_rows_alone/honest": [
+   "error",
+   3.2262,
+   null,
+   null,
+   null
+  ],
+  "v82/r_f1_covered_sale_and_rows_removed/honest": [
+   "success",
+   7.0458,
+   4.0335,
+   344,
+   181
+  ],
+  "v82/r_f1_covered_sale_removed/honest": [
+   "error",
+   3.286,
+   null,
+   null,
+   null
+  ],
+  "v82/r_f1_covered_sale_removed_after_basis_row/honest": [
+   "error",
+   7.8109,
+   null,
+   null,
+   null
+  ],
+  "v82/r_f1_w_adjustment_row_alone/honest": [
+   "error",
+   3.1579,
+   null,
+   null,
+   null
+  ],
+  "v82/r_f1_w_extra_rows/honest": [
+   "error",
+   2.8672,
+   null,
+   null,
+   null
+  ],
+  "v82/r_f2_box_c_zero/honest": [
+   "success",
+   6.8008,
+   3.9696,
+   338,
+   181
+  ],
+  "v82/r_f2_box_e_gain_base_answers/honest": [
+   "success",
+   6.9186,
+   4.0812,
+   343,
+   183
+  ],
+  "v82/r_f2_box_e_zero_net_beside_2a/honest": [
+   "success",
+   7.9534,
+   4.5793,
+   347,
+   183
+  ],
+  "v82/r_f2_covered_zero_net_beside_2a/honest": [
+   "success",
+   7.9484,
+   4.5571,
+   345,
+   181
+  ],
+  "v82/t1_s1/honest": [
+   "success",
+   7.74,
+   4.4377,
+   338,
+   179
+  ],
+  "v82/t1_s2/honest": [
+   "success",
+   7.3646,
+   4.0154,
+   343,
+   183
+  ],
+  "v82/t2_s0/honest": [
+   "success",
+   7.4897,
+   4.0586,
+   343,
+   183
+  ],
+  "v82/t2_s1/base_exception1": [
+   "success",
+   7.7887,
+   4.3298,
+   349,
+   183
+  ],
+  "v82/t2_s1/honest": [
+   "success",
+   7.4728,
+   4.2897,
+   349,
+   183
+  ],
+  "v82/t2_s2/honest": [
+   "success",
+   8.1176,
+   4.6691,
+   349,
+   183
+  ],
+  "v82/t2_s3_no/honest": [
+   "success",
+   7.6533,
+   4.4078,
+   351,
+   185
+  ],
+  "v82/t2_s3_yes/honest": [
+   "success",
+   7.7084,
+   4.5379,
+   350,
+   184
+  ],
+  "v82/t2_same_statement/honest": [
+   "success",
+   7.6071,
+   4.398,
+   347,
+   183
+  ],
+  "v82/t2c_s1/honest": [
+   "success",
+   7.6923,
+   4.4785,
+   347,
+   181
+  ],
+  "v82/t3_s0/honest": [
+   "success",
+   7.5265,
+   4.2813,
+   343,
+   183
+  ],
+  "v82/t3_s2/honest": [
+   "success",
+   7.641,
+   4.4323,
+   349,
+   183
+  ],
+  "v82/t3_s3_yes/honest": [
+   "success",
+   7.3541,
+   4.2252,
+   350,
+   184
+  ],
+  "v82/t4_s0/honest": [
+   "success",
+   7.6596,
+   4.4229,
+   341,
+   181
+  ],
+  "v82/t4_s1_removed/base_exception1": [
+   "success",
+   7.6242,
+   4.4279,
+   344,
+   181
+  ],
+  "v82/t4_s1_removed/honest": [
+   "success",
+   7.945,
+   4.5915,
+   344,
+   181
+  ],
+  "v82/t5_s1/honest": [
+   "success",
+   7.6673,
+   4.4358,
+   336,
+   179
+  ],
+  "v82/t5_s2/honest": [
+   "success",
+   7.3827,
+   4.1075,
+   338,
+   181
+  ],
+  "v83/returns/case/a_8949_yes/recorded": [
+   "success",
+   8.4631,
+   5.0051,
+   342,
+   182
+  ],
+  "v83/returns/case/a_adjustment_row_missing/recorded": [
+   "success",
+   8.654,
+   5.1146,
+   343,
+   183
+  ],
+  "v83/returns/case/a_basis_row_missing/recorded": [
+   "success",
+   7.9765,
+   4.6807,
+   343,
+   183
+  ],
+  "v83/returns/case/a_bw/recorded": [
+   "success",
+   7.6467,
+   4.4683,
+   344,
+   183
+  ],
+  "v83/returns/case/a_corrected_basis_missing/recorded": [
+   "error",
+   2.9439,
+   null,
+   null,
+   null
+  ],
+  "v83/returns/case/a_duplicate_on_direct/recorded": [
+   "success",
+   7.6511,
+   4.3991,
+   345,
+   183
+  ],
+  "v83/returns/case/a_g_disagrees/recorded": [
+   "success",
+   7.9567,
+   4.6065,
+   344,
+   183
+  ],
+  "v83/returns/case/a_gain_to_loss/recorded": [
+   "success",
+   8.048,
+   4.6842,
+   344,
+   183
+  ],
+  "v83/returns/case/a_high/recorded": [
+   "success",
+   8.2004,
+   4.7436,
+   344,
+   183
+  ],
+  "v83/returns/case/a_high_and_w_row/recorded": [
+   "success",
+   7.2003,
+   4.3128,
+   362,
+   185
+  ],
+  "v83/returns/case/a_holding_mismatch/recorded": [
+   "success",
+   19.2396,
+   16.1571,
+   344,
+   183
+  ],
+  "v83/returns/case/a_ic3_no/recorded": [
+   "success",
+   7.6472,
+   4.3787,
+   344,
+   183
+  ],
+  "v83/returns/case/a_ic3_unanswered/recorded": [
+   "success",
+   8.0838,
+   4.865,
+   343,
+   182
+  ],
+  "v83/returns/case/a_no_correction/recorded": [
+   "success",
+   19.1177,
+   15.5449,
+   344,
+   183
+  ],
+  "v83/returns/case/a_path_b_unanswered/recorded": [
+   "success",
+   7.7161,
+   4.4623,
+   342,
+   182
+  ],
+  "v83/returns/case/a_proceeds_row_missing/recorded": [
+   "success",
+   8.0541,
+   4.7582,
+   343,
+   183
+  ],
+  "v83/returns/case/a_q3_no_with_member/recorded": [
+   "success",
+   9.3235,
+   5.9027,
+   344,
+   183
+  ],
+  "v83/returns/case/a_same_sale_both_terms/recorded": [
+   "success",
+   8.5163,
+   5.123,
+   348,
+   183
+  ],
+  "v83/returns/case/a_w_exceeds_corrected_loss/recorded": [
+   "success",
+   20.2936,
+   16.8969,
+   344,
+   183
+  ],
+  "v83/returns/case/a_w_on_gain_after_correction/recorded": [
+   "success",
+   29.1806,
+   26.0039,
+   344,
+   183
+  ],
+  "v83/returns/case/b_code_b_ic3/recorded": [
+   "success",
+   7.2369,
+   4.0315,
+   348,
+   188
+  ],
+  "v83/returns/case/b_code_b_v80_route/recorded": [
+   "success",
+   7.7191,
+   4.5272,
+   346,
+   186
+  ],
+  "v83/returns/case/d_bw/recorded": [
+   "success",
+   7.7301,
+   4.3604,
+   344,
+   183
+  ],
+  "v83/returns/case/d_low/recorded": [
+   "success",
+   7.883,
+   4.479,
+   344,
+   183
+  ],
+  "v83/returns/case/late_member_after_no/recorded": [
+   "success",
+   8.6273,
+   5.587,
+   344,
+   183
+  ],
+  "v83/returns/case/late_member_reanswered_yes/recorded": [
+   "success",
+   7.2195,
+   3.9916,
+   345,
+   184
+  ],
+  "v83/returns/case/m_8949_no_ic3_yes_q3_no/recorded": [
+   "success",
+   8.287,
+   5.0352,
+   336,
+   182
+  ],
+  "v83/returns/case/m_a_and_b/recorded": [
+   "success",
+   8.0088,
+   4.5879,
+   355,
+   188
+  ],
+  "v83/returns/case/m_a_and_b_q1_no/recorded": [
+   "success",
+   8.1994,
+   4.6809,
+   355,
+   188
+  ],
+  "v83/returns/case/m_a_c_ic3_no_v80_ic_yes/recorded": [
+   "success",
+   7.771,
+   4.3722,
+   349,
+   184
+  ],
+  "v83/returns/case/m_a_c_ic3_unanswered_v80_ic_yes/recorded": [
+   "success",
+   8.841,
+   5.6208,
+   348,
+   183
+  ],
+  "v83/returns/case/m_a_c_ic3_yes_v80_ic_no/recorded": [
+   "success",
+   8.0599,
+   4.5066,
+   349,
+   184
+  ],
+  "v83/returns/case/m_a_c_ic3_yes_v80_ic_yes/recorded": [
+   "success",
+   7.5625,
+   4.344,
+   349,
+   184
+  ],
+  "v83/returns/case/m_a_q3_no_v80_ic_yes/recorded": [
+   "success",
+   9.2956,
+   5.9426,
+   344,
+   183
+  ],
+  "v83/returns/case/m_a_v79_ic_only/recorded": [
+   "success",
+   8.3013,
+   5.1037,
+   344,
+   183
+  ],
+  "v83/returns/case/m_a_v80_ic_only/recorded": [
+   "success",
+   8.5052,
+   5.1736,
+   344,
+   183
+  ],
+  "v83/returns/case/m_d_and_e/recorded": [
+   "success",
+   8.0216,
+   4.6082,
+   355,
+   188
+  ],
+  "v83/returns/case/m_d_ic3_no/recorded": [
+   "success",
+   7.5416,
+   4.3249,
+   344,
+   183
+  ],
+  "v83/returns/case/m_d_q3_no_with_member/recorded": [
+   "success",
+   9.1938,
+   5.9025,
+   344,
+   183
+  ],
+  "v83/returns/case/m_q3_yes_nothing_8949_yes/recorded": [
+   "success",
+   8.533,
+   5.0985,
+   333,
+   180
+  ],
+  "v83/returns/case/m_q3_yes_nothing_beside_b/recorded": [
+   "success",
+   8.0528,
+   4.8594,
+   346,
+   186
+  ],
+  "v83/returns/case/m_q3_yes_nothing_beside_c/recorded": [
+   "success",
+   8.0335,
+   4.8756,
+   340,
+   182
+  ],
+  "v83/returns/case/m_q3_yes_nothing_beside_direct/recorded": [
+   "success",
+   8.4477,
+   5.054,
+   349,
+   183
+  ],
+  "v83/returns/case/m_q3_yes_nothing_beside_w/recorded": [
+   "success",
+   8.6023,
+   5.1021,
+   353,
+   183
+  ],
+  "v83/returns/case/mixed_a_d_c_direct/recorded": [
+   "success",
+   8.128,
+   4.7521,
+   371,
+   187
+  ],
+  "v83/returns/case/q3_yes_nothing_recorded/recorded": [
+   "success",
+   8.125,
+   4.9405,
+   336,
+   182
+  ],
+  "v83/returns/case/t1_stage1/recorded": [
+   "success",
+   8.7361,
+   5.4958,
+   341,
+   181
+  ],
+  "v83/returns/case/t1_stage2/recorded": [
+   "success",
+   8.5654,
+   5.0307,
+   342,
+   182
+  ],
+  "v83/returns/case/t1_stage3/recorded": [
+   "success",
+   7.6578,
+   4.6273,
+   343,
+   183
+  ],
+  "v83/returns/case/t1_stage4/recorded": [
+   "success",
+   7.7028,
+   4.3773,
+   345,
+   184
+  ],
+  "v83/returns/case/t2_stage0/recorded": [
+   "success",
+   7.6182,
+   4.3659,
+   346,
+   181
+  ],
+  "v83/returns/case/t2_stage1/recorded": [
+   "success",
+   8.899,
+   5.5154,
+   353,
+   181
+  ],
+  "v83/returns/case/t2_stage2/recorded": [
+   "success",
+   8.3454,
+   5.0618,
+   354,
+   182
+  ],
+  "v83/returns/case/t2_stage3/recorded": [
+   "success",
+   8.3592,
+   4.9174,
+   355,
+   183
+  ],
+  "v83/returns/case/t2_stage4/recorded": [
+   "success",
+   7.6956,
+   4.4336,
+   357,
+   184
+  ],
+  "v83/returns/case/t2_stage4_keep_covered/recorded": [
+   "success",
+   7.7259,
+   4.426,
+   354,
+   184
+  ],
+  "v83/returns/case/t3_stage0/recorded": [
+   "success",
+   7.6754,
+   4.4772,
+   352,
+   182
+  ],
+  "v83/returns/case/t3_stage1/recorded": [
+   "success",
+   9.5381,
+   5.9159,
+   360,
+   182
+  ],
+  "v83/returns/case/t3_stage2/recorded": [
+   "success",
+   7.6727,
+   4.3896,
+   362,
+   184
+  ],
+  "v83/returns/case/t3_stage3/recorded": [
+   "success",
+   7.79,
+   4.5697,
+   362,
+   184
+  ],
+  "v83/returns/case/wage_q3_no/recorded": [
+   "success",
+   7.7368,
+   4.4982,
+   333,
+   180
+  ],
+  "v83/returns/case/wage_q3_unanswered/recorded": [
+   "success",
+   9.0404,
+   5.6618,
+   330,
+   178
+  ],
+  "v83/returns/case/x_a_gain_d_loss/recorded": [
+   "success",
+   8.0439,
+   4.6614,
+   353,
+   185
+  ],
+  "v83/returns/case/x_a_loss_d_gain/recorded": [
+   "success",
+   7.4999,
+   4.1854,
+   353,
+   185
+  ],
+  "v83/returns/case/x_a_loss_to_gain/recorded": [
+   "success",
+   8.1228,
+   4.7078,
+   344,
+   183
+  ],
+  "v83/returns/case/x_basis_row_is_corrected/recorded": [
+   "success",
+   8.1231,
+   4.8155,
+   344,
+   183
+  ],
+  "v83/returns/case/x_bw_g_omits_w/recorded": [
+   "success",
+   8.1665,
+   4.8912,
+   344,
+   183
+  ],
+  "v83/returns/case/x_bw_w_equals_correct_loss/recorded": [
+   "success",
+   8.0576,
+   4.4313,
+   344,
+   183
+  ],
+  "v83/returns/case/x_bw_w_exceeds_correct_loss_within_shown/recorded": [
+   "success",
+   18.5073,
+   15.3534,
+   344,
+   183
+  ],
+  "v83/returns/case/x_corrected_basis_changed_g_fixed/recorded": [
+   "success",
+   8.0193,
+   4.4595,
+   346,
+   185
+  ],
+  "v83/returns/case/x_corrected_basis_changed_g_stale/recorded": [
+   "success",
+   7.4546,
+   4.4127,
+   345,
+   184
+  ],
+  "v83/returns/case/x_d_adjustment_row_missing/recorded": [
+   "success",
+   8.4431,
+   4.9221,
+   343,
+   183
+  ],
+  "v83/returns/case/x_d_basis_row_missing/recorded": [
+   "success",
+   8.5194,
+   4.8287,
+   343,
+   183
+  ],
+  "v83/returns/case/x_d_bw_w_exceeds_correct_loss/recorded": [
+   "success",
+   22.2961,
+   18.8811,
+   344,
+   183
+  ],
+  "v83/returns/case/x_d_gain_to_loss/recorded": [
+   "success",
+   7.5629,
+   4.2317,
+   344,
+   183
+  ],
+  "v83/returns/case/x_d_holding_mismatch/recorded": [
+   "success",
+   20.0631,
+   16.8181,
+   344,
+   183
+  ],
+  "v83/returns/case/x_d_loss_to_gain/recorded": [
+   "success",
+   8.3183,
+   4.7381,
+   344,
+   183
+  ],
+  "v83/returns/case/x_d_proceeds_row_missing/recorded": [
+   "success",
+   8.1506,
+   4.8696,
+   343,
+   183
+  ],
+  "v83/returns/case/x_d_zero_proceeds_zero_shown/recorded": [
+   "success",
+   7.7803,
+   4.4525,
+   344,
+   183
+  ],
+  "v83/returns/case/x_dup_box_c_ic3_no/recorded": [
+   "success",
+   7.5877,
+   4.2073,
+   348,
+   183
+  ],
+  "v83/returns/case/x_dup_box_c_ic3_yes/recorded": [
+   "success",
+   8.1104,
+   4.7183,
+   348,
+   183
+  ],
+  "v83/returns/case/x_dup_covered_lt/recorded": [
+   "success",
+   7.8076,
+   4.5197,
+   353,
+   183
+  ],
+  "v83/returns/case/x_dup_covered_st/recorded": [
+   "success",
+   8.6472,
+   4.8379,
+   353,
+   183
+  ],
+  "v83/returns/case/x_dup_covered_w_lt/recorded": [
+   "success",
+   8.0422,
+   4.5861,
+   357,
+   183
+  ],
+  "v83/returns/case/x_dup_covered_w_st/recorded": [
+   "success",
+   7.9573,
+   4.5899,
+   357,
+   183
+  ],
+  "v83/returns/case/x_dup_noncovered_lt/recorded": [
+   "success",
+   8.119,
+   4.7011,
+   350,
+   186
+  ],
+  "v83/returns/case/x_dup_noncovered_st/recorded": [
+   "success",
+   7.6589,
+   4.3782,
+   350,
+   186
+  ],
+  "v83/returns/case/x_g_sign_flipped/recorded": [
+   "success",
+   8.2741,
+   4.8991,
+   344,
+   183
+  ],
+  "v83/returns/case/x_no_correction_with_w/recorded": [
+   "success",
+   18.2571,
+   15.3331,
+   344,
+   183
+  ],
+  "v83/returns/case/x_path_b_yes/recorded": [
+   "success",
+   8.4094,
+   4.747,
+   344,
+   183
+  ],
+  "v83/returns/case/x_q3_no_late_both_terms/recorded": [
+   "success",
+   9.6308,
+   6.279,
+   350,
+   183
+  ],
+  "v83/returns/case/x_q3_no_late_both_terms_reanswered/recorded": [
+   "success",
+   7.8053,
+   4.4752,
+   354,
+   186
+  ],
+  "v83/returns/case/x_q3_yes_late_member/recorded": [
+   "success",
+   8.1569,
+   5.2632,
+   353,
+   185
+  ],
+  "v83/returns/case/x_q3_yes_late_member_reanswered/recorded": [
+   "success",
+   7.6978,
+   4.421,
+   354,
+   186
+  ],
+  "v83/returns/case/x_remove_sale_keep_rows/recorded": [
+   "error",
+   3.3393,
+   null,
+   null,
+   null
+  ],
+  "v83/returns/case/x_shared_transaction_complete/recorded": [
+   "success",
+   7.9894,
+   4.6182,
+   352,
+   185
+  ],
+  "v83/returns/case/x_shared_transaction_missing_g/recorded": [
+   "success",
+   8.4283,
+   4.9936,
+   351,
+   185
+  ],
+  "v83/returns/case/x_zero_proceeds_zero_shown/recorded": [
+   "success",
+   7.8146,
+   4.3871,
+   344,
+   183
+  ],
+  "v83/returns/neighbour/n_b_zero_proceeds/recorded": [
+   "success",
+   8.2318,
+   4.9493,
+   346,
+   186
+  ],
+  "v83/returns/neighbour/n_b_zero_proceeds_zero_basis/recorded": [
+   "success",
+   7.2517,
+   4.1941,
+   346,
+   186
+  ],
+  "v83/returns/neighbour/n_covered_lt_collectibles_yes/recorded": [
+   "success",
+   7.4916,
+   4.4701,
+   346,
+   181
+  ],
+  "v83/returns/neighbour/n_covered_lt_market_discount_yes/recorded": [
+   "success",
+   7.7946,
+   4.4231,
+   346,
+   181
+  ],
+  "v83/returns/neighbour/n_covered_lt_qof_yes/recorded": [
+   "success",
+   7.9069,
+   4.4999,
+   346,
+   181
+  ],
+  "v83/returns/neighbour/n_covered_lt_tsa_yes/recorded": [
+   "success",
+   7.5469,
+   4.1212,
+   346,
+   181
+  ],
+  "v83/returns/neighbour/n_covered_lt_zero_proceeds/recorded": [
+   "success",
+   7.3281,
+   4.2728,
+   346,
+   181
+  ],
+  "v83/returns/neighbour/n_covered_st_ordinary_yes/recorded": [
+   "success",
+   7.7596,
+   4.2015,
+   346,
+   181
+  ],
+  "v83/returns/neighbour/n_covered_st_zero_proceeds/recorded": [
+   "success",
+   7.9314,
+   4.5947,
+   346,
+   181
+  ],
+  "v83/returns/neighbour/n_covered_st_zero_proceeds_zero_basis/recorded": [
+   "success",
+   8.5648,
+   4.8905,
+   346,
+   181
+  ],
+  "v83/returns/neighbour/n_covered_tsa_no/recorded": [
+   "success",
+   7.9478,
+   4.5567,
+   346,
+   181
+  ],
+  "v83/returns/neighbour/n_covered_tsa_yes_no8949/recorded": [
+   "success",
+   6.8769,
+   3.9647,
+   346,
+   181
+  ],
+  "v83/returns/neighbour/n_dup_b_and_covered_lt/recorded": [
+   "success",
+   7.4167,
+   4.1564,
+   355,
+   186
+  ],
+  "v83/returns/neighbour/n_dup_b_and_e/recorded": [
+   "success",
+   7.7958,
+   4.421,
+   352,
+   189
+  ],
+  "v83/returns/neighbour/n_dup_covered_st_and_covered_lt/recorded": [
+   "success",
+   7.6581,
+   4.3244,
+   349,
+   181
+  ],
+  "v83/returns/neighbour/n_dup_covered_st_and_w_lt/recorded": [
+   "success",
+   8.2168,
+   4.6738,
+   355,
+   182
+  ],
+  "v83/returns/neighbour/n_dup_e_and_covered_st/recorded": [
+   "success",
+   8.1848,
+   4.68,
+   355,
+   186
+  ],
+  "v83/returns/neighbour/n_dup_w_st_and_covered_lt/recorded": [
+   "success",
+   7.2855,
+   4.0461,
+   355,
+   182
+  ],
+  "v83/returns/neighbour/n_dup_w_st_and_w_lt/recorded": [
+   "success",
+   7.7682,
+   4.4977,
+   356,
+   182
+  ],
+  "v83/returns/neighbour/n_e_zero_proceeds/recorded": [
+   "success",
+   7.7906,
+   4.537,
+   346,
+   186
+  ],
+  "v83/returns/neighbour/n_two_b_and_covered_lt/recorded": [
+   "success",
+   8.6289,
+   4.8894,
+   360,
+   188
+  ],
+  "v83/returns/neighbour/n_two_covered_st_and_covered_lt/recorded": [
+   "success",
+   7.912,
+   4.6418,
+   360,
+   183
+  ],
+  "v83/returns/neighbour/n_two_w_st_and_w_lt/recorded": [
+   "success",
+   8.6398,
+   5.0731,
+   370,
+   184
+  ],
+  "v83/returns/neighbour/n_w_lt_collectibles_yes/recorded": [
+   "success",
+   7.432,
+   4.4662,
+   352,
+   182
+  ],
+  "v83/returns/neighbour/n_w_lt_zero_proceeds/recorded": [
+   "success",
+   7.7885,
+   4.3814,
+   352,
+   182
+  ],
+  "v83/returns/neighbour/n_w_st_tsa_yes/recorded": [
+   "success",
+   8.3153,
+   4.7614,
+   352,
+   182
+  ],
+  "v83/returns/neighbour/n_w_zero_proceeds/recorded": [
+   "success",
+   7.9194,
+   4.5534,
+   352,
+   182
+  ],
+  "v83/returns/v80/carried_boundary_no_with_member/recorded": [
+   "success",
+   6.8468,
+   3.9806,
+   343,
+   183
+  ],
+  "v83/returns/v80/carried_boundary_no_without_member/recorded": [
+   "success",
+   7.8956,
+   4.5877,
+   336,
+   182
+  ],
+  "v83/returns/v80/carried_code_w_on_gain/recorded": [
+   "success",
+   31.1476,
+   27.9435,
+   348,
+   187
+  ],
+  "v83/returns/v80/carried_covered_both_boundaries_no/recorded": [
+   "success",
+   9.2278,
+   5.4804,
+   348,
+   182
+  ],
+  "v83/returns/v80/carried_covered_flag_corrected_to_no/recorded": [
+   "success",
+   8.373,
+   4.8811,
+   347,
+   182
+  ],
+  "v83/returns/v80/carried_covered_flag_corrected_to_yes/recorded": [
+   "success",
+   7.9865,
+   4.5131,
+   347,
+   182
+  ],
+  "v83/returns/v80/carried_covered_flag_no_path_a/recorded": [
+   "success",
+   8.4106,
+   4.8832,
+   346,
+   181
+  ],
+  "v83/returns/v80/carried_covered_flag_no_st/recorded": [
+   "success",
+   8.0633,
+   4.7466,
+   346,
+   181
+  ],
+  "v83/returns/v80/carried_covered_flag_no_w_lt/recorded": [
+   "success",
+   49.5607,
+   46.1223,
+   350,
+   181
+  ],
+  "v83/returns/v80/carried_covered_flag_no_w_st/recorded": [
+   "success",
+   40.1043,
+   36.8796,
+   350,
+   181
+  ],
+  "v83/returns/v80/carried_duplicate_horizon/recorded": [
+   "error",
+   3.2041,
+   null,
+   null,
+   null
+  ],
+  "v83/returns/v80/carried_late_member_reopened/recorded": [
+   "success",
+   7.0699,
+   4.1141,
+   344,
+   184
+  ],
+  "v83/returns/v80/carried_late_member_unclosed/recorded": [
+   "success",
+   8.3469,
+   4.6537,
+   343,
+   183
+  ],
+  "v83/returns/v80/carried_late_yes_stale/recorded": [
+   "success",
+   7.8764,
+   4.4155,
+   343,
+   183
+  ],
+  "v83/returns/v80/carried_one_exempt_dividend/recorded": [
+   "success",
+   7.5571,
+   4.3396,
+   335,
+   180
+  ],
+  "v83/returns/v80/carried_one_foreign_tax/recorded": [
+   "success",
+   7.8379,
+   4.4429,
+   336,
+   181
+  ],
+  "v83/returns/v80/carried_one_part_ii_b/recorded": [
+   "success",
+   8.0144,
+   4.6479,
+   392,
+   223
+  ],
+  "v83/returns/v80/carried_one_student_loan/recorded": [
+   "success",
+   7.7224,
+   4.5267,
+   342,
+   186
+  ],
+  "v83/returns/v80/carried_probe_c_loss_on_b_in_class_no/recorded": [
+   "success",
+   7.7087,
+   4.4062,
+   346,
+   186
+  ],
+  "v83/returns/v80/carried_probe_c_loss_on_b_in_class_yes/recorded": [
+   "success",
+   7.567,
+   4.251,
+   346,
+   186
+  ],
+  "v83/returns/v80/carried_probe_c_unrecorded_8949_no/recorded": [
+   "success",
+   8.2324,
+   4.7115,
+   333,
+   180
+  ],
+  "v83/returns/v80/carried_probe_c_wash_on_b_in_class_no/recorded": [
+   "success",
+   8.0703,
+   4.6332,
+   348,
+   187
+  ],
+  "v83/returns/v80/carried_probe_c_wash_on_b_in_class_yes/recorded": [
+   "success",
+   7.7577,
+   4.484,
+   348,
+   187
+  ],
+  "v83/returns/v80/carried_probe_e_basis_object_missing/recorded": [
+   "error",
+   3.2539,
+   null,
+   null,
+   null
+  ],
+  "v83/returns/v80/carried_probe_e_basis_scalar_missing/recorded": [
+   "success",
+   8.1388,
+   4.8099,
+   344,
+   185
+  ],
+  "v83/returns/v80/carried_probe_e_proceeds_scalar_missing/recorded": [
+   "success",
+   7.8478,
+   4.5797,
+   344,
+   185
+  ],
+  "v83/returns/v80/carried_probe_f_gain_on_e_in_class_no/recorded": [
+   "success",
+   8.2012,
+   4.653,
+   346,
+   186
+  ],
+  "v83/returns/v80/carried_probe_mixed_abcf_in_class_no/recorded": [
+   "success",
+   8.3116,
+   4.8317,
+   379,
+   195
+  ],
+  "v83/returns/v80/carried_probe_mixed_abcf_in_class_yes/recorded": [
+   "success",
+   8.1156,
+   4.7883,
+   379,
+   195
+  ],
+  "v83/returns/v80/carried_t0_b_loss_8949_yes/recorded": [
+   "success",
+   7.6247,
+   4.3641,
+   344,
+   185
+  ],
+  "v83/returns/v80/carried_t0_b_w_scalar_only_on_gain/recorded": [
+   "success",
+   7.5249,
+   4.3086,
+   348,
+   187
+  ],
+  "v83/returns/v80/carried_wage_unclosed/recorded": [
+   "success",
+   8.9787,
+   5.7309,
+   319,
+   178
+  ],
+  "v83/returns/v80/carried_wash/recorded": [
+   "success",
+   7.7552,
+   4.385,
+   348,
+   187
+  ],
+  "v83/returns/v80/carried_yes_then_no_with_member/recorded": [
+   "success",
+   8.3717,
+   4.7767,
+   344,
+   184
+  ],
+  "v83/returns/v80/probe_a_bw_on_w_broker/recorded": [
+   "success",
+   20.9975,
+   17.5778,
+   354,
+   184
+  ],
+  "v83/returns/v80/probe_a_bw_on_w_fixed/recorded": [
+   "success",
+   7.3624,
+   4.1064,
+   354,
+   184
+  ],
+  "v83/returns/v80/probe_a_bw_on_w_fixed_path_b_yes/recorded": [
+   "success",
+   7.863,
+   4.5731,
+   352,
+   182
+  ],
+  "v83/returns/v80/probe_a_high_direct_broker_honest/recorded": [
+   "success",
+   7.6307,
+   4.3361,
+   350,
+   184
+  ],
+  "v83/returns/v80/probe_a_high_direct_broker_no8949/recorded": [
+   "success",
+   8.0207,
+   4.5755,
+   346,
+   181
+  ],
+  "v83/returns/v80/probe_a_high_direct_fixed_honest/recorded": [
+   "success",
+   7.55,
+   4.3646,
+   350,
+   184
+  ],
+  "v83/returns/v80/probe_a_high_direct_fixed_no8949/recorded": [
+   "success",
+   7.7696,
+   4.4499,
+   346,
+   181
+  ],
+  "v83/returns/v80/probe_a_high_on_b_fixed/recorded": [
+   "success",
+   8.1479,
+   4.7012,
+   346,
+   186
+  ],
+  "v83/returns/v80/probe_a_high_on_w_broker/recorded": [
+   "success",
+   29.448,
+   26.1982,
+   354,
+   184
+  ],
+  "v83/returns/v80/probe_a_loss_direct_broker_no8949/recorded": [
+   "success",
+   7.607,
+   4.3827,
+   346,
+   181
+  ],
+  "v83/returns/v80/probe_a_loss_direct_fixed_no8949/recorded": [
+   "success",
+   7.5841,
+   4.3726,
+   346,
+   181
+  ],
+  "v83/returns/v80/probe_a_loss_on_b_fixed/recorded": [
+   "success",
+   7.9144,
+   4.616,
+   346,
+   186
+  ],
+  "v83/returns/v80/probe_b_code_b_on_b/recorded": [
+   "success",
+   7.8514,
+   4.5347,
+   346,
+   186
+  ],
+  "v83/returns/v80/probe_d_low_direct_broker_honest/recorded": [
+   "success",
+   7.7061,
+   4.4235,
+   350,
+   184
+  ],
+  "v83/returns/v80/probe_d_low_direct_fixed_no8949/recorded": [
+   "success",
+   8.4304,
+   4.8363,
+   346,
+   181
+  ],
+  "v83/returns/v80/probe_d_low_on_e_fixed/recorded": [
+   "success",
+   7.7984,
+   4.5076,
+   346,
+   186
+  ],
+  "v83/returns/v80/v80_c_and_f_same_sale/recorded": [
+   "success",
+   7.5647,
+   4.5932,
+   343,
+   182
+  ],
+  "v83/returns/v80/v80_c_basis_missing/recorded": [
+   "success",
+   8.3226,
+   4.8384,
+   339,
+   182
+  ],
+  "v83/returns/v80/v80_c_basis_object_missing/recorded": [
+   "error",
+   3.4511,
+   null,
+   null,
+   null
+  ],
+  "v83/returns/v80/v80_c_code_w_on_gain/recorded": [
+   "success",
+   26.6225,
+   23.1363,
+   341,
+   182
+  ],
+  "v83/returns/v80/v80_c_loss/recorded": [
+   "success",
+   7.7915,
+   4.5202,
+   340,
+   182
+  ],
+  "v83/returns/v80/v80_c_loss_path_b_unanswered/recorded": [
+   "success",
+   7.8776,
+   4.5273,
+   338,
+   181
+  ],
+  "v83/returns/v80/v80_c_proceeds_missing/recorded": [
+   "success",
+   8.5048,
+   4.9806,
+   339,
+   182
+  ],
+  "v83/returns/v80/v80_c_wash/recorded": [
+   "success",
+   7.9818,
+   4.5521,
+   341,
+   182
+  ],
+  "v83/returns/v80/v80_d3_b_basis_missing/recorded": [
+   "success",
+   7.8915,
+   4.6265,
+   344,
+   185
+  ],
+  "v83/returns/v80/v80_d3_b_code_w_on_gain/recorded": [
+   "success",
+   25.017,
+   21.7319,
+   348,
+   187
+  ],
+  "v83/returns/v80/v80_d3_b_orphan_basis/recorded": [
+   "error",
+   3.4328,
+   null,
+   null,
+   null
+  ],
+  "v83/returns/v80/v80_d3_b_proceeds_missing/recorded": [
+   "success",
+   7.4406,
+   4.1892,
+   344,
+   185
+  ],
+  "v83/returns/v80/v80_dup_b_and_c_ic_no/recorded": [
+   "success",
+   7.5715,
+   4.2096,
+   351,
+   187
+  ],
+  "v83/returns/v80/v80_dup_b_and_c_ic_yes/recorded": [
+   "success",
+   7.3062,
+   4.0241,
+   351,
+   187
+  ],
+  "v83/returns/v80/v80_f_gain/recorded": [
+   "success",
+   7.3339,
+   4.1177,
+   340,
+   182
+  ],
+  "v83/returns/v80/v80_f_gain_new_ic_no/recorded": [
+   "success",
+   7.4283,
+   4.1114,
+   340,
+   182
+  ],
+  "v83/returns/v80/v80_f_gain_new_ic_unanswered/recorded": [
+   "success",
+   8.2622,
+   4.9674,
+   339,
+   181
+  ],
+  "v83/returns/v80/v80_f_gain_path_b_unanswered/recorded": [
+   "success",
+   7.9094,
+   4.6184,
+   338,
+   181
+  ],
+  "v83/returns/v80/v80_f_gain_q2_no_with_member/recorded": [
+   "success",
+   7.2693,
+   4.0289,
+   340,
+   182
+  ],
+  "v83/returns/v80/v80_f_holding_mismatch/recorded": [
+   "success",
+   20.2377,
+   17.0157,
+   340,
+   182
+  ],
+  "v83/returns/v80/v80_m_b_q1_no_with_member/recorded": [
+   "success",
+   7.5934,
+   4.1397,
+   346,
+   186
+  ],
+  "v83/returns/v80/v80_m_bf_yes_yes/recorded": [
+   "success",
+   7.7652,
+   4.5251,
+   350,
+   186
+  ],
+  "v83/returns/v80/v80_m_c_8949_yes_pathb_no/recorded": [
+   "success",
+   7.6352,
+   4.3686,
+   338,
+   181
+  ],
+  "v83/returns/v80/v80_m_c_new_ic_no/recorded": [
+   "success",
+   7.7676,
+   4.4918,
+   340,
+   182
+  ],
+  "v83/returns/v80/v80_m_c_q2_no_with_member/recorded": [
+   "success",
+   7.7707,
+   4.4615,
+   340,
+   182
+  ],
+  "v83/returns/v80/v80_m_e_yes_q2_yes_nothing/recorded": [
+   "success",
+   8.3609,
+   4.9682,
+   347,
+   187
+  ],
+  "v83/returns/v80/v80_m_f_q1_yes_nothing/recorded": [
+   "success",
+   7.4578,
+   4.5116,
+   340,
+   182
+  ],
+  "v83/returns/v80/v80_mixed_abcf/recorded": [
+   "success",
+   7.9634,
+   4.5832,
+   369,
+   189
+  ],
+  "v83/returns/v80/v80_q2_late_yes_reanswered/recorded": [
+   "success",
+   7.8408,
+   4.3768,
+   345,
+   183
+  ],
+  "v83/returns/v80/v80_q2_late_yes_stale/recorded": [
+   "success",
+   7.1898,
+   4.2617,
+   344,
+   182
+  ],
+  "v83/returns/v80/v80_t1_stage2/recorded": [
+   "success",
+   8.4472,
+   4.8916,
+   338,
+   181
+  ],
+  "v83/returns/v80/v80_t1_stage3/recorded": [
+   "success",
+   7.5047,
+   4.5469,
+   339,
+   182
+  ],
+  "v83/returns/v80/v80_t2_stage0/recorded": [
+   "success",
+   7.665,
+   4.3325,
+   346,
+   186
+  ],
+  "v83/returns/v80/v80_t2_stage1/recorded": [
+   "success",
+   7.5853,
+   4.3367,
+   350,
+   186
+  ],
+  "v83/returns/v80/v80_t2_stage2/recorded": [
+   "success",
+   8.2609,
+   5.0711,
+   351,
+   187
+  ],
+  "v83/returns/v80/v80_t2_stage3/recorded": [
+   "success",
+   7.7143,
+   4.4688,
+   352,
+   188
+  ],
+  "v83/returns/v80/v80_w_c_amounts_disagree/recorded": [
+   "success",
+   7.8123,
+   4.5161,
+   341,
+   182
+  ],
+  "v83/returns/v80/v80_wage_q2_unanswered/recorded": [
+   "success",
+   8.9427,
+   5.694,
+   332,
+   179
+  ],
+  "v83/track0/s0/b4_amount_no_answer": [
+   "success",
+   7.86,
+   4.4988,
+   340,
+   180
+  ],
+  "v83/track0/s0/b4_answer_no_amount": [
+   "success",
+   7.8764,
+   4.5393,
+   344,
+   182
+  ],
+  "v83/track0/s0/b4_beside_int_div": [
+   "success",
+   7.3125,
+   4.2292,
+   356,
+   186
+  ],
+  "v83/track0/s0/b4_extra_statement_no_sales": [
+   "success",
+   7.8661,
+   4.5239,
+   347,
+   184
+  ],
+  "v83/track0/s0/b4_no_one_statement": [
+   "success",
+   7.6595,
+   4.2131,
+   344,
+   182
+  ],
+  "v83/track0/s0/b4_no_sales": [
+   "success",
+   7.5457,
+   4.5178,
+   334,
+   180
+  ],
+  "v83/track0/s0/b4_no_with_amount": [
+   "success",
+   8.134,
+   4.6212,
+   344,
+   182
+  ],
+  "v83/track0/s0/b4_one_statement": [
+   "success",
+   7.8729,
+   4.5214,
+   344,
+   182
+  ],
+  "v83/track0/s0/b4_orphan_150": [
+   "success",
+   8.4623,
+   4.7977,
+   339,
+   182
+  ],
+  "v83/track0/s0/b4_orphan_beside_sale": [
+   "success",
+   8.1945,
+   4.5071,
+   347,
+   184
+  ],
+  "v83/track0/s0/b4_st_and_lt": [
+   "success",
+   8.0754,
+   4.4293,
+   349,
+   182
+  ],
+  "v83/track0/s0/b4_statement_removed": [
+   "success",
+   7.3367,
+   4.3421,
+   339,
+   182
+  ],
+  "v83/track0/s0/b4_two_statements": [
+   "success",
+   7.3464,
+   4.3822,
+   352,
+   184
+  ],
+  "v83/track0/s0/b4_two_statements_both_no": [
+   "success",
+   7.3881,
+   4.4125,
+   352,
+   184
+  ],
+  "v83/track0/s0/b4_two_statements_both_yes": [
+   "success",
+   7.8172,
+   4.3565,
+   352,
+   184
+  ],
+  "v83/track0/s0/b4_two_statements_one_unanswered": [
+   "success",
+   7.7063,
+   4.5996,
+   349,
+   182
+  ],
+  "v83/track0/s0/b4_two_statements_one_yes": [
+   "success",
+   8.161,
+   4.5866,
+   352,
+   184
+  ],
+  "v83/track0/s0/b4_yes_codeb": [
+   "success",
+   8.4009,
+   4.7199,
+   347,
+   184
+  ],
+  "v83/track0/s0/b4_yes_covered": [
+   "success",
+   7.6574,
+   4.3931,
+   344,
+   182
+  ],
+  "v83/track0/s0/b4_yes_noncovered": [
+   "success",
+   7.5283,
+   4.3957,
+   346,
+   184
+  ],
+  "v83/track0/s0/b4_yes_w": [
+   "success",
+   7.5203,
+   4.3428,
+   346,
+   183
+  ],
+  "v83/track0/s1/d2_mixed_statements": [
+   "success",
+   7.7883,
+   4.4905,
+   350,
+   183
+  ],
+  "v83/track0/s1/d2_single_v82_no": [
+   "success",
+   7.6686,
+   4.3785,
+   341,
+   181
+  ],
+  "v83/track0/s1/d2_two_statements_both_v82_no": [
+   "success",
+   7.6367,
+   4.3623,
+   349,
+   183
+  ],
+  "v83/track0/s1/d2_unanswered_statement": [
+   "success",
+   7.9546,
+   4.5445,
+   340,
+   180
+  ],
+  "v83/track0/s2/alc_b4_amount_missing": [
+   "success",
+   7.8897,
+   4.586,
+   340,
+   180
+  ],
+  "v83/track0/s2/alc_b4_amount_superseded": [
+   "success",
+   8.2411,
+   4.7006,
+   345,
+   183
+  ],
+  "v83/track0/s2/alc_b4_amount_valid": [
+   "success",
+   7.7409,
+   4.477,
+   344,
+   182
+  ],
+  "v83/track0/s2/alc_count_positive": [
+   "success",
+   7.5659,
+   4.2594,
+   344,
+   182
+  ],
+  "v83/track0/s2/alc_count_transition": [
+   "success",
+   7.4656,
+   4.3453,
+   349,
+   182
+  ],
+  "v83/track0/s2/alc_stmt_orphan": [
+   "success",
+   7.5119,
+   4.3537,
+   339,
+   182
+  ],
+  "v83/track0/s2/alc_v82_answer_on_v83": [
+   "success",
+   7.8271,
+   4.5004,
+   341,
+   181
+  ],
+  "v83/track0/s3/m_code_b_lt_positive": [
+   "success",
+   7.7065,
+   4.4454,
+   347,
+   184
+  ],
+  "v83/track0/s3/m_code_b_lt_unrecorded": [
+   "success",
+   7.7658,
+   4.4384,
+   343,
+   182
+  ],
+  "v83/track0/s3/m_code_b_lt_v82_only": [
+   "success",
+   8.0278,
+   4.6243,
+   344,
+   183
+  ],
+  "v83/track0/s3/m_code_b_lt_zero": [
+   "success",
+   8.3039,
+   4.6876,
+   347,
+   184
+  ],
+  "v83/track0/s3/m_code_b_st_positive": [
+   "success",
+   7.5947,
+   4.4231,
+   347,
+   184
+  ],
+  "v83/track0/s3/m_code_b_st_unrecorded": [
+   "success",
+   7.7265,
+   4.4741,
+   343,
+   182
+  ],
+  "v83/track0/s3/m_code_b_st_v82_only": [
+   "success",
+   7.5842,
+   4.4182,
+   344,
+   183
+  ],
+  "v83/track0/s3/m_code_b_st_zero": [
+   "success",
+   7.6935,
+   4.4934,
+   347,
+   184
+  ],
+  "v83/track0/s3/m_covered_lt_positive": [
+   "success",
+   7.2832,
+   4.0293,
+   344,
+   182
+  ],
+  "v83/track0/s3/m_covered_lt_unrecorded": [
+   "success",
+   7.731,
+   4.448,
+   340,
+   180
+  ],
+  "v83/track0/s3/m_covered_lt_v82_only": [
+   "success",
+   7.931,
+   4.5867,
+   341,
+   181
+  ],
+  "v83/track0/s3/m_covered_lt_zero": [
+   "success",
+   7.9379,
+   4.5507,
+   344,
+   182
+  ],
+  "v83/track0/s3/m_covered_st_positive": [
+   "success",
+   8.3875,
+   4.8337,
+   344,
+   182
+  ],
+  "v83/track0/s3/m_covered_st_unrecorded": [
+   "success",
+   7.6175,
+   4.3988,
+   340,
+   180
+  ],
+  "v83/track0/s3/m_covered_st_v82_only": [
+   "success",
+   7.0997,
+   4.0494,
+   341,
+   181
+  ],
+  "v83/track0/s3/m_covered_st_zero": [
+   "success",
+   7.8278,
+   4.4517,
+   344,
+   182
+  ],
+  "v83/track0/s3/m_covered_w_lt_positive": [
+   "success",
+   7.7853,
+   4.4465,
+   346,
+   183
+  ],
+  "v83/track0/s3/m_covered_w_lt_unrecorded": [
+   "success",
+   6.89,
+   4.033,
+   342,
+   181
+  ],
+  "v83/track0/s3/m_covered_w_lt_v82_only": [
+   "success",
+   7.8236,
+   4.4984,
+   343,
+   182
+  ],
+  "v83/track0/s3/m_covered_w_lt_zero": [
+   "success",
+   8.0686,
+   4.5943,
+   346,
+   183
+  ],
+  "v83/track0/s3/m_covered_w_st_positive": [
+   "success",
+   8.0865,
+   4.562,
+   346,
+   183
+  ],
+  "v83/track0/s3/m_covered_w_st_unrecorded": [
+   "success",
+   8.292,
+   4.7233,
+   342,
+   181
+  ],
+  "v83/track0/s3/m_covered_w_st_v82_only": [
+   "success",
+   7.3007,
+   4.0347,
+   343,
+   182
+  ],
+  "v83/track0/s3/m_covered_w_st_zero": [
+   "success",
+   7.7892,
+   4.565,
+   346,
+   183
+  ],
+  "v83/track0/s3/m_noncovered_lt_positive": [
+   "success",
+   7.7923,
+   4.5769,
+   346,
+   184
+  ],
+  "v83/track0/s3/m_noncovered_lt_unrecorded": [
+   "success",
+   7.8017,
+   4.5109,
+   342,
+   182
+  ],
+  "v83/track0/s3/m_noncovered_lt_v82_only": [
+   "success",
+   7.8194,
+   4.545,
+   343,
+   183
+  ],
+  "v83/track0/s3/m_noncovered_lt_zero": [
+   "success",
+   7.5234,
+   4.1944,
+   346,
+   184
+  ],
+  "v83/track0/s3/m_noncovered_st_positive": [
+   "success",
+   7.5891,
+   4.2144,
+   346,
+   184
+  ],
+  "v83/track0/s3/m_noncovered_st_unrecorded": [
+   "success",
+   8.2412,
+   4.7245,
+   342,
+   182
+  ],
+  "v83/track0/s3/m_noncovered_st_v82_only": [
+   "success",
+   8.5148,
+   4.8178,
+   343,
+   183
+  ],
+  "v83/track0/s3/m_noncovered_st_zero": [
+   "success",
+   7.637,
+   4.3222,
+   346,
+   184
+  ],
+  "v83/track0/s4/trace1_initial": [
+   "success",
+   7.4959,
+   4.3434,
+   344,
+   182
+  ],
+  "v83/track0/s4/trace1_new_stmt_answered": [
+   "success",
+   7.7034,
+   4.4042,
+   352,
+   184
+  ],
+  "v83/track0/s4/trace1_new_stmt_unanswered": [
+   "success",
+   7.7926,
+   4.4182,
+   349,
+   182
+  ],
+  "v83/track0/s4/trace2_initial": [
+   "success",
+   7.6273,
+   4.3219,
+   344,
+   182
+  ],
+  "v83/track0/s4/trace2_sale_removed": [
+   "success",
+   7.7389,
+   4.4668,
+   339,
+   182
+  ],
+  "v83/track0/s5/reuse_all_five_alone": [
+   "success",
+   8.2996,
+   4.7282,
+   374,
+   201
+  ],
+  "v83/track0/s5/reuse_all_with_b4": [
+   "success",
+   8.3553,
+   4.787,
+   384,
+   203
+  ],
+  "v83/track0/s5/reuse_div_alone": [
+   "success",
+   8.1948,
+   4.6729,
+   340,
+   182
+  ],
+  "v83/track0/s5/reuse_int_alone": [
+   "success",
+   7.5953,
+   4.417,
+   340,
+   182
+  ],
+  "v83/track0/s5/reuse_ira_alone": [
+   "success",
+   7.6433,
+   4.4284,
+   344,
+   186
+  ],
+  "v83/track0/s5/reuse_ssa_alone": [
+   "success",
+   7.6462,
+   4.4302,
+   346,
+   189
+  ],
+  "v83/track0/s5/reuse_unemp_alone": [
+   "success",
+   7.759,
+   4.4346,
+   340,
+   182
+  ],
+  "v83/track0/s7/surface_blocked_missing_b4": [
+   "success",
+   6.9307,
+   4.0348,
+   340,
+   180
+  ],
+  "v83/track0/s7/surface_published_owed": [
+   "success",
+   7.9258,
+   4.579,
+   344,
+   182
+  ],
+  "v83/track0/s7/surface_published_refund": [
+   "success",
+   7.5896,
+   4.2119,
+   344,
+   182
+  ],
+  "v83/zero/case/a_8949_yes/recorded": [
+   "success",
+   7.7701,
+   4.6386,
+   346,
+   184
+  ],
+  "v83/zero/case/m_a_v80_ic_only/recorded": [
+   "success",
+   8.3504,
+   5.1267,
+   348,
+   185
+  ],
+  "v83/zero/case/x_d_gain_to_loss/recorded": [
+   "success",
+   7.9226,
+   4.5483,
+   348,
+   185
+  ],
+  "v83/zero/neighbour/n_covered_st_zero_proceeds_zero_basis/recorded": [
+   "success",
+   7.41,
+   4.2013,
+   350,
+   183
+  ],
+  "v83/zero/v80/carried_t0_b_loss_8949_yes/recorded": [
+   "success",
+   6.9636,
+   3.9836,
+   348,
+   187
+  ],
+  "v83/zero/v80/v80_t2_stage3/recorded": [
+   "success",
+   7.1116,
+   4.0785,
+   356,
+   190
+  ],
+  "v84/authority/alc_closed_empty": [
+   "success",
+   7.6963,
+   4.4185,
+   332,
+   179
+  ],
+  "v84/authority/alc_code-b-lt_gain": [
+   "success",
+   7.8453,
+   4.4997,
+   345,
+   183
+  ],
+  "v84/authority/alc_code-b-lt_loss": [
+   "success",
+   7.7896,
+   4.4009,
+   345,
+   183
+  ],
+  "v84/authority/alc_code-b-st_gain": [
+   "success",
+   8.088,
+   4.5788,
+   345,
+   183
+  ],
+  "v84/authority/alc_code-b-st_loss": [
+   "success",
+   7.6791,
+   4.4059,
+   345,
+   183
+  ],
+  "v84/authority/alc_count_two": [
+   "success",
+   7.8211,
+   4.4189,
+   350,
+   183
+  ],
+  "v84/authority/alc_covered-lt_gain": [
+   "success",
+   7.4768,
+   4.2041,
+   342,
+   181
+  ],
+  "v84/authority/alc_covered-lt_loss": [
+   "success",
+   7.369,
+   4.2852,
+   342,
+   181
+  ],
+  "v84/authority/alc_covered-st_gain": [
+   "success",
+   7.8324,
+   4.4795,
+   342,
+   181
+  ],
+  "v84/authority/alc_covered-st_loss": [
+   "success",
+   7.1655,
+   4.097,
+   342,
+   181
+  ],
+  "v84/authority/alc_covered-w-lt_gain": [
+   "success",
+   7.5398,
+   4.4829,
+   344,
+   182
+  ],
+  "v84/authority/alc_covered-w-lt_loss": [
+   "success",
+   7.7775,
+   4.4309,
+   344,
+   182
+  ],
+  "v84/authority/alc_covered-w-st_gain": [
+   "success",
+   7.3094,
+   4.0285,
+   344,
+   182
+  ],
+  "v84/authority/alc_covered-w-st_loss": [
+   "success",
+   7.9234,
+   4.5196,
+   344,
+   182
+  ],
+  "v84/authority/alc_covered_st_unanswered": [
+   "success",
+   7.4082,
+   4.1522,
+   340,
+   180
+  ],
+  "v84/authority/alc_noncovered-lt_gain": [
+   "success",
+   7.7233,
+   4.433,
+   344,
+   183
+  ],
+  "v84/authority/alc_noncovered-lt_loss": [
+   "success",
+   7.624,
+   4.3104,
+   344,
+   183
+  ],
+  "v84/authority/alc_noncovered-st_gain": [
+   "success",
+   7.6405,
+   4.4546,
+   344,
+   183
+  ],
+  "v84/authority/alc_noncovered-st_loss": [
+   "success",
+   7.1821,
+   3.9979,
+   344,
+   183
+  ],
+  "v84/authority/alc_same_statement": [
+   "success",
+   7.6341,
+   4.38,
+   346,
+   181
+  ],
+  "v84/authority/alc_statement_scope": [
+   "success",
+   7.7574,
+   4.4556,
+   350,
+   183
+  ],
+  "v84/late/late_gain_then_loss/0": [
+   "success",
+   7.7702,
+   4.3867,
+   342,
+   181
+  ],
+  "v84/late/late_gain_then_loss/1": [
+   "success",
+   7.6284,
+   4.3353,
+   346,
+   181
+  ],
+  "v84/late/late_loss_removed/0": [
+   "success",
+   7.604,
+   4.2964,
+   342,
+   181
+  ],
+  "v84/late/late_loss_removed/1": [
+   "success",
+   7.5899,
+   4.403,
+   345,
+   181
+  ],
+  "v84/late/late_new_statement_unanswered/0": [
+   "success",
+   7.4339,
+   4.2877,
+   342,
+   181
+  ],
+  "v84/late/late_new_statement_unanswered/1": [
+   "success",
+   7.6378,
+   4.4704,
+   348,
+   181
+  ],
+  "v84/late/late_yes_to_no/1": [
+   "success",
+   7.5537,
+   4.3565,
+   343,
+   182
+  ],
+  "v84/matrix/m_absence_code-b-lt": [
+   "success",
+   8.9806,
+   5.8329,
+   331,
+   178
+  ],
+  "v84/matrix/m_absence_covered-lt": [
+   "success",
+   7.8569,
+   4.662,
+   331,
+   178
+  ],
+  "v84/matrix/m_absence_covered-st": [
+   "success",
+   8.1422,
+   4.773,
+   331,
+   178
+  ],
+  "v84/matrix/m_absence_covered-w-lt": [
+   "success",
+   8.8582,
+   5.6639,
+   331,
+   178
+  ],
+  "v84/matrix/m_absence_covered-w-st": [
+   "success",
+   7.9568,
+   5.0648,
+   331,
+   178
+  ],
+  "v84/matrix/m_absence_noncovered-lt": [
+   "success",
+   9.0573,
+   5.8291,
+   331,
+   178
+  ],
+  "v84/matrix/m_code-b-lt_no": [
+   "success",
+   7.5699,
+   4.3665,
+   345,
+   183
+  ],
+  "v84/matrix/m_code-b-lt_unanswered": [
+   "success",
+   7.7846,
+   4.5409,
+   343,
+   182
+  ],
+  "v84/matrix/m_code-b-lt_yes_zero": [
+   "success",
+   7.5519,
+   4.3094,
+   345,
+   183
+  ],
+  "v84/matrix/m_code-b-st_no": [
+   "success",
+   7.6421,
+   4.39,
+   345,
+   183
+  ],
+  "v84/matrix/m_code-b-st_unanswered": [
+   "success",
+   7.5897,
+   4.3861,
+   343,
+   182
+  ],
+  "v84/matrix/m_code-b-st_yes_zero": [
+   "success",
+   7.8826,
+   4.4495,
+   345,
+   183
+  ],
+  "v84/matrix/m_covered-lt_no": [
+   "success",
+   7.6802,
+   4.4476,
+   342,
+   181
+  ],
+  "v84/matrix/m_covered-lt_unanswered": [
+   "success",
+   7.8828,
+   4.6754,
+   340,
+   180
+  ],
+  "v84/matrix/m_covered-lt_yes_zero": [
+   "success",
+   7.3834,
+   4.1791,
+   342,
+   181
+  ],
+  "v84/matrix/m_covered-st_no": [
+   "success",
+   7.6741,
+   4.4311,
+   342,
+   181
+  ],
+  "v84/matrix/m_covered-st_yes_zero": [
+   "success",
+   7.36,
+   4.1397,
+   342,
+   181
+  ],
+  "v84/matrix/m_covered-w-lt_no": [
+   "success",
+   7.4129,
+   4.1893,
+   344,
+   182
+  ],
+  "v84/matrix/m_covered-w-lt_unanswered": [
+   "success",
+   7.7112,
+   4.531,
+   342,
+   181
+  ],
+  "v84/matrix/m_covered-w-lt_yes_zero": [
+   "success",
+   7.3202,
+   4.2464,
+   344,
+   182
+  ],
+  "v84/matrix/m_covered-w-st_no": [
+   "success",
+   8.0292,
+   4.4967,
+   344,
+   182
+  ],
+  "v84/matrix/m_covered-w-st_unanswered": [
+   "success",
+   7.7566,
+   4.5428,
+   342,
+   181
+  ],
+  "v84/matrix/m_covered-w-st_yes_zero": [
+   "success",
+   7.8699,
+   4.5603,
+   344,
+   182
+  ],
+  "v84/matrix/m_noncovered-lt_no": [
+   "success",
+   7.1966,
+   4.0545,
+   344,
+   183
+  ],
+  "v84/matrix/m_noncovered-lt_unanswered": [
+   "success",
+   7.7841,
+   4.6126,
+   342,
+   182
+  ],
+  "v84/matrix/m_noncovered-lt_yes_zero": [
+   "success",
+   7.6868,
+   4.4714,
+   344,
+   183
+  ],
+  "v84/matrix/m_noncovered-st_no": [
+   "success",
+   7.5876,
+   4.3736,
+   344,
+   183
+  ],
+  "v84/matrix/m_noncovered-st_unanswered": [
+   "success",
+   7.5256,
+   4.218,
+   342,
+   182
+  ],
+  "v84/matrix/m_noncovered-st_yes_zero": [
+   "success",
+   7.3456,
+   4.1496,
+   344,
+   183
+  ],
+  "v84/reuse/reuse_covered_flag": [
+   "success",
+   8.3323,
+   4.9119,
+   342,
+   181
+  ],
+  "v85/authority/alc_double_count": [
+   "success",
+   7.5639,
+   4.3382,
+   341,
+   183
+  ],
+  "v85/authority/alc_present_no": [
+   "success",
+   7.824,
+   4.5143,
+   334,
+   180
+  ],
+  "v85/authority/alc_present_yes_amount": [
+   "success",
+   7.7861,
+   4.6039,
+   335,
+   181
+  ],
+  "v85/authority/alc_present_yes_amount_unanswered": [
+   "success",
+   7.358,
+   4.1197,
+   334,
+   180
+  ],
+  "v85/authority/alc_stmt_identity": [
+   "success",
+   7.9347,
+   4.6247,
+   347,
+   183
+  ],
+  "v85/authority/alc_stmt_with_sale": [
+   "success",
+   7.0754,
+   3.9773,
+   344,
+   182
+  ],
+  "v85/authority/alc_stmt_without_sale": [
+   "success",
+   7.9481,
+   4.609,
+   341,
+   183
+  ],
+  "v85/late/late_amount_corrected/0": [
+   "success",
+   7.3225,
+   4.1131,
+   335,
+   181
+  ],
+  "v85/late/late_amount_corrected/1": [
+   "success",
+   7.1762,
+   3.9826,
+   336,
+   182
+  ],
+  "v85/late/late_sale_removed/0": [
+   "success",
+   8.1031,
+   4.7668,
+   344,
+   182
+  ],
+  "v85/late/late_sale_removed/1": [
+   "success",
+   7.9164,
+   4.6731,
+   347,
+   182
+  ],
+  "v85/late/late_yes_then_sale_then_no/0": [
+   "success",
+   7.5391,
+   4.3294,
+   337,
+   181
+  ],
+  "v85/late/late_yes_then_sale_then_no/1": [
+   "success",
+   7.5743,
+   4.3404,
+   346,
+   184
+  ],
+  "v85/late/late_yes_to_no/0": [
+   "success",
+   7.09,
+   3.9325,
+   335,
+   181
+  ],
+  "v85/late/late_yes_to_no/1": [
+   "success",
+   7.8377,
+   4.5774,
+   336,
+   182
+  ],
+  "v85/matrix/m_both_no_sale200": [
+   "success",
+   7.137,
+   4.043,
+   346,
+   182
+  ],
+  "v85/matrix/m_both_no_sale200_stmt0": [
+   "success",
+   7.0313,
+   4.0199,
+   348,
+   184
+  ],
+  "v85/matrix/m_both_no_sale200_stmt150": [
+   "success",
+   7.9717,
+   4.5247,
+   348,
+   184
+  ],
+  "v85/matrix/m_both_unanswered_sale200": [
+   "success",
+   7.9432,
+   4.305,
+   344,
+   181
+  ],
+  "v85/matrix/m_both_yes_amount0_sale200_stmt150": [
+   "success",
+   7.782,
+   4.4462,
+   349,
+   185
+  ],
+  "v85/matrix/m_both_yes_amount_unanswered_sale200": [
+   "success",
+   7.782,
+   4.3618,
+   346,
+   182
+  ],
+  "v85/matrix/m_nosale_no": [
+   "success",
+   7.3368,
+   4.3503,
+   336,
+   180
+  ],
+  "v85/matrix/m_nosale_no_stmt0": [
+   "success",
+   7.6842,
+   4.3018,
+   340,
+   182
+  ],
+  "v85/matrix/m_nosale_no_stmt150": [
+   "success",
+   7.2163,
+   4.3,
+   340,
+   182
+  ],
+  "v85/matrix/m_nosale_unanswered": [
+   "success",
+   7.4715,
+   4.2628,
+   334,
+   179
+  ],
+  "v85/matrix/m_nosale_yes_amount": [
+   "success",
+   7.5177,
+   4.301,
+   337,
+   181
+  ],
+  "v85/matrix/m_nosale_yes_amount_stmt0": [
+   "success",
+   7.4742,
+   4.328,
+   341,
+   183
+  ],
+  "v85/matrix/m_nosale_yes_amount_unanswered": [
+   "success",
+   7.7876,
+   4.4557,
+   336,
+   180
+  ],
+  "v85/matrix/m_sale_no_stmt0": [
+   "success",
+   7.6419,
+   4.4434,
+   344,
+   182
+  ],
+  "v85/matrix/m_sale_unanswered_stmt0": [
+   "success",
+   7.6578,
+   4.4467,
+   342,
+   181
+  ],
+  "v85/matrix/m_sale_unanswered_stmt200": [
+   "success",
+   7.7,
+   4.4032,
+   342,
+   181
+  ],
+  "v85/matrix/m_sale_yes_amount_stmt200": [
+   "success",
+   7.3197,
+   4.1165,
+   345,
+   183
+  ],
+  "v85/matrix/m_sale_yes_amount_unanswered_stmt200": [
+   "success",
+   7.1162,
+   3.9571,
+   344,
+   182
+  ],
+  "v85/reuse/reuse_all_five_alone": [
+   "success",
+   7.8556,
+   4.5578,
+   372,
+   200
+  ],
+  "v85/reuse/reuse_all_with_b4": [
+   "success",
+   7.8427,
+   4.5205,
+   382,
+   202
+  ],
+  "v85/reuse/reuse_box4_question": [
+   "success",
+   8.1163,
+   4.6721,
+   338,
+   179
+  ],
+  "v85/reuse/reuse_box7_check": [
+   "success",
+   7.0337,
+   4.1078,
+   342,
+   181
+  ],
+  "v85/reuse/reuse_div_alone": [
+   "success",
+   7.6331,
+   4.3694,
+   338,
+   181
+  ],
+  "v85/reuse/reuse_int_alone": [
+   "success",
+   7.4757,
+   4.2599,
+   338,
+   181
+  ],
+  "v85/reuse/reuse_ira_alone": [
+   "success",
+   7.6281,
+   4.3362,
+   342,
+   185
+  ],
+  "v85/reuse/reuse_ssa_alone": [
+   "success",
+   7.6715,
+   4.3797,
+   344,
+   188
+  ],
+  "v85/reuse/reuse_unemp_alone": [
+   "success",
+   7.4746,
+   4.3398,
+   338,
+   181
+  ],
+  "v85/surface/surface_blocked_sale_box4": [
+   "success",
+   7.8896,
+   4.5763,
+   340,
+   180
+  ]
+ },
+ "per_list_fields": [
+  "outcome",
+  "total_s",
+  "run_s",
+  "acts",
+  "assertions"
+ ],
+ "replay_wall_s": 787.0,
+ "size_success": {
+  "acts": {
+   "max": 392,
+   "median": 344,
+   "min": 319,
+   "sum": 237921
+  },
+  "assertions": {
+   "max": 223,
+   "median": 182,
+   "min": 175,
+   "sum": 126253
+  },
+  "distinct_asserted_facts": {
+   "max": 223,
+   "median": 182,
+   "min": 175,
+   "sum": 126215
+  },
+  "publications": {
+   "max": 293,
+   "median": 218,
+   "min": 195,
+   "sum": 159173
+  },
+  "rows": {
+   "max": 360,
+   "median": 319,
+   "min": 315,
+   "sum": 220591
+  }
+ },
+ "stage_seconds_success": {
+  "prep_s": {
+   "max": 3.7888,
+   "median": 3.2419,
+   "min": 2.7998,
+   "sum": 2248.34
+  },
+  "render_s": {
+   "max": 0.0559,
+   "median": 0.0224,
+   "min": 0.0184,
+   "sum": 16.76
+  },
+  "run_s": {
+   "max": 46.1223,
+   "median": 4.4623,
+   "min": 3.8881,
+   "sum": 3587.97
+  },
+  "total_s": {
+   "max": 49.5607,
+   "median": 7.7649,
+   "min": 6.7882,
+   "sum": 5853.06
+  }
+ },
+ "top10": [
+  [
+   "v83/returns/v80/v80_c_code_w_on_gain/recorded",
+   26.6225,
+   341
+  ],
+  [
+   "v81/case/a_w_on_gain_after_correction",
+   26.9295,
+   341
+  ],
+  [
+   "v81/v80/v80_d3_b_code_w_on_gain",
+   28.3855,
+   345
+  ],
+  [
+   "v81/v80/v80_c_code_w_on_gain",
+   28.4894,
+   339
+  ],
+  [
+   "v83/returns/case/a_w_on_gain_after_correction/recorded",
+   29.1806,
+   344
+  ],
+  [
+   "v83/returns/v80/probe_a_high_on_w_broker/recorded",
+   29.448,
+   354
+  ],
+  [
+   "v83/returns/v80/carried_code_w_on_gain/recorded",
+   31.1476,
+   348
+  ],
+  [
+   "v81/v80/carried_code_w_on_gain",
+   33.0106,
+   345
+  ],
+  [
+   "v83/returns/v80/carried_covered_flag_no_w_st/recorded",
+   40.1043,
+   350
+  ],
+  [
+   "v83/returns/v80/carried_covered_flag_no_w_lt/recorded",
+   49.5607,
+   350
+  ]
+ ],
+ "total_s_quartiles": [
+  7.4546,
+  7.6975,
+  8.0166
+ ],
+ "workers": 9
+}
