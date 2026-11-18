@@ -1,0 +1,619 @@
+{
+ "core": "v96",
+ "layers_inclusive_s": {
+  "JSON (de)serialization": 1.085,
+  "builtins (dict/list/set/str etc.)": 64.666,
+  "copy.deepcopy": 0.086,
+  "derivation: evaluator/runner": 5.341,
+  "derivation: live coordination/resolution": 181.936,
+  "derivation: package validation": 5.464,
+  "file I/O": 0.339,
+  "hashing": 0.018,
+  "jsonschema validation": 0.007,
+  "kernel: fact store": 1.324,
+  "kernel: finding model": 1.038,
+  "kernel: schema registry wrapper": 0.111,
+  "other stdlib": 0.211,
+  "presentation projection": 171.911,
+  "regex": 0.007,
+  "tax domain loader": 3.668,
+  "test/evidence harness": 0.002
+ },
+ "layers_own_pct": {
+  "JSON (de)serialization": 0.6,
+  "builtins (dict/list/set/str etc.)": 0.0,
+  "copy.deepcopy": 0.0,
+  "derivation: evaluator/runner": 1.5,
+  "derivation: live coordination/resolution": 0.1,
+  "derivation: package validation": 2.7,
+  "file I/O": 0.2,
+  "hashing": 0.0,
+  "jsonschema validation": 0.0,
+  "kernel: fact store": 0.6,
+  "kernel: finding model": 0.0,
+  "kernel: schema registry wrapper": 0.0,
+  "other stdlib": 0.1,
+  "presentation projection": 94.1,
+  "regex": 0.0,
+  "tax domain loader": 0.0,
+  "test/evidence harness": 0.0
+ },
+ "layers_own_s": {
+  "JSON (de)serialization": 1.082,
+  "builtins (dict/list/set/str etc.)": 0.0,
+  "copy.deepcopy": 0.086,
+  "derivation: evaluator/runner": 2.803,
+  "derivation: live coordination/resolution": 0.162,
+  "derivation: package validation": 4.989,
+  "file I/O": 0.322,
+  "hashing": 0.018,
+  "jsonschema validation": 0.005,
+  "kernel: fact store": 1.048,
+  "kernel: finding model": 0.037,
+  "kernel: schema registry wrapper": 0.013,
+  "other stdlib": 0.146,
+  "presentation projection": 171.605,
+  "regex": 0.007,
+  "tax domain loader": 0.086,
+  "test/evidence harness": 0.005
+ },
+ "list": "v83/returns/v80/carried_covered_flag_no_w_lt/recorded",
+ "profiled": {
+  "acts": 350,
+  "assertions": 181,
+  "bundle_adoptions": 70,
+  "distinct_asserted_facts": 181,
+  "outcome": "success",
+  "page_bytes": 672252,
+  "pin_sha256": "6ca955a5ac08828c283628bd406478f302c7da6d3330d0a0ea91d7366054100f",
+  "prep_s": 3.624,
+  "publications": 204,
+  "render_s": 0.029,
+  "rows": 319,
+  "run_s": 178.862,
+  "total_s": 182.521
+ },
+ "profiled_total_s": 182.413,
+ "profiler": "cProfile (py-spy not installed)",
+ "top_cumulative": [
+  {
+   "calls": 1,
+   "cum_s": 178.897,
+   "function": "docs/phases/engine-breadth/milestones/rust-kernel-experiment-evidence/p0_workload.py:50(run)",
+   "layer": "test/evidence harness",
+   "own_s": 0.002,
+   "primitive_calls": 1
+  },
+  {
+   "calls": 1,
+   "cum_s": 178.86,
+   "function": "packages/derivation/live.py:631(live_coordinate_run)",
+   "layer": "derivation: live coordination/resolution",
+   "own_s": 0.002,
+   "primitive_calls": 1
+  },
+  {
+   "calls": 1,
+   "cum_s": 171.882,
+   "function": "packages/derivation/presentation_projection.py:4637(build_presentation_model)",
+   "layer": "presentation projection",
+   "own_s": 0.004,
+   "primitive_calls": 1
+  },
+  {
+   "calls": 40,
+   "cum_s": 171.569,
+   "function": "packages/derivation/presentation_projection.py:465(_closure_question_reasons)",
+   "layer": "presentation projection",
+   "own_s": 0.041,
+   "primitive_calls": 40
+  },
+  {
+   "calls": 40,
+   "cum_s": 171.479,
+   "function": "packages/derivation/presentation_projection.py:595(reach)",
+   "layer": "presentation projection",
+   "own_s": 0.0,
+   "primitive_calls": 40
+  },
+  {
+   "calls": 1314332,
+   "cum_s": 171.479,
+   "function": "packages/derivation/presentation_projection.py:565(reach_mixed)",
+   "layer": "presentation projection",
+   "own_s": 2.041,
+   "primitive_calls": 40
+  },
+  {
+   "calls": 2628584,
+   "cum_s": 171.478,
+   "function": "packages/derivation/presentation_projection.py:580(<genexpr>)",
+   "layer": "presentation projection",
+   "own_s": 1.119,
+   "primitive_calls": 120
+  },
+  {
+   "calls": 1894806,
+   "cum_s": 167.753,
+   "function": "packages/derivation/presentation_projection.py:555(explain)",
+   "layer": "presentation projection",
+   "own_s": 0.542,
+   "primitive_calls": 1894806
+  },
+  {
+   "calls": 1894806,
+   "cum_s": 167.152,
+   "function": "packages/derivation/presentation_projection.py:535(meaning_for)",
+   "layer": "presentation projection",
+   "own_s": 86.259,
+   "primitive_calls": 1894806
+  },
+  {
+   "calls": 587263888,
+   "cum_s": 52.474,
+   "function": "<method 'get' of 'dict' objects>",
+   "layer": "builtins (dict/list/set/str etc.)",
+   "own_s": 52.474,
+   "primitive_calls": 587263888
+  },
+  {
+   "calls": 518481,
+   "cum_s": 31.532,
+   "function": "packages/derivation/presentation_projection.py:416(_constraint_meanings)",
+   "layer": "presentation projection",
+   "own_s": 0.498,
+   "primitive_calls": 518481
+  },
+  {
+   "calls": 39405078,
+   "cum_s": 30.876,
+   "function": "packages/derivation/presentation_projection.py:420(walk)",
+   "layer": "presentation projection",
+   "own_s": 20.757,
+   "primitive_calls": 518556
+  },
+  {
+   "calls": 91193041,
+   "cum_s": 7.212,
+   "function": "<built-in method builtins.isinstance>",
+   "layer": "builtins (dict/list/set/str etc.)",
+   "own_s": 7.165,
+   "primitive_calls": 91105349
+  },
+  {
+   "calls": 2,
+   "cum_s": 6.291,
+   "function": "packages/derivation/production_resolver.py:370(resolve_production_package)",
+   "layer": "derivation: live coordination/resolution",
+   "own_s": 0.04,
+   "primitive_calls": 2
+  },
+  {
+   "calls": 2,
+   "cum_s": 4.954,
+   "function": "packages/derivation/package_validation.py:1796(validate_package)",
+   "layer": "derivation: package validation",
+   "own_s": 3.54,
+   "primitive_calls": 2
+  },
+  {
+   "calls": 1,
+   "cum_s": 3.624,
+   "function": "docs/phases/engine-breadth/milestones/rust-kernel-experiment-evidence/p0_workload.py:41(prepare)",
+   "layer": "test/evidence harness",
+   "own_s": 0.0,
+   "primitive_calls": 1
+  },
+  {
+   "calls": 1,
+   "cum_s": 3.607,
+   "function": "tests/test_form_1099_k_income.py:113(_handover)",
+   "layer": "test/evidence harness",
+   "own_s": 0.003,
+   "primitive_calls": 1
+  },
+  {
+   "calls": 1,
+   "cum_s": 3.008,
+   "function": "packages/tax/ssa_family_handover.py:58(ssa_family_version_for_acts)",
+   "layer": "tax domain loader",
+   "own_s": 0.0,
+   "primitive_calls": 1
+  },
+  {
+   "calls": 1,
+   "cum_s": 2.537,
+   "function": "packages/derivation/marshal.py:770(marshal_live_run_context)",
+   "layer": "derivation: evaluator/runner",
+   "own_s": 0.001,
+   "primitive_calls": 1
+  },
+  {
+   "calls": 1,
+   "cum_s": 2.535,
+   "function": "packages/derivation/marshal.py:375(marshal_run_context)",
+   "layer": "derivation: evaluator/runner",
+   "own_s": 0.019,
+   "primitive_calls": 1
+  },
+  {
+   "calls": 48313,
+   "cum_s": 2.438,
+   "function": "packages/derivation/marshal.py:715(<genexpr>)",
+   "layer": "derivation: evaluator/runner",
+   "own_s": 0.014,
+   "primitive_calls": 48313
+  },
+  {
+   "calls": 48137,
+   "cum_s": 2.424,
+   "function": "packages/derivation/marshal.py:79(_rule_required_symbols)",
+   "layer": "derivation: evaluator/runner",
+   "own_s": 0.077,
+   "primitive_calls": 48137
+  },
+  {
+   "calls": 125220,
+   "cum_s": 2.305,
+   "function": "<method 'extend' of 'list' objects>",
+   "layer": "builtins (dict/list/set/str etc.)",
+   "own_s": 0.055,
+   "primitive_calls": 125220
+  },
+  {
+   "calls": 4863156,
+   "cum_s": 2.25,
+   "function": "packages/derivation/marshal.py:58(_iter_ref_names)",
+   "layer": "derivation: evaluator/runner",
+   "own_s": 1.641,
+   "primitive_calls": 334377
+  },
+  {
+   "calls": 13426185,
+   "cum_s": 1.365,
+   "function": "<method 'values' of 'dict' objects>",
+   "layer": "builtins (dict/list/set/str etc.)",
+   "own_s": 1.365,
+   "primitive_calls": 13426185
+  },
+  {
+   "calls": 4,
+   "cum_s": 1.069,
+   "function": "packages/derivation/production_resolver.py:95(_json_candidates)",
+   "layer": "derivation: live coordination/resolution",
+   "own_s": 0.003,
+   "primitive_calls": 4
+  },
+  {
+   "calls": 2,
+   "cum_s": 1.037,
+   "function": "packages/kernel/findings.py:1703(project)",
+   "layer": "kernel: finding model",
+   "own_s": 0.001,
+   "primitive_calls": 2
+  },
+  {
+   "calls": 698,
+   "cum_s": 1.028,
+   "function": "packages/kernel/findings.py:1686(_apply_project_act)",
+   "layer": "kernel: finding model",
+   "own_s": 0.007,
+   "primitive_calls": 698
+  },
+  {
+   "calls": 7252,
+   "cum_s": 0.97,
+   "function": "packages/derivation/production_resolver.py:88(_load_json)",
+   "layer": "derivation: live coordination/resolution",
+   "own_s": 0.007,
+   "primitive_calls": 7252
+  },
+  {
+   "calls": 361,
+   "cum_s": 0.853,
+   "function": "packages/kernel/findings.py:863(_apply_assertion)",
+   "layer": "kernel: finding model",
+   "own_s": 0.006,
+   "primitive_calls": 361
+  },
+  {
+   "calls": 841,
+   "cum_s": 0.839,
+   "function": "packages/kernel/facts.py:555(view)",
+   "layer": "kernel: fact store",
+   "own_s": 0.001,
+   "primitive_calls": 841
+  },
+  {
+   "calls": 7404,
+   "cum_s": 0.749,
+   "function": "stdlib/json/__init__.py:304(loads)",
+   "layer": "JSON (de)serialization",
+   "own_s": 0.004,
+   "primitive_calls": 7404
+  },
+  {
+   "calls": 7404,
+   "cum_s": 0.744,
+   "function": "stdlib/json/decoder.py:340(decode)",
+   "layer": "JSON (de)serialization",
+   "own_s": 0.007,
+   "primitive_calls": 7404
+  },
+  {
+   "calls": 7404,
+   "cum_s": 0.732,
+   "function": "stdlib/json/decoder.py:351(raw_decode)",
+   "layer": "JSON (de)serialization",
+   "own_s": 0.732,
+   "primitive_calls": 7404
+  },
+  {
+   "calls": 732,
+   "cum_s": 0.603,
+   "function": "packages/kernel/findings.py:734(for_state)",
+   "layer": "kernel: finding model",
+   "own_s": 0.0,
+   "primitive_calls": 732
+  },
+  {
+   "calls": 732,
+   "cum_s": 0.603,
+   "function": "packages/kernel/facts.py:667(_current_lattice_for_replay)",
+   "layer": "kernel: fact store",
+   "own_s": 0.0,
+   "primitive_calls": 732
+  },
+  {
+   "calls": 2,
+   "cum_s": 0.579,
+   "function": "packages/derivation/production_resolver.py:331(_resolve_member_corpus)",
+   "layer": "derivation: live coordination/resolution",
+   "own_s": 0.013,
+   "primitive_calls": 2
+  },
+  {
+   "calls": 1,
+   "cum_s": 0.572,
+   "function": "packages/tax/ssa_family_handover.py:132(stage_ssa_family_handover)",
+   "layer": "tax domain loader",
+   "own_s": 0.0,
+   "primitive_calls": 1
+  },
+  {
+   "calls": 229,
+   "cum_s": 0.45,
+   "function": "packages/kernel/facts.py:563(update)",
+   "layer": "kernel: fact store",
+   "own_s": 0.07,
+   "primitive_calls": 229
+  },
+  {
+   "calls": 371,
+   "cum_s": 0.443,
+   "function": "packages/kernel/findings.py:745(_validate_finding)",
+   "layer": "kernel: finding model",
+   "own_s": 0.005,
+   "primitive_calls": 371
+  }
+ ],
+ "top_own": [
+  {
+   "calls": 1894806,
+   "cum_s": 167.152,
+   "function": "packages/derivation/presentation_projection.py:535(meaning_for)",
+   "layer": "presentation projection",
+   "own_s": 86.259,
+   "primitive_calls": 1894806
+  },
+  {
+   "calls": 587263888,
+   "cum_s": 52.474,
+   "function": "<method 'get' of 'dict' objects>",
+   "layer": "builtins (dict/list/set/str etc.)",
+   "own_s": 52.474,
+   "primitive_calls": 587263888
+  },
+  {
+   "calls": 39405078,
+   "cum_s": 30.876,
+   "function": "packages/derivation/presentation_projection.py:420(walk)",
+   "layer": "presentation projection",
+   "own_s": 20.757,
+   "primitive_calls": 518556
+  },
+  {
+   "calls": 91193041,
+   "cum_s": 7.212,
+   "function": "<built-in method builtins.isinstance>",
+   "layer": "builtins (dict/list/set/str etc.)",
+   "own_s": 7.165,
+   "primitive_calls": 91105349
+  },
+  {
+   "calls": 2,
+   "cum_s": 4.954,
+   "function": "packages/derivation/package_validation.py:1796(validate_package)",
+   "layer": "derivation: package validation",
+   "own_s": 3.54,
+   "primitive_calls": 2
+  },
+  {
+   "calls": 1314332,
+   "cum_s": 171.479,
+   "function": "packages/derivation/presentation_projection.py:565(reach_mixed)",
+   "layer": "presentation projection",
+   "own_s": 2.041,
+   "primitive_calls": 40
+  },
+  {
+   "calls": 4863156,
+   "cum_s": 2.25,
+   "function": "packages/derivation/marshal.py:58(_iter_ref_names)",
+   "layer": "derivation: evaluator/runner",
+   "own_s": 1.641,
+   "primitive_calls": 334377
+  },
+  {
+   "calls": 13426185,
+   "cum_s": 1.365,
+   "function": "<method 'values' of 'dict' objects>",
+   "layer": "builtins (dict/list/set/str etc.)",
+   "own_s": 1.365,
+   "primitive_calls": 13426185
+  },
+  {
+   "calls": 2628584,
+   "cum_s": 171.478,
+   "function": "packages/derivation/presentation_projection.py:580(<genexpr>)",
+   "layer": "presentation projection",
+   "own_s": 1.119,
+   "primitive_calls": 120
+  },
+  {
+   "calls": 7404,
+   "cum_s": 0.732,
+   "function": "stdlib/json/decoder.py:351(raw_decode)",
+   "layer": "JSON (de)serialization",
+   "own_s": 0.732,
+   "primitive_calls": 7404
+  },
+  {
+   "calls": 1894806,
+   "cum_s": 167.753,
+   "function": "packages/derivation/presentation_projection.py:555(explain)",
+   "layer": "presentation projection",
+   "own_s": 0.542,
+   "primitive_calls": 1894806
+  },
+  {
+   "calls": 518481,
+   "cum_s": 31.532,
+   "function": "packages/derivation/presentation_projection.py:416(_constraint_meanings)",
+   "layer": "presentation projection",
+   "own_s": 0.498,
+   "primitive_calls": 518481
+  },
+  {
+   "calls": 11577,
+   "cum_s": 0.313,
+   "function": "stdlib/json/encoder.py:207(iterencode)",
+   "layer": "JSON (de)serialization",
+   "own_s": 0.313,
+   "primitive_calls": 11577
+  },
+  {
+   "calls": 1969065,
+   "cum_s": 0.209,
+   "function": "<method 'endswith' of 'str' objects>",
+   "layer": "builtins (dict/list/set/str etc.)",
+   "own_s": 0.209,
+   "primitive_calls": 1969065
+  },
+  {
+   "calls": 2081275,
+   "cum_s": 0.199,
+   "function": "<method 'strip' of 'str' objects>",
+   "layer": "builtins (dict/list/set/str etc.)",
+   "own_s": 0.199,
+   "primitive_calls": 2081275
+  },
+  {
+   "calls": 7940,
+   "cum_s": 0.173,
+   "function": "<built-in method _io.open>",
+   "layer": "file I/O",
+   "own_s": 0.166,
+   "primitive_calls": 7940
+  },
+  {
+   "calls": 1572,
+   "cum_s": 0.172,
+   "function": "packages/derivation/package_validation.py:2638(get_input_quantity)",
+   "layer": "derivation: package validation",
+   "own_s": 0.159,
+   "primitive_calls": 1572
+  },
+  {
+   "calls": 40366,
+   "cum_s": 0.261,
+   "function": "packages/kernel/facts.py:486(_add)",
+   "layer": "kernel: fact store",
+   "own_s": 0.145,
+   "primitive_calls": 40366
+  },
+  {
+   "calls": 168156,
+   "cum_s": 0.394,
+   "function": "packages/kernel/facts.py:455(<genexpr>)",
+   "layer": "kernel: fact store",
+   "own_s": 0.13,
+   "primitive_calls": 168156
+  },
+  {
+   "calls": 484498,
+   "cum_s": 0.215,
+   "function": "packages/kernel/facts.py:456(<genexpr>)",
+   "layer": "kernel: fact store",
+   "own_s": 0.125,
+   "primitive_calls": 484498
+  },
+  {
+   "calls": 240400,
+   "cum_s": 0.155,
+   "function": "packages/derivation/package_validation.py:510(_iter_parameter_and_table_refs)",
+   "layer": "derivation: package validation",
+   "own_s": 0.11,
+   "primitive_calls": 8953
+  },
+  {
+   "calls": 232609,
+   "cum_s": 0.149,
+   "function": "packages/derivation/package_validation.py:549(_iter_bound_source_names)",
+   "layer": "derivation: package validation",
+   "own_s": 0.105,
+   "primitive_calls": 7966
+  },
+  {
+   "calls": 13162,
+   "cum_s": 0.195,
+   "function": "<built-in method builtins.sorted>",
+   "layer": "builtins (dict/list/set/str etc.)",
+   "own_s": 0.095,
+   "primitive_calls": 13162
+  },
+  {
+   "calls": 262345,
+   "cum_s": 0.126,
+   "function": "packages/derivation/package_validation.py:577(_iter_ref_names)",
+   "layer": "derivation: package validation",
+   "own_s": 0.092,
+   "primitive_calls": 17310
+  },
+  {
+   "calls": 874761,
+   "cum_s": 0.088,
+   "function": "<method 'startswith' of 'str' objects>",
+   "layer": "builtins (dict/list/set/str etc.)",
+   "own_s": 0.088,
+   "primitive_calls": 874761
+  }
+ ],
+ "unprofiled": {
+  "acts": 350,
+  "assertions": 181,
+  "bundle_adoptions": 70,
+  "distinct_asserted_facts": 181,
+  "outcome": "success",
+  "page_bytes": 672252,
+  "pin_sha256": "6ca955a5ac08828c283628bd406478f302c7da6d3330d0a0ea91d7366054100f",
+  "prep_s": 2.688,
+  "publications": 204,
+  "render_s": 0.019,
+  "rows": 319,
+  "run_s": 36.626,
+  "total_s": 39.339
+ },
+ "warmup_s": 11.777,
+ "workload": "slowest"
+}

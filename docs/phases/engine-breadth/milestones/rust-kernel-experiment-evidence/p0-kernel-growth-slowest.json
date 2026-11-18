@@ -1,0 +1,99 @@
+{
+ "core": "v96",
+ "function": "packages/kernel/findings.py:project",
+ "list": "v83/returns/v80/carried_covered_flag_no_w_lt/recorded",
+ "note": "minimum of three runs per prefix of the finished log (census finish and SSA handover appended)",
+ "rows": [
+  {
+   "acts": 35,
+   "assertions": 14,
+   "fact_types": 30,
+   "findings": 15,
+   "pct": 10,
+   "per_act_ms": 0.081,
+   "project_s": 0.0028
+  },
+  {
+   "acts": 70,
+   "assertions": 22,
+   "fact_types": 97,
+   "findings": 23,
+   "pct": 20,
+   "per_act_ms": 0.163,
+   "project_s": 0.0114
+  },
+  {
+   "acts": 105,
+   "assertions": 46,
+   "fact_types": 103,
+   "findings": 47,
+   "pct": 30,
+   "per_act_ms": 0.228,
+   "project_s": 0.0239
+  },
+  {
+   "acts": 140,
+   "assertions": 77,
+   "fact_types": 147,
+   "findings": 78,
+   "pct": 40,
+   "per_act_ms": 0.295,
+   "project_s": 0.0413
+  },
+  {
+   "acts": 175,
+   "assertions": 101,
+   "fact_types": 199,
+   "findings": 102,
+   "pct": 50,
+   "per_act_ms": 0.349,
+   "project_s": 0.0611
+  },
+  {
+   "acts": 210,
+   "assertions": 122,
+   "fact_types": 262,
+   "findings": 123,
+   "pct": 60,
+   "per_act_ms": 0.423,
+   "project_s": 0.0888
+  },
+  {
+   "acts": 245,
+   "assertions": 151,
+   "fact_types": 296,
+   "findings": 152,
+   "pct": 70,
+   "per_act_ms": 0.455,
+   "project_s": 0.1115
+  },
+  {
+   "acts": 280,
+   "assertions": 167,
+   "fact_types": 330,
+   "findings": 168,
+   "pct": 80,
+   "per_act_ms": 0.511,
+   "project_s": 0.143
+  },
+  {
+   "acts": 315,
+   "assertions": 175,
+   "fact_types": 353,
+   "findings": 179,
+   "pct": 90,
+   "per_act_ms": 0.561,
+   "project_s": 0.1768
+  },
+  {
+   "acts": 350,
+   "assertions": 181,
+   "fact_types": 403,
+   "findings": 186,
+   "pct": 100,
+   "per_act_ms": 0.601,
+   "project_s": 0.2102
+  }
+ ],
+ "workload": "slowest"
+}
