@@ -1,0 +1,2669 @@
+{
+ "gaps_no_v96_published_run": [
+  "codeb/lt/even",
+  "codeb/lt/gain",
+  "codeb/st/even",
+  "codeb/st/gain",
+  "covered/lt/even",
+  "covered/lt/gain",
+  "covered/st/even",
+  "covered/st/gain",
+  "no1099b/lt/even",
+  "no1099b/lt/gain",
+  "no1099b/st/even",
+  "no1099b/st/gain",
+  "noncovered/lt/even",
+  "noncovered/lt/gain",
+  "noncovered/st/even",
+  "noncovered/st/gain",
+  "w/lt/even",
+  "w/lt/gain",
+  "w/st/even",
+  "w/st/gain"
+ ],
+ "grid": {
+  "codeb/lt/even": {
+   "cores": [
+    "v84"
+   ],
+   "runs": 1,
+   "test_functions": 1,
+   "tests": [
+    {
+     "at": "tests/test_f1099b_box7_loss_v84.py:276",
+     "cores": [
+      "v84"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    }
+   ],
+   "v96_line16_published": false,
+   "v96_runs": 0
+  },
+  "codeb/lt/gain": {
+   "cores": [
+    "v81",
+    "v82",
+    "v83",
+    "v84",
+    "v85",
+    "v86",
+    "v87"
+   ],
+   "runs": 149,
+   "test_functions": 8,
+   "tests": [
+    {
+     "at": "tests/test_code_b_sales_v81.py:238",
+     "cores": [
+      "v81"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_f1099b_backup_withholding_v83.py:316",
+     "cores": [
+      "v83"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_f1099b_box4_only_v85.py:467",
+     "cores": [
+      "v85"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_f1099b_box7_loss_v84.py:276",
+     "cores": [
+      "v84"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_f1099b_box7_loss_v84.py:439",
+     "cores": [
+      "v84"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_f1099b_selection_keyed_collect_v86.py:186",
+     "cores": [
+      "v86"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_question_wording_v87.py:379",
+     "cores": [
+      "v87"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_sale_family_audit_v82.py:119",
+     "cores": [
+      "v82"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    }
+   ],
+   "v96_line16_published": false,
+   "v96_runs": 0
+  },
+  "codeb/lt/loss": {
+   "cores": [
+    "v81",
+    "v82",
+    "v83",
+    "v84",
+    "v85",
+    "v86",
+    "v87"
+   ],
+   "runs": 35,
+   "test_functions": 8,
+   "tests": [
+    {
+     "at": "tests/test_code_b_sales_v81.py:238",
+     "cores": [
+      "v81"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_f1099b_backup_withholding_v83.py:316",
+     "cores": [
+      "v83"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_f1099b_box4_only_v85.py:467",
+     "cores": [
+      "v85"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_f1099b_box7_loss_v84.py:276",
+     "cores": [
+      "v84"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_f1099b_box7_loss_v84.py:439",
+     "cores": [
+      "v84"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_f1099b_selection_keyed_collect_v86.py:186",
+     "cores": [
+      "v86"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_question_wording_v87.py:379",
+     "cores": [
+      "v87"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_sale_family_audit_v82.py:119",
+     "cores": [
+      "v82"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    }
+   ],
+   "v96_line16_published": false,
+   "v96_runs": 0
+  },
+  "codeb/st/even": {
+   "cores": [
+    "v81",
+    "v82",
+    "v83",
+    "v84",
+    "v85",
+    "v86",
+    "v87"
+   ],
+   "runs": 10,
+   "test_functions": 8,
+   "tests": [
+    {
+     "at": "tests/test_code_b_sales_v81.py:238",
+     "cores": [
+      "v81"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_f1099b_backup_withholding_v83.py:316",
+     "cores": [
+      "v83"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_f1099b_box4_only_v85.py:467",
+     "cores": [
+      "v85"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_f1099b_box7_loss_v84.py:276",
+     "cores": [
+      "v84"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_f1099b_box7_loss_v84.py:439",
+     "cores": [
+      "v84"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_f1099b_selection_keyed_collect_v86.py:186",
+     "cores": [
+      "v86"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_question_wording_v87.py:379",
+     "cores": [
+      "v87"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_sale_family_audit_v82.py:119",
+     "cores": [
+      "v82"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    }
+   ],
+   "v96_line16_published": false,
+   "v96_runs": 0
+  },
+  "codeb/st/gain": {
+   "cores": [
+    "v81",
+    "v82",
+    "v83",
+    "v84",
+    "v85",
+    "v86",
+    "v87",
+    "v89"
+   ],
+   "runs": 474,
+   "test_functions": 9,
+   "tests": [
+    {
+     "at": "tests/test_blocked_names_question_v89.py:259",
+     "cores": [
+      "v89"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_code_b_sales_v81.py:238",
+     "cores": [
+      "v81"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_f1099b_backup_withholding_v83.py:316",
+     "cores": [
+      "v83"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_f1099b_box4_only_v85.py:467",
+     "cores": [
+      "v85"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_f1099b_box7_loss_v84.py:276",
+     "cores": [
+      "v84"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_f1099b_box7_loss_v84.py:439",
+     "cores": [
+      "v84"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_f1099b_selection_keyed_collect_v86.py:186",
+     "cores": [
+      "v86"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_question_wording_v87.py:379",
+     "cores": [
+      "v87"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_sale_family_audit_v82.py:119",
+     "cores": [
+      "v82"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    }
+   ],
+   "v96_line16_published": false,
+   "v96_runs": 0
+  },
+  "codeb/st/loss": {
+   "cores": [
+    "v81",
+    "v82",
+    "v83",
+    "v84",
+    "v85",
+    "v86",
+    "v87"
+   ],
+   "runs": 81,
+   "test_functions": 8,
+   "tests": [
+    {
+     "at": "tests/test_code_b_sales_v81.py:238",
+     "cores": [
+      "v81"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_f1099b_backup_withholding_v83.py:316",
+     "cores": [
+      "v83"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_f1099b_box4_only_v85.py:467",
+     "cores": [
+      "v85"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_f1099b_box7_loss_v84.py:276",
+     "cores": [
+      "v84"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_f1099b_box7_loss_v84.py:439",
+     "cores": [
+      "v84"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_f1099b_selection_keyed_collect_v86.py:186",
+     "cores": [
+      "v86"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_question_wording_v87.py:379",
+     "cores": [
+      "v87"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_sale_family_audit_v82.py:119",
+     "cores": [
+      "v82"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    }
+   ],
+   "v96_line16_published": false,
+   "v96_runs": 0
+  },
+  "covered/lt/even": {
+   "cores": [
+    "v84"
+   ],
+   "runs": 1,
+   "test_functions": 1,
+   "tests": [
+    {
+     "at": "tests/test_f1099b_box7_loss_v84.py:276",
+     "cores": [
+      "v84"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    }
+   ],
+   "v96_line16_published": false,
+   "v96_runs": 0
+  },
+  "covered/lt/gain": {
+   "cores": [
+    "v11",
+    "v12",
+    "v13",
+    "v14",
+    "v32",
+    "v50",
+    "v78",
+    "v79",
+    "v80",
+    "v81",
+    "v82",
+    "v83",
+    "v84",
+    "v85",
+    "v86",
+    "v87"
+   ],
+   "runs": 183,
+   "test_functions": 18,
+   "tests": [
+    {
+     "at": "tests/test_code_b_sales_v81.py:238",
+     "cores": [
+      "v81"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_f1099b_backup_withholding_v83.py:316",
+     "cores": [
+      "v83"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_f1099b_box4_only_v85.py:467",
+     "cores": [
+      "v85"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_f1099b_box7_loss_v84.py:276",
+     "cores": [
+      "v84"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_f1099b_box7_loss_v84.py:439",
+     "cores": [
+      "v84"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_f1099b_selection_keyed_collect_v86.py:186",
+     "cores": [
+      "v86"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_no1099b_sales_v80.py:224",
+     "cores": [
+      "v80"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_noncovered_sales_v79.py:2256",
+     "cores": [
+      "v79"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_noncovered_sales_v79.py:2301",
+     "cores": [
+      "v78"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_question_wording_v87.py:291",
+     "cores": [
+      "v87"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_question_wording_v87.py:379",
+     "cores": [
+      "v87"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_sale_family_audit_v82.py:119",
+     "cores": [
+      "v82"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_sale_page_observation_temp_paths.py:44",
+     "cores": [
+      "v80"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_schedule_d_covered_ltcg_8a_t2_coordinator.py:308",
+     "cores": [
+      "v11",
+      "v12"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_schedule_d_current_year_losses_t1.py:337",
+     "cores": [
+      "v14"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_schedule_d_form8949_covered_wash_sale_t1.py:750",
+     "cores": [
+      "v32"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_schedule_d_presentation_t3.py:39",
+     "cores": [
+      "v13"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_tax_on_taxable_income_track1.py:171",
+     "cores": [
+      "v50"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    }
+   ],
+   "v96_line16_published": false,
+   "v96_runs": 0
+  },
+  "covered/lt/loss": {
+   "cores": [
+    "v14",
+    "v16",
+    "v50",
+    "v81",
+    "v82",
+    "v83",
+    "v84",
+    "v85",
+    "v86",
+    "v87",
+    "v96"
+   ],
+   "runs": 28,
+   "test_functions": 13,
+   "tests": [
+    {
+     "at": "tests/test_cf_loss_limit_v96.py:63",
+     "cores": [
+      "v96"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_code_b_sales_v81.py:238",
+     "cores": [
+      "v81"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_f1099b_backup_withholding_v83.py:316",
+     "cores": [
+      "v83"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_f1099b_box4_only_v85.py:467",
+     "cores": [
+      "v85"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_f1099b_box7_loss_v84.py:276",
+     "cores": [
+      "v84"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_f1099b_box7_loss_v84.py:439",
+     "cores": [
+      "v84"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_f1099b_selection_keyed_collect_v86.py:186",
+     "cores": [
+      "v86"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_question_wording_v87.py:379",
+     "cores": [
+      "v87"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_sale_family_audit_v82.py:119",
+     "cores": [
+      "v82"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_schedule_d_current_year_losses_t1.py:337",
+     "cores": [
+      "v14"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_schedule_d_current_year_losses_t2_presentation.py:50",
+     "cores": [
+      "v14"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_schedule_d_inbound_loss_carryovers_t1.py:390",
+     "cores": [
+      "v16"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_tax_on_taxable_income_track1.py:171",
+     "cores": [
+      "v50"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    }
+   ],
+   "v96_line16_published": true,
+   "v96_runs": 10
+  },
+  "covered/st/even": {
+   "cores": [
+    "v81",
+    "v82",
+    "v83",
+    "v84",
+    "v85",
+    "v86",
+    "v87"
+   ],
+   "runs": 17,
+   "test_functions": 9,
+   "tests": [
+    {
+     "at": "tests/test_code_b_sales_v81.py:238",
+     "cores": [
+      "v81"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_f1099b_backup_withholding_v83.py:316",
+     "cores": [
+      "v83"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_f1099b_box4_only_v85.py:467",
+     "cores": [
+      "v85"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_f1099b_box7_loss_v84.py:276",
+     "cores": [
+      "v84"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_f1099b_box7_loss_v84.py:439",
+     "cores": [
+      "v84"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_f1099b_selection_keyed_collect_v86.py:186",
+     "cores": [
+      "v86"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_question_wording_v87.py:291",
+     "cores": [
+      "v87"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_question_wording_v87.py:379",
+     "cores": [
+      "v87"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_sale_family_audit_v82.py:119",
+     "cores": [
+      "v82"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    }
+   ],
+   "v96_line16_published": false,
+   "v96_runs": 0
+  },
+  "covered/st/gain": {
+   "cores": [
+    "v14",
+    "v16",
+    "v32",
+    "v50",
+    "v74",
+    "v75",
+    "v80",
+    "v81",
+    "v82",
+    "v83",
+    "v84",
+    "v85",
+    "v86",
+    "v87",
+    "v94"
+   ],
+   "runs": 429,
+   "test_functions": 23,
+   "tests": [
+    {
+     "at": "tests/test_box4_no_prompt_v94.py:132",
+     "cores": [
+      "v94"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_closure_question_coverage.py:173",
+     "cores": [
+      "v74",
+      "v75"
+     ],
+     "line16_published": false,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_code_b_sales_v81.py:238",
+     "cores": [
+      "v81"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_f1099b_backup_withholding_v83.py:316",
+     "cores": [
+      "v83"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_f1099b_box4_only_v85.py:249",
+     "cores": [
+      "v85"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_f1099b_box4_only_v85.py:367",
+     "cores": [
+      "v84"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_f1099b_box4_only_v85.py:467",
+     "cores": [
+      "v85"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_f1099b_box4_only_v85.py:515",
+     "cores": [
+      "v85"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_f1099b_box7_loss_v84.py:276",
+     "cores": [
+      "v84"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_f1099b_box7_loss_v84.py:359",
+     "cores": [
+      "v83"
+     ],
+     "line16_published": false,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_f1099b_box7_loss_v84.py:439",
+     "cores": [
+      "v84"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_f1099b_selection_keyed_collect_v86.py:127",
+     "cores": [
+      "v86"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_f1099b_selection_keyed_collect_v86.py:186",
+     "cores": [
+      "v86"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_no1099b_sales_v80.py:224",
+     "cores": [
+      "v80"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_question_wording_v87.py:291",
+     "cores": [
+      "v87"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_question_wording_v87.py:379",
+     "cores": [
+      "v87"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_sale_family_audit_v82.py:119",
+     "cores": [
+      "v82"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_schedule_d_current_year_losses_t1.py:337",
+     "cores": [
+      "v14"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_schedule_d_current_year_losses_t2_presentation.py:50",
+     "cores": [
+      "v14"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_schedule_d_form8949_covered_wash_sale_t1.py:750",
+     "cores": [
+      "v32"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_schedule_d_inbound_loss_carryovers_t1.py:390",
+     "cores": [
+      "v16"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_schedule_d_inbound_loss_carryovers_t2_presentation.py:54",
+     "cores": [
+      "v16"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_tax_on_taxable_income_track1.py:171",
+     "cores": [
+      "v50"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    }
+   ],
+   "v96_line16_published": false,
+   "v96_runs": 0
+  },
+  "covered/st/loss": {
+   "cores": [
+    "v14",
+    "v16",
+    "v32",
+    "v50",
+    "v53",
+    "v79",
+    "v80",
+    "v81",
+    "v82",
+    "v83",
+    "v84",
+    "v85",
+    "v86",
+    "v87",
+    "v96"
+   ],
+   "runs": 85,
+   "test_functions": 21,
+   "tests": [
+    {
+     "at": "tests/test_cf_loss_limit_v96.py:63",
+     "cores": [
+      "v96"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_code_b_sales_v81.py:238",
+     "cores": [
+      "v81"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_earned_income_credit_track1.py:101",
+     "cores": [
+      "v53"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_f1099b_backup_withholding_v83.py:316",
+     "cores": [
+      "v83"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_f1099b_box4_only_v85.py:249",
+     "cores": [
+      "v85"
+     ],
+     "line16_published": false,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_f1099b_box4_only_v85.py:367",
+     "cores": [
+      "v84"
+     ],
+     "line16_published": false,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_f1099b_box4_only_v85.py:467",
+     "cores": [
+      "v85"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_f1099b_box7_loss_v84.py:276",
+     "cores": [
+      "v84"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_f1099b_box7_loss_v84.py:359",
+     "cores": [
+      "v83"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_f1099b_box7_loss_v84.py:439",
+     "cores": [
+      "v84"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_f1099b_selection_keyed_collect_v86.py:186",
+     "cores": [
+      "v86"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_no1099b_sales_v80.py:224",
+     "cores": [
+      "v80"
+     ],
+     "line16_published": false,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_noncovered_sales_v79.py:2256",
+     "cores": [
+      "v79"
+     ],
+     "line16_published": false,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_question_wording_v87.py:379",
+     "cores": [
+      "v87"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_sale_family_audit_v82.py:119",
+     "cores": [
+      "v82"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_schedule_d_current_year_losses_t1.py:337",
+     "cores": [
+      "v14"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_schedule_d_current_year_losses_t2_presentation.py:50",
+     "cores": [
+      "v14"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_schedule_d_form8949_covered_wash_sale_t1.py:750",
+     "cores": [
+      "v32"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_schedule_d_inbound_loss_carryovers_t1.py:390",
+     "cores": [
+      "v16"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_schedule_d_inbound_loss_carryovers_t2_presentation.py:54",
+     "cores": [
+      "v16"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_tax_on_taxable_income_track1.py:171",
+     "cores": [
+      "v50"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    }
+   ],
+   "v96_line16_published": true,
+   "v96_runs": 10
+  },
+  "no1099b/lt/even": {
+   "cores": [],
+   "runs": 0,
+   "test_functions": 0,
+   "tests": [],
+   "v96_line16_published": false,
+   "v96_runs": 0
+  },
+  "no1099b/lt/gain": {
+   "cores": [
+    "v80",
+    "v81",
+    "v82",
+    "v83",
+    "v84",
+    "v85",
+    "v86",
+    "v87"
+   ],
+   "runs": 110,
+   "test_functions": 8,
+   "tests": [
+    {
+     "at": "tests/test_code_b_sales_v81.py:238",
+     "cores": [
+      "v81"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_f1099b_backup_withholding_v83.py:316",
+     "cores": [
+      "v83"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_f1099b_box4_only_v85.py:467",
+     "cores": [
+      "v85"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_f1099b_box7_loss_v84.py:439",
+     "cores": [
+      "v84"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_f1099b_selection_keyed_collect_v86.py:186",
+     "cores": [
+      "v86"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_no1099b_sales_v80.py:224",
+     "cores": [
+      "v80"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_question_wording_v87.py:379",
+     "cores": [
+      "v87"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_sale_family_audit_v82.py:119",
+     "cores": [
+      "v82"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    }
+   ],
+   "v96_line16_published": false,
+   "v96_runs": 0
+  },
+  "no1099b/lt/loss": {
+   "cores": [
+    "v80",
+    "v81",
+    "v82",
+    "v83",
+    "v84",
+    "v85",
+    "v86",
+    "v87",
+    "v96"
+   ],
+   "runs": 33,
+   "test_functions": 9,
+   "tests": [
+    {
+     "at": "tests/test_cf_loss_limit_v96.py:63",
+     "cores": [
+      "v96"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_code_b_sales_v81.py:238",
+     "cores": [
+      "v81"
+     ],
+     "line16_published": false,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_f1099b_backup_withholding_v83.py:316",
+     "cores": [
+      "v83"
+     ],
+     "line16_published": false,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_f1099b_box4_only_v85.py:467",
+     "cores": [
+      "v85"
+     ],
+     "line16_published": false,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_f1099b_box7_loss_v84.py:439",
+     "cores": [
+      "v84"
+     ],
+     "line16_published": false,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_f1099b_selection_keyed_collect_v86.py:186",
+     "cores": [
+      "v86"
+     ],
+     "line16_published": false,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_no1099b_sales_v80.py:224",
+     "cores": [
+      "v80"
+     ],
+     "line16_published": false,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_question_wording_v87.py:379",
+     "cores": [
+      "v87"
+     ],
+     "line16_published": false,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_sale_family_audit_v82.py:119",
+     "cores": [
+      "v82"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    }
+   ],
+   "v96_line16_published": true,
+   "v96_runs": 24
+  },
+  "no1099b/st/even": {
+   "cores": [
+    "v82"
+   ],
+   "runs": 7,
+   "test_functions": 1,
+   "tests": [
+    {
+     "at": "tests/test_sale_family_audit_v82.py:119",
+     "cores": [
+      "v82"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    }
+   ],
+   "v96_line16_published": false,
+   "v96_runs": 0
+  },
+  "no1099b/st/gain": {
+   "cores": [
+    "v80",
+    "v81",
+    "v82",
+    "v83",
+    "v84",
+    "v85",
+    "v86",
+    "v87"
+   ],
+   "runs": 109,
+   "test_functions": 8,
+   "tests": [
+    {
+     "at": "tests/test_code_b_sales_v81.py:238",
+     "cores": [
+      "v81"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_f1099b_backup_withholding_v83.py:316",
+     "cores": [
+      "v83"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_f1099b_box4_only_v85.py:467",
+     "cores": [
+      "v85"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_f1099b_box7_loss_v84.py:439",
+     "cores": [
+      "v84"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_f1099b_selection_keyed_collect_v86.py:186",
+     "cores": [
+      "v86"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_no1099b_sales_v80.py:224",
+     "cores": [
+      "v80"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_question_wording_v87.py:379",
+     "cores": [
+      "v87"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_sale_family_audit_v82.py:119",
+     "cores": [
+      "v82"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    }
+   ],
+   "v96_line16_published": false,
+   "v96_runs": 0
+  },
+  "no1099b/st/loss": {
+   "cores": [
+    "v80",
+    "v81",
+    "v82",
+    "v83",
+    "v84",
+    "v85",
+    "v86",
+    "v87",
+    "v89",
+    "v95",
+    "v96"
+   ],
+   "runs": 148,
+   "test_functions": 11,
+   "tests": [
+    {
+     "at": "tests/test_blocked_names_question_v89.py:259",
+     "cores": [
+      "v89"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_cf_loss_limit_v96.py:63",
+     "cores": [
+      "v96"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_code_b_sales_v81.py:238",
+     "cores": [
+      "v81"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_f1099b_backup_withholding_v83.py:316",
+     "cores": [
+      "v83"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_f1099b_box4_only_v85.py:467",
+     "cores": [
+      "v85"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_f1099b_box7_loss_v84.py:439",
+     "cores": [
+      "v84"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_f1099b_selection_keyed_collect_v86.py:186",
+     "cores": [
+      "v86"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_no1099b_sales_v80.py:224",
+     "cores": [
+      "v80"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_plain_line_texts_v96.py:83",
+     "cores": [
+      "v95",
+      "v96"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_question_wording_v87.py:379",
+     "cores": [
+      "v87"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_sale_family_audit_v82.py:119",
+     "cores": [
+      "v82"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    }
+   ],
+   "v96_line16_published": true,
+   "v96_runs": 25
+  },
+  "noncovered/lt/even": {
+   "cores": [
+    "v82",
+    "v84"
+   ],
+   "runs": 2,
+   "test_functions": 2,
+   "tests": [
+    {
+     "at": "tests/test_f1099b_box7_loss_v84.py:276",
+     "cores": [
+      "v84"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_sale_family_audit_v82.py:119",
+     "cores": [
+      "v82"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    }
+   ],
+   "v96_line16_published": false,
+   "v96_runs": 0
+  },
+  "noncovered/lt/gain": {
+   "cores": [
+    "v79",
+    "v80",
+    "v81",
+    "v82",
+    "v83",
+    "v84",
+    "v85",
+    "v86",
+    "v87",
+    "v94"
+   ],
+   "runs": 206,
+   "test_functions": 11,
+   "tests": [
+    {
+     "at": "tests/test_box4_no_prompt_v94.py:132",
+     "cores": [
+      "v94"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_code_b_sales_v81.py:238",
+     "cores": [
+      "v81"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_f1099b_backup_withholding_v83.py:316",
+     "cores": [
+      "v83"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_f1099b_box4_only_v85.py:467",
+     "cores": [
+      "v85"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_f1099b_box7_loss_v84.py:276",
+     "cores": [
+      "v84"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_f1099b_box7_loss_v84.py:439",
+     "cores": [
+      "v84"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_f1099b_selection_keyed_collect_v86.py:186",
+     "cores": [
+      "v86"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_no1099b_sales_v80.py:224",
+     "cores": [
+      "v80"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_noncovered_sales_v79.py:2256",
+     "cores": [
+      "v79"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_question_wording_v87.py:379",
+     "cores": [
+      "v87"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_sale_family_audit_v82.py:119",
+     "cores": [
+      "v82"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    }
+   ],
+   "v96_line16_published": false,
+   "v96_runs": 0
+  },
+  "noncovered/lt/loss": {
+   "cores": [
+    "v79",
+    "v80",
+    "v81",
+    "v82",
+    "v83",
+    "v84",
+    "v85",
+    "v86",
+    "v87"
+   ],
+   "runs": 21,
+   "test_functions": 10,
+   "tests": [
+    {
+     "at": "tests/test_code_b_sales_v81.py:238",
+     "cores": [
+      "v81"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_f1099b_backup_withholding_v83.py:316",
+     "cores": [
+      "v83"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_f1099b_box4_only_v85.py:467",
+     "cores": [
+      "v85"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_f1099b_box7_loss_v84.py:276",
+     "cores": [
+      "v84"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_f1099b_box7_loss_v84.py:439",
+     "cores": [
+      "v84"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_f1099b_selection_keyed_collect_v86.py:186",
+     "cores": [
+      "v86"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_no1099b_sales_v80.py:224",
+     "cores": [
+      "v80"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_noncovered_sales_v79.py:2256",
+     "cores": [
+      "v79"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_question_wording_v87.py:379",
+     "cores": [
+      "v87"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_sale_family_audit_v82.py:119",
+     "cores": [
+      "v82"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    }
+   ],
+   "v96_line16_published": false,
+   "v96_runs": 0
+  },
+  "noncovered/st/even": {
+   "cores": [
+    "v81",
+    "v82",
+    "v83",
+    "v84",
+    "v85",
+    "v86",
+    "v87"
+   ],
+   "runs": 10,
+   "test_functions": 8,
+   "tests": [
+    {
+     "at": "tests/test_code_b_sales_v81.py:238",
+     "cores": [
+      "v81"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_f1099b_backup_withholding_v83.py:316",
+     "cores": [
+      "v83"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_f1099b_box4_only_v85.py:467",
+     "cores": [
+      "v85"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_f1099b_box7_loss_v84.py:276",
+     "cores": [
+      "v84"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_f1099b_box7_loss_v84.py:439",
+     "cores": [
+      "v84"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_f1099b_selection_keyed_collect_v86.py:186",
+     "cores": [
+      "v86"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_question_wording_v87.py:379",
+     "cores": [
+      "v87"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_sale_family_audit_v82.py:119",
+     "cores": [
+      "v82"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    }
+   ],
+   "v96_line16_published": false,
+   "v96_runs": 0
+  },
+  "noncovered/st/gain": {
+   "cores": [
+    "v80",
+    "v81",
+    "v82",
+    "v83",
+    "v84",
+    "v85",
+    "v86",
+    "v87"
+   ],
+   "runs": 146,
+   "test_functions": 9,
+   "tests": [
+    {
+     "at": "tests/test_code_b_sales_v81.py:238",
+     "cores": [
+      "v81"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_f1099b_backup_withholding_v83.py:316",
+     "cores": [
+      "v83"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_f1099b_box4_only_v85.py:467",
+     "cores": [
+      "v85"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_f1099b_box7_loss_v84.py:276",
+     "cores": [
+      "v84"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_f1099b_box7_loss_v84.py:439",
+     "cores": [
+      "v84"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_f1099b_selection_keyed_collect_v86.py:186",
+     "cores": [
+      "v86"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_no1099b_sales_v80.py:224",
+     "cores": [
+      "v80"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_question_wording_v87.py:379",
+     "cores": [
+      "v87"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_sale_family_audit_v82.py:119",
+     "cores": [
+      "v82"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    }
+   ],
+   "v96_line16_published": false,
+   "v96_runs": 0
+  },
+  "noncovered/st/loss": {
+   "cores": [
+    "v79",
+    "v80",
+    "v81",
+    "v82",
+    "v83",
+    "v84",
+    "v85",
+    "v86",
+    "v87"
+   ],
+   "runs": 180,
+   "test_functions": 10,
+   "tests": [
+    {
+     "at": "tests/test_code_b_sales_v81.py:238",
+     "cores": [
+      "v81"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_f1099b_backup_withholding_v83.py:316",
+     "cores": [
+      "v83"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_f1099b_box4_only_v85.py:467",
+     "cores": [
+      "v85"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_f1099b_box7_loss_v84.py:276",
+     "cores": [
+      "v84"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_f1099b_box7_loss_v84.py:439",
+     "cores": [
+      "v84"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_f1099b_selection_keyed_collect_v86.py:186",
+     "cores": [
+      "v86"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_no1099b_sales_v80.py:224",
+     "cores": [
+      "v80"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_noncovered_sales_v79.py:2256",
+     "cores": [
+      "v79"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_question_wording_v87.py:379",
+     "cores": [
+      "v87"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_sale_family_audit_v82.py:119",
+     "cores": [
+      "v82"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    }
+   ],
+   "v96_line16_published": false,
+   "v96_runs": 0
+  },
+  "w/lt/even": {
+   "cores": [
+    "v84"
+   ],
+   "runs": 1,
+   "test_functions": 1,
+   "tests": [
+    {
+     "at": "tests/test_f1099b_box7_loss_v84.py:276",
+     "cores": [
+      "v84"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    }
+   ],
+   "v96_line16_published": false,
+   "v96_runs": 0
+  },
+  "w/lt/gain": {
+   "cores": [
+    "v83",
+    "v84",
+    "v85",
+    "v86",
+    "v87"
+   ],
+   "runs": 22,
+   "test_functions": 6,
+   "tests": [
+    {
+     "at": "tests/test_f1099b_backup_withholding_v83.py:316",
+     "cores": [
+      "v83"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_f1099b_box4_only_v85.py:467",
+     "cores": [
+      "v85"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_f1099b_box7_loss_v84.py:276",
+     "cores": [
+      "v84"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_f1099b_box7_loss_v84.py:439",
+     "cores": [
+      "v84"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_f1099b_selection_keyed_collect_v86.py:186",
+     "cores": [
+      "v86"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_question_wording_v87.py:379",
+     "cores": [
+      "v87"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    }
+   ],
+   "v96_line16_published": false,
+   "v96_runs": 0
+  },
+  "w/lt/loss": {
+   "cores": [
+    "v32",
+    "v74",
+    "v75",
+    "v79",
+    "v80",
+    "v81",
+    "v82",
+    "v83",
+    "v84",
+    "v85",
+    "v86",
+    "v87"
+   ],
+   "runs": 73,
+   "test_functions": 13,
+   "tests": [
+    {
+     "at": "tests/test_closure_question_coverage.py:173",
+     "cores": [
+      "v74",
+      "v75"
+     ],
+     "line16_published": false,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_code_b_sales_v81.py:238",
+     "cores": [
+      "v81"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_f1099b_backup_withholding_v83.py:316",
+     "cores": [
+      "v83"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_f1099b_box4_only_v85.py:467",
+     "cores": [
+      "v85"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_f1099b_box7_loss_v84.py:276",
+     "cores": [
+      "v84"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_f1099b_box7_loss_v84.py:439",
+     "cores": [
+      "v84"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_f1099b_selection_keyed_collect_v86.py:186",
+     "cores": [
+      "v86"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_no1099b_sales_v80.py:224",
+     "cores": [
+      "v80"
+     ],
+     "line16_published": false,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_noncovered_sales_v79.py:2256",
+     "cores": [
+      "v79"
+     ],
+     "line16_published": false,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_question_wording_v87.py:379",
+     "cores": [
+      "v87"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_sale_family_audit_v82.py:119",
+     "cores": [
+      "v82"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_schedule_d_form8949_covered_wash_sale_t1.py:1372",
+     "cores": [
+      "v32"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_schedule_d_form8949_covered_wash_sale_t1.py:750",
+     "cores": [
+      "v32"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    }
+   ],
+   "v96_line16_published": false,
+   "v96_runs": 0
+  },
+  "w/st/even": {
+   "cores": [
+    "v32",
+    "v82",
+    "v84",
+    "v87"
+   ],
+   "runs": 12,
+   "test_functions": 4,
+   "tests": [
+    {
+     "at": "tests/test_f1099b_box7_loss_v84.py:276",
+     "cores": [
+      "v84"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_question_wording_v87.py:291",
+     "cores": [
+      "v87"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_sale_family_audit_v82.py:119",
+     "cores": [
+      "v82"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_schedule_d_form8949_covered_wash_sale_t1.py:750",
+     "cores": [
+      "v32"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    }
+   ],
+   "v96_line16_published": false,
+   "v96_runs": 0
+  },
+  "w/st/gain": {
+   "cores": [
+    "v32",
+    "v81",
+    "v82",
+    "v83",
+    "v84",
+    "v85",
+    "v86",
+    "v87"
+   ],
+   "runs": 46,
+   "test_functions": 10,
+   "tests": [
+    {
+     "at": "tests/test_code_b_sales_v81.py:238",
+     "cores": [
+      "v81"
+     ],
+     "line16_published": false,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_f1099b_backup_withholding_v83.py:316",
+     "cores": [
+      "v83"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_f1099b_box4_only_v85.py:467",
+     "cores": [
+      "v85"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_f1099b_box7_loss_v84.py:276",
+     "cores": [
+      "v84"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_f1099b_box7_loss_v84.py:439",
+     "cores": [
+      "v84"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_f1099b_selection_keyed_collect_v86.py:186",
+     "cores": [
+      "v86"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_question_wording_v87.py:379",
+     "cores": [
+      "v87"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_sale_family_audit_v82.py:119",
+     "cores": [
+      "v82"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_schedule_d_form8949_covered_wash_sale_t1.py:1372",
+     "cores": [
+      "v32"
+     ],
+     "line16_published": false,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_schedule_d_form8949_covered_wash_sale_t1.py:750",
+     "cores": [
+      "v32"
+     ],
+     "line16_published": false,
+     "single_sale": false
+    }
+   ],
+   "v96_line16_published": false,
+   "v96_runs": 0
+  },
+  "w/st/loss": {
+   "cores": [
+    "v32",
+    "v74",
+    "v75",
+    "v79",
+    "v80",
+    "v81",
+    "v82",
+    "v83",
+    "v84",
+    "v85",
+    "v86",
+    "v87"
+   ],
+   "runs": 140,
+   "test_functions": 16,
+   "tests": [
+    {
+     "at": "tests/test_closure_question_coverage.py:173",
+     "cores": [
+      "v74",
+      "v75"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_code_b_sales_v81.py:238",
+     "cores": [
+      "v81"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_f1099b_backup_withholding_v83.py:316",
+     "cores": [
+      "v83"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_f1099b_box4_only_v85.py:467",
+     "cores": [
+      "v85"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_f1099b_box7_loss_v84.py:276",
+     "cores": [
+      "v84"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_f1099b_box7_loss_v84.py:439",
+     "cores": [
+      "v84"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_f1099b_selection_keyed_collect_v86.py:186",
+     "cores": [
+      "v86"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_no1099b_sales_v80.py:224",
+     "cores": [
+      "v80"
+     ],
+     "line16_published": false,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_noncovered_sales_v79.py:2256",
+     "cores": [
+      "v79"
+     ],
+     "line16_published": false,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_question_wording_v87.py:379",
+     "cores": [
+      "v87"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_sale_family_audit_v82.py:119",
+     "cores": [
+      "v82"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_schedule_d_form8949_covered_wash_sale_t1.py:1372",
+     "cores": [
+      "v32"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    },
+    {
+     "at": "tests/test_schedule_d_form8949_covered_wash_sale_t1.py:1483",
+     "cores": [
+      "v32"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_schedule_d_form8949_covered_wash_sale_t1.py:1668",
+     "cores": [
+      "v32"
+     ],
+     "line16_published": false,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_schedule_d_form8949_covered_wash_sale_t1.py:1703",
+     "cores": [
+      "v32"
+     ],
+     "line16_published": true,
+     "single_sale": true
+    },
+    {
+     "at": "tests/test_schedule_d_form8949_covered_wash_sale_t1.py:750",
+     "cores": [
+      "v32"
+     ],
+     "line16_published": true,
+     "single_sale": false
+    }
+   ],
+   "v96_line16_published": false,
+   "v96_runs": 0
+  }
+ },
+ "records": 2245,
+ "test_files": 25
+}
