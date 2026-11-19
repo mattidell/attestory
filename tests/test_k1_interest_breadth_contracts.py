@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import copy
+import functools
 import json
 import unittest
 from pathlib import Path
@@ -29,13 +30,22 @@ def _load(path: Path) -> dict[str, Any]:
     return cast(dict[str, Any], json.loads(path.read_text("utf-8")))
 
 
-def _corpus() -> dict[tuple[str, str], dict[str, Any]]:
+@functools.lru_cache(maxsize=1)
+def _published_corpus() -> dict[tuple[str, str], dict[str, Any]]:
     corpus: dict[tuple[str, str], dict[str, Any]] = {}
     for path in CONTENT.glob("*.json"):
         value = _load(path)
         if isinstance(value.get("id"), str) and isinstance(value.get("version"), str):
             corpus[(value["id"], value["version"])] = value
     return corpus
+
+
+def _corpus() -> dict[tuple[str, str], dict[str, Any]]:
+    # A fresh mapping over bodies read once per process. Every test that edits
+    # a body deep-copies it first, and validation does not mutate the corpus;
+    # reading every content file on each call put this module at the
+    # fast-lane budget.
+    return dict(_published_corpus())
 
 
 def _validate(
@@ -152,10 +162,13 @@ class SuccessorPackageContracts(unittest.TestCase):
             (lambda rule: rule["value"]["args"].pop(), "COMPOSITION_VALUE_REFS_MISMATCH"),
             (lambda rule: rule["pins"].pop(), "COMPOSITION_INPUT_PINS_MISMATCH"),
         )
+        key = ("tax.us.2025.rule.form1040-line2b", "v2")
         for mutation, code in mutations:
             with self.subTest(code=code):
-                corpus = copy.deepcopy(base)
-                rule = corpus[("tax.us.2025.rule.form1040-line2b", "v2")]
+                # Copy only the mutated rule; deep-copying the whole corpus per
+                # case put this test at the fast-lane budget.
+                corpus = dict(base)
+                corpus[key] = rule = copy.deepcopy(base[key])
                 mutation(rule)
                 result = validate_package(self.package, corpus, DerivationSchemas())
                 self.assertIn(code, {i.code for i in result.issues})
