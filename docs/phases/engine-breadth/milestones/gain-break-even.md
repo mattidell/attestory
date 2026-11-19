@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "gain-break-even",
-  "status": "P0 chartered 2026-11-19.",
+  "status": "Track 1 (tests only) chartered 2026-11-19.",
   "scope": [
     "a sale with a gain or exactly zero gain reaches Form 8949 and Schedule D correctly on every sale path the engine accepts (covered and noncovered Form 1099-B, code B, code W, no Form 1099-B; short and long term), the same way a loss does",
     "the behaviour is pinned by tests against hand values, or a bounded content repair if P0 finds a wrong value"
@@ -74,7 +74,22 @@ the evidence is the outcome.
 
 ## Decisions
 
-Pending P0.
+1. **Tests only, a 27-return subset (2026-11-19, foreman, on P0's
+   recommendation).** On core v96 all 1,134 line checks across 50
+   ordinary returns match hand values; every path already ran a gain
+   and a break-even on older cores, but no test does on v96, and the
+   long-term break-even with no Form 1099-B never ran on any core.
+   Track 1 pins 22 single-filer cases (including that one), one joint
+   long-term gain, the three mixed returns netting to a gain, and one
+   code W gain probe that must block (ADR-0062 Decision 2 via ADR-0066).
+2. **Bounds recorded, no change.** A break-even return files Schedule D
+   with line 16 of 0 even when both Exception 1 answers are yes; a
+   Form 1099-B sale is reported on Schedule D whatever its result, and
+   no dollar changes. On returns with no long-term gain the worksheet
+   lines still publish as intermediates; line 25 equals the Tax Table
+   amount.
+3. **Parked.** A code W gain block asks the filer no question; the page
+   explains the reason. Added to the parked list at closeout.
 
 ## P0 result
 
