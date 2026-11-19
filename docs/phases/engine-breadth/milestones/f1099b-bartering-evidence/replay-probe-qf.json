@@ -1,0 +1,137 @@
+{
+ "format": "full-surface-replay.v1",
+ "cores": [
+  {
+   "version": "v96",
+   "registry": "v94",
+   "release_version": "v94",
+   "loader_from": null,
+   "presence_pairs": [],
+   "package_sha256": "ed9ddee5680f4ef7ca74423b70ab4c470accdba6175be6e9d1f230756a9e39a7",
+   "release_sha256": "a51c213f67c251a931636c9fcdcf50856382c1c744ae8ad869a085254aba0f43"
+  },
+  {
+   "version": "v97",
+   "registry": "v95",
+   "release_version": "v95",
+   "loader_from": "v96",
+   "presence_pairs": [],
+   "package_sha256": "65afcd58958a2467de692b3ed55f8e04453a93391530c1af3a0b94af790da2b6",
+   "release_sha256": "3b1f098c5b618777dbba37498283b4a93c280d2c26d15be2542ce4376677450f"
+  }
+ ],
+ "lists": 9,
+ "classes": {
+  "expected_changes": 9
+ },
+ "passing": 9,
+ "failing": 0,
+ "unexpected_differences": 0,
+ "unexpected_by_kind_attribute": {},
+ "expectations_declared": 9,
+ "expectations_used": 4,
+ "unused_expectations": [
+  {
+   "note": "version:tax.us.2025.input-question.schedule1-part1-scope-no-sch1-line2a-alimony",
+   "kind": [
+    "page",
+    "attachment",
+    "graph",
+    "model",
+    "row",
+    "report"
+   ],
+   "attribute": "(?:.*\\.)?(?:version|pinVersion)",
+   "identity": "(?<![\\w.-])tax\\.us\\.2025\\.input\\-question\\.schedule1\\-part1\\-scope\\-no\\-sch1\\-line2a\\-alimony(?![\\w.-])",
+   "change": "changed",
+   "before": "v1",
+   "after": "v2"
+  },
+  {
+   "note": "version:tax.us.2025.input-question.schedule1-part1-scope-no-sch1-line3-business",
+   "kind": [
+    "page",
+    "attachment",
+    "graph",
+    "model",
+    "row",
+    "report"
+   ],
+   "attribute": "(?:.*\\.)?(?:version|pinVersion)",
+   "identity": "(?<![\\w.-])tax\\.us\\.2025\\.input\\-question\\.schedule1\\-part1\\-scope\\-no\\-sch1\\-line3\\-business(?![\\w.-])",
+   "change": "changed",
+   "before": "v1",
+   "after": "v2"
+  },
+  {
+   "note": "version:tax.us.2025.input-question.schedule1-part1-scope-no-sch1-line4-other-gains",
+   "kind": [
+    "page",
+    "attachment",
+    "graph",
+    "model",
+    "row",
+    "report"
+   ],
+   "attribute": "(?:.*\\.)?(?:version|pinVersion)",
+   "identity": "(?<![\\w.-])tax\\.us\\.2025\\.input\\-question\\.schedule1\\-part1\\-scope\\-no\\-sch1\\-line4\\-other\\-gains(?![\\w.-])",
+   "change": "changed",
+   "before": "v1",
+   "after": "v2"
+  },
+  {
+   "note": "version:tax.us.2025.input-question.schedule1-part1-scope-no-sch1-line5-rental",
+   "kind": [
+    "page",
+    "attachment",
+    "graph",
+    "model",
+    "row",
+    "report"
+   ],
+   "attribute": "(?:.*\\.)?(?:version|pinVersion)",
+   "identity": "(?<![\\w.-])tax\\.us\\.2025\\.input\\-question\\.schedule1\\-part1\\-scope\\-no\\-sch1\\-line5\\-rental(?![\\w.-])",
+   "change": "changed",
+   "before": "v1",
+   "after": "v2"
+  },
+  {
+   "note": "version:tax.us.2025.input-question.schedule1-part1-scope-no-sch1-line6-farm",
+   "kind": [
+    "page",
+    "attachment",
+    "graph",
+    "model",
+    "row",
+    "report"
+   ],
+   "attribute": "(?:.*\\.)?(?:version|pinVersion)",
+   "identity": "(?<![\\w.-])tax\\.us\\.2025\\.input\\-question\\.schedule1\\-part1\\-scope\\-no\\-sch1\\-line6\\-farm(?![\\w.-])",
+   "change": "changed",
+   "before": "v1",
+   "after": "v2"
+  }
+ ],
+ "expected_by_note": {
+  "the Schedule 1 line 10 guard sentence names its causes": 9,
+  "the Schedule 1 lines 2a-6 question names box 13 bartering": 29,
+  "version:tax.us.2025.package.core-calculations": 4865,
+  "version:tax.us.2025.schedule1.line-10": 9
+ },
+ "outcomes": {
+  "success/success": 9
+ },
+ "list_classes": {
+  "probe/alone/as-asked": "expected_changes",
+  "probe/alone/business": "expected_changes",
+  "probe/alone/business-all": "expected_changes",
+  "probe/alone/other-income": "expected_changes",
+  "probe/alone/unanswered": "expected_changes",
+  "probe/control/base": "expected_changes",
+  "probe/sale/as-asked": "expected_changes",
+  "probe/sale/business": "expected_changes",
+  "probe/zero/as-asked": "expected_changes"
+ },
+ "failing_lists": {},
+ "variant": "qf"
+}
