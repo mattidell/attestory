@@ -73,3 +73,27 @@ with no change to any number.
 1. Questions are written from the 2025 Form 1040 line 27a instructions
    (Step 1, Step 4 and Worksheet steps) and checked against them by the
    foreman before Track 1 publishes them.
+
+## P0 result
+
+Evidence: `eic-answer-questions-evidence/p0.md`. Core v99 has ten credit
+answer rules. `rule.eic-answer.no-qualifying-child` is not a v99 member.
+Four answers have no question: age, main home, not claimable as a
+dependent, and spouse SSN. Missing any one of them where it is required
+(single, qualifying surviving spouse, unmarried head of household and joint
+filers, reproduced live) blocks lines 27a-37, and the saved page shows no
+sentence. Nothing on the record proves any of them soundly and simply.
+(The line 12a dependent answer matches the not-claimable answer in meaning,
+per Pub. 596 Rule 12, but content cannot prefer an explicit answer.) The
+design is content only: four `input-question` members naming the existing
+fact types, written from line 27a Steps 1 and 4 with the source lines
+quoted. No rule change, so no path needs a different answer. Scratch core
+v100 on v99 validates. On it each blocked line shows the missing
+question(s). The strict full-surface replay passes 775/775 recorded lists
+and 32/32 probe lists (answers removed, nothing pre-filled), with 0
+unexpected differences. Unused expectations on the recorded lists: the
+question sentences (no recorded list leaves one of these answers missing
+where required). Recommendation: publish as core v100, registry v98, release
+v98. Out of reach of content: a counted child's missing roster answer (age,
+residency) also blocks silently, and needs a projection change. Reported for
+the foreman's decision, not built (p0.md, Decisions 1-5).
