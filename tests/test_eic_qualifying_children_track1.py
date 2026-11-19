@@ -354,7 +354,8 @@ class PackageChain(unittest.TestCase):
         ]
         for name in names:
             size = (CONTENT / name).stat().st_size
-            self.assertLessEqual(size, 5000, name)
+            # v3 of the gate result nests one more check in its else-chain (core v99), which indents every level below it.
+            self.assertLessEqual(size, 7000 if name == "rule.eic-gate-result.v3.json" else 5000, name)
 
 
 class QualifyingChildrenCreditTests(unittest.TestCase):
