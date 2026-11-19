@@ -1,0 +1,204 @@
+{
+  "variant": "m",
+  "from": {
+    "core": "v98",
+    "registry": "v96",
+    "release": "v96"
+  },
+  "to": {
+    "core": "v99",
+    "registry": "v97",
+    "release": "v97"
+  },
+  "changes": {
+    "package_version": "v99",
+    "release_version": "v97",
+    "members": [
+      {
+        "op": "replace",
+        "old": {
+          "id": "tax.us.2025.rule.eic-status-class",
+          "role": "computation",
+          "schema": "rule-artifact.v14",
+          "version": "v1"
+        },
+        "new": {
+          "id": "tax.us.2025.rule.eic-status-class",
+          "role": "computation",
+          "schema": "rule-artifact.v14",
+          "version": "v2"
+        }
+      },
+      {
+        "op": "replace",
+        "old": {
+          "id": "tax.us.2025.rule.eic-gate-result",
+          "role": "computation",
+          "schema": "rule-artifact.v14",
+          "version": "v2"
+        },
+        "new": {
+          "id": "tax.us.2025.rule.eic-gate-result",
+          "role": "computation",
+          "schema": "rule-artifact.v14",
+          "version": "v3"
+        }
+      },
+      {
+        "op": "replace",
+        "old": {
+          "id": "tax.us.2025.rule.eic-answer.age-25-under-65",
+          "role": "computation",
+          "schema": "rule-artifact.v14",
+          "version": "v2"
+        },
+        "new": {
+          "id": "tax.us.2025.rule.eic-answer.age-25-under-65",
+          "role": "computation",
+          "schema": "rule-artifact.v14",
+          "version": "v3"
+        }
+      },
+      {
+        "op": "replace",
+        "old": {
+          "id": "tax.us.2025.rule.eic-answer.main-home-in-us",
+          "role": "computation",
+          "schema": "rule-artifact.v14",
+          "version": "v2"
+        },
+        "new": {
+          "id": "tax.us.2025.rule.eic-answer.main-home-in-us",
+          "role": "computation",
+          "schema": "rule-artifact.v14",
+          "version": "v3"
+        }
+      },
+      {
+        "op": "replace",
+        "old": {
+          "id": "tax.us.2025.rule.eic-answer.not-claimable-as-dependent",
+          "role": "computation",
+          "schema": "rule-artifact.v14",
+          "version": "v2"
+        },
+        "new": {
+          "id": "tax.us.2025.rule.eic-answer.not-claimable-as-dependent",
+          "role": "computation",
+          "schema": "rule-artifact.v14",
+          "version": "v3"
+        }
+      },
+      {
+        "op": "replace",
+        "old": {
+          "id": "tax.us.2025.rule.eic-answer.not-qualifying-child-of-another",
+          "role": "computation",
+          "schema": "rule-artifact.v14",
+          "version": "v2"
+        },
+        "new": {
+          "id": "tax.us.2025.rule.eic-answer.not-qualifying-child-of-another",
+          "role": "computation",
+          "schema": "rule-artifact.v14",
+          "version": "v3"
+        }
+      },
+      {
+        "op": "replace",
+        "old": {
+          "id": "tax.us.2025.rule.eic-answer.no-unsupported-situations",
+          "role": "computation",
+          "schema": "rule-artifact.v14",
+          "version": "v2"
+        },
+        "new": {
+          "id": "tax.us.2025.rule.eic-answer.no-unsupported-situations",
+          "role": "computation",
+          "schema": "rule-artifact.v14",
+          "version": "v3"
+        }
+      },
+      {
+        "op": "add",
+        "new": {
+          "id": "tax.us.2025.rule.eic-answer.not-married",
+          "version": "v1",
+          "schema": "rule-artifact.v14",
+          "role": "computation"
+        }
+      },
+      {
+        "op": "add",
+        "new": {
+          "id": "tax.us.2025.eic-marital-status.vocabulary",
+          "version": "v1",
+          "schema": "bundle.v2",
+          "role": "fact-type-bundle"
+        }
+      },
+      {
+        "op": "add",
+        "new": {
+          "id": "tax.us.2025.input-question.eic-not-married",
+          "version": "v1",
+          "schema": "input-question.v1",
+          "role": "input-question"
+        }
+      },
+      {
+        "op": "add",
+        "new": {
+          "id": "tax.us.2025.input-question.eic-separated-spouse",
+          "version": "v1",
+          "schema": "input-question.v1",
+          "role": "input-question"
+        }
+      }
+    ],
+    "entrypoints": [
+      {
+        "op": "add",
+        "value": {
+          "id": "tax.us.2025.eic-marital-status.vocabulary",
+          "version": "v1"
+        }
+      },
+      {
+        "op": "add",
+        "value": {
+          "id": "tax.us.2025.input-question.eic-not-married",
+          "version": "v1"
+        }
+      },
+      {
+        "op": "add",
+        "value": {
+          "id": "tax.us.2025.input-question.eic-separated-spouse",
+          "version": "v1"
+        }
+      }
+    ],
+    "registry_sort": "id_version"
+  },
+  "written": {
+    "eic-marital-status.bundle.json": "0f2d97a615affa81c7485a7fa4c0de73e5ca932a5ad0541f26edd5d87007a833",
+    "input-question.eic-not-married.v1.json": "9ac0c6747f95c7be3af240b7a71fc483fb235d1b0773347106ab97040e4afdd9",
+    "input-question.eic-separated-spouse.v1.json": "d210419e7d25c25d883301f05c122a34fd6e36fd8c37e014e65bb8a8d6d8707b",
+    "rule.eic-status-class.v2.json": "8dfac11b85b751bc26c2bfd2412a2fecb585e7a3660e8c9f69cf1aa4fe382e3a",
+    "rule.eic-answer.not-married.json": "02f3488fb2318a63ae25d784f8c97a942f75d5efa29a57044a53089c080e7d11",
+    "rule.eic-gate-result.v3.json": "e47067e8d41b4a74430d075bc52ee240bc695230a6f1e23aa7ad3f3806d2578f",
+    "rule.eic-answer.age-25-under-65.v3.json": "e92ea5903b40f4acac5bf5bd60dd37a9bdcdc9c6b55c618f0580a02fb8b80161",
+    "rule.eic-answer.main-home-in-us.v3.json": "821ce833ca2fae970048f14799f76028109716e5315800e6116c3d3bdb184fb7",
+    "rule.eic-answer.not-claimable-as-dependent.v3.json": "531c482f3ae52cfdfcdbfaac88c15c9f79b8172517b609a8db36181ebf8d9255",
+    "rule.eic-answer.not-qualifying-child-of-another.v3.json": "e16e2bd07ccaa719dbf561dc545761ecc3a1f385d60c52700d2f4bf739d30d83",
+    "rule.eic-answer.no-unsupported-situations.v3.json": "f3165323e7dd03c08e0b376f60c2c93e7a190b7c84171e9a11d8bb960f1227f4"
+  },
+  "replaced_rules_pinned_by": [],
+  "status": "valid",
+  "validation": "generate_to_directory passed package, registry and release validation",
+  "generation": {
+    "registry_sha256": "b3fd1f8b073b69da0518ec70cc69fc8bbf99079e04f5824c3785ace74cb26f46",
+    "publication_boundary": "Candidate only: successor companion declaration and live release evidence are separate duties under ADR-0082."
+  }
+}

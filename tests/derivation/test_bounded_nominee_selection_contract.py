@@ -9,6 +9,7 @@ closure, and the real saturation runner.
 from __future__ import annotations
 
 import copy
+import functools
 import json
 import unittest
 from pathlib import Path
@@ -72,9 +73,12 @@ def _load(path: Path) -> dict[str, Any]:
     return cast(dict[str, Any], json.loads(path.read_text("utf-8")))
 
 
-def _content_corpus() -> dict[tuple[str, str], dict[str, Any]]:
+@functools.lru_cache(maxsize=1)
+def _published_corpus() -> dict[tuple[str, str], dict[str, Any]]:
     corpus: dict[tuple[str, str], dict[str, Any]] = {}
     for path in sorted(CONTENT.glob("*.json")):
+        if path.name.startswith(("published-packages.", "package.")):
+            continue  # registries and packages are not citizens of the rule corpus; parsing every one grows with each version
         try:
             citizen = _load(path)
         except (OSError, json.JSONDecodeError):
@@ -90,6 +94,14 @@ def _content_corpus() -> dict[tuple[str, str], dict[str, Any]]:
         citizen = _load(path)
         corpus[(citizen["id"], citizen["version"])] = citizen
     return corpus
+
+
+def _content_corpus() -> dict[tuple[str, str], dict[str, Any]]:
+    # A fresh mapping over bodies read once per process. Every test that edits
+    # a body deep-copies it first and validation does not mutate the corpus;
+    # reading every content file on each call grew with each package version
+    # and put the admission-contract test over the fast-lane budget.
+    return dict(_published_corpus())
 
 
 def _id_corpus() -> dict[str, dict[str, Any]]:

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import copy
+import functools
 import json
 import unittest
 from pathlib import Path
@@ -27,13 +28,22 @@ def _load(path: Path) -> dict[str, Any]:
     return cast(dict[str, Any], json.loads(path.read_text("utf-8")))
 
 
-def _corpus() -> dict[tuple[str, str], dict[str, Any]]:
+@functools.lru_cache(maxsize=1)
+def _published_corpus() -> dict[tuple[str, str], dict[str, Any]]:
     corpus: dict[tuple[str, str], dict[str, Any]] = {}
     for path in CONTENT.glob("*.json"):
         value = _load(path)
         if isinstance(value.get("id"), str) and isinstance(value.get("version"), str):
             corpus[(value["id"], value["version"])] = value
     return corpus
+
+
+def _corpus() -> dict[tuple[str, str], dict[str, Any]]:
+    # A fresh mapping over bodies read once per process. Tests that edit a body
+    # deep-copy it first and validation does not mutate the corpus; reading
+    # every content file on each call grew with each package version and put
+    # the successor-graph test at the fast-lane budget.
+    return dict(_published_corpus())
 
 
 def _validate(
