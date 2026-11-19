@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "f1099b-bartering",
-  "status": "P0 chartered 2026-11-19.",
+  "status": "Track 1 chartered 2026-11-19 (variant q).",
   "scope": [
     "a filer whose Form 1099-B shows a bartering amount in box 13 is never given a return that silently leaves that income out: the engine either asks and refuses honestly (outside the supported class) or computes it, by an answer the filer can see",
     "every recorded return keeps its numbers unless P0 shows a recorded return was silently wrong"
@@ -111,4 +111,26 @@ zero" as the box 13 test; (5) Track 1 pins the nine probe lists live.
 
 ## Decisions
 
-Pending P0.
+1. **Variant q (2026-11-19, foreman, on P0's recommendation).** Today a
+   box 13 amount cannot be recorded, no question names bartering, and a
+   filer who answers the Schedule 1 questions as worded gets a return
+   identical to one with no Form 1099-B: the income is silently left
+   out. Core v97 publishes five input-question successors (the Schedule
+   1 lines 2a to 6 questions, which share one sentence and so must stay
+   identical) adding: "Also answer yes if a Form 1099-B you received
+   shows an amount above zero in box 13 (Bartering), even if you do not
+   think of it as a business." A yes refuses the return through the
+   existing line 10 path, honestly. No fact, rule, form field or
+   required answer changes. Variant qf (also rewording the line 10
+   field) is not taken: its first clause is unverified.
+2. **Route and test.** Bartering is refused through the business-income
+   answer, which is where Publication 525 generally sends it; the line
+   8z question is not changed, so the page does not misstate where
+   bartering goes. "Above zero" is the box 13 test.
+3. **Track 1** publishes the five successors in core v97 (registry v95,
+   release v95), pins P0's nine probe returns as live tests (including
+   the unanswered case showing the new sentence, and the yes case
+   refusing), and runs the full-surface replay of the 775 recorded
+   lists with the changes declared. The review must check that the
+   added sentence is true and sensible in each of the five questions'
+   places on the page.
