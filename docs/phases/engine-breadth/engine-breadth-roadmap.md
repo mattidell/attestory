@@ -1014,6 +1014,16 @@ output before the snapshot. It closes the line16-names L16-R1 gap.
 v95 against v96 with plain-line-texts' declared changes passes all 775
 lists with no unexpected difference. No package version change.
 
+## Bounded return — Box C and F Losses Are Limited (2025)
+
+[Plan](milestones/cf-loss-limit.md); retrospective:
+`docs/milestone-retrospectives/2026-11-18-cf-loss-limit.md`.
+
+A loss from Form 8949 boxes C and F (no Form 1099-B) is limited on
+Schedule D line 21 exactly as a box A/D loss is, under every filing
+status: 900 of 900 line checks match hand values. Tests pin it and that
+no 2026 carryover is published. No package version change.
+
 ## Saved-page observation — Mortgage and Sales (2025)
 
 [Plan](milestones/sale-page-observation.md); retrospective:
@@ -1037,6 +1047,10 @@ delivers an item removes it.
 
 ### Open owner-held questions
 
+- The 2025-to-2026 capital loss carryover: no box publishes it, by
+  ADR-0058 and ADR-0060 Decision 7. Computing it needs a superseding ADR;
+  saying on line 21 that the excess carries forward waits on the same
+  question (cf-loss-limit).
 - Rust kernel port (rust-kernel-experiment, parked 2026-11-18): the
   slice is the kernel replay fold (`findings.project` and the `facts.py`
   lattice) behind a PyO3 binding; the first design question is the
@@ -1075,8 +1089,8 @@ delivers an item removes it.
 - A sale entered both on a Form 1099-B family and as a no-1099-B sale is
   refused only by the in-class answer ("entered only once"); the two are
   keyed differently, so content cannot see it.
-- The married-filing-separately $1,500 loss limit and the 2026 carryover
-  are not exercised for boxes C and F.
+- Head of household and qualifying surviving spouse are accepted with no
+  qualifying person recorded (cf-loss-limit observation).
 - The covered-flag refusal code sits in `missing` as
   `BASIS_NOT_REPORTED_ON_COVERED`; a derivation-record successor would put
   it on the row.

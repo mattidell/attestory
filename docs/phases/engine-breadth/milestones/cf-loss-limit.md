@@ -3,9 +3,10 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "cf-loss-limit",
-  "status": "Track 1 (tests only) chartered 2026-11-18.",
+  "status": "Closed 2026-11-18. Tests only; no package version change.",
+  "retrospective": "docs/milestone-retrospectives/2026-11-18-cf-loss-limit.md",
   "scope": [
-    "a return whose capital loss comes from Form 8949 box C or F sales (no Form 1099-B) gets the right Schedule D line 21 loss limit ($3,000, or $1,500 married filing separately) and the right 2026 carryover, the same as box A, B, D and E losses",
+    "a return whose capital loss comes from Form 8949 box C or F sales (no Form 1099-B) gets the right Schedule D line 21 loss limit ($3,000, or $1,500 married filing separately), the same as box A, B, D and E losses; the 2026 carryover is out of scope (Decision 1)",
     "the behaviour is pinned by tests through the real coordinator and saved page"
   ],
   "non_goals": [
@@ -118,3 +119,26 @@ Evidence: `docs/phases/engine-breadth/milestones/cf-loss-limit-evidence/p0.md`
 3. **Note, outside scope.** Head of household and qualifying surviving
    spouse were accepted with no qualifying person recorded. Parked as
    an observation.
+4. **Repair the review notes (2026-11-18, foreman).** The fresh review
+   (`docs/reviews/cf-loss-limit/review.md`) is READY with notes; its
+   mutations (separate-return limit raised, box C or F dropped, a 2026
+   carryover published) each fail the tests. CFL-R1 to R3 are
+   corrected: the test docstring states the per-worker run cost,
+   track1.md the 30 returns and 12 controls, and the plan's scope drops
+   the carryover. CFL-R4 is accepted as a limit: the boundary test reads
+   published names, so a carryover under another name or only in page
+   text would pass it; the full-surface replay is the stronger check
+   when a milestone touches that boundary. CFL-R5 and R6 are
+   informational.
+
+## Closeout
+
+Closed 2026-11-18. Box C and F losses get the same Schedule D line 21
+limit as box A/D losses under all five filing statuses: 900 of 900 line
+checks match hand values from the 2025 Schedule D instructions, and
+every C/F return equals its A/D control. 72 live and 10 fast tests pin
+it, including that no 2025-to-2026 carryover is published (ADR-0058 and
+ADR-0060 Decision 7). Whether to compute that carryover, and whether
+line 21 should say the excess carries forward, are parked for the
+owner.
+

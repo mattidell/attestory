@@ -5,7 +5,7 @@ schema, engine or package change.
 
 ## Subset chosen and why
 
-`tests/test_cf_loss_limit_v96.py` runs 24 of P0's 90 returns on published core
+`tests/test_cf_loss_limit_v96.py` runs 30 of P0's 90 returns on published core
 v96 through `live_coordinate_run` and the saved page (P0's `cases.py` builds
 and observes them):
 
@@ -13,7 +13,7 @@ and observes them):
   for single and married filing separately, at `below`, `at` and `above` the
   limit (3,000; 1,500 separately). These are the two statuses whose limit
   differs, and the three sizes straddle the cap.
-- 6 A/D controls: `ad/{st,lt,both}` for each status at `at` and `above`. Every
+- 12 A/D controls: `ad/{st,lt,both}` for each status at `at` and `above`. Every
   C/F return at or over the limit is compared with its own control; below the
   limit nothing is capped, so no control is run there.
 
@@ -36,8 +36,14 @@ its runs). Fast companion: 10 tests, about 1 s.
 
 ## Boundary
 
-`test_no_2026_carryover_published` runs on all 24 returns: the only published
+`test_no_2026_carryover_published` runs on all 30 returns: the only published
 symbols naming a carryover or 2026 are the two inbound 2024-to-2025 carryover
 symbols (published 0 here) and `payments.line36-applied-to-2026` (refund
 applied to 2026 tax); none is a loss carried to 2026. This is the boundary of
 ADR-0058 Decision 7 and ADR-0060 Decision 7, named in the test's docstring.
+
+Review corrections (CFL-R1, CFL-R2): the module runs 30 returns, 18 box
+C/F and 12 A/D controls (`AD_KEYS`). Runs are memoised per worker, so under
+parallel workers a return can run two or three times; the review measured 83
+coordinator runs for 30 returns.
+
