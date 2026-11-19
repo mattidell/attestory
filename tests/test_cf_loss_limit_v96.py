@@ -15,8 +15,9 @@ forbid publishing an amount carried into 2026; only the inbound 2024-to-2025
 carryover (published as 0 here) exists.
 
 Measured reason for the live marker: each run with page rendering costs several
-seconds, above the fast-lane budget. Runs are memoised per worker process so a
-control is run once however many assertions read it.
+seconds, above the fast-lane budget. Runs are memoised per worker process, so a
+return is run once per worker that reads it; under parallel workers a return can
+still run on two or three workers (review CFL-R1).
 """
 from __future__ import annotations
 
