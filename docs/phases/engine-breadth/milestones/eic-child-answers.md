@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "eic-child-answers",
-  "status": "P0 chartered 2026-11-19.",
+  "status": "Track 1 chartered 2026-11-19; ADR 0087 awaits owner acceptance.",
   "scope": [
     "when a child counted for the earned income credit is missing an answer the credit needs (age, residency or another per-child test), the saved page asks that question for that child instead of blocking the credit and refund lines with no sentence",
     "every recorded return keeps its numbers"
@@ -101,3 +101,18 @@ Decisions for the foreman are in p0.md, section 7.
 1. A question for a child names that child (or is shown in that child's
    roster entry), so a filer with two children knows which one is
    missing the answer.
+2. The projection change (P0 recommendation 1), recorded as ADR 0087,
+   which is **proposed** and awaits the owner. Track 1 may build it, but
+   the PR does not go ready until the owner accepts the ADR.
+3. A new optional reason field, `member_label`, holds the member's
+   recorded label (P0 recommendation 2). It shows an existing recorded
+   label beside an existing kind of question, so it is within the "no
+   page design change" non-goal.
+4. All four rosters (earned income credit, child tax credit,
+   other-dependent child, relative) are in scope, since they share the fix
+   (P0 recommendation 3).
+5. Every missing member answer is asked at once (P0 recommendation 4).
+6. Per-member questions are written from the 2025 Form 1040 instructions
+   (line 27a, Schedule 8812, and the dependents and other-dependents
+   sections), each with its source lines quoted. A question must not
+   change which answer a path needs.
