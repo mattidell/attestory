@@ -1047,6 +1047,16 @@ got a return with the bartering income silently left out; a yes now
 refuses the return through the existing line 10 path. The full-surface
 replay of 775 recorded lists changed only the package version.
 
+## Bounded return — Chrome Cleanup Does Not Hang CI
+
+[Plan](milestones/chrome-cleanup-hang.md); retrospective:
+`docs/milestone-retrospectives/2026-11-19-chrome-cleanup-hang.md`.
+
+The saved-page observer ends Chrome's whole process group on cleanup.
+When cleanup still fails, it closes its server and exits promptly with
+`browser-cleanup-failed` instead of hanging `verify` for 240 s. Harness
+and test-helper change only; no package version change.
+
 ## Saved-page observation — Mortgage and Sales (2025)
 
 [Plan](milestones/sale-page-observation.md); retrospective:
@@ -1094,6 +1104,12 @@ delivers an item removes it.
 
 ### Parked
 
+- Chrome cleanup, remaining gaps (chrome-cleanup-hang, 2026-11-19):
+  `run.mjs` still skips its server close when `dispose()` fails and has
+  no exit backstop. A Ctrl-C in its short window before launch returns
+  leaves Chrome running. A SIGKILLed observer cannot kill a Chrome
+  group, which Decision 2 accepts. Group cleanup was checked with real
+  Chrome only on macOS; Linux is covered by CI alone.
 - Replay speed, next levers (rust-kernel-experiment and member-reads-once,
   2026-11-18): recorder stories re-project the whole act log on every
   save and rebuild the fact lattice metadata per assertion (about 60 % of

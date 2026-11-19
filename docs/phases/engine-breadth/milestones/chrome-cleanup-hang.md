@@ -3,7 +3,8 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "chrome-cleanup-hang",
-  "status": "Track 1 chartered 2026-11-19.",
+  "status": "Closed 2026-11-19. No package version change.",
+  "retrospective": "docs/milestone-retrospectives/2026-11-19-chrome-cleanup-hang.md",
   "scope": [
     "when the headless Chrome used by the saved-page observation harness cannot be cleaned up, the harness kills everything it owns and exits promptly with an honest failure, instead of hanging until the 240 s timeout",
     "the cleanup failure itself becomes rare on CI: every Chrome process the harness starts, including helpers, is ended and its profile removed"
@@ -95,3 +96,14 @@ group with `process.kill(-pid, "SIGKILL")`.
    directories left by earlier runs are outside this change; the builder
    did not delete them, and neither does the milestone.
 
+## Closeout
+
+Closed 2026-11-19. The saved-page observer no longer hangs CI when it
+cannot clean up Chrome. Chrome now leads its own process group, and
+`dispose()` ends the whole group (SIGTERM, then SIGKILL) before it
+removes the profile. If cleanup still fails, the observer closes its
+loopback server anyway and exits promptly with `browser-cleanup-failed`
+instead of waiting out the 240 s bound. The fresh review corrected the
+cause: the open server, not a held stderr pipe, kept the old observer
+alive. `run.mjs` keeps the old cleanup shape and is parked. No package,
+schema or opt-in change.
