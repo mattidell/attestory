@@ -1,0 +1,75 @@
+<!-- foreman-context-v1
+{
+  "version": 1,
+  "phase": "Engine Breadth",
+  "topic": "cf-loss-limit",
+  "status": "P0 chartered 2026-11-18.",
+  "scope": [
+    "a return whose capital loss comes from Form 8949 box C or F sales (no Form 1099-B) gets the right Schedule D line 21 loss limit ($3,000, or $1,500 married filing separately) and the right 2026 carryover, the same as box A, B, D and E losses",
+    "the behaviour is pinned by tests through the real coordinator and saved page"
+  ],
+  "non_goals": [
+    "no engine, schema, projection, page or kernel change unless P0 shows content cannot do it, and then only after the foreman decides",
+    "inbound carryovers from 2024 stay as they are (the boundary answer)",
+    "no change to boxes A, B, D or E behaviour"
+  ],
+  "deep_reads": {
+    "planning": [
+      "docs/process/planning-and-development.md",
+      "docs/phases/engine-breadth/engine-breadth-roadmap.md#Parked work and open questions",
+      "docs/phases/engine-breadth/milestones/cf-loss-limit.md"
+    ],
+    "implementation": [
+      "docs/process/planning-and-development.md",
+      "docs/phases/engine-breadth/milestones/cf-loss-limit.md"
+    ],
+    "review": [
+      "docs/process/planning-and-development.md",
+      "docs/roles/qualitative-review.md",
+      "docs/phases/engine-breadth/milestones/cf-loss-limit.md"
+    ],
+    "new_milestone": [
+      "docs/phases/engine-breadth/milestones/cf-loss-limit.md",
+      "docs/phases/engine-breadth/engine-breadth-roadmap.md#Parked work and open questions"
+    ]
+  }
+}
+-->
+
+# Box C and F Losses Are Limited and Carried (2025)
+
+Milestone key: cf-loss-limit.
+Branch: milestone/cf-loss-limit-2025.
+Phase: Engine Breadth, bounded return. Opening plan: 2026-11-18.
+Starting point: main at `fbd81501` (core v96, registry v94, release v94).
+Expected target: tests only if P0 finds the behaviour right; core v97,
+registry v95, release v95 if a content repair is needed.
+
+## What we are trying to accomplish
+
+Schedule D line 21 limits a net capital loss to $3,000 ($1,500 when
+married filing separately), and the excess carries to 2026. The parked
+list records that neither the separate-return limit nor the carryover
+is exercised for losses from Form 8949 boxes C and F (sales with no
+Form 1099-B). A filer with only such sales should get the same limit
+and carryover as one whose losses come from a broker statement. The
+useful outcome is evidence that they do, pinned by tests, or a bounded
+repair if they do not.
+
+## Stages
+
+1. **P0.** Build synthetic returns that reach line 21 and the carryover
+   from box C and F losses under every filing status the engine
+   supports, run them through the real coordinator and saved page,
+   compare against hand values from the 2025 Schedule D instructions
+   and the Capital Loss Carryover Worksheet, and the same losses through
+   box A/D as a control. If a value is wrong, trace it and name the
+   smallest repair.
+2. **Track 1.** Pin the cases as tests; publish a content repair only if
+   P0 needs one, with the strict full-surface replay
+   (`tools/recorded_replay.py`, `full`) over the 775 recorded lists.
+3. **Fresh review**, repair, closeout.
+
+## Decisions
+
+Pending P0.
