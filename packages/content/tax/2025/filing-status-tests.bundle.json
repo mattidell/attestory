@@ -1,0 +1,58 @@
+{
+  "fact_types": [
+    {
+      "id": "tax.us.2025.hoh.tests-met",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "You meet the 2025 head of household tests: on December 31, 2025 you were unmarried or considered unmarried; you paid more than half the cost of keeping up a home for 2025; and a qualifying person lived with you in that home for more than half of 2025, or the qualifying person is your parent whom you can claim as a dependent and you paid more than half the cost of keeping up your parent's main home for all of 2025 (2025 Form 1040 instructions, Head of Household, Tests 1 and 2; Pub. 501, Head of Household and Table 4). Yes means head of household applies. No means it does not, and the standard deduction and everything that reads it are refused rather than figured on head of household amounts; file with the status that applies instead. Read only when the filing status is head of household. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.qss.tests-met",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "You meet the 2025 qualifying surviving spouse tests: your spouse died in 2023 or 2024 and you did not remarry before the end of 2025; you could have filed a joint return with your spouse for the year your spouse died; you have a child or stepchild (not a foster child) whom you can claim as a dependent, or could claim except that the child had gross income of $5,200 or more, filed a joint return, or you could be claimed as a dependent on someone else's return; that child lived in your home for all of 2025; and you paid more than half the cost of keeping up that home (2025 Form 1040 instructions, Qualifying Surviving Spouse; Pub. 501, Qualifying Surviving Spouse). Yes means qualifying surviving spouse applies. No means it does not, and the standard deduction and everything that reads it are refused rather than figured on joint return amounts; file with the status that applies instead. Read only when the filing status is qualifying surviving spouse. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.filing-status-tests.vocabulary",
+  "label": "2025 head of household and qualifying surviving spouse tests",
+  "schema": "bundle.v2",
+  "version": "v1"
+}
