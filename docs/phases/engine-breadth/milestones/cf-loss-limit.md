@@ -70,6 +70,33 @@ repair if they do not.
    (`tools/recorded_replay.py`, `full`) over the 775 recorded lists.
 3. **Fresh review**, repair, closeout.
 
+## P0 result
+
+Evidence: `docs/phases/engine-breadth/milestones/cf-loss-limit-evidence/p0.md`
+(scripts `cases.py`, `hand.py`, `compare.py`; outputs `runs.json`,
+`comparison.json`).
+
+- 90 synthetic returns on core v96: box C, box F and C plus F, and the same
+  amounts through box A/D as a control, under all five filing statuses, with
+  the loss below, at and above the limit. Every return ran through
+  `live_coordinate_run` and the saved page to `saturated` with no blocked
+  rule and no question.
+- All 900 line checks (Schedule D lines 7, 15, 16, 21, the box line, Form
+  1040 lines 7a and 15) match the hand values from the 2025 Schedule D
+  instructions. Every box C/F return equals its A/D control on every line,
+  disposition and question; only the Form 8949 attachment differs, as it
+  should.
+- The engine computes only the inbound 2024 to 2025 carryover (Schedule D
+  lines 6 and 14). No 2025 to 2026 carryover is computed or shown for any
+  box, by ADR-0058 and ADR-0060 Decision 7. The hand values for it are in
+  the evidence (2,000 in each over-limit case; 250 short-term and 1,750
+  long-term for the split married-filing-separately case).
+- Recommendation: tests only. No content repair.
+- For the foreman: the plan's "right 2026 carryover" conflicts with those
+  ADRs; narrow the milestone to the limit (recommended) or open a
+  superseding ADR and a separate milestone. Also whether line 21's page
+  text should say the excess carries forward.
+
 ## Decisions
 
 Pending P0.
