@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "eic-answer-questions",
-  "status": "P0 chartered 2026-11-19.",
+  "status": "Track 1 chartered 2026-11-19.",
   "scope": [
     "every earned income credit answer the engine requires of a filer is either asked by a question the saved page shows, or derived from what the record already proves; no filer is blocked on the credit with no sentence",
     "every recorded return keeps its numbers"
@@ -51,9 +51,9 @@ The hoh-eic review (EIC-R1) found that the earned income credit's age
 have no input question. A filer who must give them and has not is
 blocked on line 27a and the refund lines, and the saved page shows no
 sentence. That has been true for single filers since before v98. Of the
-eleven credit answer rules on v99, six have an input question; the age,
-main-home, not-claimable-as-dependent, spouse-SSN and
-no-qualifying-child answers may not. The useful outcome is that every
+ten credit answer rules on v99, six have an input question; the age,
+main-home, not-claimable-as-dependent and spouse-SSN answers do not
+(P0 census; the plan first said eleven and five). The useful outcome is that every
 answer the credit requires is asked plainly or derived from the record,
 with no change to any number.
 
@@ -73,6 +73,20 @@ with no change to any number.
 1. Questions are written from the 2025 Form 1040 line 27a instructions
    (Step 1, Step 4 and Worksheet steps) and checked against them by the
    foreman before Track 1 publishes them.
+2. P0's design: four input questions (age, main home, not claimable as a
+   dependent, spouse SSN), exactly as `eic-answer-questions-evidence/p0.md`
+   words them, and no rule change. Core v100, registry v98, release v98.
+   The foreman checked the age question's birth-date bounds and death
+   rules against Publication 596 Rule 11 and the other three against
+   line 27a Step 1 question 2 and Step 4 questions 3 and 6.
+3. The dependent question follows Step 4 question 6 ("Can you be
+   claimed..."), so a yes records the fact's no, as the existing
+   qualifying-child-of-another question does.
+4. Parked: deriving the not-claimable answer from the line 12a "someone
+   can claim you" answer (a rule cannot prefer an explicit answer and
+   fall back to another), and the counted-child age and residency answers,
+   which block nine page lines with no sentence because the projection
+   cannot reach a question there (a projection change).
 
 ## P0 result
 
