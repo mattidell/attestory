@@ -3,7 +3,8 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "eic-answer-questions",
-  "status": "Repair chartered 2026-11-19.",
+  "status": "Closed 2026-11-19. Core v100, registry v98, release v98.",
+  "retrospective": "docs/milestone-retrospectives/2026-11-19-eic-answer-questions.md",
   "scope": [
     "every earned income credit answer the engine requires of a filer is either asked by a question the saved page shows, or derived from what the record already proves; no filer is blocked on the credit with no sentence",
     "every recorded return keeps its numbers"
@@ -124,3 +125,18 @@ where required). Recommendation: publish as core v100, registry v98, release
 v98. Out of reach of content: a counted child's missing roster answer (age,
 residency) also blocks silently, and needs a projection change. Reported for
 the foreman's decision, not built (p0.md, Decisions 1-5).
+
+## Closeout
+
+Closed 2026-11-19. Four earned income credit answers that had no question
+are now asked on the saved page (core v100): age, main home in the United
+States, not claimable as a dependent, and the spouse's SSN. Before this, a
+filer who had not given one was blocked on lines 27a and 32 to 37 with no
+sentence. No rule changed, so every filer needs the same answers and every
+answered return computes as on v99. The fresh review found the age
+question missed Publication 596's exception for a death in 2025 before
+age 25, and that nothing pinned the dependent question's yes/no meaning.
+Both were repaired before merge, with two wording fixes. The spouse SSN question also appears on the child tax credit
+lines, which read the same answer. Parked: the counted-child age and
+residency answers (a projection change), the per-child tie-breaker
+answers, and deriving the dependent answer from line 12a.
