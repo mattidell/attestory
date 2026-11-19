@@ -1,0 +1,76 @@
+<!-- foreman-context-v1
+{
+  "version": 1,
+  "phase": "Engine Breadth",
+  "topic": "f1099b-bartering",
+  "status": "P0 chartered 2026-11-19.",
+  "scope": [
+    "a filer whose Form 1099-B shows a bartering amount in box 13 is never given a return that silently leaves that income out: the engine either asks and refuses honestly (outside the supported class) or computes it, by an answer the filer can see",
+    "every recorded return keeps its numbers unless P0 shows a recorded return was silently wrong"
+  ],
+  "non_goals": [
+    "no Schedule C, business income or self-employment tax computation",
+    "no engine, schema, projection, page or kernel change unless P0 shows content cannot do it, and then only after the foreman decides",
+    "no other Form 1099-B box"
+  ],
+  "deep_reads": {
+    "planning": [
+      "docs/process/planning-and-development.md",
+      "docs/phases/engine-breadth/engine-breadth-roadmap.md#Parked work and open questions",
+      "docs/phases/engine-breadth/milestones/f1099b-bartering.md"
+    ],
+    "implementation": [
+      "docs/process/planning-and-development.md",
+      "docs/phases/engine-breadth/milestones/f1099b-bartering.md"
+    ],
+    "review": [
+      "docs/process/planning-and-development.md",
+      "docs/roles/qualitative-review.md",
+      "docs/phases/engine-breadth/milestones/f1099b-bartering.md"
+    ],
+    "new_milestone": [
+      "docs/phases/engine-breadth/milestones/f1099b-bartering.md",
+      "docs/phases/engine-breadth/engine-breadth-roadmap.md#Parked work and open questions"
+    ]
+  }
+}
+-->
+
+# A Form 1099-B Bartering Amount Is Not Lost (2025)
+
+Milestone key: f1099b-bartering.
+Branch: milestone/f1099b-bartering-2025.
+Phase: Engine Breadth, bounded return. Opening plan: 2026-11-19.
+Starting point: main at `54b312f8` (core v96, registry v94, release v94).
+Expected target: core v97, registry v95, release v95 if a content
+change is needed; tests only if P0 finds the engine already refuses.
+
+## What we are trying to accomplish
+
+Form 1099-B box 13 reports the fair market value of bartering. It is
+not a sale on Schedule D; it is income reported elsewhere (Schedule C or
+Schedule 1 under the 2025 instructions). The sale-family audit (N2)
+recorded that which answer refuses a bartering amount "is not
+established". If the engine accepts a statement with a box 13 amount
+and computes a return without it, the filer gets a return that is
+silently short. The useful outcome is that a box 13 amount is either
+asked about and refused honestly by a named answer, or carried
+correctly, never dropped.
+
+## Stages
+
+1. **P0.** Trace what happens today to a Form 1099-B with a box 13
+   amount: can it be recorded, which answers or questions touch it,
+   and what the return shows. Read the 2025 Form 1099-B and Form 1040 /
+   Schedule 1 / Schedule C instructions in the local sources for where
+   bartering goes. Check accepted ADRs and rule notes for a bound.
+   Name the smallest honest design (most likely a refusing input
+   question or answer, as other out-of-class sources use) and prototype
+   it as a scratch successor with the full-surface replay
+   (`tools/recorded_replay.py full`).
+2. **Track 1.** Publish it (or pin tests if already honest).
+3. **Fresh review**, repair, closeout.
+
+## Decisions
+
+Pending P0.
