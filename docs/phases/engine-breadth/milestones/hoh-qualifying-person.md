@@ -111,7 +111,10 @@ core v97).
   preferential ceilings with nothing asked. A 50,000 wage return with no child
   or dependent is refunded 1,675 as head of household and 2,647 as qualifying
   surviving spouse against 625 single.
-- **Every larger amount passes through one rule**,
+- **Every larger amount passes through one rule** (the preferential-rate
+  ceilings themselves read filing status directly and still show that
+  status's ceiling after a no or no answer, but every worksheet line that
+  combines a ceiling with taxable income blocks, so no amount uses them),
   `rule.dependents-worksheet-line-3` (the standard deduction base lookup), which
   line 12e reads on every route. The record never proves either status (home
   cost, marital status and the spouse's year of death are not recorded) and

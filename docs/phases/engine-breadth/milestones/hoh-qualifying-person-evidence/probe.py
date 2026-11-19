@@ -125,7 +125,12 @@ def build(key: str, content: Path = h.CONTENT, answer: str = "none") -> h.Acts:
         for fact in ("spouse-over-65", "spouse-blind"):
             acts = h.say(acts, P + fact, False, "hoh-" + fact, content)
     if status_key in QUESTION and answer != "none":
-        acts = h.say(acts, QUESTION[status_key], answer, "hoh-tests", content)
+        first, *later = answer.split(">")  # "yes>no": the filer answers yes, then changes the answer to no
+        acts = h.say(acts, QUESTION[status_key], first, "hoh-tests", content)
+        for n, value in enumerate(later, 2):
+            fact = h.fact_id_for(QUESTION[status_key], (("tax-year", h.YEAR),))
+            h._add(acts, "assertion", {"finding": h._attested(f"demo.sfa.answer.hoh-tests-{n}", fact, value)})
+            acts = h.renumber(acts)
     return h.renumber(acts)
 
 
@@ -207,7 +212,7 @@ def observe(core: Any, key: str, answer: str = "none") -> dict[str, Any]:
             for item in resolved.get(name) or []:
                 text = str(item.get("sentence") or item.get("text") or "") if isinstance(item, dict) else str(item)
                 if text.strip():
-                    said.append(h.scrub(text)[:700])
+                    said.append(h.scrub(text)[:2000])
         for text in said:
             if text not in sentences:
                 sentences.append(text)

@@ -62,3 +62,27 @@ surviving spouse question sentences. They are unused because all recorded
 lists are single (census.json); the sentences are exercised by the unanswered
 and answered-no probe returns above. Matches the scratch result in
 `replay-q.json`.
+
+## Full suite and type check
+
+`pytest`: 7288 passed, 25 skipped, 10986 subtests passed in 1828.75s.
+`python3 -m mypy`: no issues found in 524 source files.
+
+## Repair
+
+Review findings HOH-R1 to R6 (plan Decision 7). v98 was not on main, so its
+files were regenerated in place at the same versions (core v98, registry v96,
+release v96) by `build.py` through the validating generator; no successor
+version. Only the two question texts, the rule's notes and the checksums and
+digests that depend on them changed; the rule expression, package members and
+every other value are unchanged. The questions now follow the 2025 Form 1040
+instructions and Publication 501: each lists the tests as a set of conditions
+to answer yes only when all apply, and says what to do if one does not. The
+rule notes no longer say the preferential-rate ceilings are downstream of the
+rule: the ceilings read filing status directly and still show that status's
+ceiling after a no or no answer, but every worksheet line combining a ceiling
+with taxable income (line 7 onward) blocks, so no amount uses them. A live
+test now changes an answer from yes to no on the same return and sees line
+12e refuse. The full replay was not rerun because no non-question value
+changed; `replay-*.json` and `probe-v98-*.json` still quote the earlier
+wording.

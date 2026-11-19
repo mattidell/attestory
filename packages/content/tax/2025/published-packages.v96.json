@@ -3018,7 +3018,7 @@
     {
       "id": "tax.us.2025.input-question.hoh-tests-met",
       "version": "v1",
-      "checksum": "3c620eb7314044bf26e20112fce7cfcab8f8a127a92df9432e2b934b3a84e04c"
+      "checksum": "ef909a75e60ad439a3106c87484c3b440f2c0427d2af328f6ab5fc2120c9ebce"
     },
     {
       "checksum": "f04e6102fbe07f69684e2f466176283bc041597cab8c65cf9bb1a43b901d387a",
@@ -3093,7 +3093,7 @@
     {
       "id": "tax.us.2025.input-question.qss-tests-met",
       "version": "v1",
-      "checksum": "615babd32e9714f3e2082cd3f541d67ebfc7a95a2cd6e258a5424aac9f81f3ec"
+      "checksum": "74d50216d730fd108a7c0e780bf699d38cc5adc21d0aed0dc3e055f7764759c5"
     },
     {
       "checksum": "cc994f13a3cc2e9df1fce9f6896263a70a84b1ae557cf108c83190877ac96ba9",
@@ -4308,7 +4308,7 @@
     {
       "id": "tax.us.2025.rule.dependents-worksheet-line-3",
       "version": "v2",
-      "checksum": "30b0c21580fb6636c6b145fb9d1e5580efe960268e3a1b9068750aa35162b581"
+      "checksum": "fdd76da1a2f97c2553a581ac990c5a5f8f1546e33f7cec828da7c96484de9af0"
     },
     {
       "checksum": "3858b83d7b1aec0f62ccad88affcf831a9e2059fe1d3250edf042396b61e1558",

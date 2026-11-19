@@ -59,8 +59,13 @@ def main() -> None:
     source = REPO / "packages/content/tax/2025"
     releases = REPO / "packages/sample_data/student_loan_worksheet_integration/publication_surface/releases"
     content, rel = scratch / "content", scratch / "releases"
-    shutil.copytree(source, content)
-    shutil.copytree(releases, rel)
+    # Rebuilding on a branch that already carries v98: start from v97 content only.
+    skip = shutil.ignore_patterns(*sorted({d.BUNDLE_FILE, "package.core-calculations.v98.json",
+                                           "published-packages.v96.json", STEM + ".v96.json",
+                                           "rule.dependents-worksheet-line-3.v2.json",
+                                           *d.questions()}))
+    shutil.copytree(source, content, ignore=skip)
+    shutil.copytree(releases, rel, ignore=skip)
     package = json.loads((source / "package.core-calculations.v97.json").read_text())
     # No other v97 member pins the rule being replaced.
     files = {}

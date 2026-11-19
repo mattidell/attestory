@@ -84,15 +84,15 @@
   },
   "written": {
     "filing-status-tests.bundle.json": "12c5881454467c4641c73823e43d989813b33801762a1d02777328aef6bfadd1",
-    "rule.dependents-worksheet-line-3.v2.json": "b4db0c45273fd209b2550fcb4fb5932bdd625e0b8a391889744ef3bdc8368f12",
-    "input-question.hoh-tests-met.v1.json": "a7f6977c508a31a52d069b0d6f362b2a903c5817afe28ff33c9253c783088c07",
-    "input-question.qss-tests-met.v1.json": "76f22e89c0d82ab2f3b167a0a67843a074960f3f42244e831ff51978a6972f0d"
+    "rule.dependents-worksheet-line-3.v2.json": "fdb6039bd126314ccba87a6f95e11679a40f0ee8638b6d3e27a9f7e6acfe822d",
+    "input-question.hoh-tests-met.v1.json": "886c4b39d90a0f98169424750ced2f07435f9432e100c4b8f2414f3be8dbad1c",
+    "input-question.qss-tests-met.v1.json": "c41c419e90977eb7e1f7eb0d9785bae677c934465c25e0be4d1e90ae2e7693f7"
   },
   "replaced_rule_pinned_by": [],
   "status": "valid",
   "validation": "generate_to_directory passed package, registry and release validation",
   "generation": {
-    "registry_sha256": "89305c0e5c726923b21a47d8fab11d2dac26f020ae4f4034409d4b1be3b17f92",
+    "registry_sha256": "edb28063b09759c059cce2dfbe2b9df47f6a960dedddd6b45c0aee643f4d0f32",
     "publication_boundary": "Candidate only: successor companion declaration and live release evidence are separate duties under ADR-0082."
   }
 }

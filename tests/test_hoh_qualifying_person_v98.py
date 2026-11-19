@@ -105,6 +105,22 @@ def test_answered_no_refuses_line_12e_and_shows_the_question(key: str) -> None:
     assert _expected_question(key) in run["lines"]["form1040.line-12e"]["said"]
 
 
+@pytest.mark.parametrize("key", ("hoh/none", "qss/none"))
+def test_changing_an_answer_from_yes_to_no_refuses_line_12e(key: str) -> None:
+    """The same return, answered yes and then superseded by a no: the earlier yes no longer carries the
+    status's amounts, line 12e refuses and the page shows the question."""
+    yes = _run(key, "yes")
+    changed = _run(key, "yes>no")
+    assert _line(yes, "form1040.line-12e")[0] == "published_value"
+    assert changed["stop"] == "saturated"
+    assert _line(changed, "form1040.line-12e") == ("blocked", None)
+    for name in ("form1040.line-16", "form1040.line-34", "form1040.line-35a"):
+        assert _line(changed, name) == ("blocked", None), name
+    assert "dependents-worksheet-line-3:DEPENDENCY_INVALID" in changed["blocked_rules"]
+    assert _expected_question(key) in changed["lines"]["form1040.line-12e"]["said"]
+    assert changed["lines"] == _run(key, "no")["lines"]
+
+
 @pytest.mark.parametrize("key", ("hoh/none", "hoh/child", "qss/none", "qss/child"))
 def test_unanswered_asks_the_question(key: str) -> None:
     run = _run(key, "none")

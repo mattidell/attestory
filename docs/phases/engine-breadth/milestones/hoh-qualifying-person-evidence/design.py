@@ -49,21 +49,10 @@ QSS_TITLE = (
     "presence-before-value, free supersession."
 )
 HOH_QUESTION = (
-    "You chose head of household. Do all of these apply to you for 2025: on December 31, 2025 you were "
-    "unmarried, or considered unmarried (for example, married but your spouse did not live in your home for "
-    "the last 6 months of 2025); you paid more than half the cost of keeping up your home for 2025; and a "
-    "qualifying person, such as your child or a relative you can claim as a dependent, lived with you there "
-    "for more than half of 2025 (a dependent parent need not live with you if you paid more than half the cost "
-    "of your parent's main home for all of 2025)? If any of these does not apply, you cannot file as head of "
-    "household; change your filing status."
+    "You chose head of household. Answer yes only if all three of these apply. (1) You were unmarried on December 31, 2025, or you were married but your spouse did not live in your home at any time during the last 6 months of 2025 and your child, stepchild or foster child whom you can claim as a dependent (or could claim except that the child's other parent claims them) lived in your home for more than half of 2025. If your spouse died in 2025, you count as married for all of 2025 and cannot answer yes. (2) You paid more than half the cost of keeping up your home for 2025, or, if your qualifying person is your dependent parent, more than half the cost of your parent's main home for all of 2025. (3) A qualifying person lived with you for more than half of 2025 (a dependent parent need not live with you): your qualifying child, or a relative you can claim as a dependent who is your parent, brother, sister, half brother, half sister, stepbrother, stepsister, grandparent, aunt, uncle, niece, nephew or in-law. Someone who is your dependent only because they lived with you all year, or whom you claim only under a multiple support agreement, is not a qualifying person. If any of these does not apply, you cannot file as head of household: change your filing status (if you were married, that is usually married filing jointly or married filing separately)."
 )
 QSS_QUESTION = (
-    "You chose qualifying surviving spouse. Do all of these apply to you: your spouse died in 2023 or 2024 and "
-    "you did not remarry before the end of 2025; you could have filed a joint return with your spouse for the "
-    "year your spouse died; you have a child or stepchild (not a foster child) you can claim as a dependent "
-    "who lived in your home all of 2025; and you paid more than half the cost of keeping up that home? If any of "
-    "these does not apply, you cannot file as a qualifying surviving spouse; change your filing status (if your "
-    "spouse died in 2025, you can file a joint return for 2025)."
+    "You chose qualifying surviving spouse. Answer yes only if all of these apply: your spouse died in 2023 or 2024 and you did not remarry before the end of 2025; you could have filed a joint return with your spouse for the year your spouse died; you have a child or stepchild (not a foster child) whom you can claim as a dependent, or could claim except that the child had gross income of $5,200 or more, filed a joint return, or you can be claimed as someone else's dependent; that child lived in your home all of 2025, apart from temporary absences such as school (a child born or who died in 2025 counts if the child lived there for the part of the year the child was alive); and you paid more than half the cost of keeping up that home for 2025. If any of these does not apply, you cannot file as a qualifying surviving spouse: change your filing status (if your spouse died in 2025, you can file a joint return for 2025)."
 )
 NOTES_V2 = (
     "Standard Deduction Worksheet for Dependents, line 3: the basic 2025 standard deduction for the filing "
@@ -74,8 +63,11 @@ NOTES_V2 = (
     "answer so the page shows its question beside the refusal) so the "
     "standard deduction, taxable income and the tax are not figured on that status's amounts, and an "
     "unanswered answer blocks naming it. This is the only rule that reads the standard deduction base, and "
-    "line 12e reads the standard deduction on every route, so every larger amount either status carries "
-    "(standard deduction, Tax Table column and rate schedule, preferential-rate ceilings) is downstream of it. "
+    "line 12e reads the standard deduction on every route, so the standard deduction, Tax Table column and "
+    "rate schedule either status carries are downstream of it. The preferential-rate ceilings themselves "
+    "(Qualified Dividends and Capital Gain Tax Worksheet lines 6 and 13) read filing status directly and still "
+    "show that status's ceiling after a no or no answer, but every worksheet line that combines a ceiling with "
+    "taxable income (line 7 onward) is downstream of this rule and blocks, so no amount on the return uses them. "
     "Single, married filing jointly and married filing separately read nothing new."
 )
 
