@@ -1,0 +1,29 @@
+{
+ "core": "v100 against scratch",
+ "lists": {
+  "v83/returns/v80/carried_one_part_ii_b/recorded": {
+   "differences": 4164,
+   "sorted": {
+    "declared": 593,
+    "alias": 86,
+    "count input": 415,
+    "alias rekeyed (removed half)": 1535,
+    "alias rekeyed (added half)": 1535
+   },
+   "other_total": 0,
+   "other": []
+  },
+  "v81/v80/carried_one_part_ii_b": {
+   "differences": 4168,
+   "sorted": {
+    "declared": 597,
+    "alias": 86,
+    "count input": 415,
+    "alias rekeyed (removed half)": 1535,
+    "alias rekeyed (added half)": 1535
+   },
+   "other_total": 0,
+   "other": []
+  }
+ }
+}

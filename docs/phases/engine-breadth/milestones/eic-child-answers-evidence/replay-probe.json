@@ -1,0 +1,1244 @@
+{
+ "format": "full-surface-replay.v1",
+ "cores": [
+  {
+   "version": "v100",
+   "registry": "v98",
+   "release_version": "v98",
+   "loader_from": null,
+   "presence_pairs": [],
+   "package_sha256": "e45be7f2ff2a83d847ebea5995ab25da1a4c0b155eeecd411216ce6f740c97da",
+   "release_sha256": "049c93d6267940a90d93597b6705d68a74780a015c1aa9e5da02787429b38f6a"
+  },
+  {
+   "version": "v101",
+   "registry": "v99",
+   "release_version": "v99",
+   "loader_from": "v100",
+   "presence_pairs": [],
+   "package_sha256": "39896ef68888cdce0ba814cbd588f10f2607cec653b2508be189291b06754663",
+   "release_sha256": "b82f1489decb1e4034bb0b3a5fea1fbc5c30fd9f4e7ec250bea6dcff146386b2"
+  }
+ ],
+ "lists": 38,
+ "classes": {
+  "expected_changes": 8,
+  "unexpected": 30
+ },
+ "passing": 8,
+ "failing": 30,
+ "unexpected_differences": 58395,
+ "unexpected_by_kind_attribute": {
+  "graph|removed|edges@order": {
+   "lists": 19,
+   "samples": [
+    {
+     "list": "probe/single/kid1/30000/res@1",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.ctc.form1040-line28~a96cf44b62=finding~tax.us.2025.ctc.form1040-line28~a96cf44b62",
+     "attribute": "edges@order",
+     "before": [
+      "reference:tax.us.2025.package.core-calculations",
+      "reference:tax.us.2025.citation.schedule8812.part-ii-a",
+      "reference:tax.us.2025.rule.ctc-sch8812-line-27"
+     ],
+     "after": null
+    },
+    {
+     "list": "probe/single/kid2/30000/-",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.eic.questions-required~067ca44904=finding~tax.us.2025.eic.questions-required~067ca44904",
+     "attribute": "edges@order",
+     "before": [
+      "reference:tax.us.2025.package.core-calculations",
+      "reference:tax.us.2025.citation.form1040.line-27-31",
+      "reference:tax.us.2025.rule.eic-questions-required",
+      "reference:tax.us.2025.parameter.eic-2025"
+     ],
+     "after": null
+    },
+    {
+     "list": "probe/single/kid1/30000/age@1",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.ctc.form1040-line28~a96cf44b62=finding~tax.us.2025.ctc.form1040-line28~a96cf44b62",
+     "attribute": "edges@order",
+     "before": [
+      "reference:tax.us.2025.package.core-calculations",
+      "reference:tax.us.2025.citation.schedule8812.part-ii-a",
+      "reference:tax.us.2025.rule.ctc-sch8812-line-27"
+     ],
+     "after": null
+    }
+   ]
+  },
+  "graph|removed|id": {
+   "lists": 18,
+   "samples": [
+    {
+     "list": "probe/single/kid1/30000/res@1",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.ctc.form1040-line28~a96cf44b62=finding~tax.us.2025.ctc.form1040-line28~a96cf44b62/edges[reference:tax.us.2025.package.core-calculations]/pin=tax.us.2025.package.core-calculations",
+     "attribute": "id",
+     "before": "tax.us.2025.package.core-calculations",
+     "after": null
+    },
+    {
+     "list": "probe/single/kid1/30000/res@1",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.ctc.form1040-line28~a96cf44b62=finding~tax.us.2025.ctc.form1040-line28~a96cf44b62/edges[reference:tax.us.2025.citation.schedule8812.part-ii-a]/pin=tax.us.2025.citation.schedule8812.part-ii-a",
+     "attribute": "id",
+     "before": "tax.us.2025.citation.schedule8812.part-ii-a",
+     "after": null
+    },
+    {
+     "list": "probe/single/kid1/30000/res@1",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.ctc.form1040-line28~a96cf44b62=finding~tax.us.2025.ctc.form1040-line28~a96cf44b62/edges[reference:tax.us.2025.rule.ctc-sch8812-line-27]/pin=tax.us.2025.rule.ctc-sch8812-line-27",
+     "attribute": "id",
+     "before": "tax.us.2025.rule.ctc-sch8812-line-27",
+     "after": null
+    }
+   ]
+  },
+  "graph|removed|kind": {
+   "lists": 2,
+   "samples": [
+    {
+     "list": "probe/single/kid1/30000/-",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.ctc.form1040-line28~a96cf44b62=finding~tax.us.2025.ctc.form1040-line28~a96cf44b62",
+     "attribute": "kind",
+     "before": "derived",
+     "after": null
+    },
+    {
+     "list": "probe/single/odckid/30000/-",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.ctc.form1040-line28~9cfaf385f2=finding~tax.us.2025.ctc.form1040-line28~9cfaf385f2",
+     "attribute": "kind",
+     "before": "derived",
+     "after": null
+    }
+   ]
+  },
+  "graph|removed|origin": {
+   "lists": 18,
+   "samples": [
+    {
+     "list": "probe/single/kid1/30000/res@1",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.ctc.form1040-line28~a96cf44b62=finding~tax.us.2025.ctc.form1040-line28~a96cf44b62/edges[derived:finding~tax.us.2025.ctc.sch8812.line-17~d012cd8622]/pin=finding~tax.us.2025.ctc.sch8812.line-17~d012cd8622",
+     "attribute": "origin",
+     "before": "declared_default",
+     "after": null
+    },
+    {
+     "list": "probe/single/kid1/30000/res@1",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.ctc.form1040-line28~a96cf44b62=finding~tax.us.2025.ctc.form1040-line28~a96cf44b62/edges[derived:finding~tax.us.2025.ctc.sch8812.part-ii-b-needed~c75c11abde]/pin=finding~tax.us.2025.ctc.sch8812.part-ii-b-needed~c75c11abde",
+     "attribute": "origin",
+     "before": "assertion",
+     "after": null
+    },
+    {
+     "list": "probe/single/kid1/30000/res@1",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.ctc.form1040-line28~a96cf44b62=finding~tax.us.2025.ctc.form1040-line28~a96cf44b62/edges[derived:finding~tax.us.2025.ctc.sch8812.line-20~0ce1a89f9d]/pin=finding~tax.us.2025.ctc.sch8812.line-20~0ce1a89f9d",
+     "attribute": "origin",
+     "before": "assertion",
+     "after": null
+    }
+   ]
+  },
+  "graph|removed|role": {
+   "lists": 18,
+   "samples": [
+    {
+     "list": "probe/single/kid1/30000/res@1",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.ctc.form1040-line28~a96cf44b62=finding~tax.us.2025.ctc.form1040-line28~a96cf44b62/edges[reference:tax.us.2025.package.core-calculations]/pin=tax.us.2025.package.core-calculations",
+     "attribute": "role",
+     "before": "adoption",
+     "after": null
+    },
+    {
+     "list": "probe/single/kid1/30000/res@1",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.ctc.form1040-line28~a96cf44b62=finding~tax.us.2025.ctc.form1040-line28~a96cf44b62/edges[reference:tax.us.2025.citation.schedule8812.part-ii-a]/pin=tax.us.2025.citation.schedule8812.part-ii-a",
+     "attribute": "role",
+     "before": "citation",
+     "after": null
+    },
+    {
+     "list": "probe/single/kid1/30000/res@1",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.ctc.form1040-line28~a96cf44b62=finding~tax.us.2025.ctc.form1040-line28~a96cf44b62/edges[reference:tax.us.2025.rule.ctc-sch8812-line-27]/pin=tax.us.2025.rule.ctc-sch8812-line-27",
+     "attribute": "role",
+     "before": "computation",
+     "after": null
+    }
+   ]
+  },
+  "graph|removed|symbol": {
+   "lists": 2,
+   "samples": [
+    {
+     "list": "probe/single/kid1/30000/-",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.ctc.form1040-line28~a96cf44b62=finding~tax.us.2025.ctc.form1040-line28~a96cf44b62",
+     "attribute": "symbol",
+     "before": "tax.us.2025.ctc.form1040-line28",
+     "after": null
+    },
+    {
+     "list": "probe/single/odckid/30000/-",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.ctc.form1040-line28~9cfaf385f2=finding~tax.us.2025.ctc.form1040-line28~9cfaf385f2",
+     "attribute": "symbol",
+     "before": "tax.us.2025.ctc.form1040-line28",
+     "after": null
+    }
+   ]
+  },
+  "graph|removed|target": {
+   "lists": 18,
+   "samples": [
+    {
+     "list": "probe/single/kid1/30000/res@1",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.ctc.form1040-line28~a96cf44b62=finding~tax.us.2025.ctc.form1040-line28~a96cf44b62/edges[reference:tax.us.2025.package.core-calculations]",
+     "attribute": "target",
+     "before": "reference:tax.us.2025.package.core-calculations",
+     "after": null
+    },
+    {
+     "list": "probe/single/kid1/30000/res@1",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.ctc.form1040-line28~a96cf44b62=finding~tax.us.2025.ctc.form1040-line28~a96cf44b62/edges[reference:tax.us.2025.citation.schedule8812.part-ii-a]",
+     "attribute": "target",
+     "before": "reference:tax.us.2025.citation.schedule8812.part-ii-a",
+     "after": null
+    },
+    {
+     "list": "probe/single/kid1/30000/res@1",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.ctc.form1040-line28~a96cf44b62=finding~tax.us.2025.ctc.form1040-line28~a96cf44b62/edges[reference:tax.us.2025.rule.ctc-sch8812-line-27]",
+     "attribute": "target",
+     "before": "reference:tax.us.2025.rule.ctc-sch8812-line-27",
+     "after": null
+    }
+   ]
+  },
+  "graph|removed|value": {
+   "lists": 2,
+   "samples": [
+    {
+     "list": "probe/single/kid1/30000/-",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.ctc.form1040-line28~a96cf44b62=finding~tax.us.2025.ctc.form1040-line28~a96cf44b62",
+     "attribute": "value",
+     "before": "725",
+     "after": null
+    },
+    {
+     "list": "probe/single/odckid/30000/-",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.ctc.form1040-line28~9cfaf385f2=finding~tax.us.2025.ctc.form1040-line28~9cfaf385f2",
+     "attribute": "value",
+     "before": "0",
+     "after": null
+    }
+   ]
+  },
+  "graph|removed|version": {
+   "lists": 18,
+   "samples": [
+    {
+     "list": "probe/single/kid1/30000/res@1",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.ctc.form1040-line28~a96cf44b62=finding~tax.us.2025.ctc.form1040-line28~a96cf44b62/edges[reference:tax.us.2025.package.core-calculations]/pin=tax.us.2025.package.core-calculations",
+     "attribute": "version",
+     "before": "v100",
+     "after": null
+    },
+    {
+     "list": "probe/single/kid1/30000/res@1",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.ctc.form1040-line28~a96cf44b62=finding~tax.us.2025.ctc.form1040-line28~a96cf44b62/edges[reference:tax.us.2025.citation.schedule8812.part-ii-a]/pin=tax.us.2025.citation.schedule8812.part-ii-a",
+     "attribute": "version",
+     "before": "v1",
+     "after": null
+    },
+    {
+     "list": "probe/single/kid1/30000/res@1",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.ctc.form1040-line28~a96cf44b62=finding~tax.us.2025.ctc.form1040-line28~a96cf44b62/edges[reference:tax.us.2025.rule.ctc-sch8812-line-27]/pin=tax.us.2025.rule.ctc-sch8812-line-27",
+     "attribute": "version",
+     "before": "v1",
+     "after": null
+    }
+   ]
+  },
+  "model|added|id": {
+   "lists": 11,
+   "samples": [
+    {
+     "list": "probe/single/kid1/30000/dtb-filer-parent@1",
+     "change": "added",
+     "kind": "model",
+     "identity": "dispositionNodes.tax.us.2025.ctc.child-count.records[tax.us.2025.rule.ctc-child-count]/pins[demo.claim.demo-eicc-child-1|input]",
+     "attribute": "id",
+     "before": null,
+     "after": "demo.claim.demo-eicc-child-1"
+    },
+    {
+     "list": "probe/single/kid1/30000/dtb-filer-parent@1",
+     "change": "added",
+     "kind": "model",
+     "identity": "dispositionNodes.tax.us.2025.ctc.child-count.records[tax.us.2025.rule.ctc-child-count]/pins[finding~row~tax.us.2025.rule.ctc-child.ssn-met~tax.us.2025.ctc.child.ssn-met|tax.us.2025.eic.child.ssn|child=demo-eicc-child-1,tax-year=2025|input]",
+     "attribute": "id",
+     "before": null,
+     "after": "finding~row~tax.us.2025.rule.ctc-child.ssn-met~tax.us.2025.ctc.child.ssn-met|tax.us.2025.eic.child.ssn|child=demo-eicc-child-1,tax-year=2025"
+    },
+    {
+     "list": "probe/single/kid1/30000/dtb-filer-parent@1",
+     "change": "added",
+     "kind": "model",
+     "identity": "dispositionNodes.tax.us.2025.ctc.child-count.records[tax.us.2025.rule.ctc-child-count]/pins[finding~row~tax.us.2025.rule.ctc-child.no-support-met~tax.us.2025.ctc.child.no-support-met|tax.us.2025.ctc.child.no-over-half-support|child=demo-eicc-child-1,tax-year=2025|input]",
+     "attribute": "id",
+     "before": null,
+     "after": "finding~row~tax.us.2025.rule.ctc-child.no-support-met~tax.us.2025.ctc.child.no-support-met|tax.us.2025.ctc.child.no-over-half-support|child=demo-eicc-child-1,tax-year=2025"
+    }
+   ]
+  },
+  "model|added|origin": {
+   "lists": 11,
+   "samples": [
+    {
+     "list": "probe/single/kid1/30000/dtb-filer-parent@1",
+     "change": "added",
+     "kind": "model",
+     "identity": "dispositionNodes.tax.us.2025.ctc.child-count.records[tax.us.2025.rule.ctc-child-count]/pins[demo.claim.demo-eicc-child-1|input]",
+     "attribute": "origin",
+     "before": null,
+     "after": "assertion"
+    },
+    {
+     "list": "probe/single/kid1/30000/dtb-filer-parent@1",
+     "change": "added",
+     "kind": "model",
+     "identity": "dispositionNodes.tax.us.2025.ctc.child-count.records[tax.us.2025.rule.ctc-child-count]/pins[finding~row~tax.us.2025.rule.ctc-child.ssn-met~tax.us.2025.ctc.child.ssn-met|tax.us.2025.eic.child.ssn|child=demo-eicc-child-1,tax-year=2025|input]",
+     "attribute": "origin",
+     "before": null,
+     "after": "derived"
+    },
+    {
+     "list": "probe/single/kid1/30000/dtb-filer-parent@1",
+     "change": "added",
+     "kind": "model",
+     "identity": "dispositionNodes.tax.us.2025.ctc.child-count.records[tax.us.2025.rule.ctc-child-count]/pins[finding~row~tax.us.2025.rule.ctc-child.no-support-met~tax.us.2025.ctc.child.no-support-met|tax.us.2025.ctc.child.no-over-half-support|child=demo-eicc-child-1,tax-year=2025|input]",
+     "attribute": "origin",
+     "before": null,
+     "after": "derived"
+    }
+   ]
+  },
+  "model|added|role": {
+   "lists": 11,
+   "samples": [
+    {
+     "list": "probe/single/kid1/30000/dtb-filer-parent@1",
+     "change": "added",
+     "kind": "model",
+     "identity": "dispositionNodes.tax.us.2025.ctc.child-count.records[tax.us.2025.rule.ctc-child-count]/pins[demo.claim.demo-eicc-child-1|input]",
+     "attribute": "role",
+     "before": null,
+     "after": "input"
+    },
+    {
+     "list": "probe/single/kid1/30000/dtb-filer-parent@1",
+     "change": "added",
+     "kind": "model",
+     "identity": "dispositionNodes.tax.us.2025.ctc.child-count.records[tax.us.2025.rule.ctc-child-count]/pins[finding~row~tax.us.2025.rule.ctc-child.ssn-met~tax.us.2025.ctc.child.ssn-met|tax.us.2025.eic.child.ssn|child=demo-eicc-child-1,tax-year=2025|input]",
+     "attribute": "role",
+     "before": null,
+     "after": "input"
+    },
+    {
+     "list": "probe/single/kid1/30000/dtb-filer-parent@1",
+     "change": "added",
+     "kind": "model",
+     "identity": "dispositionNodes.tax.us.2025.ctc.child-count.records[tax.us.2025.rule.ctc-child-count]/pins[finding~row~tax.us.2025.rule.ctc-child.no-support-met~tax.us.2025.ctc.child.no-support-met|tax.us.2025.ctc.child.no-over-half-support|child=demo-eicc-child-1,tax-year=2025|input]",
+     "attribute": "role",
+     "before": null,
+     "after": "input"
+    }
+   ]
+  },
+  "model|added|version": {
+   "lists": 11,
+   "samples": [
+    {
+     "list": "probe/single/kid1/30000/dtb-filer-parent@1",
+     "change": "added",
+     "kind": "model",
+     "identity": "dispositionNodes.tax.us.2025.ctc.child-count.records[tax.us.2025.rule.ctc-child-count]/pins[demo.claim.demo-eicc-child-1|input]",
+     "attribute": "version",
+     "before": null,
+     "after": "v1"
+    },
+    {
+     "list": "probe/single/kid1/30000/dtb-filer-parent@1",
+     "change": "added",
+     "kind": "model",
+     "identity": "dispositionNodes.tax.us.2025.ctc.child-count.records[tax.us.2025.rule.ctc-child-count]/pins[finding~row~tax.us.2025.rule.ctc-child.ssn-met~tax.us.2025.ctc.child.ssn-met|tax.us.2025.eic.child.ssn|child=demo-eicc-child-1,tax-year=2025|input]",
+     "attribute": "version",
+     "before": null,
+     "after": "v2"
+    },
+    {
+     "list": "probe/single/kid1/30000/dtb-filer-parent@1",
+     "change": "added",
+     "kind": "model",
+     "identity": "dispositionNodes.tax.us.2025.ctc.child-count.records[tax.us.2025.rule.ctc-child-count]/pins[finding~row~tax.us.2025.rule.ctc-child.no-support-met~tax.us.2025.ctc.child.no-support-met|tax.us.2025.ctc.child.no-over-half-support|child=demo-eicc-child-1,tax-year=2025|input]",
+     "attribute": "version",
+     "before": null,
+     "after": "v2"
+    }
+   ]
+  },
+  "model|changed|act_id": {
+   "lists": 16,
+   "samples": [
+    {
+     "list": "probe/single/kid1/30000/res@1",
+     "change": "changed",
+     "kind": "model",
+     "identity": "dispositionNodes.tax.us.2025.payments.lines28-31.records[tax.us.2025.rule.form1040-lines28-31|tax.us.2025.payments.lines28-31]",
+     "attribute": "act_id",
+     "before": "act~finding~tax.us.2025.payments.lines28-31~f8b9037544",
+     "after": "act~finding~tax.us.2025.payments.lines28-31~2b239c3748"
+    },
+    {
+     "list": "probe/single/kid1/30000/res@1",
+     "change": "changed",
+     "kind": "model",
+     "identity": "dispositionNodes.tax.us.2025.tax.line24-total-tax.records[tax.us.2025.rule.form1040-line24|tax.us.2025.tax.line24-total-tax]",
+     "attribute": "act_id",
+     "before": "act~finding~tax.us.2025.tax.line24-total-tax~23108412b5",
+     "after": "act~finding~tax.us.2025.tax.line24-total-tax~f64add174a"
+    },
+    {
+     "list": "probe/single/kid1/30000/age@1",
+     "change": "changed",
+     "kind": "model",
+     "identity": "dispositionNodes.tax.us.2025.payments.lines28-31.records[tax.us.2025.rule.form1040-lines28-31|tax.us.2025.payments.lines28-31]",
+     "attribute": "act_id",
+     "before": "act~finding~tax.us.2025.payments.lines28-31~f8b9037544",
+     "after": "act~finding~tax.us.2025.payments.lines28-31~2b239c3748"
+    }
+   ]
+  },
+  "model|changed|dispositionNodes.tax.us.N.ctc.child-count.findingRoot": {
+   "lists": 1,
+   "samples": [
+    {
+     "list": "probe/single/odckid/30000/odc-tin@1",
+     "change": "changed",
+     "kind": "model",
+     "identity": "",
+     "attribute": "dispositionNodes.tax.us.2025.ctc.child-count.findingRoot",
+     "before": "derived:finding~tax.us.2025.ctc.child-count~b2e16c0bc7",
+     "after": "derived:finding~tax.us.2025.ctc.child-count~ecc0b5d1f0"
+    }
+   ]
+  },
+  "model|changed|dispositionNodes.tax.us.N.ctc.filer-gate.findingRoot": {
+   "lists": 1,
+   "samples": [
+    {
+     "list": "probe/single/odckid/30000/odc-tin@1",
+     "change": "changed",
+     "kind": "model",
+     "identity": "",
+     "attribute": "dispositionNodes.tax.us.2025.ctc.filer-gate.findingRoot",
+     "before": "derived:finding~tax.us.2025.ctc.filer-gate~0ca80f1e87",
+     "after": "derived:finding~tax.us.2025.ctc.filer-gate~6ca8b54411"
+    }
+   ]
+  },
+  "model|changed|dispositionNodes.tax.us.N.ctc.schN.line-N.findingRoot": {
+   "lists": 1,
+   "samples": [
+    {
+     "list": "probe/single/odckid/30000/odc-tin@1",
+     "change": "changed",
+     "kind": "model",
+     "identity": "",
+     "attribute": "dispositionNodes.tax.us.2025.ctc.sch8812.line-5.findingRoot",
+     "before": "derived:finding~tax.us.2025.ctc.sch8812.line-5~a7c8f5d8c5",
+     "after": "derived:finding~tax.us.2025.ctc.sch8812.line-5~ebcf82a44a"
+    }
+   ]
+  },
+  "model|changed|dispositionNodes.tax.us.N.ctc.schN.line-Nb.findingRoot": {
+   "lists": 1,
+   "samples": [
+    {
+     "list": "probe/single/odckid/30000/odc-tin@1",
+     "change": "changed",
+     "kind": "model",
+     "identity": "",
+     "attribute": "dispositionNodes.tax.us.2025.ctc.sch8812.line-16b.findingRoot",
+     "before": "derived:finding~tax.us.2025.ctc.sch8812.line-16b~7dc1edec39",
+     "after": "derived:finding~tax.us.2025.ctc.sch8812.line-16b~a40702835a"
+    }
+   ]
+  },
+  "model|changed|dispositionNodes.tax.us.N.ctc.spouse-gate.findingRoot": {
+   "lists": 1,
+   "samples": [
+    {
+     "list": "probe/single/odckid/30000/odc-tin@1",
+     "change": "changed",
+     "kind": "model",
+     "identity": "",
+     "attribute": "dispositionNodes.tax.us.2025.ctc.spouse-gate.findingRoot",
+     "before": "derived:finding~tax.us.2025.ctc.spouse-gate~abcc7bf0cc",
+     "after": "derived:finding~tax.us.2025.ctc.spouse-gate~e014ea8347"
+    }
+   ]
+  },
+  "model|changed|dispositionNodes.tax.us.N.eic.column.phaseout-threshold.findingRoot": {
+   "lists": 1,
+   "samples": [
+    {
+     "list": "probe/mfj/kid1/30000/-",
+     "change": "changed",
+     "kind": "model",
+     "identity": "",
+     "attribute": "dispositionNodes.tax.us.2025.eic.column.phaseout-threshold.findingRoot",
+     "before": "derived:finding~tax.us.2025.eic.column.phaseout-threshold~43df4052b4",
+     "after": "derived:finding~tax.us.2025.eic.column.phaseout-threshold~a6d7bda56f"
+    }
+   ]
+  },
+  "model|changed|dispositionNodes.tax.us.N.eic.table-key.findingRoot": {
+   "lists": 1,
+   "samples": [
+    {
+     "list": "probe/mfj/kid1/30000/-",
+     "change": "changed",
+     "kind": "model",
+     "identity": "",
+     "attribute": "dispositionNodes.tax.us.2025.eic.table-key.findingRoot",
+     "before": "derived:finding~tax.us.2025.eic.table-key~474bbaae48",
+     "after": "derived:finding~tax.us.2025.eic.table-key~86ee7d4f86"
+    }
+   ]
+  },
+  "model|changed|dispositionNodes.tax.us.N.payments.lineNa.findingRoot": {
+   "lists": 10,
+   "samples": [
+    {
+     "list": "probe/single/kid1/30000/u17@1",
+     "change": "changed",
+     "kind": "model",
+     "identity": "",
+     "attribute": "dispositionNodes.tax.us.2025.payments.line27a.findingRoot",
+     "before": "derived:finding~tax.us.2025.payments.line27a~de4590cd1f",
+     "after": "derived:finding~tax.us.2025.payments.line27a~c158e62ee7"
+    },
+    {
+     "list": "probe/single/kid1/30000/lived@1",
+     "change": "changed",
+     "kind": "model",
+     "identity": "",
+     "attribute": "dispositionNodes.tax.us.2025.payments.line27a.findingRoot",
+     "before": "derived:finding~tax.us.2025.payments.line27a~de4590cd1f",
+     "after": "derived:finding~tax.us.2025.payments.line27a~c158e62ee7"
+    },
+    {
+     "list": "probe/single/kid1/30000/support@1",
+     "change": "changed",
+     "kind": "model",
+     "identity": "",
+     "attribute": "dispositionNodes.tax.us.2025.payments.line27a.findingRoot",
+     "before": "derived:finding~tax.us.2025.payments.line27a~de4590cd1f",
+     "after": "derived:finding~tax.us.2025.payments.line27a~c158e62ee7"
+    }
+   ]
+  },
+  "model|changed|dispositionNodes.tax.us.N.payments.linesN-N.findingRoot": {
+   "lists": 5,
+   "samples": [
+    {
+     "list": "probe/single/kid1/30000/res@1",
+     "change": "changed",
+     "kind": "model",
+     "identity": "",
+     "attribute": "dispositionNodes.tax.us.2025.payments.lines28-31.findingRoot",
+     "before": "derived:finding~tax.us.2025.payments.lines28-31~f8b9037544",
+     "after": "derived:finding~tax.us.2025.payments.lines28-31~2b239c3748"
+    },
+    {
+     "list": "probe/single/kid1/30000/age@1",
+     "change": "changed",
+     "kind": "model",
+     "identity": "",
+     "attribute": "dispositionNodes.tax.us.2025.payments.lines28-31.findingRoot",
+     "before": "derived:finding~tax.us.2025.payments.lines28-31~f8b9037544",
+     "after": "derived:finding~tax.us.2025.payments.lines28-31~2b239c3748"
+    },
+    {
+     "list": "probe/single/kid2/30000/res@2",
+     "change": "changed",
+     "kind": "model",
+     "identity": "",
+     "attribute": "dispositionNodes.tax.us.2025.payments.lines28-31.findingRoot",
+     "before": "derived:finding~tax.us.2025.payments.lines28-31~38264bbac8",
+     "after": "derived:finding~tax.us.2025.payments.lines28-31~fe0bec61ea"
+    }
+   ]
+  },
+  "model|changed|dispositionNodes.tax.us.N.tax.lineN-total-tax.findingRoot": {
+   "lists": 5,
+   "samples": [
+    {
+     "list": "probe/single/kid1/30000/res@1",
+     "change": "changed",
+     "kind": "model",
+     "identity": "",
+     "attribute": "dispositionNodes.tax.us.2025.tax.line24-total-tax.findingRoot",
+     "before": "derived:finding~tax.us.2025.tax.line24-total-tax~23108412b5",
+     "after": "derived:finding~tax.us.2025.tax.line24-total-tax~f64add174a"
+    },
+    {
+     "list": "probe/single/kid1/30000/age@1",
+     "change": "changed",
+     "kind": "model",
+     "identity": "",
+     "attribute": "dispositionNodes.tax.us.2025.tax.line24-total-tax.findingRoot",
+     "before": "derived:finding~tax.us.2025.tax.line24-total-tax~23108412b5",
+     "after": "derived:finding~tax.us.2025.tax.line24-total-tax~f64add174a"
+    },
+    {
+     "list": "probe/single/kid2/30000/res@2",
+     "change": "changed",
+     "kind": "model",
+     "identity": "",
+     "attribute": "dispositionNodes.tax.us.2025.tax.line24-total-tax.findingRoot",
+     "before": "derived:finding~tax.us.2025.tax.line24-total-tax~f86f444c99",
+     "after": "derived:finding~tax.us.2025.tax.line24-total-tax~6e668c3df0"
+    }
+   ]
+  },
+  "model|changed|finding_id": {
+   "lists": 16,
+   "samples": [
+    {
+     "list": "probe/single/kid1/30000/res@1",
+     "change": "changed",
+     "kind": "model",
+     "identity": "dispositionNodes.tax.us.2025.payments.lines28-31.records[tax.us.2025.rule.form1040-lines28-31|tax.us.2025.payments.lines28-31]",
+     "attribute": "finding_id",
+     "before": "finding~tax.us.2025.payments.lines28-31~f8b9037544",
+     "after": "finding~tax.us.2025.payments.lines28-31~2b239c3748"
+    },
+    {
+     "list": "probe/single/kid1/30000/res@1",
+     "change": "changed",
+     "kind": "model",
+     "identity": "dispositionNodes.tax.us.2025.tax.line24-total-tax.records[tax.us.2025.rule.form1040-line24|tax.us.2025.tax.line24-total-tax]",
+     "attribute": "finding_id",
+     "before": "finding~tax.us.2025.tax.line24-total-tax~23108412b5",
+     "after": "finding~tax.us.2025.tax.line24-total-tax~f64add174a"
+    },
+    {
+     "list": "probe/single/kid1/30000/age@1",
+     "change": "changed",
+     "kind": "model",
+     "identity": "dispositionNodes.tax.us.2025.payments.lines28-31.records[tax.us.2025.rule.form1040-lines28-31|tax.us.2025.payments.lines28-31]",
+     "attribute": "finding_id",
+     "before": "finding~tax.us.2025.payments.lines28-31~f8b9037544",
+     "after": "finding~tax.us.2025.payments.lines28-31~2b239c3748"
+    }
+   ]
+  },
+  "model|changed|pins@order": {
+   "lists": 26,
+   "samples": [
+    {
+     "list": "probe/single/kid1/30000/dtb-filer-parent@1",
+     "change": "changed",
+     "kind": "model",
+     "identity": "dispositionNodes.tax.us.2025.ctc.child-count.records[tax.us.2025.rule.ctc-child-count]",
+     "attribute": "pins@order",
+     "before": [
+      "tax.us.2025.package.core-calculations|adoption",
+      "tax.us.2025.citation.schedule8812.part-i|citation",
+      "demo.ctc.closure|input",
+      "tax.us.2025.closure-mapping.ctc-child-roster|package",
+      "tax.us.2025.ctc.child-roster|package"
+     ],
+     "after": [
+      "tax.us.2025.package.core-calculations|adoption",
+      "tax.us.2025.citation.schedule8812.part-i|citation",
+      "demo.claim.demo-eicc-child-1|input",
+      "demo.ctc.closure|input",
+      "tax.us.2025.closure-mapping.ctc-child-roster|package",
+      "tax.us.2025.ctc.child-roster|package"
+     ]
+    },
+    {
+     "list": "probe/single/kid1/30000/dtb-filer-parent@1",
+     "change": "changed",
+     "kind": "model",
+     "identity": "dispositionNodes.tax.us.2025.eic.qualifying-child-count.records[tax.us.2025.rule.eic-qualifying-child-count]",
+     "attribute": "pins@order",
+     "before": [
+      "tax.us.2025.package.core-calculations|adoption",
+      "tax.us.2025.citation.form1040.line-27-31|citation",
+      "demo.eic.closure|input",
+      "tax.us.2025.closure-mapping.eic-child-roster|package",
+      "tax.us.2025.eic.child-roster|package"
+     ],
+     "after": [
+      "tax.us.2025.package.core-calculations|adoption",
+      "tax.us.2025.citation.form1040.line-27-31|citation",
+      "demo.eic.closure|input",
+      "demo.eic.rel.demo-eicc-child-1|input",
+      "tax.us.2025.closure-mapping.eic-child-roster|package",
+      "tax.us.2025.eic.child-roster|package"
+     ]
+    },
+    {
+     "list": "probe/single/kid1/30000/ssn@1",
+     "change": "changed",
+     "kind": "model",
+     "identity": "dispositionNodes.tax.us.2025.ctc.child-count.records[tax.us.2025.rule.ctc-child-count]",
+     "attribute": "pins@order",
+     "before": [
+      "tax.us.2025.package.core-calculations|adoption",
+      "tax.us.2025.citation.schedule8812.part-i|citation",
+      "demo.ctc.closure|input",
+      "tax.us.2025.closure-mapping.ctc-child-roster|package",
+      "tax.us.2025.ctc.child-roster|package"
+     ],
+     "after": [
+      "tax.us.2025.package.core-calculations|adoption",
+      "tax.us.2025.citation.schedule8812.part-i|citation",
+      "demo.claim.demo-eicc-child-1|input",
+      "demo.ctc.closure|input",
+      "tax.us.2025.closure-mapping.ctc-child-roster|package",
+      "tax.us.2025.ctc.child-roster|package"
+     ]
+    }
+   ]
+  },
+  "model|removed|id": {
+   "lists": 16,
+   "samples": [
+    {
+     "list": "probe/single/kid1/30000/res@1",
+     "change": "removed",
+     "kind": "model",
+     "identity": "dispositionNodes.tax.us.2025.payments.lines28-31.records[tax.us.2025.rule.form1040-lines28-31|tax.us.2025.payments.lines28-31]/pins[finding~tax.us.2025.ctc.form1040-line28~a96cf44b62|input]",
+     "attribute": "id",
+     "before": "finding~tax.us.2025.ctc.form1040-line28~a96cf44b62",
+     "after": null
+    },
+    {
+     "list": "probe/single/kid1/30000/res@1",
+     "change": "removed",
+     "kind": "model",
+     "identity": "dispositionNodes.tax.us.2025.tax.line24-total-tax.records[tax.us.2025.rule.form1040-line24|tax.us.2025.tax.line24-total-tax]/pins[finding~tax.us.2025.tax.after-nonrefundable-credits~056ca4ec65|input]",
+     "attribute": "id",
+     "before": "finding~tax.us.2025.tax.after-nonrefundable-credits~056ca4ec65",
+     "after": null
+    },
+    {
+     "list": "probe/single/kid1/30000/age@1",
+     "change": "removed",
+     "kind": "model",
+     "identity": "dispositionNodes.tax.us.2025.payments.lines28-31.records[tax.us.2025.rule.form1040-lines28-31|tax.us.2025.payments.lines28-31]/pins[finding~tax.us.2025.ctc.form1040-line28~a96cf44b62|input]",
+     "attribute": "id",
+     "before": "finding~tax.us.2025.ctc.form1040-line28~a96cf44b62",
+     "after": null
+    }
+   ]
+  },
+  "model|removed|origin": {
+   "lists": 16,
+   "samples": [
+    {
+     "list": "probe/single/kid1/30000/res@1",
+     "change": "removed",
+     "kind": "model",
+     "identity": "dispositionNodes.tax.us.2025.payments.lines28-31.records[tax.us.2025.rule.form1040-lines28-31|tax.us.2025.payments.lines28-31]/pins[finding~tax.us.2025.ctc.form1040-line28~a96cf44b62|input]",
+     "attribute": "origin",
+     "before": "declared_default",
+     "after": null
+    },
+    {
+     "list": "probe/single/kid1/30000/res@1",
+     "change": "removed",
+     "kind": "model",
+     "identity": "dispositionNodes.tax.us.2025.tax.line24-total-tax.records[tax.us.2025.rule.form1040-line24|tax.us.2025.tax.line24-total-tax]/pins[finding~tax.us.2025.tax.after-nonrefundable-credits~056ca4ec65|input]",
+     "attribute": "origin",
+     "before": "declared_default",
+     "after": null
+    },
+    {
+     "list": "probe/single/kid1/30000/age@1",
+     "change": "removed",
+     "kind": "model",
+     "identity": "dispositionNodes.tax.us.2025.payments.lines28-31.records[tax.us.2025.rule.form1040-lines28-31|tax.us.2025.payments.lines28-31]/pins[finding~tax.us.2025.ctc.form1040-line28~a96cf44b62|input]",
+     "attribute": "origin",
+     "before": "declared_default",
+     "after": null
+    }
+   ]
+  },
+  "model|removed|role": {
+   "lists": 16,
+   "samples": [
+    {
+     "list": "probe/single/kid1/30000/res@1",
+     "change": "removed",
+     "kind": "model",
+     "identity": "dispositionNodes.tax.us.2025.payments.lines28-31.records[tax.us.2025.rule.form1040-lines28-31|tax.us.2025.payments.lines28-31]/pins[finding~tax.us.2025.ctc.form1040-line28~a96cf44b62|input]",
+     "attribute": "role",
+     "before": "input",
+     "after": null
+    },
+    {
+     "list": "probe/single/kid1/30000/res@1",
+     "change": "removed",
+     "kind": "model",
+     "identity": "dispositionNodes.tax.us.2025.tax.line24-total-tax.records[tax.us.2025.rule.form1040-line24|tax.us.2025.tax.line24-total-tax]/pins[finding~tax.us.2025.tax.after-nonrefundable-credits~056ca4ec65|input]",
+     "attribute": "role",
+     "before": "input",
+     "after": null
+    },
+    {
+     "list": "probe/single/kid1/30000/age@1",
+     "change": "removed",
+     "kind": "model",
+     "identity": "dispositionNodes.tax.us.2025.payments.lines28-31.records[tax.us.2025.rule.form1040-lines28-31|tax.us.2025.payments.lines28-31]/pins[finding~tax.us.2025.ctc.form1040-line28~a96cf44b62|input]",
+     "attribute": "role",
+     "before": "input",
+     "after": null
+    }
+   ]
+  },
+  "model|removed|version": {
+   "lists": 16,
+   "samples": [
+    {
+     "list": "probe/single/kid1/30000/res@1",
+     "change": "removed",
+     "kind": "model",
+     "identity": "dispositionNodes.tax.us.2025.payments.lines28-31.records[tax.us.2025.rule.form1040-lines28-31|tax.us.2025.payments.lines28-31]/pins[finding~tax.us.2025.ctc.form1040-line28~a96cf44b62|input]",
+     "attribute": "version",
+     "before": "v2",
+     "after": null
+    },
+    {
+     "list": "probe/single/kid1/30000/res@1",
+     "change": "removed",
+     "kind": "model",
+     "identity": "dispositionNodes.tax.us.2025.tax.line24-total-tax.records[tax.us.2025.rule.form1040-line24|tax.us.2025.tax.line24-total-tax]/pins[finding~tax.us.2025.tax.after-nonrefundable-credits~056ca4ec65|input]",
+     "attribute": "version",
+     "before": "v2",
+     "after": null
+    },
+    {
+     "list": "probe/single/kid1/30000/age@1",
+     "change": "removed",
+     "kind": "model",
+     "identity": "dispositionNodes.tax.us.2025.payments.lines28-31.records[tax.us.2025.rule.form1040-lines28-31|tax.us.2025.payments.lines28-31]/pins[finding~tax.us.2025.ctc.form1040-line28~a96cf44b62|input]",
+     "attribute": "version",
+     "before": "v2",
+     "after": null
+    }
+   ]
+  },
+  "row|added|id": {
+   "lists": 3,
+   "samples": [
+    {
+     "list": "probe/single/kid1/30000/joint@1",
+     "change": "added",
+     "kind": "row",
+     "identity": "dispositions[tax.us.2025.rule.eic-qualifying-child-count]/pins[demo.eic.rel.demo-eicc-child-1|input]",
+     "attribute": "id",
+     "before": null,
+     "after": "demo.eic.rel.demo-eicc-child-1"
+    },
+    {
+     "list": "probe/mfj/kid1/30000/joint@1",
+     "change": "added",
+     "kind": "row",
+     "identity": "dispositions[tax.us.2025.rule.eic-qualifying-child-count]/pins[demo.eic.rel.demo-eicc-child-1|input]",
+     "attribute": "id",
+     "before": null,
+     "after": "demo.eic.rel.demo-eicc-child-1"
+    },
+    {
+     "list": "probe/single/odckid/30000/joint@1",
+     "change": "added",
+     "kind": "row",
+     "identity": "dispositions[tax.us.2025.rule.eic-qualifying-child-count]/pins[demo.eic.rel.demo-eicc-child-1|input]",
+     "attribute": "id",
+     "before": null,
+     "after": "demo.eic.rel.demo-eicc-child-1"
+    }
+   ]
+  },
+  "row|added|origin": {
+   "lists": 3,
+   "samples": [
+    {
+     "list": "probe/single/kid1/30000/joint@1",
+     "change": "added",
+     "kind": "row",
+     "identity": "dispositions[tax.us.2025.rule.eic-qualifying-child-count]/pins[demo.eic.rel.demo-eicc-child-1|input]",
+     "attribute": "origin",
+     "before": null,
+     "after": "assertion"
+    },
+    {
+     "list": "probe/mfj/kid1/30000/joint@1",
+     "change": "added",
+     "kind": "row",
+     "identity": "dispositions[tax.us.2025.rule.eic-qualifying-child-count]/pins[demo.eic.rel.demo-eicc-child-1|input]",
+     "attribute": "origin",
+     "before": null,
+     "after": "assertion"
+    },
+    {
+     "list": "probe/single/odckid/30000/joint@1",
+     "change": "added",
+     "kind": "row",
+     "identity": "dispositions[tax.us.2025.rule.eic-qualifying-child-count]/pins[demo.eic.rel.demo-eicc-child-1|input]",
+     "attribute": "origin",
+     "before": null,
+     "after": "assertion"
+    }
+   ]
+  },
+  "row|added|role": {
+   "lists": 3,
+   "samples": [
+    {
+     "list": "probe/single/kid1/30000/joint@1",
+     "change": "added",
+     "kind": "row",
+     "identity": "dispositions[tax.us.2025.rule.eic-qualifying-child-count]/pins[demo.eic.rel.demo-eicc-child-1|input]",
+     "attribute": "role",
+     "before": null,
+     "after": "input"
+    },
+    {
+     "list": "probe/mfj/kid1/30000/joint@1",
+     "change": "added",
+     "kind": "row",
+     "identity": "dispositions[tax.us.2025.rule.eic-qualifying-child-count]/pins[demo.eic.rel.demo-eicc-child-1|input]",
+     "attribute": "role",
+     "before": null,
+     "after": "input"
+    },
+    {
+     "list": "probe/single/odckid/30000/joint@1",
+     "change": "added",
+     "kind": "row",
+     "identity": "dispositions[tax.us.2025.rule.eic-qualifying-child-count]/pins[demo.eic.rel.demo-eicc-child-1|input]",
+     "attribute": "role",
+     "before": null,
+     "after": "input"
+    }
+   ]
+  },
+  "row|added|version": {
+   "lists": 3,
+   "samples": [
+    {
+     "list": "probe/single/kid1/30000/joint@1",
+     "change": "added",
+     "kind": "row",
+     "identity": "dispositions[tax.us.2025.rule.eic-qualifying-child-count]/pins[demo.eic.rel.demo-eicc-child-1|input]",
+     "attribute": "version",
+     "before": null,
+     "after": "v1"
+    },
+    {
+     "list": "probe/mfj/kid1/30000/joint@1",
+     "change": "added",
+     "kind": "row",
+     "identity": "dispositions[tax.us.2025.rule.eic-qualifying-child-count]/pins[demo.eic.rel.demo-eicc-child-1|input]",
+     "attribute": "version",
+     "before": null,
+     "after": "v1"
+    },
+    {
+     "list": "probe/single/odckid/30000/joint@1",
+     "change": "added",
+     "kind": "row",
+     "identity": "dispositions[tax.us.2025.rule.eic-qualifying-child-count]/pins[demo.eic.rel.demo-eicc-child-1|input]",
+     "attribute": "version",
+     "before": null,
+     "after": "v1"
+    }
+   ]
+  },
+  "row|changed|pins@order": {
+   "lists": 11,
+   "samples": [
+    {
+     "list": "probe/single/kid1/30000/dtb-filer-parent@1",
+     "change": "changed",
+     "kind": "row",
+     "identity": "dispositions[tax.us.2025.rule.eic-qualifying-child-count]",
+     "attribute": "pins@order",
+     "before": [
+      "tax.us.2025.package.core-calculations|adoption",
+      "tax.us.2025.citation.form1040.line-27-31|citation",
+      "demo.eic.closure|input",
+      "tax.us.2025.closure-mapping.eic-child-roster|package",
+      "tax.us.2025.eic.child-roster|package"
+     ],
+     "after": [
+      "tax.us.2025.package.core-calculations|adoption",
+      "tax.us.2025.citation.form1040.line-27-31|citation",
+      "demo.eic.closure|input",
+      "demo.eic.rel.demo-eicc-child-1|input",
+      "tax.us.2025.closure-mapping.eic-child-roster|package",
+      "tax.us.2025.eic.child-roster|package"
+     ]
+    },
+    {
+     "list": "probe/single/kid1/30000/dtb-filer-parent@1",
+     "change": "changed",
+     "kind": "row",
+     "identity": "dispositions[tax.us.2025.rule.ctc-child-count]",
+     "attribute": "pins@order",
+     "before": [
+      "tax.us.2025.package.core-calculations|adoption",
+      "tax.us.2025.citation.schedule8812.part-i|citation",
+      "demo.ctc.closure|input",
+      "tax.us.2025.closure-mapping.ctc-child-roster|package",
+      "tax.us.2025.ctc.child-roster|package"
+     ],
+     "after": [
+      "tax.us.2025.package.core-calculations|adoption",
+      "tax.us.2025.citation.schedule8812.part-i|citation",
+      "demo.claim.demo-eicc-child-1|input",
+      "demo.ctc.closure|input",
+      "tax.us.2025.closure-mapping.ctc-child-roster|package",
+      "tax.us.2025.ctc.child-roster|package"
+     ]
+    },
+    {
+     "list": "probe/single/kid1/30000/ssn@1",
+     "change": "changed",
+     "kind": "row",
+     "identity": "dispositions[tax.us.2025.rule.eic-qualifying-child-count]",
+     "attribute": "pins@order",
+     "before": [
+      "tax.us.2025.package.core-calculations|adoption",
+      "tax.us.2025.citation.form1040.line-27-31|citation",
+      "demo.eic.closure|input",
+      "tax.us.2025.closure-mapping.eic-child-roster|package",
+      "tax.us.2025.eic.child-roster|package"
+     ],
+     "after": [
+      "tax.us.2025.package.core-calculations|adoption",
+      "tax.us.2025.citation.form1040.line-27-31|citation",
+      "demo.eic.closure|input",
+      "demo.eic.rel.demo-eicc-child-1|input",
+      "tax.us.2025.closure-mapping.eic-child-roster|package",
+      "tax.us.2025.eic.child-roster|package"
+     ]
+    }
+   ]
+  }
+ },
+ "expectations_declared": 14,
+ "expectations_used": 14,
+ "unused_expectations": [],
+ "expectation_lists": {
+  "version:tax.us.2025.package.core-calculations": 38,
+  "version:tax.us.2025.rule.eic-qualifying-child-count": 22,
+  "version:tax.us.2025.rule.ctc-child-count": 18,
+  "question shown:eic.child.age": [
+   "probe/mfj/kid1/30000/age@1",
+   "probe/single/kid1/30000/age@1",
+   "probe/single/kid2/30000/age@2"
+  ],
+  "question shown:eic.child.residency": [
+   "probe/single/kid1/30000/res@1",
+   "probe/single/kid2/30000/res@2"
+  ],
+  "question shown:eic.child.joint-return": [
+   "probe/mfj/kid1/30000/joint@1",
+   "probe/single/kid1/30000/joint@1",
+   "probe/single/kid2/30000/joint@2",
+   "probe/single/odckid/30000/joint@1"
+  ],
+  "question shown:eic.child.ssn": [
+   "probe/single/kid1/30000/ssn@1",
+   "probe/single/kid2/30000/ssn@2",
+   "probe/single/odckid/30000/ssn@1"
+  ],
+  "question shown:ctc.child.under-17": [
+   "probe/single/kid1/30000/u17@1",
+   "probe/single/kid2/30000/u17@2"
+  ],
+  "question shown:ctc.child.lived-with-you": [
+   "probe/single/kid1/30000/lived@1",
+   "probe/single/kid2/30000/lived@2",
+   "probe/single/odckid/30000/lived@1"
+  ],
+  "question shown:ctc.child.no-over-half-support": [
+   "probe/single/kid1/30000/support@1",
+   "probe/single/kid2/30000/support@2"
+  ],
+  "question shown:ctc.child.citizen-or-resident": [
+   "probe/single/kid1/30000/citizen@1",
+   "probe/single/kid2/30000/citizen@2"
+  ],
+  "reasons list added on a line that had none": 21,
+  "blocked count names the answer:eic-qualifying-child-count": [
+   "probe/mfj/kid1/30000/age@1",
+   "probe/mfj/kid1/30000/joint@1",
+   "probe/single/kid1/30000/age@1",
+   "probe/single/kid1/30000/joint@1",
+   "probe/single/kid1/30000/res@1",
+   "probe/single/kid1/30000/ssn@1",
+   "probe/single/kid2/30000/age@2",
+   "probe/single/kid2/30000/joint@2",
+   "probe/single/kid2/30000/res@2",
+   "probe/single/kid2/30000/ssn@2",
+   "probe/single/odckid/30000/joint@1",
+   "probe/single/odckid/30000/ssn@1"
+  ],
+  "blocked count names the answer:ctc-child-count": 16
+ },
+ "expected_by_note": {
+  "blocked count names the answer:ctc-child-count": 64,
+  "blocked count names the answer:eic-qualifying-child-count": 48,
+  "question shown:ctc.child.citizen-or-resident": 24,
+  "question shown:ctc.child.lived-with-you": 25,
+  "question shown:ctc.child.no-over-half-support": 24,
+  "question shown:ctc.child.under-17": 24,
+  "question shown:eic.child.age": 27,
+  "question shown:eic.child.joint-return": 53,
+  "question shown:eic.child.residency": 18,
+  "question shown:eic.child.ssn": 37,
+  "reasons list added on a line that had none": 232,
+  "version:tax.us.2025.package.core-calculations": 21042,
+  "version:tax.us.2025.rule.ctc-child-count": 34,
+  "version:tax.us.2025.rule.eic-qualifying-child-count": 38
+ },
+ "outcomes": {
+  "success/success": 38
+ },
+ "list_classes": {
+  "probe/mfj/kid1/30000/-": "unexpected",
+  "probe/mfj/kid1/30000/age@1": "unexpected",
+  "probe/mfj/kid1/30000/joint@1": "unexpected",
+  "probe/single/kid1/30000/-": "unexpected",
+  "probe/single/kid1/30000/age@1": "unexpected",
+  "probe/single/kid1/30000/citizen@1": "unexpected",
+  "probe/single/kid1/30000/dtb-another@1": "unexpected",
+  "probe/single/kid1/30000/dtb-filer-parent@1": "unexpected",
+  "probe/single/kid1/30000/joint@1": "unexpected",
+  "probe/single/kid1/30000/lived@1": "unexpected",
+  "probe/single/kid1/30000/res@1": "unexpected",
+  "probe/single/kid1/30000/ssn@1": "unexpected",
+  "probe/single/kid1/30000/support@1": "unexpected",
+  "probe/single/kid1/30000/u17@1": "unexpected",
+  "probe/single/kid2/30000/-": "unexpected",
+  "probe/single/kid2/30000/age@2": "unexpected",
+  "probe/single/kid2/30000/citizen@2": "unexpected",
+  "probe/single/kid2/30000/dtb-another@2": "unexpected",
+  "probe/single/kid2/30000/dtb-filer-parent@2": "unexpected",
+  "probe/single/kid2/30000/joint@2": "unexpected",
+  "probe/single/kid2/30000/lived@2": "unexpected",
+  "probe/single/kid2/30000/res@2": "unexpected",
+  "probe/single/kid2/30000/ssn@2": "unexpected",
+  "probe/single/kid2/30000/support@2": "unexpected",
+  "probe/single/kid2/30000/u17@2": "unexpected",
+  "probe/single/odckid/30000/-": "unexpected",
+  "probe/single/odckid/30000/joint@1": "unexpected",
+  "probe/single/odckid/30000/lived@1": "unexpected",
+  "probe/single/odckid/30000/odc-tin@1": "unexpected",
+  "probe/single/odckid/30000/ssn@1": "unexpected",
+  "probe/single/parent/30000/-": "expected_changes",
+  "probe/single/parent/30000/rel-citizen@p": "expected_changes",
+  "probe/single/parent/30000/rel-gross@p": "expected_changes",
+  "probe/single/parent/30000/rel-notjoint@p": "expected_changes",
+  "probe/single/parent/30000/rel-notqc@p": "expected_changes",
+  "probe/single/parent/30000/rel-relationship@p": "expected_changes",
+  "probe/single/parent/30000/rel-support@p": "expected_changes",
+  "probe/single/parent/30000/rel-tin@p": "expected_changes"
+ },
+ "failing_lists": {
+  "probe/mfj/kid1/30000/-": 5382,
+  "probe/mfj/kid1/30000/age@1": 2102,
+  "probe/mfj/kid1/30000/joint@1": 68,
+  "probe/single/kid1/30000/-": 5590,
+  "probe/single/kid1/30000/age@1": 2082,
+  "probe/single/kid1/30000/citizen@1": 2591,
+  "probe/single/kid1/30000/dtb-another@1": 100,
+  "probe/single/kid1/30000/dtb-filer-parent@1": 100,
+  "probe/single/kid1/30000/joint@1": 68,
+  "probe/single/kid1/30000/lived@1": 2575,
+  "probe/single/kid1/30000/res@1": 2090,
+  "probe/single/kid1/30000/ssn@1": 84,
+  "probe/single/kid1/30000/support@1": 2583,
+  "probe/single/kid1/30000/u17@1": 2567,
+  "probe/single/kid2/30000/-": 5718,
+  "probe/single/kid2/30000/age@2": 2171,
+  "probe/single/kid2/30000/citizen@2": 2686,
+  "probe/single/kid2/30000/dtb-another@2": 196,
+  "probe/single/kid2/30000/dtb-filer-parent@2": 196,
+  "probe/single/kid2/30000/joint@2": 148,
+  "probe/single/kid2/30000/lived@2": 2654,
+  "probe/single/kid2/30000/res@2": 2187,
+  "probe/single/kid2/30000/ssn@2": 180,
+  "probe/single/kid2/30000/support@2": 2670,
+  "probe/single/kid2/30000/u17@2": 2638,
+  "probe/single/odckid/30000/-": 4873,
+  "probe/single/odckid/30000/joint@1": 68,
+  "probe/single/odckid/30000/lived@1": 1674,
+  "probe/single/odckid/30000/odc-tin@1": 2270,
+  "probe/single/odckid/30000/ssn@1": 84
+ },
+ "lists_set": "probe"
+}

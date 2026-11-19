@@ -71,6 +71,31 @@ The child tax credit and other-dependent rosters may have the same gap.
 2. **Track 1.** Publish it.
 3. **Fresh review**, repair, closeout.
 
+## P0 result
+
+P0 is complete in `eic-child-answers-evidence/p0.md`. It stopped at scope
+item 4: content cannot meet Decision 1. On core v100, a missing per-member
+answer is never asked on any of the four rosters. That covers the earned
+income child tests, the tie-breaker answers, the child tax credit tests, the
+other-dependent child's TIN and the seven relative answers. Each leaves 9 to
+18 page lines blocked with no sentence. The walk stops where each roster's
+count rule blocks `DEPENDENCY_INVALID` naming the member's subject key
+(`evaluator.py:283-285`; `presentation_projection.py:609-669`). An input
+question per member fact and the existing closure questions are not reached.
+ADR 0086 `missing` names on a guarded count rule (scratch v101 `g`) reach a
+question for the earned income and child tax credit tests. But that question
+cannot name the child. It leaves the tie-breaker and other-dependent answers
+silent, and it changes the explanation of every return with a rostered child:
+new count inputs, so downstream structure changes, and extra citations where
+a child fails a test early. The recorded replay passes 773 of 775. The two
+failures are the only recorded lists with a child, and they differ in that
+structure only. No number changes. The smallest change that meets Decision 1
+is in the projection's question walk. It would follow a blocked member key to
+the member's own rows, resolve each missing test to its answer's input
+question, and label the reason with the member's recorded name. It adds no
+published schema version, but in the builder's reading it needs an ADR.
+Decisions for the foreman are in p0.md, section 7.
+
 ## Decisions
 
 1. A question for a child names that child (or is shown in that child's
