@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.eic.not-claimable-as-dependent",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.eic-not-claimable-as-dependent",
+  "question": "Can you be claimed as a dependent on someone else's 2025 tax return (do not count the case where the person who could claim you is not required to file a 2025 return and is not filing one, or is filing only to claim a refund of withheld income tax or estimated tax paid)?",
+  "schema": "input-question.v1",
+  "version": "v1"
+}

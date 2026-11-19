@@ -266,6 +266,8 @@ def named_covered_flag_refusal_maps() -> dict[tuple[str, str], dict[str, str]]:
         ("tax.us.2025.package.core-calculations", "v98"): dict(COVERED_FLAG_REFUSAL_OBJECTS),
         # Core v99 adds the earned income credit marital-status answer and the separated-spouse question and carries v98's map.
         ("tax.us.2025.package.core-calculations", "v99"): dict(COVERED_FLAG_REFUSAL_OBJECTS),
+        # Core v100 adds four earned income credit input questions only and carries v99's map.
+        ("tax.us.2025.package.core-calculations", "v100"): dict(COVERED_FLAG_REFUSAL_OBJECTS),
     }
 
 
@@ -786,6 +788,17 @@ def domain_package_companion_declarations() -> dict[tuple[str, str], dict[str, A
         },
         # Core v99 adds one return-level answer, a new rule and two rule successors and carries v98's declaration.
         ("tax.us.2025.package.core-calculations", "v99"): {
+            "presence_pairs": {
+                **gambling["presence_pairs"],
+                **noncovered_scalar_presence_pairs(),
+                **no1099b_scalar_presence_pairs(),
+                **code_b_scalar_presence_pairs(),
+                **covered_scalar_presence_pairs(),
+            },
+            "value_domains": dict(gambling["value_domains"]),
+        },
+        # Core v100 adds four earned income credit input questions only and carries v99's declaration.
+        ("tax.us.2025.package.core-calculations", "v100"): {
             "presence_pairs": {
                 **gambling["presence_pairs"],
                 **noncovered_scalar_presence_pairs(),
