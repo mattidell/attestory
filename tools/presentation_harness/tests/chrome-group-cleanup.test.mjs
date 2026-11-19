@@ -34,7 +34,7 @@ async function helperPid(stateDir) {
 // Never leave the synthetic helper running, whatever the test outcome.
 function reap(pid) { if (pid) { try { process.kill(pid, "SIGKILL"); } catch { /* gone */ } } }
 
-test("dispose ends the whole Chrome group, removes a profile a helper was writing into, and frees stderr", async () => {
+test("dispose ends the whole Chrome group, and removes a profile a helper was writing into", async () => {
   const stateDir = await mkdtemp(join(tmpdir(), "demo-group-state-"));
   process.env.DEMO_FAKE_DIR = stateDir;
   process.env.DEMO_FAKE_MODE = "helper";

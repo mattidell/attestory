@@ -11,12 +11,27 @@ main process's stderr pipe, and (c) keeps writing files into the profile.
   and then does not exit. Killed by an outer 25 s limit; helper still alive.
 - `lib/chrome.mjs` `dispose()` against a profile the helper is writing to:
   rejects with `ENOTEMPTY` after about 150 ms.
-- Control: the same fake whose helper does not hold the inherited stderr pipe
-  lets the observer exit promptly (exit 2, 0.34 s). The held stderr pipe is
-  therefore what keeps the Node event loop alive; the profile writes are what
-  fail `dispose`.
+- Control (corrected after review, CCH-R1): the builder reported that a helper
+  which does not hold the stderr pipe let the old observer exit promptly. The
+  fresh review could not reproduce that: with `stdio: ignore`, and in the
+  `locked` mode with no helper at all, the old observer still hangs after
+  `cleanup-complete`, and `process.getActiveResourcesInfo()` reports a
+  `TCPServerWrap`. The cause is the old cleanup block: a rejected
+  `chrome.dispose()` jumped past `server.close()`, so the loopback DevTools
+  server kept the event loop alive. The held stderr pipe is not needed for the
+  hang; the profile writes are what fail `dispose`.
 
-The foreman's reading is confirmed on both counts.
+The foreman's reading was half right: the profile writes fail `dispose`, but
+the open handle is the server, not the pipe.
+
+### Repair
+
+The observer now closes its server whether or not `dispose()` succeeds, and
+reports `cleanupCompleted` false if either fails. With the `process.exit`
+backstop removed in a scratch copy, test 3 (an unremovable profile) passes on
+the repaired sources; it failed before. The exit backstop stays. The stderr
+`destroy()` is defence in depth: no test fails without it, so test 1 no longer
+claims to check it.
 
 ## Fix
 

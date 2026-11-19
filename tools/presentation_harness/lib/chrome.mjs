@@ -327,6 +327,8 @@ async function launchChromeOwned(explicitPath, options = {}) {
   child.once("exit", (code, signal) => {
     exited = true;
     exitInfo = { code, signal };
+    // A group that ended on its own is no longer ours; its id may be reused.
+    if (!groupAlive(child.pid)) ownedGroups.delete(child.pid);
   });
 
   let devtools;
