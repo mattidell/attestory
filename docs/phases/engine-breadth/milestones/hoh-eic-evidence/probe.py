@@ -78,13 +78,16 @@ from tests.test_form_1099_withholding import _social_security_withholding, _unem
 from tests.test_refund_or_amount_owed_track1 import _act, _attested  # noqa: E402
 
 P = h.P
-STATUS = {"single": "single", "mfs": "married_filing_separately", "hoh": "head_of_household"}
+STATUS = {"single": "single", "mfs": "married_filing_separately", "hoh": "head_of_household",
+          "mfj": "married_filing_jointly", "qss": "qualifying_surviving_spouse"}
 KEYS = ("hoh/parent/7000", "hoh/parent/16000", "hoh/parent/50000",
         "hoh/child/7000", "hoh/child/30000", "hoh/childnosep/7000",
         "hoh/oldchild/7000", "hoh/oldchild/16000",
         "single/none/7000", "single/none/16000", "single/parent/16000", "single/child/30000",
+        "mfj/none/16000", "qss/none/16000",
         "mfs/none/7000", "mfs/child/30000")
 HOH_TESTS = P + "hoh.tests-met"
+QSS_TESTS = P + "qss.tests-met"
 # The question a scratch successor adds (design.py); absent from v98.
 QUESTION = P + "eic.not-married"
 EIC_AGE = "tax.us.2025.eic.child.age"
@@ -144,10 +147,20 @@ def build(key: str, content: Path = h.CONTENT, answer: str = "none") -> h.Acts:
         for fact in ("spouse-over-65", "spouse-blind", "standard-deduction.spouse-separate-condition"):
             acts = h.say(acts, P + fact, False, "hoheic-" + fact, content)
         acts = h.say(acts, P + "mfs-lived-apart-all-year", "yes", "hoheic-mfs-apart", content)
+    if status == "married_filing_jointly":
+        for fact in ("spouse-over-65", "spouse-blind"):
+            acts = h.say(acts, P + fact, False, "hoheic-" + fact, content)
+    if status_key == "qss":
+        acts = h.say(acts, QSS_TESTS, "yes", "hoheic-qss-tests", content)
     if status_key == "hoh":
         acts = h.say(acts, HOH_TESTS, "yes", "hoheic-hoh-tests", content)
         if answer != "none":
-            acts = h.say(acts, QUESTION, answer, "hoheic-not-married", content)
+            first, *later = answer.split(">")  # "yes>no": the filer answers yes, then changes the answer to no
+            acts = h.say(acts, QUESTION, first, "hoheic-not-married", content)
+            for n, value in enumerate(later, 2):
+                fact = h.fact_id_for(QUESTION, (("tax-year", h.YEAR),))
+                h._add(acts, "assertion", {"finding": h._attested(f"demo.sfa.answer.hoheic-not-married-{n}", fact, value)})
+                acts = h.renumber(acts)
     return h.renumber(acts)
 
 

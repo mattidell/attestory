@@ -70,6 +70,15 @@
           "schema": "input-question.v1",
           "role": "input-question"
         }
+      },
+      {
+        "op": "add",
+        "new": {
+          "id": "tax.us.2025.input-question.eic-separated-spouse",
+          "version": "v1",
+          "schema": "input-question.v1",
+          "role": "input-question"
+        }
       }
     ],
     "entrypoints": [
@@ -86,13 +95,21 @@
           "id": "tax.us.2025.input-question.eic-not-married",
           "version": "v1"
         }
+      },
+      {
+        "op": "add",
+        "value": {
+          "id": "tax.us.2025.input-question.eic-separated-spouse",
+          "version": "v1"
+        }
       }
     ],
     "registry_sort": "id_version"
   },
   "written": {
-    "eic-marital-status.bundle.json": "490630ce4923d00eac17bf89862158be2173257ef434afe6820b7afd798734a0",
-    "input-question.eic-not-married.v1.json": "aab08c4e730b72df2e3df1e9bc9837341af8cdb7f4b7ada02344a7e96ef41f3f",
+    "eic-marital-status.bundle.json": "0f2d97a615affa81c7485a7fa4c0de73e5ca932a5ad0541f26edd5d87007a833",
+    "input-question.eic-not-married.v1.json": "78a469795fe12dc58ca11ad1a28132804ec3613c40873453f1f3cb61a2f9af5d",
+    "input-question.eic-separated-spouse.v1.json": "d210419e7d25c25d883301f05c122a34fd6e36fd8c37e014e65bb8a8d6d8707b",
     "rule.eic-status-class.v2.json": "8dfac11b85b751bc26c2bfd2412a2fecb585e7a3660e8c9f69cf1aa4fe382e3a",
     "rule.eic-answer.not-married.json": "02f3488fb2318a63ae25d784f8c97a942f75d5efa29a57044a53089c080e7d11",
     "rule.eic-gate-result.v3.json": "e47067e8d41b4a74430d075bc52ee240bc695230a6f1e23aa7ad3f3806d2578f"
@@ -101,7 +118,7 @@
   "status": "valid",
   "validation": "generate_to_directory passed package, registry and release validation",
   "generation": {
-    "registry_sha256": "37222d74bced35b19953fe8f29b083d0c78344b22234b8dcf9a6f7bc26922eea",
+    "registry_sha256": "64aa0dc6613e9537ea4696e0b6c859fabaca2fe8fcf4b392ec05d395b61d2759",
     "publication_boundary": "Candidate only: successor companion declaration and live release evidence are separate duties under ADR-0082."
   }
 }

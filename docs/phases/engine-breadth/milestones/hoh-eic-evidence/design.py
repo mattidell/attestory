@@ -41,9 +41,9 @@ COUNT = P + "eic.column-count"
 STATUS = P + "filing-status"
 
 TITLE = (
-    "You were not married at the end of 2025: on December 31, 2025 you had never married, your divorce was "
-    "final, your marriage was annulled, or you were legally separated from your spouse under a decree of "
-    "divorce or separate maintenance. No means you were married at the end of 2025, including if you lived "
+    "You were not married at the end of 2025: on December 31, 2025 you had never married, your spouse had died "
+    "before 2025 and you had not remarried, your divorce or annulment was final, or you were legally separated "
+    "from your spouse under a decree of divorce or separate maintenance. No means you were married at the end of 2025, including if you lived "
     "apart from your spouse and file as head of household because you are considered unmarried, or your "
     "divorce was not final (an interlocutory decree). A married taxpayer whose filing status is head of "
     "household cannot take the earned income credit without a qualifying child, so no means the credit is $0 "
@@ -55,10 +55,25 @@ TITLE = (
 QUESTION = (
     "You file as head of household and no child is counted as your qualifying child for the earned income "
     "credit. Were you unmarried at the end of 2025? Answer yes if, on December 31, 2025, you had never married, "
-    "your divorce was final, or you were legally separated from your spouse under a decree of divorce or "
-    "separate maintenance. Answer no if you were still married then, even if you lived apart from your spouse "
-    "and file as head of household because you are considered unmarried: a married taxpayer filing as head of "
-    "household cannot take the earned income credit without a qualifying child."
+    "your spouse had died before 2025 and you had not remarried, your divorce or annulment was final, or you "
+    "were legally separated from your spouse under a decree of divorce or separate maintenance. Answer no if you "
+    "were still married then, even if you lived apart from your spouse and file as head of household because you "
+    "are considered unmarried: a married taxpayer filing as head of household cannot take the earned income "
+    "credit without a qualifying child."
+)
+SEP_FACT = P + "eic.separated-spouse"
+SEP_QUESTION_FILE = "input-question.eic-separated-spouse.v1.json"
+SEP_QUESTION_ID = P + "input-question.eic-separated-spouse"
+# 2025 Form 1040 instructions, line 27a, Step 3 questions 3 to 5 (the fact's yes means the credit can go on).
+SEP_QUESTION = (
+    "You file as head of household or married filing separately and a child is counted as your qualifying child "
+    "for the earned income credit. Does the separated-spouse rule let you take the credit? Answer yes if you were "
+    "not married at the end of 2025; or you were married and you and your spouse did not have the same principal "
+    "residence for the last 6 months of 2025; or you were legally separated according to your state law under a "
+    "written separation agreement or a decree of separate maintenance and you lived apart from your spouse at the "
+    "end of 2025. Answer no if you were married, you and your spouse had the same principal residence for the last "
+    "6 months of 2025, and you were not legally separated and living apart as described: you cannot take the "
+    "credit, so it is $0."
 )
 CLASS_NOTES = (
     "0 married filing separately, or head of household with a qualifying child counted for the credit; 1 single, "
@@ -183,6 +198,11 @@ def gate_successor(v2: dict[str, Any]) -> dict[str, Any]:
     return out
 
 
+def sep_question() -> dict[str, Any]:
+    return {"fact_type": {"id": SEP_FACT, "version": "v1"}, "id": SEP_QUESTION_ID, "question": SEP_QUESTION,
+            "schema": "input-question.v1", "version": "v1"}
+
+
 def dump(value: Any) -> str:
     return json.dumps(value, indent=2, ensure_ascii=False) + "\n"
 
@@ -190,7 +210,7 @@ def dump(value: Any) -> str:
 def written(content: Path) -> dict[str, dict[str, Any]]:
     """Every new file, keyed by file name, built from the published v98 members in ``content``."""
     read = lambda name: json.loads((content / name).read_text(encoding="utf-8"))  # noqa: E731
-    return {BUNDLE_FILE: bundle(), QUESTION_FILE: question(),
+    return {BUNDLE_FILE: bundle(), QUESTION_FILE: question(), SEP_QUESTION_FILE: sep_question(),
             CLASS_FILE: class_successor(read("rule.eic-status-class.json")),
             ANSWER_RULE_FILE: answer_rule(read("rule.eic-answer.separated-spouse.json")),
             GATE_FILE: gate_successor(read("rule.eic-gate-result.v2.json"))}

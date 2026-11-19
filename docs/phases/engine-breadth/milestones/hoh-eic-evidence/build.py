@@ -91,7 +91,8 @@ def main() -> None:
                                                              "schema": written[new_file]["schema"]}})
     added = [{"id": d.ANSWER_RULE, "version": "v1", "schema": written[d.ANSWER_RULE_FILE]["schema"], "role": "computation"},
              {"id": d.BUNDLE_ID, "version": "v1", "schema": "bundle.v2", "role": "fact-type-bundle"},
-             {"id": d.QUESTION_ID, "version": "v1", "schema": "input-question.v1", "role": "input-question"}]
+             {"id": d.QUESTION_ID, "version": "v1", "schema": "input-question.v1", "role": "input-question"},
+             {"id": d.SEP_QUESTION_ID, "version": "v1", "schema": "input-question.v1", "role": "input-question"}]
     members += [{"op": "add", "new": pin} for pin in added]
     changes = {
         "package_version": "v99", "release_version": "v97",
