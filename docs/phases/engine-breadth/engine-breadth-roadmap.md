@@ -1079,6 +1079,17 @@ figures the credit as for a single filer, where v98 gave $0; no keeps $0
 and asks nothing more. The separated-spouse answer now has a question.
 Every other filer keeps v98's values.
 
+## Bounded return — Every Earned Income Credit Answer Has a Question (2025)
+
+[Plan](milestones/eic-answer-questions.md); retrospective:
+`docs/milestone-retrospectives/2026-11-19-eic-answer-questions.md`.
+
+Core v100 (registry v98, release v98) adds questions for the four
+earned income credit answers that had none: age, main home, not
+claimable as a dependent, and the spouse's SSN. A filer missing one was
+blocked on the credit and refund lines with no sentence; now the page
+asks. No rule changed, and every answered return computes as before.
+
 ## Saved-page observation — Mortgage and Sales (2025)
 
 [Plan](milestones/sale-page-observation.md); retrospective:
@@ -1150,10 +1161,17 @@ delivers an item removes it.
 - A sale entered both on a Form 1099-B family and as a no-1099-B sale is
   refused only by the in-class answer ("entered only once"); the two are
   keyed differently, so content cannot see it.
-- The earned income credit age (`eic.age-25-under-65`) and main-home
-  (`eic.main-home-in-us`) answers have no input question, so a filer who
-  must give them and has not is blocked with no sentence (hoh-eic
-  Decision 8; true for single filers since before v98).
+- A counted child's earned income credit age and residency answers, when
+  missing, block the credit and refund lines with no sentence: the
+  projection cannot reach a question there (eic-answer-questions P0; a
+  projection change). The per-child tie-breaker answers (`dtb.child.*`)
+  also have no question (EAQ-R4).
+- The earned income credit "not claimable as a dependent" answer could be
+  derived from the line 12a "someone can claim you" answer (Publication
+  596 Rule 12), but a rule cannot prefer an explicit answer and fall back
+  to another; the filer is asked both.
+- The `eic.age-25-under-65` fact's title states only the birth-date range;
+  the question also counts age at death in 2025 (EAQ-R7, a bundle change).
 - A qualifying child without a valid SSN is not counted for the earned
   income credit, so a married head of household or married filing
   separately filer with only such a child is not routed to the

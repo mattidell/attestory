@@ -1,0 +1,98 @@
+{
+  "from": {
+    "core": "v99",
+    "registry": "v97",
+    "release": "v97"
+  },
+  "to": {
+    "core": "v100",
+    "registry": "v98",
+    "release": "v98"
+  },
+  "changes": {
+    "package_version": "v100",
+    "release_version": "v98",
+    "members": [
+      {
+        "op": "add",
+        "new": {
+          "id": "tax.us.2025.input-question.eic-age-25-under-65",
+          "version": "v1",
+          "schema": "input-question.v1",
+          "role": "input-question"
+        }
+      },
+      {
+        "op": "add",
+        "new": {
+          "id": "tax.us.2025.input-question.eic-main-home-in-us",
+          "version": "v1",
+          "schema": "input-question.v1",
+          "role": "input-question"
+        }
+      },
+      {
+        "op": "add",
+        "new": {
+          "id": "tax.us.2025.input-question.eic-not-claimable-as-dependent",
+          "version": "v1",
+          "schema": "input-question.v1",
+          "role": "input-question"
+        }
+      },
+      {
+        "op": "add",
+        "new": {
+          "id": "tax.us.2025.input-question.eic-spouse-valid-ssn",
+          "version": "v1",
+          "schema": "input-question.v1",
+          "role": "input-question"
+        }
+      }
+    ],
+    "entrypoints": [
+      {
+        "op": "add",
+        "value": {
+          "id": "tax.us.2025.input-question.eic-age-25-under-65",
+          "version": "v1"
+        }
+      },
+      {
+        "op": "add",
+        "value": {
+          "id": "tax.us.2025.input-question.eic-main-home-in-us",
+          "version": "v1"
+        }
+      },
+      {
+        "op": "add",
+        "value": {
+          "id": "tax.us.2025.input-question.eic-not-claimable-as-dependent",
+          "version": "v1"
+        }
+      },
+      {
+        "op": "add",
+        "value": {
+          "id": "tax.us.2025.input-question.eic-spouse-valid-ssn",
+          "version": "v1"
+        }
+      }
+    ],
+    "registry_sort": "id_version"
+  },
+  "written": {
+    "input-question.eic-age-25-under-65.v1.json": "2583777ef220eb133a259d32b258ce7cdfbd08366163bf36da6029001f9027ac",
+    "input-question.eic-main-home-in-us.v1.json": "c82eb8a5bfdd6bf162b8079fab6a4cd655ad5691f41fa85c3bd27f741af4db78",
+    "input-question.eic-not-claimable-as-dependent.v1.json": "48e2f724c80b63856e05e6f901a4683ece0af629420ae36270475dd3d641a252",
+    "input-question.eic-spouse-valid-ssn.v1.json": "6cc6997e622784522dc1c664c1102bca5fc0f4bfc844a8ff7bc2afcfc7f11e11"
+  },
+  "replaced_members": [],
+  "status": "valid",
+  "validation": "generate_to_directory passed package, registry and release validation",
+  "generation": {
+    "registry_sha256": "4aedc67d0978d9cced202ce160fe63e32b95c51b54c5073823ca4fe44be419b2",
+    "publication_boundary": "Candidate only: successor companion declaration and live release evidence are separate duties under ADR-0082."
+  }
+}
