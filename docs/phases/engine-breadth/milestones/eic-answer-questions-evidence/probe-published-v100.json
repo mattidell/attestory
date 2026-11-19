@@ -1,0 +1,3139 @@
+{
+ "core": {
+  "package": "v100",
+  "registry": "v98",
+  "release": "v98"
+ },
+ "runs": {
+  "hoh/parent/7000/no/-age,home,notdep": {
+   "blocked_page_lines_without_sentence": [],
+   "blocked_rules": [],
+   "lines": {
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 23625
+    },
+    "form1040.line-15": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-16": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-19": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-24": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-27a": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-28": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-33": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 350
+    },
+    "form1040.line-34": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 350
+    },
+    "form1040.line-35a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 350
+    },
+    "form1040.line-37": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    }
+   },
+   "missing_answers_named": [],
+   "sentences": [],
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.spouse-valid-ssn": 1,
+    "eic.column-count": 0,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 0,
+    "eic.questions-required": 1,
+    "eic.status-class": 1,
+    "payments.line27a": 0
+   }
+  },
+  "hoh/parent/7000/yes/-age": {
+   "blocked_page_lines_without_sentence": [],
+   "blocked_rules": [
+    "eic-answer.age-25-under-65:DEPENDENCY_ABSENT",
+    "eic-eligibility:DEPENDENCY_ABSENT",
+    "eic-gate-result:DEPENDENCY_ABSENT",
+    "form1040-line27a:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 23625
+    },
+    "form1040.line-15": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-16": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-19": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-24": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-27a": {
+     "disposition": "blocked",
+     "said": [
+      "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? Answer yes if you, or your spouse if you file a joint "
+     ],
+     "value": null
+    },
+    "form1040.line-28": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "said": [
+      "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? Answer yes if you, or your spouse if you file a joint "
+     ],
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "said": [
+      "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? Answer yes if you, or your spouse if you file a joint "
+     ],
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "said": [
+      "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? Answer yes if you, or your spouse if you file a joint "
+     ],
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "said": [
+      "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? Answer yes if you, or your spouse if you file a joint "
+     ],
+     "value": null
+    }
+   },
+   "missing_answers_named": [
+    "eic.age-25-under-65"
+   ],
+   "sentences": [
+    "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? Answer yes if you, or your spouse if you file a joint return, were born after December 31, 1960, and before January 2, 2001. If you or your spouse died in 2025, answer yes if the person who died"
+   ],
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": null,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.spouse-valid-ssn": 1,
+    "eic.column-count": 0,
+    "eic.eligibility-result": null,
+    "eic.gate-result": null,
+    "eic.questions-required": 1,
+    "eic.status-class": 1,
+    "payments.line27a": null
+   }
+  },
+  "hoh/parent/7000/yes/-age,home,notdep": {
+   "blocked_page_lines_without_sentence": [],
+   "blocked_rules": [
+    "eic-answer.age-25-under-65:DEPENDENCY_ABSENT",
+    "eic-answer.main-home-in-us:DEPENDENCY_ABSENT",
+    "eic-answer.not-claimable-as-dependent:DEPENDENCY_ABSENT",
+    "eic-eligibility:DEPENDENCY_ABSENT",
+    "eic-gate-result:DEPENDENCY_ABSENT",
+    "form1040-line27a:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 23625
+    },
+    "form1040.line-15": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-16": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-19": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-24": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-27a": {
+     "disposition": "blocked",
+     "said": [
+      "Can you be claimed as a dependent on someone else's 2025 tax return (do not count the case where the person who could claim you is not required to file a 2025 r",
+      "Was your main home, and your spouse's if you file a joint return, in the United States for more than half of 2025? Your main home can be any place where you reg",
+      "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? Answer yes if you, or your spouse if you file a joint "
+     ],
+     "value": null
+    },
+    "form1040.line-28": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "said": [
+      "Can you be claimed as a dependent on someone else's 2025 tax return (do not count the case where the person who could claim you is not required to file a 2025 r",
+      "Was your main home, and your spouse's if you file a joint return, in the United States for more than half of 2025? Your main home can be any place where you reg",
+      "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? Answer yes if you, or your spouse if you file a joint "
+     ],
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "said": [
+      "Can you be claimed as a dependent on someone else's 2025 tax return (do not count the case where the person who could claim you is not required to file a 2025 r",
+      "Was your main home, and your spouse's if you file a joint return, in the United States for more than half of 2025? Your main home can be any place where you reg",
+      "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? Answer yes if you, or your spouse if you file a joint "
+     ],
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "said": [
+      "Can you be claimed as a dependent on someone else's 2025 tax return (do not count the case where the person who could claim you is not required to file a 2025 r",
+      "Was your main home, and your spouse's if you file a joint return, in the United States for more than half of 2025? Your main home can be any place where you reg",
+      "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? Answer yes if you, or your spouse if you file a joint "
+     ],
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "said": [
+      "Can you be claimed as a dependent on someone else's 2025 tax return (do not count the case where the person who could claim you is not required to file a 2025 r",
+      "Was your main home, and your spouse's if you file a joint return, in the United States for more than half of 2025? Your main home can be any place where you reg",
+      "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? Answer yes if you, or your spouse if you file a joint "
+     ],
+     "value": null
+    }
+   },
+   "missing_answers_named": [
+    "eic.age-25-under-65",
+    "eic.main-home-in-us",
+    "eic.not-claimable-as-dependent"
+   ],
+   "sentences": [
+    "Can you be claimed as a dependent on someone else's 2025 tax return (do not count the case where the person who could claim you is not required to file a 2025 return and is not filing one, or is filing only to claim a refund of withheld income tax or estimated tax paid)?",
+    "Was your main home, and your spouse's if you file a joint return, in the United States for more than half of 2025? Your main home can be any place where you regularly live, such as a house, apartment, shelter or temporary lodging, and it need not be the same place all year. The United States means t",
+    "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? Answer yes if you, or your spouse if you file a joint return, were born after December 31, 1960, and before January 2, 2001. If you or your spouse died in 2025, answer yes if the person who died"
+   ],
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": null,
+    "eic.answer.main-home-in-us": null,
+    "eic.answer.not-claimable-as-dependent": null,
+    "eic.answer.spouse-valid-ssn": 1,
+    "eic.column-count": 0,
+    "eic.eligibility-result": null,
+    "eic.gate-result": null,
+    "eic.questions-required": 1,
+    "eic.status-class": 1,
+    "payments.line27a": null
+   }
+  },
+  "hoh/parent/7000/yes/-home": {
+   "blocked_page_lines_without_sentence": [],
+   "blocked_rules": [
+    "eic-answer.main-home-in-us:DEPENDENCY_ABSENT",
+    "eic-eligibility:DEPENDENCY_ABSENT",
+    "eic-gate-result:DEPENDENCY_ABSENT",
+    "form1040-line27a:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 23625
+    },
+    "form1040.line-15": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-16": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-19": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-24": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-27a": {
+     "disposition": "blocked",
+     "said": [
+      "Was your main home, and your spouse's if you file a joint return, in the United States for more than half of 2025? Your main home can be any place where you reg"
+     ],
+     "value": null
+    },
+    "form1040.line-28": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "said": [
+      "Was your main home, and your spouse's if you file a joint return, in the United States for more than half of 2025? Your main home can be any place where you reg"
+     ],
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "said": [
+      "Was your main home, and your spouse's if you file a joint return, in the United States for more than half of 2025? Your main home can be any place where you reg"
+     ],
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "said": [
+      "Was your main home, and your spouse's if you file a joint return, in the United States for more than half of 2025? Your main home can be any place where you reg"
+     ],
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "said": [
+      "Was your main home, and your spouse's if you file a joint return, in the United States for more than half of 2025? Your main home can be any place where you reg"
+     ],
+     "value": null
+    }
+   },
+   "missing_answers_named": [
+    "eic.main-home-in-us"
+   ],
+   "sentences": [
+    "Was your main home, and your spouse's if you file a joint return, in the United States for more than half of 2025? Your main home can be any place where you regularly live, such as a house, apartment, shelter or temporary lodging, and it need not be the same place all year. The United States means t"
+   ],
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": null,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.spouse-valid-ssn": 1,
+    "eic.column-count": 0,
+    "eic.eligibility-result": null,
+    "eic.gate-result": null,
+    "eic.questions-required": 1,
+    "eic.status-class": 1,
+    "payments.line27a": null
+   }
+  },
+  "hoh/parent/7000/yes/-notdep": {
+   "blocked_page_lines_without_sentence": [],
+   "blocked_rules": [
+    "eic-answer.not-claimable-as-dependent:DEPENDENCY_ABSENT",
+    "eic-eligibility:DEPENDENCY_ABSENT",
+    "eic-gate-result:DEPENDENCY_ABSENT",
+    "form1040-line27a:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 23625
+    },
+    "form1040.line-15": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-16": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-19": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-24": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-27a": {
+     "disposition": "blocked",
+     "said": [
+      "Can you be claimed as a dependent on someone else's 2025 tax return (do not count the case where the person who could claim you is not required to file a 2025 r"
+     ],
+     "value": null
+    },
+    "form1040.line-28": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "said": [
+      "Can you be claimed as a dependent on someone else's 2025 tax return (do not count the case where the person who could claim you is not required to file a 2025 r"
+     ],
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "said": [
+      "Can you be claimed as a dependent on someone else's 2025 tax return (do not count the case where the person who could claim you is not required to file a 2025 r"
+     ],
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "said": [
+      "Can you be claimed as a dependent on someone else's 2025 tax return (do not count the case where the person who could claim you is not required to file a 2025 r"
+     ],
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "said": [
+      "Can you be claimed as a dependent on someone else's 2025 tax return (do not count the case where the person who could claim you is not required to file a 2025 r"
+     ],
+     "value": null
+    }
+   },
+   "missing_answers_named": [
+    "eic.not-claimable-as-dependent"
+   ],
+   "sentences": [
+    "Can you be claimed as a dependent on someone else's 2025 tax return (do not count the case where the person who could claim you is not required to file a 2025 return and is not filing one, or is filing only to claim a refund of withheld income tax or estimated tax paid)?"
+   ],
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": null,
+    "eic.answer.spouse-valid-ssn": 1,
+    "eic.column-count": 0,
+    "eic.eligibility-result": null,
+    "eic.gate-result": null,
+    "eic.questions-required": 1,
+    "eic.status-class": 1,
+    "payments.line27a": null
+   }
+  },
+  "hoh/parent/7000/yes/answered": {
+   "blocked_page_lines_without_sentence": [],
+   "blocked_rules": [],
+   "lines": {
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 23625
+    },
+    "form1040.line-15": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-16": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-19": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-24": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-27a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 537
+    },
+    "form1040.line-28": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-33": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 887
+    },
+    "form1040.line-34": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 887
+    },
+    "form1040.line-35a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 887
+    },
+    "form1040.line-37": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    }
+   },
+   "missing_answers_named": [],
+   "sentences": [],
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.spouse-valid-ssn": 1,
+    "eic.column-count": 0,
+    "eic.eligibility-result": 537,
+    "eic.gate-result": 537,
+    "eic.questions-required": 1,
+    "eic.status-class": 1,
+    "payments.line27a": 537
+   }
+  },
+  "mfj/child/30000/-spssn": {
+   "blocked_page_lines_without_sentence": [],
+   "blocked_rules": [
+    "eic-answer.spouse-valid-ssn:DEPENDENCY_ABSENT",
+    "eic-eligibility:DEPENDENCY_ABSENT",
+    "eic-gate-result:DEPENDENCY_ABSENT",
+    "form1040-line27a:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 31500
+    },
+    "form1040.line-15": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-16": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-19": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-24": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-27a": {
+     "disposition": "blocked",
+     "said": [
+      "Does your spouse's Social Security number allow your spouse to work in the United States? Answer yes if it was issued by the Social Security Administration on o"
+     ],
+     "value": null
+    },
+    "form1040.line-28": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 1700
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "said": [
+      "Does your spouse's Social Security number allow your spouse to work in the United States? Answer yes if it was issued by the Social Security Administration on o"
+     ],
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "said": [
+      "Does your spouse's Social Security number allow your spouse to work in the United States? Answer yes if it was issued by the Social Security Administration on o"
+     ],
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "said": [
+      "Does your spouse's Social Security number allow your spouse to work in the United States? Answer yes if it was issued by the Social Security Administration on o"
+     ],
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "said": [
+      "Does your spouse's Social Security number allow your spouse to work in the United States? Answer yes if it was issued by the Social Security Administration on o"
+     ],
+     "value": null
+    }
+   },
+   "missing_answers_named": [
+    "eic.spouse-valid-ssn"
+   ],
+   "sentences": [
+    "Does your spouse's Social Security number allow your spouse to work in the United States? Answer yes if it was issued by the Social Security Administration on or before the due date of your 2025 return (including extensions) and is not marked \"Not Valid for Employment\", or if it is marked \"Valid for"
+   ],
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.spouse-valid-ssn": null,
+    "eic.column-count": 1,
+    "eic.eligibility-result": null,
+    "eic.gate-result": null,
+    "eic.questions-required": 1,
+    "eic.status-class": 2,
+    "payments.line27a": null
+   }
+  },
+  "mfj/child/30000/answered": {
+   "blocked_page_lines_without_sentence": [],
+   "blocked_rules": [],
+   "lines": {
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 31500
+    },
+    "form1040.line-15": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-16": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-19": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-24": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-27a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 4328
+    },
+    "form1040.line-28": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 1700
+    },
+    "form1040.line-33": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 6528
+    },
+    "form1040.line-34": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 6528
+    },
+    "form1040.line-35a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 6528
+    },
+    "form1040.line-37": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    }
+   },
+   "missing_answers_named": [],
+   "sentences": [],
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.spouse-valid-ssn": 1,
+    "eic.column-count": 1,
+    "eic.eligibility-result": 4328,
+    "eic.gate-result": 4328,
+    "eic.questions-required": 1,
+    "eic.status-class": 2,
+    "payments.line27a": 4328
+   }
+  },
+  "mfj/none/16000/-age": {
+   "blocked_page_lines_without_sentence": [],
+   "blocked_rules": [
+    "eic-answer.age-25-under-65:DEPENDENCY_ABSENT",
+    "eic-eligibility:DEPENDENCY_ABSENT",
+    "eic-gate-result:DEPENDENCY_ABSENT",
+    "form1040-line27a:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 31500
+    },
+    "form1040.line-15": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-16": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-19": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-24": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-27a": {
+     "disposition": "blocked",
+     "said": [
+      "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? Answer yes if you, or your spouse if you file a joint "
+     ],
+     "value": null
+    },
+    "form1040.line-28": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "said": [
+      "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? Answer yes if you, or your spouse if you file a joint "
+     ],
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "said": [
+      "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? Answer yes if you, or your spouse if you file a joint "
+     ],
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "said": [
+      "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? Answer yes if you, or your spouse if you file a joint "
+     ],
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "said": [
+      "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? Answer yes if you, or your spouse if you file a joint "
+     ],
+     "value": null
+    }
+   },
+   "missing_answers_named": [
+    "eic.age-25-under-65"
+   ],
+   "sentences": [
+    "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? Answer yes if you, or your spouse if you file a joint return, were born after December 31, 1960, and before January 2, 2001. If you or your spouse died in 2025, answer yes if the person who died"
+   ],
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": null,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.spouse-valid-ssn": 1,
+    "eic.column-count": 0,
+    "eic.eligibility-result": null,
+    "eic.gate-result": null,
+    "eic.questions-required": 1,
+    "eic.status-class": 2,
+    "payments.line27a": null
+   }
+  },
+  "mfj/none/16000/-age,home,spssn": {
+   "blocked_page_lines_without_sentence": [],
+   "blocked_rules": [
+    "eic-answer.age-25-under-65:DEPENDENCY_ABSENT",
+    "eic-answer.main-home-in-us:DEPENDENCY_ABSENT",
+    "eic-answer.spouse-valid-ssn:DEPENDENCY_ABSENT",
+    "eic-eligibility:DEPENDENCY_ABSENT",
+    "eic-gate-result:DEPENDENCY_ABSENT",
+    "form1040-line27a:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 31500
+    },
+    "form1040.line-15": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-16": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-19": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-24": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-27a": {
+     "disposition": "blocked",
+     "said": [
+      "Does your spouse's Social Security number allow your spouse to work in the United States? Answer yes if it was issued by the Social Security Administration on o",
+      "Was your main home, and your spouse's if you file a joint return, in the United States for more than half of 2025? Your main home can be any place where you reg",
+      "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? Answer yes if you, or your spouse if you file a joint "
+     ],
+     "value": null
+    },
+    "form1040.line-28": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "said": [
+      "Does your spouse's Social Security number allow your spouse to work in the United States? Answer yes if it was issued by the Social Security Administration on o",
+      "Was your main home, and your spouse's if you file a joint return, in the United States for more than half of 2025? Your main home can be any place where you reg",
+      "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? Answer yes if you, or your spouse if you file a joint "
+     ],
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "said": [
+      "Does your spouse's Social Security number allow your spouse to work in the United States? Answer yes if it was issued by the Social Security Administration on o",
+      "Was your main home, and your spouse's if you file a joint return, in the United States for more than half of 2025? Your main home can be any place where you reg",
+      "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? Answer yes if you, or your spouse if you file a joint "
+     ],
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "said": [
+      "Does your spouse's Social Security number allow your spouse to work in the United States? Answer yes if it was issued by the Social Security Administration on o",
+      "Was your main home, and your spouse's if you file a joint return, in the United States for more than half of 2025? Your main home can be any place where you reg",
+      "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? Answer yes if you, or your spouse if you file a joint "
+     ],
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "said": [
+      "Does your spouse's Social Security number allow your spouse to work in the United States? Answer yes if it was issued by the Social Security Administration on o",
+      "Was your main home, and your spouse's if you file a joint return, in the United States for more than half of 2025? Your main home can be any place where you reg",
+      "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? Answer yes if you, or your spouse if you file a joint "
+     ],
+     "value": null
+    }
+   },
+   "missing_answers_named": [
+    "eic.age-25-under-65",
+    "eic.main-home-in-us",
+    "eic.spouse-valid-ssn"
+   ],
+   "sentences": [
+    "Does your spouse's Social Security number allow your spouse to work in the United States? Answer yes if it was issued by the Social Security Administration on or before the due date of your 2025 return (including extensions) and is not marked \"Not Valid for Employment\", or if it is marked \"Valid for",
+    "Was your main home, and your spouse's if you file a joint return, in the United States for more than half of 2025? Your main home can be any place where you regularly live, such as a house, apartment, shelter or temporary lodging, and it need not be the same place all year. The United States means t",
+    "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? Answer yes if you, or your spouse if you file a joint return, were born after December 31, 1960, and before January 2, 2001. If you or your spouse died in 2025, answer yes if the person who died"
+   ],
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": null,
+    "eic.answer.main-home-in-us": null,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.spouse-valid-ssn": null,
+    "eic.column-count": 0,
+    "eic.eligibility-result": null,
+    "eic.gate-result": null,
+    "eic.questions-required": 1,
+    "eic.status-class": 2,
+    "payments.line27a": null
+   }
+  },
+  "mfj/none/16000/-home": {
+   "blocked_page_lines_without_sentence": [],
+   "blocked_rules": [
+    "eic-answer.main-home-in-us:DEPENDENCY_ABSENT",
+    "eic-eligibility:DEPENDENCY_ABSENT",
+    "eic-gate-result:DEPENDENCY_ABSENT",
+    "form1040-line27a:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 31500
+    },
+    "form1040.line-15": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-16": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-19": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-24": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-27a": {
+     "disposition": "blocked",
+     "said": [
+      "Was your main home, and your spouse's if you file a joint return, in the United States for more than half of 2025? Your main home can be any place where you reg"
+     ],
+     "value": null
+    },
+    "form1040.line-28": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "said": [
+      "Was your main home, and your spouse's if you file a joint return, in the United States for more than half of 2025? Your main home can be any place where you reg"
+     ],
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "said": [
+      "Was your main home, and your spouse's if you file a joint return, in the United States for more than half of 2025? Your main home can be any place where you reg"
+     ],
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "said": [
+      "Was your main home, and your spouse's if you file a joint return, in the United States for more than half of 2025? Your main home can be any place where you reg"
+     ],
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "said": [
+      "Was your main home, and your spouse's if you file a joint return, in the United States for more than half of 2025? Your main home can be any place where you reg"
+     ],
+     "value": null
+    }
+   },
+   "missing_answers_named": [
+    "eic.main-home-in-us"
+   ],
+   "sentences": [
+    "Was your main home, and your spouse's if you file a joint return, in the United States for more than half of 2025? Your main home can be any place where you regularly live, such as a house, apartment, shelter or temporary lodging, and it need not be the same place all year. The United States means t"
+   ],
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": null,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.spouse-valid-ssn": 1,
+    "eic.column-count": 0,
+    "eic.eligibility-result": null,
+    "eic.gate-result": null,
+    "eic.questions-required": 1,
+    "eic.status-class": 2,
+    "payments.line27a": null
+   }
+  },
+  "mfj/none/16000/-spssn": {
+   "blocked_page_lines_without_sentence": [],
+   "blocked_rules": [
+    "eic-answer.spouse-valid-ssn:DEPENDENCY_ABSENT",
+    "eic-eligibility:DEPENDENCY_ABSENT",
+    "eic-gate-result:DEPENDENCY_ABSENT",
+    "form1040-line27a:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 31500
+    },
+    "form1040.line-15": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-16": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-19": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-24": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-27a": {
+     "disposition": "blocked",
+     "said": [
+      "Does your spouse's Social Security number allow your spouse to work in the United States? Answer yes if it was issued by the Social Security Administration on o"
+     ],
+     "value": null
+    },
+    "form1040.line-28": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "said": [
+      "Does your spouse's Social Security number allow your spouse to work in the United States? Answer yes if it was issued by the Social Security Administration on o"
+     ],
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "said": [
+      "Does your spouse's Social Security number allow your spouse to work in the United States? Answer yes if it was issued by the Social Security Administration on o"
+     ],
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "said": [
+      "Does your spouse's Social Security number allow your spouse to work in the United States? Answer yes if it was issued by the Social Security Administration on o"
+     ],
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "said": [
+      "Does your spouse's Social Security number allow your spouse to work in the United States? Answer yes if it was issued by the Social Security Administration on o"
+     ],
+     "value": null
+    }
+   },
+   "missing_answers_named": [
+    "eic.spouse-valid-ssn"
+   ],
+   "sentences": [
+    "Does your spouse's Social Security number allow your spouse to work in the United States? Answer yes if it was issued by the Social Security Administration on or before the due date of your 2025 return (including extensions) and is not marked \"Not Valid for Employment\", or if it is marked \"Valid for"
+   ],
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.spouse-valid-ssn": null,
+    "eic.column-count": 0,
+    "eic.eligibility-result": null,
+    "eic.gate-result": null,
+    "eic.questions-required": 1,
+    "eic.status-class": 2,
+    "payments.line27a": null
+   }
+  },
+  "mfj/none/16000/answered": {
+   "blocked_page_lines_without_sentence": [],
+   "blocked_rules": [],
+   "lines": {
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 31500
+    },
+    "form1040.line-15": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-16": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-19": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-24": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-27a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 649
+    },
+    "form1040.line-28": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-33": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 1149
+    },
+    "form1040.line-34": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 1149
+    },
+    "form1040.line-35a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 1149
+    },
+    "form1040.line-37": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    }
+   },
+   "missing_answers_named": [],
+   "sentences": [],
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.spouse-valid-ssn": 1,
+    "eic.column-count": 0,
+    "eic.eligibility-result": 649,
+    "eic.gate-result": 649,
+    "eic.questions-required": 1,
+    "eic.status-class": 2,
+    "payments.line27a": 649
+   }
+  },
+  "mfs/none/7000/-age,home,notdep": {
+   "blocked_page_lines_without_sentence": [],
+   "blocked_rules": [],
+   "lines": {
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 15750
+    },
+    "form1040.line-15": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-16": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-19": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-24": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-27a": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-28": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-33": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 350
+    },
+    "form1040.line-34": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 350
+    },
+    "form1040.line-35a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 350
+    },
+    "form1040.line-37": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    }
+   },
+   "missing_answers_named": [],
+   "sentences": [],
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.spouse-valid-ssn": 1,
+    "eic.column-count": 0,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 537,
+    "eic.questions-required": 0,
+    "eic.status-class": 0,
+    "payments.line27a": 0
+   }
+  },
+  "qss/none/16000/-age": {
+   "blocked_page_lines_without_sentence": [],
+   "blocked_rules": [
+    "eic-answer.age-25-under-65:DEPENDENCY_ABSENT",
+    "eic-eligibility:DEPENDENCY_ABSENT",
+    "eic-gate-result:DEPENDENCY_ABSENT",
+    "form1040-line27a:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 31500
+    },
+    "form1040.line-15": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-16": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-19": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-24": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-27a": {
+     "disposition": "blocked",
+     "said": [
+      "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? Answer yes if you, or your spouse if you file a joint "
+     ],
+     "value": null
+    },
+    "form1040.line-28": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "said": [
+      "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? Answer yes if you, or your spouse if you file a joint "
+     ],
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "said": [
+      "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? Answer yes if you, or your spouse if you file a joint "
+     ],
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "said": [
+      "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? Answer yes if you, or your spouse if you file a joint "
+     ],
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "said": [
+      "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? Answer yes if you, or your spouse if you file a joint "
+     ],
+     "value": null
+    }
+   },
+   "missing_answers_named": [
+    "eic.age-25-under-65"
+   ],
+   "sentences": [
+    "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? Answer yes if you, or your spouse if you file a joint return, were born after December 31, 1960, and before January 2, 2001. If you or your spouse died in 2025, answer yes if the person who died"
+   ],
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": null,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.spouse-valid-ssn": 1,
+    "eic.column-count": 0,
+    "eic.eligibility-result": null,
+    "eic.gate-result": null,
+    "eic.questions-required": 1,
+    "eic.status-class": 1,
+    "payments.line27a": null
+   }
+  },
+  "qss/none/16000/-home": {
+   "blocked_page_lines_without_sentence": [],
+   "blocked_rules": [
+    "eic-answer.main-home-in-us:DEPENDENCY_ABSENT",
+    "eic-eligibility:DEPENDENCY_ABSENT",
+    "eic-gate-result:DEPENDENCY_ABSENT",
+    "form1040-line27a:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 31500
+    },
+    "form1040.line-15": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-16": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-19": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-24": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-27a": {
+     "disposition": "blocked",
+     "said": [
+      "Was your main home, and your spouse's if you file a joint return, in the United States for more than half of 2025? Your main home can be any place where you reg"
+     ],
+     "value": null
+    },
+    "form1040.line-28": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "said": [
+      "Was your main home, and your spouse's if you file a joint return, in the United States for more than half of 2025? Your main home can be any place where you reg"
+     ],
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "said": [
+      "Was your main home, and your spouse's if you file a joint return, in the United States for more than half of 2025? Your main home can be any place where you reg"
+     ],
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "said": [
+      "Was your main home, and your spouse's if you file a joint return, in the United States for more than half of 2025? Your main home can be any place where you reg"
+     ],
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "said": [
+      "Was your main home, and your spouse's if you file a joint return, in the United States for more than half of 2025? Your main home can be any place where you reg"
+     ],
+     "value": null
+    }
+   },
+   "missing_answers_named": [
+    "eic.main-home-in-us"
+   ],
+   "sentences": [
+    "Was your main home, and your spouse's if you file a joint return, in the United States for more than half of 2025? Your main home can be any place where you regularly live, such as a house, apartment, shelter or temporary lodging, and it need not be the same place all year. The United States means t"
+   ],
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": null,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.spouse-valid-ssn": 1,
+    "eic.column-count": 0,
+    "eic.eligibility-result": null,
+    "eic.gate-result": null,
+    "eic.questions-required": 1,
+    "eic.status-class": 1,
+    "payments.line27a": null
+   }
+  },
+  "qss/none/16000/-notdep": {
+   "blocked_page_lines_without_sentence": [],
+   "blocked_rules": [
+    "eic-answer.not-claimable-as-dependent:DEPENDENCY_ABSENT",
+    "eic-eligibility:DEPENDENCY_ABSENT",
+    "eic-gate-result:DEPENDENCY_ABSENT",
+    "form1040-line27a:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 31500
+    },
+    "form1040.line-15": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-16": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-19": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-24": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-27a": {
+     "disposition": "blocked",
+     "said": [
+      "Can you be claimed as a dependent on someone else's 2025 tax return (do not count the case where the person who could claim you is not required to file a 2025 r"
+     ],
+     "value": null
+    },
+    "form1040.line-28": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "said": [
+      "Can you be claimed as a dependent on someone else's 2025 tax return (do not count the case where the person who could claim you is not required to file a 2025 r"
+     ],
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "said": [
+      "Can you be claimed as a dependent on someone else's 2025 tax return (do not count the case where the person who could claim you is not required to file a 2025 r"
+     ],
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "said": [
+      "Can you be claimed as a dependent on someone else's 2025 tax return (do not count the case where the person who could claim you is not required to file a 2025 r"
+     ],
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "said": [
+      "Can you be claimed as a dependent on someone else's 2025 tax return (do not count the case where the person who could claim you is not required to file a 2025 r"
+     ],
+     "value": null
+    }
+   },
+   "missing_answers_named": [
+    "eic.not-claimable-as-dependent"
+   ],
+   "sentences": [
+    "Can you be claimed as a dependent on someone else's 2025 tax return (do not count the case where the person who could claim you is not required to file a 2025 return and is not filing one, or is filing only to claim a refund of withheld income tax or estimated tax paid)?"
+   ],
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": null,
+    "eic.answer.spouse-valid-ssn": 1,
+    "eic.column-count": 0,
+    "eic.eligibility-result": null,
+    "eic.gate-result": null,
+    "eic.questions-required": 1,
+    "eic.status-class": 1,
+    "payments.line27a": null
+   }
+  },
+  "qss/none/16000/answered": {
+   "blocked_page_lines_without_sentence": [],
+   "blocked_rules": [],
+   "lines": {
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 31500
+    },
+    "form1040.line-15": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-16": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-19": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-24": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-27a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 236
+    },
+    "form1040.line-28": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-33": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 736
+    },
+    "form1040.line-34": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 736
+    },
+    "form1040.line-35a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 736
+    },
+    "form1040.line-37": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    }
+   },
+   "missing_answers_named": [],
+   "sentences": [],
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.spouse-valid-ssn": 1,
+    "eic.column-count": 0,
+    "eic.eligibility-result": 236,
+    "eic.gate-result": 236,
+    "eic.questions-required": 1,
+    "eic.status-class": 1,
+    "payments.line27a": 236
+   }
+  },
+  "single/child/30000/-age,home,notdep": {
+   "blocked_page_lines_without_sentence": [],
+   "blocked_rules": [],
+   "lines": {
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 15750
+    },
+    "form1040.line-15": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 14250
+    },
+    "form1040.line-16": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 1475
+    },
+    "form1040.line-19": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 1475
+    },
+    "form1040.line-24": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-27a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 3261
+    },
+    "form1040.line-28": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 725
+    },
+    "form1040.line-33": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 4486
+    },
+    "form1040.line-34": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 4486
+    },
+    "form1040.line-35a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 4486
+    },
+    "form1040.line-37": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    }
+   },
+   "missing_answers_named": [],
+   "sentences": [],
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.spouse-valid-ssn": 1,
+    "eic.column-count": 1,
+    "eic.eligibility-result": 3261,
+    "eic.gate-result": 3261,
+    "eic.questions-required": 1,
+    "eic.status-class": 1,
+    "payments.line27a": 3261
+   }
+  },
+  "single/child/30000/-childage": {
+   "blocked_page_lines_without_sentence": [
+    "form.eic-worksheet-a.line-2",
+    "form.eic-worksheet-a.line-5",
+    "form.eic-worksheet-a.line-6",
+    "form1040.line-27a",
+    "form1040.line-32",
+    "form1040.line-33",
+    "form1040.line-34",
+    "form1040.line-35a",
+    "form1040.line-37"
+   ],
+   "blocked_rules": [
+    "eic-answer.age-25-under-65:DEPENDENCY_ABSENT",
+    "eic-answer.main-home-in-us:DEPENDENCY_ABSENT",
+    "eic-answer.no-unsupported-situations:DEPENDENCY_ABSENT",
+    "eic-answer.not-claimable-as-dependent:DEPENDENCY_ABSENT",
+    "eic-answer.not-married:DEPENDENCY_ABSENT",
+    "eic-answer.not-nonresident-alien:DEPENDENCY_ABSENT",
+    "eic-answer.not-qualifying-child-of-another:DEPENDENCY_ABSENT",
+    "eic-answer.separated-spouse:DEPENDENCY_ABSENT",
+    "eic-answer.spouse-valid-ssn:DEPENDENCY_ABSENT",
+    "eic-answer.taxpayer-valid-ssn:DEPENDENCY_ABSENT",
+    "eic-child.counts:DEPENDENCY_ABSENT",
+    "eic-column-count:DEPENDENCY_ABSENT",
+    "eic-column.completed:DEPENDENCY_ABSENT",
+    "eic-column.phaseout-threshold:DEPENDENCY_ABSENT",
+    "eic-early-stop:DEPENDENCY_ABSENT",
+    "eic-eligibility:DEPENDENCY_ABSENT",
+    "eic-gate-result:DEPENDENCY_ABSENT",
+    "eic-qualifying-child-count:DEPENDENCY_INVALID",
+    "eic-questions-required:DEPENDENCY_ABSENT",
+    "eic-status-class:DEPENDENCY_ABSENT",
+    "eic-table-key:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-2:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-5:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-6:DEPENDENCY_ABSENT",
+    "form1040-line27a:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 15750
+    },
+    "form1040.line-15": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 14250
+    },
+    "form1040.line-16": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 1475
+    },
+    "form1040.line-19": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 1475
+    },
+    "form1040.line-24": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-27a": {
+     "disposition": "blocked",
+     "said": [],
+     "value": null
+    },
+    "form1040.line-28": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 725
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "said": [],
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "said": [],
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "said": [],
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "said": [],
+     "value": null
+    }
+   },
+   "missing_answers_named": [],
+   "sentences": [],
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": null,
+    "eic.answer.main-home-in-us": null,
+    "eic.answer.not-claimable-as-dependent": null,
+    "eic.answer.spouse-valid-ssn": null,
+    "eic.column-count": null,
+    "eic.eligibility-result": null,
+    "eic.gate-result": null,
+    "eic.questions-required": null,
+    "eic.status-class": null,
+    "payments.line27a": null
+   }
+  },
+  "single/child/30000/-childres": {
+   "blocked_page_lines_without_sentence": [
+    "form.eic-worksheet-a.line-2",
+    "form.eic-worksheet-a.line-5",
+    "form.eic-worksheet-a.line-6",
+    "form1040.line-27a",
+    "form1040.line-32",
+    "form1040.line-33",
+    "form1040.line-34",
+    "form1040.line-35a",
+    "form1040.line-37"
+   ],
+   "blocked_rules": [
+    "eic-answer.age-25-under-65:DEPENDENCY_ABSENT",
+    "eic-answer.main-home-in-us:DEPENDENCY_ABSENT",
+    "eic-answer.no-unsupported-situations:DEPENDENCY_ABSENT",
+    "eic-answer.not-claimable-as-dependent:DEPENDENCY_ABSENT",
+    "eic-answer.not-married:DEPENDENCY_ABSENT",
+    "eic-answer.not-nonresident-alien:DEPENDENCY_ABSENT",
+    "eic-answer.not-qualifying-child-of-another:DEPENDENCY_ABSENT",
+    "eic-answer.separated-spouse:DEPENDENCY_ABSENT",
+    "eic-answer.spouse-valid-ssn:DEPENDENCY_ABSENT",
+    "eic-answer.taxpayer-valid-ssn:DEPENDENCY_ABSENT",
+    "eic-child.counts:DEPENDENCY_ABSENT",
+    "eic-column-count:DEPENDENCY_ABSENT",
+    "eic-column.completed:DEPENDENCY_ABSENT",
+    "eic-column.phaseout-threshold:DEPENDENCY_ABSENT",
+    "eic-early-stop:DEPENDENCY_ABSENT",
+    "eic-eligibility:DEPENDENCY_ABSENT",
+    "eic-gate-result:DEPENDENCY_ABSENT",
+    "eic-qualifying-child-count:DEPENDENCY_INVALID",
+    "eic-questions-required:DEPENDENCY_ABSENT",
+    "eic-status-class:DEPENDENCY_ABSENT",
+    "eic-table-key:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-2:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-5:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-6:DEPENDENCY_ABSENT",
+    "form1040-line27a:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 15750
+    },
+    "form1040.line-15": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 14250
+    },
+    "form1040.line-16": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 1475
+    },
+    "form1040.line-19": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 1475
+    },
+    "form1040.line-24": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-27a": {
+     "disposition": "blocked",
+     "said": [],
+     "value": null
+    },
+    "form1040.line-28": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 725
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "said": [],
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "said": [],
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "said": [],
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "said": [],
+     "value": null
+    }
+   },
+   "missing_answers_named": [],
+   "sentences": [],
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": null,
+    "eic.answer.main-home-in-us": null,
+    "eic.answer.not-claimable-as-dependent": null,
+    "eic.answer.spouse-valid-ssn": null,
+    "eic.column-count": null,
+    "eic.eligibility-result": null,
+    "eic.gate-result": null,
+    "eic.questions-required": null,
+    "eic.status-class": null,
+    "payments.line27a": null
+   }
+  },
+  "single/none/16000/-age": {
+   "blocked_page_lines_without_sentence": [],
+   "blocked_rules": [
+    "eic-answer.age-25-under-65:DEPENDENCY_ABSENT",
+    "eic-eligibility:DEPENDENCY_ABSENT",
+    "eic-gate-result:DEPENDENCY_ABSENT",
+    "form1040-line27a:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 15750
+    },
+    "form1040.line-15": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 250
+    },
+    "form1040.line-16": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 26
+    },
+    "form1040.line-19": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-24": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 26
+    },
+    "form1040.line-27a": {
+     "disposition": "blocked",
+     "said": [
+      "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? Answer yes if you, or your spouse if you file a joint "
+     ],
+     "value": null
+    },
+    "form1040.line-28": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "said": [
+      "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? Answer yes if you, or your spouse if you file a joint "
+     ],
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "said": [
+      "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? Answer yes if you, or your spouse if you file a joint "
+     ],
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "said": [
+      "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? Answer yes if you, or your spouse if you file a joint "
+     ],
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "said": [
+      "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? Answer yes if you, or your spouse if you file a joint "
+     ],
+     "value": null
+    }
+   },
+   "missing_answers_named": [
+    "eic.age-25-under-65"
+   ],
+   "sentences": [
+    "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? Answer yes if you, or your spouse if you file a joint return, were born after December 31, 1960, and before January 2, 2001. If you or your spouse died in 2025, answer yes if the person who died"
+   ],
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": null,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.spouse-valid-ssn": 1,
+    "eic.column-count": 0,
+    "eic.eligibility-result": null,
+    "eic.gate-result": null,
+    "eic.questions-required": 1,
+    "eic.status-class": 1,
+    "payments.line27a": null
+   }
+  },
+  "single/none/50000/-age,home,notdep": {
+   "blocked_page_lines_without_sentence": [],
+   "blocked_rules": [],
+   "lines": {
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 15750
+    },
+    "form1040.line-15": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 34250
+    },
+    "form1040.line-16": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 3875
+    },
+    "form1040.line-19": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-24": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 3875
+    },
+    "form1040.line-27a": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-28": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-33": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 500
+    },
+    "form1040.line-34": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-35a": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-37": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 3375
+    }
+   },
+   "missing_answers_named": [],
+   "sentences": [],
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.spouse-valid-ssn": 1,
+    "eic.column-count": 0,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 0,
+    "eic.questions-required": 0,
+    "eic.status-class": 1,
+    "payments.line27a": 0
+   }
+  },
+  "single/none/7000/-age": {
+   "blocked_page_lines_without_sentence": [],
+   "blocked_rules": [
+    "eic-answer.age-25-under-65:DEPENDENCY_ABSENT",
+    "eic-eligibility:DEPENDENCY_ABSENT",
+    "eic-gate-result:DEPENDENCY_ABSENT",
+    "form1040-line27a:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 15750
+    },
+    "form1040.line-15": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-16": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-19": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-24": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-27a": {
+     "disposition": "blocked",
+     "said": [
+      "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? Answer yes if you, or your spouse if you file a joint "
+     ],
+     "value": null
+    },
+    "form1040.line-28": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "said": [
+      "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? Answer yes if you, or your spouse if you file a joint "
+     ],
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "said": [
+      "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? Answer yes if you, or your spouse if you file a joint "
+     ],
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "said": [
+      "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? Answer yes if you, or your spouse if you file a joint "
+     ],
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "said": [
+      "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? Answer yes if you, or your spouse if you file a joint "
+     ],
+     "value": null
+    }
+   },
+   "missing_answers_named": [
+    "eic.age-25-under-65"
+   ],
+   "sentences": [
+    "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? Answer yes if you, or your spouse if you file a joint return, were born after December 31, 1960, and before January 2, 2001. If you or your spouse died in 2025, answer yes if the person who died"
+   ],
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": null,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.spouse-valid-ssn": 1,
+    "eic.column-count": 0,
+    "eic.eligibility-result": null,
+    "eic.gate-result": null,
+    "eic.questions-required": 1,
+    "eic.status-class": 1,
+    "payments.line27a": null
+   }
+  },
+  "single/none/7000/-age,home,notdep": {
+   "blocked_page_lines_without_sentence": [],
+   "blocked_rules": [
+    "eic-answer.age-25-under-65:DEPENDENCY_ABSENT",
+    "eic-answer.main-home-in-us:DEPENDENCY_ABSENT",
+    "eic-answer.not-claimable-as-dependent:DEPENDENCY_ABSENT",
+    "eic-eligibility:DEPENDENCY_ABSENT",
+    "eic-gate-result:DEPENDENCY_ABSENT",
+    "form1040-line27a:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 15750
+    },
+    "form1040.line-15": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-16": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-19": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-24": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-27a": {
+     "disposition": "blocked",
+     "said": [
+      "Can you be claimed as a dependent on someone else's 2025 tax return (do not count the case where the person who could claim you is not required to file a 2025 r",
+      "Was your main home, and your spouse's if you file a joint return, in the United States for more than half of 2025? Your main home can be any place where you reg",
+      "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? Answer yes if you, or your spouse if you file a joint "
+     ],
+     "value": null
+    },
+    "form1040.line-28": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "said": [
+      "Can you be claimed as a dependent on someone else's 2025 tax return (do not count the case where the person who could claim you is not required to file a 2025 r",
+      "Was your main home, and your spouse's if you file a joint return, in the United States for more than half of 2025? Your main home can be any place where you reg",
+      "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? Answer yes if you, or your spouse if you file a joint "
+     ],
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "said": [
+      "Can you be claimed as a dependent on someone else's 2025 tax return (do not count the case where the person who could claim you is not required to file a 2025 r",
+      "Was your main home, and your spouse's if you file a joint return, in the United States for more than half of 2025? Your main home can be any place where you reg",
+      "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? Answer yes if you, or your spouse if you file a joint "
+     ],
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "said": [
+      "Can you be claimed as a dependent on someone else's 2025 tax return (do not count the case where the person who could claim you is not required to file a 2025 r",
+      "Was your main home, and your spouse's if you file a joint return, in the United States for more than half of 2025? Your main home can be any place where you reg",
+      "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? Answer yes if you, or your spouse if you file a joint "
+     ],
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "said": [
+      "Can you be claimed as a dependent on someone else's 2025 tax return (do not count the case where the person who could claim you is not required to file a 2025 r",
+      "Was your main home, and your spouse's if you file a joint return, in the United States for more than half of 2025? Your main home can be any place where you reg",
+      "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? Answer yes if you, or your spouse if you file a joint "
+     ],
+     "value": null
+    }
+   },
+   "missing_answers_named": [
+    "eic.age-25-under-65",
+    "eic.main-home-in-us",
+    "eic.not-claimable-as-dependent"
+   ],
+   "sentences": [
+    "Can you be claimed as a dependent on someone else's 2025 tax return (do not count the case where the person who could claim you is not required to file a 2025 return and is not filing one, or is filing only to claim a refund of withheld income tax or estimated tax paid)?",
+    "Was your main home, and your spouse's if you file a joint return, in the United States for more than half of 2025? Your main home can be any place where you regularly live, such as a house, apartment, shelter or temporary lodging, and it need not be the same place all year. The United States means t",
+    "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? Answer yes if you, or your spouse if you file a joint return, were born after December 31, 1960, and before January 2, 2001. If you or your spouse died in 2025, answer yes if the person who died"
+   ],
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": null,
+    "eic.answer.main-home-in-us": null,
+    "eic.answer.not-claimable-as-dependent": null,
+    "eic.answer.spouse-valid-ssn": 1,
+    "eic.column-count": 0,
+    "eic.eligibility-result": null,
+    "eic.gate-result": null,
+    "eic.questions-required": 1,
+    "eic.status-class": 1,
+    "payments.line27a": null
+   }
+  },
+  "single/none/7000/-home": {
+   "blocked_page_lines_without_sentence": [],
+   "blocked_rules": [
+    "eic-answer.main-home-in-us:DEPENDENCY_ABSENT",
+    "eic-eligibility:DEPENDENCY_ABSENT",
+    "eic-gate-result:DEPENDENCY_ABSENT",
+    "form1040-line27a:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 15750
+    },
+    "form1040.line-15": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-16": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-19": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-24": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-27a": {
+     "disposition": "blocked",
+     "said": [
+      "Was your main home, and your spouse's if you file a joint return, in the United States for more than half of 2025? Your main home can be any place where you reg"
+     ],
+     "value": null
+    },
+    "form1040.line-28": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "said": [
+      "Was your main home, and your spouse's if you file a joint return, in the United States for more than half of 2025? Your main home can be any place where you reg"
+     ],
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "said": [
+      "Was your main home, and your spouse's if you file a joint return, in the United States for more than half of 2025? Your main home can be any place where you reg"
+     ],
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "said": [
+      "Was your main home, and your spouse's if you file a joint return, in the United States for more than half of 2025? Your main home can be any place where you reg"
+     ],
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "said": [
+      "Was your main home, and your spouse's if you file a joint return, in the United States for more than half of 2025? Your main home can be any place where you reg"
+     ],
+     "value": null
+    }
+   },
+   "missing_answers_named": [
+    "eic.main-home-in-us"
+   ],
+   "sentences": [
+    "Was your main home, and your spouse's if you file a joint return, in the United States for more than half of 2025? Your main home can be any place where you regularly live, such as a house, apartment, shelter or temporary lodging, and it need not be the same place all year. The United States means t"
+   ],
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": null,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.spouse-valid-ssn": 1,
+    "eic.column-count": 0,
+    "eic.eligibility-result": null,
+    "eic.gate-result": null,
+    "eic.questions-required": 1,
+    "eic.status-class": 1,
+    "payments.line27a": null
+   }
+  },
+  "single/none/7000/-notdep": {
+   "blocked_page_lines_without_sentence": [],
+   "blocked_rules": [
+    "eic-answer.not-claimable-as-dependent:DEPENDENCY_ABSENT",
+    "eic-eligibility:DEPENDENCY_ABSENT",
+    "eic-gate-result:DEPENDENCY_ABSENT",
+    "form1040-line27a:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 15750
+    },
+    "form1040.line-15": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-16": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-19": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-24": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-27a": {
+     "disposition": "blocked",
+     "said": [
+      "Can you be claimed as a dependent on someone else's 2025 tax return (do not count the case where the person who could claim you is not required to file a 2025 r"
+     ],
+     "value": null
+    },
+    "form1040.line-28": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "said": [
+      "Can you be claimed as a dependent on someone else's 2025 tax return (do not count the case where the person who could claim you is not required to file a 2025 r"
+     ],
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "said": [
+      "Can you be claimed as a dependent on someone else's 2025 tax return (do not count the case where the person who could claim you is not required to file a 2025 r"
+     ],
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "said": [
+      "Can you be claimed as a dependent on someone else's 2025 tax return (do not count the case where the person who could claim you is not required to file a 2025 r"
+     ],
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "said": [
+      "Can you be claimed as a dependent on someone else's 2025 tax return (do not count the case where the person who could claim you is not required to file a 2025 r"
+     ],
+     "value": null
+    }
+   },
+   "missing_answers_named": [
+    "eic.not-claimable-as-dependent"
+   ],
+   "sentences": [
+    "Can you be claimed as a dependent on someone else's 2025 tax return (do not count the case where the person who could claim you is not required to file a 2025 return and is not filing one, or is filing only to claim a refund of withheld income tax or estimated tax paid)?"
+   ],
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": null,
+    "eic.answer.spouse-valid-ssn": 1,
+    "eic.column-count": 0,
+    "eic.eligibility-result": null,
+    "eic.gate-result": null,
+    "eic.questions-required": 1,
+    "eic.status-class": 1,
+    "payments.line27a": null
+   }
+  },
+  "single/none/7000/-notqc": {
+   "blocked_page_lines_without_sentence": [],
+   "blocked_rules": [
+    "eic-answer.not-qualifying-child-of-another:DEPENDENCY_ABSENT",
+    "eic-eligibility:DEPENDENCY_ABSENT",
+    "eic-gate-result:DEPENDENCY_ABSENT",
+    "form1040-line27a:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 15750
+    },
+    "form1040.line-15": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-16": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-19": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-24": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-27a": {
+     "disposition": "blocked",
+     "said": [
+      "Could you be a qualifying child of another person for 2025 (do not count the case where that person is not required to file a 2025 return and is not filing one,"
+     ],
+     "value": null
+    },
+    "form1040.line-28": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "said": [
+      "Could you be a qualifying child of another person for 2025 (do not count the case where that person is not required to file a 2025 return and is not filing one,"
+     ],
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "said": [
+      "Could you be a qualifying child of another person for 2025 (do not count the case where that person is not required to file a 2025 return and is not filing one,"
+     ],
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "said": [
+      "Could you be a qualifying child of another person for 2025 (do not count the case where that person is not required to file a 2025 return and is not filing one,"
+     ],
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "said": [
+      "Could you be a qualifying child of another person for 2025 (do not count the case where that person is not required to file a 2025 return and is not filing one,"
+     ],
+     "value": null
+    }
+   },
+   "missing_answers_named": [
+    "eic.not-qualifying-child-of-another"
+   ],
+   "sentences": [
+    "Could you be a qualifying child of another person for 2025 (do not count the case where that person is not required to file a 2025 return and is not filing one, or is filing only to claim a refund of withheld or estimated tax)?"
+   ],
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.spouse-valid-ssn": 1,
+    "eic.column-count": 0,
+    "eic.eligibility-result": null,
+    "eic.gate-result": null,
+    "eic.questions-required": 1,
+    "eic.status-class": 1,
+    "payments.line27a": null
+   }
+  },
+  "single/none/7000/-nra": {
+   "blocked_page_lines_without_sentence": [],
+   "blocked_rules": [
+    "eic-answer.not-nonresident-alien:DEPENDENCY_ABSENT",
+    "eic-eligibility:DEPENDENCY_ABSENT",
+    "eic-gate-result:DEPENDENCY_ABSENT",
+    "form1040-line27a:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 15750
+    },
+    "form1040.line-15": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-16": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-19": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-24": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-27a": {
+     "disposition": "blocked",
+     "said": [
+      "Were you, or was your spouse, a nonresident alien for any part of 2025 (do not count a nonresident or dual-status alien spouse you chose to treat as a U.S. resi"
+     ],
+     "value": null
+    },
+    "form1040.line-28": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "said": [
+      "Were you, or was your spouse, a nonresident alien for any part of 2025 (do not count a nonresident or dual-status alien spouse you chose to treat as a U.S. resi"
+     ],
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "said": [
+      "Were you, or was your spouse, a nonresident alien for any part of 2025 (do not count a nonresident or dual-status alien spouse you chose to treat as a U.S. resi"
+     ],
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "said": [
+      "Were you, or was your spouse, a nonresident alien for any part of 2025 (do not count a nonresident or dual-status alien spouse you chose to treat as a U.S. resi"
+     ],
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "said": [
+      "Were you, or was your spouse, a nonresident alien for any part of 2025 (do not count a nonresident or dual-status alien spouse you chose to treat as a U.S. resi"
+     ],
+     "value": null
+    }
+   },
+   "missing_answers_named": [
+    "eic.not-nonresident-alien"
+   ],
+   "sentences": [
+    "Were you, or was your spouse, a nonresident alien for any part of 2025 (do not count a nonresident or dual-status alien spouse you chose to treat as a U.S. resident for the whole year)?"
+   ],
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.spouse-valid-ssn": 1,
+    "eic.column-count": 0,
+    "eic.eligibility-result": null,
+    "eic.gate-result": null,
+    "eic.questions-required": 1,
+    "eic.status-class": 1,
+    "payments.line27a": null
+   }
+  },
+  "single/none/7000/-tpssn": {
+   "blocked_page_lines_without_sentence": [],
+   "blocked_rules": [
+    "eic-answer.taxpayer-valid-ssn:DEPENDENCY_ABSENT",
+    "eic-eligibility:DEPENDENCY_ABSENT",
+    "eic-gate-result:DEPENDENCY_ABSENT",
+    "form1040-line27a:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 15750
+    },
+    "form1040.line-15": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-16": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-19": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-24": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-27a": {
+     "disposition": "blocked",
+     "said": [
+      "Does your Social Security number allow you to work in the United States? Answer yes if it was issued by the Social Security Administration on or before the due "
+     ],
+     "value": null
+    },
+    "form1040.line-28": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "said": [
+      "Does your Social Security number allow you to work in the United States? Answer yes if it was issued by the Social Security Administration on or before the due "
+     ],
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "said": [
+      "Does your Social Security number allow you to work in the United States? Answer yes if it was issued by the Social Security Administration on or before the due "
+     ],
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "said": [
+      "Does your Social Security number allow you to work in the United States? Answer yes if it was issued by the Social Security Administration on or before the due "
+     ],
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "said": [
+      "Does your Social Security number allow you to work in the United States? Answer yes if it was issued by the Social Security Administration on or before the due "
+     ],
+     "value": null
+    }
+   },
+   "missing_answers_named": [
+    "eic.taxpayer-valid-ssn"
+   ],
+   "sentences": [
+    "Does your Social Security number allow you to work in the United States? Answer yes if it was issued by the Social Security Administration on or before the due date of your 2025 return (including extensions) and is not marked \"Not Valid for Employment\", or if it is marked \"Valid for Work Only With D"
+   ],
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.spouse-valid-ssn": 1,
+    "eic.column-count": 0,
+    "eic.eligibility-result": null,
+    "eic.gate-result": null,
+    "eic.questions-required": 1,
+    "eic.status-class": 1,
+    "payments.line27a": null
+   }
+  },
+  "single/none/7000/-unsup": {
+   "blocked_page_lines_without_sentence": [],
+   "blocked_rules": [
+    "ctc-sch8812-line-18a:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-19:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-20:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-21:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-22:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-23:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-24:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-25:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-26:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-27:DEPENDENCY_ABSENT",
+    "ctc-sch8812-part-ii-b-needed:DEPENDENCY_ABSENT",
+    "eic-answer.no-unsupported-situations:DEPENDENCY_ABSENT",
+    "eic-early-stop:DEPENDENCY_ABSENT",
+    "eic-eligibility:DEPENDENCY_ABSENT",
+    "eic-gate-result:DEPENDENCY_ABSENT",
+    "form1040-line27a:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT",
+    "form1040-lines28-31:DEPENDENCY_ABSENT",
+    "w2-box4-total:DEPENDENCY_ABSENT",
+    "w2-box6-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 15750
+    },
+    "form1040.line-15": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-16": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-19": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-24": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-27a": {
+     "disposition": "blocked",
+     "said": [
+      "Does any of these apply to you for 2025: you file Form 2555; you must file Form 8862 or are barred from the earned income credit for a prior year; you are self-"
+     ],
+     "value": null
+    },
+    "form1040.line-28": {
+     "disposition": "blocked",
+     "said": [
+      "Does any of these apply to you for 2025: you file Form 2555; you must file Form 8862 or are barred from the earned income credit for a prior year; you are self-"
+     ],
+     "value": null
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "said": [
+      "Does any of these apply to you for 2025: you file Form 2555; you must file Form 8862 or are barred from the earned income credit for a prior year; you are self-"
+     ],
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "said": [
+      "Does any of these apply to you for 2025: you file Form 2555; you must file Form 8862 or are barred from the earned income credit for a prior year; you are self-"
+     ],
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "said": [
+      "Does any of these apply to you for 2025: you file Form 2555; you must file Form 8862 or are barred from the earned income credit for a prior year; you are self-"
+     ],
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "said": [
+      "Does any of these apply to you for 2025: you file Form 2555; you must file Form 8862 or are barred from the earned income credit for a prior year; you are self-"
+     ],
+     "value": null
+    }
+   },
+   "missing_answers_named": [
+    "eic.no-unsupported-situations"
+   ],
+   "sentences": [
+    "Does any of these apply to you for 2025: you file Form 2555; you must file Form 8862 or are barred from the earned income credit for a prior year; you are self-employed with Schedule SE or Schedule C as a statutory employee, or you are a member of the clergy or had church employee income of $108.28 "
+   ],
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.spouse-valid-ssn": 1,
+    "eic.column-count": 0,
+    "eic.eligibility-result": null,
+    "eic.gate-result": null,
+    "eic.questions-required": 1,
+    "eic.status-class": 1,
+    "payments.line27a": null
+   }
+  },
+  "single/none/7000/answered": {
+   "blocked_page_lines_without_sentence": [],
+   "blocked_rules": [],
+   "lines": {
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 15750
+    },
+    "form1040.line-15": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-16": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-19": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-24": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-27a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 537
+    },
+    "form1040.line-28": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-33": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 887
+    },
+    "form1040.line-34": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 887
+    },
+    "form1040.line-35a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 887
+    },
+    "form1040.line-37": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    }
+   },
+   "missing_answers_named": [],
+   "sentences": [],
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.spouse-valid-ssn": 1,
+    "eic.column-count": 0,
+    "eic.eligibility-result": 537,
+    "eic.gate-result": 537,
+    "eic.questions-required": 1,
+    "eic.status-class": 1,
+    "payments.line27a": 537
+   }
+  }
+ },
+ "wall_time_s": 25.1
+}

@@ -1,0 +1,116 @@
+{
+ "format": "full-surface-replay.v1",
+ "cores": [
+  {
+   "version": "v99",
+   "registry": "v97",
+   "release_version": "v97",
+   "loader_from": null,
+   "presence_pairs": [],
+   "package_sha256": "d97c8df7015449fdc7017a9bf563356b166ebb62fba7e12304e18bfa6f15e982",
+   "release_sha256": "2af80ec1ebd23d4d786d394353a9e67cf3051056fe2b6b6fa290616672b166b0"
+  },
+  {
+   "version": "v100",
+   "registry": "v98",
+   "release_version": "v98",
+   "loader_from": null,
+   "presence_pairs": [],
+   "package_sha256": "e45be7f2ff2a83d847ebea5995ab25da1a4c0b155eeecd411216ce6f740c97da",
+   "release_sha256": "528e733aa5cff5bd6e84dc6d902103e4cdfb1b9b917475ac7b20aee89c22a9a9"
+  }
+ ],
+ "lists": 32,
+ "classes": {
+  "expected_changes": 32
+ },
+ "passing": 32,
+ "failing": 0,
+ "unexpected_differences": 0,
+ "unexpected_by_kind_attribute": {},
+ "expectations_declared": 6,
+ "expectations_used": 6,
+ "unused_expectations": [],
+ "expectation_lists": {
+  "version:tax.us.2025.package.core-calculations": 32,
+  "question shown:eic.age-25-under-65": [
+   "probe/hoh/parent/7000/yes/-age",
+   "probe/hoh/parent/7000/yes/-age,home,notdep",
+   "probe/mfj/none/16000/-age",
+   "probe/mfj/none/16000/-age,home,spssn",
+   "probe/qss/none/16000/-age",
+   "probe/single/none/16000/-age",
+   "probe/single/none/7000/-age",
+   "probe/single/none/7000/-age,home,notdep"
+  ],
+  "question shown:eic.main-home-in-us": [
+   "probe/hoh/parent/7000/yes/-age,home,notdep",
+   "probe/hoh/parent/7000/yes/-home",
+   "probe/mfj/none/16000/-age,home,spssn",
+   "probe/mfj/none/16000/-home",
+   "probe/qss/none/16000/-home",
+   "probe/single/none/7000/-age,home,notdep",
+   "probe/single/none/7000/-home"
+  ],
+  "question shown:eic.not-claimable-as-dependent": [
+   "probe/hoh/parent/7000/yes/-age,home,notdep",
+   "probe/hoh/parent/7000/yes/-notdep",
+   "probe/qss/none/16000/-notdep",
+   "probe/single/none/7000/-age,home,notdep",
+   "probe/single/none/7000/-notdep"
+  ],
+  "question shown:eic.spouse-valid-ssn": [
+   "probe/mfj/child/30000/-spssn",
+   "probe/mfj/none/16000/-age,home,spssn",
+   "probe/mfj/none/16000/-spssn"
+  ],
+  "reasons list added on a line that had none": 17
+ },
+ "expected_by_note": {
+  "question shown:eic.age-25-under-65": 48,
+  "question shown:eic.main-home-in-us": 42,
+  "question shown:eic.not-claimable-as-dependent": 30,
+  "question shown:eic.spouse-valid-ssn": 18,
+  "reasons list added on a line that had none": 102,
+  "version:tax.us.2025.package.core-calculations": 19482
+ },
+ "outcomes": {
+  "success/success": 32
+ },
+ "list_classes": {
+  "probe/hoh/parent/7000/no/-age,home,notdep": "expected_changes",
+  "probe/hoh/parent/7000/yes/-age": "expected_changes",
+  "probe/hoh/parent/7000/yes/-age,home,notdep": "expected_changes",
+  "probe/hoh/parent/7000/yes/-home": "expected_changes",
+  "probe/hoh/parent/7000/yes/-notdep": "expected_changes",
+  "probe/hoh/parent/7000/yes/answered": "expected_changes",
+  "probe/mfj/child/30000/-spssn": "expected_changes",
+  "probe/mfj/child/30000/answered": "expected_changes",
+  "probe/mfj/none/16000/-age": "expected_changes",
+  "probe/mfj/none/16000/-age,home,spssn": "expected_changes",
+  "probe/mfj/none/16000/-home": "expected_changes",
+  "probe/mfj/none/16000/-spssn": "expected_changes",
+  "probe/mfj/none/16000/answered": "expected_changes",
+  "probe/mfs/none/7000/-age,home,notdep": "expected_changes",
+  "probe/qss/none/16000/-age": "expected_changes",
+  "probe/qss/none/16000/-home": "expected_changes",
+  "probe/qss/none/16000/-notdep": "expected_changes",
+  "probe/qss/none/16000/answered": "expected_changes",
+  "probe/single/child/30000/-age,home,notdep": "expected_changes",
+  "probe/single/child/30000/-childage": "expected_changes",
+  "probe/single/child/30000/-childres": "expected_changes",
+  "probe/single/none/16000/-age": "expected_changes",
+  "probe/single/none/50000/-age,home,notdep": "expected_changes",
+  "probe/single/none/7000/-age": "expected_changes",
+  "probe/single/none/7000/-age,home,notdep": "expected_changes",
+  "probe/single/none/7000/-home": "expected_changes",
+  "probe/single/none/7000/-notdep": "expected_changes",
+  "probe/single/none/7000/-notqc": "expected_changes",
+  "probe/single/none/7000/-nra": "expected_changes",
+  "probe/single/none/7000/-tpssn": "expected_changes",
+  "probe/single/none/7000/-unsup": "expected_changes",
+  "probe/single/none/7000/answered": "expected_changes"
+ },
+ "failing_lists": {},
+ "lists_set": "probe"
+}

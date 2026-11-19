@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.eic.age-25-under-65",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.eic-age-25-under-65",
+  "question": "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? Answer yes if you, or your spouse if you file a joint return, were born after December 31, 1960, and before January 2, 2001. If you or your spouse died in 2025, answer yes if the person who died was at least age 25 but under age 65 at the time of death (a person reaches age 25 on the day before their 25th birthday, and age 65 on their 65th birthday).",
+  "schema": "input-question.v1",
+  "version": "v1"
+}
