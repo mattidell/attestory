@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.qss.tests-met",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.qss-tests-met",
+  "question": "You chose qualifying surviving spouse. Answer yes only if all of these apply: your spouse died in 2023 or 2024 and you did not remarry before the end of 2025; you could have filed a joint return with your spouse for the year your spouse died; you have a child or stepchild (not a foster child) whom you can claim as a dependent, or could claim except that the child had gross income of $5,200 or more, filed a joint return, or you can be claimed as someone else's dependent; that child lived in your home all of 2025, apart from temporary absences such as school (a child born or who died in 2025 counts if the child lived there for the part of the year the child was alive); and you paid more than half the cost of keeping up that home for 2025. If any of these does not apply, you cannot file as a qualifying surviving spouse: change your filing status (if your spouse died in 2025, you can file a joint return for 2025).",
+  "schema": "input-question.v1",
+  "version": "v1"
+}

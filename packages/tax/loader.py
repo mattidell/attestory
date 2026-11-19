@@ -262,6 +262,8 @@ def named_covered_flag_refusal_maps() -> dict[tuple[str, str], dict[str, str]]:
         ("tax.us.2025.package.core-calculations", "v96"): dict(COVERED_FLAG_REFUSAL_OBJECTS),
         # Core v97 changes five input-question texts only and carries v96's map.
         ("tax.us.2025.package.core-calculations", "v97"): dict(COVERED_FLAG_REFUSAL_OBJECTS),
+        # Core v98 adds the head of household and qualifying surviving spouse answers and carries v97's map.
+        ("tax.us.2025.package.core-calculations", "v98"): dict(COVERED_FLAG_REFUSAL_OBJECTS),
     }
 
 
@@ -760,6 +762,17 @@ def domain_package_companion_declarations() -> dict[tuple[str, str], dict[str, A
         },
         # Core v97 changes five input-question texts only and carries v96's declaration.
         ("tax.us.2025.package.core-calculations", "v97"): {
+            "presence_pairs": {
+                **gambling["presence_pairs"],
+                **noncovered_scalar_presence_pairs(),
+                **no1099b_scalar_presence_pairs(),
+                **code_b_scalar_presence_pairs(),
+                **covered_scalar_presence_pairs(),
+            },
+            "value_domains": dict(gambling["value_domains"]),
+        },
+        # Core v98 adds two return-level answers and one rule successor and carries v97's declaration.
+        ("tax.us.2025.package.core-calculations", "v98"): {
             "presence_pairs": {
                 **gambling["presence_pairs"],
                 **noncovered_scalar_presence_pairs(),

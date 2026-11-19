@@ -1057,6 +1057,17 @@ When cleanup still fails, it closes its server and exits promptly with
 `browser-cleanup-failed` instead of hanging `verify` for 240 s. Harness
 and test-helper change only; no package version change.
 
+## Bounded return — Head of Household Needs a Qualifying Person (2025)
+
+[Plan](milestones/hoh-qualifying-person.md); retrospective:
+`docs/milestone-retrospectives/2026-11-19-hoh-qualifying-person.md`.
+
+Core v98 (registry v96, release v96) asks a filer who chooses head of
+household or qualifying surviving spouse whether that status's tests are
+met. Before it, either status took its larger standard deduction and tax
+column with nothing asked. A yes keeps every amount, and a no refuses
+line 12e with the question shown. The other three statuses are unchanged.
+
 ## Saved-page observation — Mortgage and Sales (2025)
 
 [Plan](milestones/sale-page-observation.md); retrospective:
@@ -1128,8 +1139,14 @@ delivers an item removes it.
 - A sale entered both on a Form 1099-B family and as a no-1099-B sale is
   refused only by the in-class answer ("entered only once"); the two are
   keyed differently, so content cannot see it.
-- Head of household and qualifying surviving spouse are accepted with no
-  qualifying person recorded (cf-loss-limit observation).
+- The earned income credit is $0 for every head of household without a
+  qualifying child (`rule.eic-status-class`), although the 2025
+  instructions bar only a married one; it needs a year-end marital answer
+  the engine does not record (hoh-qualifying-person Decision 5).
+- After a head of household or surviving spouse "no", the Qualified
+  Dividends and Capital Gain Tax Worksheet lines 6 and 13 still show that
+  status's ceiling; every line that uses them blocks
+  (hoh-qualifying-person HOH-R5).
 - The covered-flag refusal code sits in `missing` as
   `BASIS_NOT_REPORTED_ON_COVERED`; a derivation-record successor would put
   it on the row.
