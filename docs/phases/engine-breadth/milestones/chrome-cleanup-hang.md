@@ -84,3 +84,14 @@ group with `process.kill(-pid, "SIGKILL")`.
 1. **No timeout or retry as the fix (2026-11-19, foreman).** A longer
    bound or an automatic retry would hide the hang, not remove it. The
    240 s bound stays.
+2. **Accept the SIGKILL gap, stated (2026-11-19, foreman).** Chrome now
+   leads its own process group, so if the Python bound ever has to
+   SIGKILL the observer, the observer's exit hook cannot run and the
+   Chrome group is not reached. The bound sends SIGTERM first, which the
+   observer handles by ending its group, and the observer now exits
+   promptly on its own, so the SIGKILL path should not be reached. Not
+   adding Python-side reaping keeps one owner for the process tree.
+3. **Leave old profile directories.** `presentation-harness-profile-*`
+   directories left by earlier runs are outside this change; the builder
+   did not delete them, and neither does the milestone.
+
