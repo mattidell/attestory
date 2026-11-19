@@ -3,7 +3,8 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "gain-break-even",
-  "status": "Track 1 (tests only) chartered 2026-11-19.",
+  "status": "Closed 2026-11-19. Tests only; no package version change.",
+  "retrospective": "docs/milestone-retrospectives/2026-11-19-gain-break-even.md",
   "scope": [
     "a sale with a gain or exactly zero gain reaches Form 8949 and Schedule D correctly on every sale path the engine accepts (covered and noncovered Form 1099-B, code B, code W, no Form 1099-B; short and long term), the same way a loss does",
     "the behaviour is pinned by tests against hand values, or a bounded content repair if P0 finds a wrong value"
@@ -130,4 +131,14 @@ Evidence: `docs/phases/engine-breadth/milestones/gain-break-even-evidence/p0.md`
    1b. GBE-R2 and R3: correct the evidence docstrings and state the
    measured cost. GBE-R4: Decision 2 now cites the Form 8949 Line 1
    instruction.
+
+## Closeout
+
+Closed 2026-11-19. On core v96 a gain and an exact break-even reach Form
+8949, Schedule D, Form 1040 line 7a and the line 16 tax correctly on
+every accepted sale path: 1,134 of 1,134 line checks across 50 returns
+match hand values. No test had run a gain on v96, and the long-term
+no-Form-1099-B break-even had never run. 27 returns are pinned (28 live
+tests) with 17 fast hand-value tests; the code W gain probe asserts both
+the block and its page sentence.
 
