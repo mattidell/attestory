@@ -374,6 +374,7 @@ async function main() {
     recordProgress("cleanup-start");
     client?.close();
     recordProgress("client-close-complete");
+    let disposed = true;
     try {
       if (chrome) {
         recordProgress("chrome-dispose-start");
@@ -384,15 +385,22 @@ async function main() {
         await launchCleanup();
         recordProgress("chrome-dispose-complete");
       }
-      if (server) {
+    } catch {
+      disposed = false;
+    }
+    // A failed dispose must not leave the loopback server open: it alone keeps
+    // the event loop alive and the observer from exiting.
+    let serverClosed = true;
+    if (server) {
+      try {
         recordProgress("server-close-start");
         await server.close();
         recordProgress("server-close-complete");
+      } catch {
+        serverClosed = false;
       }
-      cleanupCompleted = true;
-    } catch {
-      cleanupCompleted = false;
     }
+    cleanupCompleted = disposed && serverClosed;
     observation?.close();
     if (observation) {
       recordProgress("observer-flush-start");
@@ -414,4 +422,9 @@ async function main() {
   }
 }
 
-main().catch((error) => fail(safeFailureReason(error)));
+// Exit as soon as main has finished its cleanup, with its exit code. Progress and
+// failure records are written synchronously, so nothing is pending. A stray
+// handle must never be what decides when this process ends.
+main()
+  .catch((error) => fail(safeFailureReason(error)))
+  .finally(() => process.exit(process.exitCode ?? 0));

@@ -108,7 +108,8 @@ def acquire() -> str:
 def close() -> None:
     global _owner, _endpoint, _profile_root, _browser_pid
     owner, _owner, _endpoint = _owner, None, None
-    profile_root, _profile_root, _browser_pid = _profile_root, None, None
+    profile_root, browser_pid = _profile_root, _browser_pid
+    _profile_root, _browser_pid = None, None
     if owner is None:
         return
     if owner.poll() is None:
@@ -131,12 +132,16 @@ def close() -> None:
         owner.stdin.close()
     if owner.stdout is not None:
         owner.stdout.close()
-    # A killed owner cannot run its Node finally block. Its browser is in this
-    # private process group and its temporary profiles are under our root.
+    # A killed owner cannot run its Node finally block. Its browser leads its
+    # own process group (pgid == browser pid); its helpers may share the
+    # owner's. Its temporary profiles are under our root.
     if profile_root is not None:
         if os.path.isdir(profile_root) and os.listdir(profile_root):
-            try:
-                os.killpg(owner.pid, signal.SIGKILL)
-            except ProcessLookupError:
-                pass
+            for pgid in (browser_pid, owner.pid):
+                if pgid is None:
+                    continue
+                try:
+                    os.killpg(pgid, signal.SIGKILL)
+                except ProcessLookupError:
+                    pass
         shutil.rmtree(profile_root, ignore_errors=False)
