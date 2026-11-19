@@ -14,12 +14,15 @@ preferential base and, where lines 15 and 16 are both gains, the Qualified
 Dividends and Capital Gain Tax Worksheet lines.
 
 The probe is the one bound: a code W row with a positive box 1g amount on a gain
-blocks (ADR-0062 Decision 2, mechanism ADR-0066) and publishes no line 16 amount.
+blocks (ADR-0062 Decision 2, mechanism ADR-0066) and publishes no line 16 amount;
+the saved page's line 1b also carries the code-W-on-gain reason sentence.
 
 Every test is one return, so a return runs once; there is no shared memo to lose
 across workers. Measured cost: each run with page rendering costs several seconds,
 above the fast-lane budget, hence the live marker. The subset is 27 coordinator
-runs under `-n auto`.
+runs under `-n auto`: about 26 s wall and about 227 CPU-seconds on 10 workers
+(both new modules together; the slowest calls take about 22 s under contention
+against about 3 s per warm run in one process).
 """
 from __future__ import annotations
 
@@ -115,6 +118,7 @@ def test_code_w_gain_probe_blocks() -> None:
     assert "schedule-d.line-16" not in run["published"]
     assert run["questions"] == []
     assert run["attachments"]["schedule-d"] == "blocked"
-    # The block's code is declared on the family content (read only; the page names it).
-    family = (REPO / "packages/content/tax/2025/family.f1099b-covered-w-st.v2.json")
-    assert "CODE_W_ON_GAIN" in family.read_text(encoding="utf-8")
+    # The page's line 1b names the code-W-on-gain reason itself (not only the overlapping
+    # adjustment-exceeds-loss one, which also fires on any gain row with box 1g above 0).
+    reasons = run["line_reasons"]["schedule-d.line-1b"]
+    assert any("block.f8949.code-w-on-gain" in r and "non-loss transaction" in r for r in reasons), reasons

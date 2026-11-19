@@ -83,9 +83,11 @@ the evidence is the outcome.
    long-term gain, the three mixed returns netting to a gain, and one
    code W gain probe that must block (ADR-0062 Decision 2 via ADR-0066).
 2. **Bounds recorded, no change.** A break-even return files Schedule D
-   with line 16 of 0 even when both Exception 1 answers are yes; a
-   Form 1099-B sale is reported on Schedule D whatever its result, and
-   no dollar changes. On returns with no long-term gain the worksheet
+   with line 16 of 0 even when both Exception 1 answers are yes. The
+   Form 1040 Exception 1 wording is literally met by a sale that nets
+   zero, but the Form 8949 instructions, Line 1 ("Enter all sales and
+   exchanges…"), require the sale to be reported, and no dollar changes
+   (review GBE-R4). On returns with no long-term gain the worksheet
    lines still publish as intermediates; line 25 equals the Tax Table
    amount.
 3. **Parked.** A code W gain block asks the filer no question; the page
@@ -120,3 +122,12 @@ Evidence: `docs/phases/engine-breadth/milestones/gain-break-even-evidence/p0.md`
 - For the foreman: Track 1's case subset (27 suggested), and two noted-only
   observations (break-even and Exception 1; no question on a code W gain
   block).
+4. **Repair the review notes (2026-11-19, foreman).** The fresh review
+   (`docs/reviews/gain-break-even/review.md`) is READY with notes; 12
+   in-memory mutations all fail the tests. GBE-R1: the code W probe is
+   held by a second rule (`ADJUSTMENT_EXCEEDS_LOSS`) too, so the test
+   must also assert the code-W-on-gain sentence the page shows on line
+   1b. GBE-R2 and R3: correct the evidence docstrings and state the
+   measured cost. GBE-R4: Decision 2 now cites the Form 8949 Line 1
+   instruction.
+
