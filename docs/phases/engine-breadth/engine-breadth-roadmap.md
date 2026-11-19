@@ -1024,6 +1024,17 @@ Schedule D line 21 exactly as a box A/D loss is, under every filing
 status: 900 of 900 line checks match hand values. Tests pin it and that
 no 2026 carryover is published. No package version change.
 
+## Bounded return — Gains and Break-Even Sales Reach Schedule D (2025)
+
+[Plan](milestones/gain-break-even.md); retrospective:
+`docs/milestone-retrospectives/2026-11-19-gain-break-even.md`.
+
+A gain and an exact break-even reach Form 8949, Schedule D and the line
+16 tax correctly on every accepted sale path (covered, code W, code B,
+noncovered, no Form 1099-B; short and long term): 1,134 of 1,134 checks
+match hand values. Tests pin 27 returns on core v96. No package version
+change.
+
 ## Saved-page observation — Mortgage and Sales (2025)
 
 [Plan](milestones/sale-page-observation.md); retrospective:
@@ -1094,7 +1105,8 @@ delivers an item removes it.
 - The covered-flag refusal code sits in `missing` as
   `BASIS_NOT_REPORTED_ON_COVERED`; a derivation-record successor would put
   it on the row.
-- Gain and break-even reporting on Form 8949 and Schedule D.
+- A blocked code W gain (box 1g on a gain or break-even row) asks the
+  filer no question; the page shows only the reason (gain-break-even).
 - Additional seller-paid shipping under platform pass-through.
 - A v1 Form 1099-K workspace re-answers its completeness question under the
   successor package; recovery for a log with two current family versions; a
