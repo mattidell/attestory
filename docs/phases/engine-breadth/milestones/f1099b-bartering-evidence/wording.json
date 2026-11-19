@@ -1,0 +1,64 @@
+{
+ "note": "Wording successors for the scratch core v97 on published v96. Variant q: the five input questions that share the Schedule 1 lines 2a-6 sentence. Variant qf: q plus the Schedule 1 line 10 guard sentence.",
+ "replacements": [
+  {
+   "id": "tax.us.2025.input-question.schedule1-part1-scope-no-sch1-line2a-alimony",
+   "property": "question",
+   "old": "In 2025, did you receive alimony, or have income or loss from a business, a farm, rental property or royalties, a partnership, S corporation or trust, or any other gain or loss reported on Schedule 1 lines 2a through 6?",
+   "new": "In 2025, did you receive alimony, or have income or loss from a business, a farm, rental property or royalties, a partnership, S corporation or trust, or any other gain or loss reported on Schedule 1 lines 2a through 6? Also answer yes if a Form 1099-B you received shows an amount above zero in box 13 (Bartering), even if you do not think of it as a business.",
+   "variants": [
+    "q",
+    "qf"
+   ]
+  },
+  {
+   "id": "tax.us.2025.input-question.schedule1-part1-scope-no-sch1-line3-business",
+   "property": "question",
+   "old": "In 2025, did you receive alimony, or have income or loss from a business, a farm, rental property or royalties, a partnership, S corporation or trust, or any other gain or loss reported on Schedule 1 lines 2a through 6?",
+   "new": "In 2025, did you receive alimony, or have income or loss from a business, a farm, rental property or royalties, a partnership, S corporation or trust, or any other gain or loss reported on Schedule 1 lines 2a through 6? Also answer yes if a Form 1099-B you received shows an amount above zero in box 13 (Bartering), even if you do not think of it as a business.",
+   "variants": [
+    "q",
+    "qf"
+   ]
+  },
+  {
+   "id": "tax.us.2025.input-question.schedule1-part1-scope-no-sch1-line4-other-gains",
+   "property": "question",
+   "old": "In 2025, did you receive alimony, or have income or loss from a business, a farm, rental property or royalties, a partnership, S corporation or trust, or any other gain or loss reported on Schedule 1 lines 2a through 6?",
+   "new": "In 2025, did you receive alimony, or have income or loss from a business, a farm, rental property or royalties, a partnership, S corporation or trust, or any other gain or loss reported on Schedule 1 lines 2a through 6? Also answer yes if a Form 1099-B you received shows an amount above zero in box 13 (Bartering), even if you do not think of it as a business.",
+   "variants": [
+    "q",
+    "qf"
+   ]
+  },
+  {
+   "id": "tax.us.2025.input-question.schedule1-part1-scope-no-sch1-line5-rental",
+   "property": "question",
+   "old": "In 2025, did you receive alimony, or have income or loss from a business, a farm, rental property or royalties, a partnership, S corporation or trust, or any other gain or loss reported on Schedule 1 lines 2a through 6?",
+   "new": "In 2025, did you receive alimony, or have income or loss from a business, a farm, rental property or royalties, a partnership, S corporation or trust, or any other gain or loss reported on Schedule 1 lines 2a through 6? Also answer yes if a Form 1099-B you received shows an amount above zero in box 13 (Bartering), even if you do not think of it as a business.",
+   "variants": [
+    "q",
+    "qf"
+   ]
+  },
+  {
+   "id": "tax.us.2025.input-question.schedule1-part1-scope-no-sch1-line6-farm",
+   "property": "question",
+   "old": "In 2025, did you receive alimony, or have income or loss from a business, a farm, rental property or royalties, a partnership, S corporation or trust, or any other gain or loss reported on Schedule 1 lines 2a through 6?",
+   "new": "In 2025, did you receive alimony, or have income or loss from a business, a farm, rental property or royalties, a partnership, S corporation or trust, or any other gain or loss reported on Schedule 1 lines 2a through 6? Also answer yes if a Form 1099-B you received shows an amount above zero in box 13 (Bartering), even if you do not think of it as a business.",
+   "variants": [
+    "q",
+    "qf"
+   ]
+  },
+  {
+   "id": "tax.us.2025.schedule1.line-10",
+   "property": "dispositions.guard_inapplicable.explain",
+   "old": "No value is published because a completeness or guard condition is not satisfied.",
+   "new": "Schedule 1 line 10 has no value because one of these is true: your Form 1099-G or Form 1099-K statements are not confirmed complete, or you said you have Schedule 1 income this return does not compute (alimony; business income, including an amount in box 13 (Bartering) of a Form 1099-B; other gains; rental, royalty, partnership, S corporation or trust income; farm income; other income on lines 8a through 8z; a state or local tax refund; another Form 1099-G payment; or an unemployment repayment). Your total income is not shown, so that income is not left out.",
+   "variants": [
+    "qf"
+   ]
+  }
+ ]
+}

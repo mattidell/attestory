@@ -1,0 +1,103 @@
+{
+  "variant": "q",
+  "from": {
+    "core": "v96",
+    "registry": "v94",
+    "release": "v94"
+  },
+  "to": {
+    "core": "v97",
+    "registry": "v95",
+    "release": "v95"
+  },
+  "wording_citizens": 5,
+  "cascade_levels": [
+    5
+  ],
+  "citizens": 5,
+  "member_replacements": 5,
+  "entrypoint_replacements": 5,
+  "successors": [
+    {
+      "id": "tax.us.2025.input-question.schedule1-part1-scope-no-sch1-line2a-alimony",
+      "schema": "input-question.v1",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/input-question.schedule1-part1-scope-no-sch1-line2a-alimony.v1.json",
+      "successor_filename": "input-question.schedule1-part1-scope-no-sch1-line2a-alimony.v2.json",
+      "reason": "wording",
+      "changed_properties": [
+        "question"
+      ],
+      "rewritten_pins": 0,
+      "successor_sha256": "9e1f15ca346e169896cd9772bf56f53d03f9ace814d6c83528ed52400e75ad6d",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.input-question.schedule1-part1-scope-no-sch1-line3-business",
+      "schema": "input-question.v1",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/input-question.schedule1-part1-scope-no-sch1-line3-business.v1.json",
+      "successor_filename": "input-question.schedule1-part1-scope-no-sch1-line3-business.v2.json",
+      "reason": "wording",
+      "changed_properties": [
+        "question"
+      ],
+      "rewritten_pins": 0,
+      "successor_sha256": "3e017603f9cfc6d64b03cea0d07fa8178be70b8cf83791e328f2f28727adda81",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.input-question.schedule1-part1-scope-no-sch1-line4-other-gains",
+      "schema": "input-question.v1",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/input-question.schedule1-part1-scope-no-sch1-line4-other-gains.v1.json",
+      "successor_filename": "input-question.schedule1-part1-scope-no-sch1-line4-other-gains.v2.json",
+      "reason": "wording",
+      "changed_properties": [
+        "question"
+      ],
+      "rewritten_pins": 0,
+      "successor_sha256": "703eb366c5d88d31bc0ddf1d9378841ae247a8c7e7d988e570d72caba97992b4",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.input-question.schedule1-part1-scope-no-sch1-line5-rental",
+      "schema": "input-question.v1",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/input-question.schedule1-part1-scope-no-sch1-line5-rental.v1.json",
+      "successor_filename": "input-question.schedule1-part1-scope-no-sch1-line5-rental.v2.json",
+      "reason": "wording",
+      "changed_properties": [
+        "question"
+      ],
+      "rewritten_pins": 0,
+      "successor_sha256": "b2e610689183887cd3fee281a7f5c524b4edd72e6573f5056edb3bd68a4eedfc",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.input-question.schedule1-part1-scope-no-sch1-line6-farm",
+      "schema": "input-question.v1",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/input-question.schedule1-part1-scope-no-sch1-line6-farm.v1.json",
+      "successor_filename": "input-question.schedule1-part1-scope-no-sch1-line6-farm.v2.json",
+      "reason": "wording",
+      "changed_properties": [
+        "question"
+      ],
+      "rewritten_pins": 0,
+      "successor_sha256": "c0ea26316d227a6c53c62629fa106654e3542b02f6b6fe8b62b91840dfcf8fea",
+      "byte_undo_proof": true
+    }
+  ],
+  "status": "valid",
+  "validation": "generate_to_directory passed package, registry and release validation",
+  "generation": {
+    "registry_sha256": "e3559e6ee378266b56ed3e284c755135c7bb5fb263b89a820991e91f2bc91c8d",
+    "publication_boundary": "Candidate only: successor companion declaration and live release evidence are separate duties under ADR-0082."
+  }
+}

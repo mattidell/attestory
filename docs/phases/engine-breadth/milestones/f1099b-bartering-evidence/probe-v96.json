@@ -1,0 +1,4143 @@
+{
+ "core": {
+  "package": "v96",
+  "registry": "v94",
+  "release": "v94"
+ },
+ "runs": {
+  "alone/as-asked": {
+   "acts": 335,
+   "attachments": {
+    "f8949": "guard_inapplicable",
+    "schedule-1": "guard_inapplicable",
+    "schedule-a": "guard_inapplicable",
+    "schedule-b": "guard_inapplicable",
+    "schedule-d": "guard_inapplicable"
+   },
+   "blocked_rules": [],
+   "guard_sentences": {},
+   "lines": {
+    "form1040.line-15": {
+     "disposition": "published_value",
+     "explanation": "",
+     "reasons": [],
+     "value": 34250
+    },
+    "form1040.line-16": {
+     "disposition": "published_value",
+     "explanation": "",
+     "reasons": [],
+     "value": 3875
+    },
+    "form1040.line-24": {
+     "disposition": "published_value",
+     "explanation": "",
+     "reasons": [],
+     "value": 3875
+    },
+    "form1040.line-25b": {
+     "disposition": "computed_zero",
+     "explanation": "",
+     "reasons": [],
+     "value": 0
+    },
+    "form1040.line-33": {
+     "disposition": "published_value",
+     "explanation": "",
+     "reasons": [],
+     "value": 4500
+    },
+    "form1040.line-34": {
+     "disposition": "published_value",
+     "explanation": "",
+     "reasons": [],
+     "value": 625
+    },
+    "form1040.line-37": {
+     "disposition": "computed_zero",
+     "explanation": "",
+     "reasons": [],
+     "value": 0
+    },
+    "form1040.line-7a": {
+     "disposition": "computed_zero",
+     "explanation": "",
+     "reasons": [],
+     "value": 0
+    },
+    "form1040.line-8": {
+     "disposition": "computed_zero",
+     "explanation": "",
+     "reasons": [],
+     "value": 0
+    },
+    "form1040.line-9": {
+     "disposition": "published_value",
+     "explanation": "",
+     "reasons": [],
+     "value": 50000
+    },
+    "schedule-d.line-16": {
+     "disposition": "computed_zero",
+     "explanation": "",
+     "reasons": [],
+     "value": 0
+    },
+    "schedule1.line-10": {
+     "disposition": "computed_zero",
+     "explanation": "",
+     "reasons": [],
+     "value": 0
+    }
+   },
+   "reason_sentences": [],
+   "stop": "saturated"
+  },
+  "alone/business": {
+   "acts": 335,
+   "attachments": {
+    "f8949": "guard_inapplicable",
+    "schedule-1": "guard_inapplicable",
+    "schedule-a": "guard_inapplicable",
+    "schedule-b": "guard_inapplicable",
+    "schedule-d": "guard_inapplicable"
+   },
+   "blocked_rules": [
+    [
+     "ctc-form1040-line19",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.line-14"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-1",
+     "DEPENDENCY_ABSENT",
+     [
+      "income.agi"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-10",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.line-3"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-11",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.line-10"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-12",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.line-11"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-13",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.worksheet-a.line-5"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-14",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.line-12",
+      "ctc.sch8812.line-13"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-16a",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.line-12",
+      "ctc.sch8812.line-14"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-17",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.line-16a"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-21",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.part-ii-b-needed"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-22",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.part-ii-b-needed"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-23",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.line-21",
+      "ctc.sch8812.line-22",
+      "ctc.sch8812.part-ii-b-needed"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-24",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.part-ii-b-needed"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-25",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.line-23",
+      "ctc.sch8812.line-24"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-26",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.line-25"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-27",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.line-17",
+      "ctc.sch8812.part-ii-b-needed"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-3",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.line-1"
+     ]
+    ],
+    [
+     "ctc-sch8812-part-ii-b-needed",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.line-17"
+     ]
+    ],
+    [
+     "ctc-worksheet-a.line-1",
+     "DEPENDENCY_ABSENT",
+     [
+      "tax.total-tax"
+     ]
+    ],
+    [
+     "ctc-worksheet-a.line-2",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule3.line1-direct-ftc"
+     ]
+    ],
+    [
+     "ctc-worksheet-a.line-3",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.worksheet-a.line-1",
+      "ctc.sch8812.worksheet-a.line-2"
+     ]
+    ],
+    [
+     "ctc-worksheet-a.line-5",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.worksheet-a.line-3"
+     ]
+    ],
+    [
+     "eic-answer.age-25-under-65",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.questions-required"
+     ]
+    ],
+    [
+     "eic-answer.main-home-in-us",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.questions-required"
+     ]
+    ],
+    [
+     "eic-answer.no-unsupported-situations",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.questions-required",
+      "eic.worksheet-a.line-3"
+     ]
+    ],
+    [
+     "eic-answer.not-claimable-as-dependent",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.questions-required"
+     ]
+    ],
+    [
+     "eic-answer.not-nonresident-alien",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.questions-required"
+     ]
+    ],
+    [
+     "eic-answer.not-qualifying-child-of-another",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.questions-required"
+     ]
+    ],
+    [
+     "eic-answer.separated-spouse",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.questions-required"
+     ]
+    ],
+    [
+     "eic-answer.spouse-valid-ssn",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.questions-required"
+     ]
+    ],
+    [
+     "eic-answer.taxpayer-valid-ssn",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.questions-required"
+     ]
+    ],
+    [
+     "eic-early-stop",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.answer.no-unsupported-situations",
+      "eic.worksheet-a.line-3"
+     ]
+    ],
+    [
+     "eic-eligibility",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.answer.no-unsupported-situations",
+      "eic.early-stop",
+      "eic.gate-result"
+     ]
+    ],
+    [
+     "eic-gate-result",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.answer.age-25-under-65",
+      "eic.answer.main-home-in-us",
+      "eic.answer.no-unsupported-situations",
+      "eic.answer.not-claimable-as-dependent",
+      "eic.answer.not-nonresident-alien",
+      "eic.answer.not-qualifying-child-of-another",
+      "eic.answer.separated-spouse",
+      "eic.answer.spouse-valid-ssn",
+      "eic.answer.taxpayer-valid-ssn",
+      "eic.worksheet-a.line-6"
+     ]
+    ],
+    [
+     "eic-questions-required",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.worksheet-a.line-3"
+     ]
+    ],
+    [
+     "eic-worksheet-a.line-3",
+     "DEPENDENCY_ABSENT",
+     [
+      "income.agi"
+     ]
+    ],
+    [
+     "eic-worksheet-a.line-5",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.worksheet-a.line-3"
+     ]
+    ],
+    [
+     "eic-worksheet-a.line-6",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.worksheet-a.line-3"
+     ]
+    ],
+    [
+     "form1040-line11",
+     "DEPENDENCY_ABSENT",
+     [
+      "income.total-income"
+     ]
+    ],
+    [
+     "form1040-line13b",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule1a.line37-enhanced-deduction-total"
+     ]
+    ],
+    [
+     "form1040-line14",
+     "DEPENDENCY_ABSENT",
+     [
+      "deductions.schedule-1a"
+     ]
+    ],
+    [
+     "form1040-line15",
+     "DEPENDENCY_ABSENT",
+     [
+      "deductions.line-14",
+      "income.agi"
+     ]
+    ],
+    [
+     "form1040-line16",
+     "DEPENDENCY_ABSENT",
+     [
+      "income.taxable-income",
+      "qdcg-worksheet.line-24",
+      "qdcg-worksheet.line-25"
+     ]
+    ],
+    [
+     "form1040-line20",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule3.line8-total"
+     ]
+    ],
+    [
+     "form1040-line24",
+     "DEPENDENCY_ABSENT",
+     [
+      "tax.after-nonrefundable-credits"
+     ]
+    ],
+    [
+     "form1040-line27a",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.eligibility-result"
+     ]
+    ],
+    [
+     "form1040-line32",
+     "DEPENDENCY_ABSENT",
+     [
+      "payments.lines27-31-total"
+     ]
+    ],
+    [
+     "form1040-line33",
+     "DEPENDENCY_ABSENT",
+     [
+      "payments.line32"
+     ]
+    ],
+    [
+     "form1040-line34",
+     "DEPENDENCY_ABSENT",
+     [
+      "payments.line33",
+      "tax.line24-total-tax"
+     ]
+    ],
+    [
+     "form1040-line35a",
+     "DEPENDENCY_ABSENT",
+     [
+      "payments.line34-overpaid",
+      "payments.line36-applied-to-2026"
+     ]
+    ],
+    [
+     "form1040-line36",
+     "DEPENDENCY_ABSENT",
+     [
+      "payments.line34-overpaid"
+     ]
+    ],
+    [
+     "form1040-line37",
+     "DEPENDENCY_ABSENT",
+     [
+      "payments.line33",
+      "tax.line24-total-tax"
+     ]
+    ],
+    [
+     "form1040-line8",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule1.line10-additional-income"
+     ]
+    ],
+    [
+     "form1040-line9",
+     "DEPENDENCY_ABSENT",
+     [
+      "income.additional-income",
+      "social-security.line6b"
+     ]
+    ],
+    [
+     "form1040-lines27-31-total",
+     "DEPENDENCY_ABSENT",
+     [
+      "payments.line27a",
+      "payments.lines28-31"
+     ]
+    ],
+    [
+     "form1040-lines28-31",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.form1040-line28"
+     ]
+    ],
+    [
+     "form1040-tax-after-credits",
+     "DEPENDENCY_ABSENT",
+     [
+      "credits.form1040-line20",
+      "ctc.form1040-line19",
+      "tax.total-tax"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-10",
+     "DEPENDENCY_ABSENT",
+     [
+      "income.taxable-income"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-11",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-9"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-12",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-10",
+      "qdcg-worksheet.line-11"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-14",
+     "DEPENDENCY_ABSENT",
+     [
+      "income.taxable-income"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-15",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-5",
+      "qdcg-worksheet.line-9"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-16",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-14",
+      "qdcg-worksheet.line-15"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-17",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-12",
+      "qdcg-worksheet.line-16"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-18",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-17"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-19",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-17",
+      "qdcg-worksheet.line-9"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-20",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-10",
+      "qdcg-worksheet.line-19"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-21",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-20"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-22",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-5"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-23",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-18",
+      "qdcg-worksheet.line-21",
+      "qdcg-worksheet.line-22"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-24",
+     "DEPENDENCY_ABSENT",
+     [
+      "income.taxable-income"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-25",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-23",
+      "qdcg-worksheet.line-24"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-5",
+     "DEPENDENCY_ABSENT",
+     [
+      "income.taxable-income"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-7",
+     "DEPENDENCY_ABSENT",
+     [
+      "income.taxable-income"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-8",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-5",
+      "qdcg-worksheet.line-7"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-9",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-7",
+      "qdcg-worksheet.line-8"
+     ]
+    ],
+    [
+     "schedule1a-part-v-line-33",
+     "DEPENDENCY_ABSENT",
+     [
+      "income.agi"
+     ]
+    ],
+    [
+     "schedule1a-part-v-line-34",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule1a.line33-magi-excess"
+     ]
+    ],
+    [
+     "schedule1a-part-v-line-35",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule1a.line34-reduction"
+     ]
+    ],
+    [
+     "schedule1a-part-v-line-36a",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule1a.line35-per-person-amount"
+     ]
+    ],
+    [
+     "schedule1a-part-v-line-36b",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule1a.line35-per-person-amount"
+     ]
+    ],
+    [
+     "schedule1a-part-v-line-37",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule1a.line36a-taxpayer",
+      "schedule1a.line36b-spouse"
+     ]
+    ],
+    [
+     "schedule3-line1-direct-ftc",
+     "DEPENDENCY_ABSENT",
+     [
+      "tax.total-tax"
+     ]
+    ],
+    [
+     "schedule3-line8",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule3.line1-direct-ftc"
+     ]
+    ],
+    [
+     "ss-benefits-worksheet",
+     "DEPENDENCY_ABSENT",
+     [
+      "income.additional-income"
+     ]
+    ],
+    [
+     "w2-box4-total",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.part-ii-b-needed"
+     ]
+    ],
+    [
+     "w2-box6-total",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.part-ii-b-needed"
+     ]
+    ]
+   ],
+   "guard_sentences": {
+    "form1040.line-15": "Your taxable income has no value yet. It is waiting for your adjusted gross income and your line 14 deductions.",
+    "form1040.line-16": "Your tax has no value yet. It is waiting for your taxable income, your filing status, your qualified dividends and capital gain, or your covered sale proceeds. It also waits for your answers about each kind of sale, because whether you recorded any sale decides whether your tax is figured with Schedule D.",
+    "form1040.line-24": "Form 1040 line 24 is blocked because an input it needs is missing or invalid.",
+    "form1040.line-33": "Form 1040 line 33 is blocked because an input it needs is missing or invalid.",
+    "form1040.line-34": "Form 1040 line 34 is blocked because an input it needs is missing or invalid.",
+    "form1040.line-37": "Form 1040 line 37 is blocked because an input it needs is missing, invalid, or (line 36) exceeds line 34.",
+    "form1040.line-8": "Form 1040 line 8 is blocked because Schedule 1 line 10 is incomplete or unavailable.",
+    "form1040.line-9": "Your total income has no value yet. It is waiting for whichever of lines 1a, 2b, 3b, 4b, 6b, 7, and 8 is still open.",
+    "schedule1.line-10": "No value is published because a completeness or guard condition is not satisfied."
+   },
+   "lines": {
+    "form1040.line-15": {
+     "disposition": "blocked",
+     "explanation": "",
+     "reasons": [],
+     "value": null
+    },
+    "form1040.line-16": {
+     "disposition": "blocked",
+     "explanation": "",
+     "reasons": [],
+     "value": null
+    },
+    "form1040.line-24": {
+     "disposition": "blocked",
+     "explanation": "",
+     "reasons": [],
+     "value": null
+    },
+    "form1040.line-25b": {
+     "disposition": "computed_zero",
+     "explanation": "",
+     "reasons": [],
+     "value": 0
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "explanation": "",
+     "reasons": [],
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "explanation": "",
+     "reasons": [],
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "explanation": "",
+     "reasons": [],
+     "value": null
+    },
+    "form1040.line-7a": {
+     "disposition": "computed_zero",
+     "explanation": "",
+     "reasons": [],
+     "value": 0
+    },
+    "form1040.line-8": {
+     "disposition": "blocked",
+     "explanation": "",
+     "reasons": [],
+     "value": null
+    },
+    "form1040.line-9": {
+     "disposition": "blocked",
+     "explanation": "",
+     "reasons": [],
+     "value": null
+    },
+    "schedule-d.line-16": {
+     "disposition": "computed_zero",
+     "explanation": "",
+     "reasons": [],
+     "value": 0
+    },
+    "schedule1.line-10": {
+     "disposition": "guard_inapplicable",
+     "explanation": "",
+     "reasons": [],
+     "value": null
+    }
+   },
+   "reason_sentences": [],
+   "stop": "saturated"
+  },
+  "alone/business-all": {
+   "acts": 335,
+   "attachments": {
+    "f8949": "guard_inapplicable",
+    "schedule-1": "guard_inapplicable",
+    "schedule-a": "guard_inapplicable",
+    "schedule-b": "guard_inapplicable",
+    "schedule-d": "guard_inapplicable"
+   },
+   "blocked_rules": [
+    [
+     "ctc-form1040-line19",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.line-14"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-1",
+     "DEPENDENCY_ABSENT",
+     [
+      "income.agi"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-10",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.line-3"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-11",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.line-10"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-12",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.line-11"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-13",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.worksheet-a.line-5"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-14",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.line-12",
+      "ctc.sch8812.line-13"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-16a",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.line-12",
+      "ctc.sch8812.line-14"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-17",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.line-16a"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-21",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.part-ii-b-needed"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-22",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.part-ii-b-needed"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-23",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.line-21",
+      "ctc.sch8812.line-22",
+      "ctc.sch8812.part-ii-b-needed"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-24",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.part-ii-b-needed"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-25",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.line-23",
+      "ctc.sch8812.line-24"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-26",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.line-25"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-27",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.line-17",
+      "ctc.sch8812.part-ii-b-needed"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-3",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.line-1"
+     ]
+    ],
+    [
+     "ctc-sch8812-part-ii-b-needed",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.line-17"
+     ]
+    ],
+    [
+     "ctc-worksheet-a.line-1",
+     "DEPENDENCY_ABSENT",
+     [
+      "tax.total-tax"
+     ]
+    ],
+    [
+     "ctc-worksheet-a.line-2",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule3.line1-direct-ftc"
+     ]
+    ],
+    [
+     "ctc-worksheet-a.line-3",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.worksheet-a.line-1",
+      "ctc.sch8812.worksheet-a.line-2"
+     ]
+    ],
+    [
+     "ctc-worksheet-a.line-5",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.worksheet-a.line-3"
+     ]
+    ],
+    [
+     "eic-answer.age-25-under-65",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.questions-required"
+     ]
+    ],
+    [
+     "eic-answer.main-home-in-us",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.questions-required"
+     ]
+    ],
+    [
+     "eic-answer.no-unsupported-situations",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.questions-required",
+      "eic.worksheet-a.line-3"
+     ]
+    ],
+    [
+     "eic-answer.not-claimable-as-dependent",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.questions-required"
+     ]
+    ],
+    [
+     "eic-answer.not-nonresident-alien",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.questions-required"
+     ]
+    ],
+    [
+     "eic-answer.not-qualifying-child-of-another",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.questions-required"
+     ]
+    ],
+    [
+     "eic-answer.separated-spouse",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.questions-required"
+     ]
+    ],
+    [
+     "eic-answer.spouse-valid-ssn",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.questions-required"
+     ]
+    ],
+    [
+     "eic-answer.taxpayer-valid-ssn",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.questions-required"
+     ]
+    ],
+    [
+     "eic-early-stop",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.answer.no-unsupported-situations",
+      "eic.worksheet-a.line-3"
+     ]
+    ],
+    [
+     "eic-eligibility",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.answer.no-unsupported-situations",
+      "eic.early-stop",
+      "eic.gate-result"
+     ]
+    ],
+    [
+     "eic-gate-result",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.answer.age-25-under-65",
+      "eic.answer.main-home-in-us",
+      "eic.answer.no-unsupported-situations",
+      "eic.answer.not-claimable-as-dependent",
+      "eic.answer.not-nonresident-alien",
+      "eic.answer.not-qualifying-child-of-another",
+      "eic.answer.separated-spouse",
+      "eic.answer.spouse-valid-ssn",
+      "eic.answer.taxpayer-valid-ssn",
+      "eic.worksheet-a.line-6"
+     ]
+    ],
+    [
+     "eic-questions-required",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.worksheet-a.line-3"
+     ]
+    ],
+    [
+     "eic-worksheet-a.line-3",
+     "DEPENDENCY_ABSENT",
+     [
+      "income.agi"
+     ]
+    ],
+    [
+     "eic-worksheet-a.line-5",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.worksheet-a.line-3"
+     ]
+    ],
+    [
+     "eic-worksheet-a.line-6",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.worksheet-a.line-3"
+     ]
+    ],
+    [
+     "form1040-line11",
+     "DEPENDENCY_ABSENT",
+     [
+      "income.total-income"
+     ]
+    ],
+    [
+     "form1040-line13b",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule1a.line37-enhanced-deduction-total"
+     ]
+    ],
+    [
+     "form1040-line14",
+     "DEPENDENCY_ABSENT",
+     [
+      "deductions.schedule-1a"
+     ]
+    ],
+    [
+     "form1040-line15",
+     "DEPENDENCY_ABSENT",
+     [
+      "deductions.line-14",
+      "income.agi"
+     ]
+    ],
+    [
+     "form1040-line16",
+     "DEPENDENCY_ABSENT",
+     [
+      "income.taxable-income",
+      "qdcg-worksheet.line-24",
+      "qdcg-worksheet.line-25"
+     ]
+    ],
+    [
+     "form1040-line20",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule3.line8-total"
+     ]
+    ],
+    [
+     "form1040-line24",
+     "DEPENDENCY_ABSENT",
+     [
+      "tax.after-nonrefundable-credits"
+     ]
+    ],
+    [
+     "form1040-line27a",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.eligibility-result"
+     ]
+    ],
+    [
+     "form1040-line32",
+     "DEPENDENCY_ABSENT",
+     [
+      "payments.lines27-31-total"
+     ]
+    ],
+    [
+     "form1040-line33",
+     "DEPENDENCY_ABSENT",
+     [
+      "payments.line32"
+     ]
+    ],
+    [
+     "form1040-line34",
+     "DEPENDENCY_ABSENT",
+     [
+      "payments.line33",
+      "tax.line24-total-tax"
+     ]
+    ],
+    [
+     "form1040-line35a",
+     "DEPENDENCY_ABSENT",
+     [
+      "payments.line34-overpaid",
+      "payments.line36-applied-to-2026"
+     ]
+    ],
+    [
+     "form1040-line36",
+     "DEPENDENCY_ABSENT",
+     [
+      "payments.line34-overpaid"
+     ]
+    ],
+    [
+     "form1040-line37",
+     "DEPENDENCY_ABSENT",
+     [
+      "payments.line33",
+      "tax.line24-total-tax"
+     ]
+    ],
+    [
+     "form1040-line8",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule1.line10-additional-income"
+     ]
+    ],
+    [
+     "form1040-line9",
+     "DEPENDENCY_ABSENT",
+     [
+      "income.additional-income",
+      "social-security.line6b"
+     ]
+    ],
+    [
+     "form1040-lines27-31-total",
+     "DEPENDENCY_ABSENT",
+     [
+      "payments.line27a",
+      "payments.lines28-31"
+     ]
+    ],
+    [
+     "form1040-lines28-31",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.form1040-line28"
+     ]
+    ],
+    [
+     "form1040-tax-after-credits",
+     "DEPENDENCY_ABSENT",
+     [
+      "credits.form1040-line20",
+      "ctc.form1040-line19",
+      "tax.total-tax"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-10",
+     "DEPENDENCY_ABSENT",
+     [
+      "income.taxable-income"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-11",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-9"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-12",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-10",
+      "qdcg-worksheet.line-11"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-14",
+     "DEPENDENCY_ABSENT",
+     [
+      "income.taxable-income"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-15",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-5",
+      "qdcg-worksheet.line-9"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-16",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-14",
+      "qdcg-worksheet.line-15"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-17",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-12",
+      "qdcg-worksheet.line-16"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-18",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-17"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-19",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-17",
+      "qdcg-worksheet.line-9"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-20",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-10",
+      "qdcg-worksheet.line-19"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-21",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-20"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-22",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-5"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-23",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-18",
+      "qdcg-worksheet.line-21",
+      "qdcg-worksheet.line-22"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-24",
+     "DEPENDENCY_ABSENT",
+     [
+      "income.taxable-income"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-25",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-23",
+      "qdcg-worksheet.line-24"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-5",
+     "DEPENDENCY_ABSENT",
+     [
+      "income.taxable-income"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-7",
+     "DEPENDENCY_ABSENT",
+     [
+      "income.taxable-income"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-8",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-5",
+      "qdcg-worksheet.line-7"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-9",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-7",
+      "qdcg-worksheet.line-8"
+     ]
+    ],
+    [
+     "schedule1a-part-v-line-33",
+     "DEPENDENCY_ABSENT",
+     [
+      "income.agi"
+     ]
+    ],
+    [
+     "schedule1a-part-v-line-34",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule1a.line33-magi-excess"
+     ]
+    ],
+    [
+     "schedule1a-part-v-line-35",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule1a.line34-reduction"
+     ]
+    ],
+    [
+     "schedule1a-part-v-line-36a",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule1a.line35-per-person-amount"
+     ]
+    ],
+    [
+     "schedule1a-part-v-line-36b",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule1a.line35-per-person-amount"
+     ]
+    ],
+    [
+     "schedule1a-part-v-line-37",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule1a.line36a-taxpayer",
+      "schedule1a.line36b-spouse"
+     ]
+    ],
+    [
+     "schedule3-line1-direct-ftc",
+     "DEPENDENCY_ABSENT",
+     [
+      "tax.total-tax"
+     ]
+    ],
+    [
+     "schedule3-line8",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule3.line1-direct-ftc"
+     ]
+    ],
+    [
+     "ss-benefits-worksheet",
+     "DEPENDENCY_ABSENT",
+     [
+      "income.additional-income"
+     ]
+    ],
+    [
+     "w2-box4-total",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.part-ii-b-needed"
+     ]
+    ],
+    [
+     "w2-box6-total",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.part-ii-b-needed"
+     ]
+    ]
+   ],
+   "guard_sentences": {
+    "form1040.line-15": "Your taxable income has no value yet. It is waiting for your adjusted gross income and your line 14 deductions.",
+    "form1040.line-16": "Your tax has no value yet. It is waiting for your taxable income, your filing status, your qualified dividends and capital gain, or your covered sale proceeds. It also waits for your answers about each kind of sale, because whether you recorded any sale decides whether your tax is figured with Schedule D.",
+    "form1040.line-24": "Form 1040 line 24 is blocked because an input it needs is missing or invalid.",
+    "form1040.line-33": "Form 1040 line 33 is blocked because an input it needs is missing or invalid.",
+    "form1040.line-34": "Form 1040 line 34 is blocked because an input it needs is missing or invalid.",
+    "form1040.line-37": "Form 1040 line 37 is blocked because an input it needs is missing, invalid, or (line 36) exceeds line 34.",
+    "form1040.line-8": "Form 1040 line 8 is blocked because Schedule 1 line 10 is incomplete or unavailable.",
+    "form1040.line-9": "Your total income has no value yet. It is waiting for whichever of lines 1a, 2b, 3b, 4b, 6b, 7, and 8 is still open.",
+    "schedule1.line-10": "No value is published because a completeness or guard condition is not satisfied."
+   },
+   "lines": {
+    "form1040.line-15": {
+     "disposition": "blocked",
+     "explanation": "",
+     "reasons": [],
+     "value": null
+    },
+    "form1040.line-16": {
+     "disposition": "blocked",
+     "explanation": "",
+     "reasons": [],
+     "value": null
+    },
+    "form1040.line-24": {
+     "disposition": "blocked",
+     "explanation": "",
+     "reasons": [],
+     "value": null
+    },
+    "form1040.line-25b": {
+     "disposition": "computed_zero",
+     "explanation": "",
+     "reasons": [],
+     "value": 0
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "explanation": "",
+     "reasons": [],
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "explanation": "",
+     "reasons": [],
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "explanation": "",
+     "reasons": [],
+     "value": null
+    },
+    "form1040.line-7a": {
+     "disposition": "computed_zero",
+     "explanation": "",
+     "reasons": [],
+     "value": 0
+    },
+    "form1040.line-8": {
+     "disposition": "blocked",
+     "explanation": "",
+     "reasons": [],
+     "value": null
+    },
+    "form1040.line-9": {
+     "disposition": "blocked",
+     "explanation": "",
+     "reasons": [],
+     "value": null
+    },
+    "schedule-d.line-16": {
+     "disposition": "computed_zero",
+     "explanation": "",
+     "reasons": [],
+     "value": 0
+    },
+    "schedule1.line-10": {
+     "disposition": "guard_inapplicable",
+     "explanation": "",
+     "reasons": [],
+     "value": null
+    }
+   },
+   "reason_sentences": [],
+   "stop": "saturated"
+  },
+  "alone/other-income": {
+   "acts": 335,
+   "attachments": {
+    "f8949": "guard_inapplicable",
+    "schedule-1": "guard_inapplicable",
+    "schedule-a": "guard_inapplicable",
+    "schedule-b": "guard_inapplicable",
+    "schedule-d": "guard_inapplicable"
+   },
+   "blocked_rules": [
+    [
+     "ctc-form1040-line19",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.line-14"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-1",
+     "DEPENDENCY_ABSENT",
+     [
+      "income.agi"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-10",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.line-3"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-11",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.line-10"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-12",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.line-11"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-13",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.worksheet-a.line-5"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-14",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.line-12",
+      "ctc.sch8812.line-13"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-16a",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.line-12",
+      "ctc.sch8812.line-14"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-17",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.line-16a"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-21",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.part-ii-b-needed"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-22",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.part-ii-b-needed"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-23",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.line-21",
+      "ctc.sch8812.line-22",
+      "ctc.sch8812.part-ii-b-needed"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-24",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.part-ii-b-needed"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-25",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.line-23",
+      "ctc.sch8812.line-24"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-26",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.line-25"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-27",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.line-17",
+      "ctc.sch8812.part-ii-b-needed"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-3",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.line-1"
+     ]
+    ],
+    [
+     "ctc-sch8812-part-ii-b-needed",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.line-17"
+     ]
+    ],
+    [
+     "ctc-worksheet-a.line-1",
+     "DEPENDENCY_ABSENT",
+     [
+      "tax.total-tax"
+     ]
+    ],
+    [
+     "ctc-worksheet-a.line-2",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule3.line1-direct-ftc"
+     ]
+    ],
+    [
+     "ctc-worksheet-a.line-3",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.worksheet-a.line-1",
+      "ctc.sch8812.worksheet-a.line-2"
+     ]
+    ],
+    [
+     "ctc-worksheet-a.line-5",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.worksheet-a.line-3"
+     ]
+    ],
+    [
+     "eic-answer.age-25-under-65",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.questions-required"
+     ]
+    ],
+    [
+     "eic-answer.main-home-in-us",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.questions-required"
+     ]
+    ],
+    [
+     "eic-answer.no-unsupported-situations",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.questions-required",
+      "eic.worksheet-a.line-3"
+     ]
+    ],
+    [
+     "eic-answer.not-claimable-as-dependent",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.questions-required"
+     ]
+    ],
+    [
+     "eic-answer.not-nonresident-alien",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.questions-required"
+     ]
+    ],
+    [
+     "eic-answer.not-qualifying-child-of-another",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.questions-required"
+     ]
+    ],
+    [
+     "eic-answer.separated-spouse",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.questions-required"
+     ]
+    ],
+    [
+     "eic-answer.spouse-valid-ssn",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.questions-required"
+     ]
+    ],
+    [
+     "eic-answer.taxpayer-valid-ssn",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.questions-required"
+     ]
+    ],
+    [
+     "eic-early-stop",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.answer.no-unsupported-situations",
+      "eic.worksheet-a.line-3"
+     ]
+    ],
+    [
+     "eic-eligibility",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.answer.no-unsupported-situations",
+      "eic.early-stop",
+      "eic.gate-result"
+     ]
+    ],
+    [
+     "eic-gate-result",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.answer.age-25-under-65",
+      "eic.answer.main-home-in-us",
+      "eic.answer.no-unsupported-situations",
+      "eic.answer.not-claimable-as-dependent",
+      "eic.answer.not-nonresident-alien",
+      "eic.answer.not-qualifying-child-of-another",
+      "eic.answer.separated-spouse",
+      "eic.answer.spouse-valid-ssn",
+      "eic.answer.taxpayer-valid-ssn",
+      "eic.worksheet-a.line-6"
+     ]
+    ],
+    [
+     "eic-questions-required",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.worksheet-a.line-3"
+     ]
+    ],
+    [
+     "eic-worksheet-a.line-3",
+     "DEPENDENCY_ABSENT",
+     [
+      "income.agi"
+     ]
+    ],
+    [
+     "eic-worksheet-a.line-5",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.worksheet-a.line-3"
+     ]
+    ],
+    [
+     "eic-worksheet-a.line-6",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.worksheet-a.line-3"
+     ]
+    ],
+    [
+     "form1040-line11",
+     "DEPENDENCY_ABSENT",
+     [
+      "income.total-income"
+     ]
+    ],
+    [
+     "form1040-line13b",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule1a.line37-enhanced-deduction-total"
+     ]
+    ],
+    [
+     "form1040-line14",
+     "DEPENDENCY_ABSENT",
+     [
+      "deductions.schedule-1a"
+     ]
+    ],
+    [
+     "form1040-line15",
+     "DEPENDENCY_ABSENT",
+     [
+      "deductions.line-14",
+      "income.agi"
+     ]
+    ],
+    [
+     "form1040-line16",
+     "DEPENDENCY_ABSENT",
+     [
+      "income.taxable-income",
+      "qdcg-worksheet.line-24",
+      "qdcg-worksheet.line-25"
+     ]
+    ],
+    [
+     "form1040-line20",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule3.line8-total"
+     ]
+    ],
+    [
+     "form1040-line24",
+     "DEPENDENCY_ABSENT",
+     [
+      "tax.after-nonrefundable-credits"
+     ]
+    ],
+    [
+     "form1040-line27a",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.eligibility-result"
+     ]
+    ],
+    [
+     "form1040-line32",
+     "DEPENDENCY_ABSENT",
+     [
+      "payments.lines27-31-total"
+     ]
+    ],
+    [
+     "form1040-line33",
+     "DEPENDENCY_ABSENT",
+     [
+      "payments.line32"
+     ]
+    ],
+    [
+     "form1040-line34",
+     "DEPENDENCY_ABSENT",
+     [
+      "payments.line33",
+      "tax.line24-total-tax"
+     ]
+    ],
+    [
+     "form1040-line35a",
+     "DEPENDENCY_ABSENT",
+     [
+      "payments.line34-overpaid",
+      "payments.line36-applied-to-2026"
+     ]
+    ],
+    [
+     "form1040-line36",
+     "DEPENDENCY_ABSENT",
+     [
+      "payments.line34-overpaid"
+     ]
+    ],
+    [
+     "form1040-line37",
+     "DEPENDENCY_ABSENT",
+     [
+      "payments.line33",
+      "tax.line24-total-tax"
+     ]
+    ],
+    [
+     "form1040-line8",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule1.line10-additional-income"
+     ]
+    ],
+    [
+     "form1040-line9",
+     "DEPENDENCY_ABSENT",
+     [
+      "income.additional-income",
+      "social-security.line6b"
+     ]
+    ],
+    [
+     "form1040-lines27-31-total",
+     "DEPENDENCY_ABSENT",
+     [
+      "payments.line27a",
+      "payments.lines28-31"
+     ]
+    ],
+    [
+     "form1040-lines28-31",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.form1040-line28"
+     ]
+    ],
+    [
+     "form1040-tax-after-credits",
+     "DEPENDENCY_ABSENT",
+     [
+      "credits.form1040-line20",
+      "ctc.form1040-line19",
+      "tax.total-tax"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-10",
+     "DEPENDENCY_ABSENT",
+     [
+      "income.taxable-income"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-11",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-9"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-12",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-10",
+      "qdcg-worksheet.line-11"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-14",
+     "DEPENDENCY_ABSENT",
+     [
+      "income.taxable-income"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-15",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-5",
+      "qdcg-worksheet.line-9"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-16",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-14",
+      "qdcg-worksheet.line-15"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-17",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-12",
+      "qdcg-worksheet.line-16"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-18",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-17"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-19",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-17",
+      "qdcg-worksheet.line-9"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-20",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-10",
+      "qdcg-worksheet.line-19"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-21",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-20"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-22",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-5"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-23",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-18",
+      "qdcg-worksheet.line-21",
+      "qdcg-worksheet.line-22"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-24",
+     "DEPENDENCY_ABSENT",
+     [
+      "income.taxable-income"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-25",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-23",
+      "qdcg-worksheet.line-24"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-5",
+     "DEPENDENCY_ABSENT",
+     [
+      "income.taxable-income"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-7",
+     "DEPENDENCY_ABSENT",
+     [
+      "income.taxable-income"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-8",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-5",
+      "qdcg-worksheet.line-7"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-9",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-7",
+      "qdcg-worksheet.line-8"
+     ]
+    ],
+    [
+     "schedule1a-part-v-line-33",
+     "DEPENDENCY_ABSENT",
+     [
+      "income.agi"
+     ]
+    ],
+    [
+     "schedule1a-part-v-line-34",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule1a.line33-magi-excess"
+     ]
+    ],
+    [
+     "schedule1a-part-v-line-35",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule1a.line34-reduction"
+     ]
+    ],
+    [
+     "schedule1a-part-v-line-36a",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule1a.line35-per-person-amount"
+     ]
+    ],
+    [
+     "schedule1a-part-v-line-36b",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule1a.line35-per-person-amount"
+     ]
+    ],
+    [
+     "schedule1a-part-v-line-37",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule1a.line36a-taxpayer",
+      "schedule1a.line36b-spouse"
+     ]
+    ],
+    [
+     "schedule3-line1-direct-ftc",
+     "DEPENDENCY_ABSENT",
+     [
+      "tax.total-tax"
+     ]
+    ],
+    [
+     "schedule3-line8",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule3.line1-direct-ftc"
+     ]
+    ],
+    [
+     "ss-benefits-worksheet",
+     "DEPENDENCY_ABSENT",
+     [
+      "income.additional-income"
+     ]
+    ],
+    [
+     "w2-box4-total",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.part-ii-b-needed"
+     ]
+    ],
+    [
+     "w2-box6-total",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.part-ii-b-needed"
+     ]
+    ]
+   ],
+   "guard_sentences": {
+    "form1040.line-15": "Your taxable income has no value yet. It is waiting for your adjusted gross income and your line 14 deductions.",
+    "form1040.line-16": "Your tax has no value yet. It is waiting for your taxable income, your filing status, your qualified dividends and capital gain, or your covered sale proceeds. It also waits for your answers about each kind of sale, because whether you recorded any sale decides whether your tax is figured with Schedule D.",
+    "form1040.line-24": "Form 1040 line 24 is blocked because an input it needs is missing or invalid.",
+    "form1040.line-33": "Form 1040 line 33 is blocked because an input it needs is missing or invalid.",
+    "form1040.line-34": "Form 1040 line 34 is blocked because an input it needs is missing or invalid.",
+    "form1040.line-37": "Form 1040 line 37 is blocked because an input it needs is missing, invalid, or (line 36) exceeds line 34.",
+    "form1040.line-8": "Form 1040 line 8 is blocked because Schedule 1 line 10 is incomplete or unavailable.",
+    "form1040.line-9": "Your total income has no value yet. It is waiting for whichever of lines 1a, 2b, 3b, 4b, 6b, 7, and 8 is still open.",
+    "schedule1.line-10": "No value is published because a completeness or guard condition is not satisfied."
+   },
+   "lines": {
+    "form1040.line-15": {
+     "disposition": "blocked",
+     "explanation": "",
+     "reasons": [],
+     "value": null
+    },
+    "form1040.line-16": {
+     "disposition": "blocked",
+     "explanation": "",
+     "reasons": [],
+     "value": null
+    },
+    "form1040.line-24": {
+     "disposition": "blocked",
+     "explanation": "",
+     "reasons": [],
+     "value": null
+    },
+    "form1040.line-25b": {
+     "disposition": "computed_zero",
+     "explanation": "",
+     "reasons": [],
+     "value": 0
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "explanation": "",
+     "reasons": [],
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "explanation": "",
+     "reasons": [],
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "explanation": "",
+     "reasons": [],
+     "value": null
+    },
+    "form1040.line-7a": {
+     "disposition": "computed_zero",
+     "explanation": "",
+     "reasons": [],
+     "value": 0
+    },
+    "form1040.line-8": {
+     "disposition": "blocked",
+     "explanation": "",
+     "reasons": [],
+     "value": null
+    },
+    "form1040.line-9": {
+     "disposition": "blocked",
+     "explanation": "",
+     "reasons": [],
+     "value": null
+    },
+    "schedule-d.line-16": {
+     "disposition": "computed_zero",
+     "explanation": "",
+     "reasons": [],
+     "value": 0
+    },
+    "schedule1.line-10": {
+     "disposition": "guard_inapplicable",
+     "explanation": "",
+     "reasons": [],
+     "value": null
+    }
+   },
+   "reason_sentences": [],
+   "stop": "saturated"
+  },
+  "alone/unanswered": {
+   "acts": 330,
+   "attachments": {
+    "f8949": "guard_inapplicable",
+    "schedule-1": "guard_inapplicable",
+    "schedule-a": "guard_inapplicable",
+    "schedule-b": "guard_inapplicable",
+    "schedule-d": "guard_inapplicable"
+   },
+   "blocked_rules": [
+    [
+     "ctc-form1040-line19",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.line-14"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-1",
+     "DEPENDENCY_ABSENT",
+     [
+      "income.agi"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-10",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.line-3"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-11",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.line-10"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-12",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.line-11"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-13",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.worksheet-a.line-5"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-14",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.line-12",
+      "ctc.sch8812.line-13"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-16a",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.line-12",
+      "ctc.sch8812.line-14"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-17",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.line-16a"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-21",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.part-ii-b-needed"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-22",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.part-ii-b-needed"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-23",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.line-21",
+      "ctc.sch8812.line-22",
+      "ctc.sch8812.part-ii-b-needed"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-24",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.part-ii-b-needed"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-25",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.line-23",
+      "ctc.sch8812.line-24"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-26",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.line-25"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-27",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.line-17",
+      "ctc.sch8812.part-ii-b-needed"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-3",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.line-1"
+     ]
+    ],
+    [
+     "ctc-sch8812-part-ii-b-needed",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.line-17"
+     ]
+    ],
+    [
+     "ctc-worksheet-a.line-1",
+     "DEPENDENCY_ABSENT",
+     [
+      "tax.total-tax"
+     ]
+    ],
+    [
+     "ctc-worksheet-a.line-2",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule3.line1-direct-ftc"
+     ]
+    ],
+    [
+     "ctc-worksheet-a.line-3",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.worksheet-a.line-1",
+      "ctc.sch8812.worksheet-a.line-2"
+     ]
+    ],
+    [
+     "ctc-worksheet-a.line-5",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.worksheet-a.line-3"
+     ]
+    ],
+    [
+     "eic-answer.age-25-under-65",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.questions-required"
+     ]
+    ],
+    [
+     "eic-answer.main-home-in-us",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.questions-required"
+     ]
+    ],
+    [
+     "eic-answer.no-unsupported-situations",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.questions-required",
+      "eic.worksheet-a.line-3"
+     ]
+    ],
+    [
+     "eic-answer.not-claimable-as-dependent",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.questions-required"
+     ]
+    ],
+    [
+     "eic-answer.not-nonresident-alien",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.questions-required"
+     ]
+    ],
+    [
+     "eic-answer.not-qualifying-child-of-another",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.questions-required"
+     ]
+    ],
+    [
+     "eic-answer.separated-spouse",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.questions-required"
+     ]
+    ],
+    [
+     "eic-answer.spouse-valid-ssn",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.questions-required"
+     ]
+    ],
+    [
+     "eic-answer.taxpayer-valid-ssn",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.questions-required"
+     ]
+    ],
+    [
+     "eic-early-stop",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.answer.no-unsupported-situations",
+      "eic.worksheet-a.line-3"
+     ]
+    ],
+    [
+     "eic-eligibility",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.answer.no-unsupported-situations",
+      "eic.early-stop",
+      "eic.gate-result"
+     ]
+    ],
+    [
+     "eic-gate-result",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.answer.age-25-under-65",
+      "eic.answer.main-home-in-us",
+      "eic.answer.no-unsupported-situations",
+      "eic.answer.not-claimable-as-dependent",
+      "eic.answer.not-nonresident-alien",
+      "eic.answer.not-qualifying-child-of-another",
+      "eic.answer.separated-spouse",
+      "eic.answer.spouse-valid-ssn",
+      "eic.answer.taxpayer-valid-ssn",
+      "eic.worksheet-a.line-6"
+     ]
+    ],
+    [
+     "eic-questions-required",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.worksheet-a.line-3"
+     ]
+    ],
+    [
+     "eic-worksheet-a.line-3",
+     "DEPENDENCY_ABSENT",
+     [
+      "income.agi"
+     ]
+    ],
+    [
+     "eic-worksheet-a.line-5",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.worksheet-a.line-3"
+     ]
+    ],
+    [
+     "eic-worksheet-a.line-6",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.worksheet-a.line-3"
+     ]
+    ],
+    [
+     "form1040-line11",
+     "DEPENDENCY_ABSENT",
+     [
+      "income.total-income"
+     ]
+    ],
+    [
+     "form1040-line13b",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule1a.line37-enhanced-deduction-total"
+     ]
+    ],
+    [
+     "form1040-line14",
+     "DEPENDENCY_ABSENT",
+     [
+      "deductions.schedule-1a"
+     ]
+    ],
+    [
+     "form1040-line15",
+     "DEPENDENCY_ABSENT",
+     [
+      "deductions.line-14",
+      "income.agi"
+     ]
+    ],
+    [
+     "form1040-line16",
+     "DEPENDENCY_ABSENT",
+     [
+      "income.taxable-income",
+      "qdcg-worksheet.line-24",
+      "qdcg-worksheet.line-25"
+     ]
+    ],
+    [
+     "form1040-line20",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule3.line8-total"
+     ]
+    ],
+    [
+     "form1040-line24",
+     "DEPENDENCY_ABSENT",
+     [
+      "tax.after-nonrefundable-credits"
+     ]
+    ],
+    [
+     "form1040-line27a",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.eligibility-result"
+     ]
+    ],
+    [
+     "form1040-line32",
+     "DEPENDENCY_ABSENT",
+     [
+      "payments.lines27-31-total"
+     ]
+    ],
+    [
+     "form1040-line33",
+     "DEPENDENCY_ABSENT",
+     [
+      "payments.line32"
+     ]
+    ],
+    [
+     "form1040-line34",
+     "DEPENDENCY_ABSENT",
+     [
+      "payments.line33",
+      "tax.line24-total-tax"
+     ]
+    ],
+    [
+     "form1040-line35a",
+     "DEPENDENCY_ABSENT",
+     [
+      "payments.line34-overpaid",
+      "payments.line36-applied-to-2026"
+     ]
+    ],
+    [
+     "form1040-line36",
+     "DEPENDENCY_ABSENT",
+     [
+      "payments.line34-overpaid"
+     ]
+    ],
+    [
+     "form1040-line37",
+     "DEPENDENCY_ABSENT",
+     [
+      "payments.line33",
+      "tax.line24-total-tax"
+     ]
+    ],
+    [
+     "form1040-line8",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule1.line10-additional-income"
+     ]
+    ],
+    [
+     "form1040-line9",
+     "DEPENDENCY_ABSENT",
+     [
+      "income.additional-income",
+      "social-security.line6b"
+     ]
+    ],
+    [
+     "form1040-lines27-31-total",
+     "DEPENDENCY_ABSENT",
+     [
+      "payments.line27a",
+      "payments.lines28-31"
+     ]
+    ],
+    [
+     "form1040-lines28-31",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.form1040-line28"
+     ]
+    ],
+    [
+     "form1040-tax-after-credits",
+     "DEPENDENCY_ABSENT",
+     [
+      "credits.form1040-line20",
+      "ctc.form1040-line19",
+      "tax.total-tax"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-10",
+     "DEPENDENCY_ABSENT",
+     [
+      "income.taxable-income"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-11",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-9"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-12",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-10",
+      "qdcg-worksheet.line-11"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-14",
+     "DEPENDENCY_ABSENT",
+     [
+      "income.taxable-income"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-15",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-5",
+      "qdcg-worksheet.line-9"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-16",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-14",
+      "qdcg-worksheet.line-15"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-17",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-12",
+      "qdcg-worksheet.line-16"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-18",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-17"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-19",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-17",
+      "qdcg-worksheet.line-9"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-20",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-10",
+      "qdcg-worksheet.line-19"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-21",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-20"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-22",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-5"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-23",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-18",
+      "qdcg-worksheet.line-21",
+      "qdcg-worksheet.line-22"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-24",
+     "DEPENDENCY_ABSENT",
+     [
+      "income.taxable-income"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-25",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-23",
+      "qdcg-worksheet.line-24"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-5",
+     "DEPENDENCY_ABSENT",
+     [
+      "income.taxable-income"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-7",
+     "DEPENDENCY_ABSENT",
+     [
+      "income.taxable-income"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-8",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-5",
+      "qdcg-worksheet.line-7"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-9",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-7",
+      "qdcg-worksheet.line-8"
+     ]
+    ],
+    [
+     "schedule1-line10",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule1-part1-scope.no-sch1-line2a-alimony",
+      "schedule1-part1-scope.no-sch1-line3-business",
+      "schedule1-part1-scope.no-sch1-line4-other-gains",
+      "schedule1-part1-scope.no-sch1-line5-rental",
+      "schedule1-part1-scope.no-sch1-line6-farm"
+     ]
+    ],
+    [
+     "schedule1a-part-v-line-33",
+     "DEPENDENCY_ABSENT",
+     [
+      "income.agi"
+     ]
+    ],
+    [
+     "schedule1a-part-v-line-34",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule1a.line33-magi-excess"
+     ]
+    ],
+    [
+     "schedule1a-part-v-line-35",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule1a.line34-reduction"
+     ]
+    ],
+    [
+     "schedule1a-part-v-line-36a",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule1a.line35-per-person-amount"
+     ]
+    ],
+    [
+     "schedule1a-part-v-line-36b",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule1a.line35-per-person-amount"
+     ]
+    ],
+    [
+     "schedule1a-part-v-line-37",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule1a.line36a-taxpayer",
+      "schedule1a.line36b-spouse"
+     ]
+    ],
+    [
+     "schedule3-line1-direct-ftc",
+     "DEPENDENCY_ABSENT",
+     [
+      "tax.total-tax"
+     ]
+    ],
+    [
+     "schedule3-line8",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule3.line1-direct-ftc"
+     ]
+    ],
+    [
+     "ss-benefits-worksheet",
+     "DEPENDENCY_ABSENT",
+     [
+      "income.additional-income"
+     ]
+    ],
+    [
+     "w2-box4-total",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.part-ii-b-needed"
+     ]
+    ],
+    [
+     "w2-box6-total",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.part-ii-b-needed"
+     ]
+    ]
+   ],
+   "guard_sentences": {
+    "form1040.line-15": "Your taxable income has no value yet. It is waiting for your adjusted gross income and your line 14 deductions.",
+    "form1040.line-16": "Your tax has no value yet. It is waiting for your taxable income, your filing status, your qualified dividends and capital gain, or your covered sale proceeds. It also waits for your answers about each kind of sale, because whether you recorded any sale decides whether your tax is figured with Schedule D.",
+    "form1040.line-24": "Form 1040 line 24 is blocked because an input it needs is missing or invalid.",
+    "form1040.line-33": "Form 1040 line 33 is blocked because an input it needs is missing or invalid.",
+    "form1040.line-34": "Form 1040 line 34 is blocked because an input it needs is missing or invalid.",
+    "form1040.line-37": "Form 1040 line 37 is blocked because an input it needs is missing, invalid, or (line 36) exceeds line 34.",
+    "form1040.line-8": "Form 1040 line 8 is blocked because Schedule 1 line 10 is incomplete or unavailable.",
+    "form1040.line-9": "Your total income has no value yet. It is waiting for whichever of lines 1a, 2b, 3b, 4b, 6b, 7, and 8 is still open.",
+    "schedule1.line-10": "Schedule 1 line 10 is blocked because a Form 1099-K statement is unresolved or the Form 1099-K statements are not confirmed complete, the Form W-2G box 1 family is not confirmed complete, a recorded Form W-2G is held by the gambling/other Schedule A declaration, absence authority (including the 'no other income except Form W-2G' answer) is incomplete, an excluded class is present, or unemployment is unclosed."
+   },
+   "lines": {
+    "form1040.line-15": {
+     "disposition": "blocked",
+     "explanation": "",
+     "reasons": [
+      "In 2025, did you receive alimony, or have income or loss from a business, a farm, rental property or royalties, a partnership, S corporation or trust, or any other gain or loss reported on Schedule 1 lines 2a through 6?"
+     ],
+     "value": null
+    },
+    "form1040.line-16": {
+     "disposition": "blocked",
+     "explanation": "",
+     "reasons": [
+      "In 2025, did you receive alimony, or have income or loss from a business, a farm, rental property or royalties, a partnership, S corporation or trust, or any other gain or loss reported on Schedule 1 lines 2a through 6?"
+     ],
+     "value": null
+    },
+    "form1040.line-24": {
+     "disposition": "blocked",
+     "explanation": "",
+     "reasons": [
+      "In 2025, did you receive alimony, or have income or loss from a business, a farm, rental property or royalties, a partnership, S corporation or trust, or any other gain or loss reported on Schedule 1 lines 2a through 6?"
+     ],
+     "value": null
+    },
+    "form1040.line-25b": {
+     "disposition": "computed_zero",
+     "explanation": "",
+     "reasons": [],
+     "value": 0
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "explanation": "",
+     "reasons": [
+      "In 2025, did you receive alimony, or have income or loss from a business, a farm, rental property or royalties, a partnership, S corporation or trust, or any other gain or loss reported on Schedule 1 lines 2a through 6?"
+     ],
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "explanation": "",
+     "reasons": [
+      "In 2025, did you receive alimony, or have income or loss from a business, a farm, rental property or royalties, a partnership, S corporation or trust, or any other gain or loss reported on Schedule 1 lines 2a through 6?"
+     ],
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "explanation": "",
+     "reasons": [
+      "In 2025, did you receive alimony, or have income or loss from a business, a farm, rental property or royalties, a partnership, S corporation or trust, or any other gain or loss reported on Schedule 1 lines 2a through 6?"
+     ],
+     "value": null
+    },
+    "form1040.line-7a": {
+     "disposition": "computed_zero",
+     "explanation": "",
+     "reasons": [],
+     "value": 0
+    },
+    "form1040.line-8": {
+     "disposition": "blocked",
+     "explanation": "",
+     "reasons": [
+      "In 2025, did you receive alimony, or have income or loss from a business, a farm, rental property or royalties, a partnership, S corporation or trust, or any other gain or loss reported on Schedule 1 lines 2a through 6?"
+     ],
+     "value": null
+    },
+    "form1040.line-9": {
+     "disposition": "blocked",
+     "explanation": "",
+     "reasons": [
+      "In 2025, did you receive alimony, or have income or loss from a business, a farm, rental property or royalties, a partnership, S corporation or trust, or any other gain or loss reported on Schedule 1 lines 2a through 6?"
+     ],
+     "value": null
+    },
+    "schedule-d.line-16": {
+     "disposition": "computed_zero",
+     "explanation": "",
+     "reasons": [],
+     "value": 0
+    },
+    "schedule1.line-10": {
+     "disposition": "blocked",
+     "explanation": "",
+     "reasons": [
+      "In 2025, did you receive alimony, or have income or loss from a business, a farm, rental property or royalties, a partnership, S corporation or trust, or any other gain or loss reported on Schedule 1 lines 2a through 6?"
+     ],
+     "value": null
+    }
+   },
+   "reason_sentences": [
+    "In 2025, did you receive alimony, or have income or loss from a business, a farm, rental property or royalties, a partnership, S corporation or trust, or any other gain or loss reported on Schedule 1 lines 2a through 6?"
+   ],
+   "stop": "saturated"
+  },
+  "control/base": {
+   "acts": 333,
+   "attachments": {
+    "f8949": "guard_inapplicable",
+    "schedule-1": "guard_inapplicable",
+    "schedule-a": "guard_inapplicable",
+    "schedule-b": "guard_inapplicable",
+    "schedule-d": "guard_inapplicable"
+   },
+   "blocked_rules": [],
+   "guard_sentences": {},
+   "lines": {
+    "form1040.line-15": {
+     "disposition": "published_value",
+     "explanation": "",
+     "reasons": [],
+     "value": 34250
+    },
+    "form1040.line-16": {
+     "disposition": "published_value",
+     "explanation": "",
+     "reasons": [],
+     "value": 3875
+    },
+    "form1040.line-24": {
+     "disposition": "published_value",
+     "explanation": "",
+     "reasons": [],
+     "value": 3875
+    },
+    "form1040.line-25b": {
+     "disposition": "computed_zero",
+     "explanation": "",
+     "reasons": [],
+     "value": 0
+    },
+    "form1040.line-33": {
+     "disposition": "published_value",
+     "explanation": "",
+     "reasons": [],
+     "value": 4500
+    },
+    "form1040.line-34": {
+     "disposition": "published_value",
+     "explanation": "",
+     "reasons": [],
+     "value": 625
+    },
+    "form1040.line-37": {
+     "disposition": "computed_zero",
+     "explanation": "",
+     "reasons": [],
+     "value": 0
+    },
+    "form1040.line-7a": {
+     "disposition": "computed_zero",
+     "explanation": "",
+     "reasons": [],
+     "value": 0
+    },
+    "form1040.line-8": {
+     "disposition": "computed_zero",
+     "explanation": "",
+     "reasons": [],
+     "value": 0
+    },
+    "form1040.line-9": {
+     "disposition": "published_value",
+     "explanation": "",
+     "reasons": [],
+     "value": 50000
+    },
+    "schedule-d.line-16": {
+     "disposition": "computed_zero",
+     "explanation": "",
+     "reasons": [],
+     "value": 0
+    },
+    "schedule1.line-10": {
+     "disposition": "computed_zero",
+     "explanation": "",
+     "reasons": [],
+     "value": 0
+    }
+   },
+   "reason_sentences": [],
+   "stop": "saturated"
+  },
+  "sale/as-asked": {
+   "acts": 342,
+   "attachments": {
+    "f8949": "guard_inapplicable",
+    "schedule-1": "guard_inapplicable",
+    "schedule-a": "guard_inapplicable",
+    "schedule-b": "guard_inapplicable",
+    "schedule-d": "published"
+   },
+   "blocked_rules": [],
+   "guard_sentences": {},
+   "lines": {
+    "form1040.line-15": {
+     "disposition": "published_value",
+     "explanation": "",
+     "reasons": [],
+     "value": 54250
+    },
+    "form1040.line-16": {
+     "disposition": "published_value",
+     "explanation": "",
+     "reasons": [],
+     "value": 6855
+    },
+    "form1040.line-24": {
+     "disposition": "published_value",
+     "explanation": "",
+     "reasons": [],
+     "value": 6855
+    },
+    "form1040.line-25b": {
+     "disposition": "computed_zero",
+     "explanation": "",
+     "reasons": [],
+     "value": 0
+    },
+    "form1040.line-33": {
+     "disposition": "published_value",
+     "explanation": "",
+     "reasons": [],
+     "value": 4500
+    },
+    "form1040.line-34": {
+     "disposition": "computed_zero",
+     "explanation": "",
+     "reasons": [],
+     "value": 0
+    },
+    "form1040.line-37": {
+     "disposition": "published_value",
+     "explanation": "",
+     "reasons": [],
+     "value": 2355
+    },
+    "form1040.line-7a": {
+     "disposition": "published_value",
+     "explanation": "",
+     "reasons": [],
+     "value": 20000
+    },
+    "form1040.line-8": {
+     "disposition": "computed_zero",
+     "explanation": "",
+     "reasons": [],
+     "value": 0
+    },
+    "form1040.line-9": {
+     "disposition": "published_value",
+     "explanation": "",
+     "reasons": [],
+     "value": 70000
+    },
+    "schedule-d.line-16": {
+     "disposition": "published_value",
+     "explanation": "",
+     "reasons": [],
+     "value": 20000
+    },
+    "schedule1.line-10": {
+     "disposition": "computed_zero",
+     "explanation": "",
+     "reasons": [],
+     "value": 0
+    }
+   },
+   "reason_sentences": [],
+   "stop": "saturated"
+  },
+  "sale/business": {
+   "acts": 342,
+   "attachments": {
+    "f8949": "guard_inapplicable",
+    "schedule-1": "guard_inapplicable",
+    "schedule-a": "guard_inapplicable",
+    "schedule-b": "guard_inapplicable",
+    "schedule-d": "published"
+   },
+   "blocked_rules": [
+    [
+     "ctc-form1040-line19",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.line-14"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-1",
+     "DEPENDENCY_ABSENT",
+     [
+      "income.agi"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-10",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.line-3"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-11",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.line-10"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-12",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.line-11"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-13",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.worksheet-a.line-5"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-14",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.line-12",
+      "ctc.sch8812.line-13"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-16a",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.line-12",
+      "ctc.sch8812.line-14"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-17",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.line-16a"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-21",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.part-ii-b-needed"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-22",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.part-ii-b-needed"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-23",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.line-21",
+      "ctc.sch8812.line-22",
+      "ctc.sch8812.part-ii-b-needed"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-24",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.part-ii-b-needed"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-25",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.line-23",
+      "ctc.sch8812.line-24"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-26",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.line-25"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-27",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.line-17",
+      "ctc.sch8812.part-ii-b-needed"
+     ]
+    ],
+    [
+     "ctc-sch8812-line-3",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.line-1"
+     ]
+    ],
+    [
+     "ctc-sch8812-part-ii-b-needed",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.line-17"
+     ]
+    ],
+    [
+     "ctc-worksheet-a.line-1",
+     "DEPENDENCY_ABSENT",
+     [
+      "tax.total-tax"
+     ]
+    ],
+    [
+     "ctc-worksheet-a.line-2",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule3.line1-direct-ftc"
+     ]
+    ],
+    [
+     "ctc-worksheet-a.line-3",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.worksheet-a.line-1",
+      "ctc.sch8812.worksheet-a.line-2"
+     ]
+    ],
+    [
+     "ctc-worksheet-a.line-5",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.worksheet-a.line-3"
+     ]
+    ],
+    [
+     "eic-answer.age-25-under-65",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.questions-required"
+     ]
+    ],
+    [
+     "eic-answer.main-home-in-us",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.questions-required"
+     ]
+    ],
+    [
+     "eic-answer.no-unsupported-situations",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.questions-required",
+      "eic.worksheet-a.line-3"
+     ]
+    ],
+    [
+     "eic-answer.not-claimable-as-dependent",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.questions-required"
+     ]
+    ],
+    [
+     "eic-answer.not-nonresident-alien",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.questions-required"
+     ]
+    ],
+    [
+     "eic-answer.not-qualifying-child-of-another",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.questions-required"
+     ]
+    ],
+    [
+     "eic-answer.separated-spouse",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.questions-required"
+     ]
+    ],
+    [
+     "eic-answer.spouse-valid-ssn",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.questions-required"
+     ]
+    ],
+    [
+     "eic-answer.taxpayer-valid-ssn",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.questions-required"
+     ]
+    ],
+    [
+     "eic-early-stop",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.answer.no-unsupported-situations",
+      "eic.worksheet-a.line-3"
+     ]
+    ],
+    [
+     "eic-eligibility",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.answer.no-unsupported-situations",
+      "eic.early-stop",
+      "eic.gate-result"
+     ]
+    ],
+    [
+     "eic-gate-result",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.answer.age-25-under-65",
+      "eic.answer.main-home-in-us",
+      "eic.answer.no-unsupported-situations",
+      "eic.answer.not-claimable-as-dependent",
+      "eic.answer.not-nonresident-alien",
+      "eic.answer.not-qualifying-child-of-another",
+      "eic.answer.separated-spouse",
+      "eic.answer.spouse-valid-ssn",
+      "eic.answer.taxpayer-valid-ssn",
+      "eic.worksheet-a.line-6"
+     ]
+    ],
+    [
+     "eic-questions-required",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.worksheet-a.line-3"
+     ]
+    ],
+    [
+     "eic-worksheet-a.line-3",
+     "DEPENDENCY_ABSENT",
+     [
+      "income.agi"
+     ]
+    ],
+    [
+     "eic-worksheet-a.line-5",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.worksheet-a.line-3"
+     ]
+    ],
+    [
+     "eic-worksheet-a.line-6",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.worksheet-a.line-3"
+     ]
+    ],
+    [
+     "form1040-line11",
+     "DEPENDENCY_ABSENT",
+     [
+      "income.total-income"
+     ]
+    ],
+    [
+     "form1040-line13b",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule1a.line37-enhanced-deduction-total"
+     ]
+    ],
+    [
+     "form1040-line14",
+     "DEPENDENCY_ABSENT",
+     [
+      "deductions.schedule-1a"
+     ]
+    ],
+    [
+     "form1040-line15",
+     "DEPENDENCY_ABSENT",
+     [
+      "deductions.line-14",
+      "income.agi"
+     ]
+    ],
+    [
+     "form1040-line16",
+     "DEPENDENCY_ABSENT",
+     [
+      "income.taxable-income",
+      "qdcg-worksheet.line-24",
+      "qdcg-worksheet.line-25"
+     ]
+    ],
+    [
+     "form1040-line20",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule3.line8-total"
+     ]
+    ],
+    [
+     "form1040-line24",
+     "DEPENDENCY_ABSENT",
+     [
+      "tax.after-nonrefundable-credits"
+     ]
+    ],
+    [
+     "form1040-line27a",
+     "DEPENDENCY_ABSENT",
+     [
+      "eic.eligibility-result"
+     ]
+    ],
+    [
+     "form1040-line32",
+     "DEPENDENCY_ABSENT",
+     [
+      "payments.lines27-31-total"
+     ]
+    ],
+    [
+     "form1040-line33",
+     "DEPENDENCY_ABSENT",
+     [
+      "payments.line32"
+     ]
+    ],
+    [
+     "form1040-line34",
+     "DEPENDENCY_ABSENT",
+     [
+      "payments.line33",
+      "tax.line24-total-tax"
+     ]
+    ],
+    [
+     "form1040-line35a",
+     "DEPENDENCY_ABSENT",
+     [
+      "payments.line34-overpaid",
+      "payments.line36-applied-to-2026"
+     ]
+    ],
+    [
+     "form1040-line36",
+     "DEPENDENCY_ABSENT",
+     [
+      "payments.line34-overpaid"
+     ]
+    ],
+    [
+     "form1040-line37",
+     "DEPENDENCY_ABSENT",
+     [
+      "payments.line33",
+      "tax.line24-total-tax"
+     ]
+    ],
+    [
+     "form1040-line8",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule1.line10-additional-income"
+     ]
+    ],
+    [
+     "form1040-line9",
+     "DEPENDENCY_ABSENT",
+     [
+      "income.additional-income",
+      "social-security.line6b"
+     ]
+    ],
+    [
+     "form1040-lines27-31-total",
+     "DEPENDENCY_ABSENT",
+     [
+      "payments.line27a",
+      "payments.lines28-31"
+     ]
+    ],
+    [
+     "form1040-lines28-31",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.form1040-line28"
+     ]
+    ],
+    [
+     "form1040-tax-after-credits",
+     "DEPENDENCY_ABSENT",
+     [
+      "credits.form1040-line20",
+      "ctc.form1040-line19",
+      "tax.total-tax"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-10",
+     "DEPENDENCY_ABSENT",
+     [
+      "income.taxable-income"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-11",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-9"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-12",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-10",
+      "qdcg-worksheet.line-11"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-14",
+     "DEPENDENCY_ABSENT",
+     [
+      "income.taxable-income"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-15",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-5",
+      "qdcg-worksheet.line-9"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-16",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-14",
+      "qdcg-worksheet.line-15"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-17",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-12",
+      "qdcg-worksheet.line-16"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-18",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-17"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-19",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-17",
+      "qdcg-worksheet.line-9"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-20",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-10",
+      "qdcg-worksheet.line-19"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-21",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-20"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-22",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-5"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-23",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-18",
+      "qdcg-worksheet.line-21",
+      "qdcg-worksheet.line-22"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-24",
+     "DEPENDENCY_ABSENT",
+     [
+      "income.taxable-income"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-25",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-23",
+      "qdcg-worksheet.line-24"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-5",
+     "DEPENDENCY_ABSENT",
+     [
+      "income.taxable-income"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-7",
+     "DEPENDENCY_ABSENT",
+     [
+      "income.taxable-income"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-8",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-5",
+      "qdcg-worksheet.line-7"
+     ]
+    ],
+    [
+     "qdcg-worksheet.line-9",
+     "DEPENDENCY_ABSENT",
+     [
+      "qdcg-worksheet.line-7",
+      "qdcg-worksheet.line-8"
+     ]
+    ],
+    [
+     "schedule1a-part-v-line-33",
+     "DEPENDENCY_ABSENT",
+     [
+      "income.agi"
+     ]
+    ],
+    [
+     "schedule1a-part-v-line-34",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule1a.line33-magi-excess"
+     ]
+    ],
+    [
+     "schedule1a-part-v-line-35",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule1a.line34-reduction"
+     ]
+    ],
+    [
+     "schedule1a-part-v-line-36a",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule1a.line35-per-person-amount"
+     ]
+    ],
+    [
+     "schedule1a-part-v-line-36b",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule1a.line35-per-person-amount"
+     ]
+    ],
+    [
+     "schedule1a-part-v-line-37",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule1a.line36a-taxpayer",
+      "schedule1a.line36b-spouse"
+     ]
+    ],
+    [
+     "schedule3-line1-direct-ftc",
+     "DEPENDENCY_ABSENT",
+     [
+      "tax.total-tax"
+     ]
+    ],
+    [
+     "schedule3-line8",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule3.line1-direct-ftc"
+     ]
+    ],
+    [
+     "ss-benefits-worksheet",
+     "DEPENDENCY_ABSENT",
+     [
+      "income.additional-income"
+     ]
+    ],
+    [
+     "w2-box4-total",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.part-ii-b-needed"
+     ]
+    ],
+    [
+     "w2-box6-total",
+     "DEPENDENCY_ABSENT",
+     [
+      "ctc.sch8812.part-ii-b-needed"
+     ]
+    ]
+   ],
+   "guard_sentences": {
+    "form1040.line-15": "Your taxable income has no value yet. It is waiting for your adjusted gross income and your line 14 deductions.",
+    "form1040.line-16": "Your tax has no value yet. It is waiting for your taxable income, your filing status, your qualified dividends and capital gain, or your covered sale proceeds. It also waits for your answers about each kind of sale, because whether you recorded any sale decides whether your tax is figured with Schedule D.",
+    "form1040.line-24": "Form 1040 line 24 is blocked because an input it needs is missing or invalid.",
+    "form1040.line-33": "Form 1040 line 33 is blocked because an input it needs is missing or invalid.",
+    "form1040.line-34": "Form 1040 line 34 is blocked because an input it needs is missing or invalid.",
+    "form1040.line-37": "Form 1040 line 37 is blocked because an input it needs is missing, invalid, or (line 36) exceeds line 34.",
+    "form1040.line-8": "Form 1040 line 8 is blocked because Schedule 1 line 10 is incomplete or unavailable.",
+    "form1040.line-9": "Your total income has no value yet. It is waiting for whichever of lines 1a, 2b, 3b, 4b, 6b, 7, and 8 is still open.",
+    "schedule1.line-10": "No value is published because a completeness or guard condition is not satisfied."
+   },
+   "lines": {
+    "form1040.line-15": {
+     "disposition": "blocked",
+     "explanation": "",
+     "reasons": [],
+     "value": null
+    },
+    "form1040.line-16": {
+     "disposition": "blocked",
+     "explanation": "",
+     "reasons": [],
+     "value": null
+    },
+    "form1040.line-24": {
+     "disposition": "blocked",
+     "explanation": "",
+     "reasons": [],
+     "value": null
+    },
+    "form1040.line-25b": {
+     "disposition": "computed_zero",
+     "explanation": "",
+     "reasons": [],
+     "value": 0
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "explanation": "",
+     "reasons": [],
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "explanation": "",
+     "reasons": [],
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "explanation": "",
+     "reasons": [],
+     "value": null
+    },
+    "form1040.line-7a": {
+     "disposition": "published_value",
+     "explanation": "",
+     "reasons": [],
+     "value": 20000
+    },
+    "form1040.line-8": {
+     "disposition": "blocked",
+     "explanation": "",
+     "reasons": [],
+     "value": null
+    },
+    "form1040.line-9": {
+     "disposition": "blocked",
+     "explanation": "",
+     "reasons": [],
+     "value": null
+    },
+    "schedule-d.line-16": {
+     "disposition": "published_value",
+     "explanation": "",
+     "reasons": [],
+     "value": 20000
+    },
+    "schedule1.line-10": {
+     "disposition": "guard_inapplicable",
+     "explanation": "",
+     "reasons": [],
+     "value": null
+    }
+   },
+   "reason_sentences": [],
+   "stop": "saturated"
+  },
+  "zero/as-asked": {
+   "acts": 335,
+   "attachments": {
+    "f8949": "guard_inapplicable",
+    "schedule-1": "guard_inapplicable",
+    "schedule-a": "guard_inapplicable",
+    "schedule-b": "guard_inapplicable",
+    "schedule-d": "guard_inapplicable"
+   },
+   "blocked_rules": [],
+   "guard_sentences": {},
+   "lines": {
+    "form1040.line-15": {
+     "disposition": "published_value",
+     "explanation": "",
+     "reasons": [],
+     "value": 34250
+    },
+    "form1040.line-16": {
+     "disposition": "published_value",
+     "explanation": "",
+     "reasons": [],
+     "value": 3875
+    },
+    "form1040.line-24": {
+     "disposition": "published_value",
+     "explanation": "",
+     "reasons": [],
+     "value": 3875
+    },
+    "form1040.line-25b": {
+     "disposition": "computed_zero",
+     "explanation": "",
+     "reasons": [],
+     "value": 0
+    },
+    "form1040.line-33": {
+     "disposition": "published_value",
+     "explanation": "",
+     "reasons": [],
+     "value": 4500
+    },
+    "form1040.line-34": {
+     "disposition": "published_value",
+     "explanation": "",
+     "reasons": [],
+     "value": 625
+    },
+    "form1040.line-37": {
+     "disposition": "computed_zero",
+     "explanation": "",
+     "reasons": [],
+     "value": 0
+    },
+    "form1040.line-7a": {
+     "disposition": "computed_zero",
+     "explanation": "",
+     "reasons": [],
+     "value": 0
+    },
+    "form1040.line-8": {
+     "disposition": "computed_zero",
+     "explanation": "",
+     "reasons": [],
+     "value": 0
+    },
+    "form1040.line-9": {
+     "disposition": "published_value",
+     "explanation": "",
+     "reasons": [],
+     "value": 50000
+    },
+    "schedule-d.line-16": {
+     "disposition": "computed_zero",
+     "explanation": "",
+     "reasons": [],
+     "value": 0
+    },
+    "schedule1.line-10": {
+     "disposition": "computed_zero",
+     "explanation": "",
+     "reasons": [],
+     "value": 0
+    }
+   },
+   "reason_sentences": [],
+   "stop": "saturated"
+  }
+ },
+ "wall_time_s": 18.9
+}
