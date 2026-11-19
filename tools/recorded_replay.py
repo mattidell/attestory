@@ -2,6 +2,56 @@
 
 Importable and runnable tool for recorded act list replay and neighbour diffs.
 Part of the parallel-replay tooling milestone (Engine Breadth).
+
+Two comparisons exist.  The older pin (`pin_run`, `classify`, `neighbour`)
+keeps only watched lines and rule rows and stays as it was.  The full-surface
+comparison (full-surface-replay milestone) holds the whole saved return:
+
+    python3 tools/recorded_replay.py full v95 v96 --expect expect.json \
+        --part part.json --out summary.json
+
+`snapshot(model, report)` flattens every saved page field, attachment,
+explanation-graph node and report row into typed records; `diff_snapshots`
+returns every difference (kind, identity, attribute, before, after);
+`classify_full` fails any difference no `Expectation` names.  An expectation
+must name a kind and an attribute, never "anything on this list".  Example:
+
+    text_change("tax.us.2025.form1040.line-6a",
+                "dispositions.computed_zero.explain", "old text", "new text")
+    version_change("tax.us.2025.rule.attachment.f8949", "v6", "v7")
+
+`standard_controls(model, report)` mutates a saved output before the snapshot
+so a milestone can show the comparison sees every field and row.  See
+docs/phases/engine-breadth/milestones/full-surface-replay-evidence/track1.md.
+
+What a passing full-surface comparison does and does not mean
+-------------------------------------------------------------
+"Nothing else changed" holds only for the saved surfaces the recorded corpus
+reaches.  The optional model blocks (`provenanceGroups`, `calculationView`,
+`line21Explanation`, `mortgageInterestExplanation`,
+`mortgageBorrowingExplanation`, `f1099kStatementExplanation`) are held by the
+snapshot, but no recorded list produces most of them; a milestone that touches
+one needs its own list (see the mortgage control in track1.md) and should state
+which blocks the run reached (`optional_blocks_reached` in the `run_full`
+summary).  Named blind spots, all of them narrower than the snapshot itself:
+
+* Order of hash-keyed list items.  Pins and graph edges that name a derived
+  finding sit in the order of the masked hashes, so their relative order is not
+  recorded as a sequence.  One boolean per list stands in for it: whether every
+  derived node's edges, and every page finding's pins, are in the (role, raw id)
+  order the page requires (`graph|edges-in-role-id-order`,
+  `page|pins-in-role-id-order`).
+* Dictionary key order is not recorded, except the keys of
+  `recordedApplicableClaims`, the one place the page renders it
+  (`recordedApplicableClaims@keys`).
+* Generated finding and act hashes, run ids and graph-node keys are aliased or
+  masked (see `_generated_aliases`); a generated id that names no graph node
+  or report row is aliased by its enclosing record and pin role, so two such
+  ids under one record and role are numbered in hash order.  Local paths are
+  masked only in the messages of failed lists (`failure_snapshot`), not in
+  saved strings.
+* Unused expectations are reported (`unused_expectations`), not failed: a
+  declared change no list exercised cannot hide a difference but is not proof.
 """
 
 from __future__ import annotations
@@ -622,6 +672,770 @@ def summarize_rerun(
     return payload
 
 
+# ---------------------------------------------------------------------------
+# Full-surface snapshot, diff, classification and controls
+# ---------------------------------------------------------------------------
+
+SNAPSHOT_FORMAT = "full-surface.v1"
+GENERATED_ID = re.compile(r"(?:finding:derived|act:publication):[0-9a-f]{24}")
+LOCAL_PATH = re.compile(r"/(?:Users|private|tmp|var|opt)/\S+")
+IDENTITY_KEYS = ("id", "siteId", "artifact_id", "symbol", "role", "target")
+OPTIONAL_BLOCKS = ("provenanceGroups", "calculationView", "line21Explanation", "mortgageInterestExplanation",
+                   "mortgageBorrowingExplanation", "f1099kStatementExplanation")
+KEY_ORDER_RENDERED = "recordedApplicableClaims"  # the one dictionary whose key order the page renders
+MODEL_KINDS = {"sections": "page", "attachments": "attachment", "explanationGraph": "graph"}
+
+
+class _AnyType:
+    """Picklable wildcard for an expectation's before or after value."""
+
+    def __repr__(self) -> str:
+        return "ANY"
+
+    def __eq__(self, other: object) -> bool:
+        return isinstance(other, _AnyType)
+
+    def __hash__(self) -> int:
+        return 0
+
+
+ANY = _AnyType()
+
+
+def _encoded(value: Any) -> str:
+    return json.dumps(value, sort_keys=True, separators=(",", ":"))
+
+
+def _same(left: Any, right: Any) -> bool:
+    """Typed equality: 1, 1.0 and True are three different saved values."""
+    return _encoded(left) == _encoded(right)
+
+
+def _item_labels(items: list[dict[str, Any]]) -> list[str]:
+    labels: list[str] = []
+    seen: Counter[str] = Counter()
+    for index, item in enumerate(items):
+        parts = [
+            str(item[key])
+            for key in IDENTITY_KEYS
+            if isinstance(item.get(key), (str, int)) and not isinstance(item.get(key), bool)
+        ]
+        base = "|".join(parts) if parts else f"[{index}]"
+        seen[base] += 1
+        labels.append(base if seen[base] == 1 else f"{base}#{seen[base]}")
+    return labels
+
+
+def _generated_aliases(model: dict[str, Any], report: dict[str, Any]) -> tuple[dict[str, str], dict[str, str]]:
+    """Stable aliases for generated identifiers and graph node keys.
+
+    Generated finding and act ids are hashes of the pinned citizen versions, so
+    they differ between cores for identical content.  A derived finding is
+    aliased by its symbol and the structure of its inputs (ids and roles, never
+    versions); the version and the value stay in the snapshot as compared
+    attributes.  Same-alias findings are numbered in graph order.
+    """
+    graph = model.get("explanationGraph")
+    nodes = graph.get("nodes") if isinstance(graph, dict) else None
+    nodes = nodes if isinstance(nodes, dict) else {}
+    by_id = {
+        node["id"]: node
+        for node in nodes.values()
+        if isinstance(node, dict) and node.get("kind") == "derived" and isinstance(node.get("id"), str)
+    }
+    base: dict[str, str] = {}
+    limit = sys.getrecursionlimit()
+    sys.setrecursionlimit(max(limit, 20000))
+
+    def shape(fid: str, active: frozenset[str]) -> str:
+        if fid in base:
+            return base[fid]
+        node = by_id[fid]
+        described = []
+        for edge in node.get("edges") or []:
+            pin = edge.get("pin") or {}
+            target = nodes.get(edge.get("target"))
+            if isinstance(target, dict) and target.get("kind") == "derived" and target.get("id") in by_id and target["id"] not in active:
+                ref: Any = shape(target["id"], active | {fid})
+            else:
+                ref = pin.get("id")
+            described.append([pin.get("role"), ref])
+        described.sort(key=_encoded)
+        digest = hashlib.sha1(_encoded([(node.get("produced_by") or {}).get("id"), described]).encode()).hexdigest()[:10]
+        base[fid] = f"finding~{node.get('symbol')}~{digest}"
+        return base[fid]
+
+    try:
+        for fid in by_id:
+            shape(fid, frozenset())
+    finally:
+        sys.setrecursionlimit(limit)
+    final: dict[str, str] = {}
+    used: Counter[str] = Counter()
+    for fid in by_id:
+        used[base[fid]] += 1
+        final[fid] = base[fid] if used[base[fid]] == 1 else f"{base[fid]}#{used[base[fid]]}"
+    for row in report.get("dispositions") or []:
+        if not isinstance(row, dict):
+            continue
+        fid = row.get("finding_id")
+        row_alias = f"finding~row~{row.get('artifact_id')}~{row.get('symbol')}"
+        if isinstance(fid, str) and fid not in final:
+            final[fid] = row_alias
+        act = row.get("act_id")
+        if isinstance(act, str) and act not in final:
+            final[act] = "act~" + (final.get(fid, row_alias) if isinstance(fid, str) else row_alias)
+
+    # A generated id that names no graph node and no report row (for example a
+    # pin in an explanation block's disposition record) is aliased by where it
+    # sits: the nearest enclosing identified record and the pin's role.
+    unseen: Counter[str] = Counter()
+
+    def walk(node: Any, owner: str, role: str) -> None:
+        if isinstance(node, dict):
+            own = next((str(node[key]) for key in ("artifact_id", "id", "symbol")
+                        if isinstance(node.get(key), str) and not GENERATED_ID.fullmatch(node[key])), owner)
+            here = str(node["role"]) if isinstance(node.get("role"), str) else role
+            for value in node.values():
+                walk(value, own, here)
+        elif isinstance(node, list):
+            for item in node:
+                walk(item, owner, role)
+        elif isinstance(node, str):
+            for found in GENERATED_ID.findall(node):
+                if found not in final:
+                    stem = f"finding~unseen~{owner}~{role}"
+                    unseen[stem] += 1
+                    final[found] = stem if unseen[stem] == 1 else f"{stem}#{unseen[stem]}"
+
+    walk(report, "report", "")
+    walk(model, "model", "")
+
+    def transform(text: str) -> str:
+        return GENERATED_ID.sub(lambda m: final.get(m.group(0), m.group(0)), text)
+
+    labels: dict[str, str] = {}
+    taken: Counter[str] = Counter()
+    for key, node in nodes.items():
+        if isinstance(node, dict) and isinstance(node.get("id"), str) and isinstance(node.get("kind"), str):
+            label = f"{node['kind']}:{transform(node['id'])}"
+            taken[label] += 1
+            labels[key] = label if taken[label] == 1 else f"{label}#{taken[label]}"
+    return final, labels
+
+
+def _canonical(node: Any, final: dict[str, str], labels: dict[str, str], masks: tuple[str, ...]) -> Any:
+    def text(value: str) -> str:
+        if value in labels:
+            return labels[value]
+        value = GENERATED_ID.sub(lambda m: final.get(m.group(0), m.group(0)), value)
+        for mask in masks:
+            value = value.replace(mask, "<run>")
+        return value
+
+    if isinstance(node, str):
+        return text(node)
+    if isinstance(node, list):
+        return [_canonical(item, final, labels, masks) for item in node]
+    if isinstance(node, dict):
+        return {text(str(key)): _canonical(value, final, labels, masks) for key, value in node.items()}
+    return node
+
+
+def _flatten(node: Any, kind: str, ident: str, rel: str, out: list[list[Any]]) -> None:
+    if isinstance(node, dict):
+        if not node:
+            out.append([kind, ident, rel, {}])
+            return
+        for key, value in node.items():
+            child = f"{rel}.{key}" if rel else str(key)
+            if key == KEY_ORDER_RENDERED and isinstance(value, dict):
+                out.append([kind, ident, f"{child}@keys", list(value)])
+            if isinstance(value, dict) and value and isinstance(value.get("id"), str):
+                _flatten(value, kind, f"{ident}/{child}={value['id']}" if ident else f"{child}={value['id']}", "", out)
+            else:
+                _flatten(value, kind, ident, child, out)
+    elif isinstance(node, list):
+        if node and all(isinstance(item, dict) and item for item in node):
+            labels = _item_labels(node)
+            # Items labelled by an aliased generated id sit in the order of the
+            # masked hashes, so only the order of the other items is recorded.
+            out.append([kind, ident, f"{rel}@order", [x for x in labels if "finding~" not in x and "act~" not in x]])
+            for label, item in zip(labels, node):
+                seg = f"{rel}[{label}]"
+                _flatten(item, kind, f"{ident}/{seg}" if ident else seg, "", out)
+        else:
+            out.append([kind, ident, rel, node])
+    else:
+        out.append([kind, ident, rel, node])
+
+
+def _role_id_order(pins: Any) -> bool:
+    """True when pins (or edges' pins) are in the (role, raw id) order the page requires."""
+    keys = [(p.get("role"), p.get("id")) for p in pins if isinstance(p, dict)]
+    try:
+        return keys == sorted(keys)
+    except TypeError:
+        return False
+
+
+def _order_invariants(model: dict[str, Any]) -> list[list[Any]]:
+    """Whether hash-keyed pins and edges are in the order the page requires.
+
+    Their relative order is not recorded as a sequence (the hashes are masked),
+    so one boolean per saved output stands in for it, taken before aliasing.
+    """
+    graph = model.get("explanationGraph")
+    nodes = graph.get("nodes") if isinstance(graph, dict) else None
+    edges_ok = all(
+        _role_id_order([e.get("pin") for e in node.get("edges") or [] if isinstance(e, dict)])
+        for node in (nodes.values() if isinstance(nodes, dict) else ())
+        if isinstance(node, dict) and node.get("kind") == "derived"
+    )
+    pins_ok = True
+    for section in model.get("sections") or []:
+        resolved = section.get("resolved") if isinstance(section, dict) else None
+        act = resolved.get("act") if isinstance(resolved, dict) else None
+        finding = act.get("finding") if isinstance(act, dict) else None
+        if isinstance(finding, dict) and isinstance(finding.get("pins"), list) and not _role_id_order(finding["pins"]):
+            pins_ok = False
+    return [["graph", "", "edges-in-role-id-order", edges_ok], ["page", "", "pins-in-role-id-order", pins_ok]]
+
+
+def snapshot(model: dict[str, Any], report: dict[str, Any]) -> dict[str, Any]:
+    """Full-surface snapshot of one saved presentation model and report.
+
+    Every key of the model and of the report is flattened to typed records
+    [kind, identity, attribute, value]: page fields (kind "page": identity,
+    value, disposition, all text, reasons, questions, categorical render text),
+    attachments, every explanation-graph node and edge, every other model key,
+    and every report row with its full identity (kind "row") plus the
+    remaining report keys.  Nothing is selected by line.  Run ids and generated
+    finding/act hashes are masked or aliased (see `_generated_aliases`), and the
+    relative order of list items keyed by such a hash is replaced by one boolean
+    per output (`_order_invariants`).  Dictionary key order is not recorded
+    except for `recordedApplicableClaims`.  The module docstring names these
+    blind spots.
+    """
+    final, labels = _generated_aliases(model, report)
+    masks = tuple(
+        value
+        for value in (
+            model.get("runId"),
+            report.get("run_id"),
+            (model.get("explanationGraph") or {}).get("run_id") if isinstance(model.get("explanationGraph"), dict) else None,
+        )
+        if isinstance(value, str) and len(value) > 3
+    )
+    canon_model = _canonical(model, final, labels, masks)
+    canon_report = _canonical(report, final, labels, masks)
+    records: list[list[Any]] = []
+    for key, value in canon_model.items():
+        _flatten(value, MODEL_KINDS.get(key, "model"), "", key, records)
+    for key, value in canon_report.items():
+        _flatten(value, "row" if key == "dispositions" else "report", "", key, records)
+    records.extend(_order_invariants(model))
+    blocks = [name for name in OPTIONAL_BLOCKS if name in model]
+    return {"format": SNAPSHOT_FORMAT, "outcome": "success", "blocks": blocks, "records": records}
+
+
+def failure_snapshot(outcome: str, error_class: str, message: str) -> dict[str, Any]:
+    """Snapshot of a list that errored or was refused: class and message only."""
+    clean = LOCAL_PATH.sub("<path>", message)
+    return {
+        "format": SNAPSHOT_FORMAT,
+        "outcome": outcome,
+        "records": [["error", "", "class", error_class], ["error", "", "message", clean]],
+    }
+
+
+def snapshot_sha256(snap: dict[str, Any]) -> str:
+    return hashlib.sha256(_encoded(snap).encode()).hexdigest()
+
+
+def _record_map(snap: dict[str, Any]) -> dict[tuple[str, str, str], Any]:
+    found: dict[tuple[str, str, str], Any] = {}
+    for kind, ident, attribute, value in snap["records"]:
+        key = (kind, ident, attribute)
+        if key in found:
+            raise ValueError(f"duplicate snapshot record {key}")
+        found[key] = value
+    return found
+
+
+def diff_snapshots(left: dict[str, Any], right: dict[str, Any]) -> list[dict[str, Any]]:
+    """Every difference between two snapshots as typed records.
+
+    Each record: change ("changed", "added", "removed"), kind, identity,
+    attribute, before, after.  Order differences appear as a changed "@order"
+    attribute.  Differing outcomes are reported as kind "outcome" and the
+    remaining records are still compared.
+    """
+    found: list[dict[str, Any]] = []
+    if left["outcome"] != right["outcome"]:
+        found.append({"change": "changed", "kind": "outcome", "identity": "", "attribute": "outcome",
+                      "before": left["outcome"], "after": right["outcome"]})
+    a, b = _record_map(left), _record_map(right)
+    for key in list(a) + [k for k in b if k not in a]:
+        kind, ident, attribute = key
+        if key not in b:
+            found.append({"change": "removed", "kind": kind, "identity": ident, "attribute": attribute,
+                          "before": a[key], "after": None})
+        elif key not in a:
+            found.append({"change": "added", "kind": kind, "identity": ident, "attribute": attribute,
+                          "before": None, "after": b[key]})
+        elif not _same(a[key], b[key]):
+            found.append({"change": "changed", "kind": kind, "identity": ident, "attribute": attribute,
+                          "before": a[key], "after": b[key]})
+    return found
+
+
+@dataclass(frozen=True)
+class Expectation:
+    """One declared, bounded difference.
+
+    `kind` (one or more of page, attachment, graph, model, row, report) and
+    `attribute` (regular expression, full match) are required, so an
+    expectation cannot bless a whole list.  `identity` is a regular expression
+    searched in the record identity; `before` and `after` default to ANY.
+    """
+
+    kind: tuple[str, ...]
+    attribute: str
+    identity: str = ""
+    change: str | None = None
+    before: Any = ANY
+    after: Any = ANY
+    note: str = ""
+
+    def __post_init__(self) -> None:
+        kinds = (self.kind,) if isinstance(self.kind, str) else tuple(self.kind)
+        object.__setattr__(self, "kind", kinds)
+        if not kinds or not self.attribute:
+            raise ValueError("an expectation must name a kind and an attribute")
+
+    def matches(self, diff: dict[str, Any]) -> bool:
+        if diff["kind"] not in self.kind or not re.fullmatch(self.attribute, diff["attribute"]):
+            return False
+        if self.identity and not re.search(self.identity, diff["identity"]):
+            return False
+        if self.change is not None and diff["change"] != self.change:
+            return False
+        if not isinstance(self.before, _AnyType) and not _same(self.before, diff["before"]):
+            return False
+        return isinstance(self.after, _AnyType) or _same(self.after, diff["after"])
+
+
+def describe_expectation(spec: Expectation) -> dict[str, Any]:
+    """An expectation by identity: its note, kinds, attribute, identity, change and values."""
+    return {
+        "note": spec.note, "kind": list(spec.kind), "attribute": spec.attribute, "identity": spec.identity,
+        "change": spec.change,
+        "before": "ANY" if isinstance(spec.before, _AnyType) else spec.before,
+        "after": "ANY" if isinstance(spec.after, _AnyType) else spec.after,
+    }
+
+
+def _id_pattern(ident: str) -> str:
+    return r"(?<![\w.-])" + re.escape(ident) + r"(?![\w.-])"
+
+
+def text_change(
+    citizen_id: str,
+    attribute: str,
+    before: str,
+    after: str,
+    note: str = "",
+    kinds: tuple[str, ...] = ("page", "attachment", "model"),
+) -> Expectation:
+    """Expect one sentence of one citizen (field or attachment) to change.
+
+    A sentence can be saved in more than one place (an attachment title is on
+    the attachment and in its citation group); `kinds` names where.
+    """
+    return Expectation(kinds, re.escape(attribute), _id_pattern(citizen_id), "changed",
+                       before, after, note or f"text:{citizen_id}:{attribute}")
+
+
+def version_change(citizen_id: str, old: str, new: str, note: str = "") -> Expectation:
+    """Expect the recorded version of one citizen to move from old to new."""
+    return Expectation(("page", "attachment", "graph", "model", "row", "report"), r"(?:.*\.)?(?:version|pinVersion)",
+                       _id_pattern(citizen_id), "changed", old, new, note or f"version:{citizen_id}")
+
+
+def classify_full(
+    left: dict[str, Any],
+    right: dict[str, Any],
+    expectations: Any = (),
+) -> dict[str, Any]:
+    """Classify two snapshots.  Strict: any difference not expected fails.
+
+    Returns class "identical", "expected_changes" or "unexpected", with
+    `differences`, `expected_by_note`, the indexes of the expectations that
+    matched something (`used`) and the full `unexpected` list.
+    """
+    specs = [e if isinstance(e, Expectation) else Expectation(**e) for e in expectations]
+    diffs = diff_snapshots(left, right)
+    expected_by_note: Counter[str] = Counter()
+    used: set[int] = set()
+    unexpected: list[dict[str, Any]] = []
+    for item in diffs:
+        for index, spec in enumerate(specs):
+            if spec.matches(item):
+                expected_by_note[spec.note or spec.attribute] += 1
+                used.add(index)
+                break
+        else:
+            unexpected.append(item)
+    cls = "identical" if not diffs else ("unexpected" if unexpected else "expected_changes")
+    return {"class": cls, "differences": len(diffs), "expected_by_note": dict(expected_by_note),
+            "used": sorted(used), "unexpected": unexpected}
+
+
+def saved_output(core: Any, acts: Acts, run_id: str) -> dict[str, Any]:
+    """Run one list on a core through the real coordinate run; return what is saved.
+
+    Returns {"outcome": "success", "model": ..., "report": ...}, a refusal, or
+    an error with the exception class and a path-masked message.
+    """
+    resolved = resolve_core(core)
+    harness = _get_harness()
+    try:
+        with harness.loader_entries(resolved):
+            finished = harness._finish(
+                acts, package_path=resolved.package_path, package_version=resolved.version,
+                release_path=resolved.release_path, release_version=resolved.release_version, note=run_id,
+            )
+            finished = harness._handover(finished, surface=resolved.surface(), reconfirm=True)
+            with tempfile.TemporaryDirectory() as tmp:
+                capability = harness.WorkspaceCapability(Path(tmp) / "L")
+                outcome = harness.live_coordinate_run(
+                    capability, repo_root=REPO, authoritative_acts=finished, workspace_revision=len(finished),
+                    run_scope={"jurisdiction": "us", "year": harness.YEAR}, scope_user=harness.ccr.USER,
+                    request={"schema": "run-request.v1"}, run_id=run_id, governance_pins=[],
+                    surface=resolved.surface(), output_name="out.json",
+                )
+                if outcome.refusal:
+                    return {"outcome": "refused", "error": "refusal", "message": str(outcome.refusal.reason)}
+                return {
+                    "outcome": "success",
+                    "model": json.loads(outcome.presentation_path.read_text(encoding="utf-8")),
+                    "report": json.loads(outcome.output_path.read_text(encoding="utf-8")),
+                }
+    except Exception as exc:  # the error class and message are part of the compared surface
+        return {"outcome": "error", "error": type(exc).__name__, "message": str(exc)}
+
+
+def snapshot_run(core: Any, acts: Acts, run_id: str) -> dict[str, Any]:
+    saved = saved_output(core, acts, run_id)
+    if saved["outcome"] == "success":
+        return snapshot(saved["model"], saved["report"])
+    return failure_snapshot(saved["outcome"], saved["error"], saved["message"])
+
+
+class FullSurfaceCompare:
+    """Picklable per-list function: both cores, full snapshots, strict classify."""
+
+    def __init__(self, expectations: Any = (), max_unexpected: int = 40) -> None:
+        self.expectations = [_as_expectation(e) for e in expectations]
+        self.max_unexpected = max_unexpected
+
+    def __call__(self, key: str, acts: Acts, cores: tuple[Any, Any]) -> dict[str, Any]:
+        core_a, core_b = cores
+        run_id = "demo.fsr." + hashlib.sha256(key.encode()).hexdigest()[:20]
+        snap_a = snapshot_run(core_a, acts, run_id)
+        snap_b = snapshot_run(core_b, acts, run_id)
+        verdict = classify_full(snap_a, snap_b, self.expectations)
+        unexpected = verdict.pop("unexpected")
+        verdict["unexpected_total"] = len(unexpected)
+        verdict["unexpected"] = unexpected[: self.max_unexpected]
+        verdict["outcomes"] = [snap_a["outcome"], snap_b["outcome"]]
+        verdict["records"] = [len(snap_a["records"]), len(snap_b["records"])]
+        verdict["blocks"] = sorted(set(snap_a.get("blocks", [])) | set(snap_b.get("blocks", [])))
+        verdict["sha256"] = [snapshot_sha256(snap_a), snapshot_sha256(snap_b)]
+        return verdict
+
+
+def _as_expectation(spec: Any) -> Expectation:
+    return spec if isinstance(spec, Expectation) else Expectation(**spec)
+
+
+def run_full(
+    core_a_spec: Any,
+    core_b_spec: Any,
+    expectations: Any = (),
+    workers: int | None = None,
+    part: Path | str | None = None,
+    out: Path | str | None = None,
+    lists: list[tuple[str, Acts]] | None = None,
+) -> dict[str, Any]:
+    """Full-surface comparison of two cores over the recorded lists (parallel)."""
+    core_a, core_b = resolve_core(core_a_spec), resolve_core(core_b_spec)
+    chosen = recorded_lists() if lists is None else lists
+    results = replay(chosen, (core_a, core_b), FullSurfaceCompare(expectations), workers=workers, part=part)
+    classes = Counter(row["class"] for row in results.values())
+    specs = [_as_expectation(e) for e in expectations]
+    used_anywhere = {index for row in results.values() for index in row.get("used", [])}
+    unused = [describe_expectation(spec) for index, spec in enumerate(specs) if index not in used_anywhere]
+    by_attribute: dict[str, dict[str, Any]] = {}
+    for key, row in results.items():
+        for item in row["unexpected"]:
+            slot = by_attribute.setdefault(
+                f"{item['kind']}|{item['change']}|{re.sub(r'[0-9]+', 'N', item['attribute'])}", {"lists": set(), "samples": []}
+            )
+            slot["lists"].add(key)
+            if len(slot["samples"]) < 3:
+                slot["samples"].append({"list": key, **item})
+    summary = {
+        "format": "full-surface-replay.v1",
+        "cores": [core_fingerprint(core_a), core_fingerprint(core_b)],
+        "lists": len(results),
+        "classes": dict(sorted(classes.items())),
+        "passing": sum(1 for row in results.values() if row["class"] != "unexpected"),
+        "failing": sum(1 for row in results.values() if row["class"] == "unexpected"),
+        "unexpected_differences": sum(row["unexpected_total"] for row in results.values()),
+        "unexpected_by_kind_attribute": {
+            name: {"lists": len(slot["lists"]), "samples": slot["samples"]} for name, slot in sorted(by_attribute.items())
+        },
+        "expectations_declared": len(specs),
+        "expectations_used": len(specs) - len(unused),
+        "unused_expectations": unused,
+        "optional_blocks_reached": dict(sorted(sum(
+            (Counter(row.get("blocks", [])) for row in results.values()), Counter()).items())),
+        "expected_by_note": dict(sorted(sum((Counter(row["expected_by_note"]) for row in results.values()), Counter()).items())),
+        "outcomes": dict(sorted(Counter("/".join(row["outcomes"]) for row in results.values()).items())),
+        "list_classes": {key: row["class"] for key, row in sorted(results.items())},
+        "failing_lists": {key: row["unexpected_total"] for key, row in sorted(results.items()) if row["class"] == "unexpected"},
+    }
+    if out is not None:
+        text = json.dumps(summary, indent=1) + "\n"
+        _check_no_local_paths(text, str(out))
+        Path(out).write_text(text, encoding="utf-8")
+    return summary
+
+
+def _find_section(model: dict[str, Any], want_value: bool = True) -> dict[str, Any] | None:
+    sections = model.get("sections") or []
+    for preferred in ("line-12e",):
+        for section in sections:
+            if section.get("id") == preferred and (not want_value or "value" in section["resolved"]):
+                return section  # type: ignore[no-any-return]
+    for section in sections:
+        if not want_value or "value" in section["resolved"]:
+            return section  # type: ignore[no-any-return]
+    return None
+
+
+def _first_sentence_holder(model: dict[str, Any]) -> tuple[Any, Any] | None:
+    for section in model.get("sections") or []:
+        resolved = section["resolved"]
+        for name in ("questions", "reasons", "blocked_reasons"):
+            items = resolved.get(name)
+            if isinstance(items, list) and items:
+                first = items[0]
+                if isinstance(first, dict):
+                    for field_name, field_value in first.items():
+                        if isinstance(field_value, str):
+                            return first, field_name
+                elif isinstance(first, str):
+                    return items, 0
+    return None
+
+
+def _first_explanation_note(model: dict[str, Any]) -> dict[str, Any] | None:
+    """The first resolved member with a `notes` text in an optional explanation block, if any."""
+    block = model.get("mortgageBorrowingExplanation")
+    chain = block.get("calculationChain") if isinstance(block, dict) else None
+    for member in (chain.get("resolvedContent") if isinstance(chain, dict) else None) or []:
+        if isinstance(member, dict) and isinstance(member.get("notes"), str) and isinstance(member.get("id"), str):
+            return member
+    return None
+
+
+def standard_controls(model: dict[str, Any], report: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    """Mutated copies of one saved output, made before the snapshot is taken.
+
+    Returns name -> {"model", "report", "expectations", "must" ("reject" or
+    "accept"), "available"}.  A control whose target is absent from this output
+    (for example a changed question on an output with no questions) has
+    available False; callers choose an output where it exists.
+    """
+    controls: dict[str, dict[str, Any]] = {}
+
+    def make(name: str, must: str = "reject") -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
+        entry: dict[str, Any] = {"model": copy.deepcopy(model), "report": copy.deepcopy(report),
+                                 "expectations": [], "must": must, "available": True}
+        controls[name] = entry
+        return entry["model"], entry["report"], entry
+
+    m, _r, e = make("changed_field_value")
+    target = _find_section(m)
+    if target is None:
+        e["available"] = False
+    else:
+        old = target["resolved"]["value"]
+        target["resolved"]["value"] = (old + 1) if isinstance(old, (int, float)) and not isinstance(old, bool) else "demo.changed-value"
+        e["target"] = target["id"]
+
+    m, r, e = make("changed_line_12e_value")
+    twelve = next((x for x in m.get("sections") or [] if x.get("id") == "line-12e" and "value" in x["resolved"]), None)
+    if twelve is None:
+        e["available"] = False
+    else:
+        old = twelve["resolved"]["value"]
+        twelve["resolved"]["value"] = (old + 1) if isinstance(old, (int, float)) and not isinstance(old, bool) else "demo.changed-value"
+        e["target"] = "line-12e"
+
+    m, r, e = make("changed_unwatched_row_code")
+    rows = r.get("dispositions") or []
+    row = next((x for x in rows if x.get("artifact_id") == "tax.us.2025.rule.interest.nominee-reduction"), rows[0] if rows else None)
+    if row is None:
+        e["available"] = False
+    else:
+        row["code"] = "demo.changed-code"
+        e["target"] = row.get("artifact_id")
+
+    m, r, e = make("removed_field")
+    if m.get("sections"):
+        e["target"] = m["sections"].pop()["id"]
+    else:
+        e["available"] = False
+
+    m, r, e = make("added_field")
+    if m.get("sections"):
+        extra = copy.deepcopy(m["sections"][0])
+        extra["id"] = "demo.added-field"
+        m["sections"].append(extra)
+    else:
+        e["available"] = False
+
+    m, r, e = make("changed_page_disposition")
+    target = _find_section(m, want_value=False)
+    if target is None:
+        e["available"] = False
+    else:
+        target["resolved"]["disposition"] = "demo.changed-disposition"
+        e["target"] = target["id"]
+
+    m, r, e = make("changed_row_disposition")
+    if r.get("dispositions"):
+        r["dispositions"][-1]["disposition"] = "demo.changed-disposition"
+    else:
+        e["available"] = False
+
+    m, r, e = make("changed_missing_name")
+    row = next((x for x in r.get("dispositions") or [] if isinstance(x.get("missing"), list) and x["missing"]), None)
+    if row is None:
+        e["available"] = False
+    else:
+        row["missing"][0] = "demo.changed-missing-name"
+
+    m, r, e = make("changed_question")
+    holder = _first_sentence_holder(m)
+    if holder is None:
+        e["available"] = False
+    else:
+        holder[0][holder[1]] = "demo.changed question?"
+
+    m, r, e = make("unexpected_sentence")
+    target = _find_section(m, want_value=False)
+    if target is None:
+        e["available"] = False
+    else:
+        target["field"]["label"] = f"{target['field']['label']} demo.unplanned sentence"
+        e["target"] = target["id"]
+
+    m, r, e = make("expected_sentence", must="accept")
+    target = _find_section(m, want_value=False)
+    if target is None:
+        e["available"] = False
+    else:
+        before = target["field"]["label"]
+        after = f"{before} (demo.planned sentence)"
+        target["field"]["label"] = after
+        e["expectations"] = [text_change(target["field"]["id"], "label", before, after, note="demo planned sentence")]
+        e["target"] = target["id"]
+
+    m, r, e = make("changed_graph_node_value")
+    nodes = (m.get("explanationGraph") or {}).get("nodes") or {}
+    shown = {
+        (x.get("resolved", {}).get("act") or {}).get("finding", {}).get("id")
+        for x in m.get("sections") or []
+    }
+    derived = [n for n in nodes.values() if isinstance(n, dict) and n.get("kind") == "derived"]
+    # prefer a worksheet finding no page field shows, so only the graph holds its value
+    graph_only = [n for n in derived if n.get("id") not in shown] or derived
+    if not graph_only:
+        e["available"] = False
+    else:
+        graph_only[0]["value"] = "demo.changed-graph-value"
+        e["target"] = graph_only[0].get("id")
+
+    m, r, e = make("changed_disposition_node")
+    disposition_nodes = m.get("dispositionNodes") or {}
+    with_records = next((n for n in disposition_nodes.values() if isinstance(n, dict) and n.get("records")), None)
+    if with_records is None:
+        e["available"] = False
+    else:
+        with_records["records"][0]["disposition"] = "demo.changed-disposition"
+        e["target"] = with_records.get("symbol")
+
+    m, r, e = make("changed_section_root")
+    roots = m.get("sectionRoots") or {}
+    if not roots:
+        e["available"] = False
+    else:
+        first = next(iter(roots))
+        roots[first]["root"] = "demo.changed-root"
+        e["target"] = first
+
+    m, r, e = make("changed_authorization")
+    if isinstance(m.get("authorization"), dict):
+        m["authorization"]["status"] = "demo.changed-status"
+    else:
+        e["available"] = False
+
+    m, r, e = make("changed_explanation_block_note")
+    member = _first_explanation_note(m)
+    if member is None:
+        e["available"] = False
+    else:
+        member["notes"] = member["notes"] + " demo.unplanned sentence"
+        e["target"] = member.get("id")
+
+    m, r, e = make("expected_explanation_block_note", must="accept")
+    member = _first_explanation_note(m)
+    if member is None:
+        e["available"] = False
+    else:
+        before = member["notes"]
+        member["notes"] = after = before + " (demo.planned sentence)"
+        e["expectations"] = [text_change(member["id"], "notes", before, after, note="demo planned note")]
+        e["target"] = member.get("id")
+    return controls
+
+
+def run_controls(model: dict[str, Any], report: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    """Take the snapshot of the unmodified output, then of each control, and judge."""
+    base = snapshot(model, report)
+    verdicts: dict[str, dict[str, Any]] = {}
+    for name, entry in standard_controls(model, report).items():
+        if not entry["available"]:
+            verdicts[name] = {"available": False}
+            continue
+        result = classify_full(base, snapshot(entry["model"], entry["report"]), entry["expectations"])
+        failed = result["class"] == "unexpected"
+        verdicts[name] = {
+            "available": True,
+            "target": entry.get("target"),
+            "must": entry["must"],
+            "class": result["class"],
+            "differences": result["differences"],
+            "ok": failed if entry["must"] == "reject" else result["class"] == "expected_changes",
+        }
+    return verdicts
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Replay recorded returns in parallel.")
     subparsers = parser.add_subparsers(dest="subcommand")
@@ -639,8 +1453,22 @@ def main() -> None:
     rerun_parser.add_argument("--baseline", default="v86", help="Baseline core version")
     rerun_parser.add_argument("--comparison", default="v87", help="Comparison core version")
 
+    full_parser = subparsers.add_parser("full", help="Full-surface comparison of two cores on every recorded list.")
+    full_parser.add_argument("core_a")
+    full_parser.add_argument("core_b")
+    full_parser.add_argument("--expect", type=Path, default=None, help="JSON list of expectations")
+    full_parser.add_argument("--workers", "-w", type=int, default=None)
+    full_parser.add_argument("--part", type=Path, default=None)
+    full_parser.add_argument("--out", type=Path, default=None)
+
     args = parser.parse_args()
-    if args.subcommand == "neighbour":
+    if args.subcommand == "full":
+        expectations = json.loads(args.expect.read_text(encoding="utf-8")) if args.expect else []
+        full = run_full(args.core_a, args.core_b, expectations, workers=args.workers, part=args.part, out=args.out)
+        print(json.dumps({k: full[k] for k in (
+            "lists", "classes", "passing", "failing", "unexpected_differences",
+            "expectations_declared", "expectations_used", "unused_expectations", "optional_blocks_reached")}, indent=2))
+    elif args.subcommand == "neighbour":
         summary = run_neighbour(
             args.core_a,
             args.core_b,
