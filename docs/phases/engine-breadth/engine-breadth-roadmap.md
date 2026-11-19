@@ -1035,6 +1035,18 @@ noncovered, no Form 1099-B; short and long term): 1,134 of 1,134 checks
 match hand values. Tests pin 27 returns on core v96. No package version
 change.
 
+## Bounded return — A Form 1099-B Bartering Amount Is Not Lost (2025)
+
+[Plan](milestones/f1099b-bartering.md); retrospective:
+`docs/milestone-retrospectives/2026-11-19-f1099b-bartering.md`.
+
+Core v97 (registry v95, release v95) adds one sentence to the five
+Schedule 1 lines 2a-6 questions: answer yes for a Form 1099-B box 13
+bartering amount above zero. Before it, a filer who answered as worded
+got a return with the bartering income silently left out; a yes now
+refuses the return through the existing line 10 path. The full-surface
+replay of 775 recorded lists changed only the package version.
+
 ## Saved-page observation — Mortgage and Sales (2025)
 
 [Plan](milestones/sale-page-observation.md); retrospective:
@@ -1221,7 +1233,13 @@ delivers an item removes it.
   per statement and in the core v85 return-level total; the questions tell
   the filer not to, and nothing refuses it. A recording surface for a
   statement with no sale would replace the return-level total.
-- Form 1099-B box 13 bartering, whose refusing answer is not established.
+- Form 1099-B box 13 bartering (f1099b-bartering, core v97): the
+  Schedule 1 lines 2a-6 questions now tell the filer to answer yes for a
+  box 13 amount, which refuses the return. Still open: box 13 cannot be
+  recorded; workspaces answered before v97 are not asked again; after a
+  yes the page shows only the generic line 10 sentence; the Schedule 1
+  scope facts record absence while the question asks "did you…?", and
+  nothing converts a yes.
 - A loss on a Form 1099-B statement whose box 7 is checked refuses
   Schedule D line 16 (core v84). The code L row is an open owner-held
   question (f8949-code-l, closed on P0).

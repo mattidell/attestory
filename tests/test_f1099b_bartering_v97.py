@@ -94,5 +94,10 @@ def test_box_13_unanswered_shows_the_new_sentence_on_the_page() -> None:
         assert _line(run, name) == ("blocked", None), name
     questions = [s for s in run["reason_sentences"] if SENTENCE in s]
     assert questions and all(s.startswith("In 2025, did you receive alimony, or have income or loss") for s in questions)
+    # The five questions share one sentence; the page draws it once, and only
+    # with the bartering clause. Two near-identical sentences mean one of the
+    # five successors lost the clause (review BART-R5).
+    shared = {s for s in run["reason_sentences"] if s.startswith("In 2025, did you receive alimony, or have income or loss")}
+    assert len(shared) == 1 and SENTENCE in next(iter(shared)), shared
     for answered in COMPUTES:
         assert not any(SENTENCE in s for s in _run(answered)["reason_sentences"])
