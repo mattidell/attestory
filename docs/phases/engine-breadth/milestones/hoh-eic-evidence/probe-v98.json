@@ -1,0 +1,1143 @@
+{
+ "answer": "none",
+ "core": {
+  "package": "v98",
+  "registry": "v96",
+  "release": "v96"
+ },
+ "runs": {
+  "hoh/child/30000": {
+   "blocked_rules": [],
+   "lines": {
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 23625
+    },
+    "form1040.line-15": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 6375
+    },
+    "form1040.line-16": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 638
+    },
+    "form1040.line-19": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 638
+    },
+    "form1040.line-24": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-27a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 3261
+    },
+    "form1040.line-28": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 1562
+    },
+    "form1040.line-33": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 5323
+    },
+    "form1040.line-34": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 5323
+    },
+    "form1040.line-35a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 5323
+    },
+    "form1040.line-37": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    }
+   },
+   "sentences": [],
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 1,
+    "ctc.form1040-line19": 638,
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.not-married": null,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 1,
+    "eic.early-stop": 0,
+    "eic.eligibility-result": 3261,
+    "eic.gate-result": 3261,
+    "eic.questions-required": 1,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 3261,
+    "odc.relative-count": 0,
+    "payments.line27a": 3261,
+    "tax.total-tax": 638
+   }
+  },
+  "hoh/child/7000": {
+   "blocked_rules": [],
+   "lines": {
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 23625
+    },
+    "form1040.line-15": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-16": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-19": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-24": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-27a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 2389
+    },
+    "form1040.line-28": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 675
+    },
+    "form1040.line-33": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 3414
+    },
+    "form1040.line-34": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 3414
+    },
+    "form1040.line-35a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 3414
+    },
+    "form1040.line-37": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    }
+   },
+   "sentences": [],
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 1,
+    "ctc.form1040-line19": 0,
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.not-married": null,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 1,
+    "eic.early-stop": 0,
+    "eic.eligibility-result": 2389,
+    "eic.gate-result": 2389,
+    "eic.questions-required": 1,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 2389,
+    "odc.relative-count": 0,
+    "payments.line27a": 2389,
+    "tax.total-tax": 0
+   }
+  },
+  "hoh/childnosep/7000": {
+   "blocked_rules": [
+    "eic-answer.separated-spouse:DEPENDENCY_ABSENT",
+    "eic-eligibility:DEPENDENCY_ABSENT",
+    "eic-gate-result:DEPENDENCY_ABSENT",
+    "form1040-line27a:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 23625
+    },
+    "form1040.line-15": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-16": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-19": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-24": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-27a": {
+     "disposition": "blocked",
+     "said": [],
+     "value": null
+    },
+    "form1040.line-28": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 675
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "said": [],
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "said": [],
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "said": [],
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "said": [],
+     "value": null
+    }
+   },
+   "sentences": [],
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 1,
+    "ctc.form1040-line19": 0,
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.not-married": null,
+    "eic.answer.separated-spouse": null,
+    "eic.column-count": 1,
+    "eic.early-stop": 0,
+    "eic.eligibility-result": null,
+    "eic.gate-result": null,
+    "eic.questions-required": 1,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 2389,
+    "odc.relative-count": 0,
+    "payments.line27a": null,
+    "tax.total-tax": 0
+   }
+  },
+  "hoh/oldchild/16000": {
+   "blocked_rules": [],
+   "lines": {
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 23625
+    },
+    "form1040.line-15": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-16": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-19": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-24": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-27a": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-28": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-33": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 500
+    },
+    "form1040.line-34": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 500
+    },
+    "form1040.line-35a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 500
+    },
+    "form1040.line-37": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    }
+   },
+   "sentences": [],
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 0,
+    "ctc.form1040-line19": 0,
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.not-married": null,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 0,
+    "eic.early-stop": 1,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 236,
+    "eic.questions-required": 0,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 236,
+    "odc.relative-count": 0,
+    "payments.line27a": 0,
+    "tax.total-tax": 0
+   }
+  },
+  "hoh/oldchild/7000": {
+   "blocked_rules": [],
+   "lines": {
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 23625
+    },
+    "form1040.line-15": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-16": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-19": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-24": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-27a": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-28": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-33": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 350
+    },
+    "form1040.line-34": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 350
+    },
+    "form1040.line-35a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 350
+    },
+    "form1040.line-37": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    }
+   },
+   "sentences": [],
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 0,
+    "ctc.form1040-line19": 0,
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.not-married": null,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 0,
+    "eic.early-stop": 1,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 537,
+    "eic.questions-required": 0,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 537,
+    "odc.relative-count": 0,
+    "payments.line27a": 0,
+    "tax.total-tax": 0
+   }
+  },
+  "hoh/parent/16000": {
+   "blocked_rules": [],
+   "lines": {
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 23625
+    },
+    "form1040.line-15": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-16": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-19": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-24": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-27a": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-28": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-33": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 500
+    },
+    "form1040.line-34": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 500
+    },
+    "form1040.line-35a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 500
+    },
+    "form1040.line-37": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    }
+   },
+   "sentences": [],
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 0,
+    "ctc.form1040-line19": 0,
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.not-married": null,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 0,
+    "eic.early-stop": 1,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 236,
+    "eic.questions-required": 0,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 236,
+    "odc.relative-count": 1,
+    "payments.line27a": 0,
+    "tax.total-tax": 0
+   }
+  },
+  "hoh/parent/50000": {
+   "blocked_rules": [],
+   "lines": {
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 23625
+    },
+    "form1040.line-15": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 26375
+    },
+    "form1040.line-16": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 2825
+    },
+    "form1040.line-19": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 500
+    },
+    "form1040.line-24": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 2325
+    },
+    "form1040.line-27a": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-28": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-33": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 500
+    },
+    "form1040.line-34": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-35a": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-37": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 1825
+    }
+   },
+   "sentences": [],
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 0,
+    "ctc.form1040-line19": 500,
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.not-married": null,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 0,
+    "eic.early-stop": 1,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 0,
+    "eic.questions-required": 0,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 0,
+    "odc.relative-count": 1,
+    "payments.line27a": 0,
+    "tax.total-tax": 2825
+   }
+  },
+  "hoh/parent/7000": {
+   "blocked_rules": [],
+   "lines": {
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 23625
+    },
+    "form1040.line-15": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-16": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-19": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-24": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-27a": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-28": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-33": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 350
+    },
+    "form1040.line-34": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 350
+    },
+    "form1040.line-35a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 350
+    },
+    "form1040.line-37": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    }
+   },
+   "sentences": [],
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 0,
+    "ctc.form1040-line19": 0,
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.not-married": null,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 0,
+    "eic.early-stop": 1,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 537,
+    "eic.questions-required": 0,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 537,
+    "odc.relative-count": 1,
+    "payments.line27a": 0,
+    "tax.total-tax": 0
+   }
+  },
+  "mfs/child/30000": {
+   "blocked_rules": [],
+   "lines": {
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 15750
+    },
+    "form1040.line-15": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 14250
+    },
+    "form1040.line-16": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 1475
+    },
+    "form1040.line-19": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 1475
+    },
+    "form1040.line-24": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-27a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 3261
+    },
+    "form1040.line-28": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 725
+    },
+    "form1040.line-33": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 4486
+    },
+    "form1040.line-34": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 4486
+    },
+    "form1040.line-35a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 4486
+    },
+    "form1040.line-37": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    }
+   },
+   "sentences": [],
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 1,
+    "ctc.form1040-line19": 1475,
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.not-married": null,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 1,
+    "eic.early-stop": 0,
+    "eic.eligibility-result": 3261,
+    "eic.gate-result": 3261,
+    "eic.questions-required": 1,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 3261,
+    "odc.relative-count": 0,
+    "payments.line27a": 3261,
+    "tax.total-tax": 1475
+   }
+  },
+  "mfs/none/7000": {
+   "blocked_rules": [],
+   "lines": {
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 15750
+    },
+    "form1040.line-15": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-16": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-19": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-24": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-27a": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-28": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-33": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 350
+    },
+    "form1040.line-34": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 350
+    },
+    "form1040.line-35a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 350
+    },
+    "form1040.line-37": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    }
+   },
+   "sentences": [],
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 0,
+    "ctc.form1040-line19": 0,
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.not-married": null,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 0,
+    "eic.early-stop": 1,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 537,
+    "eic.questions-required": 0,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 537,
+    "odc.relative-count": 0,
+    "payments.line27a": 0,
+    "tax.total-tax": 0
+   }
+  },
+  "single/child/30000": {
+   "blocked_rules": [],
+   "lines": {
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 15750
+    },
+    "form1040.line-15": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 14250
+    },
+    "form1040.line-16": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 1475
+    },
+    "form1040.line-19": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 1475
+    },
+    "form1040.line-24": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-27a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 3261
+    },
+    "form1040.line-28": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 725
+    },
+    "form1040.line-33": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 4486
+    },
+    "form1040.line-34": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 4486
+    },
+    "form1040.line-35a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 4486
+    },
+    "form1040.line-37": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    }
+   },
+   "sentences": [],
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 1,
+    "ctc.form1040-line19": 1475,
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.not-married": null,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 1,
+    "eic.early-stop": 0,
+    "eic.eligibility-result": 3261,
+    "eic.gate-result": 3261,
+    "eic.questions-required": 1,
+    "eic.status-class": 1,
+    "eic.worksheet-a.line-6": 3261,
+    "odc.relative-count": 0,
+    "payments.line27a": 3261,
+    "tax.total-tax": 1475
+   }
+  },
+  "single/none/16000": {
+   "blocked_rules": [],
+   "lines": {
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 15750
+    },
+    "form1040.line-15": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 250
+    },
+    "form1040.line-16": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 26
+    },
+    "form1040.line-19": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-24": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 26
+    },
+    "form1040.line-27a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 236
+    },
+    "form1040.line-28": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-33": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 736
+    },
+    "form1040.line-34": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 710
+    },
+    "form1040.line-35a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 710
+    },
+    "form1040.line-37": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    }
+   },
+   "sentences": [],
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 0,
+    "ctc.form1040-line19": 0,
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.not-married": null,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 0,
+    "eic.early-stop": 0,
+    "eic.eligibility-result": 236,
+    "eic.gate-result": 236,
+    "eic.questions-required": 1,
+    "eic.status-class": 1,
+    "eic.worksheet-a.line-6": 236,
+    "odc.relative-count": 0,
+    "payments.line27a": 236,
+    "tax.total-tax": 26
+   }
+  },
+  "single/none/7000": {
+   "blocked_rules": [],
+   "lines": {
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 15750
+    },
+    "form1040.line-15": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-16": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-19": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-24": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-27a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 537
+    },
+    "form1040.line-28": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-33": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 887
+    },
+    "form1040.line-34": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 887
+    },
+    "form1040.line-35a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 887
+    },
+    "form1040.line-37": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    }
+   },
+   "sentences": [],
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 0,
+    "ctc.form1040-line19": 0,
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.not-married": null,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 0,
+    "eic.early-stop": 0,
+    "eic.eligibility-result": 537,
+    "eic.gate-result": 537,
+    "eic.questions-required": 1,
+    "eic.status-class": 1,
+    "eic.worksheet-a.line-6": 537,
+    "odc.relative-count": 0,
+    "payments.line27a": 537,
+    "tax.total-tax": 0
+   }
+  },
+  "single/parent/16000": {
+   "blocked_rules": [],
+   "lines": {
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 15750
+    },
+    "form1040.line-15": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 250
+    },
+    "form1040.line-16": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 26
+    },
+    "form1040.line-19": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 26
+    },
+    "form1040.line-24": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-27a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 236
+    },
+    "form1040.line-28": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-33": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 736
+    },
+    "form1040.line-34": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 736
+    },
+    "form1040.line-35a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 736
+    },
+    "form1040.line-37": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    }
+   },
+   "sentences": [],
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 0,
+    "ctc.form1040-line19": 26,
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.not-married": null,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 0,
+    "eic.early-stop": 0,
+    "eic.eligibility-result": 236,
+    "eic.gate-result": 236,
+    "eic.questions-required": 1,
+    "eic.status-class": 1,
+    "eic.worksheet-a.line-6": 236,
+    "odc.relative-count": 1,
+    "payments.line27a": 236,
+    "tax.total-tax": 26
+   }
+  }
+ },
+ "wall_time_s": 21.3
+}

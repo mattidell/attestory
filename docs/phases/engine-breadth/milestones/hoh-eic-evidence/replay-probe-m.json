@@ -1,0 +1,1576 @@
+{
+ "format": "full-surface-replay.v1",
+ "cores": [
+  {
+   "version": "v98",
+   "registry": "v96",
+   "release_version": "v96",
+   "loader_from": null,
+   "presence_pairs": [],
+   "package_sha256": "8e5f8cd488c83c540aa0c80cfc5ccaadbd138c6f13b4c162c3b114dfe0081a6f",
+   "release_sha256": "187ddb53638d6400eba3b62418e2b02f3a5c0364f2cdb36736a694278b67b088"
+  },
+  {
+   "version": "v99",
+   "registry": "v97",
+   "release_version": "v97",
+   "loader_from": "v98",
+   "presence_pairs": [],
+   "package_sha256": "60b5fc980a7dc6a9fb5424d1eb2a8ab8b7b8af15a942bb55cad934064266ab81",
+   "release_sha256": "808ca426c3955ae44e17f93870fefe4ef36207f7a006229d51e3f9d68c15f957"
+  }
+ ],
+ "lists": 30,
+ "classes": {
+  "expected_changes": 12,
+  "unexpected": 18
+ },
+ "passing": 12,
+ "failing": 18,
+ "unexpected_differences": 26633,
+ "unexpected_by_kind_attribute": {
+  "graph|added|edges@order": {
+   "lists": 3,
+   "samples": [
+    {
+     "list": "probe/hoh/parent/50000/yes",
+     "change": "added",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.eic.column.completed~2c7cffc3b2=finding~tax.us.2025.eic.column.completed~2c7cffc3b2",
+     "attribute": "edges@order",
+     "before": null,
+     "after": [
+      "reference:tax.us.2025.package.core-calculations",
+      "reference:tax.us.2025.citation.form1040.line-27-31",
+      "reference:tax.us.2025.rule.eic-column.completed",
+      "input:demo.cgd.t2.finding.status",
+      "reference:tax.us.2025.parameter.eic-2025"
+     ]
+    },
+    {
+     "list": "probe/hoh/parent/50000/no",
+     "change": "added",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.eic.column.completed~2c7cffc3b2=finding~tax.us.2025.eic.column.completed~2c7cffc3b2",
+     "attribute": "edges@order",
+     "before": null,
+     "after": [
+      "reference:tax.us.2025.package.core-calculations",
+      "reference:tax.us.2025.citation.form1040.line-27-31",
+      "reference:tax.us.2025.rule.eic-column.completed",
+      "input:demo.cgd.t2.finding.status",
+      "reference:tax.us.2025.parameter.eic-2025"
+     ]
+    },
+    {
+     "list": "probe/hoh/parent/50000/none",
+     "change": "added",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.eic.column.completed~2c7cffc3b2=finding~tax.us.2025.eic.column.completed~2c7cffc3b2",
+     "attribute": "edges@order",
+     "before": null,
+     "after": [
+      "reference:tax.us.2025.package.core-calculations",
+      "reference:tax.us.2025.citation.form1040.line-27-31",
+      "reference:tax.us.2025.rule.eic-column.completed",
+      "input:demo.cgd.t2.finding.status",
+      "reference:tax.us.2025.parameter.eic-2025"
+     ]
+    }
+   ]
+  },
+  "graph|added|id": {
+   "lists": 3,
+   "samples": [
+    {
+     "list": "probe/hoh/parent/50000/yes",
+     "change": "added",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.eic.early-stop~*=finding~tax.us.2025.eic.early-stop~*/edges[derived:finding~tax.us.2025.eic.column.completed~2c7cffc3b2]/pin=finding~tax.us.2025.eic.column.completed~2c7cffc3b2",
+     "attribute": "id",
+     "before": null,
+     "after": "finding~tax.us.2025.eic.column.completed~2c7cffc3b2"
+    },
+    {
+     "list": "probe/hoh/parent/50000/yes",
+     "change": "added",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.eic.column.completed~2c7cffc3b2=finding~tax.us.2025.eic.column.completed~2c7cffc3b2/edges[reference:tax.us.2025.package.core-calculations]/pin=tax.us.2025.package.core-calculations",
+     "attribute": "id",
+     "before": null,
+     "after": "tax.us.2025.package.core-calculations"
+    },
+    {
+     "list": "probe/hoh/parent/50000/yes",
+     "change": "added",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.eic.column.completed~2c7cffc3b2=finding~tax.us.2025.eic.column.completed~2c7cffc3b2/edges[reference:tax.us.2025.citation.form1040.line-27-31]/pin=tax.us.2025.citation.form1040.line-27-31",
+     "attribute": "id",
+     "before": null,
+     "after": "tax.us.2025.citation.form1040.line-27-31"
+    }
+   ]
+  },
+  "graph|added|kind": {
+   "lists": 3,
+   "samples": [
+    {
+     "list": "probe/hoh/parent/50000/yes",
+     "change": "added",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.eic.column.completed~2c7cffc3b2=finding~tax.us.2025.eic.column.completed~2c7cffc3b2",
+     "attribute": "kind",
+     "before": null,
+     "after": "derived"
+    },
+    {
+     "list": "probe/hoh/parent/50000/no",
+     "change": "added",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.eic.column.completed~2c7cffc3b2=finding~tax.us.2025.eic.column.completed~2c7cffc3b2",
+     "attribute": "kind",
+     "before": null,
+     "after": "derived"
+    },
+    {
+     "list": "probe/hoh/parent/50000/none",
+     "change": "added",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.eic.column.completed~2c7cffc3b2=finding~tax.us.2025.eic.column.completed~2c7cffc3b2",
+     "attribute": "kind",
+     "before": null,
+     "after": "derived"
+    }
+   ]
+  },
+  "graph|added|origin": {
+   "lists": 3,
+   "samples": [
+    {
+     "list": "probe/hoh/parent/50000/yes",
+     "change": "added",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.eic.early-stop~*=finding~tax.us.2025.eic.early-stop~*/edges[derived:finding~tax.us.2025.eic.column.completed~2c7cffc3b2]/pin=finding~tax.us.2025.eic.column.completed~2c7cffc3b2",
+     "attribute": "origin",
+     "before": null,
+     "after": "assertion"
+    },
+    {
+     "list": "probe/hoh/parent/50000/yes",
+     "change": "added",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.eic.column.completed~2c7cffc3b2=finding~tax.us.2025.eic.column.completed~2c7cffc3b2/edges[input:demo.cgd.t2.finding.status]/pin=demo.cgd.t2.finding.status",
+     "attribute": "origin",
+     "before": null,
+     "after": "assertion"
+    },
+    {
+     "list": "probe/hoh/parent/50000/yes",
+     "change": "added",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.eic.column.completed~2c7cffc3b2=finding~tax.us.2025.eic.column.completed~2c7cffc3b2/edges[derived:finding~tax.us.2025.eic.column-count~*]/pin=finding~tax.us.2025.eic.column-count~*",
+     "attribute": "origin",
+     "before": null,
+     "after": "assertion"
+    }
+   ]
+  },
+  "graph|added|role": {
+   "lists": 3,
+   "samples": [
+    {
+     "list": "probe/hoh/parent/50000/yes",
+     "change": "added",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.eic.early-stop~*=finding~tax.us.2025.eic.early-stop~*/edges[derived:finding~tax.us.2025.eic.column.completed~2c7cffc3b2]/pin=finding~tax.us.2025.eic.column.completed~2c7cffc3b2",
+     "attribute": "role",
+     "before": null,
+     "after": "input"
+    },
+    {
+     "list": "probe/hoh/parent/50000/yes",
+     "change": "added",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.eic.column.completed~2c7cffc3b2=finding~tax.us.2025.eic.column.completed~2c7cffc3b2/edges[reference:tax.us.2025.package.core-calculations]/pin=tax.us.2025.package.core-calculations",
+     "attribute": "role",
+     "before": null,
+     "after": "adoption"
+    },
+    {
+     "list": "probe/hoh/parent/50000/yes",
+     "change": "added",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.eic.column.completed~2c7cffc3b2=finding~tax.us.2025.eic.column.completed~2c7cffc3b2/edges[reference:tax.us.2025.citation.form1040.line-27-31]/pin=tax.us.2025.citation.form1040.line-27-31",
+     "attribute": "role",
+     "before": null,
+     "after": "citation"
+    }
+   ]
+  },
+  "graph|added|target": {
+   "lists": 3,
+   "samples": [
+    {
+     "list": "probe/hoh/parent/50000/yes",
+     "change": "added",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.eic.early-stop~*=finding~tax.us.2025.eic.early-stop~*/edges[derived:finding~tax.us.2025.eic.column.completed~2c7cffc3b2]",
+     "attribute": "target",
+     "before": null,
+     "after": "derived:finding~tax.us.2025.eic.column.completed~2c7cffc3b2"
+    },
+    {
+     "list": "probe/hoh/parent/50000/yes",
+     "change": "added",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.eic.column.completed~2c7cffc3b2=finding~tax.us.2025.eic.column.completed~2c7cffc3b2/edges[reference:tax.us.2025.package.core-calculations]",
+     "attribute": "target",
+     "before": null,
+     "after": "reference:tax.us.2025.package.core-calculations"
+    },
+    {
+     "list": "probe/hoh/parent/50000/yes",
+     "change": "added",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.eic.column.completed~2c7cffc3b2=finding~tax.us.2025.eic.column.completed~2c7cffc3b2/edges[reference:tax.us.2025.citation.form1040.line-27-31]",
+     "attribute": "target",
+     "before": null,
+     "after": "reference:tax.us.2025.citation.form1040.line-27-31"
+    }
+   ]
+  },
+  "graph|added|version": {
+   "lists": 3,
+   "samples": [
+    {
+     "list": "probe/hoh/parent/50000/yes",
+     "change": "added",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.eic.early-stop~*=finding~tax.us.2025.eic.early-stop~*/edges[derived:finding~tax.us.2025.eic.column.completed~2c7cffc3b2]/pin=finding~tax.us.2025.eic.column.completed~2c7cffc3b2",
+     "attribute": "version",
+     "before": null,
+     "after": "v2"
+    },
+    {
+     "list": "probe/hoh/parent/50000/yes",
+     "change": "added",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.eic.column.completed~2c7cffc3b2=finding~tax.us.2025.eic.column.completed~2c7cffc3b2/edges[reference:tax.us.2025.package.core-calculations]/pin=tax.us.2025.package.core-calculations",
+     "attribute": "version",
+     "before": null,
+     "after": "v99"
+    },
+    {
+     "list": "probe/hoh/parent/50000/yes",
+     "change": "added",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.eic.column.completed~2c7cffc3b2=finding~tax.us.2025.eic.column.completed~2c7cffc3b2/edges[reference:tax.us.2025.citation.form1040.line-27-31]/pin=tax.us.2025.citation.form1040.line-27-31",
+     "attribute": "version",
+     "before": null,
+     "after": "v1"
+    }
+   ]
+  },
+  "graph|changed|value": {
+   "lists": 15,
+   "samples": [
+    {
+     "list": "probe/hoh/parent/7000/none",
+     "change": "changed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.eic.status-class~*=finding~tax.us.2025.eic.status-class~*",
+     "attribute": "value",
+     "before": "0",
+     "after": "1"
+    },
+    {
+     "list": "probe/hoh/parent/50000/yes",
+     "change": "changed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.eic.status-class~*=finding~tax.us.2025.eic.status-class~*",
+     "attribute": "value",
+     "before": "0",
+     "after": "1"
+    },
+    {
+     "list": "probe/hoh/parent/16000/none",
+     "change": "changed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.eic.status-class~*=finding~tax.us.2025.eic.status-class~*",
+     "attribute": "value",
+     "before": "0",
+     "after": "1"
+    }
+   ]
+  },
+  "graph|removed|edges@order": {
+   "lists": 4,
+   "samples": [
+    {
+     "list": "probe/hoh/parent/7000/none",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.payments.line34-overpaid~360ef3ea2a=finding~tax.us.2025.payments.line34-overpaid~360ef3ea2a",
+     "attribute": "edges@order",
+     "before": [
+      "reference:tax.us.2025.package.core-calculations",
+      "reference:tax.us.2025.citation.form1040.line-34",
+      "reference:tax.us.2025.rule.form1040-line34",
+      "input:demo.cgd.t2.finding.rounding",
+      "reference:round"
+     ],
+     "after": null
+    },
+    {
+     "list": "probe/hoh/parent/16000/none",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.payments.line33~6d6eeab7c5=finding~tax.us.2025.payments.line33~6d6eeab7c5",
+     "attribute": "edges@order",
+     "before": [
+      "reference:tax.us.2025.package.core-calculations",
+      "reference:tax.us.2025.citation.form1040.line-33",
+      "reference:tax.us.2025.rule.form1040-line33",
+      "input:demo.cgd.t2.finding.rounding",
+      "reference:round"
+     ],
+     "after": null
+    },
+    {
+     "list": "probe/hoh/oldchild/7000/none",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.payments.line37-amount-owed~1733f518de=finding~tax.us.2025.payments.line37-amount-owed~1733f518de",
+     "attribute": "edges@order",
+     "before": [
+      "reference:tax.us.2025.package.core-calculations",
+      "reference:tax.us.2025.citation.form1040.line-37",
+      "reference:tax.us.2025.rule.form1040-line37",
+      "input:demo.cgd.t2.finding.rounding",
+      "reference:round"
+     ],
+     "after": null
+    }
+   ]
+  },
+  "graph|removed|id": {
+   "lists": 4,
+   "samples": [
+    {
+     "list": "probe/hoh/parent/7000/none",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.payments.line34-overpaid~360ef3ea2a=finding~tax.us.2025.payments.line34-overpaid~360ef3ea2a/edges[reference:tax.us.2025.package.core-calculations]/pin=tax.us.2025.package.core-calculations",
+     "attribute": "id",
+     "before": "tax.us.2025.package.core-calculations",
+     "after": null
+    },
+    {
+     "list": "probe/hoh/parent/7000/none",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.payments.line34-overpaid~360ef3ea2a=finding~tax.us.2025.payments.line34-overpaid~360ef3ea2a/edges[reference:tax.us.2025.citation.form1040.line-34]/pin=tax.us.2025.citation.form1040.line-34",
+     "attribute": "id",
+     "before": "tax.us.2025.citation.form1040.line-34",
+     "after": null
+    },
+    {
+     "list": "probe/hoh/parent/7000/none",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.payments.line34-overpaid~360ef3ea2a=finding~tax.us.2025.payments.line34-overpaid~360ef3ea2a/edges[reference:tax.us.2025.rule.form1040-line34]/pin=tax.us.2025.rule.form1040-line34",
+     "attribute": "id",
+     "before": "tax.us.2025.rule.form1040-line34",
+     "after": null
+    }
+   ]
+  },
+  "graph|removed|kind": {
+   "lists": 4,
+   "samples": [
+    {
+     "list": "probe/hoh/parent/7000/none",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.payments.line34-overpaid~360ef3ea2a=finding~tax.us.2025.payments.line34-overpaid~360ef3ea2a",
+     "attribute": "kind",
+     "before": "derived",
+     "after": null
+    },
+    {
+     "list": "probe/hoh/parent/16000/none",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.payments.line33~6d6eeab7c5=finding~tax.us.2025.payments.line33~6d6eeab7c5",
+     "attribute": "kind",
+     "before": "derived",
+     "after": null
+    },
+    {
+     "list": "probe/hoh/oldchild/7000/none",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.payments.line37-amount-owed~1733f518de=finding~tax.us.2025.payments.line37-amount-owed~1733f518de",
+     "attribute": "kind",
+     "before": "derived",
+     "after": null
+    }
+   ]
+  },
+  "graph|removed|origin": {
+   "lists": 4,
+   "samples": [
+    {
+     "list": "probe/hoh/parent/7000/none",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.payments.line34-overpaid~360ef3ea2a=finding~tax.us.2025.payments.line34-overpaid~360ef3ea2a/edges[input:demo.cgd.t2.finding.rounding]/pin=demo.cgd.t2.finding.rounding",
+     "attribute": "origin",
+     "before": "assertion",
+     "after": null
+    },
+    {
+     "list": "probe/hoh/parent/7000/none",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.payments.line34-overpaid~360ef3ea2a=finding~tax.us.2025.payments.line34-overpaid~360ef3ea2a/edges[derived:finding~tax.us.2025.tax.line24-total-tax~*]/pin=finding~tax.us.2025.tax.line24-total-tax~*",
+     "attribute": "origin",
+     "before": "declared_default",
+     "after": null
+    },
+    {
+     "list": "probe/hoh/parent/7000/none",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.payments.line34-overpaid~360ef3ea2a=finding~tax.us.2025.payments.line34-overpaid~360ef3ea2a/edges[derived:finding~tax.us.2025.payments.line33~6d6eeab7c5]/pin=finding~tax.us.2025.payments.line33~6d6eeab7c5",
+     "attribute": "origin",
+     "before": "declared_default",
+     "after": null
+    }
+   ]
+  },
+  "graph|removed|role": {
+   "lists": 4,
+   "samples": [
+    {
+     "list": "probe/hoh/parent/7000/none",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.payments.line34-overpaid~360ef3ea2a=finding~tax.us.2025.payments.line34-overpaid~360ef3ea2a/edges[reference:tax.us.2025.package.core-calculations]/pin=tax.us.2025.package.core-calculations",
+     "attribute": "role",
+     "before": "adoption",
+     "after": null
+    },
+    {
+     "list": "probe/hoh/parent/7000/none",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.payments.line34-overpaid~360ef3ea2a=finding~tax.us.2025.payments.line34-overpaid~360ef3ea2a/edges[reference:tax.us.2025.citation.form1040.line-34]/pin=tax.us.2025.citation.form1040.line-34",
+     "attribute": "role",
+     "before": "citation",
+     "after": null
+    },
+    {
+     "list": "probe/hoh/parent/7000/none",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.payments.line34-overpaid~360ef3ea2a=finding~tax.us.2025.payments.line34-overpaid~360ef3ea2a/edges[reference:tax.us.2025.rule.form1040-line34]/pin=tax.us.2025.rule.form1040-line34",
+     "attribute": "role",
+     "before": "computation",
+     "after": null
+    }
+   ]
+  },
+  "graph|removed|symbol": {
+   "lists": 3,
+   "samples": [
+    {
+     "list": "probe/hoh/parent/7000/none",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.payments.line34-overpaid~360ef3ea2a=finding~tax.us.2025.payments.line34-overpaid~360ef3ea2a",
+     "attribute": "symbol",
+     "before": "tax.us.2025.payments.line34-overpaid",
+     "after": null
+    },
+    {
+     "list": "probe/hoh/oldchild/7000/none",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.payments.line37-amount-owed~1733f518de=finding~tax.us.2025.payments.line37-amount-owed~1733f518de",
+     "attribute": "symbol",
+     "before": "tax.us.2025.payments.line37-amount-owed",
+     "after": null
+    },
+    {
+     "list": "probe/hoh/oldchild/16000/none",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.payments.line27a~2c60771fc5=finding~tax.us.2025.payments.line27a~2c60771fc5",
+     "attribute": "symbol",
+     "before": "tax.us.2025.payments.line27a",
+     "after": null
+    }
+   ]
+  },
+  "graph|removed|target": {
+   "lists": 4,
+   "samples": [
+    {
+     "list": "probe/hoh/parent/7000/none",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.payments.line34-overpaid~360ef3ea2a=finding~tax.us.2025.payments.line34-overpaid~360ef3ea2a/edges[reference:tax.us.2025.package.core-calculations]",
+     "attribute": "target",
+     "before": "reference:tax.us.2025.package.core-calculations",
+     "after": null
+    },
+    {
+     "list": "probe/hoh/parent/7000/none",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.payments.line34-overpaid~360ef3ea2a=finding~tax.us.2025.payments.line34-overpaid~360ef3ea2a/edges[reference:tax.us.2025.citation.form1040.line-34]",
+     "attribute": "target",
+     "before": "reference:tax.us.2025.citation.form1040.line-34",
+     "after": null
+    },
+    {
+     "list": "probe/hoh/parent/7000/none",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.payments.line34-overpaid~360ef3ea2a=finding~tax.us.2025.payments.line34-overpaid~360ef3ea2a/edges[reference:tax.us.2025.rule.form1040-line34]",
+     "attribute": "target",
+     "before": "reference:tax.us.2025.rule.form1040-line34",
+     "after": null
+    }
+   ]
+  },
+  "graph|removed|value": {
+   "lists": 3,
+   "samples": [
+    {
+     "list": "probe/hoh/parent/7000/none",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.payments.line34-overpaid~360ef3ea2a=finding~tax.us.2025.payments.line34-overpaid~360ef3ea2a",
+     "attribute": "value",
+     "before": "350",
+     "after": null
+    },
+    {
+     "list": "probe/hoh/oldchild/7000/none",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.payments.line37-amount-owed~1733f518de=finding~tax.us.2025.payments.line37-amount-owed~1733f518de",
+     "attribute": "value",
+     "before": "0",
+     "after": null
+    },
+    {
+     "list": "probe/hoh/oldchild/16000/none",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.payments.line27a~2c60771fc5=finding~tax.us.2025.payments.line27a~2c60771fc5",
+     "attribute": "value",
+     "before": "0",
+     "after": null
+    }
+   ]
+  },
+  "graph|removed|version": {
+   "lists": 4,
+   "samples": [
+    {
+     "list": "probe/hoh/parent/7000/none",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.payments.line34-overpaid~360ef3ea2a=finding~tax.us.2025.payments.line34-overpaid~360ef3ea2a/edges[reference:tax.us.2025.package.core-calculations]/pin=tax.us.2025.package.core-calculations",
+     "attribute": "version",
+     "before": "v98",
+     "after": null
+    },
+    {
+     "list": "probe/hoh/parent/7000/none",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.payments.line34-overpaid~360ef3ea2a=finding~tax.us.2025.payments.line34-overpaid~360ef3ea2a/edges[reference:tax.us.2025.citation.form1040.line-34]/pin=tax.us.2025.citation.form1040.line-34",
+     "attribute": "version",
+     "before": "v1",
+     "after": null
+    },
+    {
+     "list": "probe/hoh/parent/7000/none",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.payments.line34-overpaid~360ef3ea2a=finding~tax.us.2025.payments.line34-overpaid~360ef3ea2a/edges[reference:tax.us.2025.rule.form1040-line34]/pin=tax.us.2025.rule.form1040-line34",
+     "attribute": "version",
+     "before": "v1",
+     "after": null
+    }
+   ]
+  },
+  "model|changed|sectionRoots.line-N-h.root": {
+   "lists": 3,
+   "samples": [
+    {
+     "list": "probe/hoh/childnosep/7000/none",
+     "change": "changed",
+     "kind": "model",
+     "identity": "",
+     "attribute": "sectionRoots.line-10-h.root",
+     "before": 66,
+     "after": 67
+    },
+    {
+     "list": "probe/hoh/childnosep/7000/none",
+     "change": "changed",
+     "kind": "model",
+     "identity": "",
+     "attribute": "sectionRoots.line-2-h.root",
+     "before": 73,
+     "after": 74
+    },
+    {
+     "list": "probe/hoh/childnosep/7000/none",
+     "change": "changed",
+     "kind": "model",
+     "identity": "",
+     "attribute": "sectionRoots.line-3-h.root",
+     "before": 75,
+     "after": 76
+    }
+   ]
+  },
+  "model|changed|sectionRoots.line-N.root": {
+   "lists": 3,
+   "samples": [
+    {
+     "list": "probe/hoh/childnosep/7000/none",
+     "change": "changed",
+     "kind": "model",
+     "identity": "",
+     "attribute": "sectionRoots.line-14.root",
+     "before": 68,
+     "after": 69
+    },
+    {
+     "list": "probe/hoh/childnosep/7000/none",
+     "change": "changed",
+     "kind": "model",
+     "identity": "",
+     "attribute": "sectionRoots.line-21.root",
+     "before": 74,
+     "after": 75
+    },
+    {
+     "list": "probe/hoh/childnosep/7000/none",
+     "change": "changed",
+     "kind": "model",
+     "identity": "",
+     "attribute": "sectionRoots.line-22.root",
+     "before": 65,
+     "after": 66
+    }
+   ]
+  },
+  "model|changed|sectionRoots.line-Na-h.root": {
+   "lists": 3,
+   "samples": [
+    {
+     "list": "probe/hoh/childnosep/7000/none",
+     "change": "changed",
+     "kind": "model",
+     "identity": "",
+     "attribute": "sectionRoots.line-1a-h.root",
+     "before": 71,
+     "after": 72
+    },
+    {
+     "list": "probe/hoh/childnosep/7000/none",
+     "change": "changed",
+     "kind": "model",
+     "identity": "",
+     "attribute": "sectionRoots.line-8a-h.root",
+     "before": 78,
+     "after": 79
+    },
+    {
+     "list": "probe/hoh/childnosep/7000/yes",
+     "change": "changed",
+     "kind": "model",
+     "identity": "",
+     "attribute": "sectionRoots.line-1a-h.root",
+     "before": 71,
+     "after": 72
+    }
+   ]
+  },
+  "model|changed|sectionRoots.line-Na.root": {
+   "lists": 3,
+   "samples": [
+    {
+     "list": "probe/hoh/childnosep/7000/none",
+     "change": "changed",
+     "kind": "model",
+     "identity": "",
+     "attribute": "sectionRoots.line-2a.root",
+     "before": 48,
+     "after": 49
+    },
+    {
+     "list": "probe/hoh/childnosep/7000/none",
+     "change": "changed",
+     "kind": "model",
+     "identity": "",
+     "attribute": "sectionRoots.line-3a.root",
+     "before": 55,
+     "after": 56
+    },
+    {
+     "list": "probe/hoh/childnosep/7000/none",
+     "change": "changed",
+     "kind": "model",
+     "identity": "",
+     "attribute": "sectionRoots.line-6a.root",
+     "before": 58,
+     "after": 59
+    }
+   ]
+  },
+  "model|changed|sectionRoots.line-Nb-h.root": {
+   "lists": 3,
+   "samples": [
+    {
+     "list": "probe/hoh/childnosep/7000/none",
+     "change": "changed",
+     "kind": "model",
+     "identity": "",
+     "attribute": "sectionRoots.line-1b-h.root",
+     "before": 72,
+     "after": 73
+    },
+    {
+     "list": "probe/hoh/childnosep/7000/none",
+     "change": "changed",
+     "kind": "model",
+     "identity": "",
+     "attribute": "sectionRoots.line-8b-h.root",
+     "before": 79,
+     "after": 80
+    },
+    {
+     "list": "probe/hoh/childnosep/7000/yes",
+     "change": "changed",
+     "kind": "model",
+     "identity": "",
+     "attribute": "sectionRoots.line-1b-h.root",
+     "before": 72,
+     "after": 73
+    }
+   ]
+  },
+  "model|changed|sectionRoots.line-Nb.root": {
+   "lists": 3,
+   "samples": [
+    {
+     "list": "probe/hoh/childnosep/7000/none",
+     "change": "changed",
+     "kind": "model",
+     "identity": "",
+     "attribute": "sectionRoots.line-2b.root",
+     "before": 49,
+     "after": 50
+    },
+    {
+     "list": "probe/hoh/childnosep/7000/none",
+     "change": "changed",
+     "kind": "model",
+     "identity": "",
+     "attribute": "sectionRoots.line-3b.root",
+     "before": 56,
+     "after": 57
+    },
+    {
+     "list": "probe/hoh/childnosep/7000/none",
+     "change": "changed",
+     "kind": "model",
+     "identity": "",
+     "attribute": "sectionRoots.line-4b.root",
+     "before": 57,
+     "after": 58
+    }
+   ]
+  },
+  "model|changed|sectionRoots.line-Nc.root": {
+   "lists": 3,
+   "samples": [
+    {
+     "list": "probe/hoh/childnosep/7000/none",
+     "change": "changed",
+     "kind": "model",
+     "identity": "",
+     "attribute": "sectionRoots.line-6c.root",
+     "before": 60,
+     "after": 61
+    },
+    {
+     "list": "probe/hoh/childnosep/7000/yes",
+     "change": "changed",
+     "kind": "model",
+     "identity": "",
+     "attribute": "sectionRoots.line-6c.root",
+     "before": 60,
+     "after": 61
+    },
+    {
+     "list": "probe/hoh/childnosep/7000/no",
+     "change": "changed",
+     "kind": "model",
+     "identity": "",
+     "attribute": "sectionRoots.line-6c.root",
+     "before": 60,
+     "after": 61
+    }
+   ]
+  },
+  "model|changed|sectionRoots.line-SchN-N.root": {
+   "lists": 3,
+   "samples": [
+    {
+     "list": "probe/hoh/childnosep/7000/none",
+     "change": "changed",
+     "kind": "model",
+     "identity": "",
+     "attribute": "sectionRoots.line-Sch3-1.root",
+     "before": 86,
+     "after": 87
+    },
+    {
+     "list": "probe/hoh/childnosep/7000/none",
+     "change": "changed",
+     "kind": "model",
+     "identity": "",
+     "attribute": "sectionRoots.line-Sch3-8.root",
+     "before": 87,
+     "after": 88
+    },
+    {
+     "list": "probe/hoh/childnosep/7000/yes",
+     "change": "changed",
+     "kind": "model",
+     "identity": "",
+     "attribute": "sectionRoots.line-Sch3-1.root",
+     "before": 86,
+     "after": 87
+    }
+   ]
+  },
+  "model|changed|sectionRoots.line-sch-d-N.root": {
+   "lists": 3,
+   "samples": [
+    {
+     "list": "probe/hoh/childnosep/7000/none",
+     "change": "changed",
+     "kind": "model",
+     "identity": "",
+     "attribute": "sectionRoots.line-sch-d-13.root",
+     "before": 67,
+     "after": 68
+    },
+    {
+     "list": "probe/hoh/childnosep/7000/none",
+     "change": "changed",
+     "kind": "model",
+     "identity": "",
+     "attribute": "sectionRoots.line-sch-d-15.root",
+     "before": 69,
+     "after": 70
+    },
+    {
+     "list": "probe/hoh/childnosep/7000/none",
+     "change": "changed",
+     "kind": "model",
+     "identity": "",
+     "attribute": "sectionRoots.line-sch-d-16.root",
+     "before": 70,
+     "after": 71
+    }
+   ]
+  },
+  "model|changed|sectionRoots.line-schN-N.root": {
+   "lists": 3,
+   "samples": [
+    {
+     "list": "probe/hoh/childnosep/7000/none",
+     "change": "changed",
+     "kind": "model",
+     "identity": "",
+     "attribute": "sectionRoots.line-sch1-10.root",
+     "before": 81,
+     "after": 82
+    },
+    {
+     "list": "probe/hoh/childnosep/7000/none",
+     "change": "changed",
+     "kind": "model",
+     "identity": "",
+     "attribute": "sectionRoots.line-sch1-21.root",
+     "before": 82,
+     "after": 83
+    },
+    {
+     "list": "probe/hoh/childnosep/7000/none",
+     "change": "changed",
+     "kind": "model",
+     "identity": "",
+     "attribute": "sectionRoots.line-sch1-7.root",
+     "before": 83,
+     "after": 84
+    }
+   ]
+  },
+  "model|changed|sectionRoots.line-schN-Nb.root": {
+   "lists": 3,
+   "samples": [
+    {
+     "list": "probe/hoh/childnosep/7000/none",
+     "change": "changed",
+     "kind": "model",
+     "identity": "",
+     "attribute": "sectionRoots.line-sch1-8b.root",
+     "before": 84,
+     "after": 85
+    },
+    {
+     "list": "probe/hoh/childnosep/7000/yes",
+     "change": "changed",
+     "kind": "model",
+     "identity": "",
+     "attribute": "sectionRoots.line-sch1-8b.root",
+     "before": 84,
+     "after": 85
+    },
+    {
+     "list": "probe/hoh/childnosep/7000/no",
+     "change": "changed",
+     "kind": "model",
+     "identity": "",
+     "attribute": "sectionRoots.line-sch1-8b.root",
+     "before": 84,
+     "after": 85
+    }
+   ]
+  },
+  "model|changed|sectionRoots.line-schN-top.root": {
+   "lists": 3,
+   "samples": [
+    {
+     "list": "probe/hoh/childnosep/7000/none",
+     "change": "changed",
+     "kind": "model",
+     "identity": "",
+     "attribute": "sectionRoots.line-sch1-top.root",
+     "before": 85,
+     "after": 86
+    },
+    {
+     "list": "probe/hoh/childnosep/7000/yes",
+     "change": "changed",
+     "kind": "model",
+     "identity": "",
+     "attribute": "sectionRoots.line-sch1-top.root",
+     "before": 85,
+     "after": 86
+    },
+    {
+     "list": "probe/hoh/childnosep/7000/no",
+     "change": "changed",
+     "kind": "model",
+     "identity": "",
+     "attribute": "sectionRoots.line-sch1-top.root",
+     "before": 85,
+     "after": 86
+    }
+   ]
+  },
+  "page|changed|citationSites@order": {
+   "lists": 8,
+   "samples": [
+    {
+     "list": "probe/hoh/parent/7000/no",
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-27a]",
+     "attribute": "citationSites@order",
+     "before": [
+      "line-27a-src-0",
+      "line-27a-src-1",
+      "line-27a-src-2",
+      "line-27a-src-3",
+      "line-27a-src-4",
+      "line-27a-src-5",
+      "line-27a-src-6",
+      "line-27a-src-7",
+      "line-27a-src-8",
+      "line-27a-src-9",
+      "line-27a-src-10",
+      "line-27a-src-11",
+      "line-27a-src-12",
+      "line-27a-src-13",
+      "line-27a-src-14",
+      "line-27a-src-15",
+      "line-27a-src-16",
+      "line-27a-src-17",
+      "line-27a-src-18",
+      "line-27a-src-19",
+      "line-27a-src-20",
+      "line-27a-src-21",
+      "line-27a-src-22",
+      "line-27a-src-23",
+      "line-27a-src-24",
+      "line-27a-src-25",
+      "line-27a-src-26",
+      "line-27a-src-27",
+      "line-27a-src-28",
+      "line-27a-src-29",
+      "line-27a-src-30",
+      "line-27a-src-31",
+      "line-27a-src-32",
+      "line-27a-src-33",
+      "line-27a-src-34",
+      "line-27a-src-35",
+      "line-27a-src-36",
+      "line-27a-src-37",
+      "line-27a-src-38",
+      "line-27a-src-39"
+     ],
+     "after": [
+      "line-27a-src-0",
+      "line-27a-src-1",
+      "line-27a-src-2",
+      "line-27a-src-3",
+      "line-27a-src-4",
+      "line-27a-src-5",
+      "line-27a-src-6",
+      "line-27a-src-7",
+      "line-27a-src-8",
+      "line-27a-src-9",
+      "line-27a-src-10",
+      "line-27a-src-11",
+      "line-27a-src-12",
+      "line-27a-src-13",
+      "line-27a-src-14",
+      "line-27a-src-15",
+      "line-27a-src-16",
+      "line-27a-src-17",
+      "line-27a-src-18",
+      "line-27a-src-19",
+      "line-27a-src-20",
+      "line-27a-src-21",
+      "line-27a-src-22",
+      "line-27a-src-23",
+      "line-27a-src-24",
+      "line-27a-src-25",
+      "line-27a-src-26",
+      "line-27a-src-27",
+      "line-27a-src-28",
+      "line-27a-src-29",
+      "line-27a-src-30",
+      "line-27a-src-31",
+      "line-27a-src-32",
+      "line-27a-src-33",
+      "line-27a-src-34",
+      "line-27a-src-35",
+      "line-27a-src-36",
+      "line-27a-src-37",
+      "line-27a-src-38",
+      "line-27a-src-39",
+      "line-27a-src-40",
+      "line-27a-src-41",
+      "line-27a-src-42",
+      "line-27a-src-43",
+      "line-27a-src-44"
+     ]
+    },
+    {
+     "list": "probe/hoh/parent/7000/no",
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-32]",
+     "attribute": "citationSites@order",
+     "before": [
+      "line-32-src-0",
+      "line-32-src-1",
+      "line-32-src-2",
+      "line-32-src-3",
+      "line-32-src-4",
+      "line-32-src-5",
+      "line-32-src-6",
+      "line-32-src-7",
+      "line-32-src-8",
+      "line-32-src-9",
+      "line-32-src-10",
+      "line-32-src-11",
+      "line-32-src-12",
+      "line-32-src-13",
+      "line-32-src-14",
+      "line-32-src-15",
+      "line-32-src-16",
+      "line-32-src-17",
+      "line-32-src-18",
+      "line-32-src-19",
+      "line-32-src-20",
+      "line-32-src-21",
+      "line-32-src-22",
+      "line-32-src-23",
+      "line-32-src-24",
+      "line-32-src-25",
+      "line-32-src-26",
+      "line-32-src-27",
+      "line-32-src-28",
+      "line-32-src-29",
+      "line-32-src-30",
+      "line-32-src-31",
+      "line-32-src-32",
+      "line-32-src-33",
+      "line-32-src-34",
+      "line-32-src-35",
+      "line-32-src-36",
+      "line-32-src-37",
+      "line-32-src-38",
+      "line-32-src-39",
+      "line-32-src-40",
+      "line-32-src-41",
+      "line-32-src-42",
+      "line-32-src-43",
+      "line-32-src-44",
+      "line-32-src-45",
+      "line-32-src-46",
+      "line-32-src-47",
+      "line-32-src-48",
+      "line-32-src-49",
+      "line-32-src-50",
+      "line-32-src-51",
+      "line-32-src-52",
+      "line-32-src-53",
+      "line-32-src-54",
+      "line-32-src-55",
+      "line-32-src-56",
+      "line-32-src-57",
+      "line-32-src-58",
+      "line-32-src-59",
+      "line-32-src-60",
+      "line-32-src-61",
+      "line-32-src-62",
+      "line-32-src-63",
+      "line-32-src-64",
+      "line-32-src-65",
+      "line-32-src-66",
+      "line-32-src-67"
+     ],
+     "after": [
+      "line-32-src-0",
+      "line-32-src-1",
+      "line-32-src-2",
+      "line-32-src-3",
+      "line-32-src-4",
+      "line-32-src-5",
+      "line-32-src-6",
+      "line-32-src-7",
+      "line-32-src-8",
+      "line-32-src-9",
+      "line-32-src-10",
+      "line-32-src-11",
+      "line-32-src-12",
+      "line-32-src-13",
+      "line-32-src-14",
+      "line-32-src-15",
+      "line-32-src-16",
+      "line-32-src-17",
+      "line-32-src-18",
+      "line-32-src-19",
+      "line-32-src-20",
+      "line-32-src-21",
+      "line-32-src-22",
+      "line-32-src-23",
+      "line-32-src-24",
+      "line-32-src-25",
+      "line-32-src-26",
+      "line-32-src-27",
+      "line-32-src-28",
+      "line-32-src-29",
+      "line-32-src-30",
+      "line-32-src-31",
+      "line-32-src-32",
+      "line-32-src-33",
+      "line-32-src-34",
+      "line-32-src-35",
+      "line-32-src-36",
+      "line-32-src-37",
+      "line-32-src-38",
+      "line-32-src-39",
+      "line-32-src-40",
+      "line-32-src-41",
+      "line-32-src-42",
+      "line-32-src-43",
+      "line-32-src-44",
+      "line-32-src-45",
+      "line-32-src-46",
+      "line-32-src-47",
+      "line-32-src-48",
+      "line-32-src-49",
+      "line-32-src-50",
+      "line-32-src-51",
+      "line-32-src-52",
+      "line-32-src-53",
+      "line-32-src-54",
+      "line-32-src-55",
+      "line-32-src-56",
+      "line-32-src-57",
+      "line-32-src-58",
+      "line-32-src-59",
+      "line-32-src-60",
+      "line-32-src-61",
+      "line-32-src-62",
+      "line-32-src-63",
+      "line-32-src-64",
+      "line-32-src-65",
+      "line-32-src-66",
+      "line-32-src-67",
+      "line-32-src-68",
+      "line-32-src-69",
+      "line-32-src-70"
+     ]
+    },
+    {
+     "list": "probe/hoh/parent/16000/yes",
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-27a]",
+     "attribute": "citationSites@order",
+     "before": [
+      "line-27a-src-0",
+      "line-27a-src-1",
+      "line-27a-src-2",
+      "line-27a-src-3",
+      "line-27a-src-4",
+      "line-27a-src-5",
+      "line-27a-src-6",
+      "line-27a-src-7",
+      "line-27a-src-8",
+      "line-27a-src-9",
+      "line-27a-src-10",
+      "line-27a-src-11",
+      "line-27a-src-12",
+      "line-27a-src-13",
+      "line-27a-src-14",
+      "line-27a-src-15",
+      "line-27a-src-16",
+      "line-27a-src-17",
+      "line-27a-src-18",
+      "line-27a-src-19",
+      "line-27a-src-20",
+      "line-27a-src-21",
+      "line-27a-src-22",
+      "line-27a-src-23",
+      "line-27a-src-24",
+      "line-27a-src-25",
+      "line-27a-src-26",
+      "line-27a-src-27",
+      "line-27a-src-28",
+      "line-27a-src-29",
+      "line-27a-src-30",
+      "line-27a-src-31",
+      "line-27a-src-32",
+      "line-27a-src-33",
+      "line-27a-src-34",
+      "line-27a-src-35",
+      "line-27a-src-36",
+      "line-27a-src-37",
+      "line-27a-src-38",
+      "line-27a-src-39"
+     ],
+     "after": [
+      "line-27a-src-0",
+      "line-27a-src-1",
+      "line-27a-src-2",
+      "line-27a-src-3",
+      "line-27a-src-4",
+      "line-27a-src-5",
+      "line-27a-src-6",
+      "line-27a-src-7",
+      "line-27a-src-8",
+      "line-27a-src-9",
+      "line-27a-src-10",
+      "line-27a-src-11",
+      "line-27a-src-12",
+      "line-27a-src-13",
+      "line-27a-src-14",
+      "line-27a-src-15",
+      "line-27a-src-16",
+      "line-27a-src-17",
+      "line-27a-src-18",
+      "line-27a-src-19",
+      "line-27a-src-20",
+      "line-27a-src-21",
+      "line-27a-src-22",
+      "line-27a-src-23",
+      "line-27a-src-24",
+      "line-27a-src-25",
+      "line-27a-src-26",
+      "line-27a-src-27",
+      "line-27a-src-28",
+      "line-27a-src-29",
+      "line-27a-src-30",
+      "line-27a-src-31",
+      "line-27a-src-32",
+      "line-27a-src-33",
+      "line-27a-src-34",
+      "line-27a-src-35",
+      "line-27a-src-36",
+      "line-27a-src-37",
+      "line-27a-src-38",
+      "line-27a-src-39",
+      "line-27a-src-40",
+      "line-27a-src-41",
+      "line-27a-src-42",
+      "line-27a-src-43",
+      "line-27a-src-44",
+      "line-27a-src-45",
+      "line-27a-src-46",
+      "line-27a-src-47"
+     ]
+    }
+   ]
+  },
+  "page|changed|pinId": {
+   "lists": 8,
+   "samples": [
+    {
+     "list": "probe/hoh/parent/7000/no",
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-27a]/citationSites[line-27a-src-7]",
+     "attribute": "pinId",
+     "before": "demo.probe.sched1-scope.no-line11-educator",
+     "after": "demo.eic.not-qc"
+    },
+    {
+     "list": "probe/hoh/parent/7000/no",
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-27a]/citationSites[line-27a-src-8]",
+     "attribute": "pinId",
+     "before": "demo.probe.sched1-scope.no-line12-business-expenses",
+     "after": "demo.no-unsupported-situations"
+    },
+    {
+     "list": "probe/hoh/parent/7000/no",
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-27a]/citationSites[line-27a-src-9]",
+     "attribute": "pinId",
+     "before": "demo.probe.sched1-scope.no-line13-hsa",
+     "after": "demo.not-nonresident-alien"
+    }
+   ]
+  },
+  "row|changed|act_id": {
+   "lists": 3,
+   "samples": [
+    {
+     "list": "probe/hoh/parent/50000/yes",
+     "change": "changed",
+     "kind": "row",
+     "identity": "dispositions[tax.us.2025.rule.eic-column.completed|tax.us.2025.eic.column.completed]",
+     "attribute": "act_id",
+     "before": "act~finding~row~tax.us.2025.rule.eic-column.completed~tax.us.2025.eic.column.completed",
+     "after": "act~finding~tax.us.2025.eic.column.completed~2c7cffc3b2"
+    },
+    {
+     "list": "probe/hoh/parent/50000/no",
+     "change": "changed",
+     "kind": "row",
+     "identity": "dispositions[tax.us.2025.rule.eic-column.completed|tax.us.2025.eic.column.completed]",
+     "attribute": "act_id",
+     "before": "act~finding~row~tax.us.2025.rule.eic-column.completed~tax.us.2025.eic.column.completed",
+     "after": "act~finding~tax.us.2025.eic.column.completed~2c7cffc3b2"
+    },
+    {
+     "list": "probe/hoh/parent/50000/none",
+     "change": "changed",
+     "kind": "row",
+     "identity": "dispositions[tax.us.2025.rule.eic-column.completed|tax.us.2025.eic.column.completed]",
+     "attribute": "act_id",
+     "before": "act~finding~row~tax.us.2025.rule.eic-column.completed~tax.us.2025.eic.column.completed",
+     "after": "act~finding~tax.us.2025.eic.column.completed~2c7cffc3b2"
+    }
+   ]
+  },
+  "row|changed|finding_id": {
+   "lists": 3,
+   "samples": [
+    {
+     "list": "probe/hoh/parent/50000/yes",
+     "change": "changed",
+     "kind": "row",
+     "identity": "dispositions[tax.us.2025.rule.eic-column.completed|tax.us.2025.eic.column.completed]",
+     "attribute": "finding_id",
+     "before": "finding~row~tax.us.2025.rule.eic-column.completed~tax.us.2025.eic.column.completed",
+     "after": "finding~tax.us.2025.eic.column.completed~2c7cffc3b2"
+    },
+    {
+     "list": "probe/hoh/parent/50000/no",
+     "change": "changed",
+     "kind": "row",
+     "identity": "dispositions[tax.us.2025.rule.eic-column.completed|tax.us.2025.eic.column.completed]",
+     "attribute": "finding_id",
+     "before": "finding~row~tax.us.2025.rule.eic-column.completed~tax.us.2025.eic.column.completed",
+     "after": "finding~tax.us.2025.eic.column.completed~2c7cffc3b2"
+    },
+    {
+     "list": "probe/hoh/parent/50000/none",
+     "change": "changed",
+     "kind": "row",
+     "identity": "dispositions[tax.us.2025.rule.eic-column.completed|tax.us.2025.eic.column.completed]",
+     "attribute": "finding_id",
+     "before": "finding~row~tax.us.2025.rule.eic-column.completed~tax.us.2025.eic.column.completed",
+     "after": "finding~tax.us.2025.eic.column.completed~2c7cffc3b2"
+    }
+   ]
+  }
+ },
+ "expectations_declared": 10,
+ "expectations_used": 10,
+ "unused_expectations": [],
+ "expectation_lists": {
+  "status class reads the counted children on head of household": 30,
+  "gate result reads the new answer": [
+   "probe/hoh/child/30000/no",
+   "probe/hoh/child/30000/none",
+   "probe/hoh/child/30000/yes",
+   "probe/hoh/child/7000/no",
+   "probe/hoh/child/7000/none",
+   "probe/hoh/child/7000/yes",
+   "probe/mfs/child/30000/none",
+   "probe/single/child/30000/none",
+   "probe/single/none/16000/none",
+   "probe/single/none/7000/none",
+   "probe/single/parent/16000/none"
+  ],
+  "version:tax.us.2025.package.core-calculations": 30,
+  "report row of the new answer rule": 30,
+  "disposition node record of the new answer": [
+   "probe/hoh/childnosep/7000/no",
+   "probe/hoh/childnosep/7000/none",
+   "probe/hoh/childnosep/7000/yes",
+   "probe/hoh/oldchild/16000/none",
+   "probe/hoh/oldchild/7000/none",
+   "probe/hoh/parent/16000/none",
+   "probe/hoh/parent/7000/none"
+  ],
+  "disposition node of the new answer": [
+   "probe/hoh/childnosep/7000/no",
+   "probe/hoh/childnosep/7000/none",
+   "probe/hoh/childnosep/7000/yes",
+   "probe/hoh/oldchild/16000/none",
+   "probe/hoh/oldchild/7000/none",
+   "probe/hoh/parent/16000/none",
+   "probe/hoh/parent/7000/none"
+  ],
+  "gate result pins the new answer": 23,
+  "explanation graph node and edge of the new answer": 22,
+  "question shown:eic.not-married": [
+   "probe/hoh/oldchild/16000/none",
+   "probe/hoh/oldchild/7000/none",
+   "probe/hoh/parent/16000/none",
+   "probe/hoh/parent/7000/none"
+  ],
+  "status class pins the counted children (head of household)": 24
+ },
+ "expected_by_note": {
+  "disposition node of the new answer": 24,
+  "disposition node record of the new answer": 152,
+  "explanation graph node and edge of the new answer": 1032,
+  "gate result pins the new answer": 92,
+  "gate result reads the new answer": 33,
+  "inserted:dispositionNodes.tax.us.N.eic.gate-result.children": 3,
+  "inserted:dispositions@order, status class row moved": 26,
+  "question shown:eic.not-married": 24,
+  "realiased:tax.us.2025.eic.answer.not-qualifying-child-of-another": 9,
+  "realiased:tax.us.2025.eic.answer.separated-spouse": 6,
+  "realiased:tax.us.2025.eic.answer.spouse-valid-ssn": 9,
+  "realiased:tax.us.2025.eic.early-stop": 15,
+  "realiased:tax.us.2025.eic.eligibility-result": 22,
+  "realiased:tax.us.2025.eic.gate-result": 11,
+  "realiased:tax.us.2025.eic.status-class": 24,
+  "realiased:tax.us.2025.payments.line27a": 22,
+  "realiased:tax.us.2025.payments.line32": 22,
+  "realiased:tax.us.2025.payments.line33": 22,
+  "realiased:tax.us.2025.payments.line34-overpaid": 22,
+  "realiased:tax.us.2025.payments.line35a-refunded": 22,
+  "realiased:tax.us.2025.payments.line36-applied-to-2026": 22,
+  "realiased:tax.us.2025.payments.line37-amount-owed": 22,
+  "realiased:tax.us.2025.payments.lines27-31-total": 22,
+  "report row of the new answer rule": 672,
+  "status class pins the counted children (head of household)": 228,
+  "status class reads the counted children on head of household": 90,
+  "version:tax.us.2025.package.core-calculations": 18664
+ },
+ "outcomes": {
+  "success/success": 30
+ },
+ "list_classes": {
+  "probe/hoh/child/30000/no": "expected_changes",
+  "probe/hoh/child/30000/none": "expected_changes",
+  "probe/hoh/child/30000/yes": "expected_changes",
+  "probe/hoh/child/7000/no": "expected_changes",
+  "probe/hoh/child/7000/none": "expected_changes",
+  "probe/hoh/child/7000/yes": "expected_changes",
+  "probe/hoh/childnosep/7000/no": "unexpected",
+  "probe/hoh/childnosep/7000/none": "unexpected",
+  "probe/hoh/childnosep/7000/yes": "unexpected",
+  "probe/hoh/oldchild/16000/no": "unexpected",
+  "probe/hoh/oldchild/16000/none": "unexpected",
+  "probe/hoh/oldchild/16000/yes": "unexpected",
+  "probe/hoh/oldchild/7000/no": "unexpected",
+  "probe/hoh/oldchild/7000/none": "unexpected",
+  "probe/hoh/oldchild/7000/yes": "unexpected",
+  "probe/hoh/parent/16000/no": "unexpected",
+  "probe/hoh/parent/16000/none": "unexpected",
+  "probe/hoh/parent/16000/yes": "unexpected",
+  "probe/hoh/parent/50000/no": "unexpected",
+  "probe/hoh/parent/50000/none": "unexpected",
+  "probe/hoh/parent/50000/yes": "unexpected",
+  "probe/hoh/parent/7000/no": "unexpected",
+  "probe/hoh/parent/7000/none": "unexpected",
+  "probe/hoh/parent/7000/yes": "unexpected",
+  "probe/mfs/child/30000/none": "expected_changes",
+  "probe/mfs/none/7000/none": "expected_changes",
+  "probe/single/child/30000/none": "expected_changes",
+  "probe/single/none/16000/none": "expected_changes",
+  "probe/single/none/7000/none": "expected_changes",
+  "probe/single/parent/16000/none": "expected_changes"
+ },
+ "failing_lists": {
+  "probe/hoh/childnosep/7000/no": 37,
+  "probe/hoh/childnosep/7000/none": 37,
+  "probe/hoh/childnosep/7000/yes": 37,
+  "probe/hoh/oldchild/16000/no": 1122,
+  "probe/hoh/oldchild/16000/none": 4073,
+  "probe/hoh/oldchild/16000/yes": 1479,
+  "probe/hoh/oldchild/7000/no": 1122,
+  "probe/hoh/oldchild/7000/none": 4063,
+  "probe/hoh/oldchild/7000/yes": 1479,
+  "probe/hoh/parent/16000/no": 1106,
+  "probe/hoh/parent/16000/none": 3945,
+  "probe/hoh/parent/16000/yes": 1447,
+  "probe/hoh/parent/50000/no": 66,
+  "probe/hoh/parent/50000/none": 66,
+  "probe/hoh/parent/50000/yes": 66,
+  "probe/hoh/parent/7000/no": 1106,
+  "probe/hoh/parent/7000/none": 3935,
+  "probe/hoh/parent/7000/yes": 1447
+ },
+ "lists_set": "probe"
+}

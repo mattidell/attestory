@@ -77,3 +77,45 @@ apart.
 
 1. No change to the head of household or surviving spouse questions
    published in core v98; a new fact, if needed, is a new question.
+
+## P0 result
+
+Evidence: `hoh-eic-evidence/p0.md` (2026-11-19, on published core v98).
+
+- **The defect is real.** On v98 `rule.eic-status-class` gives every head of
+  household class 0, and the early stop gives class 0 with no counted
+  qualifying child $0 before anything is asked. A head of household whose
+  qualifying person is a dependent parent, or a child too old for the credit,
+  gets $0 where the same single return gets 537 (wages 7,000) or 236 (16,000).
+- **Sources.** Step 4 question 1 stops only a *married* taxpayer filing as
+  head of household; married is judged at December 31 (Pub. 596 checklist
+  question 3; Pub. 501 Marital Status), and a married filer who is
+  "considered unmarried" for head of household is still married for the
+  credit (Pub. 596, "married, but qualify to file as head of household ...
+  under special rules for married taxpayers living apart"). No accepted ADR
+  bounds it; the earned-income-credit milestone's Contract 1 recorded the $0
+  for every head of household.
+- **The record does not prove it.** `hoh.tests-met` yes covers unmarried and
+  considered unmarried; the separated-spouse answer is asked only with a
+  counted child and its yes covers both; a counted child is not Step 4.
+- **Design (variant m), content only:** one bundle with
+  `tax.us.2025.eic.not-married`, its input question, a new
+  `rule.eic-answer.not-married`, `rule.eic-status-class` v2 (head of household
+  with no counted child is class 1, as single; with a child stays 0) and
+  `rule.eic-gate-result` v3 (a married answer is $0). Asked only of a head of
+  household with no counted child when the credit could be more than $0.
+- **Replay:** all 775 recorded lists are single; 775 pass, 0 unexpected
+  (691 expected structural changes, 84 identical errors); no recorded return
+  newly blocks or changes a number. Paired probes: yes gives the single
+  amounts (537, 236), no keeps v98's $0 with zero substantive differences,
+  unanswered blocks lines 27a and 32-37 and shows the question; every head of
+  household with a counted child, or at 50,000, and every control is
+  unchanged.
+- **Recommendation:** publish as core v99, registry v97, release v97; Track 1
+  pins the probe cases live. No engine, schema, projection, page or kernel
+  change, and no new ADR.
+- **Decisions for the foreman:** p0.md section 6 (the earned-income-credit
+  contract clause this narrows; decree of separate maintenance counted as
+  unmarried; spouse died in 2025 left to v98's question; a child without a
+  valid SSN; the separated-spouse answer has no input question; the replay's
+  two added checks).
