@@ -3,7 +3,8 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "hoh-qualifying-person",
-  "status": "Repair chartered 2026-11-19.",
+  "status": "Closed 2026-11-19. Core v98, registry v96, release v96.",
+  "retrospective": "docs/milestone-retrospectives/2026-11-19-hoh-qualifying-person.md",
   "scope": [
     "a filer who answers head of household or qualifying surviving spouse is not given a return that silently takes that status's larger standard deduction and brackets when the record or the filer's own answers show it does not apply: the engine asks what the status needs, or refuses honestly by an answer the filer can see",
     "every recorded return keeps its numbers unless P0 shows a recorded return was silently wrong"
@@ -111,7 +112,10 @@ core v97).
   preferential ceilings with nothing asked. A 50,000 wage return with no child
   or dependent is refunded 1,675 as head of household and 2,647 as qualifying
   surviving spouse against 625 single.
-- **Every larger amount passes through one rule**,
+- **Every larger amount passes through one rule** (the preferential-rate
+  ceilings themselves read filing status directly and still show that
+  status's ceiling after a no or no answer, but every worksheet line that
+  combines a ceiling with taxable income blocks, so no amount uses them),
   `rule.dependents-worksheet-line-3` (the standard deduction base lookup), which
   line 12e reads on every route. The record never proves either status (home
   cost, marital status and the spouse's year of death are not recorded) and
@@ -136,3 +140,18 @@ core v97).
   child; and, outside scope, the earned income credit is $0 for every head of
   household without a qualifying child although only a married one is
   barred).
+
+## Closeout
+
+Closed 2026-11-19. A filer who chooses head of household or qualifying
+surviving spouse is now asked, in one question per status, whether that
+status's tests are met (core v98). A yes keeps every v97 amount. A no
+refuses line 12e and everything figured from it, with the question shown
+beside the refusal. Without an answer, the question is asked. Single, married filing
+jointly and married filing separately read nothing new. The fresh review
+found the first head of household wording let two kinds of non-qualifying
+filer answer yes; both questions were reworded to the 2025 instructions
+and Publication 501 before merge. The earned income credit a head of
+household without a qualifying child is denied is parked. The replay of
+775 recorded lists changed only package and rule versions, because every
+recorded list is single.
