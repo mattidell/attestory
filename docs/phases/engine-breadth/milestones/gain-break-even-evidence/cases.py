@@ -62,9 +62,11 @@ TERMS = ("st", "lt")
 # fields that make column (h) the intended amount.
 #   gain  -> column (h) = +20,000
 #   even  -> column (h) = 0 (proceeds equal the basis the filer reports)
-# Code W cannot carry a gain (box 1g is a disallowed loss); its "even" is a loss
-# of 500 fully disallowed (g = 500), so (h) = 0. Code B's corrected basis is
-# 1,000 below the reported basis, so (g) = +1,000 and (h) is the intended amount.
+# On the code W family a gain or break-even row carries a box 1g amount of 0
+# (ADR-0062 Decision 2 bars g > 0 when proceeds >= basis); "even" there is a
+# loss of 500 fully disallowed (g = 500), so (h) = 0, and "even-plain" is
+# proceeds equal to basis with g = 0. Code B's corrected basis is 1,000 below
+# the reported basis, so (g) = +1,000 and (h) is the intended amount.
 SPECS: dict[tuple[str, str], dict[str, Any]] = {
     ("covered", "gain"): {"proceeds": 25000.0, "basis": 5000.0},
     ("covered", "even"): {"proceeds": 8000.0, "basis": 8000.0},
@@ -74,7 +76,9 @@ SPECS: dict[tuple[str, str], dict[str, Any]] = {
     ("no1099b", "even"): {"proceeds": 8000.0, "basis": 8000.0},
     ("codeb", "gain"): {"proceeds": 25000.0, "basis": 6000.0, "corrected": 5000.0},
     ("codeb", "even"): {"proceeds": 8000.0, "basis": 9000.0, "corrected": 8000.0},
+    ("w", "gain"): {"proceeds": 25000.0, "basis": 5000.0, "wash": 0.0},
     ("w", "even"): {"proceeds": 1000.0, "basis": 1500.0, "wash": 500.0},
+    ("w", "even-plain"): {"proceeds": 8000.0, "basis": 8000.0, "wash": 0.0},
     # ADR-0062 Decision 2 (mechanism ADR-0066) probes: g > 0 on a gain, and on d == e.
     ("w", "probe-gain"): {"proceeds": 25000.0, "basis": 5000.0, "wash": 500.0},
     ("w", "probe-even"): {"proceeds": 8000.0, "basis": 8000.0, "wash": 500.0},
@@ -112,7 +116,7 @@ def keys() -> list[str]:
     out = []
     for path in PATHS:
         for term in TERMS:
-            for shape in ("gain", "even") if path != "w" else ("even", "probe-gain", "probe-even"):
+            for shape in ("gain", "even") if path != "w" else ("gain", "even", "even-plain", "probe-gain", "probe-even"):
                 for status in STATUSES:
                     if shape.startswith("probe") and status != "single":
                         continue
