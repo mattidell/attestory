@@ -3,7 +3,8 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "f1099b-bartering",
-  "status": "Track 1 chartered 2026-11-19 (variant q).",
+  "status": "Closed 2026-11-19. Core v97, registry v95, release v95.",
+  "retrospective": "docs/milestone-retrospectives/2026-11-19-f1099b-bartering.md",
   "scope": [
     "a filer whose Form 1099-B shows a bartering amount in box 13 is never given a return that silently leaves that income out: the engine either asks and refuses honestly (outside the supported class) or computes it, by an answer the filer can see",
     "every recorded return keeps its numbers unless P0 shows a recorded return was silently wrong"
@@ -134,3 +135,37 @@ zero" as the box 13 test; (5) Track 1 pins the nine probe lists live.
    lists with the changes declared. The review must check that the
    added sentence is true and sensible in each of the five questions'
    places on the page.
+4. **Review notes (2026-11-19, foreman).** The fresh review
+   (`docs/reviews/f1099b-bartering/review.md`) is READY with notes.
+   - BART-R2 (accepted and stated): the new sentence reaches a filer
+     only while the Schedule 1 lines 2a to 6 answer is open. A workspace
+     that answered the old question before v97 is not asked again and
+     can still compute without a bartering amount. Box 13 cannot be
+     recorded, so no census can show that no return is affected; P0's
+     "no recorded return was silently wrong" means only that no
+     recorded list carries a bartering fact. Re-asking answered
+     workspaces needs answer staleness across versions, which this
+     milestone does not add. Parked.
+   - BART-R3 (parked): after a yes, the page shows only the generic line
+     10 sentence and does not say the return stopped because of
+     bartering or business income.
+   - BART-R5 (repaired): the live test now requires the page to draw the
+     shared sentence exactly once, with the bartering clause.
+   - BART-R6 (parked, predates this milestone): these scope facts record
+     absence while the question asks "did you…?", so a filer's yes is
+     stored as "no" by convention; nothing in the engine converts it,
+     and a yes to any of the four sibling questions records barter
+     under that question's income class. Both refuse the return.
+   - BART-R4: the parked list is updated at closeout.
+
+## Closeout
+
+Closed 2026-11-19. A Form 1099-B box 13 bartering amount can no longer
+be silently left out of a new return: the five Schedule 1 lines 2a to 6
+questions (core v97) tell the filer to answer yes for a box 13 amount
+above zero, and a yes refuses the return through the existing line 10
+path. Box 13 itself still cannot be recorded, workspaces answered
+before v97 are not asked again, and the page does not name bartering as
+the reason a return stopped; all three are parked. The full-surface
+replay of the 775 recorded lists changed only the package version.
+
