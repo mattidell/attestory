@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "hoh-qualifying-person",
-  "status": "Track 1 chartered 2026-11-19.",
+  "status": "Repair chartered 2026-11-19.",
   "scope": [
     "a filer who answers head of household or qualifying surviving spouse is not given a return that silently takes that status's larger standard deduction and brackets when the record or the filer's own answers show it does not apply: the engine asks what the status needs, or refuses honestly by an answer the filer can see",
     "every recorded return keeps its numbers unless P0 shows a recorded return was silently wrong"
@@ -92,8 +92,14 @@ bare label, while a filer who does qualify keeps the same numbers.
    although the 2025 instructions bar only a married one. That is wrong
    against the filer. It is parked as a candidate for the next milestone.
 6. AGI and the earned income credit still compute when the status is
-   refused or unanswered. They equal the single amounts, so they are not
-   too favourable; accepted.
+   refused or unanswered. They are equal to or less than the single
+   amounts (a head of household without a qualifying child gets a $0
+   credit; see Decision 5), so they are not too favourable; accepted.
+7. Repair (review HOH-R1 to R6) before merge: both question texts are
+   reworded to the 2025 instructions and Publication 501, and the rule
+   notes stop claiming the rate ceilings are downstream of it. v98 is
+   not on main, so its files are regenerated in place at the same
+   versions.
 
 ## P0 result
 
