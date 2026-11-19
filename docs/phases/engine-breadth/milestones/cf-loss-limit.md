@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "cf-loss-limit",
-  "status": "P0 chartered 2026-11-18.",
+  "status": "Track 1 (tests only) chartered 2026-11-18.",
   "scope": [
     "a return whose capital loss comes from Form 8949 box C or F sales (no Form 1099-B) gets the right Schedule D line 21 loss limit ($3,000, or $1,500 married filing separately) and the right 2026 carryover, the same as box A, B, D and E losses",
     "the behaviour is pinned by tests through the real coordinator and saved page"
@@ -99,4 +99,22 @@ Evidence: `docs/phases/engine-breadth/milestones/cf-loss-limit-evidence/p0.md`
 
 ## Decisions
 
-Pending P0.
+1. **Narrow to the limit; tests only (2026-11-18, foreman, on P0's
+   recommendation).** P0 ran 90 returns (boxes C, F, C plus F and an
+   A/D control; all five filing statuses; below, at and above the
+   limit): 900 of 900 line checks match hand values, and every C/F
+   return equals its A/D control. No content repair is needed. The plan
+   also asked for "the right 2026 carryover", but the engine computes
+   no 2025-to-2026 carryover for any box, by accepted ADR-0058 and
+   ADR-0060 (Decision 7 of each). That is a product boundary, not a box
+   C/F defect; this milestone does not cross it. Track 1 pins the cases
+   and asserts that no 2026 carryover is published, so the boundary
+   stays visible.
+2. **Park the carryover and the line 21 wording for the owner.**
+   Whether to compute the 2026 carryover needs a superseding ADR the
+   owner accepts. Whether line 21's page text should say the excess
+   carries forward is a content successor, but it speaks to a boundary
+   the ADRs set, so it waits on the same owner question.
+3. **Note, outside scope.** Head of household and qualifying surviving
+   spouse were accepted with no qualifying person recorded. Parked as
+   an observation.
