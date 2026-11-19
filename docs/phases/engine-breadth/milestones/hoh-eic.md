@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "hoh-eic",
-  "status": "Track 1 chartered 2026-11-19.",
+  "status": "Repair chartered 2026-11-19.",
   "scope": [
     "an unmarried head of household with no qualifying child is figured the earned income credit as the 2025 instructions allow, instead of being given $0 because of the filing status",
     "a married head of household (considered unmarried) without a qualifying child still gets no credit, and every other filer keeps their numbers"
@@ -103,6 +103,18 @@ apart.
 6. Track 1 keeps P0's two added replay checks (the inserted answer and
    finding ids downstream of it) rather than declaring broader
    expectations.
+7. Repair before merge (review EIC-R1 to R4). A married head of household
+   who answers "no" is stopped at Step 4 question 1, as the instructions
+   say: the credit is $0 and none of the Step 4 question 2-6 answers is
+   required. The not-married question's "no" list names a written
+   separation agreement without a decree. The rule-size comments give the
+   true reason for the 7,000-byte exception. The fast-lane test that
+   overran its budget is made fast or marked live, never given a larger
+   budget. v99 is not on main, so its files are regenerated in place.
+8. Parked: the age (`eic.age-25-under-65`) and main-home
+   (`eic.main-home-in-us`) answers have no input question, so any filer
+   who must give them and has not is blocked with no sentence (review
+   EIC-R1; already true for single filers on v98).
 
 ## P0 result
 
