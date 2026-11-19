@@ -1,0 +1,968 @@
+{
+ "answer": "none",
+ "core": {
+  "package": "v97",
+  "registry": "v95",
+  "release": "v95"
+ },
+ "runs": {
+  "hoh/child": {
+   "blocked_rules": [],
+   "guard_inapplicable_rules": [],
+   "lines": {
+    "form1040.line-11a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 50000
+    },
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 23625
+    },
+    "form1040.line-14": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 23625
+    },
+    "form1040.line-15": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 26375
+    },
+    "form1040.line-16": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 2825
+    },
+    "form1040.line-19": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 2200
+    },
+    "form1040.line-24": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 625
+    },
+    "form1040.line-27a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 65
+    },
+    "form1040.line-28": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-33": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 4565
+    },
+    "form1040.line-34": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 3940
+    },
+    "form1040.line-35a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 3940
+    },
+    "form1040.line-37": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    }
+   },
+   "sentences": [],
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 1,
+    "ctc.form1040-line19": 2200,
+    "ctc.form1040-line28": 0,
+    "demo.form1040.standard_deduction": 23625,
+    "dependents-worksheet.line3": 23625,
+    "eic.form1040-line27a": null,
+    "eic.qualifying-child-count": 1,
+    "filing-status": null,
+    "filing_status": null,
+    "income.taxable-income": 26375,
+    "odc.relative-count": 0,
+    "tax.total-tax": 2825
+   }
+  },
+  "hoh/none": {
+   "blocked_rules": [],
+   "guard_inapplicable_rules": [],
+   "lines": {
+    "form1040.line-11a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 50000
+    },
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 23625
+    },
+    "form1040.line-14": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 23625
+    },
+    "form1040.line-15": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 26375
+    },
+    "form1040.line-16": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 2825
+    },
+    "form1040.line-19": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-24": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 2825
+    },
+    "form1040.line-27a": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-28": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-33": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 4500
+    },
+    "form1040.line-34": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 1675
+    },
+    "form1040.line-35a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 1675
+    },
+    "form1040.line-37": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    }
+   },
+   "sentences": [],
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 0,
+    "ctc.form1040-line19": 0,
+    "ctc.form1040-line28": 0,
+    "demo.form1040.standard_deduction": 23625,
+    "dependents-worksheet.line3": 23625,
+    "eic.form1040-line27a": null,
+    "eic.qualifying-child-count": 0,
+    "filing-status": null,
+    "filing_status": null,
+    "income.taxable-income": 26375,
+    "odc.relative-count": 0,
+    "tax.total-tax": 2825
+   }
+  },
+  "hoh/relative": {
+   "blocked_rules": [],
+   "guard_inapplicable_rules": [],
+   "lines": {
+    "form1040.line-11a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 50000
+    },
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 23625
+    },
+    "form1040.line-14": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 23625
+    },
+    "form1040.line-15": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 26375
+    },
+    "form1040.line-16": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 2825
+    },
+    "form1040.line-19": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 500
+    },
+    "form1040.line-24": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 2325
+    },
+    "form1040.line-27a": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-28": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-33": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 4500
+    },
+    "form1040.line-34": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 2175
+    },
+    "form1040.line-35a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 2175
+    },
+    "form1040.line-37": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    }
+   },
+   "sentences": [],
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 0,
+    "ctc.form1040-line19": 500,
+    "ctc.form1040-line28": 0,
+    "demo.form1040.standard_deduction": 23625,
+    "dependents-worksheet.line3": 23625,
+    "eic.form1040-line27a": null,
+    "eic.qualifying-child-count": 0,
+    "filing-status": null,
+    "filing_status": null,
+    "income.taxable-income": 26375,
+    "odc.relative-count": 1,
+    "tax.total-tax": 2825
+   }
+  },
+  "hoh/relative/low": {
+   "blocked_rules": [],
+   "guard_inapplicable_rules": [],
+   "lines": {
+    "form1040.line-11a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 12000
+    },
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 23625
+    },
+    "form1040.line-14": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 23625
+    },
+    "form1040.line-15": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-16": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-19": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-24": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-27a": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-28": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-33": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 1000
+    },
+    "form1040.line-34": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 1000
+    },
+    "form1040.line-35a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 1000
+    },
+    "form1040.line-37": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    }
+   },
+   "sentences": [],
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 0,
+    "ctc.form1040-line19": 0,
+    "ctc.form1040-line28": 0,
+    "demo.form1040.standard_deduction": 23625,
+    "dependents-worksheet.line3": 23625,
+    "eic.form1040-line27a": null,
+    "eic.qualifying-child-count": 0,
+    "filing-status": null,
+    "filing_status": null,
+    "income.taxable-income": 0,
+    "odc.relative-count": 1,
+    "tax.total-tax": 0
+   }
+  },
+  "mfj/child": {
+   "blocked_rules": [],
+   "guard_inapplicable_rules": [],
+   "lines": {
+    "form1040.line-11a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 50000
+    },
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 31500
+    },
+    "form1040.line-14": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 31500
+    },
+    "form1040.line-15": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 18500
+    },
+    "form1040.line-16": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 1853
+    },
+    "form1040.line-19": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 1853
+    },
+    "form1040.line-24": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-27a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 1203
+    },
+    "form1040.line-28": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 347
+    },
+    "form1040.line-33": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 6050
+    },
+    "form1040.line-34": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 6050
+    },
+    "form1040.line-35a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 6050
+    },
+    "form1040.line-37": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    }
+   },
+   "sentences": [],
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 1,
+    "ctc.form1040-line19": 1853,
+    "ctc.form1040-line28": 347,
+    "demo.form1040.standard_deduction": 31500,
+    "dependents-worksheet.line3": 31500,
+    "eic.form1040-line27a": null,
+    "eic.qualifying-child-count": 1,
+    "filing-status": null,
+    "filing_status": null,
+    "income.taxable-income": 18500,
+    "odc.relative-count": 0,
+    "tax.total-tax": 1853
+   }
+  },
+  "mfj/none": {
+   "blocked_rules": [],
+   "guard_inapplicable_rules": [],
+   "lines": {
+    "form1040.line-11a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 50000
+    },
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 31500
+    },
+    "form1040.line-14": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 31500
+    },
+    "form1040.line-15": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 18500
+    },
+    "form1040.line-16": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 1853
+    },
+    "form1040.line-19": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-24": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 1853
+    },
+    "form1040.line-27a": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-28": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-33": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 4500
+    },
+    "form1040.line-34": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 2647
+    },
+    "form1040.line-35a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 2647
+    },
+    "form1040.line-37": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    }
+   },
+   "sentences": [],
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 0,
+    "ctc.form1040-line19": 0,
+    "ctc.form1040-line28": 0,
+    "demo.form1040.standard_deduction": 31500,
+    "dependents-worksheet.line3": 31500,
+    "eic.form1040-line27a": null,
+    "eic.qualifying-child-count": 0,
+    "filing-status": null,
+    "filing_status": null,
+    "income.taxable-income": 18500,
+    "odc.relative-count": 0,
+    "tax.total-tax": 1853
+   }
+  },
+  "qss/child": {
+   "blocked_rules": [],
+   "guard_inapplicable_rules": [],
+   "lines": {
+    "form1040.line-11a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 50000
+    },
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 31500
+    },
+    "form1040.line-14": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 31500
+    },
+    "form1040.line-15": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 18500
+    },
+    "form1040.line-16": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 1853
+    },
+    "form1040.line-19": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 1853
+    },
+    "form1040.line-24": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-27a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 65
+    },
+    "form1040.line-28": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 347
+    },
+    "form1040.line-33": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 4912
+    },
+    "form1040.line-34": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 4912
+    },
+    "form1040.line-35a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 4912
+    },
+    "form1040.line-37": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    }
+   },
+   "sentences": [],
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 1,
+    "ctc.form1040-line19": 1853,
+    "ctc.form1040-line28": 347,
+    "demo.form1040.standard_deduction": 31500,
+    "dependents-worksheet.line3": 31500,
+    "eic.form1040-line27a": null,
+    "eic.qualifying-child-count": 1,
+    "filing-status": null,
+    "filing_status": null,
+    "income.taxable-income": 18500,
+    "odc.relative-count": 0,
+    "tax.total-tax": 1853
+   }
+  },
+  "qss/none": {
+   "blocked_rules": [],
+   "guard_inapplicable_rules": [],
+   "lines": {
+    "form1040.line-11a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 50000
+    },
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 31500
+    },
+    "form1040.line-14": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 31500
+    },
+    "form1040.line-15": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 18500
+    },
+    "form1040.line-16": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 1853
+    },
+    "form1040.line-19": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-24": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 1853
+    },
+    "form1040.line-27a": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-28": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-33": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 4500
+    },
+    "form1040.line-34": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 2647
+    },
+    "form1040.line-35a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 2647
+    },
+    "form1040.line-37": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    }
+   },
+   "sentences": [],
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 0,
+    "ctc.form1040-line19": 0,
+    "ctc.form1040-line28": 0,
+    "demo.form1040.standard_deduction": 31500,
+    "dependents-worksheet.line3": 31500,
+    "eic.form1040-line27a": null,
+    "eic.qualifying-child-count": 0,
+    "filing-status": null,
+    "filing_status": null,
+    "income.taxable-income": 18500,
+    "odc.relative-count": 0,
+    "tax.total-tax": 1853
+   }
+  },
+  "single/child": {
+   "blocked_rules": [],
+   "guard_inapplicable_rules": [],
+   "lines": {
+    "form1040.line-11a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 50000
+    },
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 15750
+    },
+    "form1040.line-14": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 15750
+    },
+    "form1040.line-15": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 34250
+    },
+    "form1040.line-16": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 3875
+    },
+    "form1040.line-19": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 2200
+    },
+    "form1040.line-24": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 1675
+    },
+    "form1040.line-27a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 65
+    },
+    "form1040.line-28": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-33": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 4565
+    },
+    "form1040.line-34": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 2890
+    },
+    "form1040.line-35a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 2890
+    },
+    "form1040.line-37": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    }
+   },
+   "sentences": [],
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 1,
+    "ctc.form1040-line19": 2200,
+    "ctc.form1040-line28": 0,
+    "demo.form1040.standard_deduction": 15750,
+    "dependents-worksheet.line3": 15750,
+    "eic.form1040-line27a": null,
+    "eic.qualifying-child-count": 1,
+    "filing-status": null,
+    "filing_status": null,
+    "income.taxable-income": 34250,
+    "odc.relative-count": 0,
+    "tax.total-tax": 3875
+   }
+  },
+  "single/none": {
+   "blocked_rules": [],
+   "guard_inapplicable_rules": [],
+   "lines": {
+    "form1040.line-11a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 50000
+    },
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 15750
+    },
+    "form1040.line-14": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 15750
+    },
+    "form1040.line-15": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 34250
+    },
+    "form1040.line-16": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 3875
+    },
+    "form1040.line-19": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-24": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 3875
+    },
+    "form1040.line-27a": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-28": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-33": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 4500
+    },
+    "form1040.line-34": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 625
+    },
+    "form1040.line-35a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 625
+    },
+    "form1040.line-37": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    }
+   },
+   "sentences": [],
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 0,
+    "ctc.form1040-line19": 0,
+    "ctc.form1040-line28": 0,
+    "demo.form1040.standard_deduction": 15750,
+    "dependents-worksheet.line3": 15750,
+    "eic.form1040-line27a": null,
+    "eic.qualifying-child-count": 0,
+    "filing-status": null,
+    "filing_status": null,
+    "income.taxable-income": 34250,
+    "odc.relative-count": 0,
+    "tax.total-tax": 3875
+   }
+  },
+  "single/none/low": {
+   "blocked_rules": [],
+   "guard_inapplicable_rules": [],
+   "lines": {
+    "form1040.line-11a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 12000
+    },
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 15750
+    },
+    "form1040.line-14": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 15750
+    },
+    "form1040.line-15": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-16": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-19": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-24": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-27a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 542
+    },
+    "form1040.line-28": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-33": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 1542
+    },
+    "form1040.line-34": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 1542
+    },
+    "form1040.line-35a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 1542
+    },
+    "form1040.line-37": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    }
+   },
+   "sentences": [],
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 0,
+    "ctc.form1040-line19": 0,
+    "ctc.form1040-line28": 0,
+    "demo.form1040.standard_deduction": 15750,
+    "dependents-worksheet.line3": 15750,
+    "eic.form1040-line27a": null,
+    "eic.qualifying-child-count": 0,
+    "filing-status": null,
+    "filing_status": null,
+    "income.taxable-income": 0,
+    "odc.relative-count": 0,
+    "tax.total-tax": 0
+   }
+  }
+ },
+ "wall_time_s": 20.5
+}

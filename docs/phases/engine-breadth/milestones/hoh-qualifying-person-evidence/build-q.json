@@ -1,0 +1,98 @@
+{
+  "variant": "q",
+  "from": {
+    "core": "v97",
+    "registry": "v95",
+    "release": "v95"
+  },
+  "to": {
+    "core": "v98",
+    "registry": "v96",
+    "release": "v96"
+  },
+  "changes": {
+    "package_version": "v98",
+    "release_version": "v96",
+    "members": [
+      {
+        "op": "replace",
+        "old": {
+          "id": "tax.us.2025.rule.dependents-worksheet-line-3",
+          "role": "computation",
+          "schema": "rule-artifact.v14",
+          "version": "v1"
+        },
+        "new": {
+          "id": "tax.us.2025.rule.dependents-worksheet-line-3",
+          "role": "computation",
+          "schema": "rule-artifact.v17",
+          "version": "v2"
+        }
+      },
+      {
+        "op": "add",
+        "new": {
+          "id": "tax.us.2025.filing-status-tests.vocabulary",
+          "version": "v1",
+          "schema": "bundle.v2",
+          "role": "fact-type-bundle"
+        }
+      },
+      {
+        "op": "add",
+        "new": {
+          "id": "tax.us.2025.input-question.hoh-tests-met",
+          "version": "v1",
+          "schema": "input-question.v1",
+          "role": "input-question"
+        }
+      },
+      {
+        "op": "add",
+        "new": {
+          "id": "tax.us.2025.input-question.qss-tests-met",
+          "version": "v1",
+          "schema": "input-question.v1",
+          "role": "input-question"
+        }
+      }
+    ],
+    "entrypoints": [
+      {
+        "op": "add",
+        "value": {
+          "id": "tax.us.2025.filing-status-tests.vocabulary",
+          "version": "v1"
+        }
+      },
+      {
+        "op": "add",
+        "value": {
+          "id": "tax.us.2025.input-question.hoh-tests-met",
+          "version": "v1"
+        }
+      },
+      {
+        "op": "add",
+        "value": {
+          "id": "tax.us.2025.input-question.qss-tests-met",
+          "version": "v1"
+        }
+      }
+    ],
+    "registry_sort": "id_version"
+  },
+  "written": {
+    "filing-status-tests.bundle.json": "12c5881454467c4641c73823e43d989813b33801762a1d02777328aef6bfadd1",
+    "rule.dependents-worksheet-line-3.v2.json": "fdb6039bd126314ccba87a6f95e11679a40f0ee8638b6d3e27a9f7e6acfe822d",
+    "input-question.hoh-tests-met.v1.json": "886c4b39d90a0f98169424750ced2f07435f9432e100c4b8f2414f3be8dbad1c",
+    "input-question.qss-tests-met.v1.json": "c41c419e90977eb7e1f7eb0d9785bae677c934465c25e0be4d1e90ae2e7693f7"
+  },
+  "replaced_rule_pinned_by": [],
+  "status": "valid",
+  "validation": "generate_to_directory passed package, registry and release validation",
+  "generation": {
+    "registry_sha256": "edb28063b09759c059cce2dfbe2b9df47f6a960dedddd6b45c0aee643f4d0f32",
+    "publication_boundary": "Candidate only: successor companion declaration and live release evidence are separate duties under ADR-0082."
+  }
+}

@@ -1,0 +1,17 @@
+{
+ "lists": 775,
+ "by_source": {
+  "v81": 206,
+  "v82": 170,
+  "v83": 298,
+  "v84": 58,
+  "v85": 43
+ },
+ "filing_status": {
+  "single": 775
+ },
+ "status_and_recorded_dependents": {
+  "single: none": 773,
+  "single: ctc.child, dtb.child, eic.child": 2
+ }
+}
