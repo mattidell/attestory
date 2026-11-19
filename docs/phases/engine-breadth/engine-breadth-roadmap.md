@@ -1068,6 +1068,17 @@ met. Before it, either status took its larger standard deduction and tax
 column with nothing asked. A yes keeps every amount, and a no refuses
 line 12e with the question shown. The other three statuses are unchanged.
 
+## Bounded return — The Earned Income Credit for a Head of Household (2025)
+
+[Plan](milestones/hoh-eic.md); retrospective:
+`docs/milestone-retrospectives/2026-11-19-hoh-eic.md`.
+
+Core v99 (registry v97, release v97) asks a head of household with no
+qualifying child whether they were unmarried at the end of 2025. Yes
+figures the credit as for a single filer, where v98 gave $0; no keeps $0
+and asks nothing more. The separated-spouse answer now has a question.
+Every other filer keeps v98's values.
+
 ## Saved-page observation — Mortgage and Sales (2025)
 
 [Plan](milestones/sale-page-observation.md); retrospective:
@@ -1139,10 +1150,14 @@ delivers an item removes it.
 - A sale entered both on a Form 1099-B family and as a no-1099-B sale is
   refused only by the in-class answer ("entered only once"); the two are
   keyed differently, so content cannot see it.
-- The earned income credit is $0 for every head of household without a
-  qualifying child (`rule.eic-status-class`), although the 2025
-  instructions bar only a married one; it needs a year-end marital answer
-  the engine does not record (hoh-qualifying-person Decision 5).
+- The earned income credit age (`eic.age-25-under-65`) and main-home
+  (`eic.main-home-in-us`) answers have no input question, so a filer who
+  must give them and has not is blocked with no sentence (hoh-eic
+  Decision 8; true for single filers since before v98).
+- A qualifying child without a valid SSN is not counted for the earned
+  income credit, so a married head of household or married filing
+  separately filer with only such a child is not routed to the
+  separated-spouse test and gets $0 (hoh-eic Decision 5).
 - After a head of household or surviving spouse "no", the Qualified
   Dividends and Capital Gain Tax Worksheet lines 6 and 13 still show that
   status's ceiling; every line that uses them blocks
