@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.hoh.tests-met",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.hoh-tests-met",
+  "question": "You chose head of household. Answer yes only if all three of these apply. (1) You were unmarried on December 31, 2025, or you were married but your spouse did not live in your home at any time during the last 6 months of 2025 and your child, stepchild or foster child whom you can claim as a dependent (or could claim except that the child's other parent claims them) lived in your home for more than half of 2025. If your spouse died in 2025, you count as married for all of 2025 and cannot answer yes. (2) You paid more than half the cost of keeping up your home for 2025, or, if your qualifying person is your dependent parent, more than half the cost of your parent's main home for all of 2025. (3) A qualifying person lived with you for more than half of 2025 (a dependent parent need not live with you): your qualifying child, or a relative you can claim as a dependent who is your parent, brother, sister, half brother, half sister, stepbrother, stepsister, grandparent, aunt, uncle, niece, nephew or in-law. Someone who is your dependent only because they lived with you all year, or whom you claim only under a multiple support agreement, is not a qualifying person. If any of these does not apply, you cannot file as head of household: change your filing status (if you were married, that is usually married filing jointly or married filing separately).",
+  "schema": "input-question.v1",
+  "version": "v1"
+}
