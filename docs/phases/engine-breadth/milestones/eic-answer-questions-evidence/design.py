@@ -27,19 +27,20 @@ BUNDLE = {"id": P + "eic-questions.vocabulary", "version": "v1"}
 
 QUESTIONS: dict[str, str] = {
     "age-25-under-65": (
-        "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? "
-        "Answer yes if you, or your spouse if you file a joint return, were born after December 31, 1960, and "
-        "before January 2, 2001. If you or your spouse died in 2025, answer yes if the person who died was at "
-        "least age 25 but under age 65 at the time of death (a person reaches age 25 on the day before their 25th "
-        "birthday, and age 65 on their 65th birthday)."
+        "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of "
+        "2025? Answer yes if you, or your spouse if you file a joint return, were born after December 31, "
+        "1960, and before January 2, 2001, with one exception: if that person died in 2025, answer yes for "
+        "them only if they were at least age 25 but under age 65 at the time of death. A person is considered"
+        " to reach age 25 on the day before their 25th birthday, and age 65 on their 65th birthday."
     ),
     "main-home-in-us": (
-        "Was your main home, and your spouse's if you file a joint return, in the United States for more than "
-        "half of 2025? Your main home can be any place where you regularly live, such as a house, apartment, "
-        "shelter or temporary lodging, and it need not be the same place all year. The United States means the "
-        "50 states and the District of Columbia, not Puerto Rico or a U.S. territory. If you were on extended "
-        "active military duty outside the United States, count that time as time your main home was in the "
-        "United States."
+        "Was your main home, and your spouse's if you file a joint return, in the United States for more than"
+        " half of 2025? Your main home can be any place where you regularly live, such as a house, apartment,"
+        " shelter or temporary lodging, and it need not be the same place all year. The United States means "
+        "the 50 states and the District of Columbia, not Puerto Rico or a U.S. territory. If you, or your "
+        "spouse on a joint return, were on extended active military duty outside the United States (duty "
+        "ordered for an indefinite period or for more than 90 days), count that time as time that person's "
+        "main home was in the United States."
     ),
     "not-claimable-as-dependent": (
         "Can you be claimed as a dependent on someone else's 2025 tax return (do not count the case where the "
@@ -47,10 +48,11 @@ QUESTIONS: dict[str, str] = {
         "only to claim a refund of withheld income tax or estimated tax paid)?"
     ),
     "spouse-valid-ssn": (
-        "Does your spouse's Social Security number allow your spouse to work in the United States? Answer yes if "
-        "it was issued by the Social Security Administration on or before the due date of your 2025 return "
-        "(including extensions) and is not marked \"Not Valid for Employment\", or if it is marked \"Valid for Work "
-        "Only With DHS Authorization\" and that authorization is still valid."
+        "Does your spouse's Social Security number allow your spouse to work in the United States? Answer yes"
+        " if it was issued by the Social Security Administration on or before the due date of your 2025 "
+        "return (including extensions) and is not marked \"Not Valid for Employment\", or if it is marked "
+        "\"Valid for Work Only With DHS Authorization\" and that authorization is still valid. Answer no if "
+        "your spouse has only an individual taxpayer identification number (ITIN) or no number."
     ),
 }
 

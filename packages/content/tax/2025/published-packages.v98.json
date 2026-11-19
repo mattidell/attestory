@@ -2813,12 +2813,12 @@
     {
       "id": "tax.us.2025.input-question.eic-age-25-under-65",
       "version": "v1",
-      "checksum": "727e3b72b4858a67ace36def37f70eee3fc44b39ad0ab721b1c61dbf5b7fe617"
+      "checksum": "ece50faf2e50590c36c6b81e2d13c335a94d5c710b232355cd22cbbcbf91b0bb"
     },
     {
       "id": "tax.us.2025.input-question.eic-main-home-in-us",
       "version": "v1",
-      "checksum": "56be9cff74f72601c9c7360c8a1b4ab2f112e5bad7c386b55e0ee4a1fe0edd51"
+      "checksum": "c1d23dee0562803cea20a0983d752c6041cc8e8a75aacad6db0fc9faf4696d5b"
     },
     {
       "checksum": "b1d82411216336411f104a6fd6898d097ec2cf249850edd94386439a7aa7a344",
@@ -2853,7 +2853,7 @@
     {
       "id": "tax.us.2025.input-question.eic-spouse-valid-ssn",
       "version": "v1",
-      "checksum": "f38588af52932d5daaee0da244a31a1c68849fee60727c543cf4b324b2d2ad51"
+      "checksum": "41b6212e5665b189dba55fcd0f7d31ae456a6e0c6ca97e5b75142a2b7fff34cd"
     },
     {
       "checksum": "c53941cd4265d4a364efbf76aab98bb48a1a5da5097e5e66baf88f35229de55b",

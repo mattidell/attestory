@@ -167,7 +167,7 @@
     "eic.age-25-under-65"
    ],
    "sentences": [
-    "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? Answer yes if you, or your spouse if you file a joint return, were born after December 31, 1960, and before January 2, 2001. If you or your spouse died in 2025, answer yes if the person who died"
+    "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? Answer yes if you, or your spouse if you file a joint return, were born after December 31, 1960, and before January 2, 2001, with one exception: if that person died in 2025, answer yes for them "
    ],
    "stop": "saturated",
    "symbols": {
@@ -285,7 +285,7 @@
    "sentences": [
     "Can you be claimed as a dependent on someone else's 2025 tax return (do not count the case where the person who could claim you is not required to file a 2025 return and is not filing one, or is filing only to claim a refund of withheld income tax or estimated tax paid)?",
     "Was your main home, and your spouse's if you file a joint return, in the United States for more than half of 2025? Your main home can be any place where you regularly live, such as a house, apartment, shelter or temporary lodging, and it need not be the same place all year. The United States means t",
-    "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? Answer yes if you, or your spouse if you file a joint return, were born after December 31, 1960, and before January 2, 2001. If you or your spouse died in 2025, answer yes if the person who died"
+    "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? Answer yes if you, or your spouse if you file a joint return, were born after December 31, 1960, and before January 2, 2001, with one exception: if that person died in 2025, answer yes for them "
    ],
    "stop": "saturated",
    "symbols": {
@@ -845,7 +845,7 @@
     "eic.age-25-under-65"
    ],
    "sentences": [
-    "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? Answer yes if you, or your spouse if you file a joint return, were born after December 31, 1960, and before January 2, 2001. If you or your spouse died in 2025, answer yes if the person who died"
+    "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? Answer yes if you, or your spouse if you file a joint return, were born after December 31, 1960, and before January 2, 2001, with one exception: if that person died in 2025, answer yes for them "
    ],
    "stop": "saturated",
    "symbols": {
@@ -963,7 +963,7 @@
    "sentences": [
     "Does your spouse's Social Security number allow your spouse to work in the United States? Answer yes if it was issued by the Social Security Administration on or before the due date of your 2025 return (including extensions) and is not marked \"Not Valid for Employment\", or if it is marked \"Valid for",
     "Was your main home, and your spouse's if you file a joint return, in the United States for more than half of 2025? Your main home can be any place where you regularly live, such as a house, apartment, shelter or temporary lodging, and it need not be the same place all year. The United States means t",
-    "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? Answer yes if you, or your spouse if you file a joint return, were born after December 31, 1960, and before January 2, 2001. If you or your spouse died in 2025, answer yes if the person who died"
+    "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? Answer yes if you, or your spouse if you file a joint return, were born after December 31, 1960, and before January 2, 2001, with one exception: if that person died in 2025, answer yes for them "
    ],
    "stop": "saturated",
    "symbols": {
@@ -1421,7 +1421,7 @@
     "eic.age-25-under-65"
    ],
    "sentences": [
-    "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? Answer yes if you, or your spouse if you file a joint return, were born after December 31, 1960, and before January 2, 2001. If you or your spouse died in 2025, answer yes if the person who died"
+    "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? Answer yes if you, or your spouse if you file a joint return, were born after December 31, 1960, and before January 2, 2001, with one exception: if that person died in 2025, answer yes for them "
    ],
    "stop": "saturated",
    "symbols": {
@@ -2117,7 +2117,7 @@
     "eic.age-25-under-65"
    ],
    "sentences": [
-    "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? Answer yes if you, or your spouse if you file a joint return, were born after December 31, 1960, and before January 2, 2001. If you or your spouse died in 2025, answer yes if the person who died"
+    "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? Answer yes if you, or your spouse if you file a joint return, were born after December 31, 1960, and before January 2, 2001, with one exception: if that person died in 2025, answer yes for them "
    ],
    "stop": "saturated",
    "symbols": {
@@ -2295,7 +2295,7 @@
     "eic.age-25-under-65"
    ],
    "sentences": [
-    "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? Answer yes if you, or your spouse if you file a joint return, were born after December 31, 1960, and before January 2, 2001. If you or your spouse died in 2025, answer yes if the person who died"
+    "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? Answer yes if you, or your spouse if you file a joint return, were born after December 31, 1960, and before January 2, 2001, with one exception: if that person died in 2025, answer yes for them "
    ],
    "stop": "saturated",
    "symbols": {
@@ -2413,7 +2413,7 @@
    "sentences": [
     "Can you be claimed as a dependent on someone else's 2025 tax return (do not count the case where the person who could claim you is not required to file a 2025 return and is not filing one, or is filing only to claim a refund of withheld income tax or estimated tax paid)?",
     "Was your main home, and your spouse's if you file a joint return, in the United States for more than half of 2025? Your main home can be any place where you regularly live, such as a house, apartment, shelter or temporary lodging, and it need not be the same place all year. The United States means t",
-    "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? Answer yes if you, or your spouse if you file a joint return, were born after December 31, 1960, and before January 2, 2001. If you or your spouse died in 2025, answer yes if the person who died"
+    "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? Answer yes if you, or your spouse if you file a joint return, were born after December 31, 1960, and before January 2, 2001, with one exception: if that person died in 2025, answer yes for them "
    ],
    "stop": "saturated",
    "symbols": {
@@ -3135,5 +3135,5 @@
    }
   }
  },
- "wall_time_s": 25.1
+ "wall_time_s": 25.0
 }

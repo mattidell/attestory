@@ -4,7 +4,7 @@
     "version": "v1"
   },
   "id": "tax.us.2025.input-question.eic-main-home-in-us",
-  "question": "Was your main home, and your spouse's if you file a joint return, in the United States for more than half of 2025? Your main home can be any place where you regularly live, such as a house, apartment, shelter or temporary lodging, and it need not be the same place all year. The United States means the 50 states and the District of Columbia, not Puerto Rico or a U.S. territory. If you were on extended active military duty outside the United States, count that time as time your main home was in the United States.",
+  "question": "Was your main home, and your spouse's if you file a joint return, in the United States for more than half of 2025? Your main home can be any place where you regularly live, such as a house, apartment, shelter or temporary lodging, and it need not be the same place all year. The United States means the 50 states and the District of Columbia, not Puerto Rico or a U.S. territory. If you, or your spouse on a joint return, were on extended active military duty outside the United States (duty ordered for an indefinite period or for more than 90 days), count that time as time that person's main home was in the United States.",
   "schema": "input-question.v1",
   "version": "v1"
 }

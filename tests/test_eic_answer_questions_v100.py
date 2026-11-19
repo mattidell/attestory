@@ -126,3 +126,43 @@ def test_answers_that_are_not_required_are_not_asked(key: str) -> None:
     assert run["blocked_rules"] == before["blocked_rules"] == []
     assert run["sentences"] == before["sentences"] == []
     assert run["lines"] == before["lines"]
+
+
+def _run_recording_dependent(value: str) -> dict[str, Any]:
+    """A single filer with every answer given, the dependent fact recorded as ``value`` (what the filer's answer records)."""
+    probe = _probe()
+    original = probe.build
+    fact = probe.FACTS["notdep"] + "|"
+
+    def build(key: str, removed: str, content: Any = probe.h.CONTENT) -> Any:
+        acts = original(key, removed, content)
+        hit = 0
+        for act in acts:
+            finding = (act.get("payload") or {}).get("finding") or {}
+            if str(finding.get("fact_id", "")).startswith(fact):
+                finding["value"] = value
+                hit += 1
+        assert hit == 1
+        return acts
+
+    probe.build = build
+    try:
+        core = probe.h.Core("v100", "v98", "v98")
+        return dict(probe.observe(core, "single/none/7000", "-"))
+    finally:
+        probe.build = original
+
+
+def test_dependent_question_polarity_live() -> None:
+    """EAQ-R2: "can you be claimed" answered yes records not-claimable = no, which stops the credit; no continues it.
+
+    The question's text is pinned in the package test; here the fact value each answer records is run through
+    the real coordinator and page.
+    """
+    stopped = _run_recording_dependent("no")  # what a filer's "yes, I can be claimed" records
+    assert stopped["stop"] == "saturated" and stopped["blocked_rules"] == []
+    assert _line(stopped, EIC) == ("computed_zero", 0)
+    assert _line(stopped, REFUND) == ("published_value", 350)  # withholding only, no credit
+    continued = _run_recording_dependent("yes")  # what "no, I cannot be claimed" records
+    assert _line(continued, EIC) == ("published_value", 537)
+    assert _line(continued, REFUND) == ("published_value", 887)

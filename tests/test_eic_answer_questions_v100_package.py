@@ -118,3 +118,37 @@ def test_v100_loader_entries_carry_v99_unchanged() -> None:
     for switch in (selection_collect_satisfied_by_family, later_any_arm_refs_while_count_blocked,
                    unconfirmed_family_names_closure_question):
         assert switch(CORE, "v100") == switch(CORE, "v99") is True
+
+
+def test_dependent_question_polarity_is_pinned_to_its_fact() -> None:
+    """EAQ-R2: the question asks whether the filer CAN be claimed; its fact is the not-claimable fact.
+
+    So the filer's yes records the fact's no, and the fact's no is what stops the credit. Reversing either
+    the question's wording or the fact it names breaks one of these.
+    """
+    body = _read(CONTENT / FILES[P + "input-question.eic-not-claimable-as-dependent"])
+    assert body["question"].startswith("Can you be claimed as a dependent on someone else's 2025 tax return")
+    assert "cannot" not in body["question"].lower().split("?")[0]
+    assert body["fact_type"]["id"] == P + "eic.not-claimable-as-dependent"
+    bundle = _read(CONTENT / "eic-questions.bundle.json")
+    title = {ft["id"]: ft["title"] for ft in bundle["fact_types"]}[body["fact_type"]["id"]]
+    assert title.startswith("You cannot be claimed as a dependent on someone else's 2025 return.")
+    assert "No means the credit is $0." in title
+    design = evidence_loader.load(EVIDENCE / "design.py", "eicq_t1_polarity_design")
+    assert design.POLARITY["not-claimable-as-dependent"] == "abs"
+    assert {n: design.POLARITY[n] for n in NAMES if n != "not-claimable-as-dependent"} == {
+        "age-25-under-65": "pos", "main-home-in-us": "pos", "spouse-valid-ssn": "pos"}
+    for name in NAMES:  # the other three ask the positive thing, so their yes records the fact's yes
+        if name != "not-claimable-as-dependent":
+            assert not _read(CONTENT / FILES[P + "input-question.eic-" + name])["question"].startswith("Can you be claimed")
+
+
+def test_repaired_texts_carry_their_exceptions() -> None:
+    texts = {name: _read(CONTENT / FILES[P + "input-question.eic-" + name])["question"] for name in NAMES}
+    age = texts["age-25-under-65"]
+    assert "with one exception: if that person died in 2025, answer yes for them only if they were at least age 25 but under age 65 at the time of death." in age
+    assert "A person is considered to reach age 25 on the day before their 25th birthday, and age 65 on their 65th birthday." in age
+    home = texts["main-home-in-us"]
+    assert "If you, or your spouse on a joint return, were on extended active military duty outside the United States (duty ordered for an indefinite period or for more than 90 days), count that time as time that person's main home was in the United States." in home
+    ssn = texts["spouse-valid-ssn"]
+    assert ssn.endswith("Answer no if your spouse has only an individual taxpayer identification number (ITIN) or no number.")
