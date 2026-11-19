@@ -71,6 +71,44 @@ correctly, never dropped.
 2. **Track 1.** Publish it (or pin tests if already honest).
 3. **Fresh review**, repair, closeout.
 
+## P0 result
+
+Evidence: `docs/phases/engine-breadth/milestones/f1099b-bartering-evidence/p0.md`
+(probe, scratch build, census and replay beside it).
+
+On core v96 no fact type carries a Form 1099-B box 13 amount, and no
+question names bartering. The answers that refuse it exist and every
+complete return gives them: Schedule 1 line 10 v3 requires
+`no-sch1-line3-business` and `no-sch1-other-income-except-w2g` to be "yes".
+A box-13-only return answered as the questions are worded is identical to a
+return with no Form 1099-B (Form 1040 line 9 50,000, refund 625, whatever box
+13 says): the bartering income is silently left out. Answered "yes" (Pub. 525:
+bartering is generally Schedule C income), line 10 is guard_inapplicable and
+lines 8 through 37 block, with a generic sentence that does not name
+bartering. Box 13 is ordinary income (Schedule C line 1, Schedule 1 line 3, or
+line 8z); computing it needs Schedule C and SE, a non-goal. No accepted ADR
+bounds bartering; the bound is line 10's Part I absence authority.
+
+Recommended design (variant q): five input-question successors (Schedule 1
+lines 2a-6, one shared sentence) that add "Also answer yes if a Form 1099-B
+you received shows an amount above zero in box 13 (Bartering), even if you do
+not think of it as a business." No fact, rule, field or requirement changes.
+Variant qf also replaces the line 10 form field so its guard sentence names
+the causes, bartering among them. Both scratch v97 builds validate.
+
+Replay of the 775 recorded lists, v96 against scratch v97: q 775 pass, 0
+unexpected (691 differ only in the package version, 84 fail identically on
+both cores); qf 775 pass, 0 unexpected (plus the line 10 sentence and field
+version on all 691). No recorded list carries a box 13 or bartering fact, and
+all answer the Schedule 1 questions "yes", so the question change is unused
+on the corpus and is exercised by the nine probe lists (9 of 9 pass on both
+variants). No engine, schema, projection, page or kernel change is needed.
+
+Decisions for the foreman: (1) q or qf; (2) five successors or only the line
+3 question; (3) accept that a non-business barter is refused through the
+business fact, or also name it in the lines 8a-8z question; (4) "above
+zero" as the box 13 test; (5) Track 1 pins the nine probe lists live.
+
 ## Decisions
 
 Pending P0.
