@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "hoh-qualifying-person",
-  "status": "P0 chartered 2026-11-19.",
+  "status": "Track 1 chartered 2026-11-19.",
   "scope": [
     "a filer who answers head of household or qualifying surviving spouse is not given a return that silently takes that status's larger standard deduction and brackets when the record or the filer's own answers show it does not apply: the engine asks what the status needs, or refuses honestly by an answer the filer can see",
     "every recorded return keeps its numbers unless P0 shows a recorded return was silently wrong"
@@ -75,6 +75,25 @@ bare label, while a filer who does qualify keeps the same numbers.
 
 1. No change to which answers single, married filing jointly or married
    filing separately need.
+2. Variant q as P0 built it: one combined question per status
+   (`hoh.tests-met`, `qss.tests-met`), with the wording in
+   `hoh-qualifying-person-evidence/design.py`, and
+   `rule.dependents-worksheet-line-3` v2 on `rule-artifact.v17`. Core v98,
+   registry v96, release v96.
+3. After a "no", line 12e's own sentence still says the line is waiting;
+   the question beside it carries the reason. Changing that sentence would
+   change the field on every saved page, which is not worth it here.
+4. No record shortcut. A head of household with a counted child-tax-credit
+   child still answers the question, because the record proves at most
+   the qualifying-person test. The surviving-spouse test (the child lived
+   in the home all year) is stricter than any recorded answer.
+5. Out of scope: P0 found that `rule.eic-status-class` gives every head of
+   household without a qualifying child an earned income credit of $0,
+   although the 2025 instructions bar only a married one. That is wrong
+   against the filer. It is parked as a candidate for the next milestone.
+6. AGI and the earned income credit still compute when the status is
+   refused or unanswered. They equal the single amounts, so they are not
+   too favourable; accepted.
 
 ## P0 result
 
