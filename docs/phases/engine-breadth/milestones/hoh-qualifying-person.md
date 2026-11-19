@@ -3,7 +3,8 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "hoh-qualifying-person",
-  "status": "Repair chartered 2026-11-19.",
+  "status": "Closed 2026-11-19. Core v98, registry v96, release v96.",
+  "retrospective": "docs/milestone-retrospectives/2026-11-19-hoh-qualifying-person.md",
   "scope": [
     "a filer who answers head of household or qualifying surviving spouse is not given a return that silently takes that status's larger standard deduction and brackets when the record or the filer's own answers show it does not apply: the engine asks what the status needs, or refuses honestly by an answer the filer can see",
     "every recorded return keeps its numbers unless P0 shows a recorded return was silently wrong"
@@ -139,3 +140,18 @@ core v97).
   child; and, outside scope, the earned income credit is $0 for every head of
   household without a qualifying child although only a married one is
   barred).
+
+## Closeout
+
+Closed 2026-11-19. A filer who chooses head of household or qualifying
+surviving spouse is now asked, in one question per status, whether that
+status's tests are met (core v98). A yes keeps every v97 amount. A no
+refuses line 12e and everything figured from it, with the question shown
+beside the refusal. Without an answer, the question is asked. Single, married filing
+jointly and married filing separately read nothing new. The fresh review
+found the first head of household wording let two kinds of non-qualifying
+filer answer yes; both questions were reworded to the 2025 instructions
+and Publication 501 before merge. The earned income credit a head of
+household without a qualifying child is denied is parked. The replay of
+775 recorded lists changed only package and rule versions, because every
+recorded list is single.
