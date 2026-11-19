@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "eic-answer-questions",
-  "status": "Track 1 chartered 2026-11-19.",
+  "status": "Repair chartered 2026-11-19.",
   "scope": [
     "every earned income credit answer the engine requires of a filer is either asked by a question the saved page shows, or derived from what the record already proves; no filer is blocked on the credit with no sentence",
     "every recorded return keeps its numbers"
@@ -87,6 +87,19 @@ with no change to any number.
    fall back to another), and the counted-child age and residency answers,
    which block nine page lines with no sentence because the projection
    cannot reach a question there (a projection change).
+5. Repair before merge (review EAQ-R1, R2, R5, R6). The age question
+   states Publication 596's exception for a death in 2025 before age 25;
+   the main-home question's military sentence covers a spouse and defines
+   extended active duty from the instructions; the spouse SSN question
+   says an ITIN is a no. A test pins that a yes to the dependent question
+   records the not-claimable fact as no. v100 is not on main, so its files
+   are regenerated in place.
+6. Recorded at closeout, not repaired: the spouse SSN question also
+   appears on the child tax credit lines, which read the same answer
+   (EAQ-R3, helps the filer, no number changes); the per-child tie-breaker
+   answers (`dtb.child.*`) have no question (EAQ-R4, parked); the age
+   fact's title states only the birth-date range (EAQ-R7, a bundle
+   change).
 
 ## P0 result
 
