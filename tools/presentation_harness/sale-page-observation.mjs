@@ -414,4 +414,9 @@ async function main() {
   }
 }
 
-main().catch((error) => fail(safeFailureReason(error)));
+// Exit as soon as main has finished its cleanup, with its exit code. Progress and
+// failure records are written synchronously, so nothing is pending. A stray
+// handle must never be what decides when this process ends.
+main()
+  .catch((error) => fail(safeFailureReason(error)))
+  .finally(() => process.exit(process.exitCode ?? 0));

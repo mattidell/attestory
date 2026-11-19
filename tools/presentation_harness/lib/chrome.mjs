@@ -4,6 +4,7 @@
 
 import { spawn } from "node:child_process";
 import { mkdtemp, readFile, rm, stat } from "node:fs/promises";
+import { setTimeout as sleep } from "node:timers/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { InfraError } from "./reasons.mjs";
@@ -43,6 +44,71 @@ export async function resolveChromeExecutable(explicitPath) {
     "chrome-not-found",
     "no installed Chrome executable found; pass --chrome <path> or set PRESENTATION_HARNESS_CHROME",
   );
+}
+
+// Process-group ownership. Chrome is started as the leader of its own group, so
+// its helpers (renderer, GPU, zygote, crashpad) share that group. Disposal ends
+// the whole group, not only the main process: a surviving helper keeps writing
+// into the profile and holds the inherited stderr pipe open, which stops both
+// the profile removal and the Node process from finishing.
+export const GROUP_TERM_GRACE_MS = 3000;
+export const GROUP_KILL_WAIT_MS = 2000;
+export const PROFILE_REMOVE_ATTEMPTS = 20;
+export const PROFILE_REMOVE_DELAY_MS = 100;
+const RETRYABLE_REMOVE_CODES = new Set(["ENOTEMPTY", "EBUSY", "EPERM", "EACCES", "EMFILE", "ENFILE"]);
+
+const ownedGroups = new Set();
+let exitHooksInstalled = false;
+
+function signalGroup(pgid, signal) {
+  try { process.kill(-pgid, signal); } catch { /* group already gone */ }
+}
+function groupAlive(pgid) {
+  try { process.kill(-pgid, 0); return true; }
+  catch (error) { return error.code === "EPERM"; }
+}
+async function waitForGroupGone(pgid, timeoutMs) {
+  const deadline = Date.now() + timeoutMs;
+  while (groupAlive(pgid)) {
+    if (Date.now() >= deadline) return false;
+    await sleep(25);
+  }
+  return true;
+}
+// Abnormal exit of the observer (a signal from its owner, or an exit with a
+// group still owned) must not leave Chrome behind, now that Chrome is no longer
+// in the observer's own process group.
+function installExitHooks() {
+  if (exitHooksInstalled) return;
+  exitHooksInstalled = true;
+  const killAll = () => { for (const pgid of ownedGroups) signalGroup(pgid, "SIGKILL"); };
+  process.once("exit", killAll);
+  for (const signal of ["SIGINT", "SIGTERM", "SIGHUP"]) {
+    // A process that already handles the signal (an entry point or the correction
+    // owner) does its own cleanup and exits, which runs the exit hook above.
+    // Taking the signal over would pre-empt that cleanup.
+    if (process.listenerCount(signal) > 0) continue;
+    const onSignal = () => {
+      // Only a process with no other handler dies here.
+      process.removeListener(signal, onSignal);
+      if (process.listenerCount(signal) > 0) return;
+      killAll();
+      process.kill(process.pid, signal);
+    };
+    process.on(signal, onSignal);
+  }
+}
+async function removeProfile(profileDir) {
+  let lastError = null;
+  for (let attempt = 0; attempt < PROFILE_REMOVE_ATTEMPTS; attempt += 1) {
+    try { await rm(profileDir, { recursive: true, force: true }); return; }
+    catch (error) {
+      lastError = error;
+      if (!RETRYABLE_REMOVE_CODES.has(error.code)) break;
+      await sleep(PROFILE_REMOVE_DELAY_MS);
+    }
+  }
+  throw lastError;
 }
 
 // Active launch allowance (after the startup slot is held). Measured cold first
@@ -210,20 +276,24 @@ async function launchChromeOwned(explicitPath, options = {}) {
   async function dispose() {
     if (disposePromise) return disposePromise;
     disposePromise = (async () => {
-      if (child && !exited) {
-        child.kill("SIGTERM");
-        await new Promise((resolve) => {
-          const timer = setTimeout(() => {
-            if (!exited) child.kill("SIGKILL");
-            resolve();
-          }, 3000);
-          child.once("exit", () => {
-            clearTimeout(timer);
-            resolve();
-          });
-        });
+      let groupError = null;
+      if (child?.pid) {
+        const pgid = child.pid;
+        // Ask the whole group to stop, then insist; helpers outlive the main
+        // process, so the main process exiting is not evidence the group is gone.
+        signalGroup(pgid, "SIGTERM");
+        let gone = await waitForGroupGone(pgid, GROUP_TERM_GRACE_MS);
+        if (!gone) {
+          signalGroup(pgid, "SIGKILL");
+          gone = await waitForGroupGone(pgid, GROUP_KILL_WAIT_MS);
+        }
+        if (gone) ownedGroups.delete(pgid);
+        else groupError = new Error("chrome-process-group-survived");
       }
-      await rm(profileDir, { recursive: true, force: true });
+      // An owned stream must not keep the event loop alive after disposal.
+      try { child?.stderr?.destroy(); } catch { /* already closed */ }
+      await removeProfile(profileDir);
+      if (groupError) throw groupError;
     })();
     return disposePromise;
   }
@@ -243,7 +313,9 @@ async function launchChromeOwned(explicitPath, options = {}) {
   }
 
   try {
-    child = spawn(executable, args, { stdio: ["ignore", "ignore", "pipe"] });
+    // detached: the child leads its own process group (pgid === pid).
+    child = spawn(executable, args, { stdio: ["ignore", "ignore", "pipe"], detached: true });
+    if (child.pid) { ownedGroups.add(child.pid); installExitHooks(); }
   } catch (error) {
     if (observer) await observer.finish("spawn_failure", false, { stderr_bytes: 0, exit_kind: "spawn_error", spawn_code: ["ENOENT", "EACCES", "ENOEXEC", "ENOMEM", "EMFILE", "ENFILE", "EAGAIN"].includes(error.code) ? error.code : null }).catch(() => {});
     await dispose();
