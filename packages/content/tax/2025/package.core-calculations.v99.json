@@ -4472,25 +4472,25 @@
       "id": "tax.us.2025.rule.eic-answer.age-25-under-65",
       "role": "computation",
       "schema": "rule-artifact.v14",
-      "version": "v2"
+      "version": "v3"
     },
     {
       "id": "tax.us.2025.rule.eic-answer.main-home-in-us",
       "role": "computation",
       "schema": "rule-artifact.v14",
-      "version": "v2"
+      "version": "v3"
     },
     {
       "id": "tax.us.2025.rule.eic-answer.no-unsupported-situations",
       "role": "computation",
       "schema": "rule-artifact.v14",
-      "version": "v2"
+      "version": "v3"
     },
     {
       "id": "tax.us.2025.rule.eic-answer.not-claimable-as-dependent",
       "role": "computation",
       "schema": "rule-artifact.v14",
-      "version": "v2"
+      "version": "v3"
     },
     {
       "id": "tax.us.2025.rule.eic-answer.not-nonresident-alien",
@@ -4502,7 +4502,7 @@
       "id": "tax.us.2025.rule.eic-answer.not-qualifying-child-of-another",
       "role": "computation",
       "schema": "rule-artifact.v14",
-      "version": "v2"
+      "version": "v3"
     },
     {
       "id": "tax.us.2025.rule.eic-answer.separated-spouse",
@@ -8837,7 +8837,7 @@
       "role": "input-question"
     }
   ],
-  "package_checksum": "d080126a69e18c05a6fe2614ce773ebaafde539da04a8191aa9e85a19aa9d747",
+  "package_checksum": "5c98fdd49b02d0cb1d0ad323c945e81b3a86bbfbfa7fd805f6b8f305259acf20",
   "schema": "artifact-package.v43",
   "scope": {
     "family": "individual-income-tax",

@@ -3,7 +3,7 @@
 Variant ``m``: one return-level yes/no answer, "you were not married at the end
 of 2025", asked only on a head of household return with no qualifying child
 counted for the earned income credit when the remaining credit questions are
-required (the credit could be more than $0). Three rules change:
+required (the credit could be more than $0). Eight rules change or are added:
 
 - ``rule.eic-status-class`` v1 to v2: a head of household with no counted
   qualifying child is class 1 (as single), so the credit's Step 4 path is
@@ -15,6 +15,13 @@ required (the credit could be more than $0). Three rules change:
   required and missing (the pattern of the other ``eic-answer`` rules).
 - ``rule.eic-gate-result`` v2 to v3: v2 with the new answer read after the
   separated-spouse answer; 0 when it is 0.
+- the five Step 4 question 2-6 answer rules (age, main home, not claimable as
+  a dependent, not a qualifying child of another, no unsupported situations)
+  v2 to v3: each also publishes 1 (not required) when the not-married answer
+  is 0, because Step 4 question 1 stops a married head of household before
+  those questions (review EIC-R1). Successors of the answer rules rather than
+  of ``rule.eic-questions-required``: the not-married answer reads that rule,
+  so a successor of it that read the not-married answer would be a cycle.
 """
 from __future__ import annotations
 
@@ -36,6 +43,9 @@ ANSWER_RULE_FILE = "rule.eic-answer.not-married.json"
 GATE_RULE = P + "rule.eic-gate-result"
 CLASS_FILE = "rule.eic-status-class.v2.json"
 GATE_FILE = "rule.eic-gate-result.v3.json"
+STEP4 = ("age-25-under-65", "main-home-in-us", "not-claimable-as-dependent",
+         "not-qualifying-child-of-another", "no-unsupported-situations")
+STEP4_RULES = {P + "rule.eic-answer." + n: "rule.eic-answer." + n + ".v3.json" for n in STEP4}
 QR = P + "eic.questions-required"
 COUNT = P + "eic.column-count"
 STATUS = P + "filing-status"
@@ -57,9 +67,9 @@ QUESTION = (
     "credit. Were you unmarried at the end of 2025? Answer yes if, on December 31, 2025, you had never married, "
     "your spouse had died before 2025 and you had not remarried, your divorce or annulment was final, or you "
     "were legally separated from your spouse under a decree of divorce or separate maintenance. Answer no if you "
-    "were still married then, even if you lived apart from your spouse and file as head of household because you "
-    "are considered unmarried: a married taxpayer filing as head of household cannot take the earned income "
-    "credit without a qualifying child."
+    "were still married then, even if you lived apart from your spouse or had a written separation agreement but "
+    "no decree, and file as head of household because you are considered unmarried: a married taxpayer filing "
+    "as head of household cannot take the earned income credit without a qualifying child."
 )
 SEP_FACT = P + "eic.separated-spouse"
 SEP_QUESTION_FILE = "input-question.eic-separated-spouse.v1.json"
@@ -198,6 +208,29 @@ def gate_successor(v2: dict[str, Any]) -> dict[str, Any]:
     return out
 
 
+STEP4_NOTE = (" v3: also 1 (not required) when tax.us.2025.eic.answer.not-married is 0: Step 4 question 1 stops a "
+              "married taxpayer filing as head of household before this question.")
+
+
+def step4_successor(v2: dict[str, Any]) -> dict[str, Any]:
+    """v2 with the answer publishing 1 (not required) when the not-married answer is 0."""
+    out = copy.deepcopy(v2)
+    out["version"] = "v3"
+    out["requires"].append(ANSWER)
+    out["pins"].append(_pin(ANSWER))
+    out["blocked"]["missing"].insert(len(out["requires"]) - 1, ANSWER)
+    stopped = {"op": "compare", "cmp": "eq", "left": _ref(ANSWER), "right": 0}
+    value = out["value"]
+    if value["op"] == "choose" and value["when"].get("op") == "any" and value["then"] == 1:
+        value["when"]["args"].append(stopped)  # the rules' own "not required" test
+    else:  # no-unsupported-situations: guard its "answered no" check, so a missing answer is not asked for
+        check = value["then"]["when"]
+        assert check["op"] == "all" and value["else"] == 1 and value["then"]["else"] == 1
+        check["args"].insert(0, {"op": "compare", "cmp": "ne", "left": _ref(ANSWER), "right": 0})
+    out["notes"] = v2["notes"] + STEP4_NOTE
+    return out
+
+
 def sep_question() -> dict[str, Any]:
     return {"fact_type": {"id": SEP_FACT, "version": "v1"}, "id": SEP_QUESTION_ID, "question": SEP_QUESTION,
             "schema": "input-question.v1", "version": "v1"}
@@ -213,7 +246,8 @@ def written(content: Path) -> dict[str, dict[str, Any]]:
     return {BUNDLE_FILE: bundle(), QUESTION_FILE: question(), SEP_QUESTION_FILE: sep_question(),
             CLASS_FILE: class_successor(read("rule.eic-status-class.json")),
             ANSWER_RULE_FILE: answer_rule(read("rule.eic-answer.separated-spouse.json")),
-            GATE_FILE: gate_successor(read("rule.eic-gate-result.v2.json"))}
+            GATE_FILE: gate_successor(read("rule.eic-gate-result.v2.json")),
+            **{file: step4_successor(read(file.replace(".v3.json", ".v2.json"))) for file in STEP4_RULES.values()}}
 
 
 if __name__ == "__main__":

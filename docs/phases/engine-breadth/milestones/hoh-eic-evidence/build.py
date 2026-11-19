@@ -4,7 +4,7 @@ Run: python3 build.py <new-directory-outside-repository> [--variant m]
 
 Copies the published content and releases outside the repository, writes the
 new vocabulary bundle, input question and answer rule and the
-rule.eic-status-class v2 and rule.eic-gate-result v3 successors (design.py,
+rule.eic-status-class v2, rule.eic-gate-result v3 and the five Step 4 answer-rule v3 successors (design.py,
 each built from the published v98 member it succeeds), and validates the
 package, registry and release with tools/package_successor.generate_to_directory.
 Checks that no other v98 member pins either replaced rule by {"id", "version"},
@@ -72,7 +72,7 @@ def main() -> None:
         body = json.loads(path.read_text())
         if isinstance(body, dict) and re.fullmatch(r"v\d+", str(body.get("version"))):
             files[(body.get("id"), body["version"])] = body
-    replaced = {d.CLASS_RULE: "v1", d.GATE_RULE: "v2"}
+    replaced = {d.CLASS_RULE: "v1", d.GATE_RULE: "v2", **{rule: "v2" for rule in d.STEP4_RULES}}
     for rule_id, version in replaced.items():
         assert any(m["id"] == rule_id and m["version"] == version for m in package["members"]), rule_id
     found: list = []
@@ -85,7 +85,7 @@ def main() -> None:
         assert not (content / name).exists(), name
         (content / name).write_text(d.dump(body))
     members = []
-    for rule_id, new_file in ((d.CLASS_RULE, d.CLASS_FILE), (d.GATE_RULE, d.GATE_FILE)):
+    for rule_id, new_file in ((d.CLASS_RULE, d.CLASS_FILE), (d.GATE_RULE, d.GATE_FILE), *d.STEP4_RULES.items()):
         old = next(m for m in package["members"] if m["id"] == rule_id)
         members.append({"op": "replace", "old": old, "new": {**old, "version": written[new_file]["version"],
                                                              "schema": written[new_file]["schema"]}})

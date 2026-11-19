@@ -16,24 +16,24 @@
    "release_version": "v97",
    "loader_from": "v98",
    "presence_pairs": [],
-   "package_sha256": "60b5fc980a7dc6a9fb5424d1eb2a8ab8b7b8af15a942bb55cad934064266ab81",
-   "release_sha256": "808ca426c3955ae44e17f93870fefe4ef36207f7a006229d51e3f9d68c15f957"
+   "package_sha256": "d97c8df7015449fdc7017a9bf563356b166ebb62fba7e12304e18bfa6f15e982",
+   "release_sha256": "2af80ec1ebd23d4d786d394353a9e67cf3051056fe2b6b6fa290616672b166b0"
   }
  ],
- "lists": 30,
+ "lists": 32,
  "classes": {
-  "expected_changes": 12,
+  "expected_changes": 14,
   "unexpected": 18
  },
- "passing": 12,
+ "passing": 14,
  "failing": 18,
- "unexpected_differences": 26633,
+ "unexpected_differences": 24901,
  "unexpected_by_kind_attribute": {
   "graph|added|edges@order": {
    "lists": 3,
    "samples": [
     {
-     "list": "probe/hoh/parent/50000/yes",
+     "list": "probe/hoh/parent/50000/none",
      "change": "added",
      "kind": "graph",
      "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.eic.column.completed~2c7cffc3b2=finding~tax.us.2025.eic.column.completed~2c7cffc3b2",
@@ -63,7 +63,7 @@
      ]
     },
     {
-     "list": "probe/hoh/parent/50000/none",
+     "list": "probe/hoh/parent/50000/yes",
      "change": "added",
      "kind": "graph",
      "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.eic.column.completed~2c7cffc3b2=finding~tax.us.2025.eic.column.completed~2c7cffc3b2",
@@ -83,7 +83,7 @@
    "lists": 3,
    "samples": [
     {
-     "list": "probe/hoh/parent/50000/yes",
+     "list": "probe/hoh/parent/50000/none",
      "change": "added",
      "kind": "graph",
      "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.eic.early-stop~*=finding~tax.us.2025.eic.early-stop~*/edges[derived:finding~tax.us.2025.eic.column.completed~2c7cffc3b2]/pin=finding~tax.us.2025.eic.column.completed~2c7cffc3b2",
@@ -92,7 +92,7 @@
      "after": "finding~tax.us.2025.eic.column.completed~2c7cffc3b2"
     },
     {
-     "list": "probe/hoh/parent/50000/yes",
+     "list": "probe/hoh/parent/50000/none",
      "change": "added",
      "kind": "graph",
      "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.eic.column.completed~2c7cffc3b2=finding~tax.us.2025.eic.column.completed~2c7cffc3b2/edges[reference:tax.us.2025.package.core-calculations]/pin=tax.us.2025.package.core-calculations",
@@ -101,7 +101,7 @@
      "after": "tax.us.2025.package.core-calculations"
     },
     {
-     "list": "probe/hoh/parent/50000/yes",
+     "list": "probe/hoh/parent/50000/none",
      "change": "added",
      "kind": "graph",
      "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.eic.column.completed~2c7cffc3b2=finding~tax.us.2025.eic.column.completed~2c7cffc3b2/edges[reference:tax.us.2025.citation.form1040.line-27-31]/pin=tax.us.2025.citation.form1040.line-27-31",
@@ -115,7 +115,7 @@
    "lists": 3,
    "samples": [
     {
-     "list": "probe/hoh/parent/50000/yes",
+     "list": "probe/hoh/parent/50000/none",
      "change": "added",
      "kind": "graph",
      "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.eic.column.completed~2c7cffc3b2=finding~tax.us.2025.eic.column.completed~2c7cffc3b2",
@@ -133,7 +133,7 @@
      "after": "derived"
     },
     {
-     "list": "probe/hoh/parent/50000/none",
+     "list": "probe/hoh/parent/50000/yes",
      "change": "added",
      "kind": "graph",
      "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.eic.column.completed~2c7cffc3b2=finding~tax.us.2025.eic.column.completed~2c7cffc3b2",
@@ -147,7 +147,7 @@
    "lists": 3,
    "samples": [
     {
-     "list": "probe/hoh/parent/50000/yes",
+     "list": "probe/hoh/parent/50000/none",
      "change": "added",
      "kind": "graph",
      "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.eic.early-stop~*=finding~tax.us.2025.eic.early-stop~*/edges[derived:finding~tax.us.2025.eic.column.completed~2c7cffc3b2]/pin=finding~tax.us.2025.eic.column.completed~2c7cffc3b2",
@@ -156,7 +156,7 @@
      "after": "assertion"
     },
     {
-     "list": "probe/hoh/parent/50000/yes",
+     "list": "probe/hoh/parent/50000/none",
      "change": "added",
      "kind": "graph",
      "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.eic.column.completed~2c7cffc3b2=finding~tax.us.2025.eic.column.completed~2c7cffc3b2/edges[input:demo.cgd.t2.finding.status]/pin=demo.cgd.t2.finding.status",
@@ -165,7 +165,7 @@
      "after": "assertion"
     },
     {
-     "list": "probe/hoh/parent/50000/yes",
+     "list": "probe/hoh/parent/50000/none",
      "change": "added",
      "kind": "graph",
      "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.eic.column.completed~2c7cffc3b2=finding~tax.us.2025.eic.column.completed~2c7cffc3b2/edges[derived:finding~tax.us.2025.eic.column-count~*]/pin=finding~tax.us.2025.eic.column-count~*",
@@ -179,7 +179,7 @@
    "lists": 3,
    "samples": [
     {
-     "list": "probe/hoh/parent/50000/yes",
+     "list": "probe/hoh/parent/50000/none",
      "change": "added",
      "kind": "graph",
      "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.eic.early-stop~*=finding~tax.us.2025.eic.early-stop~*/edges[derived:finding~tax.us.2025.eic.column.completed~2c7cffc3b2]/pin=finding~tax.us.2025.eic.column.completed~2c7cffc3b2",
@@ -188,7 +188,7 @@
      "after": "input"
     },
     {
-     "list": "probe/hoh/parent/50000/yes",
+     "list": "probe/hoh/parent/50000/none",
      "change": "added",
      "kind": "graph",
      "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.eic.column.completed~2c7cffc3b2=finding~tax.us.2025.eic.column.completed~2c7cffc3b2/edges[reference:tax.us.2025.package.core-calculations]/pin=tax.us.2025.package.core-calculations",
@@ -197,7 +197,7 @@
      "after": "adoption"
     },
     {
-     "list": "probe/hoh/parent/50000/yes",
+     "list": "probe/hoh/parent/50000/none",
      "change": "added",
      "kind": "graph",
      "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.eic.column.completed~2c7cffc3b2=finding~tax.us.2025.eic.column.completed~2c7cffc3b2/edges[reference:tax.us.2025.citation.form1040.line-27-31]/pin=tax.us.2025.citation.form1040.line-27-31",
@@ -211,7 +211,7 @@
    "lists": 3,
    "samples": [
     {
-     "list": "probe/hoh/parent/50000/yes",
+     "list": "probe/hoh/parent/50000/none",
      "change": "added",
      "kind": "graph",
      "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.eic.early-stop~*=finding~tax.us.2025.eic.early-stop~*/edges[derived:finding~tax.us.2025.eic.column.completed~2c7cffc3b2]",
@@ -220,7 +220,7 @@
      "after": "derived:finding~tax.us.2025.eic.column.completed~2c7cffc3b2"
     },
     {
-     "list": "probe/hoh/parent/50000/yes",
+     "list": "probe/hoh/parent/50000/none",
      "change": "added",
      "kind": "graph",
      "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.eic.column.completed~2c7cffc3b2=finding~tax.us.2025.eic.column.completed~2c7cffc3b2/edges[reference:tax.us.2025.package.core-calculations]",
@@ -229,7 +229,7 @@
      "after": "reference:tax.us.2025.package.core-calculations"
     },
     {
-     "list": "probe/hoh/parent/50000/yes",
+     "list": "probe/hoh/parent/50000/none",
      "change": "added",
      "kind": "graph",
      "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.eic.column.completed~2c7cffc3b2=finding~tax.us.2025.eic.column.completed~2c7cffc3b2/edges[reference:tax.us.2025.citation.form1040.line-27-31]",
@@ -243,7 +243,7 @@
    "lists": 3,
    "samples": [
     {
-     "list": "probe/hoh/parent/50000/yes",
+     "list": "probe/hoh/parent/50000/none",
      "change": "added",
      "kind": "graph",
      "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.eic.early-stop~*=finding~tax.us.2025.eic.early-stop~*/edges[derived:finding~tax.us.2025.eic.column.completed~2c7cffc3b2]/pin=finding~tax.us.2025.eic.column.completed~2c7cffc3b2",
@@ -252,7 +252,7 @@
      "after": "v2"
     },
     {
-     "list": "probe/hoh/parent/50000/yes",
+     "list": "probe/hoh/parent/50000/none",
      "change": "added",
      "kind": "graph",
      "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.eic.column.completed~2c7cffc3b2=finding~tax.us.2025.eic.column.completed~2c7cffc3b2/edges[reference:tax.us.2025.package.core-calculations]/pin=tax.us.2025.package.core-calculations",
@@ -261,7 +261,7 @@
      "after": "v99"
     },
     {
-     "list": "probe/hoh/parent/50000/yes",
+     "list": "probe/hoh/parent/50000/none",
      "change": "added",
      "kind": "graph",
      "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.eic.column.completed~2c7cffc3b2=finding~tax.us.2025.eic.column.completed~2c7cffc3b2/edges[reference:tax.us.2025.citation.form1040.line-27-31]/pin=tax.us.2025.citation.form1040.line-27-31",
@@ -275,25 +275,25 @@
    "lists": 15,
    "samples": [
     {
+     "list": "probe/hoh/parent/7000/no",
+     "change": "changed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.eic.status-class~*=finding~tax.us.2025.eic.status-class~*",
+     "attribute": "value",
+     "before": "0",
+     "after": "1"
+    },
+    {
+     "list": "probe/hoh/parent/7000/no",
+     "change": "changed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.eic.early-stop~*=finding~tax.us.2025.eic.early-stop~*",
+     "attribute": "value",
+     "before": "1",
+     "after": "0"
+    },
+    {
      "list": "probe/hoh/parent/7000/none",
-     "change": "changed",
-     "kind": "graph",
-     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.eic.status-class~*=finding~tax.us.2025.eic.status-class~*",
-     "attribute": "value",
-     "before": "0",
-     "after": "1"
-    },
-    {
-     "list": "probe/hoh/parent/50000/yes",
-     "change": "changed",
-     "kind": "graph",
-     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.eic.status-class~*=finding~tax.us.2025.eic.status-class~*",
-     "attribute": "value",
-     "before": "0",
-     "after": "1"
-    },
-    {
-     "list": "probe/hoh/parent/16000/none",
      "change": "changed",
      "kind": "graph",
      "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.eic.status-class~*=finding~tax.us.2025.eic.status-class~*",
@@ -993,6 +993,76 @@
     }
    ]
   },
+  "page|added|resolved.reasons@order": {
+   "lists": 3,
+   "samples": [
+    {
+     "list": "probe/hoh/childnosep/7000/none",
+     "change": "added",
+     "kind": "page",
+     "identity": "sections[line-27a]",
+     "attribute": "resolved.reasons@order",
+     "before": null,
+     "after": [
+      "[0]"
+     ]
+    },
+    {
+     "list": "probe/hoh/childnosep/7000/none",
+     "change": "added",
+     "kind": "page",
+     "identity": "sections[line-32]",
+     "attribute": "resolved.reasons@order",
+     "before": null,
+     "after": [
+      "[0]"
+     ]
+    },
+    {
+     "list": "probe/hoh/childnosep/7000/yes",
+     "change": "added",
+     "kind": "page",
+     "identity": "sections[line-27a]",
+     "attribute": "resolved.reasons@order",
+     "before": null,
+     "after": [
+      "[0]"
+     ]
+    }
+   ]
+  },
+  "page|added|sentence": {
+   "lists": 3,
+   "samples": [
+    {
+     "list": "probe/hoh/childnosep/7000/none",
+     "change": "added",
+     "kind": "page",
+     "identity": "sections[line-27a]/resolved.reasons[[0]]",
+     "attribute": "sentence",
+     "before": null,
+     "after": "You file as head of household or married filing separately and a child is counted as your qualifying child for the earned income credit. Does the separated-spouse rule let you take the credit? Answer yes if you were not married at the end of 2025; or you were married and you and your spouse did not have the same principal residence for the last 6 months of 2025; or you were legally separated according to your state law under a written separation agreement or a decree of separate maintenance and you lived apart from your spouse at the end of 2025. Answer no if you were married, you and your spouse had the same principal residence for the last 6 months of 2025, and you were not legally separated and living apart as described: you cannot take the credit, so it is $0."
+    },
+    {
+     "list": "probe/hoh/childnosep/7000/yes",
+     "change": "added",
+     "kind": "page",
+     "identity": "sections[line-27a]/resolved.reasons[[0]]",
+     "attribute": "sentence",
+     "before": null,
+     "after": "You file as head of household or married filing separately and a child is counted as your qualifying child for the earned income credit. Does the separated-spouse rule let you take the credit? Answer yes if you were not married at the end of 2025; or you were married and you and your spouse did not have the same principal residence for the last 6 months of 2025; or you were legally separated according to your state law under a written separation agreement or a decree of separate maintenance and you lived apart from your spouse at the end of 2025. Answer no if you were married, you and your spouse had the same principal residence for the last 6 months of 2025, and you were not legally separated and living apart as described: you cannot take the credit, so it is $0."
+    },
+    {
+     "list": "probe/hoh/childnosep/7000/no",
+     "change": "added",
+     "kind": "page",
+     "identity": "sections[line-27a]/resolved.reasons[[0]]",
+     "attribute": "sentence",
+     "before": null,
+     "after": "You file as head of household or married filing separately and a child is counted as your qualifying child for the earned income credit. Does the separated-spouse rule let you take the credit? Answer yes if you were not married at the end of 2025; or you were married and you and your spouse did not have the same principal residence for the last 6 months of 2025; or you were legally separated according to your state law under a written separation agreement or a decree of separate maintenance and you lived apart from your spouse at the end of 2025. Answer no if you were married, you and your spouse had the same principal residence for the last 6 months of 2025, and you were not legally separated and living apart as described: you cannot take the credit, so it is $0."
+    }
+   ]
+  },
   "page|changed|citationSites@order": {
    "lists": 8,
    "samples": [
@@ -1087,9 +1157,7 @@
       "line-27a-src-39",
       "line-27a-src-40",
       "line-27a-src-41",
-      "line-27a-src-42",
-      "line-27a-src-43",
-      "line-27a-src-44"
+      "line-27a-src-42"
      ]
     },
     {
@@ -1238,8 +1306,7 @@
       "line-32-src-66",
       "line-32-src-67",
       "line-32-src-68",
-      "line-32-src-69",
-      "line-32-src-70"
+      "line-32-src-69"
      ]
     },
     {
@@ -1353,7 +1420,7 @@
      "identity": "sections[line-27a]/citationSites[line-27a-src-7]",
      "attribute": "pinId",
      "before": "demo.probe.sched1-scope.no-line11-educator",
-     "after": "demo.eic.not-qc"
+     "after": "demo.not-nonresident-alien"
     },
     {
      "list": "probe/hoh/parent/7000/no",
@@ -1362,7 +1429,7 @@
      "identity": "sections[line-27a]/citationSites[line-27a-src-8]",
      "attribute": "pinId",
      "before": "demo.probe.sched1-scope.no-line12-business-expenses",
-     "after": "demo.no-unsupported-situations"
+     "after": "demo.probe.sched1-scope.no-line11-educator"
     },
     {
      "list": "probe/hoh/parent/7000/no",
@@ -1371,7 +1438,7 @@
      "identity": "sections[line-27a]/citationSites[line-27a-src-9]",
      "attribute": "pinId",
      "before": "demo.probe.sched1-scope.no-line13-hsa",
-     "after": "demo.not-nonresident-alien"
+     "after": "demo.probe.sched1-scope.no-line12-business-expenses"
     }
    ]
   },
@@ -1379,7 +1446,7 @@
    "lists": 3,
    "samples": [
     {
-     "list": "probe/hoh/parent/50000/yes",
+     "list": "probe/hoh/parent/50000/none",
      "change": "changed",
      "kind": "row",
      "identity": "dispositions[tax.us.2025.rule.eic-column.completed|tax.us.2025.eic.column.completed]",
@@ -1397,7 +1464,7 @@
      "after": "act~finding~tax.us.2025.eic.column.completed~2c7cffc3b2"
     },
     {
-     "list": "probe/hoh/parent/50000/none",
+     "list": "probe/hoh/parent/50000/yes",
      "change": "changed",
      "kind": "row",
      "identity": "dispositions[tax.us.2025.rule.eic-column.completed|tax.us.2025.eic.column.completed]",
@@ -1411,7 +1478,7 @@
    "lists": 3,
    "samples": [
     {
-     "list": "probe/hoh/parent/50000/yes",
+     "list": "probe/hoh/parent/50000/none",
      "change": "changed",
      "kind": "row",
      "identity": "dispositions[tax.us.2025.rule.eic-column.completed|tax.us.2025.eic.column.completed]",
@@ -1429,7 +1496,7 @@
      "after": "finding~tax.us.2025.eic.column.completed~2c7cffc3b2"
     },
     {
-     "list": "probe/hoh/parent/50000/none",
+     "list": "probe/hoh/parent/50000/yes",
      "change": "changed",
      "kind": "row",
      "identity": "dispositions[tax.us.2025.rule.eic-column.completed|tax.us.2025.eic.column.completed]",
@@ -1440,26 +1507,19 @@
    ]
   }
  },
- "expectations_declared": 10,
- "expectations_used": 10,
+ "expectations_declared": 15,
+ "expectations_used": 15,
  "unused_expectations": [],
  "expectation_lists": {
-  "status class reads the counted children on head of household": 30,
-  "gate result reads the new answer": [
-   "probe/hoh/child/30000/no",
-   "probe/hoh/child/30000/none",
-   "probe/hoh/child/30000/yes",
-   "probe/hoh/child/7000/no",
-   "probe/hoh/child/7000/none",
-   "probe/hoh/child/7000/yes",
-   "probe/mfs/child/30000/none",
-   "probe/single/child/30000/none",
-   "probe/single/none/16000/none",
-   "probe/single/none/7000/none",
-   "probe/single/parent/16000/none"
-  ],
-  "version:tax.us.2025.package.core-calculations": 30,
-  "report row of the new answer rule": 30,
+  "status class reads the counted children on head of household": 32,
+  "gate result reads the new answer": 13,
+  "version:tax.us.2025.rule.eic-answer.age-25-under-65": 16,
+  "version:tax.us.2025.rule.eic-answer.main-home-in-us": 16,
+  "version:tax.us.2025.rule.eic-answer.not-claimable-as-dependent": 16,
+  "version:tax.us.2025.rule.eic-answer.not-qualifying-child-of-another": 16,
+  "version:tax.us.2025.rule.eic-answer.no-unsupported-situations": 16,
+  "version:tax.us.2025.package.core-calculations": 32,
+  "report row of the new answer rule": 32,
   "disposition node record of the new answer": [
    "probe/hoh/childnosep/7000/no",
    "probe/hoh/childnosep/7000/none",
@@ -1478,8 +1538,8 @@
    "probe/hoh/parent/16000/none",
    "probe/hoh/parent/7000/none"
   ],
-  "gate result pins the new answer": 23,
-  "explanation graph node and edge of the new answer": 22,
+  "gate result and the Step 4 answer rules pin the new answer": 28,
+  "explanation graph node and edge of the new answer": 24,
   "question shown:eic.not-married": [
    "probe/hoh/oldchild/16000/none",
    "probe/hoh/oldchild/7000/none",
@@ -1491,34 +1551,43 @@
  "expected_by_note": {
   "disposition node of the new answer": 24,
   "disposition node record of the new answer": 152,
-  "explanation graph node and edge of the new answer": 1032,
-  "gate result pins the new answer": 92,
-  "gate result reads the new answer": 33,
+  "explanation graph node and edge of the new answer": 1493,
+  "gate result and the Step 4 answer rules pin the new answer": 464,
+  "gate result reads the new answer": 39,
   "inserted:dispositionNodes.tax.us.N.eic.gate-result.children": 3,
-  "inserted:dispositions@order, status class row moved": 26,
+  "inserted:dispositions@order, status class row moved": 28,
   "question shown:eic.not-married": 24,
-  "realiased:tax.us.2025.eic.answer.not-qualifying-child-of-another": 9,
+  "realiased:tax.us.2025.eic.answer.age-25-under-65": 5,
+  "realiased:tax.us.2025.eic.answer.main-home-in-us": 5,
+  "realiased:tax.us.2025.eic.answer.no-unsupported-situations": 16,
+  "realiased:tax.us.2025.eic.answer.not-claimable-as-dependent": 4,
+  "realiased:tax.us.2025.eic.answer.not-qualifying-child-of-another": 15,
   "realiased:tax.us.2025.eic.answer.separated-spouse": 6,
   "realiased:tax.us.2025.eic.answer.spouse-valid-ssn": 9,
-  "realiased:tax.us.2025.eic.early-stop": 15,
-  "realiased:tax.us.2025.eic.eligibility-result": 22,
-  "realiased:tax.us.2025.eic.gate-result": 11,
+  "realiased:tax.us.2025.eic.early-stop": 11,
+  "realiased:tax.us.2025.eic.eligibility-result": 24,
+  "realiased:tax.us.2025.eic.gate-result": 13,
   "realiased:tax.us.2025.eic.status-class": 24,
-  "realiased:tax.us.2025.payments.line27a": 22,
-  "realiased:tax.us.2025.payments.line32": 22,
-  "realiased:tax.us.2025.payments.line33": 22,
-  "realiased:tax.us.2025.payments.line34-overpaid": 22,
-  "realiased:tax.us.2025.payments.line35a-refunded": 22,
-  "realiased:tax.us.2025.payments.line36-applied-to-2026": 22,
-  "realiased:tax.us.2025.payments.line37-amount-owed": 22,
-  "realiased:tax.us.2025.payments.lines27-31-total": 22,
-  "report row of the new answer rule": 672,
-  "status class pins the counted children (head of household)": 228,
-  "status class reads the counted children on head of household": 90,
-  "version:tax.us.2025.package.core-calculations": 18664
+  "realiased:tax.us.2025.payments.line27a": 24,
+  "realiased:tax.us.2025.payments.line32": 24,
+  "realiased:tax.us.2025.payments.line33": 24,
+  "realiased:tax.us.2025.payments.line34-overpaid": 24,
+  "realiased:tax.us.2025.payments.line35a-refunded": 24,
+  "realiased:tax.us.2025.payments.line36-applied-to-2026": 24,
+  "realiased:tax.us.2025.payments.line37-amount-owed": 24,
+  "realiased:tax.us.2025.payments.lines27-31-total": 24,
+  "report row of the new answer rule": 720,
+  "status class pins the counted children (head of household)": 244,
+  "status class reads the counted children on head of household": 96,
+  "version:tax.us.2025.package.core-calculations": 19860,
+  "version:tax.us.2025.rule.eic-answer.age-25-under-65": 48,
+  "version:tax.us.2025.rule.eic-answer.main-home-in-us": 48,
+  "version:tax.us.2025.rule.eic-answer.no-unsupported-situations": 48,
+  "version:tax.us.2025.rule.eic-answer.not-claimable-as-dependent": 48,
+  "version:tax.us.2025.rule.eic-answer.not-qualifying-child-of-another": 48
  },
  "outcomes": {
-  "success/success": 30
+  "success/success": 32
  },
  "list_classes": {
   "probe/hoh/child/30000/no": "expected_changes",
@@ -1545,31 +1614,33 @@
   "probe/hoh/parent/7000/no": "unexpected",
   "probe/hoh/parent/7000/none": "unexpected",
   "probe/hoh/parent/7000/yes": "unexpected",
+  "probe/mfj/none/16000/none": "expected_changes",
   "probe/mfs/child/30000/none": "expected_changes",
   "probe/mfs/none/7000/none": "expected_changes",
+  "probe/qss/none/16000/none": "expected_changes",
   "probe/single/child/30000/none": "expected_changes",
   "probe/single/none/16000/none": "expected_changes",
   "probe/single/none/7000/none": "expected_changes",
   "probe/single/parent/16000/none": "expected_changes"
  },
  "failing_lists": {
-  "probe/hoh/childnosep/7000/no": 37,
-  "probe/hoh/childnosep/7000/none": 37,
-  "probe/hoh/childnosep/7000/yes": 37,
-  "probe/hoh/oldchild/16000/no": 1122,
-  "probe/hoh/oldchild/16000/none": 4073,
+  "probe/hoh/childnosep/7000/no": 49,
+  "probe/hoh/childnosep/7000/none": 49,
+  "probe/hoh/childnosep/7000/yes": 49,
+  "probe/hoh/oldchild/16000/no": 852,
+  "probe/hoh/oldchild/16000/none": 3909,
   "probe/hoh/oldchild/16000/yes": 1479,
-  "probe/hoh/oldchild/7000/no": 1122,
-  "probe/hoh/oldchild/7000/none": 4063,
+  "probe/hoh/oldchild/7000/no": 852,
+  "probe/hoh/oldchild/7000/none": 3877,
   "probe/hoh/oldchild/7000/yes": 1479,
-  "probe/hoh/parent/16000/no": 1106,
-  "probe/hoh/parent/16000/none": 3945,
+  "probe/hoh/parent/16000/no": 842,
+  "probe/hoh/parent/16000/none": 3781,
   "probe/hoh/parent/16000/yes": 1447,
   "probe/hoh/parent/50000/no": 66,
   "probe/hoh/parent/50000/none": 66,
   "probe/hoh/parent/50000/yes": 66,
-  "probe/hoh/parent/7000/no": 1106,
-  "probe/hoh/parent/7000/none": 3935,
+  "probe/hoh/parent/7000/no": 842,
+  "probe/hoh/parent/7000/none": 3749,
   "probe/hoh/parent/7000/yes": 1447
  },
  "lists_set": "probe"

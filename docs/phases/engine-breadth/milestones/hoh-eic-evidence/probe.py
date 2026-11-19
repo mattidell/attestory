@@ -31,6 +31,9 @@ On a scratch core that adds the marital-status question, ``--answer`` adds
 the filer's answer to every head of household case (``yes``: not married at
 the end of 2025, ``no``: married; ``none`` leaves it unanswered).
 
+``observe(..., unanswered=STEP4_ANSWERS)`` leaves the age and main-home answers
+out of the return (the live tests use it, review EIC-R1).
+
 Run: python3 probe.py [--core v98 | --core-json core.json] [--answer none|yes|no] [--out FILE]
 Nothing in packages/ or tests/ is edited.
 """
@@ -102,7 +105,11 @@ SYMBOLS = ("eic.status-class", "eic.column-count", "eic.early-stop", "eic.questi
            "ctc.form1040-line19", "tax.total-tax")
 
 
-def build(key: str, content: Path = h.CONTENT, answer: str = "none") -> h.Acts:
+# The Step 4 answers the builder pre-answers yes; the two with no input question (review EIC-R1).
+STEP4_ANSWERS = (P + "eic.age-25-under-65", P + "eic.main-home-in-us")
+
+
+def build(key: str, content: Path = h.CONTENT, answer: str = "none", unanswered: tuple[str, ...] = ()) -> h.Acts:
     status_key, deps, wages_text = key.split("/")
     wages = float(wages_text)
     status = STATUS[status_key]
@@ -112,7 +119,7 @@ def build(key: str, content: Path = h.CONTENT, answer: str = "none") -> h.Acts:
     elif deps == "oldchild":
         kids = {"demo-hoh-eic-child-1": odc.odc_child()}  # 17 or older: credit for other dependents
     rels = {"demo-hoh-eic-parent-1": odc.relative()} if deps == "parent" else {}
-    answers: dict[str, str | None] = {P + "eic.age-25-under-65": "yes", P + "eic.main-home-in-us": "yes"}
+    answers: dict[str, str | None] = {fact: (None if fact in unanswered else "yes") for fact in STEP4_ANSWERS}
     if deps not in ("child", "childnosep"):
         answers[P + "eic.no-qualifying-child"] = "yes"
     acts = odc.build(wages=wages, filing_status=status, children=kids, relatives=rels, return_answers=answers)
@@ -167,8 +174,9 @@ def build(key: str, content: Path = h.CONTENT, answer: str = "none") -> h.Acts:
 num = base.num
 
 
-def observe(core: Any, key: str, answer: str = "none") -> dict[str, Any]:
-    acts = build(key, core.content, answer)
+def observe(core: Any, key: str, answer: str = "none", unanswered: tuple[str, ...] = ()) -> dict[str, Any]:
+    """``unanswered`` names pre-answered facts (``STEP4_ANSWERS``) to leave out of the return."""
+    acts = build(key, core.content, answer, unanswered)
     run_id = "demo.hoheic.p0." + key.replace("/", ".")
     surface = core.surface()
     with h.loader_entries(core):

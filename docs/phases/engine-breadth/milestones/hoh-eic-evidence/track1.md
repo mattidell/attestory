@@ -66,7 +66,7 @@ Question text (the fact's yes means the credit can go on):
 
 ## Tests
 
-- `tests/test_hoh_eic_v99.py` (live, 27 tests): P0's probe returns on published
+- `tests/test_hoh_eic_v99.py` (live, 35 tests): P0's probe returns on published
   v99 through live_coordinate_run and the saved page. Hand values (2025 tables,
   5% withheld): a head of household with no counted child (a dependent parent,
   or a child who fails the age test) answering yes gets the single credit (wages
@@ -110,11 +110,79 @@ subtests passed in 1738.35s. The two failures were
 `tests/test_earned_income_credit_track1.py` and
 `tests/test_eic_qualifying_children_track1.py`: both glob every
 `rule.eic-*.json` and cap it at 5,000 bytes, and the new
-`rule.eic-gate-result.v3.json` is 6,742 bytes because the added check nests one
-more level in the gate result's else-chain and so indents every level below it.
-Both tests now allow 7,000 bytes for that one file and keep 5,000 for every
-other; both modules pass after the change (35 passed, 65 subtests passed). The
-suite was not re-run in full for a change confined to those two assertions.
+`rule.eic-gate-result.v3.json` is 6,742 bytes. The first account here, one more
+nested check, was wrong (review EIC-R3): the growth is mostly formatting. v2
+(4,747 bytes) was hand-compacted, and `design.py` `dump()` writes v3 with
+`json.dumps(indent=2)`; v2 written the same way is 5,944 bytes, so the added
+check costs about 800 bytes. Both tests allow 7,000 bytes for the files in
+that position and keep 5,000 for every other (see Repair).
 `python3 -m mypy`: Success: no issues found in 526 source files.
 `pytest tests/test_schema_registry.py tests/test_hoh_eic_v99_package.py
 tests/test_noncovered_sales_v78_switch.py`: 26 passed.
+
+## Repair (review EIC-R1 to R4)
+
+v99 is not on main, so its files were regenerated in place with `build.py`
+through `generate_to_directory` (core v99, registry v97, release v97 keep their
+numbers; the six checksums and the registry digest changed with the content).
+
+- **EIC-R1.** Five successors (v2 to v3) of the Step 4 question 2-6 answer
+  rules (`eic-answer.age-25-under-65`, `main-home-in-us`,
+  `not-claimable-as-dependent`, `not-qualifying-child-of-another`,
+  `no-unsupported-situations`). Each also reads `eic.answer.not-married` and
+  publishes 1 (not required) when it is 0; the first four add that test to their
+  own "not required" test, the last adds it to the guard of its "answered no"
+  check. A single successor of `rule.eic-questions-required` was not possible:
+  `rule.eic-answer.not-married` reads that rule, so a successor that read the
+  not-married answer is a cycle. `rule.eic-status-class` v2,
+  `rule.eic-gate-result` v3 and `rule.eic-answer.not-married` are byte-for-byte
+  unchanged. Every other filer, and an unmarried "yes", publish what v2 did. The
+  replaced answer-rule versions are unpinned by any other v98 member (checked
+  by `build.py` and the package test). Two live tests leave the age and
+  main-home answers out of the return: a married "no" is not asked them and
+  computes line 27a $0 and the v98 refund (350 / 500); an unmarried "yes" blocks
+  line 27a and the refund lines on the age answer, with the same blocked rules as
+  the same single return. With the not-married question unanswered, the five
+  answer rules are blocked as well (17 blocked rules instead of 11: the five answer rules and the early stop, which reads the unsupported-situations answer); the page
+  still shows only the not-married question.
+- **EIC-R4.** The question's "Answer no" sentence now names a written separation
+  agreement without a decree (`design.py` `QUESTION`; the published question file
+  is its output).
+- **EIC-R3.** See the size note above. `rule.eic-gate-result.v3.json` is
+  unchanged at 6,742 bytes. `rule.eic-answer.no-unsupported-situations.v3.json`
+  is 6,833 bytes (v2, hand-compacted: 4,868), also mostly formatting, so both
+  size tests give it the same 7,000-byte exception.
+- **EIC-R2.** Cause: both tests rebuilt a corpus of every `packages/content`
+  file (`json.loads` of every package version, which grows with each version)
+  on each of four calls. The nominee module's corpus now skips the registry and
+  package files (not rule citizens) and is read once per process, as in
+  `tests/test_k1_interest_breadth_contracts.py` `_published_corpus`; the
+  market-discount module reads its corpus once per process. Measured with
+  `--durations` and `-n 0`: `test_path_pin_version_origin_and_identity_are_admission_contracts`
+  2.81 s to 0.07 s; `test_md_n10_mixed_successor_graph_rejects_older_fields`
+  1.00 s to 0.45 s (3.0 s on loaded CI). `FAST_LANE_BUDGET_SECONDS` is unchanged.
+- **Replay and probes** (against v98): the 775 recorded lists, published v99
+  (`replay-published-v99.json`) and the scratch build (`replay-m.json`): 775
+  pass, 0 unexpected (691 expected changes, 84 identical). Fifteen
+  expectations declared, thirteen used; the unused two are as before (all
+  recorded lists are single). The version changes of the five answer rules, their
+  new pin on the answer, and their inserted `missing` and `children` entries are
+  declared the same way as the gate result's. The probe lists
+  (`replay-probe-m.json`) and the paired comparison (`replay-paired.json`) were
+  re-run: the probe replay's 18 unexpected lists are the same head of household
+  lists as in P0 (answered or unanswered probe lists that change values, which
+  is the point of the probe); paired, `yes` differs from v98 in 7 values per case
+  (the credit and refund lines), `no` in none, and `none` shows the new
+  blocked rules and sentences. `probe-v98.json` and `probe-v99-*.json` were
+  regenerated (they predated the Track 1 cases).
+
+### Result lines
+
+- `pytest` of `tests/test_hoh_eic_v99_package.py`, `tests/test_hoh_eic_v99.py`,
+  both size-test modules, the two speed-fixed modules,
+  `tests/test_schema_registry.py` and `tests/test_noncovered_sales_v78_switch.py`:
+  123 passed, 87 subtests passed.
+- `pytest -m "not live"`: 1913 passed, 8 skipped, 5930 subtests passed in 15.58s.
+- `python3 -m mypy`: Success: no issues found in 526 source files.
+- The full suite was not re-run here; the gate of record is the `verify` check
+  on the pushed head.

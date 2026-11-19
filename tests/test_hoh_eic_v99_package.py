@@ -3,7 +3,9 @@
 v99 admits exactly the vocabulary bundle with the return-level marital-status
 answer, the two input questions and the new rule.eic-answer.not-married
 against v98, replaces rule.eic-status-class v1 and rule.eic-gate-result v2 by
-their successors, and changes nothing else in the package.
+their successors, replaces the five Step 4 question 2-6 answer rules by their
+successors (a married "no" stops the questions, review EIC-R1), and changes
+nothing else in the package.
 """
 from __future__ import annotations
 
@@ -31,7 +33,10 @@ BUNDLE = P + "eic-marital-status.vocabulary"
 QUESTIONS = (P + "input-question.eic-not-married", P + "input-question.eic-separated-spouse")
 ANSWER_RULE = P + "rule.eic-answer.not-married"
 CLASS_RULE, GATE_RULE = P + "rule.eic-status-class", P + "rule.eic-gate-result"
-SUCCESSORS = {CLASS_RULE: ("v1", "v2"), GATE_RULE: ("v2", "v3")}
+STEP4 = ("age-25-under-65", "main-home-in-us", "not-claimable-as-dependent", "not-qualifying-child-of-another",
+         "no-unsupported-situations")
+STEP4_RULES = tuple(P + "rule.eic-answer." + name for name in STEP4)
+SUCCESSORS = {CLASS_RULE: ("v1", "v2"), GATE_RULE: ("v2", "v3"), **{rule: ("v2", "v3") for rule in STEP4_RULES}}
 NEW = ((BUNDLE, "bundle.v2", "fact-type-bundle"), (QUESTIONS[0], "input-question.v1", "input-question"),
        (QUESTIONS[1], "input-question.v1", "input-question"), (ANSWER_RULE, "rule-artifact.v14", "computation"))
 FILES = {
@@ -44,6 +49,9 @@ FILES = {
     GATE_RULE + "|v2": "rule.eic-gate-result.v2.json",
     GATE_RULE + "|v3": "rule.eic-gate-result.v3.json",
 }
+for _name in STEP4:
+    FILES[P + "rule.eic-answer." + _name + "|v2"] = "rule.eic-answer." + _name + ".v2.json"
+    FILES[P + "rule.eic-answer." + _name + "|v3"] = "rule.eic-answer." + _name + ".v3.json"
 
 
 def _read(path: Path) -> Any:
@@ -56,7 +64,7 @@ def _index(rows: list[dict[str, Any]]) -> dict[tuple[str, str], dict[str, Any]]:
     return indexed
 
 
-def test_core_v99_admits_exactly_the_new_members_and_the_two_successors() -> None:
+def test_core_v99_admits_exactly_the_new_members_and_the_seven_successors() -> None:
     before = _read(CONTENT / "package.core-calculations.v98.json")
     after = _read(CONTENT / "package.core-calculations.v99.json")
     old = {row["id"]: row for row in before["members"]}
@@ -80,8 +88,8 @@ def test_core_v99_admits_exactly_the_new_members_and_the_two_successors() -> Non
     assert after["package_checksum"] == package_instance_checksum(after)
 
 
-def test_the_published_successors_replace_only_the_two_rules() -> None:
-    """No other v98 member pins either replaced rule version."""
+def test_the_published_successors_replace_only_the_seven_rules() -> None:
+    """No other v98 member pins a replaced rule version."""
     package = _read(CONTENT / "package.core-calculations.v98.json")
     targets = {(rule, v_old) for rule, (v_old, _) in SUCCESSORS.items()}
     found: list[tuple[Any, Any]] = []
@@ -113,7 +121,16 @@ def test_the_new_answer_rule_reads_the_new_answer_and_the_successors_read_it() -
     assert P + "eic.answer.not-married" not in json.dumps(gate_old)
     klass_old, klass_new = _read(CONTENT / FILES[CLASS_RULE + "|v1"]), _read(CONTENT / FILES[CLASS_RULE + "|v2"])
     assert P + "eic.column-count" in klass_new["requires"] and P + "eic.column-count" not in klass_old["requires"]
-    for old, new in ((klass_old, klass_new), (gate_old, gate_new)):
+    pairs = [(klass_old, klass_new), (gate_old, gate_new)]
+    for rule in STEP4_RULES:
+        old, new = _read(CONTENT / FILES[rule + "|v2"]), _read(CONTENT / FILES[rule + "|v3"])
+        assert old["publishes"] == new["publishes"] and old["version"] == "v2" and new["version"] == "v3"
+        # each reads the not-married answer, and only that: the other requires and pins are v2's
+        assert new["requires"] == [*old["requires"], P + "eic.answer.not-married"]
+        assert [p["id"] for p in new["pins"]] == [*(p["id"] for p in old["pins"]), P + "eic.answer.not-married"]
+        assert P + "eic.answer.not-married" not in json.dumps(old)
+        pairs.append((old, new))
+    for old, new in pairs:
         skip = ("version", "value", "notes", "requires", "pins", "blocked")
         assert {k: v for k, v in new.items() if k not in skip} == {k: v for k, v in old.items() if k not in skip}
 
@@ -155,5 +172,6 @@ def test_v99_loader_entries_carry_v98_unchanged() -> None:
 
 def test_the_replaced_rule_versions_are_still_published_and_unchanged() -> None:
     registry = _index(_read(CONTENT / "published-packages.v97.json")["citizens"])
-    for key, name in (((CLASS_RULE, "v1"), FILES[CLASS_RULE + "|v1"]), ((GATE_RULE, "v2"), FILES[GATE_RULE + "|v2"])):
+    for rule, (v_old, _) in SUCCESSORS.items():
+        key, name = (rule, v_old), FILES[f"{rule}|{v_old}"]
         assert registry[key]["checksum"] == citizen_checksum(_read(CONTENT / name))

@@ -16,8 +16,8 @@
    "release_version": "v97",
    "loader_from": null,
    "presence_pairs": [],
-   "package_sha256": "4191ad6b9ff0f1a73a0de69b418bd63db0db534eb5f06416019af2dbe54d7f33",
-   "release_sha256": "ca1558d2def57300b26e2cd7f8a00017b37a14acd1608e414fe5f172d5d864f0"
+   "package_sha256": "d97c8df7015449fdc7017a9bf563356b166ebb62fba7e12304e18bfa6f15e982",
+   "release_sha256": "2af80ec1ebd23d4d786d394353a9e67cf3051056fe2b6b6fa290616672b166b0"
   }
  ],
  "lists": 775,
@@ -29,8 +29,8 @@
  "failing": 0,
  "unexpected_differences": 0,
  "unexpected_by_kind_attribute": {},
- "expectations_declared": 10,
- "expectations_used": 8,
+ "expectations_declared": 15,
+ "expectations_used": 13,
  "unused_expectations": [
   {
    "note": "question shown:eic.not-married",
@@ -42,7 +42,7 @@
    "identity": "",
    "change": "added",
    "before": "ANY",
-   "after": "You file as head of household and no child is counted as your qualifying child for the earned income credit. Were you unmarried at the end of 2025? Answer yes if, on December 31, 2025, you had never married, your spouse had died before 2025 and you had not remarried, your divorce or annulment was final, or you were legally separated from your spouse under a decree of divorce or separate maintenance. Answer no if you were still married then, even if you lived apart from your spouse and file as head of household because you are considered unmarried: a married taxpayer filing as head of household cannot take the earned income credit without a qualifying child."
+   "after": "You file as head of household and no child is counted as your qualifying child for the earned income credit. Were you unmarried at the end of 2025? Answer yes if, on December 31, 2025, you had never married, your spouse had died before 2025 and you had not remarried, your divorce or annulment was final, or you were legally separated from your spouse under a decree of divorce or separate maintenance. Answer no if you were still married then, even if you lived apart from your spouse or had a written separation agreement but no decree, and file as head of household because you are considered unmarried: a married taxpayer filing as head of household cannot take the earned income credit without a qualifying child."
   },
   {
    "note": "status class pins the counted children (head of household)",
@@ -64,14 +64,38 @@
    "v81/v80/carried_one_part_ii_b",
    "v83/returns/v80/carried_one_part_ii_b/recorded"
   ],
+  "version:tax.us.2025.rule.eic-answer.age-25-under-65": [
+   "v81/v80/carried_one_part_ii_b",
+   "v83/returns/v80/carried_one_part_ii_b/recorded"
+  ],
+  "version:tax.us.2025.rule.eic-answer.main-home-in-us": [
+   "v81/v80/carried_one_part_ii_b",
+   "v83/returns/v80/carried_one_part_ii_b/recorded"
+  ],
+  "version:tax.us.2025.rule.eic-answer.not-claimable-as-dependent": [
+   "v81/v80/carried_one_part_ii_b",
+   "v83/returns/v80/carried_one_part_ii_b/recorded"
+  ],
+  "version:tax.us.2025.rule.eic-answer.not-qualifying-child-of-another": [
+   "v81/v80/carried_one_part_ii_b",
+   "v83/returns/v80/carried_one_part_ii_b/recorded"
+  ],
+  "version:tax.us.2025.rule.eic-answer.no-unsupported-situations": [
+   "v81/v80/carried_one_part_ii_b",
+   "v83/returns/case/x_dup_box_c_ic3_yes/recorded",
+   "v83/returns/v80/carried_one_part_ii_b/recorded",
+   "v83/track0/s7/surface_published_owed"
+  ],
   "version:tax.us.2025.package.core-calculations": 691,
   "report row of the new answer rule": 691,
   "disposition node record of the new answer": 370,
   "disposition node of the new answer": 370,
-  "gate result pins the new answer": 321,
+  "gate result and the Step 4 answer rules pin the new answer": 321,
   "explanation graph node and edge of the new answer": [
    "v81/v80/carried_one_part_ii_b",
-   "v83/returns/v80/carried_one_part_ii_b/recorded"
+   "v83/returns/case/x_dup_box_c_ic3_yes/recorded",
+   "v83/returns/v80/carried_one_part_ii_b/recorded",
+   "v83/track0/s7/surface_published_owed"
   ],
   "question shown:eic.not-married": [],
   "status class pins the counted children (head of household)": []
@@ -79,18 +103,31 @@
  "expected_by_note": {
   "disposition node of the new answer": 1110,
   "disposition node record of the new answer": 1850,
-  "explanation graph node and edge of the new answer": 86,
-  "gate result pins the new answer": 1284,
+  "explanation graph node and edge of the new answer": 182,
+  "gate result and the Step 4 answer rules pin the new answer": 1308,
   "gate result reads the new answer": 6,
+  "inserted:dispositionNodes.tax.us.N.eic.answer.age-N-under-N.children": 370,
+  "inserted:dispositionNodes.tax.us.N.eic.answer.main-home-in-us.children": 370,
+  "inserted:dispositionNodes.tax.us.N.eic.answer.no-unsupported-situations.children": 370,
+  "inserted:dispositionNodes.tax.us.N.eic.answer.not-claimable-as-dependent.children": 370,
+  "inserted:dispositionNodes.tax.us.N.eic.answer.not-qualifying-child-of-another.children": 370,
   "inserted:dispositionNodes.tax.us.N.eic.gate-result.children": 370,
   "inserted:dispositions@order, status class row moved": 691,
-  "inserted:missing": 740,
-  "realiased:tax.us.2025.eic.eligibility-result": 2,
+  "inserted:missing": 4440,
+  "realiased:tax.us.2025.eic.answer.no-unsupported-situations": 4,
+  "realiased:tax.us.2025.eic.answer.not-qualifying-child-of-another": 2,
+  "realiased:tax.us.2025.eic.early-stop": 2,
+  "realiased:tax.us.2025.eic.eligibility-result": 4,
   "realiased:tax.us.2025.eic.gate-result": 2,
-  "realiased:tax.us.2025.payments.line27a": 2,
+  "realiased:tax.us.2025.payments.line27a": 4,
   "report row of the new answer rule": 6994,
   "status class reads the counted children on head of household": 2067,
-  "version:tax.us.2025.package.core-calculations": 354218
+  "version:tax.us.2025.package.core-calculations": 354218,
+  "version:tax.us.2025.rule.eic-answer.age-25-under-65": 6,
+  "version:tax.us.2025.rule.eic-answer.main-home-in-us": 6,
+  "version:tax.us.2025.rule.eic-answer.no-unsupported-situations": 12,
+  "version:tax.us.2025.rule.eic-answer.not-claimable-as-dependent": 6,
+  "version:tax.us.2025.rule.eic-answer.not-qualifying-child-of-another": 6
  },
  "outcomes": {
   "error/error": 84,

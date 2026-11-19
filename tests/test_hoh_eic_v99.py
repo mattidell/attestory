@@ -13,6 +13,10 @@ v97). Hand values use the 2025 earned income credit tables and the probe's
   downstream block and the page asks the question;
 - a head of household with a counted child is unchanged (2,389 at 7,000,
   3,261 at 30,000);
+- the age and main-home answers (no input question exists for either) are left
+  out of the return in two tests: a married "no" is stopped at Step 4
+  question 1 and still computes $0 and the v98 refund, and an unmarried "yes"
+  blocks as a single filer does (review EIC-R1);
 - single, married filing jointly, qualifying surviving spouse and married
   filing separately read nothing new and keep their numbers.
 
@@ -62,12 +66,12 @@ def _design() -> Any:
 
 
 @lru_cache(maxsize=None)
-def _run(key: str, answer: str = "none", core: str = "v99") -> dict[str, Any]:
+def _run(key: str, answer: str = "none", core: str = "v99", skip_step4: bool = False) -> dict[str, Any]:
     probe = _probe()
     n = int(core[1:])
     published = probe.h.Core(core, f"v{n - 2}", f"v{n - 2}")
     assert published.package_path.name == f"package.core-calculations.{core}.json"
-    return dict(probe.observe(published, key, answer))
+    return dict(probe.observe(published, key, answer, probe.STEP4_ANSWERS if skip_step4 else ()))
 
 
 def _line(run: dict[str, Any], name: str) -> tuple[Any, Any]:
@@ -177,3 +181,33 @@ def test_other_statuses_keep_their_numbers_and_ask_nothing_new(key: str) -> None
     before = _run(key, "none", "v98")
     assert before["lines"] == run["lines"]
     assert before["blocked_rules"] == run["blocked_rules"]
+
+
+@pytest.mark.parametrize("key", sorted(NO))
+def test_married_head_of_household_is_not_asked_the_other_step_4_answers(key: str) -> None:
+    """Step 4 question 1 is a STOP: the age and main-home answers are left out and the "no" still computes $0."""
+    run = _run(key, "no", skip_step4=True)
+    assert _amounts(run) == NO[key]
+    assert _line(run, EIC)[1] == 0
+    assert run["blocked_rules"] == []
+    assert not any(q in s for s in run["sentences"] for q in (_design().QUESTION, _design().SEP_QUESTION))
+    # The same return on v98 (no question asked, the early stop) gives the same credit and refund.
+    before = _run(key, "none", "v98", skip_step4=True)
+    assert _amounts(before) == NO[key]
+    for name in DOWNSTREAM:
+        assert _line(before, name) == _line(run, name), name
+
+
+@pytest.mark.parametrize("key", sorted(YES))
+def test_unmarried_head_of_household_still_needs_the_other_step_4_answers(key: str) -> None:
+    """A yes does not stop Step 4: with age and main home left out the credit blocks, as for a single filer."""
+    run = _run(key, "yes", skip_step4=True)
+    for name in DOWNSTREAM:
+        assert _line(run, name) == ("blocked", None), name
+    assert "eic-answer.age-25-under-65:DEPENDENCY_ABSENT" in run["blocked_rules"]
+    single = _run("single/none/" + key.split("/")[2], "none", skip_step4=True)
+    assert single["blocked_rules"] == run["blocked_rules"]
+    for name in DOWNSTREAM:
+        assert _line(single, name) == ("blocked", None), name
+    # With both answers given, the same return computes the single amounts.
+    assert _amounts(_run(key, "yes")) == YES[key]

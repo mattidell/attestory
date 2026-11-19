@@ -51,8 +51,12 @@ from tools import recorded_replay as rr  # noqa: E402
 P = "tax.us.2025."
 NEW = ("eic-answer.not-married", "eic.answer.not-married")
 DEPENDENT_PREFIXES = ("eic.child.", "ctc.child.", "odc.child.", "odc.dependent.", "dtb.child.")
-INSERTION_ATTRS = re.compile(r"(?:.*@order|dispositionNodes\.tax\.us\.2025\.eic\.gate-result\.children|missing)")
-INSERTION_IDENTITY = re.compile(r"^$|eic-gate-result|eic\.gate-result|^dispositionNodes\.tax\.us\.2025\.eic\.gate-result")
+# The readers of the new answer: the gate result and the five Step 4 question 2-6 answer rules.
+_STEP4 = r"age-25-under-65|main-home-in-us|not-claimable-as-dependent|not-qualifying-child-of-another|no-unsupported-situations"
+INSERTION_ATTRS = re.compile(r"(?:.*@order|dispositionNodes\.tax\.us\.2025\.eic\.(?:gate-result|answer\.(?:" + _STEP4
+                             + r"))\.children|missing)")
+INSERTION_IDENTITY = re.compile(r"^$|eic-gate-result|eic\.gate-result|^dispositionNodes\.tax\.us\.2025\.eic\.gate-result|"
+                                r"eic-answer\.(?:" + _STEP4 + r")|eic\.answer\.(?:" + _STEP4 + ")")
 
 
 def _design():
@@ -63,18 +67,21 @@ def expectations() -> list[rr.Expectation]:
     d = _design()
     new_row = r"^dispositions\[tax\.us\.2025\.rule\.eic-answer\.not-married(?:\||\])"
     new_node = r"^dispositionNodes\.tax\.us\.2025\.eic\.answer\.not-married\."
-    gate_pin = (r"eic-gate-result[^/]*\]/pins\[finding~(?:row~tax\.us\.2025\.rule\.eic-answer\.not-married"
+    readers = "(?:gate-result|answer\\.(?:" + "|".join(re.escape(n) for n in d.STEP4) + "))"
+    gate_pin = (r"eic-" + readers + r"[^/]*\]/pins\[finding~(?:row~tax\.us\.2025\.rule\.eic-answer\.not-married"
                 r"|tax\.us\.2025\.eic\.answer\.not-married~)")
     return [
         rr.version_change(d.CLASS_RULE, "v1", "v2", "status class reads the counted children on head of household"),
         rr.version_change(d.GATE_RULE, "v2", "v3", "gate result reads the new answer"),
+        *[rr.version_change(rule, "v2", "v3")
+          for rule in d.STEP4_RULES],
         rr.version_change(P + "package.core-calculations", "v98", "v99"),
         rr.Expectation(("row",), r".*", new_row, "added", note="report row of the new answer rule"),
         rr.Expectation(("model",), r".*", new_node, "added", note="disposition node record of the new answer"),
         rr.Expectation(("model",), r"dispositionNodes\.tax\.us\.2025\.eic\.answer\.not-married\..*", r"^$", "added",
                        note="disposition node of the new answer"),
         rr.Expectation(("row", "model"), r"id|origin|role|version", gate_pin, "added",
-                       note="gate result pins the new answer"),
+                       note="gate result and the Step 4 answer rules pin the new answer"),
         rr.Expectation(("graph",), r".*", r"eic\.answer\.not-married|eic-answer\.not-married", "added",
                        note="explanation graph node and edge of the new answer"),
         # Only on a head of household return that leaves the answer unanswered (the probe lists).

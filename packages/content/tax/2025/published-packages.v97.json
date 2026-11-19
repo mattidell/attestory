@@ -2818,7 +2818,7 @@
     {
       "id": "tax.us.2025.input-question.eic-not-married",
       "version": "v1",
-      "checksum": "e96c5248bbf935df85769c3dc10653f3ea1f5c262d2055b7bdc7f130be16ab24"
+      "checksum": "9e6c3182cade984d9302b0660e9acf2dc0d378863080fc524916ff01bc1c7516"
     },
     {
       "checksum": "d40c6ffe357de5fb79b2efffd4dbf4d91239dc35939a350c66a16f26e8dbe93a",
@@ -4366,6 +4366,11 @@
       "version": "v2"
     },
     {
+      "id": "tax.us.2025.rule.eic-answer.age-25-under-65",
+      "version": "v3",
+      "checksum": "48e9ecabe70badea3b452b8b8c2d1a4f64152039325ac43ca79cb39221695d0d"
+    },
+    {
       "checksum": "3f15c164ed2d06ab65796cd7e9aac60d0c3fc5a103521d788829f556f62546ca",
       "id": "tax.us.2025.rule.eic-answer.main-home-in-us",
       "version": "v1"
@@ -4374,6 +4379,11 @@
       "checksum": "836437954487c8759fce0ac73f4fbc80c128be360ac6ef8833d4fa80ae8abb89",
       "id": "tax.us.2025.rule.eic-answer.main-home-in-us",
       "version": "v2"
+    },
+    {
+      "id": "tax.us.2025.rule.eic-answer.main-home-in-us",
+      "version": "v3",
+      "checksum": "57356dd509c68c481d0d10214cec699534e1de7365f13116ddf492b7690bd0d5"
     },
     {
       "checksum": "516b16eff0f08e640a7a73a231260d716f62ddb52688585e99b7857c55296f5e",
@@ -4391,6 +4401,11 @@
       "version": "v2"
     },
     {
+      "id": "tax.us.2025.rule.eic-answer.no-unsupported-situations",
+      "version": "v3",
+      "checksum": "4bbcf143708a430393dcfe7e94179d48c3a67378cc02b285849c044f8b53fc48"
+    },
+    {
       "checksum": "d6a13661c7327955b3d6e67b48da99dacc04bc31ca3308cc9ee14f73e6523426",
       "id": "tax.us.2025.rule.eic-answer.not-claimable-as-dependent",
       "version": "v1"
@@ -4399,6 +4414,11 @@
       "checksum": "515da8f044451ea6eb822da24280ff4179f792c4194017b7a1be88876924d261",
       "id": "tax.us.2025.rule.eic-answer.not-claimable-as-dependent",
       "version": "v2"
+    },
+    {
+      "id": "tax.us.2025.rule.eic-answer.not-claimable-as-dependent",
+      "version": "v3",
+      "checksum": "10140813dd515ae7a6322d0747517e205d3abbf64dab2d6b298d9d62a97de883"
     },
     {
       "id": "tax.us.2025.rule.eic-answer.not-married",
@@ -4419,6 +4439,11 @@
       "checksum": "06caa198021e449d7348995286e3b83759c17dabf1b2a9fab83a5d8711e5f807",
       "id": "tax.us.2025.rule.eic-answer.not-qualifying-child-of-another",
       "version": "v2"
+    },
+    {
+      "id": "tax.us.2025.rule.eic-answer.not-qualifying-child-of-another",
+      "version": "v3",
+      "checksum": "cf4e57bca7ee377b52f8f7f7f0871e71e79bb08242e23d4c9e339302dba809d1"
     },
     {
       "checksum": "7fdc874db2f516aa1d5c8c84143b06449ff077942b2c159314fa8463c6810000",
@@ -8695,7 +8720,7 @@
     {
       "id": "tax.us.2025.package.core-calculations",
       "version": "v99",
-      "checksum": "d080126a69e18c05a6fe2614ce773ebaafde539da04a8191aa9e85a19aa9d747"
+      "checksum": "5c98fdd49b02d0cb1d0ad323c945e81b3a86bbfbfa7fd805f6b8f305259acf20"
     },
     {
       "checksum": "b99406e3e391e30491c09fbd9402f6373eec69a7f6a109dfeac39115e547ef4d",

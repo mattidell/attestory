@@ -208,7 +208,9 @@
     },
     "form1040.line-27a": {
      "disposition": "blocked",
-     "said": [],
+     "said": [
+      "You file as head of household or married filing separately and a child is counted as your qualifying child for the earned income credit. Does the separated-spouse rule let you take the credit? Answer yes if you were not married at the end of 2025; or you were married and you and your spouse did not have the same principal residence for the last 6 months of 2025; or you were legally separated according to your state law under a written separation agreement or a decree of separate maintenance and you lived apart from your spouse at the end of 2025. Answer no if you were married, you and your spouse had the same principal residence for the last 6 months of 2025, and you were not legally separated and living apart as described: you cannot take the credit, so it is $0."
+     ],
      "value": null
     },
     "form1040.line-28": {
@@ -218,26 +220,36 @@
     },
     "form1040.line-33": {
      "disposition": "blocked",
-     "said": [],
+     "said": [
+      "You file as head of household or married filing separately and a child is counted as your qualifying child for the earned income credit. Does the separated-spouse rule let you take the credit? Answer yes if you were not married at the end of 2025; or you were married and you and your spouse did not have the same principal residence for the last 6 months of 2025; or you were legally separated according to your state law under a written separation agreement or a decree of separate maintenance and you lived apart from your spouse at the end of 2025. Answer no if you were married, you and your spouse had the same principal residence for the last 6 months of 2025, and you were not legally separated and living apart as described: you cannot take the credit, so it is $0."
+     ],
      "value": null
     },
     "form1040.line-34": {
      "disposition": "blocked",
-     "said": [],
+     "said": [
+      "You file as head of household or married filing separately and a child is counted as your qualifying child for the earned income credit. Does the separated-spouse rule let you take the credit? Answer yes if you were not married at the end of 2025; or you were married and you and your spouse did not have the same principal residence for the last 6 months of 2025; or you were legally separated according to your state law under a written separation agreement or a decree of separate maintenance and you lived apart from your spouse at the end of 2025. Answer no if you were married, you and your spouse had the same principal residence for the last 6 months of 2025, and you were not legally separated and living apart as described: you cannot take the credit, so it is $0."
+     ],
      "value": null
     },
     "form1040.line-35a": {
      "disposition": "blocked",
-     "said": [],
+     "said": [
+      "You file as head of household or married filing separately and a child is counted as your qualifying child for the earned income credit. Does the separated-spouse rule let you take the credit? Answer yes if you were not married at the end of 2025; or you were married and you and your spouse did not have the same principal residence for the last 6 months of 2025; or you were legally separated according to your state law under a written separation agreement or a decree of separate maintenance and you lived apart from your spouse at the end of 2025. Answer no if you were married, you and your spouse had the same principal residence for the last 6 months of 2025, and you were not legally separated and living apart as described: you cannot take the credit, so it is $0."
+     ],
      "value": null
     },
     "form1040.line-37": {
      "disposition": "blocked",
-     "said": [],
+     "said": [
+      "You file as head of household or married filing separately and a child is counted as your qualifying child for the earned income credit. Does the separated-spouse rule let you take the credit? Answer yes if you were not married at the end of 2025; or you were married and you and your spouse did not have the same principal residence for the last 6 months of 2025; or you were legally separated according to your state law under a written separation agreement or a decree of separate maintenance and you lived apart from your spouse at the end of 2025. Answer no if you were married, you and your spouse had the same principal residence for the last 6 months of 2025, and you were not legally separated and living apart as described: you cannot take the credit, so it is $0."
+     ],
      "value": null
     }
    },
-   "sentences": [],
+   "sentences": [
+    "You file as head of household or married filing separately and a child is counted as your qualifying child for the earned income credit. Does the separated-spouse rule let you take the credit? Answer yes if you were not married at the end of 2025; or you were married and you and your spouse did not have the same principal residence for the last 6 months of 2025; or you were legally separated according to your state law under a written separation agreement or a decree of separate maintenance and you lived apart from your spouse at the end of 2025. Answer no if you were married, you and your spouse had the same principal residence for the last 6 months of 2025, and you were not legally separated and living apart as described: you cannot take the credit, so it is $0."
+   ],
    "stop": "saturated",
    "symbols": {
     "ctc.child-count": 1,
@@ -658,6 +670,86 @@
     "tax.total-tax": 0
    }
   },
+  "mfj/none/16000": {
+   "blocked_rules": [],
+   "lines": {
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 31500
+    },
+    "form1040.line-15": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-16": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-19": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-24": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-27a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 649
+    },
+    "form1040.line-28": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-33": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 1149
+    },
+    "form1040.line-34": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 1149
+    },
+    "form1040.line-35a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 1149
+    },
+    "form1040.line-37": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    }
+   },
+   "sentences": [],
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 0,
+    "ctc.form1040-line19": 0,
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.not-married": 1,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 0,
+    "eic.early-stop": 0,
+    "eic.eligibility-result": 649,
+    "eic.gate-result": 649,
+    "eic.questions-required": 1,
+    "eic.status-class": 2,
+    "eic.worksheet-a.line-6": 649,
+    "odc.relative-count": 0,
+    "payments.line27a": 649,
+    "tax.total-tax": 0
+   }
+  },
   "mfs/child/30000": {
    "blocked_rules": [],
    "lines": {
@@ -815,6 +907,86 @@
     "eic.worksheet-a.line-6": 537,
     "odc.relative-count": 0,
     "payments.line27a": 0,
+    "tax.total-tax": 0
+   }
+  },
+  "qss/none/16000": {
+   "blocked_rules": [],
+   "lines": {
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 31500
+    },
+    "form1040.line-15": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-16": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-19": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-24": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-27a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 236
+    },
+    "form1040.line-28": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-33": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 736
+    },
+    "form1040.line-34": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 736
+    },
+    "form1040.line-35a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 736
+    },
+    "form1040.line-37": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    }
+   },
+   "sentences": [],
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 0,
+    "ctc.form1040-line19": 0,
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.not-married": 1,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 0,
+    "eic.early-stop": 0,
+    "eic.eligibility-result": 236,
+    "eic.gate-result": 236,
+    "eic.questions-required": 1,
+    "eic.status-class": 1,
+    "eic.worksheet-a.line-6": 236,
+    "odc.relative-count": 0,
+    "payments.line27a": 236,
     "tax.total-tax": 0
    }
   },
@@ -1139,5 +1311,5 @@
    }
   }
  },
- "wall_time_s": 21.0
+ "wall_time_s": 21.1
 }
