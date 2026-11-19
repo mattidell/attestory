@@ -67,7 +67,7 @@ def _line(run: dict[str, Any], name: str) -> tuple[Any, Any]:
 
 def _expected_question(key: str) -> str:
     design = _design()
-    return design.HOH_QUESTION if key.startswith("hoh/") else design.QSS_QUESTION
+    return str(design.HOH_QUESTION if key.startswith("hoh/") else design.QSS_QUESTION)
 
 
 def test_the_published_questions_carry_the_designed_wording() -> None:
