@@ -6,9 +6,9 @@ Charter: docs/reviews/gain-break-even/charter-p0.md.
 Builds synthetic demo.* returns with one sale (a gain or an exact break-even)
 on each sale path the engine accepts -- covered with basis reported (box A/D,
 the control), covered code W (box A/D via Form 8949), noncovered (box B/E),
-code B (box B/E with a corrected basis) and no Form 1099-B (box C/F) -- short
+code B (box A/D with code B, lines 1b/8b) and no Form 1099-B (box C/F) -- short
 and long term, single and married filing jointly; plus mixed returns (a gain
-on one path and a loss on another, netting to a gain) and two code W probes
+on one path and a loss on another, netting to a gain) and four code W probes
 of the ADR-0062 / ADR-0066 bound. Each runs once through the real
 live_coordinate_run on published core v96 (registry v94, release v94); the
 saved page is rendered with the real renderer and every page value is read
@@ -205,6 +205,7 @@ def observe(key: str) -> dict[str, Any]:
         assert saved == model, "saved page model differs from the presentation model"
     lines: dict[str, Any] = {}
     questions: list[str] = []
+    line_reasons: dict[str, list[str]] = {}
     for section in saved.get("sections") or []:
         field = section.get("field") or {}
         fid = str(field.get("id") or "").removeprefix(P)
@@ -212,6 +213,7 @@ def observe(key: str) -> dict[str, Any]:
         sentences = [str(r.get("sentence") or "") for r in resolved.get("reasons") or [] if isinstance(r, dict)]
         questions += [h.scrub(s)[:200] for s in sentences if s.strip().endswith("?") and s not in questions]
         if any(t in fid for t in PAGE):
+            line_reasons[fid] = [h.scrub(x)[:400] for x in sentences if x.strip()]
             lines[fid] = {"disposition": resolved.get("disposition"), "value": num(resolved.get("value"))}
     published: dict[str, Any] = {}
     parts: dict[str, Any] = {}
@@ -241,6 +243,7 @@ def observe(key: str) -> dict[str, Any]:
         "attachments": attachments,
         "blocked_rules": [list(b) for b in blocked],
         "questions": questions[:10],
+        "line_reasons": line_reasons,
     }
 
 

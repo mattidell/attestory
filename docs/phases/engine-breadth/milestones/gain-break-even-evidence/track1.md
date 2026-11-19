@@ -31,7 +31,7 @@ preferential base; worksheet lines 5, 9, 17, 18, 22, 24 on a net long-term gain
 `...f1099b.covered-w-st.member-validation.synthesized` (`DEPENDENCY_INVALID`),
 with Schedule D line 16, 1040 lines 7a and 16 blocked with no value, no line 16
 published, no question; the test also reads `CODE_W_ON_GAIN` in the family
-content (the page's reason is not captured by the harness, see below).
+content (superseded by the repair below: the test now reads the page's line 1b reason).
 
 ## Counts
 
@@ -46,3 +46,18 @@ content (the page's reason is not captured by the harness, see below).
   probe pins the block by rule and code and by the content's `CODE_W_ON_GAIN`
   text, not by the page reason's code. Capturing the reason would mean editing
   the P0 harness; left for the foreman.
+
+## Repair of review notes (GBE-R1 to R3)
+
+- GBE-R1: `cases.observe` now also returns `line_reasons` (all reason sentences
+  per page line, scrubbed). The probe asserts that Schedule D line 1b carries
+  the code-W-on-gain sentence (`block.f8949.code-w-on-gain`, "non-loss
+  transaction"); the content grep is dropped. Mutation, not committed:
+  patching `Evaluator.evaluate_member` in memory to drop every
+  `CODE_W_ON_GAIN` constraint (`ADJUSTMENT_EXCEEDS_LOSS` still present) leaves
+  the block but line 1b then shows only the adjustment-exceeds-loss sentence,
+  and `test_code_w_gain_probe_blocks` FAILS (1 failed); unmutated it passes.
+- GBE-R2: docstrings in `cases.py` (code B is box A/D with code B, lines 1b/8b;
+  four code W probes) and `compare.py` (four probes) corrected.
+- GBE-R3: the live module docstring states about 26 s wall, about 227
+  CPU-seconds on 10 workers, 27 runs.

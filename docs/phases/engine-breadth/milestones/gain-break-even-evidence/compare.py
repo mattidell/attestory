@@ -7,7 +7,7 @@ Checked per run: Schedule D lines 1a, 1b, 2, 3, 6, 7, 8a, 8b, 9, 10, 13, 14,
 published disposition); the Form 8949 part totals (columns d, e, g per box)
 and whether Form 8949 is required; for a net gain on lines 15 and 16, the
 worksheet lines the hand figures; no blocked rule, no open question, run
-saturated. The two code W probes are checked against the ADR-0062 Decision 2
+saturated. The four code W probes are checked against the ADR-0062 Decision 2
 bound instead (blocked, not published).
 """
 from __future__ import annotations
