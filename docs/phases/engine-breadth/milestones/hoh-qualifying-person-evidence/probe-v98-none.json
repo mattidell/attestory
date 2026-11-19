@@ -1,0 +1,1484 @@
+{
+ "answer": "none",
+ "core": {
+  "package": "v98",
+  "registry": "v96",
+  "release": "v96"
+ },
+ "runs": {
+  "hoh/child": {
+   "blocked_rules": [
+    "attachment.schedule-a:DEPENDENCY_ABSENT",
+    "ctc-form1040-line19:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-13:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-14:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16a:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-17:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-21:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-22:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-23:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-24:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-25:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-26:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-27:DEPENDENCY_ABSENT",
+    "ctc-sch8812-part-ii-b-needed:DEPENDENCY_ABSENT",
+    "ctc-worksheet-a.line-1:DEPENDENCY_ABSENT",
+    "ctc-worksheet-a.line-2:DEPENDENCY_ABSENT",
+    "ctc-worksheet-a.line-3:DEPENDENCY_ABSENT",
+    "ctc-worksheet-a.line-5:DEPENDENCY_ABSENT",
+    "dependents-worksheet-line-3:DEPENDENCY_ABSENT",
+    "dependents-worksheet-line-4a:DEPENDENCY_ABSENT",
+    "dependents-worksheet-line-4c:DEPENDENCY_ABSENT",
+    "form1040-line12e:DEPENDENCY_ABSENT",
+    "form1040-line14:DEPENDENCY_ABSENT",
+    "form1040-line15:DEPENDENCY_ABSENT",
+    "form1040-line16:DEPENDENCY_ABSENT",
+    "form1040-line20:DEPENDENCY_ABSENT",
+    "form1040-line24:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT",
+    "form1040-lines28-31:DEPENDENCY_ABSENT",
+    "form1040-standard-deduction:DEPENDENCY_ABSENT",
+    "form1040-tax-after-credits:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-10:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-11:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-12:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-14:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-15:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-16:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-17:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-18:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-19:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-20:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-21:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-22:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-23:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-24:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-25:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-5:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-7:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-8:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-9:DEPENDENCY_ABSENT",
+    "schedule-a-excess-over-standard:DEPENDENCY_ABSENT",
+    "schedule3-line1-direct-ftc:DEPENDENCY_ABSENT",
+    "schedule3-line8:DEPENDENCY_ABSENT",
+    "w2-box4-total:DEPENDENCY_ABSENT",
+    "w2-box6-total:DEPENDENCY_ABSENT"
+   ],
+   "guard_inapplicable_rules": [],
+   "lines": {
+    "form1040.line-11a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 50000
+    },
+    "form1040.line-12e": {
+     "disposition": "blocked",
+     "said": [
+      "You chose head of household. Do all of these apply to you for 2025: on December 31, 2025 you were unmarried, or considered unmarried (for example, married but your spouse did not live in your home for the last 6 months of 2025); you paid more than half the cost of keeping up your home for 2025; and a qualifying person, such as your child or a relative you can claim as a dependent, lived with you there for more than half of 2025 (a dependent parent need not live with you if you paid more than half the cost of your parent's main home for all of 2025)? If any of these does not apply, you cannot file as head of household; change your filing status."
+     ],
+     "value": null
+    },
+    "form1040.line-14": {
+     "disposition": "blocked",
+     "said": [
+      "You chose head of household. Do all of these apply to you for 2025: on December 31, 2025 you were unmarried, or considered unmarried (for example, married but your spouse did not live in your home for the last 6 months of 2025); you paid more than half the cost of keeping up your home for 2025; and a qualifying person, such as your child or a relative you can claim as a dependent, lived with you there for more than half of 2025 (a dependent parent need not live with you if you paid more than half the cost of your parent's main home for all of 2025)? If any of these does not apply, you cannot file as head of household; change your filing status."
+     ],
+     "value": null
+    },
+    "form1040.line-15": {
+     "disposition": "blocked",
+     "said": [
+      "You chose head of household. Do all of these apply to you for 2025: on December 31, 2025 you were unmarried, or considered unmarried (for example, married but your spouse did not live in your home for the last 6 months of 2025); you paid more than half the cost of keeping up your home for 2025; and a qualifying person, such as your child or a relative you can claim as a dependent, lived with you there for more than half of 2025 (a dependent parent need not live with you if you paid more than half the cost of your parent's main home for all of 2025)? If any of these does not apply, you cannot file as head of household; change your filing status."
+     ],
+     "value": null
+    },
+    "form1040.line-16": {
+     "disposition": "blocked",
+     "said": [
+      "You chose head of household. Do all of these apply to you for 2025: on December 31, 2025 you were unmarried, or considered unmarried (for example, married but your spouse did not live in your home for the last 6 months of 2025); you paid more than half the cost of keeping up your home for 2025; and a qualifying person, such as your child or a relative you can claim as a dependent, lived with you there for more than half of 2025 (a dependent parent need not live with you if you paid more than half the cost of your parent's main home for all of 2025)? If any of these does not apply, you cannot file as head of household; change your filing status."
+     ],
+     "value": null
+    },
+    "form1040.line-19": {
+     "disposition": "blocked",
+     "said": [
+      "You chose head of household. Do all of these apply to you for 2025: on December 31, 2025 you were unmarried, or considered unmarried (for example, married but your spouse did not live in your home for the last 6 months of 2025); you paid more than half the cost of keeping up your home for 2025; and a qualifying person, such as your child or a relative you can claim as a dependent, lived with you there for more than half of 2025 (a dependent parent need not live with you if you paid more than half the cost of your parent's main home for all of 2025)? If any of these does not apply, you cannot file as head of household; change your filing status."
+     ],
+     "value": null
+    },
+    "form1040.line-24": {
+     "disposition": "blocked",
+     "said": [
+      "You chose head of household. Do all of these apply to you for 2025: on December 31, 2025 you were unmarried, or considered unmarried (for example, married but your spouse did not live in your home for the last 6 months of 2025); you paid more than half the cost of keeping up your home for 2025; and a qualifying person, such as your child or a relative you can claim as a dependent, lived with you there for more than half of 2025 (a dependent parent need not live with you if you paid more than half the cost of your parent's main home for all of 2025)? If any of these does not apply, you cannot file as head of household; change your filing status."
+     ],
+     "value": null
+    },
+    "form1040.line-27a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 65
+    },
+    "form1040.line-28": {
+     "disposition": "blocked",
+     "said": [
+      "You chose head of household. Do all of these apply to you for 2025: on December 31, 2025 you were unmarried, or considered unmarried (for example, married but your spouse did not live in your home for the last 6 months of 2025); you paid more than half the cost of keeping up your home for 2025; and a qualifying person, such as your child or a relative you can claim as a dependent, lived with you there for more than half of 2025 (a dependent parent need not live with you if you paid more than half the cost of your parent's main home for all of 2025)? If any of these does not apply, you cannot file as head of household; change your filing status."
+     ],
+     "value": null
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "said": [
+      "You chose head of household. Do all of these apply to you for 2025: on December 31, 2025 you were unmarried, or considered unmarried (for example, married but your spouse did not live in your home for the last 6 months of 2025); you paid more than half the cost of keeping up your home for 2025; and a qualifying person, such as your child or a relative you can claim as a dependent, lived with you there for more than half of 2025 (a dependent parent need not live with you if you paid more than half the cost of your parent's main home for all of 2025)? If any of these does not apply, you cannot file as head of household; change your filing status."
+     ],
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "said": [
+      "You chose head of household. Do all of these apply to you for 2025: on December 31, 2025 you were unmarried, or considered unmarried (for example, married but your spouse did not live in your home for the last 6 months of 2025); you paid more than half the cost of keeping up your home for 2025; and a qualifying person, such as your child or a relative you can claim as a dependent, lived with you there for more than half of 2025 (a dependent parent need not live with you if you paid more than half the cost of your parent's main home for all of 2025)? If any of these does not apply, you cannot file as head of household; change your filing status."
+     ],
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "said": [
+      "You chose head of household. Do all of these apply to you for 2025: on December 31, 2025 you were unmarried, or considered unmarried (for example, married but your spouse did not live in your home for the last 6 months of 2025); you paid more than half the cost of keeping up your home for 2025; and a qualifying person, such as your child or a relative you can claim as a dependent, lived with you there for more than half of 2025 (a dependent parent need not live with you if you paid more than half the cost of your parent's main home for all of 2025)? If any of these does not apply, you cannot file as head of household; change your filing status."
+     ],
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "said": [
+      "You chose head of household. Do all of these apply to you for 2025: on December 31, 2025 you were unmarried, or considered unmarried (for example, married but your spouse did not live in your home for the last 6 months of 2025); you paid more than half the cost of keeping up your home for 2025; and a qualifying person, such as your child or a relative you can claim as a dependent, lived with you there for more than half of 2025 (a dependent parent need not live with you if you paid more than half the cost of your parent's main home for all of 2025)? If any of these does not apply, you cannot file as head of household; change your filing status."
+     ],
+     "value": null
+    }
+   },
+   "sentences": [
+    "You chose head of household. Do all of these apply to you for 2025: on December 31, 2025 you were unmarried, or considered unmarried (for example, married but your spouse did not live in your home for the last 6 months of 2025); you paid more than half the cost of keeping up your home for 2025; and a qualifying person, such as your child or a relative you can claim as a dependent, lived with you there for more than half of 2025 (a dependent parent need not live with you if you paid more than half the cost of your parent's main home for all of 2025)? If any of these does not apply, you cannot file as head of household; change your filing status."
+   ],
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 1,
+    "ctc.form1040-line19": null,
+    "ctc.form1040-line28": null,
+    "demo.form1040.standard_deduction": null,
+    "dependents-worksheet.line3": null,
+    "eic.form1040-line27a": null,
+    "eic.qualifying-child-count": 1,
+    "filing-status": null,
+    "filing_status": null,
+    "income.taxable-income": null,
+    "odc.relative-count": 0,
+    "tax.total-tax": null
+   }
+  },
+  "hoh/none": {
+   "blocked_rules": [
+    "attachment.schedule-a:DEPENDENCY_ABSENT",
+    "ctc-form1040-line19:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-13:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-14:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16a:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-17:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-21:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-22:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-23:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-24:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-25:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-26:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-27:DEPENDENCY_ABSENT",
+    "ctc-sch8812-part-ii-b-needed:DEPENDENCY_ABSENT",
+    "ctc-worksheet-a.line-1:DEPENDENCY_ABSENT",
+    "ctc-worksheet-a.line-2:DEPENDENCY_ABSENT",
+    "ctc-worksheet-a.line-3:DEPENDENCY_ABSENT",
+    "ctc-worksheet-a.line-5:DEPENDENCY_ABSENT",
+    "dependents-worksheet-line-3:DEPENDENCY_ABSENT",
+    "dependents-worksheet-line-4a:DEPENDENCY_ABSENT",
+    "dependents-worksheet-line-4c:DEPENDENCY_ABSENT",
+    "form1040-line12e:DEPENDENCY_ABSENT",
+    "form1040-line14:DEPENDENCY_ABSENT",
+    "form1040-line15:DEPENDENCY_ABSENT",
+    "form1040-line16:DEPENDENCY_ABSENT",
+    "form1040-line20:DEPENDENCY_ABSENT",
+    "form1040-line24:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT",
+    "form1040-lines28-31:DEPENDENCY_ABSENT",
+    "form1040-standard-deduction:DEPENDENCY_ABSENT",
+    "form1040-tax-after-credits:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-10:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-11:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-12:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-14:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-15:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-16:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-17:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-18:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-19:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-20:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-21:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-22:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-23:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-24:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-25:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-5:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-7:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-8:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-9:DEPENDENCY_ABSENT",
+    "schedule-a-excess-over-standard:DEPENDENCY_ABSENT",
+    "schedule3-line1-direct-ftc:DEPENDENCY_ABSENT",
+    "schedule3-line8:DEPENDENCY_ABSENT",
+    "w2-box4-total:DEPENDENCY_ABSENT",
+    "w2-box6-total:DEPENDENCY_ABSENT"
+   ],
+   "guard_inapplicable_rules": [],
+   "lines": {
+    "form1040.line-11a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 50000
+    },
+    "form1040.line-12e": {
+     "disposition": "blocked",
+     "said": [
+      "You chose head of household. Do all of these apply to you for 2025: on December 31, 2025 you were unmarried, or considered unmarried (for example, married but your spouse did not live in your home for the last 6 months of 2025); you paid more than half the cost of keeping up your home for 2025; and a qualifying person, such as your child or a relative you can claim as a dependent, lived with you there for more than half of 2025 (a dependent parent need not live with you if you paid more than half the cost of your parent's main home for all of 2025)? If any of these does not apply, you cannot file as head of household; change your filing status."
+     ],
+     "value": null
+    },
+    "form1040.line-14": {
+     "disposition": "blocked",
+     "said": [
+      "You chose head of household. Do all of these apply to you for 2025: on December 31, 2025 you were unmarried, or considered unmarried (for example, married but your spouse did not live in your home for the last 6 months of 2025); you paid more than half the cost of keeping up your home for 2025; and a qualifying person, such as your child or a relative you can claim as a dependent, lived with you there for more than half of 2025 (a dependent parent need not live with you if you paid more than half the cost of your parent's main home for all of 2025)? If any of these does not apply, you cannot file as head of household; change your filing status."
+     ],
+     "value": null
+    },
+    "form1040.line-15": {
+     "disposition": "blocked",
+     "said": [
+      "You chose head of household. Do all of these apply to you for 2025: on December 31, 2025 you were unmarried, or considered unmarried (for example, married but your spouse did not live in your home for the last 6 months of 2025); you paid more than half the cost of keeping up your home for 2025; and a qualifying person, such as your child or a relative you can claim as a dependent, lived with you there for more than half of 2025 (a dependent parent need not live with you if you paid more than half the cost of your parent's main home for all of 2025)? If any of these does not apply, you cannot file as head of household; change your filing status."
+     ],
+     "value": null
+    },
+    "form1040.line-16": {
+     "disposition": "blocked",
+     "said": [
+      "You chose head of household. Do all of these apply to you for 2025: on December 31, 2025 you were unmarried, or considered unmarried (for example, married but your spouse did not live in your home for the last 6 months of 2025); you paid more than half the cost of keeping up your home for 2025; and a qualifying person, such as your child or a relative you can claim as a dependent, lived with you there for more than half of 2025 (a dependent parent need not live with you if you paid more than half the cost of your parent's main home for all of 2025)? If any of these does not apply, you cannot file as head of household; change your filing status."
+     ],
+     "value": null
+    },
+    "form1040.line-19": {
+     "disposition": "blocked",
+     "said": [
+      "You chose head of household. Do all of these apply to you for 2025: on December 31, 2025 you were unmarried, or considered unmarried (for example, married but your spouse did not live in your home for the last 6 months of 2025); you paid more than half the cost of keeping up your home for 2025; and a qualifying person, such as your child or a relative you can claim as a dependent, lived with you there for more than half of 2025 (a dependent parent need not live with you if you paid more than half the cost of your parent's main home for all of 2025)? If any of these does not apply, you cannot file as head of household; change your filing status."
+     ],
+     "value": null
+    },
+    "form1040.line-24": {
+     "disposition": "blocked",
+     "said": [
+      "You chose head of household. Do all of these apply to you for 2025: on December 31, 2025 you were unmarried, or considered unmarried (for example, married but your spouse did not live in your home for the last 6 months of 2025); you paid more than half the cost of keeping up your home for 2025; and a qualifying person, such as your child or a relative you can claim as a dependent, lived with you there for more than half of 2025 (a dependent parent need not live with you if you paid more than half the cost of your parent's main home for all of 2025)? If any of these does not apply, you cannot file as head of household; change your filing status."
+     ],
+     "value": null
+    },
+    "form1040.line-27a": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-28": {
+     "disposition": "blocked",
+     "said": [
+      "You chose head of household. Do all of these apply to you for 2025: on December 31, 2025 you were unmarried, or considered unmarried (for example, married but your spouse did not live in your home for the last 6 months of 2025); you paid more than half the cost of keeping up your home for 2025; and a qualifying person, such as your child or a relative you can claim as a dependent, lived with you there for more than half of 2025 (a dependent parent need not live with you if you paid more than half the cost of your parent's main home for all of 2025)? If any of these does not apply, you cannot file as head of household; change your filing status."
+     ],
+     "value": null
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "said": [
+      "You chose head of household. Do all of these apply to you for 2025: on December 31, 2025 you were unmarried, or considered unmarried (for example, married but your spouse did not live in your home for the last 6 months of 2025); you paid more than half the cost of keeping up your home for 2025; and a qualifying person, such as your child or a relative you can claim as a dependent, lived with you there for more than half of 2025 (a dependent parent need not live with you if you paid more than half the cost of your parent's main home for all of 2025)? If any of these does not apply, you cannot file as head of household; change your filing status."
+     ],
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "said": [
+      "You chose head of household. Do all of these apply to you for 2025: on December 31, 2025 you were unmarried, or considered unmarried (for example, married but your spouse did not live in your home for the last 6 months of 2025); you paid more than half the cost of keeping up your home for 2025; and a qualifying person, such as your child or a relative you can claim as a dependent, lived with you there for more than half of 2025 (a dependent parent need not live with you if you paid more than half the cost of your parent's main home for all of 2025)? If any of these does not apply, you cannot file as head of household; change your filing status."
+     ],
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "said": [
+      "You chose head of household. Do all of these apply to you for 2025: on December 31, 2025 you were unmarried, or considered unmarried (for example, married but your spouse did not live in your home for the last 6 months of 2025); you paid more than half the cost of keeping up your home for 2025; and a qualifying person, such as your child or a relative you can claim as a dependent, lived with you there for more than half of 2025 (a dependent parent need not live with you if you paid more than half the cost of your parent's main home for all of 2025)? If any of these does not apply, you cannot file as head of household; change your filing status."
+     ],
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "said": [
+      "You chose head of household. Do all of these apply to you for 2025: on December 31, 2025 you were unmarried, or considered unmarried (for example, married but your spouse did not live in your home for the last 6 months of 2025); you paid more than half the cost of keeping up your home for 2025; and a qualifying person, such as your child or a relative you can claim as a dependent, lived with you there for more than half of 2025 (a dependent parent need not live with you if you paid more than half the cost of your parent's main home for all of 2025)? If any of these does not apply, you cannot file as head of household; change your filing status."
+     ],
+     "value": null
+    }
+   },
+   "sentences": [
+    "You chose head of household. Do all of these apply to you for 2025: on December 31, 2025 you were unmarried, or considered unmarried (for example, married but your spouse did not live in your home for the last 6 months of 2025); you paid more than half the cost of keeping up your home for 2025; and a qualifying person, such as your child or a relative you can claim as a dependent, lived with you there for more than half of 2025 (a dependent parent need not live with you if you paid more than half the cost of your parent's main home for all of 2025)? If any of these does not apply, you cannot file as head of household; change your filing status."
+   ],
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 0,
+    "ctc.form1040-line19": null,
+    "ctc.form1040-line28": null,
+    "demo.form1040.standard_deduction": null,
+    "dependents-worksheet.line3": null,
+    "eic.form1040-line27a": null,
+    "eic.qualifying-child-count": 0,
+    "filing-status": null,
+    "filing_status": null,
+    "income.taxable-income": null,
+    "odc.relative-count": 0,
+    "tax.total-tax": null
+   }
+  },
+  "hoh/relative": {
+   "blocked_rules": [
+    "attachment.schedule-a:DEPENDENCY_ABSENT",
+    "ctc-form1040-line19:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-13:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-14:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16a:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-17:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-21:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-22:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-23:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-24:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-25:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-26:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-27:DEPENDENCY_ABSENT",
+    "ctc-sch8812-part-ii-b-needed:DEPENDENCY_ABSENT",
+    "ctc-worksheet-a.line-1:DEPENDENCY_ABSENT",
+    "ctc-worksheet-a.line-2:DEPENDENCY_ABSENT",
+    "ctc-worksheet-a.line-3:DEPENDENCY_ABSENT",
+    "ctc-worksheet-a.line-5:DEPENDENCY_ABSENT",
+    "dependents-worksheet-line-3:DEPENDENCY_ABSENT",
+    "dependents-worksheet-line-4a:DEPENDENCY_ABSENT",
+    "dependents-worksheet-line-4c:DEPENDENCY_ABSENT",
+    "form1040-line12e:DEPENDENCY_ABSENT",
+    "form1040-line14:DEPENDENCY_ABSENT",
+    "form1040-line15:DEPENDENCY_ABSENT",
+    "form1040-line16:DEPENDENCY_ABSENT",
+    "form1040-line20:DEPENDENCY_ABSENT",
+    "form1040-line24:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT",
+    "form1040-lines28-31:DEPENDENCY_ABSENT",
+    "form1040-standard-deduction:DEPENDENCY_ABSENT",
+    "form1040-tax-after-credits:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-10:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-11:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-12:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-14:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-15:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-16:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-17:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-18:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-19:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-20:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-21:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-22:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-23:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-24:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-25:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-5:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-7:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-8:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-9:DEPENDENCY_ABSENT",
+    "schedule-a-excess-over-standard:DEPENDENCY_ABSENT",
+    "schedule3-line1-direct-ftc:DEPENDENCY_ABSENT",
+    "schedule3-line8:DEPENDENCY_ABSENT",
+    "w2-box4-total:DEPENDENCY_ABSENT",
+    "w2-box6-total:DEPENDENCY_ABSENT"
+   ],
+   "guard_inapplicable_rules": [],
+   "lines": {
+    "form1040.line-11a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 50000
+    },
+    "form1040.line-12e": {
+     "disposition": "blocked",
+     "said": [
+      "You chose head of household. Do all of these apply to you for 2025: on December 31, 2025 you were unmarried, or considered unmarried (for example, married but your spouse did not live in your home for the last 6 months of 2025); you paid more than half the cost of keeping up your home for 2025; and a qualifying person, such as your child or a relative you can claim as a dependent, lived with you there for more than half of 2025 (a dependent parent need not live with you if you paid more than half the cost of your parent's main home for all of 2025)? If any of these does not apply, you cannot file as head of household; change your filing status."
+     ],
+     "value": null
+    },
+    "form1040.line-14": {
+     "disposition": "blocked",
+     "said": [
+      "You chose head of household. Do all of these apply to you for 2025: on December 31, 2025 you were unmarried, or considered unmarried (for example, married but your spouse did not live in your home for the last 6 months of 2025); you paid more than half the cost of keeping up your home for 2025; and a qualifying person, such as your child or a relative you can claim as a dependent, lived with you there for more than half of 2025 (a dependent parent need not live with you if you paid more than half the cost of your parent's main home for all of 2025)? If any of these does not apply, you cannot file as head of household; change your filing status."
+     ],
+     "value": null
+    },
+    "form1040.line-15": {
+     "disposition": "blocked",
+     "said": [
+      "You chose head of household. Do all of these apply to you for 2025: on December 31, 2025 you were unmarried, or considered unmarried (for example, married but your spouse did not live in your home for the last 6 months of 2025); you paid more than half the cost of keeping up your home for 2025; and a qualifying person, such as your child or a relative you can claim as a dependent, lived with you there for more than half of 2025 (a dependent parent need not live with you if you paid more than half the cost of your parent's main home for all of 2025)? If any of these does not apply, you cannot file as head of household; change your filing status."
+     ],
+     "value": null
+    },
+    "form1040.line-16": {
+     "disposition": "blocked",
+     "said": [
+      "You chose head of household. Do all of these apply to you for 2025: on December 31, 2025 you were unmarried, or considered unmarried (for example, married but your spouse did not live in your home for the last 6 months of 2025); you paid more than half the cost of keeping up your home for 2025; and a qualifying person, such as your child or a relative you can claim as a dependent, lived with you there for more than half of 2025 (a dependent parent need not live with you if you paid more than half the cost of your parent's main home for all of 2025)? If any of these does not apply, you cannot file as head of household; change your filing status."
+     ],
+     "value": null
+    },
+    "form1040.line-19": {
+     "disposition": "blocked",
+     "said": [
+      "You chose head of household. Do all of these apply to you for 2025: on December 31, 2025 you were unmarried, or considered unmarried (for example, married but your spouse did not live in your home for the last 6 months of 2025); you paid more than half the cost of keeping up your home for 2025; and a qualifying person, such as your child or a relative you can claim as a dependent, lived with you there for more than half of 2025 (a dependent parent need not live with you if you paid more than half the cost of your parent's main home for all of 2025)? If any of these does not apply, you cannot file as head of household; change your filing status."
+     ],
+     "value": null
+    },
+    "form1040.line-24": {
+     "disposition": "blocked",
+     "said": [
+      "You chose head of household. Do all of these apply to you for 2025: on December 31, 2025 you were unmarried, or considered unmarried (for example, married but your spouse did not live in your home for the last 6 months of 2025); you paid more than half the cost of keeping up your home for 2025; and a qualifying person, such as your child or a relative you can claim as a dependent, lived with you there for more than half of 2025 (a dependent parent need not live with you if you paid more than half the cost of your parent's main home for all of 2025)? If any of these does not apply, you cannot file as head of household; change your filing status."
+     ],
+     "value": null
+    },
+    "form1040.line-27a": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-28": {
+     "disposition": "blocked",
+     "said": [
+      "You chose head of household. Do all of these apply to you for 2025: on December 31, 2025 you were unmarried, or considered unmarried (for example, married but your spouse did not live in your home for the last 6 months of 2025); you paid more than half the cost of keeping up your home for 2025; and a qualifying person, such as your child or a relative you can claim as a dependent, lived with you there for more than half of 2025 (a dependent parent need not live with you if you paid more than half the cost of your parent's main home for all of 2025)? If any of these does not apply, you cannot file as head of household; change your filing status."
+     ],
+     "value": null
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "said": [
+      "You chose head of household. Do all of these apply to you for 2025: on December 31, 2025 you were unmarried, or considered unmarried (for example, married but your spouse did not live in your home for the last 6 months of 2025); you paid more than half the cost of keeping up your home for 2025; and a qualifying person, such as your child or a relative you can claim as a dependent, lived with you there for more than half of 2025 (a dependent parent need not live with you if you paid more than half the cost of your parent's main home for all of 2025)? If any of these does not apply, you cannot file as head of household; change your filing status."
+     ],
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "said": [
+      "You chose head of household. Do all of these apply to you for 2025: on December 31, 2025 you were unmarried, or considered unmarried (for example, married but your spouse did not live in your home for the last 6 months of 2025); you paid more than half the cost of keeping up your home for 2025; and a qualifying person, such as your child or a relative you can claim as a dependent, lived with you there for more than half of 2025 (a dependent parent need not live with you if you paid more than half the cost of your parent's main home for all of 2025)? If any of these does not apply, you cannot file as head of household; change your filing status."
+     ],
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "said": [
+      "You chose head of household. Do all of these apply to you for 2025: on December 31, 2025 you were unmarried, or considered unmarried (for example, married but your spouse did not live in your home for the last 6 months of 2025); you paid more than half the cost of keeping up your home for 2025; and a qualifying person, such as your child or a relative you can claim as a dependent, lived with you there for more than half of 2025 (a dependent parent need not live with you if you paid more than half the cost of your parent's main home for all of 2025)? If any of these does not apply, you cannot file as head of household; change your filing status."
+     ],
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "said": [
+      "You chose head of household. Do all of these apply to you for 2025: on December 31, 2025 you were unmarried, or considered unmarried (for example, married but your spouse did not live in your home for the last 6 months of 2025); you paid more than half the cost of keeping up your home for 2025; and a qualifying person, such as your child or a relative you can claim as a dependent, lived with you there for more than half of 2025 (a dependent parent need not live with you if you paid more than half the cost of your parent's main home for all of 2025)? If any of these does not apply, you cannot file as head of household; change your filing status."
+     ],
+     "value": null
+    }
+   },
+   "sentences": [
+    "You chose head of household. Do all of these apply to you for 2025: on December 31, 2025 you were unmarried, or considered unmarried (for example, married but your spouse did not live in your home for the last 6 months of 2025); you paid more than half the cost of keeping up your home for 2025; and a qualifying person, such as your child or a relative you can claim as a dependent, lived with you there for more than half of 2025 (a dependent parent need not live with you if you paid more than half the cost of your parent's main home for all of 2025)? If any of these does not apply, you cannot file as head of household; change your filing status."
+   ],
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 0,
+    "ctc.form1040-line19": null,
+    "ctc.form1040-line28": null,
+    "demo.form1040.standard_deduction": null,
+    "dependents-worksheet.line3": null,
+    "eic.form1040-line27a": null,
+    "eic.qualifying-child-count": 0,
+    "filing-status": null,
+    "filing_status": null,
+    "income.taxable-income": null,
+    "odc.relative-count": 1,
+    "tax.total-tax": null
+   }
+  },
+  "hoh/relative/low": {
+   "blocked_rules": [
+    "attachment.schedule-a:DEPENDENCY_ABSENT",
+    "ctc-form1040-line19:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-13:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-14:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16a:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-17:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-21:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-22:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-23:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-24:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-25:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-26:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-27:DEPENDENCY_ABSENT",
+    "ctc-sch8812-part-ii-b-needed:DEPENDENCY_ABSENT",
+    "ctc-worksheet-a.line-1:DEPENDENCY_ABSENT",
+    "ctc-worksheet-a.line-2:DEPENDENCY_ABSENT",
+    "ctc-worksheet-a.line-3:DEPENDENCY_ABSENT",
+    "ctc-worksheet-a.line-5:DEPENDENCY_ABSENT",
+    "dependents-worksheet-line-3:DEPENDENCY_ABSENT",
+    "dependents-worksheet-line-4a:DEPENDENCY_ABSENT",
+    "dependents-worksheet-line-4c:DEPENDENCY_ABSENT",
+    "form1040-line12e:DEPENDENCY_ABSENT",
+    "form1040-line14:DEPENDENCY_ABSENT",
+    "form1040-line15:DEPENDENCY_ABSENT",
+    "form1040-line16:DEPENDENCY_ABSENT",
+    "form1040-line20:DEPENDENCY_ABSENT",
+    "form1040-line24:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT",
+    "form1040-lines28-31:DEPENDENCY_ABSENT",
+    "form1040-standard-deduction:DEPENDENCY_ABSENT",
+    "form1040-tax-after-credits:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-10:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-11:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-12:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-14:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-15:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-16:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-17:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-18:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-19:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-20:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-21:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-22:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-23:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-24:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-25:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-5:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-7:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-8:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-9:DEPENDENCY_ABSENT",
+    "schedule-a-excess-over-standard:DEPENDENCY_ABSENT",
+    "schedule3-line1-direct-ftc:DEPENDENCY_ABSENT",
+    "schedule3-line8:DEPENDENCY_ABSENT",
+    "w2-box4-total:DEPENDENCY_ABSENT",
+    "w2-box6-total:DEPENDENCY_ABSENT"
+   ],
+   "guard_inapplicable_rules": [],
+   "lines": {
+    "form1040.line-11a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 12000
+    },
+    "form1040.line-12e": {
+     "disposition": "blocked",
+     "said": [
+      "You chose head of household. Do all of these apply to you for 2025: on December 31, 2025 you were unmarried, or considered unmarried (for example, married but your spouse did not live in your home for the last 6 months of 2025); you paid more than half the cost of keeping up your home for 2025; and a qualifying person, such as your child or a relative you can claim as a dependent, lived with you there for more than half of 2025 (a dependent parent need not live with you if you paid more than half the cost of your parent's main home for all of 2025)? If any of these does not apply, you cannot file as head of household; change your filing status."
+     ],
+     "value": null
+    },
+    "form1040.line-14": {
+     "disposition": "blocked",
+     "said": [
+      "You chose head of household. Do all of these apply to you for 2025: on December 31, 2025 you were unmarried, or considered unmarried (for example, married but your spouse did not live in your home for the last 6 months of 2025); you paid more than half the cost of keeping up your home for 2025; and a qualifying person, such as your child or a relative you can claim as a dependent, lived with you there for more than half of 2025 (a dependent parent need not live with you if you paid more than half the cost of your parent's main home for all of 2025)? If any of these does not apply, you cannot file as head of household; change your filing status."
+     ],
+     "value": null
+    },
+    "form1040.line-15": {
+     "disposition": "blocked",
+     "said": [
+      "You chose head of household. Do all of these apply to you for 2025: on December 31, 2025 you were unmarried, or considered unmarried (for example, married but your spouse did not live in your home for the last 6 months of 2025); you paid more than half the cost of keeping up your home for 2025; and a qualifying person, such as your child or a relative you can claim as a dependent, lived with you there for more than half of 2025 (a dependent parent need not live with you if you paid more than half the cost of your parent's main home for all of 2025)? If any of these does not apply, you cannot file as head of household; change your filing status."
+     ],
+     "value": null
+    },
+    "form1040.line-16": {
+     "disposition": "blocked",
+     "said": [
+      "You chose head of household. Do all of these apply to you for 2025: on December 31, 2025 you were unmarried, or considered unmarried (for example, married but your spouse did not live in your home for the last 6 months of 2025); you paid more than half the cost of keeping up your home for 2025; and a qualifying person, such as your child or a relative you can claim as a dependent, lived with you there for more than half of 2025 (a dependent parent need not live with you if you paid more than half the cost of your parent's main home for all of 2025)? If any of these does not apply, you cannot file as head of household; change your filing status."
+     ],
+     "value": null
+    },
+    "form1040.line-19": {
+     "disposition": "blocked",
+     "said": [
+      "You chose head of household. Do all of these apply to you for 2025: on December 31, 2025 you were unmarried, or considered unmarried (for example, married but your spouse did not live in your home for the last 6 months of 2025); you paid more than half the cost of keeping up your home for 2025; and a qualifying person, such as your child or a relative you can claim as a dependent, lived with you there for more than half of 2025 (a dependent parent need not live with you if you paid more than half the cost of your parent's main home for all of 2025)? If any of these does not apply, you cannot file as head of household; change your filing status."
+     ],
+     "value": null
+    },
+    "form1040.line-24": {
+     "disposition": "blocked",
+     "said": [
+      "You chose head of household. Do all of these apply to you for 2025: on December 31, 2025 you were unmarried, or considered unmarried (for example, married but your spouse did not live in your home for the last 6 months of 2025); you paid more than half the cost of keeping up your home for 2025; and a qualifying person, such as your child or a relative you can claim as a dependent, lived with you there for more than half of 2025 (a dependent parent need not live with you if you paid more than half the cost of your parent's main home for all of 2025)? If any of these does not apply, you cannot file as head of household; change your filing status."
+     ],
+     "value": null
+    },
+    "form1040.line-27a": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-28": {
+     "disposition": "blocked",
+     "said": [
+      "You chose head of household. Do all of these apply to you for 2025: on December 31, 2025 you were unmarried, or considered unmarried (for example, married but your spouse did not live in your home for the last 6 months of 2025); you paid more than half the cost of keeping up your home for 2025; and a qualifying person, such as your child or a relative you can claim as a dependent, lived with you there for more than half of 2025 (a dependent parent need not live with you if you paid more than half the cost of your parent's main home for all of 2025)? If any of these does not apply, you cannot file as head of household; change your filing status."
+     ],
+     "value": null
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "said": [
+      "You chose head of household. Do all of these apply to you for 2025: on December 31, 2025 you were unmarried, or considered unmarried (for example, married but your spouse did not live in your home for the last 6 months of 2025); you paid more than half the cost of keeping up your home for 2025; and a qualifying person, such as your child or a relative you can claim as a dependent, lived with you there for more than half of 2025 (a dependent parent need not live with you if you paid more than half the cost of your parent's main home for all of 2025)? If any of these does not apply, you cannot file as head of household; change your filing status."
+     ],
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "said": [
+      "You chose head of household. Do all of these apply to you for 2025: on December 31, 2025 you were unmarried, or considered unmarried (for example, married but your spouse did not live in your home for the last 6 months of 2025); you paid more than half the cost of keeping up your home for 2025; and a qualifying person, such as your child or a relative you can claim as a dependent, lived with you there for more than half of 2025 (a dependent parent need not live with you if you paid more than half the cost of your parent's main home for all of 2025)? If any of these does not apply, you cannot file as head of household; change your filing status."
+     ],
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "said": [
+      "You chose head of household. Do all of these apply to you for 2025: on December 31, 2025 you were unmarried, or considered unmarried (for example, married but your spouse did not live in your home for the last 6 months of 2025); you paid more than half the cost of keeping up your home for 2025; and a qualifying person, such as your child or a relative you can claim as a dependent, lived with you there for more than half of 2025 (a dependent parent need not live with you if you paid more than half the cost of your parent's main home for all of 2025)? If any of these does not apply, you cannot file as head of household; change your filing status."
+     ],
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "said": [
+      "You chose head of household. Do all of these apply to you for 2025: on December 31, 2025 you were unmarried, or considered unmarried (for example, married but your spouse did not live in your home for the last 6 months of 2025); you paid more than half the cost of keeping up your home for 2025; and a qualifying person, such as your child or a relative you can claim as a dependent, lived with you there for more than half of 2025 (a dependent parent need not live with you if you paid more than half the cost of your parent's main home for all of 2025)? If any of these does not apply, you cannot file as head of household; change your filing status."
+     ],
+     "value": null
+    }
+   },
+   "sentences": [
+    "You chose head of household. Do all of these apply to you for 2025: on December 31, 2025 you were unmarried, or considered unmarried (for example, married but your spouse did not live in your home for the last 6 months of 2025); you paid more than half the cost of keeping up your home for 2025; and a qualifying person, such as your child or a relative you can claim as a dependent, lived with you there for more than half of 2025 (a dependent parent need not live with you if you paid more than half the cost of your parent's main home for all of 2025)? If any of these does not apply, you cannot file as head of household; change your filing status."
+   ],
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 0,
+    "ctc.form1040-line19": null,
+    "ctc.form1040-line28": null,
+    "demo.form1040.standard_deduction": null,
+    "dependents-worksheet.line3": null,
+    "eic.form1040-line27a": null,
+    "eic.qualifying-child-count": 0,
+    "filing-status": null,
+    "filing_status": null,
+    "income.taxable-income": null,
+    "odc.relative-count": 1,
+    "tax.total-tax": null
+   }
+  },
+  "mfj/child": {
+   "blocked_rules": [],
+   "guard_inapplicable_rules": [],
+   "lines": {
+    "form1040.line-11a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 50000
+    },
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 31500
+    },
+    "form1040.line-14": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 31500
+    },
+    "form1040.line-15": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 18500
+    },
+    "form1040.line-16": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 1853
+    },
+    "form1040.line-19": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 1853
+    },
+    "form1040.line-24": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-27a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 1203
+    },
+    "form1040.line-28": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 347
+    },
+    "form1040.line-33": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 6050
+    },
+    "form1040.line-34": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 6050
+    },
+    "form1040.line-35a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 6050
+    },
+    "form1040.line-37": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    }
+   },
+   "sentences": [],
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 1,
+    "ctc.form1040-line19": 1853,
+    "ctc.form1040-line28": 347,
+    "demo.form1040.standard_deduction": 31500,
+    "dependents-worksheet.line3": 31500,
+    "eic.form1040-line27a": null,
+    "eic.qualifying-child-count": 1,
+    "filing-status": null,
+    "filing_status": null,
+    "income.taxable-income": 18500,
+    "odc.relative-count": 0,
+    "tax.total-tax": 1853
+   }
+  },
+  "mfj/none": {
+   "blocked_rules": [],
+   "guard_inapplicable_rules": [],
+   "lines": {
+    "form1040.line-11a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 50000
+    },
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 31500
+    },
+    "form1040.line-14": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 31500
+    },
+    "form1040.line-15": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 18500
+    },
+    "form1040.line-16": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 1853
+    },
+    "form1040.line-19": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-24": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 1853
+    },
+    "form1040.line-27a": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-28": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-33": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 4500
+    },
+    "form1040.line-34": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 2647
+    },
+    "form1040.line-35a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 2647
+    },
+    "form1040.line-37": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    }
+   },
+   "sentences": [],
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 0,
+    "ctc.form1040-line19": 0,
+    "ctc.form1040-line28": 0,
+    "demo.form1040.standard_deduction": 31500,
+    "dependents-worksheet.line3": 31500,
+    "eic.form1040-line27a": null,
+    "eic.qualifying-child-count": 0,
+    "filing-status": null,
+    "filing_status": null,
+    "income.taxable-income": 18500,
+    "odc.relative-count": 0,
+    "tax.total-tax": 1853
+   }
+  },
+  "qss/child": {
+   "blocked_rules": [
+    "attachment.schedule-a:DEPENDENCY_ABSENT",
+    "ctc-form1040-line19:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-13:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-14:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16a:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-17:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-21:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-22:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-23:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-24:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-25:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-26:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-27:DEPENDENCY_ABSENT",
+    "ctc-sch8812-part-ii-b-needed:DEPENDENCY_ABSENT",
+    "ctc-worksheet-a.line-1:DEPENDENCY_ABSENT",
+    "ctc-worksheet-a.line-2:DEPENDENCY_ABSENT",
+    "ctc-worksheet-a.line-3:DEPENDENCY_ABSENT",
+    "ctc-worksheet-a.line-5:DEPENDENCY_ABSENT",
+    "dependents-worksheet-line-3:DEPENDENCY_ABSENT",
+    "dependents-worksheet-line-4a:DEPENDENCY_ABSENT",
+    "dependents-worksheet-line-4c:DEPENDENCY_ABSENT",
+    "form1040-line12e:DEPENDENCY_ABSENT",
+    "form1040-line14:DEPENDENCY_ABSENT",
+    "form1040-line15:DEPENDENCY_ABSENT",
+    "form1040-line16:DEPENDENCY_ABSENT",
+    "form1040-line20:DEPENDENCY_ABSENT",
+    "form1040-line24:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT",
+    "form1040-lines28-31:DEPENDENCY_ABSENT",
+    "form1040-standard-deduction:DEPENDENCY_ABSENT",
+    "form1040-tax-after-credits:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-10:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-11:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-12:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-14:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-15:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-16:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-17:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-18:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-19:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-20:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-21:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-22:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-23:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-24:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-25:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-5:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-7:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-8:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-9:DEPENDENCY_ABSENT",
+    "schedule-a-excess-over-standard:DEPENDENCY_ABSENT",
+    "schedule3-line1-direct-ftc:DEPENDENCY_ABSENT",
+    "schedule3-line8:DEPENDENCY_ABSENT",
+    "w2-box4-total:DEPENDENCY_ABSENT",
+    "w2-box6-total:DEPENDENCY_ABSENT"
+   ],
+   "guard_inapplicable_rules": [],
+   "lines": {
+    "form1040.line-11a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 50000
+    },
+    "form1040.line-12e": {
+     "disposition": "blocked",
+     "said": [
+      "You chose qualifying surviving spouse. Do all of these apply to you: your spouse died in 2023 or 2024 and you did not remarry before the end of 2025; you could have filed a joint return with your spouse for the year your spouse died; you have a child or stepchild (not a foster child) you can claim as a dependent who lived in your home all of 2025; and you paid more than half the cost of keeping up that home? If any of these does not apply, you cannot file as a qualifying surviving spouse; change your filing status (if your spouse died in 2025, you can file a joint return for 2025)."
+     ],
+     "value": null
+    },
+    "form1040.line-14": {
+     "disposition": "blocked",
+     "said": [
+      "You chose qualifying surviving spouse. Do all of these apply to you: your spouse died in 2023 or 2024 and you did not remarry before the end of 2025; you could have filed a joint return with your spouse for the year your spouse died; you have a child or stepchild (not a foster child) you can claim as a dependent who lived in your home all of 2025; and you paid more than half the cost of keeping up that home? If any of these does not apply, you cannot file as a qualifying surviving spouse; change your filing status (if your spouse died in 2025, you can file a joint return for 2025)."
+     ],
+     "value": null
+    },
+    "form1040.line-15": {
+     "disposition": "blocked",
+     "said": [
+      "You chose qualifying surviving spouse. Do all of these apply to you: your spouse died in 2023 or 2024 and you did not remarry before the end of 2025; you could have filed a joint return with your spouse for the year your spouse died; you have a child or stepchild (not a foster child) you can claim as a dependent who lived in your home all of 2025; and you paid more than half the cost of keeping up that home? If any of these does not apply, you cannot file as a qualifying surviving spouse; change your filing status (if your spouse died in 2025, you can file a joint return for 2025)."
+     ],
+     "value": null
+    },
+    "form1040.line-16": {
+     "disposition": "blocked",
+     "said": [
+      "You chose qualifying surviving spouse. Do all of these apply to you: your spouse died in 2023 or 2024 and you did not remarry before the end of 2025; you could have filed a joint return with your spouse for the year your spouse died; you have a child or stepchild (not a foster child) you can claim as a dependent who lived in your home all of 2025; and you paid more than half the cost of keeping up that home? If any of these does not apply, you cannot file as a qualifying surviving spouse; change your filing status (if your spouse died in 2025, you can file a joint return for 2025)."
+     ],
+     "value": null
+    },
+    "form1040.line-19": {
+     "disposition": "blocked",
+     "said": [
+      "You chose qualifying surviving spouse. Do all of these apply to you: your spouse died in 2023 or 2024 and you did not remarry before the end of 2025; you could have filed a joint return with your spouse for the year your spouse died; you have a child or stepchild (not a foster child) you can claim as a dependent who lived in your home all of 2025; and you paid more than half the cost of keeping up that home? If any of these does not apply, you cannot file as a qualifying surviving spouse; change your filing status (if your spouse died in 2025, you can file a joint return for 2025)."
+     ],
+     "value": null
+    },
+    "form1040.line-24": {
+     "disposition": "blocked",
+     "said": [
+      "You chose qualifying surviving spouse. Do all of these apply to you: your spouse died in 2023 or 2024 and you did not remarry before the end of 2025; you could have filed a joint return with your spouse for the year your spouse died; you have a child or stepchild (not a foster child) you can claim as a dependent who lived in your home all of 2025; and you paid more than half the cost of keeping up that home? If any of these does not apply, you cannot file as a qualifying surviving spouse; change your filing status (if your spouse died in 2025, you can file a joint return for 2025)."
+     ],
+     "value": null
+    },
+    "form1040.line-27a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 65
+    },
+    "form1040.line-28": {
+     "disposition": "blocked",
+     "said": [
+      "You chose qualifying surviving spouse. Do all of these apply to you: your spouse died in 2023 or 2024 and you did not remarry before the end of 2025; you could have filed a joint return with your spouse for the year your spouse died; you have a child or stepchild (not a foster child) you can claim as a dependent who lived in your home all of 2025; and you paid more than half the cost of keeping up that home? If any of these does not apply, you cannot file as a qualifying surviving spouse; change your filing status (if your spouse died in 2025, you can file a joint return for 2025)."
+     ],
+     "value": null
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "said": [
+      "You chose qualifying surviving spouse. Do all of these apply to you: your spouse died in 2023 or 2024 and you did not remarry before the end of 2025; you could have filed a joint return with your spouse for the year your spouse died; you have a child or stepchild (not a foster child) you can claim as a dependent who lived in your home all of 2025; and you paid more than half the cost of keeping up that home? If any of these does not apply, you cannot file as a qualifying surviving spouse; change your filing status (if your spouse died in 2025, you can file a joint return for 2025)."
+     ],
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "said": [
+      "You chose qualifying surviving spouse. Do all of these apply to you: your spouse died in 2023 or 2024 and you did not remarry before the end of 2025; you could have filed a joint return with your spouse for the year your spouse died; you have a child or stepchild (not a foster child) you can claim as a dependent who lived in your home all of 2025; and you paid more than half the cost of keeping up that home? If any of these does not apply, you cannot file as a qualifying surviving spouse; change your filing status (if your spouse died in 2025, you can file a joint return for 2025)."
+     ],
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "said": [
+      "You chose qualifying surviving spouse. Do all of these apply to you: your spouse died in 2023 or 2024 and you did not remarry before the end of 2025; you could have filed a joint return with your spouse for the year your spouse died; you have a child or stepchild (not a foster child) you can claim as a dependent who lived in your home all of 2025; and you paid more than half the cost of keeping up that home? If any of these does not apply, you cannot file as a qualifying surviving spouse; change your filing status (if your spouse died in 2025, you can file a joint return for 2025)."
+     ],
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "said": [
+      "You chose qualifying surviving spouse. Do all of these apply to you: your spouse died in 2023 or 2024 and you did not remarry before the end of 2025; you could have filed a joint return with your spouse for the year your spouse died; you have a child or stepchild (not a foster child) you can claim as a dependent who lived in your home all of 2025; and you paid more than half the cost of keeping up that home? If any of these does not apply, you cannot file as a qualifying surviving spouse; change your filing status (if your spouse died in 2025, you can file a joint return for 2025)."
+     ],
+     "value": null
+    }
+   },
+   "sentences": [
+    "You chose qualifying surviving spouse. Do all of these apply to you: your spouse died in 2023 or 2024 and you did not remarry before the end of 2025; you could have filed a joint return with your spouse for the year your spouse died; you have a child or stepchild (not a foster child) you can claim as a dependent who lived in your home all of 2025; and you paid more than half the cost of keeping up that home? If any of these does not apply, you cannot file as a qualifying surviving spouse; change your filing status (if your spouse died in 2025, you can file a joint return for 2025)."
+   ],
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 1,
+    "ctc.form1040-line19": null,
+    "ctc.form1040-line28": null,
+    "demo.form1040.standard_deduction": null,
+    "dependents-worksheet.line3": null,
+    "eic.form1040-line27a": null,
+    "eic.qualifying-child-count": 1,
+    "filing-status": null,
+    "filing_status": null,
+    "income.taxable-income": null,
+    "odc.relative-count": 0,
+    "tax.total-tax": null
+   }
+  },
+  "qss/none": {
+   "blocked_rules": [
+    "attachment.schedule-a:DEPENDENCY_ABSENT",
+    "ctc-form1040-line19:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-13:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-14:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16a:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-17:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-21:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-22:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-23:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-24:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-25:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-26:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-27:DEPENDENCY_ABSENT",
+    "ctc-sch8812-part-ii-b-needed:DEPENDENCY_ABSENT",
+    "ctc-worksheet-a.line-1:DEPENDENCY_ABSENT",
+    "ctc-worksheet-a.line-2:DEPENDENCY_ABSENT",
+    "ctc-worksheet-a.line-3:DEPENDENCY_ABSENT",
+    "ctc-worksheet-a.line-5:DEPENDENCY_ABSENT",
+    "dependents-worksheet-line-3:DEPENDENCY_ABSENT",
+    "dependents-worksheet-line-4a:DEPENDENCY_ABSENT",
+    "dependents-worksheet-line-4c:DEPENDENCY_ABSENT",
+    "form1040-line12e:DEPENDENCY_ABSENT",
+    "form1040-line14:DEPENDENCY_ABSENT",
+    "form1040-line15:DEPENDENCY_ABSENT",
+    "form1040-line16:DEPENDENCY_ABSENT",
+    "form1040-line20:DEPENDENCY_ABSENT",
+    "form1040-line24:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT",
+    "form1040-lines28-31:DEPENDENCY_ABSENT",
+    "form1040-standard-deduction:DEPENDENCY_ABSENT",
+    "form1040-tax-after-credits:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-10:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-11:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-12:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-14:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-15:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-16:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-17:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-18:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-19:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-20:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-21:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-22:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-23:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-24:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-25:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-5:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-7:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-8:DEPENDENCY_ABSENT",
+    "qdcg-worksheet.line-9:DEPENDENCY_ABSENT",
+    "schedule-a-excess-over-standard:DEPENDENCY_ABSENT",
+    "schedule3-line1-direct-ftc:DEPENDENCY_ABSENT",
+    "schedule3-line8:DEPENDENCY_ABSENT",
+    "w2-box4-total:DEPENDENCY_ABSENT",
+    "w2-box6-total:DEPENDENCY_ABSENT"
+   ],
+   "guard_inapplicable_rules": [],
+   "lines": {
+    "form1040.line-11a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 50000
+    },
+    "form1040.line-12e": {
+     "disposition": "blocked",
+     "said": [
+      "You chose qualifying surviving spouse. Do all of these apply to you: your spouse died in 2023 or 2024 and you did not remarry before the end of 2025; you could have filed a joint return with your spouse for the year your spouse died; you have a child or stepchild (not a foster child) you can claim as a dependent who lived in your home all of 2025; and you paid more than half the cost of keeping up that home? If any of these does not apply, you cannot file as a qualifying surviving spouse; change your filing status (if your spouse died in 2025, you can file a joint return for 2025)."
+     ],
+     "value": null
+    },
+    "form1040.line-14": {
+     "disposition": "blocked",
+     "said": [
+      "You chose qualifying surviving spouse. Do all of these apply to you: your spouse died in 2023 or 2024 and you did not remarry before the end of 2025; you could have filed a joint return with your spouse for the year your spouse died; you have a child or stepchild (not a foster child) you can claim as a dependent who lived in your home all of 2025; and you paid more than half the cost of keeping up that home? If any of these does not apply, you cannot file as a qualifying surviving spouse; change your filing status (if your spouse died in 2025, you can file a joint return for 2025)."
+     ],
+     "value": null
+    },
+    "form1040.line-15": {
+     "disposition": "blocked",
+     "said": [
+      "You chose qualifying surviving spouse. Do all of these apply to you: your spouse died in 2023 or 2024 and you did not remarry before the end of 2025; you could have filed a joint return with your spouse for the year your spouse died; you have a child or stepchild (not a foster child) you can claim as a dependent who lived in your home all of 2025; and you paid more than half the cost of keeping up that home? If any of these does not apply, you cannot file as a qualifying surviving spouse; change your filing status (if your spouse died in 2025, you can file a joint return for 2025)."
+     ],
+     "value": null
+    },
+    "form1040.line-16": {
+     "disposition": "blocked",
+     "said": [
+      "You chose qualifying surviving spouse. Do all of these apply to you: your spouse died in 2023 or 2024 and you did not remarry before the end of 2025; you could have filed a joint return with your spouse for the year your spouse died; you have a child or stepchild (not a foster child) you can claim as a dependent who lived in your home all of 2025; and you paid more than half the cost of keeping up that home? If any of these does not apply, you cannot file as a qualifying surviving spouse; change your filing status (if your spouse died in 2025, you can file a joint return for 2025)."
+     ],
+     "value": null
+    },
+    "form1040.line-19": {
+     "disposition": "blocked",
+     "said": [
+      "You chose qualifying surviving spouse. Do all of these apply to you: your spouse died in 2023 or 2024 and you did not remarry before the end of 2025; you could have filed a joint return with your spouse for the year your spouse died; you have a child or stepchild (not a foster child) you can claim as a dependent who lived in your home all of 2025; and you paid more than half the cost of keeping up that home? If any of these does not apply, you cannot file as a qualifying surviving spouse; change your filing status (if your spouse died in 2025, you can file a joint return for 2025)."
+     ],
+     "value": null
+    },
+    "form1040.line-24": {
+     "disposition": "blocked",
+     "said": [
+      "You chose qualifying surviving spouse. Do all of these apply to you: your spouse died in 2023 or 2024 and you did not remarry before the end of 2025; you could have filed a joint return with your spouse for the year your spouse died; you have a child or stepchild (not a foster child) you can claim as a dependent who lived in your home all of 2025; and you paid more than half the cost of keeping up that home? If any of these does not apply, you cannot file as a qualifying surviving spouse; change your filing status (if your spouse died in 2025, you can file a joint return for 2025)."
+     ],
+     "value": null
+    },
+    "form1040.line-27a": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-28": {
+     "disposition": "blocked",
+     "said": [
+      "You chose qualifying surviving spouse. Do all of these apply to you: your spouse died in 2023 or 2024 and you did not remarry before the end of 2025; you could have filed a joint return with your spouse for the year your spouse died; you have a child or stepchild (not a foster child) you can claim as a dependent who lived in your home all of 2025; and you paid more than half the cost of keeping up that home? If any of these does not apply, you cannot file as a qualifying surviving spouse; change your filing status (if your spouse died in 2025, you can file a joint return for 2025)."
+     ],
+     "value": null
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "said": [
+      "You chose qualifying surviving spouse. Do all of these apply to you: your spouse died in 2023 or 2024 and you did not remarry before the end of 2025; you could have filed a joint return with your spouse for the year your spouse died; you have a child or stepchild (not a foster child) you can claim as a dependent who lived in your home all of 2025; and you paid more than half the cost of keeping up that home? If any of these does not apply, you cannot file as a qualifying surviving spouse; change your filing status (if your spouse died in 2025, you can file a joint return for 2025)."
+     ],
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "said": [
+      "You chose qualifying surviving spouse. Do all of these apply to you: your spouse died in 2023 or 2024 and you did not remarry before the end of 2025; you could have filed a joint return with your spouse for the year your spouse died; you have a child or stepchild (not a foster child) you can claim as a dependent who lived in your home all of 2025; and you paid more than half the cost of keeping up that home? If any of these does not apply, you cannot file as a qualifying surviving spouse; change your filing status (if your spouse died in 2025, you can file a joint return for 2025)."
+     ],
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "said": [
+      "You chose qualifying surviving spouse. Do all of these apply to you: your spouse died in 2023 or 2024 and you did not remarry before the end of 2025; you could have filed a joint return with your spouse for the year your spouse died; you have a child or stepchild (not a foster child) you can claim as a dependent who lived in your home all of 2025; and you paid more than half the cost of keeping up that home? If any of these does not apply, you cannot file as a qualifying surviving spouse; change your filing status (if your spouse died in 2025, you can file a joint return for 2025)."
+     ],
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "said": [
+      "You chose qualifying surviving spouse. Do all of these apply to you: your spouse died in 2023 or 2024 and you did not remarry before the end of 2025; you could have filed a joint return with your spouse for the year your spouse died; you have a child or stepchild (not a foster child) you can claim as a dependent who lived in your home all of 2025; and you paid more than half the cost of keeping up that home? If any of these does not apply, you cannot file as a qualifying surviving spouse; change your filing status (if your spouse died in 2025, you can file a joint return for 2025)."
+     ],
+     "value": null
+    }
+   },
+   "sentences": [
+    "You chose qualifying surviving spouse. Do all of these apply to you: your spouse died in 2023 or 2024 and you did not remarry before the end of 2025; you could have filed a joint return with your spouse for the year your spouse died; you have a child or stepchild (not a foster child) you can claim as a dependent who lived in your home all of 2025; and you paid more than half the cost of keeping up that home? If any of these does not apply, you cannot file as a qualifying surviving spouse; change your filing status (if your spouse died in 2025, you can file a joint return for 2025)."
+   ],
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 0,
+    "ctc.form1040-line19": null,
+    "ctc.form1040-line28": null,
+    "demo.form1040.standard_deduction": null,
+    "dependents-worksheet.line3": null,
+    "eic.form1040-line27a": null,
+    "eic.qualifying-child-count": 0,
+    "filing-status": null,
+    "filing_status": null,
+    "income.taxable-income": null,
+    "odc.relative-count": 0,
+    "tax.total-tax": null
+   }
+  },
+  "single/child": {
+   "blocked_rules": [],
+   "guard_inapplicable_rules": [],
+   "lines": {
+    "form1040.line-11a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 50000
+    },
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 15750
+    },
+    "form1040.line-14": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 15750
+    },
+    "form1040.line-15": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 34250
+    },
+    "form1040.line-16": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 3875
+    },
+    "form1040.line-19": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 2200
+    },
+    "form1040.line-24": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 1675
+    },
+    "form1040.line-27a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 65
+    },
+    "form1040.line-28": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-33": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 4565
+    },
+    "form1040.line-34": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 2890
+    },
+    "form1040.line-35a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 2890
+    },
+    "form1040.line-37": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    }
+   },
+   "sentences": [],
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 1,
+    "ctc.form1040-line19": 2200,
+    "ctc.form1040-line28": 0,
+    "demo.form1040.standard_deduction": 15750,
+    "dependents-worksheet.line3": 15750,
+    "eic.form1040-line27a": null,
+    "eic.qualifying-child-count": 1,
+    "filing-status": null,
+    "filing_status": null,
+    "income.taxable-income": 34250,
+    "odc.relative-count": 0,
+    "tax.total-tax": 3875
+   }
+  },
+  "single/none": {
+   "blocked_rules": [],
+   "guard_inapplicable_rules": [],
+   "lines": {
+    "form1040.line-11a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 50000
+    },
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 15750
+    },
+    "form1040.line-14": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 15750
+    },
+    "form1040.line-15": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 34250
+    },
+    "form1040.line-16": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 3875
+    },
+    "form1040.line-19": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-24": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 3875
+    },
+    "form1040.line-27a": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-28": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-33": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 4500
+    },
+    "form1040.line-34": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 625
+    },
+    "form1040.line-35a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 625
+    },
+    "form1040.line-37": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    }
+   },
+   "sentences": [],
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 0,
+    "ctc.form1040-line19": 0,
+    "ctc.form1040-line28": 0,
+    "demo.form1040.standard_deduction": 15750,
+    "dependents-worksheet.line3": 15750,
+    "eic.form1040-line27a": null,
+    "eic.qualifying-child-count": 0,
+    "filing-status": null,
+    "filing_status": null,
+    "income.taxable-income": 34250,
+    "odc.relative-count": 0,
+    "tax.total-tax": 3875
+   }
+  },
+  "single/none/low": {
+   "blocked_rules": [],
+   "guard_inapplicable_rules": [],
+   "lines": {
+    "form1040.line-11a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 12000
+    },
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 15750
+    },
+    "form1040.line-14": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 15750
+    },
+    "form1040.line-15": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-16": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-19": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-24": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-27a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 542
+    },
+    "form1040.line-28": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    },
+    "form1040.line-33": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 1542
+    },
+    "form1040.line-34": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 1542
+    },
+    "form1040.line-35a": {
+     "disposition": "published_value",
+     "said": [],
+     "value": 1542
+    },
+    "form1040.line-37": {
+     "disposition": "computed_zero",
+     "said": [],
+     "value": 0
+    }
+   },
+   "sentences": [],
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 0,
+    "ctc.form1040-line19": 0,
+    "ctc.form1040-line28": 0,
+    "demo.form1040.standard_deduction": 15750,
+    "dependents-worksheet.line3": 15750,
+    "eic.form1040-line27a": null,
+    "eic.qualifying-child-count": 0,
+    "filing-status": null,
+    "filing_status": null,
+    "income.taxable-income": 0,
+    "odc.relative-count": 0,
+    "tax.total-tax": 0
+   }
+  }
+ },
+ "wall_time_s": 20.6
+}

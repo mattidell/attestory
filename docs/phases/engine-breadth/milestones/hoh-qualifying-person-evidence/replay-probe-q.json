@@ -1,0 +1,497 @@
+{
+ "format": "full-surface-replay.v1",
+ "cores": [
+  {
+   "version": "v97",
+   "registry": "v95",
+   "release_version": "v95",
+   "loader_from": null,
+   "presence_pairs": [],
+   "package_sha256": "ae2f183b3ab326af9a3722e8a5bd88f4c4581abea51cb90487d50f7ecdf8bf25",
+   "release_sha256": "ea94867848613d3fe46f8f1050ab885f301566a783a2d2c9418dd4f8c0a79df8"
+  },
+  {
+   "version": "v98",
+   "registry": "v96",
+   "release_version": "v96",
+   "loader_from": "v97",
+   "presence_pairs": [],
+   "package_sha256": "8e5f8cd488c83c540aa0c80cfc5ccaadbd138c6f13b4c162c3b114dfe0081a6f",
+   "release_sha256": "c588ad79c5f95a241d3853e989dd6b7c7c4160fe16e3df13b6973993b897acae"
+  }
+ ],
+ "lists": 23,
+ "classes": {
+  "expected_changes": 5,
+  "unexpected": 18
+ },
+ "passing": 5,
+ "failing": 18,
+ "unexpected_differences": 147252,
+ "unexpected_by_kind_attribute": {
+  "attachment|changed|resolved.activeCodes": {
+   "lists": 12,
+   "samples": [
+    {
+     "list": "probe/hoh/none/no",
+     "change": "changed",
+     "kind": "attachment",
+     "identity": "attachments[tax.us.2025.rule.attachment.schedule-a]",
+     "attribute": "resolved.activeCodes",
+     "before": [],
+     "after": [
+      "DEPENDENCY_ABSENT"
+     ]
+    },
+    {
+     "list": "probe/hoh/relative/none",
+     "change": "changed",
+     "kind": "attachment",
+     "identity": "attachments[tax.us.2025.rule.attachment.schedule-a]",
+     "attribute": "resolved.activeCodes",
+     "before": [],
+     "after": [
+      "DEPENDENCY_ABSENT"
+     ]
+    },
+    {
+     "list": "probe/hoh/child/no",
+     "change": "changed",
+     "kind": "attachment",
+     "identity": "attachments[tax.us.2025.rule.attachment.schedule-a]",
+     "attribute": "resolved.activeCodes",
+     "before": [],
+     "after": [
+      "DEPENDENCY_ABSENT"
+     ]
+    }
+   ]
+  },
+  "attachment|changed|resolved.disposition": {
+   "lists": 12,
+   "samples": [
+    {
+     "list": "probe/hoh/none/no",
+     "change": "changed",
+     "kind": "attachment",
+     "identity": "attachments[tax.us.2025.rule.attachment.schedule-a]",
+     "attribute": "resolved.disposition",
+     "before": "guard_inapplicable",
+     "after": "blocked"
+    },
+    {
+     "list": "probe/hoh/relative/none",
+     "change": "changed",
+     "kind": "attachment",
+     "identity": "attachments[tax.us.2025.rule.attachment.schedule-a]",
+     "attribute": "resolved.disposition",
+     "before": "guard_inapplicable",
+     "after": "blocked"
+    },
+    {
+     "list": "probe/hoh/child/no",
+     "change": "changed",
+     "kind": "attachment",
+     "identity": "attachments[tax.us.2025.rule.attachment.schedule-a]",
+     "attribute": "resolved.disposition",
+     "before": "guard_inapplicable",
+     "after": "blocked"
+    }
+   ]
+  },
+  "graph|removed|edges@order": {
+   "lists": 18,
+   "samples": [
+    {
+     "list": "probe/hoh/none/no",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.payments.line36-applied-to-2026~832cb6fe72=finding~tax.us.2025.payments.line36-applied-to-2026~832cb6fe72",
+     "attribute": "edges@order",
+     "before": [
+      "reference:tax.us.2025.package.core-calculations",
+      "reference:tax.us.2025.citation.form1040.line-36",
+      "reference:tax.us.2025.rule.form1040-line36",
+      "input:demo.t2.applied2026"
+     ],
+     "after": null
+    },
+    {
+     "list": "probe/hoh/none/no",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.ctc.sch8812.line-13~b638f1404f=finding~tax.us.2025.ctc.sch8812.line-13~b638f1404f",
+     "attribute": "edges@order",
+     "before": [
+      "reference:tax.us.2025.package.core-calculations",
+      "reference:tax.us.2025.citation.schedule8812.part-i",
+      "reference:tax.us.2025.citation.schedule8812.worksheet-a",
+      "reference:tax.us.2025.rule.ctc-sch8812-line-13"
+     ],
+     "after": null
+    },
+    {
+     "list": "probe/hoh/relative/none",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.payments.line33~80d84460f5=finding~tax.us.2025.payments.line33~80d84460f5",
+     "attribute": "edges@order",
+     "before": [
+      "reference:tax.us.2025.package.core-calculations",
+      "reference:tax.us.2025.citation.form1040.line-33",
+      "reference:tax.us.2025.rule.form1040-line33",
+      "input:demo.cgd.t2.finding.rounding",
+      "reference:round"
+     ],
+     "after": null
+    }
+   ]
+  },
+  "graph|removed|id": {
+   "lists": 18,
+   "samples": [
+    {
+     "list": "probe/hoh/none/no",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.payments.line36-applied-to-2026~832cb6fe72=finding~tax.us.2025.payments.line36-applied-to-2026~832cb6fe72/edges[reference:tax.us.2025.package.core-calculations]/pin=tax.us.2025.package.core-calculations",
+     "attribute": "id",
+     "before": "tax.us.2025.package.core-calculations",
+     "after": null
+    },
+    {
+     "list": "probe/hoh/none/no",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.payments.line36-applied-to-2026~832cb6fe72=finding~tax.us.2025.payments.line36-applied-to-2026~832cb6fe72/edges[reference:tax.us.2025.citation.form1040.line-36]/pin=tax.us.2025.citation.form1040.line-36",
+     "attribute": "id",
+     "before": "tax.us.2025.citation.form1040.line-36",
+     "after": null
+    },
+    {
+     "list": "probe/hoh/none/no",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.payments.line36-applied-to-2026~832cb6fe72=finding~tax.us.2025.payments.line36-applied-to-2026~832cb6fe72/edges[reference:tax.us.2025.rule.form1040-line36]/pin=tax.us.2025.rule.form1040-line36",
+     "attribute": "id",
+     "before": "tax.us.2025.rule.form1040-line36",
+     "after": null
+    }
+   ]
+  },
+  "graph|removed|kind": {
+   "lists": 7,
+   "samples": [
+    {
+     "list": "probe/hoh/none/no",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.payments.line36-applied-to-2026~832cb6fe72=finding~tax.us.2025.payments.line36-applied-to-2026~832cb6fe72",
+     "attribute": "kind",
+     "before": "derived",
+     "after": null
+    },
+    {
+     "list": "probe/hoh/child/yes",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.ctc.sch8812.line-13~b638f1404f=finding~tax.us.2025.ctc.sch8812.line-13~b638f1404f",
+     "attribute": "kind",
+     "before": "derived",
+     "after": null
+    },
+    {
+     "list": "probe/hoh/child/no",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.ctc.sch8812.line-13~b638f1404f=finding~tax.us.2025.ctc.sch8812.line-13~b638f1404f",
+     "attribute": "kind",
+     "before": "derived",
+     "after": null
+    }
+   ]
+  },
+  "graph|removed|origin": {
+   "lists": 18,
+   "samples": [
+    {
+     "list": "probe/hoh/none/no",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.payments.line36-applied-to-2026~832cb6fe72=finding~tax.us.2025.payments.line36-applied-to-2026~832cb6fe72/edges[input:demo.t2.applied2026]/pin=demo.t2.applied2026",
+     "attribute": "origin",
+     "before": "assertion",
+     "after": null
+    },
+    {
+     "list": "probe/hoh/none/no",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.payments.line36-applied-to-2026~832cb6fe72=finding~tax.us.2025.payments.line36-applied-to-2026~832cb6fe72/edges[derived:finding~tax.us.2025.payments.line34-overpaid~dcac5cbb58]/pin=finding~tax.us.2025.payments.line34-overpaid~dcac5cbb58",
+     "attribute": "origin",
+     "before": "declared_default",
+     "after": null
+    },
+    {
+     "list": "probe/hoh/relative/none",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.payments.line33~80d84460f5=finding~tax.us.2025.payments.line33~80d84460f5/edges[input:demo.cgd.t2.finding.rounding]/pin=demo.cgd.t2.finding.rounding",
+     "attribute": "origin",
+     "before": "assertion",
+     "after": null
+    }
+   ]
+  },
+  "graph|removed|role": {
+   "lists": 18,
+   "samples": [
+    {
+     "list": "probe/hoh/none/no",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.payments.line36-applied-to-2026~832cb6fe72=finding~tax.us.2025.payments.line36-applied-to-2026~832cb6fe72/edges[reference:tax.us.2025.package.core-calculations]/pin=tax.us.2025.package.core-calculations",
+     "attribute": "role",
+     "before": "adoption",
+     "after": null
+    },
+    {
+     "list": "probe/hoh/none/no",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.payments.line36-applied-to-2026~832cb6fe72=finding~tax.us.2025.payments.line36-applied-to-2026~832cb6fe72/edges[reference:tax.us.2025.citation.form1040.line-36]/pin=tax.us.2025.citation.form1040.line-36",
+     "attribute": "role",
+     "before": "citation",
+     "after": null
+    },
+    {
+     "list": "probe/hoh/none/no",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.payments.line36-applied-to-2026~832cb6fe72=finding~tax.us.2025.payments.line36-applied-to-2026~832cb6fe72/edges[reference:tax.us.2025.rule.form1040-line36]/pin=tax.us.2025.rule.form1040-line36",
+     "attribute": "role",
+     "before": "computation",
+     "after": null
+    }
+   ]
+  },
+  "graph|removed|symbol": {
+   "lists": 6,
+   "samples": [
+    {
+     "list": "probe/hoh/none/no",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.payments.line36-applied-to-2026~832cb6fe72=finding~tax.us.2025.payments.line36-applied-to-2026~832cb6fe72",
+     "attribute": "symbol",
+     "before": "tax.us.2025.payments.line36-applied-to-2026",
+     "after": null
+    },
+    {
+     "list": "probe/hoh/child/yes",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.ctc.sch8812.line-13~b638f1404f=finding~tax.us.2025.ctc.sch8812.line-13~b638f1404f",
+     "attribute": "symbol",
+     "before": "tax.us.2025.ctc.sch8812.line-13",
+     "after": null
+    },
+    {
+     "list": "probe/hoh/child/no",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.ctc.sch8812.line-13~b638f1404f=finding~tax.us.2025.ctc.sch8812.line-13~b638f1404f",
+     "attribute": "symbol",
+     "before": "tax.us.2025.ctc.sch8812.line-13",
+     "after": null
+    }
+   ]
+  },
+  "graph|removed|target": {
+   "lists": 18,
+   "samples": [
+    {
+     "list": "probe/hoh/none/no",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.payments.line36-applied-to-2026~832cb6fe72=finding~tax.us.2025.payments.line36-applied-to-2026~832cb6fe72/edges[reference:tax.us.2025.package.core-calculations]",
+     "attribute": "target",
+     "before": "reference:tax.us.2025.package.core-calculations",
+     "after": null
+    },
+    {
+     "list": "probe/hoh/none/no",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.payments.line36-applied-to-2026~832cb6fe72=finding~tax.us.2025.payments.line36-applied-to-2026~832cb6fe72/edges[reference:tax.us.2025.citation.form1040.line-36]",
+     "attribute": "target",
+     "before": "reference:tax.us.2025.citation.form1040.line-36",
+     "after": null
+    },
+    {
+     "list": "probe/hoh/none/no",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.payments.line36-applied-to-2026~832cb6fe72=finding~tax.us.2025.payments.line36-applied-to-2026~832cb6fe72/edges[reference:tax.us.2025.rule.form1040-line36]",
+     "attribute": "target",
+     "before": "reference:tax.us.2025.rule.form1040-line36",
+     "after": null
+    }
+   ]
+  },
+  "graph|removed|value": {
+   "lists": 6,
+   "samples": [
+    {
+     "list": "probe/hoh/none/no",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.payments.line36-applied-to-2026~832cb6fe72=finding~tax.us.2025.payments.line36-applied-to-2026~832cb6fe72",
+     "attribute": "value",
+     "before": "0.0",
+     "after": null
+    },
+    {
+     "list": "probe/hoh/child/yes",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.ctc.sch8812.line-13~b638f1404f=finding~tax.us.2025.ctc.sch8812.line-13~b638f1404f",
+     "attribute": "value",
+     "before": "2825",
+     "after": null
+    },
+    {
+     "list": "probe/hoh/child/no",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.ctc.sch8812.line-13~b638f1404f=finding~tax.us.2025.ctc.sch8812.line-13~b638f1404f",
+     "attribute": "value",
+     "before": "2825",
+     "after": null
+    }
+   ]
+  },
+  "graph|removed|version": {
+   "lists": 18,
+   "samples": [
+    {
+     "list": "probe/hoh/none/no",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.payments.line36-applied-to-2026~832cb6fe72=finding~tax.us.2025.payments.line36-applied-to-2026~832cb6fe72/edges[reference:tax.us.2025.package.core-calculations]/pin=tax.us.2025.package.core-calculations",
+     "attribute": "version",
+     "before": "v97",
+     "after": null
+    },
+    {
+     "list": "probe/hoh/none/no",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.payments.line36-applied-to-2026~832cb6fe72=finding~tax.us.2025.payments.line36-applied-to-2026~832cb6fe72/edges[reference:tax.us.2025.citation.form1040.line-36]/pin=tax.us.2025.citation.form1040.line-36",
+     "attribute": "version",
+     "before": "v1",
+     "after": null
+    },
+    {
+     "list": "probe/hoh/none/no",
+     "change": "removed",
+     "kind": "graph",
+     "identity": "explanationGraph.nodes.derived:finding~tax.us.2025.payments.line36-applied-to-2026~832cb6fe72=finding~tax.us.2025.payments.line36-applied-to-2026~832cb6fe72/edges[reference:tax.us.2025.rule.form1040-line36]/pin=tax.us.2025.rule.form1040-line36",
+     "attribute": "version",
+     "before": "v1",
+     "after": null
+    }
+   ]
+  }
+ },
+ "expectations_declared": 4,
+ "expectations_used": 4,
+ "unused_expectations": [],
+ "expectation_lists": {
+  "the standard deduction base rule reads the status tests": [
+   "probe/hoh/child/yes",
+   "probe/hoh/none/yes",
+   "probe/hoh/relative/low/yes",
+   "probe/hoh/relative/yes",
+   "probe/mfj/child/none",
+   "probe/mfj/none/none",
+   "probe/qss/child/yes",
+   "probe/qss/none/yes",
+   "probe/single/child/none",
+   "probe/single/none/low/none",
+   "probe/single/none/none"
+  ],
+  "version:tax.us.2025.package.core-calculations": 23,
+  "question shown:hoh.tests-met": [
+   "probe/hoh/child/no",
+   "probe/hoh/child/none",
+   "probe/hoh/none/no",
+   "probe/hoh/none/none",
+   "probe/hoh/relative/low/no",
+   "probe/hoh/relative/low/none",
+   "probe/hoh/relative/no",
+   "probe/hoh/relative/none"
+  ],
+  "question shown:qss.tests-met": [
+   "probe/qss/child/no",
+   "probe/qss/child/none",
+   "probe/qss/none/no",
+   "probe/qss/none/none"
+  ]
+ },
+ "expected_by_note": {
+  "question shown:hoh.tests-met": 152,
+  "question shown:qss.tests-met": 76,
+  "the standard deduction base rule reads the status tests": 21,
+  "version:tax.us.2025.package.core-calculations": 12557
+ },
+ "outcomes": {
+  "success/success": 23
+ },
+ "list_classes": {
+  "probe/hoh/child/no": "unexpected",
+  "probe/hoh/child/none": "unexpected",
+  "probe/hoh/child/yes": "unexpected",
+  "probe/hoh/none/no": "unexpected",
+  "probe/hoh/none/none": "unexpected",
+  "probe/hoh/none/yes": "unexpected",
+  "probe/hoh/relative/low/no": "unexpected",
+  "probe/hoh/relative/low/none": "unexpected",
+  "probe/hoh/relative/low/yes": "unexpected",
+  "probe/hoh/relative/no": "unexpected",
+  "probe/hoh/relative/none": "unexpected",
+  "probe/hoh/relative/yes": "unexpected",
+  "probe/mfj/child/none": "expected_changes",
+  "probe/mfj/none/none": "expected_changes",
+  "probe/qss/child/no": "unexpected",
+  "probe/qss/child/none": "unexpected",
+  "probe/qss/child/yes": "unexpected",
+  "probe/qss/none/no": "unexpected",
+  "probe/qss/none/none": "unexpected",
+  "probe/qss/none/yes": "unexpected",
+  "probe/single/child/none": "expected_changes",
+  "probe/single/none/low/none": "expected_changes",
+  "probe/single/none/none": "expected_changes"
+ },
+ "failing_lists": {
+  "probe/hoh/child/no": 10228,
+  "probe/hoh/child/none": 10220,
+  "probe/hoh/child/yes": 4818,
+  "probe/hoh/none/no": 9491,
+  "probe/hoh/none/none": 9483,
+  "probe/hoh/none/yes": 4785,
+  "probe/hoh/relative/low/no": 9898,
+  "probe/hoh/relative/low/none": 9890,
+  "probe/hoh/relative/low/yes": 4741,
+  "probe/hoh/relative/no": 9968,
+  "probe/hoh/relative/none": 9960,
+  "probe/hoh/relative/yes": 4785,
+  "probe/qss/child/no": 10208,
+  "probe/qss/child/none": 10200,
+  "probe/qss/child/yes": 4818,
+  "probe/qss/none/no": 9491,
+  "probe/qss/none/none": 9483,
+  "probe/qss/none/yes": 4785
+ },
+ "lists_set": "probe"
+}

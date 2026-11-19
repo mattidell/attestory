@@ -75,3 +75,39 @@ bare label, while a filer who does qualify keeps the same numbers.
 
 1. No change to which answers single, married filing jointly or married
    filing separately need.
+
+## P0 result
+
+Evidence: `hoh-qualifying-person-evidence/p0.md` (2026-11-19, on published
+core v97).
+
+- **The defect is real.** On v97 head of household and qualifying surviving
+  spouse take their larger standard deduction, Tax Table column and
+  preferential ceilings with nothing asked. A 50,000 wage return with no child
+  or dependent is refunded 1,675 as head of household and 2,647 as qualifying
+  surviving spouse against 625 single.
+- **Every larger amount passes through one rule**,
+  `rule.dependents-worksheet-line-3` (the standard deduction base lookup), which
+  line 12e reads on every route. The record never proves either status (home
+  cost, marital status and the spouse's year of death are not recorded) and
+  never proves a contradiction (a qualifying person need not be a claimed
+  dependent), so the honest change is a question, not an inference.
+- **Design (variant q), content only:** a vocabulary bundle with two
+  return-level yes/no answers (`hoh.tests-met`, `qss.tests-met`), two input
+  questions, and `rule.dependents-worksheet-line-3` v2 on the published
+  `rule-artifact.v17` (ADR-0086): it reads the answer only on that status; yes
+  publishes v1's lookup, no refuses and names the question, unanswered asks
+  it. Single, joint and separate read nothing new.
+- **Replay:** all 775 recorded lists are single; 775 pass, 0 unexpected, the
+  only changes are the package and rule versions; no computed return newly
+  blocks or changes a number. On the probes, yes keeps every value of v97
+  (zero substantive differences), no and unanswered block line 12e onward and
+  show the question.
+- **Recommendation:** publish as core v98, registry v96, release v96; Track 1
+  pins the probe cases live. No engine, schema, projection, page or kernel
+  change.
+- **Decisions for the foreman:** p0.md section 6 (one question per status;
+  line 12e's "waiting" sentence after a no; no record shortcut for a counted
+  child; and, outside scope, the earned income credit is $0 for every head of
+  household without a qualifying child although only a married one is
+  barred).

@@ -59,8 +59,8 @@ def expectations() -> list[rr.Expectation]:
     # Seen only where a head of household or qualifying surviving spouse return leaves the answer
     # unanswered or answers no (the probe lists): the page shows the question.
     for fact, text in question.items():
-        out.append(rr.Expectation(("page", "model"), r".*(?:questions|reasons|blocked_reasons).*", "", None, rr.ANY,
-                                  text, f"question shown:{fact.removeprefix(P)}"))
+        out.append(rr.Expectation(("page", "model"), r"sentence", r"resolved\.(?:questions|reasons|blocked_reasons)",
+                                  "added", rr.ANY, text, f"question shown:{fact.removeprefix(P)}"))
     return out
 
 
