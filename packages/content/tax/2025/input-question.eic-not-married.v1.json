@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.eic.not-married",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.eic-not-married",
+  "question": "You file as head of household and no child is counted as your qualifying child for the earned income credit. Were you unmarried at the end of 2025? Answer yes if, on December 31, 2025, you had never married, your spouse had died before 2025 and you had not remarried, your divorce or annulment was final, or you were legally separated from your spouse under a decree of divorce or separate maintenance. Answer no if you were still married then, even if you lived apart from your spouse or had a written separation agreement but no decree, and file as head of household because you are considered unmarried: a married taxpayer filing as head of household cannot take the earned income credit without a qualifying child.",
+  "schema": "input-question.v1",
+  "version": "v1"
+}

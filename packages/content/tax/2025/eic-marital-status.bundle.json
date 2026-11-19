@@ -1,0 +1,33 @@
+{
+  "fact_types": [
+    {
+      "id": "tax.us.2025.eic.not-married",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "You were not married at the end of 2025: on December 31, 2025 you had never married, your spouse had died before 2025 and you had not remarried, your divorce or annulment was final, or you were legally separated from your spouse under a decree of divorce or separate maintenance. No means you were married at the end of 2025, including if you lived apart from your spouse and file as head of household because you are considered unmarried, or your divorce was not final (an interlocutory decree). A married taxpayer whose filing status is head of household cannot take the earned income credit without a qualifying child, so no means the credit is $0 (2025 Form 1040 instructions, line 27a Step 4 question 1; Pub. 596, Rule 3 and EIC Eligibility Checklist question 3; Pub. 501, Marital Status). Asked only on a head of household return with no qualifying child counted for the credit, when the credit could otherwise be more than $0. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.eic-marital-status.vocabulary",
+  "label": "Earned income credit marital status for a head of household without a qualifying child, tax year 2025",
+  "schema": "bundle.v2",
+  "version": "v1"
+}
