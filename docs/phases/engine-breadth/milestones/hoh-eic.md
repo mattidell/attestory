@@ -3,7 +3,8 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "hoh-eic",
-  "status": "Repair chartered 2026-11-19.",
+  "status": "Closed 2026-11-19. Core v99, registry v97, release v97.",
+  "retrospective": "docs/milestone-retrospectives/2026-11-19-hoh-eic.md",
   "scope": [
     "an unmarried head of household with no qualifying child is figured the earned income credit as the 2025 instructions allow, instead of being given $0 because of the filing status",
     "a married head of household (considered unmarried) without a qualifying child still gets no credit, and every other filer keeps their numbers"
@@ -157,3 +158,18 @@ Evidence: `hoh-eic-evidence/p0.md` (2026-11-19, on published core v98).
   unmarried; spouse died in 2025 left to v98's question; a child without a
   valid SSN; the separated-spouse answer has no input question; the replay's
   two added checks).
+
+## Closeout
+
+Closed 2026-11-19. A head of household with no counted qualifying child
+is now asked whether they were unmarried at the end of 2025 (core v99).
+Yes figures the credit as for a single filer; no stops at Step 4 question
+1 with a $0 credit and asks nothing more; unanswered asks the question.
+The separated-spouse answer, asked of a head of household or married
+filing separately filer with a counted child, now has a question too.
+Every other filer keeps v98's values. The fresh review found a married
+"no" still required the Step 4 question 2-6 answers, two of which have no
+question; five answer-rule successors now skip them. The review also
+found two slow fast-lane tests, which were made fast. Parked: the age
+and main-home answers have no question for any filer, and a child
+without a valid SSN is not counted.
