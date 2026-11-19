@@ -17,8 +17,10 @@ cited in p0.md):
 - Form 1040 line 16: the Qualified Dividends and Capital Gain Tax Worksheet
   when Schedule D lines 15 and 16 are both more than zero (i1040gi "Line 16",
   text lines 2375-2385; worksheet text lines 2455-2510); otherwise the Tax
-  Table (i1040gi 2025 Tax Table, from text line 3400; a $50 band taxed at its
-  midpoint by the rate schedule, rounded to the dollar).
+  Table (i1040gi 2025 Tax Table, text lines 4690-5700). tax_table() taxes a
+  $50 band at its midpoint by the 2025 rate brackets and rounds to the
+  dollar; checked against every Tax Table row from 3,000 to 99,950, single
+  and married filing jointly (1,940 rows, no difference).
 
 Every case is the harness wage return (wages 50,000, standard deduction, no
 qualified dividends, no other Schedule D source). This module computes from
@@ -31,7 +33,7 @@ from typing import Any
 
 WAGES = 50000
 STANDARD = {"single": 15750, "married_filing_jointly": 31500}
-# 2025 rate schedules (i1040gi "2025 Tax Rate Schedules"); enough brackets for these cases.
+# 2025 rate brackets (i1040gi Tax Computation Worksheet, text lines 5754-5815); enough for these cases.
 BRACKETS = {
     "single": ((11925, 0.10), (48475, 0.12), (103350, 0.22), (197300, 0.24)),
     "married_filing_jointly": ((23850, 0.10), (96950, 0.12), (206700, 0.22), (394600, 0.24)),

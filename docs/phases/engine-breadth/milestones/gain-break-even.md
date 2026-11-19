@@ -75,3 +75,33 @@ the evidence is the outcome.
 ## Decisions
 
 Pending P0.
+
+## P0 result
+
+Evidence: `docs/phases/engine-breadth/milestones/gain-break-even-evidence/p0.md`
+(scripts `cases.py`, `hand.py`, `compare.py`, `census.py`,
+`gbe_census_plugin.py`; outputs `runs.json`, `comparison.json`,
+`census.json`).
+
+- Census: a scratch plugin recorded every live coordinator run with a sale
+  across the 94 sale-related test files (2,245 runs from 25 files). Gains and
+  break-evens run on every path, but only on cores v11 to v94; on the current
+  v96 only losses run. The long-term no-Form-1099-B break-even has never run.
+- 54 synthetic returns on core v96 through `live_coordinate_run` and the
+  saved page: a gain and a break-even on every path (covered as the control,
+  code W, code B, noncovered, no Form 1099-B), short and long term, single
+  and joint; three mixed returns netting to a gain; four code W probes.
+- All 1,134 checks on the 50 ordinary returns match the hand values from the
+  2025 Form 8949, Schedule D and Form 1040 instructions: Form 8949 part
+  totals, Schedule D lines 1a-16, Form 1040 lines 7a, 15 and 16, the
+  preferential base and the capital gain worksheet. Every return saturated
+  with no block and no question.
+- Bound: a code W row with a positive box 1g on a gain or break-even blocks
+  (ADR-0062 Decision 2, mechanism ADR-0066); a code W gain with box 1g 0
+  computes. A break-even sale files Schedule D with line 16 = 0 by the v10
+  rule; worksheet lines publish as intermediates on non-preferential returns
+  with no dollar effect.
+- Recommendation: tests only. No content repair and no replay.
+- For the foreman: Track 1's case subset (27 suggested), and two noted-only
+  observations (break-even and Exception 1; no question on a code W gain
+  block).
