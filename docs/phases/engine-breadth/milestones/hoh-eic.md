@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "hoh-eic",
-  "status": "P0 chartered 2026-11-19.",
+  "status": "Track 1 chartered 2026-11-19.",
   "scope": [
     "an unmarried head of household with no qualifying child is figured the earned income credit as the 2025 instructions allow, instead of being given $0 because of the filing status",
     "a married head of household (considered unmarried) without a qualifying child still gets no credit, and every other filer keeps their numbers"
@@ -77,6 +77,32 @@ apart.
 
 1. No change to the head of household or surviving spouse questions
    published in core v98; a new fact, if needed, is a new question.
+2. The P0 design: a new return-level answer `tax.us.2025.eic.not-married`
+   and its question, asked only of a head of household with no counted
+   qualifying child when the credit could be above zero;
+   `rule.eic-answer.not-married`, `rule.eic-status-class` v2 and
+   `rule.eic-gate-result` v3. Core v99, registry v97, release v97. This
+   narrows the earned-income-credit milestone's Contract 1 clause ("$0
+   for every head of household without a qualifying child") to a married
+   head of household.
+3. The question names every way to be unmarried on December 31, 2025:
+   never married, a spouse who died before 2025 with no remarriage, a final
+   divorce or annulment, or a decree of divorce or separate maintenance.
+   P0's draft left out the earlier death and the annulment. A spouse who
+   died in 2025 is not named, because v98's head of household question
+   already excludes that filer.
+4. The separated-spouse answer (`rule.eic-answer.separated-spouse`, Step 3
+   questions 3-5) has no input question. A head of household or married
+   filing separately filer with a counted child who leaves it unanswered
+   is blocked with no sentence. Track 1 adds that question, worded from the
+   2025 line 27a instructions.
+5. Parked: a qualifying child without a valid SSN is not counted, so a
+   married head of household in that case gets the new question and $0,
+   where the instructions route them to the separated-spouse test (an
+   existing gap that also affects married filing separately).
+6. Track 1 keeps P0's two added replay checks (the inserted answer and
+   finding ids downstream of it) rather than declaring broader
+   expectations.
 
 ## P0 result
 
