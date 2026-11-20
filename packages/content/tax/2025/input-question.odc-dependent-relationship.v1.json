@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.odc.dependent.relationship",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.odc-dependent-relationship",
+  "question": "Is this person your son, daughter, stepchild, foster child, or a descendant of any of them; your brother, sister, half brother, half sister, or a son or daughter of any of them; your father, mother, or an ancestor or sibling of either of them; or your stepbrother, stepsister, stepfather, stepmother, son-in-law, daughter-in-law, father-in-law, mother-in-law, brother-in-law, or sister-in-law? Answer yes if so. Also answer yes if this person, other than your spouse, lived with you all year as a member of your household and your relationship didn't violate local law. Answer no otherwise.",
+  "schema": "input-question.v1",
+  "version": "v1"
+}

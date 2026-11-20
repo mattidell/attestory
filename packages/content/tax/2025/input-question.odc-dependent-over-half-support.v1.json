@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.odc.dependent.over-half-support",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.odc-dependent-over-half-support",
+  "question": "Did you provide over half of this person's support in 2025? Answer yes if you did. Answer no if you did not, including where you would be treated as providing it only under a multiple support agreement.",
+  "schema": "input-question.v1",
+  "version": "v1"
+}

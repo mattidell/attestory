@@ -1,0 +1,6184 @@
+{
+ "core": {
+  "package": "v100",
+  "registry": "v98",
+  "release": "v98"
+ },
+ "runs": {
+  "mfj/kid1/30000/age@1": {
+   "blocked_page_lines_without_sentence": [
+    "form.eic-worksheet-a.line-2",
+    "form.eic-worksheet-a.line-5",
+    "form.eic-worksheet-a.line-6",
+    "form1040.line-27a",
+    "form1040.line-32",
+    "form1040.line-33",
+    "form1040.line-34",
+    "form1040.line-35a",
+    "form1040.line-37"
+   ],
+   "blocked_rules": [
+    "eic-answer.age-25-under-65:DEPENDENCY_ABSENT",
+    "eic-answer.main-home-in-us:DEPENDENCY_ABSENT",
+    "eic-answer.no-unsupported-situations:DEPENDENCY_ABSENT",
+    "eic-answer.not-claimable-as-dependent:DEPENDENCY_ABSENT",
+    "eic-answer.not-married:DEPENDENCY_ABSENT",
+    "eic-answer.not-nonresident-alien:DEPENDENCY_ABSENT",
+    "eic-answer.not-qualifying-child-of-another:DEPENDENCY_ABSENT",
+    "eic-answer.separated-spouse:DEPENDENCY_ABSENT",
+    "eic-answer.spouse-valid-ssn:DEPENDENCY_ABSENT",
+    "eic-answer.taxpayer-valid-ssn:DEPENDENCY_ABSENT",
+    "eic-child.counts:DEPENDENCY_ABSENT",
+    "eic-column-count:DEPENDENCY_ABSENT",
+    "eic-column.completed:DEPENDENCY_ABSENT",
+    "eic-column.phaseout-threshold:DEPENDENCY_ABSENT",
+    "eic-early-stop:DEPENDENCY_ABSENT",
+    "eic-eligibility:DEPENDENCY_ABSENT",
+    "eic-gate-result:DEPENDENCY_ABSENT",
+    "eic-qualifying-child-count:DEPENDENCY_INVALID",
+    "eic-questions-required:DEPENDENCY_ABSENT",
+    "eic-status-class:DEPENDENCY_ABSENT",
+    "eic-table-key:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-2:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-5:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-6:DEPENDENCY_ABSENT",
+    "form1040-line27a:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form.eic-worksheet-a.line-2": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form.eic-worksheet-a.line-5": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form.eic-worksheet-a.line-6": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-19": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form1040.line-24": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form1040.line-27a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-28": {
+     "disposition": "published_value",
+     "value": 1700
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "value": null
+    }
+   },
+   "reasons": {},
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 1,
+    "ctc.form1040-line19": 0,
+    "eic.column-count": null,
+    "eic.eligibility-result": null,
+    "eic.gate-result": null,
+    "eic.qualifying-child-count": null,
+    "odc.child-count": 0,
+    "odc.relative-count": 0,
+    "payments.line27a": null,
+    "tax.total-tax": 0
+   }
+  },
+  "mfj/kid1/30000/joint@1": {
+   "blocked_page_lines_without_sentence": [
+    "form.eic-worksheet-a.line-2",
+    "form.eic-worksheet-a.line-5",
+    "form.eic-worksheet-a.line-6",
+    "form.sch8812.line-14",
+    "form.sch8812.line-17",
+    "form.sch8812.line-4",
+    "form1040.line-19",
+    "form1040.line-24",
+    "form1040.line-27a",
+    "form1040.line-28",
+    "form1040.line-32",
+    "form1040.line-33",
+    "form1040.line-34",
+    "form1040.line-35a",
+    "form1040.line-37",
+    "form1040.tax-after-credits"
+   ],
+   "blocked_rules": [
+    "ctc-child-count:DEPENDENCY_INVALID",
+    "ctc-child.counts:DEPENDENCY_ABSENT",
+    "ctc-filer-gate:DEPENDENCY_ABSENT",
+    "ctc-filer-ssn-gate:DEPENDENCY_ABSENT",
+    "ctc-form1040-line19:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-12:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-14:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16a:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16b:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-17:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-21:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-22:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-23:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-24:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-25:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-26:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-27:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-4:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-5:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-8:DEPENDENCY_ABSENT",
+    "ctc-sch8812-part-ii-b-needed:DEPENDENCY_ABSENT",
+    "ctc-spouse-gate:DEPENDENCY_ABSENT",
+    "eic-answer.age-25-under-65:DEPENDENCY_ABSENT",
+    "eic-answer.main-home-in-us:DEPENDENCY_ABSENT",
+    "eic-answer.no-unsupported-situations:DEPENDENCY_ABSENT",
+    "eic-answer.not-claimable-as-dependent:DEPENDENCY_ABSENT",
+    "eic-answer.not-married:DEPENDENCY_ABSENT",
+    "eic-answer.not-nonresident-alien:DEPENDENCY_ABSENT",
+    "eic-answer.not-qualifying-child-of-another:DEPENDENCY_ABSENT",
+    "eic-answer.separated-spouse:DEPENDENCY_ABSENT",
+    "eic-answer.spouse-valid-ssn:DEPENDENCY_ABSENT",
+    "eic-answer.taxpayer-valid-ssn:DEPENDENCY_ABSENT",
+    "eic-child.counts:DEPENDENCY_ABSENT",
+    "eic-column-count:DEPENDENCY_ABSENT",
+    "eic-column.completed:DEPENDENCY_ABSENT",
+    "eic-column.phaseout-threshold:DEPENDENCY_ABSENT",
+    "eic-early-stop:DEPENDENCY_ABSENT",
+    "eic-eligibility:DEPENDENCY_ABSENT",
+    "eic-gate-result:DEPENDENCY_ABSENT",
+    "eic-qualifying-child-count:DEPENDENCY_INVALID",
+    "eic-questions-required:DEPENDENCY_ABSENT",
+    "eic-status-class:DEPENDENCY_ABSENT",
+    "eic-table-key:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-2:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-5:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-6:DEPENDENCY_ABSENT",
+    "form1040-line24:DEPENDENCY_ABSENT",
+    "form1040-line27a:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT",
+    "form1040-lines28-31:DEPENDENCY_ABSENT",
+    "form1040-tax-after-credits:DEPENDENCY_ABSENT",
+    "w2-box4-total:DEPENDENCY_ABSENT",
+    "w2-box6-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form.eic-worksheet-a.line-2": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form.eic-worksheet-a.line-5": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form.eic-worksheet-a.line-6": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-19": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-24": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-27a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-28": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "value": null
+    }
+   },
+   "reasons": {},
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": null,
+    "ctc.form1040-line19": null,
+    "eic.column-count": null,
+    "eic.eligibility-result": null,
+    "eic.gate-result": null,
+    "eic.qualifying-child-count": null,
+    "odc.child-count": 0,
+    "odc.relative-count": 0,
+    "payments.line27a": null,
+    "tax.total-tax": 0
+   }
+  },
+  "single/kid1/30000/-": {
+   "blocked_page_lines_without_sentence": [],
+   "blocked_rules": [],
+   "lines": {
+    "form.eic-worksheet-a.line-2": {
+     "disposition": "published_value",
+     "value": 3261
+    },
+    "form.eic-worksheet-a.line-5": {
+     "disposition": "published_value",
+     "value": 3261
+    },
+    "form.eic-worksheet-a.line-6": {
+     "disposition": "published_value",
+     "value": 3261
+    },
+    "form1040.line-19": {
+     "disposition": "published_value",
+     "value": 1475
+    },
+    "form1040.line-24": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form1040.line-27a": {
+     "disposition": "published_value",
+     "value": 3261
+    },
+    "form1040.line-28": {
+     "disposition": "published_value",
+     "value": 725
+    },
+    "form1040.line-33": {
+     "disposition": "published_value",
+     "value": 4486
+    },
+    "form1040.line-34": {
+     "disposition": "published_value",
+     "value": 4486
+    },
+    "form1040.line-35a": {
+     "disposition": "published_value",
+     "value": 4486
+    },
+    "form1040.line-37": {
+     "disposition": "computed_zero",
+     "value": 0
+    }
+   },
+   "reasons": {},
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 1,
+    "ctc.form1040-line19": 1475,
+    "eic.column-count": 1,
+    "eic.eligibility-result": 3261,
+    "eic.gate-result": 3261,
+    "eic.qualifying-child-count": 1,
+    "odc.child-count": 0,
+    "odc.relative-count": 0,
+    "payments.line27a": 3261,
+    "tax.total-tax": 1475
+   }
+  },
+  "single/kid1/30000/age@1": {
+   "blocked_page_lines_without_sentence": [
+    "form.eic-worksheet-a.line-2",
+    "form.eic-worksheet-a.line-5",
+    "form.eic-worksheet-a.line-6",
+    "form1040.line-27a",
+    "form1040.line-32",
+    "form1040.line-33",
+    "form1040.line-34",
+    "form1040.line-35a",
+    "form1040.line-37"
+   ],
+   "blocked_rules": [
+    "eic-answer.age-25-under-65:DEPENDENCY_ABSENT",
+    "eic-answer.main-home-in-us:DEPENDENCY_ABSENT",
+    "eic-answer.no-unsupported-situations:DEPENDENCY_ABSENT",
+    "eic-answer.not-claimable-as-dependent:DEPENDENCY_ABSENT",
+    "eic-answer.not-married:DEPENDENCY_ABSENT",
+    "eic-answer.not-nonresident-alien:DEPENDENCY_ABSENT",
+    "eic-answer.not-qualifying-child-of-another:DEPENDENCY_ABSENT",
+    "eic-answer.separated-spouse:DEPENDENCY_ABSENT",
+    "eic-answer.spouse-valid-ssn:DEPENDENCY_ABSENT",
+    "eic-answer.taxpayer-valid-ssn:DEPENDENCY_ABSENT",
+    "eic-child.counts:DEPENDENCY_ABSENT",
+    "eic-column-count:DEPENDENCY_ABSENT",
+    "eic-column.completed:DEPENDENCY_ABSENT",
+    "eic-column.phaseout-threshold:DEPENDENCY_ABSENT",
+    "eic-early-stop:DEPENDENCY_ABSENT",
+    "eic-eligibility:DEPENDENCY_ABSENT",
+    "eic-gate-result:DEPENDENCY_ABSENT",
+    "eic-qualifying-child-count:DEPENDENCY_INVALID",
+    "eic-questions-required:DEPENDENCY_ABSENT",
+    "eic-status-class:DEPENDENCY_ABSENT",
+    "eic-table-key:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-2:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-5:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-6:DEPENDENCY_ABSENT",
+    "form1040-line27a:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form.eic-worksheet-a.line-2": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form.eic-worksheet-a.line-5": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form.eic-worksheet-a.line-6": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-19": {
+     "disposition": "published_value",
+     "value": 1475
+    },
+    "form1040.line-24": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form1040.line-27a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-28": {
+     "disposition": "published_value",
+     "value": 725
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "value": null
+    }
+   },
+   "reasons": {},
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 1,
+    "ctc.form1040-line19": 1475,
+    "eic.column-count": null,
+    "eic.eligibility-result": null,
+    "eic.gate-result": null,
+    "eic.qualifying-child-count": null,
+    "odc.child-count": 0,
+    "odc.relative-count": 0,
+    "payments.line27a": null,
+    "tax.total-tax": 1475
+   }
+  },
+  "single/kid1/30000/citizen@1": {
+   "blocked_page_lines_without_sentence": [
+    "form.sch8812.line-14",
+    "form.sch8812.line-17",
+    "form.sch8812.line-4",
+    "form1040.line-19",
+    "form1040.line-24",
+    "form1040.line-28",
+    "form1040.line-32",
+    "form1040.line-33",
+    "form1040.line-34",
+    "form1040.line-35a",
+    "form1040.line-37",
+    "form1040.tax-after-credits"
+   ],
+   "blocked_rules": [
+    "ctc-child-count:DEPENDENCY_INVALID",
+    "ctc-child.counts:DEPENDENCY_ABSENT",
+    "ctc-filer-gate:DEPENDENCY_ABSENT",
+    "ctc-filer-ssn-gate:DEPENDENCY_ABSENT",
+    "ctc-form1040-line19:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-12:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-14:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16a:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16b:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-17:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-21:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-22:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-23:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-24:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-25:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-26:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-27:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-4:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-5:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-8:DEPENDENCY_ABSENT",
+    "ctc-sch8812-part-ii-b-needed:DEPENDENCY_ABSENT",
+    "ctc-spouse-gate:DEPENDENCY_ABSENT",
+    "form1040-line24:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT",
+    "form1040-lines28-31:DEPENDENCY_ABSENT",
+    "form1040-tax-after-credits:DEPENDENCY_ABSENT",
+    "w2-box4-total:DEPENDENCY_ABSENT",
+    "w2-box6-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form.eic-worksheet-a.line-2": {
+     "disposition": "published_value",
+     "value": 3261
+    },
+    "form.eic-worksheet-a.line-5": {
+     "disposition": "published_value",
+     "value": 3261
+    },
+    "form.eic-worksheet-a.line-6": {
+     "disposition": "published_value",
+     "value": 3261
+    },
+    "form1040.line-19": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-24": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-27a": {
+     "disposition": "published_value",
+     "value": 3261
+    },
+    "form1040.line-28": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "value": null
+    }
+   },
+   "reasons": {},
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": null,
+    "ctc.form1040-line19": null,
+    "eic.column-count": 1,
+    "eic.eligibility-result": 3261,
+    "eic.gate-result": 3261,
+    "eic.qualifying-child-count": 1,
+    "odc.child-count": 0,
+    "odc.relative-count": 0,
+    "payments.line27a": 3261,
+    "tax.total-tax": 1475
+   }
+  },
+  "single/kid1/30000/dtb-another@1": {
+   "blocked_page_lines_without_sentence": [
+    "form.eic-worksheet-a.line-2",
+    "form.eic-worksheet-a.line-5",
+    "form.eic-worksheet-a.line-6",
+    "form.sch8812.line-14",
+    "form.sch8812.line-17",
+    "form.sch8812.line-4",
+    "form1040.line-19",
+    "form1040.line-24",
+    "form1040.line-27a",
+    "form1040.line-28",
+    "form1040.line-32",
+    "form1040.line-33",
+    "form1040.line-34",
+    "form1040.line-35a",
+    "form1040.line-37",
+    "form1040.tax-after-credits"
+   ],
+   "blocked_rules": [
+    "ctc-child-count:DEPENDENCY_INVALID",
+    "ctc-child.counts:DEPENDENCY_ABSENT",
+    "ctc-filer-gate:DEPENDENCY_ABSENT",
+    "ctc-filer-ssn-gate:DEPENDENCY_ABSENT",
+    "ctc-form1040-line19:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-12:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-14:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16a:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16b:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-17:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-21:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-22:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-23:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-24:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-25:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-26:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-27:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-4:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-5:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-8:DEPENDENCY_ABSENT",
+    "ctc-sch8812-part-ii-b-needed:DEPENDENCY_ABSENT",
+    "ctc-spouse-gate:DEPENDENCY_ABSENT",
+    "dtb-child.tie-breaker-clear:DEPENDENCY_ABSENT",
+    "eic-answer.age-25-under-65:DEPENDENCY_ABSENT",
+    "eic-answer.main-home-in-us:DEPENDENCY_ABSENT",
+    "eic-answer.no-unsupported-situations:DEPENDENCY_ABSENT",
+    "eic-answer.not-claimable-as-dependent:DEPENDENCY_ABSENT",
+    "eic-answer.not-married:DEPENDENCY_ABSENT",
+    "eic-answer.not-nonresident-alien:DEPENDENCY_ABSENT",
+    "eic-answer.not-qualifying-child-of-another:DEPENDENCY_ABSENT",
+    "eic-answer.separated-spouse:DEPENDENCY_ABSENT",
+    "eic-answer.spouse-valid-ssn:DEPENDENCY_ABSENT",
+    "eic-answer.taxpayer-valid-ssn:DEPENDENCY_ABSENT",
+    "eic-child.counts:DEPENDENCY_ABSENT",
+    "eic-column-count:DEPENDENCY_ABSENT",
+    "eic-column.completed:DEPENDENCY_ABSENT",
+    "eic-column.phaseout-threshold:DEPENDENCY_ABSENT",
+    "eic-early-stop:DEPENDENCY_ABSENT",
+    "eic-eligibility:DEPENDENCY_ABSENT",
+    "eic-gate-result:DEPENDENCY_ABSENT",
+    "eic-qualifying-child-count:DEPENDENCY_INVALID",
+    "eic-questions-required:DEPENDENCY_ABSENT",
+    "eic-status-class:DEPENDENCY_ABSENT",
+    "eic-table-key:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-2:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-5:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-6:DEPENDENCY_ABSENT",
+    "form1040-line24:DEPENDENCY_ABSENT",
+    "form1040-line27a:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT",
+    "form1040-lines28-31:DEPENDENCY_ABSENT",
+    "form1040-tax-after-credits:DEPENDENCY_ABSENT",
+    "w2-box4-total:DEPENDENCY_ABSENT",
+    "w2-box6-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form.eic-worksheet-a.line-2": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form.eic-worksheet-a.line-5": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form.eic-worksheet-a.line-6": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-19": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-24": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-27a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-28": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "value": null
+    }
+   },
+   "reasons": {},
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": null,
+    "ctc.form1040-line19": null,
+    "eic.column-count": null,
+    "eic.eligibility-result": null,
+    "eic.gate-result": null,
+    "eic.qualifying-child-count": null,
+    "odc.child-count": 0,
+    "odc.relative-count": 0,
+    "payments.line27a": null,
+    "tax.total-tax": 1475
+   }
+  },
+  "single/kid1/30000/dtb-filer-parent@1": {
+   "blocked_page_lines_without_sentence": [
+    "form.eic-worksheet-a.line-2",
+    "form.eic-worksheet-a.line-5",
+    "form.eic-worksheet-a.line-6",
+    "form.sch8812.line-14",
+    "form.sch8812.line-17",
+    "form.sch8812.line-4",
+    "form1040.line-19",
+    "form1040.line-24",
+    "form1040.line-27a",
+    "form1040.line-28",
+    "form1040.line-32",
+    "form1040.line-33",
+    "form1040.line-34",
+    "form1040.line-35a",
+    "form1040.line-37",
+    "form1040.tax-after-credits"
+   ],
+   "blocked_rules": [
+    "ctc-child-count:DEPENDENCY_INVALID",
+    "ctc-child.counts:DEPENDENCY_ABSENT",
+    "ctc-filer-gate:DEPENDENCY_ABSENT",
+    "ctc-filer-ssn-gate:DEPENDENCY_ABSENT",
+    "ctc-form1040-line19:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-12:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-14:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16a:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16b:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-17:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-21:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-22:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-23:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-24:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-25:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-26:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-27:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-4:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-5:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-8:DEPENDENCY_ABSENT",
+    "ctc-sch8812-part-ii-b-needed:DEPENDENCY_ABSENT",
+    "ctc-spouse-gate:DEPENDENCY_ABSENT",
+    "dtb-child.tie-breaker-clear:DEPENDENCY_ABSENT",
+    "eic-answer.age-25-under-65:DEPENDENCY_ABSENT",
+    "eic-answer.main-home-in-us:DEPENDENCY_ABSENT",
+    "eic-answer.no-unsupported-situations:DEPENDENCY_ABSENT",
+    "eic-answer.not-claimable-as-dependent:DEPENDENCY_ABSENT",
+    "eic-answer.not-married:DEPENDENCY_ABSENT",
+    "eic-answer.not-nonresident-alien:DEPENDENCY_ABSENT",
+    "eic-answer.not-qualifying-child-of-another:DEPENDENCY_ABSENT",
+    "eic-answer.separated-spouse:DEPENDENCY_ABSENT",
+    "eic-answer.spouse-valid-ssn:DEPENDENCY_ABSENT",
+    "eic-answer.taxpayer-valid-ssn:DEPENDENCY_ABSENT",
+    "eic-child.counts:DEPENDENCY_ABSENT",
+    "eic-column-count:DEPENDENCY_ABSENT",
+    "eic-column.completed:DEPENDENCY_ABSENT",
+    "eic-column.phaseout-threshold:DEPENDENCY_ABSENT",
+    "eic-early-stop:DEPENDENCY_ABSENT",
+    "eic-eligibility:DEPENDENCY_ABSENT",
+    "eic-gate-result:DEPENDENCY_ABSENT",
+    "eic-qualifying-child-count:DEPENDENCY_INVALID",
+    "eic-questions-required:DEPENDENCY_ABSENT",
+    "eic-status-class:DEPENDENCY_ABSENT",
+    "eic-table-key:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-2:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-5:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-6:DEPENDENCY_ABSENT",
+    "form1040-line24:DEPENDENCY_ABSENT",
+    "form1040-line27a:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT",
+    "form1040-lines28-31:DEPENDENCY_ABSENT",
+    "form1040-tax-after-credits:DEPENDENCY_ABSENT",
+    "w2-box4-total:DEPENDENCY_ABSENT",
+    "w2-box6-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form.eic-worksheet-a.line-2": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form.eic-worksheet-a.line-5": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form.eic-worksheet-a.line-6": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-19": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-24": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-27a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-28": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "value": null
+    }
+   },
+   "reasons": {},
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": null,
+    "ctc.form1040-line19": null,
+    "eic.column-count": null,
+    "eic.eligibility-result": null,
+    "eic.gate-result": null,
+    "eic.qualifying-child-count": null,
+    "odc.child-count": 0,
+    "odc.relative-count": 0,
+    "payments.line27a": null,
+    "tax.total-tax": 1475
+   }
+  },
+  "single/kid1/30000/joint@1": {
+   "blocked_page_lines_without_sentence": [
+    "form.eic-worksheet-a.line-2",
+    "form.eic-worksheet-a.line-5",
+    "form.eic-worksheet-a.line-6",
+    "form.sch8812.line-14",
+    "form.sch8812.line-17",
+    "form.sch8812.line-4",
+    "form1040.line-19",
+    "form1040.line-24",
+    "form1040.line-27a",
+    "form1040.line-28",
+    "form1040.line-32",
+    "form1040.line-33",
+    "form1040.line-34",
+    "form1040.line-35a",
+    "form1040.line-37",
+    "form1040.tax-after-credits"
+   ],
+   "blocked_rules": [
+    "ctc-child-count:DEPENDENCY_INVALID",
+    "ctc-child.counts:DEPENDENCY_ABSENT",
+    "ctc-filer-gate:DEPENDENCY_ABSENT",
+    "ctc-filer-ssn-gate:DEPENDENCY_ABSENT",
+    "ctc-form1040-line19:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-12:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-14:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16a:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16b:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-17:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-21:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-22:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-23:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-24:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-25:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-26:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-27:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-4:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-5:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-8:DEPENDENCY_ABSENT",
+    "ctc-sch8812-part-ii-b-needed:DEPENDENCY_ABSENT",
+    "ctc-spouse-gate:DEPENDENCY_ABSENT",
+    "eic-answer.age-25-under-65:DEPENDENCY_ABSENT",
+    "eic-answer.main-home-in-us:DEPENDENCY_ABSENT",
+    "eic-answer.no-unsupported-situations:DEPENDENCY_ABSENT",
+    "eic-answer.not-claimable-as-dependent:DEPENDENCY_ABSENT",
+    "eic-answer.not-married:DEPENDENCY_ABSENT",
+    "eic-answer.not-nonresident-alien:DEPENDENCY_ABSENT",
+    "eic-answer.not-qualifying-child-of-another:DEPENDENCY_ABSENT",
+    "eic-answer.separated-spouse:DEPENDENCY_ABSENT",
+    "eic-answer.spouse-valid-ssn:DEPENDENCY_ABSENT",
+    "eic-answer.taxpayer-valid-ssn:DEPENDENCY_ABSENT",
+    "eic-child.counts:DEPENDENCY_ABSENT",
+    "eic-column-count:DEPENDENCY_ABSENT",
+    "eic-column.completed:DEPENDENCY_ABSENT",
+    "eic-column.phaseout-threshold:DEPENDENCY_ABSENT",
+    "eic-early-stop:DEPENDENCY_ABSENT",
+    "eic-eligibility:DEPENDENCY_ABSENT",
+    "eic-gate-result:DEPENDENCY_ABSENT",
+    "eic-qualifying-child-count:DEPENDENCY_INVALID",
+    "eic-questions-required:DEPENDENCY_ABSENT",
+    "eic-status-class:DEPENDENCY_ABSENT",
+    "eic-table-key:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-2:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-5:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-6:DEPENDENCY_ABSENT",
+    "form1040-line24:DEPENDENCY_ABSENT",
+    "form1040-line27a:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT",
+    "form1040-lines28-31:DEPENDENCY_ABSENT",
+    "form1040-tax-after-credits:DEPENDENCY_ABSENT",
+    "w2-box4-total:DEPENDENCY_ABSENT",
+    "w2-box6-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form.eic-worksheet-a.line-2": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form.eic-worksheet-a.line-5": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form.eic-worksheet-a.line-6": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-19": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-24": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-27a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-28": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "value": null
+    }
+   },
+   "reasons": {},
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": null,
+    "ctc.form1040-line19": null,
+    "eic.column-count": null,
+    "eic.eligibility-result": null,
+    "eic.gate-result": null,
+    "eic.qualifying-child-count": null,
+    "odc.child-count": 0,
+    "odc.relative-count": 0,
+    "payments.line27a": null,
+    "tax.total-tax": 1475
+   }
+  },
+  "single/kid1/30000/lived@1": {
+   "blocked_page_lines_without_sentence": [
+    "form.sch8812.line-14",
+    "form.sch8812.line-17",
+    "form.sch8812.line-4",
+    "form1040.line-19",
+    "form1040.line-24",
+    "form1040.line-28",
+    "form1040.line-32",
+    "form1040.line-33",
+    "form1040.line-34",
+    "form1040.line-35a",
+    "form1040.line-37",
+    "form1040.tax-after-credits"
+   ],
+   "blocked_rules": [
+    "ctc-child-count:DEPENDENCY_INVALID",
+    "ctc-child.counts:DEPENDENCY_ABSENT",
+    "ctc-filer-gate:DEPENDENCY_ABSENT",
+    "ctc-filer-ssn-gate:DEPENDENCY_ABSENT",
+    "ctc-form1040-line19:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-12:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-14:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16a:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16b:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-17:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-21:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-22:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-23:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-24:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-25:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-26:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-27:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-4:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-5:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-8:DEPENDENCY_ABSENT",
+    "ctc-sch8812-part-ii-b-needed:DEPENDENCY_ABSENT",
+    "ctc-spouse-gate:DEPENDENCY_ABSENT",
+    "form1040-line24:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT",
+    "form1040-lines28-31:DEPENDENCY_ABSENT",
+    "form1040-tax-after-credits:DEPENDENCY_ABSENT",
+    "w2-box4-total:DEPENDENCY_ABSENT",
+    "w2-box6-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form.eic-worksheet-a.line-2": {
+     "disposition": "published_value",
+     "value": 3261
+    },
+    "form.eic-worksheet-a.line-5": {
+     "disposition": "published_value",
+     "value": 3261
+    },
+    "form.eic-worksheet-a.line-6": {
+     "disposition": "published_value",
+     "value": 3261
+    },
+    "form1040.line-19": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-24": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-27a": {
+     "disposition": "published_value",
+     "value": 3261
+    },
+    "form1040.line-28": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "value": null
+    }
+   },
+   "reasons": {},
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": null,
+    "ctc.form1040-line19": null,
+    "eic.column-count": 1,
+    "eic.eligibility-result": 3261,
+    "eic.gate-result": 3261,
+    "eic.qualifying-child-count": 1,
+    "odc.child-count": 0,
+    "odc.relative-count": 0,
+    "payments.line27a": 3261,
+    "tax.total-tax": 1475
+   }
+  },
+  "single/kid1/30000/res@1": {
+   "blocked_page_lines_without_sentence": [
+    "form.eic-worksheet-a.line-2",
+    "form.eic-worksheet-a.line-5",
+    "form.eic-worksheet-a.line-6",
+    "form1040.line-27a",
+    "form1040.line-32",
+    "form1040.line-33",
+    "form1040.line-34",
+    "form1040.line-35a",
+    "form1040.line-37"
+   ],
+   "blocked_rules": [
+    "eic-answer.age-25-under-65:DEPENDENCY_ABSENT",
+    "eic-answer.main-home-in-us:DEPENDENCY_ABSENT",
+    "eic-answer.no-unsupported-situations:DEPENDENCY_ABSENT",
+    "eic-answer.not-claimable-as-dependent:DEPENDENCY_ABSENT",
+    "eic-answer.not-married:DEPENDENCY_ABSENT",
+    "eic-answer.not-nonresident-alien:DEPENDENCY_ABSENT",
+    "eic-answer.not-qualifying-child-of-another:DEPENDENCY_ABSENT",
+    "eic-answer.separated-spouse:DEPENDENCY_ABSENT",
+    "eic-answer.spouse-valid-ssn:DEPENDENCY_ABSENT",
+    "eic-answer.taxpayer-valid-ssn:DEPENDENCY_ABSENT",
+    "eic-child.counts:DEPENDENCY_ABSENT",
+    "eic-column-count:DEPENDENCY_ABSENT",
+    "eic-column.completed:DEPENDENCY_ABSENT",
+    "eic-column.phaseout-threshold:DEPENDENCY_ABSENT",
+    "eic-early-stop:DEPENDENCY_ABSENT",
+    "eic-eligibility:DEPENDENCY_ABSENT",
+    "eic-gate-result:DEPENDENCY_ABSENT",
+    "eic-qualifying-child-count:DEPENDENCY_INVALID",
+    "eic-questions-required:DEPENDENCY_ABSENT",
+    "eic-status-class:DEPENDENCY_ABSENT",
+    "eic-table-key:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-2:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-5:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-6:DEPENDENCY_ABSENT",
+    "form1040-line27a:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form.eic-worksheet-a.line-2": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form.eic-worksheet-a.line-5": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form.eic-worksheet-a.line-6": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-19": {
+     "disposition": "published_value",
+     "value": 1475
+    },
+    "form1040.line-24": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form1040.line-27a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-28": {
+     "disposition": "published_value",
+     "value": 725
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "value": null
+    }
+   },
+   "reasons": {},
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 1,
+    "ctc.form1040-line19": 1475,
+    "eic.column-count": null,
+    "eic.eligibility-result": null,
+    "eic.gate-result": null,
+    "eic.qualifying-child-count": null,
+    "odc.child-count": 0,
+    "odc.relative-count": 0,
+    "payments.line27a": null,
+    "tax.total-tax": 1475
+   }
+  },
+  "single/kid1/30000/ssn@1": {
+   "blocked_page_lines_without_sentence": [
+    "form.eic-worksheet-a.line-2",
+    "form.eic-worksheet-a.line-5",
+    "form.eic-worksheet-a.line-6",
+    "form.sch8812.line-14",
+    "form.sch8812.line-17",
+    "form.sch8812.line-4",
+    "form1040.line-19",
+    "form1040.line-24",
+    "form1040.line-27a",
+    "form1040.line-28",
+    "form1040.line-32",
+    "form1040.line-33",
+    "form1040.line-34",
+    "form1040.line-35a",
+    "form1040.line-37",
+    "form1040.tax-after-credits"
+   ],
+   "blocked_rules": [
+    "ctc-child-count:DEPENDENCY_INVALID",
+    "ctc-child.counts:DEPENDENCY_ABSENT",
+    "ctc-filer-gate:DEPENDENCY_ABSENT",
+    "ctc-filer-ssn-gate:DEPENDENCY_ABSENT",
+    "ctc-form1040-line19:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-12:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-14:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16a:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16b:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-17:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-21:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-22:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-23:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-24:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-25:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-26:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-27:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-4:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-5:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-8:DEPENDENCY_ABSENT",
+    "ctc-sch8812-part-ii-b-needed:DEPENDENCY_ABSENT",
+    "ctc-spouse-gate:DEPENDENCY_ABSENT",
+    "eic-answer.age-25-under-65:DEPENDENCY_ABSENT",
+    "eic-answer.main-home-in-us:DEPENDENCY_ABSENT",
+    "eic-answer.no-unsupported-situations:DEPENDENCY_ABSENT",
+    "eic-answer.not-claimable-as-dependent:DEPENDENCY_ABSENT",
+    "eic-answer.not-married:DEPENDENCY_ABSENT",
+    "eic-answer.not-nonresident-alien:DEPENDENCY_ABSENT",
+    "eic-answer.not-qualifying-child-of-another:DEPENDENCY_ABSENT",
+    "eic-answer.separated-spouse:DEPENDENCY_ABSENT",
+    "eic-answer.spouse-valid-ssn:DEPENDENCY_ABSENT",
+    "eic-answer.taxpayer-valid-ssn:DEPENDENCY_ABSENT",
+    "eic-child.counts:DEPENDENCY_ABSENT",
+    "eic-column-count:DEPENDENCY_ABSENT",
+    "eic-column.completed:DEPENDENCY_ABSENT",
+    "eic-column.phaseout-threshold:DEPENDENCY_ABSENT",
+    "eic-early-stop:DEPENDENCY_ABSENT",
+    "eic-eligibility:DEPENDENCY_ABSENT",
+    "eic-gate-result:DEPENDENCY_ABSENT",
+    "eic-qualifying-child-count:DEPENDENCY_INVALID",
+    "eic-questions-required:DEPENDENCY_ABSENT",
+    "eic-status-class:DEPENDENCY_ABSENT",
+    "eic-table-key:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-2:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-5:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-6:DEPENDENCY_ABSENT",
+    "form1040-line24:DEPENDENCY_ABSENT",
+    "form1040-line27a:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT",
+    "form1040-lines28-31:DEPENDENCY_ABSENT",
+    "form1040-tax-after-credits:DEPENDENCY_ABSENT",
+    "w2-box4-total:DEPENDENCY_ABSENT",
+    "w2-box6-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form.eic-worksheet-a.line-2": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form.eic-worksheet-a.line-5": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form.eic-worksheet-a.line-6": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-19": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-24": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-27a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-28": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "value": null
+    }
+   },
+   "reasons": {},
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": null,
+    "ctc.form1040-line19": null,
+    "eic.column-count": null,
+    "eic.eligibility-result": null,
+    "eic.gate-result": null,
+    "eic.qualifying-child-count": null,
+    "odc.child-count": 0,
+    "odc.relative-count": 0,
+    "payments.line27a": null,
+    "tax.total-tax": 1475
+   }
+  },
+  "single/kid1/30000/support@1": {
+   "blocked_page_lines_without_sentence": [
+    "form.sch8812.line-14",
+    "form.sch8812.line-17",
+    "form.sch8812.line-4",
+    "form1040.line-19",
+    "form1040.line-24",
+    "form1040.line-28",
+    "form1040.line-32",
+    "form1040.line-33",
+    "form1040.line-34",
+    "form1040.line-35a",
+    "form1040.line-37",
+    "form1040.tax-after-credits"
+   ],
+   "blocked_rules": [
+    "ctc-child-count:DEPENDENCY_INVALID",
+    "ctc-child.counts:DEPENDENCY_ABSENT",
+    "ctc-filer-gate:DEPENDENCY_ABSENT",
+    "ctc-filer-ssn-gate:DEPENDENCY_ABSENT",
+    "ctc-form1040-line19:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-12:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-14:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16a:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16b:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-17:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-21:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-22:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-23:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-24:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-25:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-26:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-27:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-4:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-5:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-8:DEPENDENCY_ABSENT",
+    "ctc-sch8812-part-ii-b-needed:DEPENDENCY_ABSENT",
+    "ctc-spouse-gate:DEPENDENCY_ABSENT",
+    "form1040-line24:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT",
+    "form1040-lines28-31:DEPENDENCY_ABSENT",
+    "form1040-tax-after-credits:DEPENDENCY_ABSENT",
+    "w2-box4-total:DEPENDENCY_ABSENT",
+    "w2-box6-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form.eic-worksheet-a.line-2": {
+     "disposition": "published_value",
+     "value": 3261
+    },
+    "form.eic-worksheet-a.line-5": {
+     "disposition": "published_value",
+     "value": 3261
+    },
+    "form.eic-worksheet-a.line-6": {
+     "disposition": "published_value",
+     "value": 3261
+    },
+    "form1040.line-19": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-24": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-27a": {
+     "disposition": "published_value",
+     "value": 3261
+    },
+    "form1040.line-28": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "value": null
+    }
+   },
+   "reasons": {},
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": null,
+    "ctc.form1040-line19": null,
+    "eic.column-count": 1,
+    "eic.eligibility-result": 3261,
+    "eic.gate-result": 3261,
+    "eic.qualifying-child-count": 1,
+    "odc.child-count": 0,
+    "odc.relative-count": 0,
+    "payments.line27a": 3261,
+    "tax.total-tax": 1475
+   }
+  },
+  "single/kid1/30000/u17@1": {
+   "blocked_page_lines_without_sentence": [
+    "form.sch8812.line-14",
+    "form.sch8812.line-17",
+    "form.sch8812.line-4",
+    "form1040.line-19",
+    "form1040.line-24",
+    "form1040.line-28",
+    "form1040.line-32",
+    "form1040.line-33",
+    "form1040.line-34",
+    "form1040.line-35a",
+    "form1040.line-37",
+    "form1040.tax-after-credits"
+   ],
+   "blocked_rules": [
+    "ctc-child-count:DEPENDENCY_INVALID",
+    "ctc-child.counts:DEPENDENCY_ABSENT",
+    "ctc-filer-gate:DEPENDENCY_ABSENT",
+    "ctc-filer-ssn-gate:DEPENDENCY_ABSENT",
+    "ctc-form1040-line19:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-12:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-14:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16a:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16b:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-17:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-21:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-22:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-23:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-24:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-25:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-26:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-27:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-4:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-5:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-8:DEPENDENCY_ABSENT",
+    "ctc-sch8812-part-ii-b-needed:DEPENDENCY_ABSENT",
+    "ctc-spouse-gate:DEPENDENCY_ABSENT",
+    "form1040-line24:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT",
+    "form1040-lines28-31:DEPENDENCY_ABSENT",
+    "form1040-tax-after-credits:DEPENDENCY_ABSENT",
+    "w2-box4-total:DEPENDENCY_ABSENT",
+    "w2-box6-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form.eic-worksheet-a.line-2": {
+     "disposition": "published_value",
+     "value": 3261
+    },
+    "form.eic-worksheet-a.line-5": {
+     "disposition": "published_value",
+     "value": 3261
+    },
+    "form.eic-worksheet-a.line-6": {
+     "disposition": "published_value",
+     "value": 3261
+    },
+    "form1040.line-19": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-24": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-27a": {
+     "disposition": "published_value",
+     "value": 3261
+    },
+    "form1040.line-28": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "value": null
+    }
+   },
+   "reasons": {},
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": null,
+    "ctc.form1040-line19": null,
+    "eic.column-count": 1,
+    "eic.eligibility-result": 3261,
+    "eic.gate-result": 3261,
+    "eic.qualifying-child-count": 1,
+    "odc.child-count": 0,
+    "odc.relative-count": 0,
+    "payments.line27a": 3261,
+    "tax.total-tax": 1475
+   }
+  },
+  "single/kid2/30000/-": {
+   "blocked_page_lines_without_sentence": [],
+   "blocked_rules": [],
+   "lines": {
+    "form.eic-worksheet-a.line-2": {
+     "disposition": "published_value",
+     "value": 5746
+    },
+    "form.eic-worksheet-a.line-5": {
+     "disposition": "published_value",
+     "value": 5746
+    },
+    "form.eic-worksheet-a.line-6": {
+     "disposition": "published_value",
+     "value": 5746
+    },
+    "form1040.line-19": {
+     "disposition": "published_value",
+     "value": 1475
+    },
+    "form1040.line-24": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form1040.line-27a": {
+     "disposition": "published_value",
+     "value": 5746
+    },
+    "form1040.line-28": {
+     "disposition": "published_value",
+     "value": 2925
+    },
+    "form1040.line-33": {
+     "disposition": "published_value",
+     "value": 9171
+    },
+    "form1040.line-34": {
+     "disposition": "published_value",
+     "value": 9171
+    },
+    "form1040.line-35a": {
+     "disposition": "published_value",
+     "value": 9171
+    },
+    "form1040.line-37": {
+     "disposition": "computed_zero",
+     "value": 0
+    }
+   },
+   "reasons": {},
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 2,
+    "ctc.form1040-line19": 1475,
+    "eic.column-count": 2,
+    "eic.eligibility-result": 5746,
+    "eic.gate-result": 5746,
+    "eic.qualifying-child-count": 2,
+    "odc.child-count": 0,
+    "odc.relative-count": 0,
+    "payments.line27a": 5746,
+    "tax.total-tax": 1475
+   }
+  },
+  "single/kid2/30000/age@1": {
+   "blocked_page_lines_without_sentence": [
+    "form.eic-worksheet-a.line-2",
+    "form.eic-worksheet-a.line-5",
+    "form.eic-worksheet-a.line-6",
+    "form1040.line-27a",
+    "form1040.line-32",
+    "form1040.line-33",
+    "form1040.line-34",
+    "form1040.line-35a",
+    "form1040.line-37"
+   ],
+   "blocked_rules": [
+    "eic-answer.age-25-under-65:DEPENDENCY_ABSENT",
+    "eic-answer.main-home-in-us:DEPENDENCY_ABSENT",
+    "eic-answer.no-unsupported-situations:DEPENDENCY_ABSENT",
+    "eic-answer.not-claimable-as-dependent:DEPENDENCY_ABSENT",
+    "eic-answer.not-married:DEPENDENCY_ABSENT",
+    "eic-answer.not-nonresident-alien:DEPENDENCY_ABSENT",
+    "eic-answer.not-qualifying-child-of-another:DEPENDENCY_ABSENT",
+    "eic-answer.separated-spouse:DEPENDENCY_ABSENT",
+    "eic-answer.spouse-valid-ssn:DEPENDENCY_ABSENT",
+    "eic-answer.taxpayer-valid-ssn:DEPENDENCY_ABSENT",
+    "eic-child.counts:DEPENDENCY_ABSENT",
+    "eic-column-count:DEPENDENCY_ABSENT",
+    "eic-column.completed:DEPENDENCY_ABSENT",
+    "eic-column.phaseout-threshold:DEPENDENCY_ABSENT",
+    "eic-early-stop:DEPENDENCY_ABSENT",
+    "eic-eligibility:DEPENDENCY_ABSENT",
+    "eic-gate-result:DEPENDENCY_ABSENT",
+    "eic-qualifying-child-count:DEPENDENCY_INVALID",
+    "eic-questions-required:DEPENDENCY_ABSENT",
+    "eic-status-class:DEPENDENCY_ABSENT",
+    "eic-table-key:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-2:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-5:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-6:DEPENDENCY_ABSENT",
+    "form1040-line27a:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form.eic-worksheet-a.line-2": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form.eic-worksheet-a.line-5": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form.eic-worksheet-a.line-6": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-19": {
+     "disposition": "published_value",
+     "value": 1475
+    },
+    "form1040.line-24": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form1040.line-27a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-28": {
+     "disposition": "published_value",
+     "value": 2925
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "value": null
+    }
+   },
+   "reasons": {},
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 2,
+    "ctc.form1040-line19": 1475,
+    "eic.column-count": null,
+    "eic.eligibility-result": null,
+    "eic.gate-result": null,
+    "eic.qualifying-child-count": null,
+    "odc.child-count": 0,
+    "odc.relative-count": 0,
+    "payments.line27a": null,
+    "tax.total-tax": 1475
+   }
+  },
+  "single/kid2/30000/age@1+age@2": {
+   "blocked_page_lines_without_sentence": [
+    "form.eic-worksheet-a.line-2",
+    "form.eic-worksheet-a.line-5",
+    "form.eic-worksheet-a.line-6",
+    "form1040.line-27a",
+    "form1040.line-32",
+    "form1040.line-33",
+    "form1040.line-34",
+    "form1040.line-35a",
+    "form1040.line-37"
+   ],
+   "blocked_rules": [
+    "eic-answer.age-25-under-65:DEPENDENCY_ABSENT",
+    "eic-answer.main-home-in-us:DEPENDENCY_ABSENT",
+    "eic-answer.no-unsupported-situations:DEPENDENCY_ABSENT",
+    "eic-answer.not-claimable-as-dependent:DEPENDENCY_ABSENT",
+    "eic-answer.not-married:DEPENDENCY_ABSENT",
+    "eic-answer.not-nonresident-alien:DEPENDENCY_ABSENT",
+    "eic-answer.not-qualifying-child-of-another:DEPENDENCY_ABSENT",
+    "eic-answer.separated-spouse:DEPENDENCY_ABSENT",
+    "eic-answer.spouse-valid-ssn:DEPENDENCY_ABSENT",
+    "eic-answer.taxpayer-valid-ssn:DEPENDENCY_ABSENT",
+    "eic-child.counts:DEPENDENCY_ABSENT",
+    "eic-column-count:DEPENDENCY_ABSENT",
+    "eic-column.completed:DEPENDENCY_ABSENT",
+    "eic-column.phaseout-threshold:DEPENDENCY_ABSENT",
+    "eic-early-stop:DEPENDENCY_ABSENT",
+    "eic-eligibility:DEPENDENCY_ABSENT",
+    "eic-gate-result:DEPENDENCY_ABSENT",
+    "eic-qualifying-child-count:DEPENDENCY_INVALID",
+    "eic-questions-required:DEPENDENCY_ABSENT",
+    "eic-status-class:DEPENDENCY_ABSENT",
+    "eic-table-key:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-2:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-5:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-6:DEPENDENCY_ABSENT",
+    "form1040-line27a:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form.eic-worksheet-a.line-2": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form.eic-worksheet-a.line-5": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form.eic-worksheet-a.line-6": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-19": {
+     "disposition": "published_value",
+     "value": 1475
+    },
+    "form1040.line-24": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form1040.line-27a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-28": {
+     "disposition": "published_value",
+     "value": 2925
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "value": null
+    }
+   },
+   "reasons": {},
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 2,
+    "ctc.form1040-line19": 1475,
+    "eic.column-count": null,
+    "eic.eligibility-result": null,
+    "eic.gate-result": null,
+    "eic.qualifying-child-count": null,
+    "odc.child-count": 0,
+    "odc.relative-count": 0,
+    "payments.line27a": null,
+    "tax.total-tax": 1475
+   }
+  },
+  "single/kid2/30000/age@1+res@2": {
+   "blocked_page_lines_without_sentence": [
+    "form.eic-worksheet-a.line-2",
+    "form.eic-worksheet-a.line-5",
+    "form.eic-worksheet-a.line-6",
+    "form1040.line-27a",
+    "form1040.line-32",
+    "form1040.line-33",
+    "form1040.line-34",
+    "form1040.line-35a",
+    "form1040.line-37"
+   ],
+   "blocked_rules": [
+    "eic-answer.age-25-under-65:DEPENDENCY_ABSENT",
+    "eic-answer.main-home-in-us:DEPENDENCY_ABSENT",
+    "eic-answer.no-unsupported-situations:DEPENDENCY_ABSENT",
+    "eic-answer.not-claimable-as-dependent:DEPENDENCY_ABSENT",
+    "eic-answer.not-married:DEPENDENCY_ABSENT",
+    "eic-answer.not-nonresident-alien:DEPENDENCY_ABSENT",
+    "eic-answer.not-qualifying-child-of-another:DEPENDENCY_ABSENT",
+    "eic-answer.separated-spouse:DEPENDENCY_ABSENT",
+    "eic-answer.spouse-valid-ssn:DEPENDENCY_ABSENT",
+    "eic-answer.taxpayer-valid-ssn:DEPENDENCY_ABSENT",
+    "eic-child.counts:DEPENDENCY_ABSENT",
+    "eic-column-count:DEPENDENCY_ABSENT",
+    "eic-column.completed:DEPENDENCY_ABSENT",
+    "eic-column.phaseout-threshold:DEPENDENCY_ABSENT",
+    "eic-early-stop:DEPENDENCY_ABSENT",
+    "eic-eligibility:DEPENDENCY_ABSENT",
+    "eic-gate-result:DEPENDENCY_ABSENT",
+    "eic-qualifying-child-count:DEPENDENCY_INVALID",
+    "eic-questions-required:DEPENDENCY_ABSENT",
+    "eic-status-class:DEPENDENCY_ABSENT",
+    "eic-table-key:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-2:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-5:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-6:DEPENDENCY_ABSENT",
+    "form1040-line27a:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form.eic-worksheet-a.line-2": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form.eic-worksheet-a.line-5": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form.eic-worksheet-a.line-6": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-19": {
+     "disposition": "published_value",
+     "value": 1475
+    },
+    "form1040.line-24": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form1040.line-27a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-28": {
+     "disposition": "published_value",
+     "value": 2925
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "value": null
+    }
+   },
+   "reasons": {},
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 2,
+    "ctc.form1040-line19": 1475,
+    "eic.column-count": null,
+    "eic.eligibility-result": null,
+    "eic.gate-result": null,
+    "eic.qualifying-child-count": null,
+    "odc.child-count": 0,
+    "odc.relative-count": 0,
+    "payments.line27a": null,
+    "tax.total-tax": 1475
+   }
+  },
+  "single/kid2/30000/age@2": {
+   "blocked_page_lines_without_sentence": [
+    "form.eic-worksheet-a.line-2",
+    "form.eic-worksheet-a.line-5",
+    "form.eic-worksheet-a.line-6",
+    "form1040.line-27a",
+    "form1040.line-32",
+    "form1040.line-33",
+    "form1040.line-34",
+    "form1040.line-35a",
+    "form1040.line-37"
+   ],
+   "blocked_rules": [
+    "eic-answer.age-25-under-65:DEPENDENCY_ABSENT",
+    "eic-answer.main-home-in-us:DEPENDENCY_ABSENT",
+    "eic-answer.no-unsupported-situations:DEPENDENCY_ABSENT",
+    "eic-answer.not-claimable-as-dependent:DEPENDENCY_ABSENT",
+    "eic-answer.not-married:DEPENDENCY_ABSENT",
+    "eic-answer.not-nonresident-alien:DEPENDENCY_ABSENT",
+    "eic-answer.not-qualifying-child-of-another:DEPENDENCY_ABSENT",
+    "eic-answer.separated-spouse:DEPENDENCY_ABSENT",
+    "eic-answer.spouse-valid-ssn:DEPENDENCY_ABSENT",
+    "eic-answer.taxpayer-valid-ssn:DEPENDENCY_ABSENT",
+    "eic-child.counts:DEPENDENCY_ABSENT",
+    "eic-column-count:DEPENDENCY_ABSENT",
+    "eic-column.completed:DEPENDENCY_ABSENT",
+    "eic-column.phaseout-threshold:DEPENDENCY_ABSENT",
+    "eic-early-stop:DEPENDENCY_ABSENT",
+    "eic-eligibility:DEPENDENCY_ABSENT",
+    "eic-gate-result:DEPENDENCY_ABSENT",
+    "eic-qualifying-child-count:DEPENDENCY_INVALID",
+    "eic-questions-required:DEPENDENCY_ABSENT",
+    "eic-status-class:DEPENDENCY_ABSENT",
+    "eic-table-key:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-2:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-5:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-6:DEPENDENCY_ABSENT",
+    "form1040-line27a:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form.eic-worksheet-a.line-2": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form.eic-worksheet-a.line-5": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form.eic-worksheet-a.line-6": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-19": {
+     "disposition": "published_value",
+     "value": 1475
+    },
+    "form1040.line-24": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form1040.line-27a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-28": {
+     "disposition": "published_value",
+     "value": 2925
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "value": null
+    }
+   },
+   "reasons": {},
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 2,
+    "ctc.form1040-line19": 1475,
+    "eic.column-count": null,
+    "eic.eligibility-result": null,
+    "eic.gate-result": null,
+    "eic.qualifying-child-count": null,
+    "odc.child-count": 0,
+    "odc.relative-count": 0,
+    "payments.line27a": null,
+    "tax.total-tax": 1475
+   }
+  },
+  "single/kid2/30000/citizen@2": {
+   "blocked_page_lines_without_sentence": [
+    "form.sch8812.line-14",
+    "form.sch8812.line-17",
+    "form.sch8812.line-4",
+    "form1040.line-19",
+    "form1040.line-24",
+    "form1040.line-28",
+    "form1040.line-32",
+    "form1040.line-33",
+    "form1040.line-34",
+    "form1040.line-35a",
+    "form1040.line-37",
+    "form1040.tax-after-credits"
+   ],
+   "blocked_rules": [
+    "ctc-child-count:DEPENDENCY_INVALID",
+    "ctc-child.counts:DEPENDENCY_ABSENT",
+    "ctc-filer-gate:DEPENDENCY_ABSENT",
+    "ctc-filer-ssn-gate:DEPENDENCY_ABSENT",
+    "ctc-form1040-line19:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-12:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-14:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16a:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16b:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-17:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-21:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-22:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-23:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-24:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-25:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-26:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-27:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-4:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-5:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-8:DEPENDENCY_ABSENT",
+    "ctc-sch8812-part-ii-b-needed:DEPENDENCY_ABSENT",
+    "ctc-spouse-gate:DEPENDENCY_ABSENT",
+    "form1040-line24:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT",
+    "form1040-lines28-31:DEPENDENCY_ABSENT",
+    "form1040-tax-after-credits:DEPENDENCY_ABSENT",
+    "w2-box4-total:DEPENDENCY_ABSENT",
+    "w2-box6-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form.eic-worksheet-a.line-2": {
+     "disposition": "published_value",
+     "value": 5746
+    },
+    "form.eic-worksheet-a.line-5": {
+     "disposition": "published_value",
+     "value": 5746
+    },
+    "form.eic-worksheet-a.line-6": {
+     "disposition": "published_value",
+     "value": 5746
+    },
+    "form1040.line-19": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-24": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-27a": {
+     "disposition": "published_value",
+     "value": 5746
+    },
+    "form1040.line-28": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "value": null
+    }
+   },
+   "reasons": {},
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": null,
+    "ctc.form1040-line19": null,
+    "eic.column-count": 2,
+    "eic.eligibility-result": 5746,
+    "eic.gate-result": 5746,
+    "eic.qualifying-child-count": 2,
+    "odc.child-count": 0,
+    "odc.relative-count": 0,
+    "payments.line27a": 5746,
+    "tax.total-tax": 1475
+   }
+  },
+  "single/kid2/30000/dtb-another@2": {
+   "blocked_page_lines_without_sentence": [
+    "form.eic-worksheet-a.line-2",
+    "form.eic-worksheet-a.line-5",
+    "form.eic-worksheet-a.line-6",
+    "form.sch8812.line-14",
+    "form.sch8812.line-17",
+    "form.sch8812.line-4",
+    "form1040.line-19",
+    "form1040.line-24",
+    "form1040.line-27a",
+    "form1040.line-28",
+    "form1040.line-32",
+    "form1040.line-33",
+    "form1040.line-34",
+    "form1040.line-35a",
+    "form1040.line-37",
+    "form1040.tax-after-credits"
+   ],
+   "blocked_rules": [
+    "ctc-child-count:DEPENDENCY_INVALID",
+    "ctc-child.counts:DEPENDENCY_ABSENT",
+    "ctc-filer-gate:DEPENDENCY_ABSENT",
+    "ctc-filer-ssn-gate:DEPENDENCY_ABSENT",
+    "ctc-form1040-line19:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-12:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-14:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16a:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16b:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-17:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-21:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-22:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-23:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-24:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-25:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-26:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-27:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-4:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-5:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-8:DEPENDENCY_ABSENT",
+    "ctc-sch8812-part-ii-b-needed:DEPENDENCY_ABSENT",
+    "ctc-spouse-gate:DEPENDENCY_ABSENT",
+    "dtb-child.tie-breaker-clear:DEPENDENCY_ABSENT",
+    "eic-answer.age-25-under-65:DEPENDENCY_ABSENT",
+    "eic-answer.main-home-in-us:DEPENDENCY_ABSENT",
+    "eic-answer.no-unsupported-situations:DEPENDENCY_ABSENT",
+    "eic-answer.not-claimable-as-dependent:DEPENDENCY_ABSENT",
+    "eic-answer.not-married:DEPENDENCY_ABSENT",
+    "eic-answer.not-nonresident-alien:DEPENDENCY_ABSENT",
+    "eic-answer.not-qualifying-child-of-another:DEPENDENCY_ABSENT",
+    "eic-answer.separated-spouse:DEPENDENCY_ABSENT",
+    "eic-answer.spouse-valid-ssn:DEPENDENCY_ABSENT",
+    "eic-answer.taxpayer-valid-ssn:DEPENDENCY_ABSENT",
+    "eic-child.counts:DEPENDENCY_ABSENT",
+    "eic-column-count:DEPENDENCY_ABSENT",
+    "eic-column.completed:DEPENDENCY_ABSENT",
+    "eic-column.phaseout-threshold:DEPENDENCY_ABSENT",
+    "eic-early-stop:DEPENDENCY_ABSENT",
+    "eic-eligibility:DEPENDENCY_ABSENT",
+    "eic-gate-result:DEPENDENCY_ABSENT",
+    "eic-qualifying-child-count:DEPENDENCY_INVALID",
+    "eic-questions-required:DEPENDENCY_ABSENT",
+    "eic-status-class:DEPENDENCY_ABSENT",
+    "eic-table-key:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-2:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-5:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-6:DEPENDENCY_ABSENT",
+    "form1040-line24:DEPENDENCY_ABSENT",
+    "form1040-line27a:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT",
+    "form1040-lines28-31:DEPENDENCY_ABSENT",
+    "form1040-tax-after-credits:DEPENDENCY_ABSENT",
+    "w2-box4-total:DEPENDENCY_ABSENT",
+    "w2-box6-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form.eic-worksheet-a.line-2": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form.eic-worksheet-a.line-5": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form.eic-worksheet-a.line-6": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-19": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-24": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-27a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-28": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "value": null
+    }
+   },
+   "reasons": {},
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": null,
+    "ctc.form1040-line19": null,
+    "eic.column-count": null,
+    "eic.eligibility-result": null,
+    "eic.gate-result": null,
+    "eic.qualifying-child-count": null,
+    "odc.child-count": 0,
+    "odc.relative-count": 0,
+    "payments.line27a": null,
+    "tax.total-tax": 1475
+   }
+  },
+  "single/kid2/30000/dtb-filer-parent@2": {
+   "blocked_page_lines_without_sentence": [
+    "form.eic-worksheet-a.line-2",
+    "form.eic-worksheet-a.line-5",
+    "form.eic-worksheet-a.line-6",
+    "form.sch8812.line-14",
+    "form.sch8812.line-17",
+    "form.sch8812.line-4",
+    "form1040.line-19",
+    "form1040.line-24",
+    "form1040.line-27a",
+    "form1040.line-28",
+    "form1040.line-32",
+    "form1040.line-33",
+    "form1040.line-34",
+    "form1040.line-35a",
+    "form1040.line-37",
+    "form1040.tax-after-credits"
+   ],
+   "blocked_rules": [
+    "ctc-child-count:DEPENDENCY_INVALID",
+    "ctc-child.counts:DEPENDENCY_ABSENT",
+    "ctc-filer-gate:DEPENDENCY_ABSENT",
+    "ctc-filer-ssn-gate:DEPENDENCY_ABSENT",
+    "ctc-form1040-line19:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-12:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-14:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16a:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16b:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-17:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-21:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-22:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-23:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-24:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-25:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-26:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-27:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-4:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-5:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-8:DEPENDENCY_ABSENT",
+    "ctc-sch8812-part-ii-b-needed:DEPENDENCY_ABSENT",
+    "ctc-spouse-gate:DEPENDENCY_ABSENT",
+    "dtb-child.tie-breaker-clear:DEPENDENCY_ABSENT",
+    "eic-answer.age-25-under-65:DEPENDENCY_ABSENT",
+    "eic-answer.main-home-in-us:DEPENDENCY_ABSENT",
+    "eic-answer.no-unsupported-situations:DEPENDENCY_ABSENT",
+    "eic-answer.not-claimable-as-dependent:DEPENDENCY_ABSENT",
+    "eic-answer.not-married:DEPENDENCY_ABSENT",
+    "eic-answer.not-nonresident-alien:DEPENDENCY_ABSENT",
+    "eic-answer.not-qualifying-child-of-another:DEPENDENCY_ABSENT",
+    "eic-answer.separated-spouse:DEPENDENCY_ABSENT",
+    "eic-answer.spouse-valid-ssn:DEPENDENCY_ABSENT",
+    "eic-answer.taxpayer-valid-ssn:DEPENDENCY_ABSENT",
+    "eic-child.counts:DEPENDENCY_ABSENT",
+    "eic-column-count:DEPENDENCY_ABSENT",
+    "eic-column.completed:DEPENDENCY_ABSENT",
+    "eic-column.phaseout-threshold:DEPENDENCY_ABSENT",
+    "eic-early-stop:DEPENDENCY_ABSENT",
+    "eic-eligibility:DEPENDENCY_ABSENT",
+    "eic-gate-result:DEPENDENCY_ABSENT",
+    "eic-qualifying-child-count:DEPENDENCY_INVALID",
+    "eic-questions-required:DEPENDENCY_ABSENT",
+    "eic-status-class:DEPENDENCY_ABSENT",
+    "eic-table-key:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-2:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-5:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-6:DEPENDENCY_ABSENT",
+    "form1040-line24:DEPENDENCY_ABSENT",
+    "form1040-line27a:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT",
+    "form1040-lines28-31:DEPENDENCY_ABSENT",
+    "form1040-tax-after-credits:DEPENDENCY_ABSENT",
+    "w2-box4-total:DEPENDENCY_ABSENT",
+    "w2-box6-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form.eic-worksheet-a.line-2": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form.eic-worksheet-a.line-5": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form.eic-worksheet-a.line-6": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-19": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-24": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-27a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-28": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "value": null
+    }
+   },
+   "reasons": {},
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": null,
+    "ctc.form1040-line19": null,
+    "eic.column-count": null,
+    "eic.eligibility-result": null,
+    "eic.gate-result": null,
+    "eic.qualifying-child-count": null,
+    "odc.child-count": 0,
+    "odc.relative-count": 0,
+    "payments.line27a": null,
+    "tax.total-tax": 1475
+   }
+  },
+  "single/kid2/30000/joint@2": {
+   "blocked_page_lines_without_sentence": [
+    "form.eic-worksheet-a.line-2",
+    "form.eic-worksheet-a.line-5",
+    "form.eic-worksheet-a.line-6",
+    "form.sch8812.line-14",
+    "form.sch8812.line-17",
+    "form.sch8812.line-4",
+    "form1040.line-19",
+    "form1040.line-24",
+    "form1040.line-27a",
+    "form1040.line-28",
+    "form1040.line-32",
+    "form1040.line-33",
+    "form1040.line-34",
+    "form1040.line-35a",
+    "form1040.line-37",
+    "form1040.tax-after-credits"
+   ],
+   "blocked_rules": [
+    "ctc-child-count:DEPENDENCY_INVALID",
+    "ctc-child.counts:DEPENDENCY_ABSENT",
+    "ctc-filer-gate:DEPENDENCY_ABSENT",
+    "ctc-filer-ssn-gate:DEPENDENCY_ABSENT",
+    "ctc-form1040-line19:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-12:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-14:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16a:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16b:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-17:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-21:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-22:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-23:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-24:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-25:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-26:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-27:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-4:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-5:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-8:DEPENDENCY_ABSENT",
+    "ctc-sch8812-part-ii-b-needed:DEPENDENCY_ABSENT",
+    "ctc-spouse-gate:DEPENDENCY_ABSENT",
+    "eic-answer.age-25-under-65:DEPENDENCY_ABSENT",
+    "eic-answer.main-home-in-us:DEPENDENCY_ABSENT",
+    "eic-answer.no-unsupported-situations:DEPENDENCY_ABSENT",
+    "eic-answer.not-claimable-as-dependent:DEPENDENCY_ABSENT",
+    "eic-answer.not-married:DEPENDENCY_ABSENT",
+    "eic-answer.not-nonresident-alien:DEPENDENCY_ABSENT",
+    "eic-answer.not-qualifying-child-of-another:DEPENDENCY_ABSENT",
+    "eic-answer.separated-spouse:DEPENDENCY_ABSENT",
+    "eic-answer.spouse-valid-ssn:DEPENDENCY_ABSENT",
+    "eic-answer.taxpayer-valid-ssn:DEPENDENCY_ABSENT",
+    "eic-child.counts:DEPENDENCY_ABSENT",
+    "eic-column-count:DEPENDENCY_ABSENT",
+    "eic-column.completed:DEPENDENCY_ABSENT",
+    "eic-column.phaseout-threshold:DEPENDENCY_ABSENT",
+    "eic-early-stop:DEPENDENCY_ABSENT",
+    "eic-eligibility:DEPENDENCY_ABSENT",
+    "eic-gate-result:DEPENDENCY_ABSENT",
+    "eic-qualifying-child-count:DEPENDENCY_INVALID",
+    "eic-questions-required:DEPENDENCY_ABSENT",
+    "eic-status-class:DEPENDENCY_ABSENT",
+    "eic-table-key:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-2:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-5:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-6:DEPENDENCY_ABSENT",
+    "form1040-line24:DEPENDENCY_ABSENT",
+    "form1040-line27a:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT",
+    "form1040-lines28-31:DEPENDENCY_ABSENT",
+    "form1040-tax-after-credits:DEPENDENCY_ABSENT",
+    "w2-box4-total:DEPENDENCY_ABSENT",
+    "w2-box6-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form.eic-worksheet-a.line-2": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form.eic-worksheet-a.line-5": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form.eic-worksheet-a.line-6": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-19": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-24": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-27a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-28": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "value": null
+    }
+   },
+   "reasons": {},
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": null,
+    "ctc.form1040-line19": null,
+    "eic.column-count": null,
+    "eic.eligibility-result": null,
+    "eic.gate-result": null,
+    "eic.qualifying-child-count": null,
+    "odc.child-count": 0,
+    "odc.relative-count": 0,
+    "payments.line27a": null,
+    "tax.total-tax": 1475
+   }
+  },
+  "single/kid2/30000/lived@2": {
+   "blocked_page_lines_without_sentence": [
+    "form.sch8812.line-14",
+    "form.sch8812.line-17",
+    "form.sch8812.line-4",
+    "form1040.line-19",
+    "form1040.line-24",
+    "form1040.line-28",
+    "form1040.line-32",
+    "form1040.line-33",
+    "form1040.line-34",
+    "form1040.line-35a",
+    "form1040.line-37",
+    "form1040.tax-after-credits"
+   ],
+   "blocked_rules": [
+    "ctc-child-count:DEPENDENCY_INVALID",
+    "ctc-child.counts:DEPENDENCY_ABSENT",
+    "ctc-filer-gate:DEPENDENCY_ABSENT",
+    "ctc-filer-ssn-gate:DEPENDENCY_ABSENT",
+    "ctc-form1040-line19:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-12:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-14:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16a:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16b:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-17:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-21:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-22:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-23:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-24:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-25:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-26:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-27:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-4:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-5:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-8:DEPENDENCY_ABSENT",
+    "ctc-sch8812-part-ii-b-needed:DEPENDENCY_ABSENT",
+    "ctc-spouse-gate:DEPENDENCY_ABSENT",
+    "form1040-line24:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT",
+    "form1040-lines28-31:DEPENDENCY_ABSENT",
+    "form1040-tax-after-credits:DEPENDENCY_ABSENT",
+    "w2-box4-total:DEPENDENCY_ABSENT",
+    "w2-box6-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form.eic-worksheet-a.line-2": {
+     "disposition": "published_value",
+     "value": 5746
+    },
+    "form.eic-worksheet-a.line-5": {
+     "disposition": "published_value",
+     "value": 5746
+    },
+    "form.eic-worksheet-a.line-6": {
+     "disposition": "published_value",
+     "value": 5746
+    },
+    "form1040.line-19": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-24": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-27a": {
+     "disposition": "published_value",
+     "value": 5746
+    },
+    "form1040.line-28": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "value": null
+    }
+   },
+   "reasons": {},
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": null,
+    "ctc.form1040-line19": null,
+    "eic.column-count": 2,
+    "eic.eligibility-result": 5746,
+    "eic.gate-result": 5746,
+    "eic.qualifying-child-count": 2,
+    "odc.child-count": 0,
+    "odc.relative-count": 0,
+    "payments.line27a": 5746,
+    "tax.total-tax": 1475
+   }
+  },
+  "single/kid2/30000/res@2": {
+   "blocked_page_lines_without_sentence": [
+    "form.eic-worksheet-a.line-2",
+    "form.eic-worksheet-a.line-5",
+    "form.eic-worksheet-a.line-6",
+    "form1040.line-27a",
+    "form1040.line-32",
+    "form1040.line-33",
+    "form1040.line-34",
+    "form1040.line-35a",
+    "form1040.line-37"
+   ],
+   "blocked_rules": [
+    "eic-answer.age-25-under-65:DEPENDENCY_ABSENT",
+    "eic-answer.main-home-in-us:DEPENDENCY_ABSENT",
+    "eic-answer.no-unsupported-situations:DEPENDENCY_ABSENT",
+    "eic-answer.not-claimable-as-dependent:DEPENDENCY_ABSENT",
+    "eic-answer.not-married:DEPENDENCY_ABSENT",
+    "eic-answer.not-nonresident-alien:DEPENDENCY_ABSENT",
+    "eic-answer.not-qualifying-child-of-another:DEPENDENCY_ABSENT",
+    "eic-answer.separated-spouse:DEPENDENCY_ABSENT",
+    "eic-answer.spouse-valid-ssn:DEPENDENCY_ABSENT",
+    "eic-answer.taxpayer-valid-ssn:DEPENDENCY_ABSENT",
+    "eic-child.counts:DEPENDENCY_ABSENT",
+    "eic-column-count:DEPENDENCY_ABSENT",
+    "eic-column.completed:DEPENDENCY_ABSENT",
+    "eic-column.phaseout-threshold:DEPENDENCY_ABSENT",
+    "eic-early-stop:DEPENDENCY_ABSENT",
+    "eic-eligibility:DEPENDENCY_ABSENT",
+    "eic-gate-result:DEPENDENCY_ABSENT",
+    "eic-qualifying-child-count:DEPENDENCY_INVALID",
+    "eic-questions-required:DEPENDENCY_ABSENT",
+    "eic-status-class:DEPENDENCY_ABSENT",
+    "eic-table-key:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-2:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-5:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-6:DEPENDENCY_ABSENT",
+    "form1040-line27a:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form.eic-worksheet-a.line-2": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form.eic-worksheet-a.line-5": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form.eic-worksheet-a.line-6": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-19": {
+     "disposition": "published_value",
+     "value": 1475
+    },
+    "form1040.line-24": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form1040.line-27a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-28": {
+     "disposition": "published_value",
+     "value": 2925
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "value": null
+    }
+   },
+   "reasons": {},
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 2,
+    "ctc.form1040-line19": 1475,
+    "eic.column-count": null,
+    "eic.eligibility-result": null,
+    "eic.gate-result": null,
+    "eic.qualifying-child-count": null,
+    "odc.child-count": 0,
+    "odc.relative-count": 0,
+    "payments.line27a": null,
+    "tax.total-tax": 1475
+   }
+  },
+  "single/kid2/30000/ssn@2": {
+   "blocked_page_lines_without_sentence": [
+    "form.eic-worksheet-a.line-2",
+    "form.eic-worksheet-a.line-5",
+    "form.eic-worksheet-a.line-6",
+    "form.sch8812.line-14",
+    "form.sch8812.line-17",
+    "form.sch8812.line-4",
+    "form1040.line-19",
+    "form1040.line-24",
+    "form1040.line-27a",
+    "form1040.line-28",
+    "form1040.line-32",
+    "form1040.line-33",
+    "form1040.line-34",
+    "form1040.line-35a",
+    "form1040.line-37",
+    "form1040.tax-after-credits"
+   ],
+   "blocked_rules": [
+    "ctc-child-count:DEPENDENCY_INVALID",
+    "ctc-child.counts:DEPENDENCY_ABSENT",
+    "ctc-filer-gate:DEPENDENCY_ABSENT",
+    "ctc-filer-ssn-gate:DEPENDENCY_ABSENT",
+    "ctc-form1040-line19:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-12:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-14:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16a:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16b:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-17:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-21:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-22:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-23:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-24:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-25:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-26:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-27:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-4:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-5:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-8:DEPENDENCY_ABSENT",
+    "ctc-sch8812-part-ii-b-needed:DEPENDENCY_ABSENT",
+    "ctc-spouse-gate:DEPENDENCY_ABSENT",
+    "eic-answer.age-25-under-65:DEPENDENCY_ABSENT",
+    "eic-answer.main-home-in-us:DEPENDENCY_ABSENT",
+    "eic-answer.no-unsupported-situations:DEPENDENCY_ABSENT",
+    "eic-answer.not-claimable-as-dependent:DEPENDENCY_ABSENT",
+    "eic-answer.not-married:DEPENDENCY_ABSENT",
+    "eic-answer.not-nonresident-alien:DEPENDENCY_ABSENT",
+    "eic-answer.not-qualifying-child-of-another:DEPENDENCY_ABSENT",
+    "eic-answer.separated-spouse:DEPENDENCY_ABSENT",
+    "eic-answer.spouse-valid-ssn:DEPENDENCY_ABSENT",
+    "eic-answer.taxpayer-valid-ssn:DEPENDENCY_ABSENT",
+    "eic-child.counts:DEPENDENCY_ABSENT",
+    "eic-column-count:DEPENDENCY_ABSENT",
+    "eic-column.completed:DEPENDENCY_ABSENT",
+    "eic-column.phaseout-threshold:DEPENDENCY_ABSENT",
+    "eic-early-stop:DEPENDENCY_ABSENT",
+    "eic-eligibility:DEPENDENCY_ABSENT",
+    "eic-gate-result:DEPENDENCY_ABSENT",
+    "eic-qualifying-child-count:DEPENDENCY_INVALID",
+    "eic-questions-required:DEPENDENCY_ABSENT",
+    "eic-status-class:DEPENDENCY_ABSENT",
+    "eic-table-key:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-2:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-5:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-6:DEPENDENCY_ABSENT",
+    "form1040-line24:DEPENDENCY_ABSENT",
+    "form1040-line27a:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT",
+    "form1040-lines28-31:DEPENDENCY_ABSENT",
+    "form1040-tax-after-credits:DEPENDENCY_ABSENT",
+    "w2-box4-total:DEPENDENCY_ABSENT",
+    "w2-box6-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form.eic-worksheet-a.line-2": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form.eic-worksheet-a.line-5": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form.eic-worksheet-a.line-6": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-19": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-24": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-27a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-28": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "value": null
+    }
+   },
+   "reasons": {},
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": null,
+    "ctc.form1040-line19": null,
+    "eic.column-count": null,
+    "eic.eligibility-result": null,
+    "eic.gate-result": null,
+    "eic.qualifying-child-count": null,
+    "odc.child-count": 0,
+    "odc.relative-count": 0,
+    "payments.line27a": null,
+    "tax.total-tax": 1475
+   }
+  },
+  "single/kid2/30000/support@2": {
+   "blocked_page_lines_without_sentence": [
+    "form.sch8812.line-14",
+    "form.sch8812.line-17",
+    "form.sch8812.line-4",
+    "form1040.line-19",
+    "form1040.line-24",
+    "form1040.line-28",
+    "form1040.line-32",
+    "form1040.line-33",
+    "form1040.line-34",
+    "form1040.line-35a",
+    "form1040.line-37",
+    "form1040.tax-after-credits"
+   ],
+   "blocked_rules": [
+    "ctc-child-count:DEPENDENCY_INVALID",
+    "ctc-child.counts:DEPENDENCY_ABSENT",
+    "ctc-filer-gate:DEPENDENCY_ABSENT",
+    "ctc-filer-ssn-gate:DEPENDENCY_ABSENT",
+    "ctc-form1040-line19:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-12:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-14:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16a:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16b:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-17:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-21:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-22:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-23:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-24:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-25:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-26:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-27:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-4:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-5:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-8:DEPENDENCY_ABSENT",
+    "ctc-sch8812-part-ii-b-needed:DEPENDENCY_ABSENT",
+    "ctc-spouse-gate:DEPENDENCY_ABSENT",
+    "form1040-line24:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT",
+    "form1040-lines28-31:DEPENDENCY_ABSENT",
+    "form1040-tax-after-credits:DEPENDENCY_ABSENT",
+    "w2-box4-total:DEPENDENCY_ABSENT",
+    "w2-box6-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form.eic-worksheet-a.line-2": {
+     "disposition": "published_value",
+     "value": 5746
+    },
+    "form.eic-worksheet-a.line-5": {
+     "disposition": "published_value",
+     "value": 5746
+    },
+    "form.eic-worksheet-a.line-6": {
+     "disposition": "published_value",
+     "value": 5746
+    },
+    "form1040.line-19": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-24": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-27a": {
+     "disposition": "published_value",
+     "value": 5746
+    },
+    "form1040.line-28": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "value": null
+    }
+   },
+   "reasons": {},
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": null,
+    "ctc.form1040-line19": null,
+    "eic.column-count": 2,
+    "eic.eligibility-result": 5746,
+    "eic.gate-result": 5746,
+    "eic.qualifying-child-count": 2,
+    "odc.child-count": 0,
+    "odc.relative-count": 0,
+    "payments.line27a": 5746,
+    "tax.total-tax": 1475
+   }
+  },
+  "single/kid2/30000/u17@2": {
+   "blocked_page_lines_without_sentence": [
+    "form.sch8812.line-14",
+    "form.sch8812.line-17",
+    "form.sch8812.line-4",
+    "form1040.line-19",
+    "form1040.line-24",
+    "form1040.line-28",
+    "form1040.line-32",
+    "form1040.line-33",
+    "form1040.line-34",
+    "form1040.line-35a",
+    "form1040.line-37",
+    "form1040.tax-after-credits"
+   ],
+   "blocked_rules": [
+    "ctc-child-count:DEPENDENCY_INVALID",
+    "ctc-child.counts:DEPENDENCY_ABSENT",
+    "ctc-filer-gate:DEPENDENCY_ABSENT",
+    "ctc-filer-ssn-gate:DEPENDENCY_ABSENT",
+    "ctc-form1040-line19:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-12:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-14:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16a:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16b:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-17:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-21:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-22:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-23:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-24:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-25:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-26:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-27:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-4:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-5:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-8:DEPENDENCY_ABSENT",
+    "ctc-sch8812-part-ii-b-needed:DEPENDENCY_ABSENT",
+    "ctc-spouse-gate:DEPENDENCY_ABSENT",
+    "form1040-line24:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT",
+    "form1040-lines28-31:DEPENDENCY_ABSENT",
+    "form1040-tax-after-credits:DEPENDENCY_ABSENT",
+    "w2-box4-total:DEPENDENCY_ABSENT",
+    "w2-box6-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form.eic-worksheet-a.line-2": {
+     "disposition": "published_value",
+     "value": 5746
+    },
+    "form.eic-worksheet-a.line-5": {
+     "disposition": "published_value",
+     "value": 5746
+    },
+    "form.eic-worksheet-a.line-6": {
+     "disposition": "published_value",
+     "value": 5746
+    },
+    "form1040.line-19": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-24": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-27a": {
+     "disposition": "published_value",
+     "value": 5746
+    },
+    "form1040.line-28": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "value": null
+    }
+   },
+   "reasons": {},
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": null,
+    "ctc.form1040-line19": null,
+    "eic.column-count": 2,
+    "eic.eligibility-result": 5746,
+    "eic.gate-result": 5746,
+    "eic.qualifying-child-count": 2,
+    "odc.child-count": 0,
+    "odc.relative-count": 0,
+    "payments.line27a": 5746,
+    "tax.total-tax": 1475
+   }
+  },
+  "single/odckid/30000/-": {
+   "blocked_page_lines_without_sentence": [],
+   "blocked_rules": [],
+   "lines": {
+    "form.eic-worksheet-a.line-2": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form.eic-worksheet-a.line-5": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form.eic-worksheet-a.line-6": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form1040.line-19": {
+     "disposition": "published_value",
+     "value": 500
+    },
+    "form1040.line-24": {
+     "disposition": "published_value",
+     "value": 975
+    },
+    "form1040.line-27a": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form1040.line-28": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form1040.line-33": {
+     "disposition": "published_value",
+     "value": 500
+    },
+    "form1040.line-34": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form1040.line-35a": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form1040.line-37": {
+     "disposition": "published_value",
+     "value": 475
+    }
+   },
+   "reasons": {},
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 0,
+    "ctc.form1040-line19": 500,
+    "eic.column-count": 0,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 0,
+    "eic.qualifying-child-count": 0,
+    "odc.child-count": 1,
+    "odc.relative-count": 0,
+    "payments.line27a": 0,
+    "tax.total-tax": 1475
+   }
+  },
+  "single/odckid/30000/joint@1": {
+   "blocked_page_lines_without_sentence": [
+    "form.eic-worksheet-a.line-2",
+    "form.eic-worksheet-a.line-5",
+    "form.eic-worksheet-a.line-6",
+    "form.sch8812.line-14",
+    "form.sch8812.line-17",
+    "form.sch8812.line-4",
+    "form.sch8812.line-6",
+    "form.sch8812.line-7",
+    "form1040.line-19",
+    "form1040.line-24",
+    "form1040.line-27a",
+    "form1040.line-28",
+    "form1040.line-32",
+    "form1040.line-33",
+    "form1040.line-34",
+    "form1040.line-35a",
+    "form1040.line-37",
+    "form1040.tax-after-credits"
+   ],
+   "blocked_rules": [
+    "ctc-child-count:DEPENDENCY_INVALID",
+    "ctc-child.counts:DEPENDENCY_ABSENT",
+    "ctc-filer-gate:DEPENDENCY_ABSENT",
+    "ctc-filer-ssn-gate:DEPENDENCY_ABSENT",
+    "ctc-form1040-line19:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-12:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-14:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16a:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16b:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-17:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-21:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-22:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-23:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-24:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-25:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-26:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-27:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-4:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-5:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-6:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-7:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-8:DEPENDENCY_ABSENT",
+    "ctc-sch8812-part-ii-b-needed:DEPENDENCY_ABSENT",
+    "ctc-spouse-gate:DEPENDENCY_ABSENT",
+    "eic-answer.age-25-under-65:DEPENDENCY_ABSENT",
+    "eic-answer.main-home-in-us:DEPENDENCY_ABSENT",
+    "eic-answer.no-unsupported-situations:DEPENDENCY_ABSENT",
+    "eic-answer.not-claimable-as-dependent:DEPENDENCY_ABSENT",
+    "eic-answer.not-married:DEPENDENCY_ABSENT",
+    "eic-answer.not-nonresident-alien:DEPENDENCY_ABSENT",
+    "eic-answer.not-qualifying-child-of-another:DEPENDENCY_ABSENT",
+    "eic-answer.separated-spouse:DEPENDENCY_ABSENT",
+    "eic-answer.spouse-valid-ssn:DEPENDENCY_ABSENT",
+    "eic-answer.taxpayer-valid-ssn:DEPENDENCY_ABSENT",
+    "eic-child.counts:DEPENDENCY_ABSENT",
+    "eic-column-count:DEPENDENCY_ABSENT",
+    "eic-column.completed:DEPENDENCY_ABSENT",
+    "eic-column.phaseout-threshold:DEPENDENCY_ABSENT",
+    "eic-early-stop:DEPENDENCY_ABSENT",
+    "eic-eligibility:DEPENDENCY_ABSENT",
+    "eic-gate-result:DEPENDENCY_ABSENT",
+    "eic-qualifying-child-count:DEPENDENCY_INVALID",
+    "eic-questions-required:DEPENDENCY_ABSENT",
+    "eic-status-class:DEPENDENCY_ABSENT",
+    "eic-table-key:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-2:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-5:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-6:DEPENDENCY_ABSENT",
+    "form1040-line24:DEPENDENCY_ABSENT",
+    "form1040-line27a:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT",
+    "form1040-lines28-31:DEPENDENCY_ABSENT",
+    "form1040-tax-after-credits:DEPENDENCY_ABSENT",
+    "odc-child-count:DEPENDENCY_INVALID",
+    "odc-child.counts:DEPENDENCY_ABSENT",
+    "odc-child.other-tests-met:DEPENDENCY_ABSENT",
+    "odc-dependent-present:DEPENDENCY_ABSENT",
+    "odc-return-gate:DEPENDENCY_ABSENT",
+    "odc-spouse-gate:DEPENDENCY_ABSENT",
+    "w2-box4-total:DEPENDENCY_ABSENT",
+    "w2-box6-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form.eic-worksheet-a.line-2": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form.eic-worksheet-a.line-5": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form.eic-worksheet-a.line-6": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-19": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-24": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-27a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-28": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "value": null
+    }
+   },
+   "reasons": {},
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": null,
+    "ctc.form1040-line19": null,
+    "eic.column-count": null,
+    "eic.eligibility-result": null,
+    "eic.gate-result": null,
+    "eic.qualifying-child-count": null,
+    "odc.child-count": null,
+    "odc.relative-count": 0,
+    "payments.line27a": null,
+    "tax.total-tax": 1475
+   }
+  },
+  "single/odckid/30000/lived@1": {
+   "blocked_page_lines_without_sentence": [
+    "form.sch8812.line-14",
+    "form.sch8812.line-17",
+    "form.sch8812.line-4",
+    "form.sch8812.line-6",
+    "form.sch8812.line-7",
+    "form1040.line-19",
+    "form1040.line-24",
+    "form1040.line-28",
+    "form1040.line-32",
+    "form1040.line-33",
+    "form1040.line-34",
+    "form1040.line-35a",
+    "form1040.line-37",
+    "form1040.tax-after-credits"
+   ],
+   "blocked_rules": [
+    "ctc-child-count:DEPENDENCY_INVALID",
+    "ctc-child.counts:DEPENDENCY_ABSENT",
+    "ctc-filer-gate:DEPENDENCY_ABSENT",
+    "ctc-filer-ssn-gate:DEPENDENCY_ABSENT",
+    "ctc-form1040-line19:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-12:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-14:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16a:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16b:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-17:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-21:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-22:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-23:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-24:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-25:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-26:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-27:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-4:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-5:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-6:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-7:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-8:DEPENDENCY_ABSENT",
+    "ctc-sch8812-part-ii-b-needed:DEPENDENCY_ABSENT",
+    "ctc-spouse-gate:DEPENDENCY_ABSENT",
+    "form1040-line24:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT",
+    "form1040-lines28-31:DEPENDENCY_ABSENT",
+    "form1040-tax-after-credits:DEPENDENCY_ABSENT",
+    "odc-child-count:DEPENDENCY_INVALID",
+    "odc-child.counts:DEPENDENCY_ABSENT",
+    "odc-child.other-tests-met:DEPENDENCY_ABSENT",
+    "odc-dependent-present:DEPENDENCY_ABSENT",
+    "odc-return-gate:DEPENDENCY_ABSENT",
+    "odc-spouse-gate:DEPENDENCY_ABSENT",
+    "w2-box4-total:DEPENDENCY_ABSENT",
+    "w2-box6-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form.eic-worksheet-a.line-2": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form.eic-worksheet-a.line-5": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form.eic-worksheet-a.line-6": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form1040.line-19": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-24": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-27a": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form1040.line-28": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "value": null
+    }
+   },
+   "reasons": {},
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": null,
+    "ctc.form1040-line19": null,
+    "eic.column-count": 0,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 0,
+    "eic.qualifying-child-count": 0,
+    "odc.child-count": null,
+    "odc.relative-count": 0,
+    "payments.line27a": 0,
+    "tax.total-tax": 1475
+   }
+  },
+  "single/odckid/30000/odc-tin@1": {
+   "blocked_page_lines_without_sentence": [
+    "form.sch8812.line-14",
+    "form.sch8812.line-17",
+    "form.sch8812.line-6",
+    "form.sch8812.line-7",
+    "form1040.line-19",
+    "form1040.line-24",
+    "form1040.line-28",
+    "form1040.line-32",
+    "form1040.line-33",
+    "form1040.line-34",
+    "form1040.line-35a",
+    "form1040.line-37",
+    "form1040.tax-after-credits"
+   ],
+   "blocked_rules": [
+    "ctc-form1040-line19:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-12:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-14:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16a:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-17:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-21:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-22:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-23:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-24:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-25:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-26:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-27:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-6:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-7:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-8:DEPENDENCY_ABSENT",
+    "ctc-sch8812-part-ii-b-needed:DEPENDENCY_ABSENT",
+    "form1040-line24:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT",
+    "form1040-lines28-31:DEPENDENCY_ABSENT",
+    "form1040-tax-after-credits:DEPENDENCY_ABSENT",
+    "odc-child-count:DEPENDENCY_INVALID",
+    "odc-child.counts:DEPENDENCY_ABSENT",
+    "odc-child.identity-met:DEPENDENCY_ABSENT",
+    "odc-dependent-present:DEPENDENCY_ABSENT",
+    "odc-return-gate:DEPENDENCY_ABSENT",
+    "odc-spouse-gate:DEPENDENCY_ABSENT",
+    "w2-box4-total:DEPENDENCY_ABSENT",
+    "w2-box6-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form.eic-worksheet-a.line-2": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form.eic-worksheet-a.line-5": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form.eic-worksheet-a.line-6": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form1040.line-19": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-24": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-27a": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form1040.line-28": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "value": null
+    }
+   },
+   "reasons": {},
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 0,
+    "ctc.form1040-line19": null,
+    "eic.column-count": 0,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 0,
+    "eic.qualifying-child-count": 0,
+    "odc.child-count": null,
+    "odc.relative-count": 0,
+    "payments.line27a": 0,
+    "tax.total-tax": 1475
+   }
+  },
+  "single/odckid/30000/ssn@1": {
+   "blocked_page_lines_without_sentence": [
+    "form.eic-worksheet-a.line-2",
+    "form.eic-worksheet-a.line-5",
+    "form.eic-worksheet-a.line-6",
+    "form.sch8812.line-14",
+    "form.sch8812.line-17",
+    "form.sch8812.line-4",
+    "form.sch8812.line-6",
+    "form.sch8812.line-7",
+    "form1040.line-19",
+    "form1040.line-24",
+    "form1040.line-27a",
+    "form1040.line-28",
+    "form1040.line-32",
+    "form1040.line-33",
+    "form1040.line-34",
+    "form1040.line-35a",
+    "form1040.line-37",
+    "form1040.tax-after-credits"
+   ],
+   "blocked_rules": [
+    "ctc-child-count:DEPENDENCY_INVALID",
+    "ctc-child.counts:DEPENDENCY_ABSENT",
+    "ctc-filer-gate:DEPENDENCY_ABSENT",
+    "ctc-filer-ssn-gate:DEPENDENCY_ABSENT",
+    "ctc-form1040-line19:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-12:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-14:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16a:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16b:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-17:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-21:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-22:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-23:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-24:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-25:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-26:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-27:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-4:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-5:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-6:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-7:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-8:DEPENDENCY_ABSENT",
+    "ctc-sch8812-part-ii-b-needed:DEPENDENCY_ABSENT",
+    "ctc-spouse-gate:DEPENDENCY_ABSENT",
+    "eic-answer.age-25-under-65:DEPENDENCY_ABSENT",
+    "eic-answer.main-home-in-us:DEPENDENCY_ABSENT",
+    "eic-answer.no-unsupported-situations:DEPENDENCY_ABSENT",
+    "eic-answer.not-claimable-as-dependent:DEPENDENCY_ABSENT",
+    "eic-answer.not-married:DEPENDENCY_ABSENT",
+    "eic-answer.not-nonresident-alien:DEPENDENCY_ABSENT",
+    "eic-answer.not-qualifying-child-of-another:DEPENDENCY_ABSENT",
+    "eic-answer.separated-spouse:DEPENDENCY_ABSENT",
+    "eic-answer.spouse-valid-ssn:DEPENDENCY_ABSENT",
+    "eic-answer.taxpayer-valid-ssn:DEPENDENCY_ABSENT",
+    "eic-child.counts:DEPENDENCY_ABSENT",
+    "eic-column-count:DEPENDENCY_ABSENT",
+    "eic-column.completed:DEPENDENCY_ABSENT",
+    "eic-column.phaseout-threshold:DEPENDENCY_ABSENT",
+    "eic-early-stop:DEPENDENCY_ABSENT",
+    "eic-eligibility:DEPENDENCY_ABSENT",
+    "eic-gate-result:DEPENDENCY_ABSENT",
+    "eic-qualifying-child-count:DEPENDENCY_INVALID",
+    "eic-questions-required:DEPENDENCY_ABSENT",
+    "eic-status-class:DEPENDENCY_ABSENT",
+    "eic-table-key:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-2:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-5:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-6:DEPENDENCY_ABSENT",
+    "form1040-line24:DEPENDENCY_ABSENT",
+    "form1040-line27a:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT",
+    "form1040-lines28-31:DEPENDENCY_ABSENT",
+    "form1040-tax-after-credits:DEPENDENCY_ABSENT",
+    "odc-child-count:DEPENDENCY_INVALID",
+    "odc-child.counts:DEPENDENCY_ABSENT",
+    "odc-child.identity-met:DEPENDENCY_ABSENT",
+    "odc-dependent-present:DEPENDENCY_ABSENT",
+    "odc-return-gate:DEPENDENCY_ABSENT",
+    "odc-spouse-gate:DEPENDENCY_ABSENT",
+    "w2-box4-total:DEPENDENCY_ABSENT",
+    "w2-box6-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form.eic-worksheet-a.line-2": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form.eic-worksheet-a.line-5": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form.eic-worksheet-a.line-6": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-19": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-24": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-27a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-28": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "value": null
+    }
+   },
+   "reasons": {},
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": null,
+    "ctc.form1040-line19": null,
+    "eic.column-count": null,
+    "eic.eligibility-result": null,
+    "eic.gate-result": null,
+    "eic.qualifying-child-count": null,
+    "odc.child-count": null,
+    "odc.relative-count": 0,
+    "payments.line27a": null,
+    "tax.total-tax": 1475
+   }
+  },
+  "single/odckid2/30000/-": {
+   "blocked_page_lines_without_sentence": [],
+   "blocked_rules": [],
+   "lines": {
+    "form.eic-worksheet-a.line-2": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form.eic-worksheet-a.line-5": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form.eic-worksheet-a.line-6": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form1040.line-19": {
+     "disposition": "published_value",
+     "value": 1000
+    },
+    "form1040.line-24": {
+     "disposition": "published_value",
+     "value": 475
+    },
+    "form1040.line-27a": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form1040.line-28": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form1040.line-33": {
+     "disposition": "published_value",
+     "value": 500
+    },
+    "form1040.line-34": {
+     "disposition": "published_value",
+     "value": 25
+    },
+    "form1040.line-35a": {
+     "disposition": "published_value",
+     "value": 25
+    },
+    "form1040.line-37": {
+     "disposition": "computed_zero",
+     "value": 0
+    }
+   },
+   "reasons": {},
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 0,
+    "ctc.form1040-line19": 1000,
+    "eic.column-count": 0,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 0,
+    "eic.qualifying-child-count": 0,
+    "odc.child-count": 2,
+    "odc.relative-count": 0,
+    "payments.line27a": 0,
+    "tax.total-tax": 1475
+   }
+  },
+  "single/odckid2/30000/joint@2": {
+   "blocked_page_lines_without_sentence": [
+    "form.eic-worksheet-a.line-2",
+    "form.eic-worksheet-a.line-5",
+    "form.eic-worksheet-a.line-6",
+    "form.sch8812.line-14",
+    "form.sch8812.line-17",
+    "form.sch8812.line-4",
+    "form.sch8812.line-6",
+    "form.sch8812.line-7",
+    "form1040.line-19",
+    "form1040.line-24",
+    "form1040.line-27a",
+    "form1040.line-28",
+    "form1040.line-32",
+    "form1040.line-33",
+    "form1040.line-34",
+    "form1040.line-35a",
+    "form1040.line-37",
+    "form1040.tax-after-credits"
+   ],
+   "blocked_rules": [
+    "ctc-child-count:DEPENDENCY_INVALID",
+    "ctc-child.counts:DEPENDENCY_ABSENT",
+    "ctc-filer-gate:DEPENDENCY_ABSENT",
+    "ctc-filer-ssn-gate:DEPENDENCY_ABSENT",
+    "ctc-form1040-line19:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-12:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-14:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16a:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16b:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-17:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-21:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-22:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-23:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-24:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-25:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-26:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-27:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-4:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-5:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-6:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-7:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-8:DEPENDENCY_ABSENT",
+    "ctc-sch8812-part-ii-b-needed:DEPENDENCY_ABSENT",
+    "ctc-spouse-gate:DEPENDENCY_ABSENT",
+    "eic-answer.age-25-under-65:DEPENDENCY_ABSENT",
+    "eic-answer.main-home-in-us:DEPENDENCY_ABSENT",
+    "eic-answer.no-unsupported-situations:DEPENDENCY_ABSENT",
+    "eic-answer.not-claimable-as-dependent:DEPENDENCY_ABSENT",
+    "eic-answer.not-married:DEPENDENCY_ABSENT",
+    "eic-answer.not-nonresident-alien:DEPENDENCY_ABSENT",
+    "eic-answer.not-qualifying-child-of-another:DEPENDENCY_ABSENT",
+    "eic-answer.separated-spouse:DEPENDENCY_ABSENT",
+    "eic-answer.spouse-valid-ssn:DEPENDENCY_ABSENT",
+    "eic-answer.taxpayer-valid-ssn:DEPENDENCY_ABSENT",
+    "eic-child.counts:DEPENDENCY_ABSENT",
+    "eic-column-count:DEPENDENCY_ABSENT",
+    "eic-column.completed:DEPENDENCY_ABSENT",
+    "eic-column.phaseout-threshold:DEPENDENCY_ABSENT",
+    "eic-early-stop:DEPENDENCY_ABSENT",
+    "eic-eligibility:DEPENDENCY_ABSENT",
+    "eic-gate-result:DEPENDENCY_ABSENT",
+    "eic-qualifying-child-count:DEPENDENCY_INVALID",
+    "eic-questions-required:DEPENDENCY_ABSENT",
+    "eic-status-class:DEPENDENCY_ABSENT",
+    "eic-table-key:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-2:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-5:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-6:DEPENDENCY_ABSENT",
+    "form1040-line24:DEPENDENCY_ABSENT",
+    "form1040-line27a:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT",
+    "form1040-lines28-31:DEPENDENCY_ABSENT",
+    "form1040-tax-after-credits:DEPENDENCY_ABSENT",
+    "odc-child-count:DEPENDENCY_INVALID",
+    "odc-child.counts:DEPENDENCY_ABSENT",
+    "odc-child.other-tests-met:DEPENDENCY_ABSENT",
+    "odc-dependent-present:DEPENDENCY_ABSENT",
+    "odc-return-gate:DEPENDENCY_ABSENT",
+    "odc-spouse-gate:DEPENDENCY_ABSENT",
+    "w2-box4-total:DEPENDENCY_ABSENT",
+    "w2-box6-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form.eic-worksheet-a.line-2": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form.eic-worksheet-a.line-5": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form.eic-worksheet-a.line-6": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-19": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-24": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-27a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-28": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "value": null
+    }
+   },
+   "reasons": {},
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": null,
+    "ctc.form1040-line19": null,
+    "eic.column-count": null,
+    "eic.eligibility-result": null,
+    "eic.gate-result": null,
+    "eic.qualifying-child-count": null,
+    "odc.child-count": null,
+    "odc.relative-count": 0,
+    "payments.line27a": null,
+    "tax.total-tax": 1475
+   }
+  },
+  "single/odckid2/30000/lived@2": {
+   "blocked_page_lines_without_sentence": [
+    "form.sch8812.line-14",
+    "form.sch8812.line-17",
+    "form.sch8812.line-4",
+    "form.sch8812.line-6",
+    "form.sch8812.line-7",
+    "form1040.line-19",
+    "form1040.line-24",
+    "form1040.line-28",
+    "form1040.line-32",
+    "form1040.line-33",
+    "form1040.line-34",
+    "form1040.line-35a",
+    "form1040.line-37",
+    "form1040.tax-after-credits"
+   ],
+   "blocked_rules": [
+    "ctc-child-count:DEPENDENCY_INVALID",
+    "ctc-child.counts:DEPENDENCY_ABSENT",
+    "ctc-filer-gate:DEPENDENCY_ABSENT",
+    "ctc-filer-ssn-gate:DEPENDENCY_ABSENT",
+    "ctc-form1040-line19:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-12:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-14:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16a:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16b:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-17:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-21:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-22:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-23:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-24:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-25:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-26:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-27:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-4:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-5:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-6:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-7:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-8:DEPENDENCY_ABSENT",
+    "ctc-sch8812-part-ii-b-needed:DEPENDENCY_ABSENT",
+    "ctc-spouse-gate:DEPENDENCY_ABSENT",
+    "form1040-line24:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT",
+    "form1040-lines28-31:DEPENDENCY_ABSENT",
+    "form1040-tax-after-credits:DEPENDENCY_ABSENT",
+    "odc-child-count:DEPENDENCY_INVALID",
+    "odc-child.counts:DEPENDENCY_ABSENT",
+    "odc-child.other-tests-met:DEPENDENCY_ABSENT",
+    "odc-dependent-present:DEPENDENCY_ABSENT",
+    "odc-return-gate:DEPENDENCY_ABSENT",
+    "odc-spouse-gate:DEPENDENCY_ABSENT",
+    "w2-box4-total:DEPENDENCY_ABSENT",
+    "w2-box6-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form.eic-worksheet-a.line-2": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form.eic-worksheet-a.line-5": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form.eic-worksheet-a.line-6": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form1040.line-19": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-24": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-27a": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form1040.line-28": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "value": null
+    }
+   },
+   "reasons": {},
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": null,
+    "ctc.form1040-line19": null,
+    "eic.column-count": 0,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 0,
+    "eic.qualifying-child-count": 0,
+    "odc.child-count": null,
+    "odc.relative-count": 0,
+    "payments.line27a": 0,
+    "tax.total-tax": 1475
+   }
+  },
+  "single/odckid2/30000/odc-tin@2": {
+   "blocked_page_lines_without_sentence": [
+    "form.sch8812.line-14",
+    "form.sch8812.line-17",
+    "form.sch8812.line-6",
+    "form.sch8812.line-7",
+    "form1040.line-19",
+    "form1040.line-24",
+    "form1040.line-28",
+    "form1040.line-32",
+    "form1040.line-33",
+    "form1040.line-34",
+    "form1040.line-35a",
+    "form1040.line-37",
+    "form1040.tax-after-credits"
+   ],
+   "blocked_rules": [
+    "ctc-form1040-line19:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-12:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-14:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16a:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-17:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-21:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-22:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-23:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-24:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-25:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-26:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-27:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-6:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-7:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-8:DEPENDENCY_ABSENT",
+    "ctc-sch8812-part-ii-b-needed:DEPENDENCY_ABSENT",
+    "form1040-line24:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT",
+    "form1040-lines28-31:DEPENDENCY_ABSENT",
+    "form1040-tax-after-credits:DEPENDENCY_ABSENT",
+    "odc-child-count:DEPENDENCY_INVALID",
+    "odc-child.counts:DEPENDENCY_ABSENT",
+    "odc-child.identity-met:DEPENDENCY_ABSENT",
+    "odc-dependent-present:DEPENDENCY_ABSENT",
+    "odc-return-gate:DEPENDENCY_ABSENT",
+    "odc-spouse-gate:DEPENDENCY_ABSENT",
+    "w2-box4-total:DEPENDENCY_ABSENT",
+    "w2-box6-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form.eic-worksheet-a.line-2": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form.eic-worksheet-a.line-5": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form.eic-worksheet-a.line-6": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form1040.line-19": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-24": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-27a": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form1040.line-28": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "value": null
+    }
+   },
+   "reasons": {},
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 0,
+    "ctc.form1040-line19": null,
+    "eic.column-count": 0,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 0,
+    "eic.qualifying-child-count": 0,
+    "odc.child-count": null,
+    "odc.relative-count": 0,
+    "payments.line27a": 0,
+    "tax.total-tax": 1475
+   }
+  },
+  "single/odckid2/30000/ssn@2": {
+   "blocked_page_lines_without_sentence": [
+    "form.eic-worksheet-a.line-2",
+    "form.eic-worksheet-a.line-5",
+    "form.eic-worksheet-a.line-6",
+    "form.sch8812.line-14",
+    "form.sch8812.line-17",
+    "form.sch8812.line-4",
+    "form.sch8812.line-6",
+    "form.sch8812.line-7",
+    "form1040.line-19",
+    "form1040.line-24",
+    "form1040.line-27a",
+    "form1040.line-28",
+    "form1040.line-32",
+    "form1040.line-33",
+    "form1040.line-34",
+    "form1040.line-35a",
+    "form1040.line-37",
+    "form1040.tax-after-credits"
+   ],
+   "blocked_rules": [
+    "ctc-child-count:DEPENDENCY_INVALID",
+    "ctc-child.counts:DEPENDENCY_ABSENT",
+    "ctc-filer-gate:DEPENDENCY_ABSENT",
+    "ctc-filer-ssn-gate:DEPENDENCY_ABSENT",
+    "ctc-form1040-line19:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-12:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-14:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16a:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16b:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-17:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-21:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-22:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-23:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-24:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-25:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-26:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-27:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-4:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-5:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-6:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-7:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-8:DEPENDENCY_ABSENT",
+    "ctc-sch8812-part-ii-b-needed:DEPENDENCY_ABSENT",
+    "ctc-spouse-gate:DEPENDENCY_ABSENT",
+    "eic-answer.age-25-under-65:DEPENDENCY_ABSENT",
+    "eic-answer.main-home-in-us:DEPENDENCY_ABSENT",
+    "eic-answer.no-unsupported-situations:DEPENDENCY_ABSENT",
+    "eic-answer.not-claimable-as-dependent:DEPENDENCY_ABSENT",
+    "eic-answer.not-married:DEPENDENCY_ABSENT",
+    "eic-answer.not-nonresident-alien:DEPENDENCY_ABSENT",
+    "eic-answer.not-qualifying-child-of-another:DEPENDENCY_ABSENT",
+    "eic-answer.separated-spouse:DEPENDENCY_ABSENT",
+    "eic-answer.spouse-valid-ssn:DEPENDENCY_ABSENT",
+    "eic-answer.taxpayer-valid-ssn:DEPENDENCY_ABSENT",
+    "eic-child.counts:DEPENDENCY_ABSENT",
+    "eic-column-count:DEPENDENCY_ABSENT",
+    "eic-column.completed:DEPENDENCY_ABSENT",
+    "eic-column.phaseout-threshold:DEPENDENCY_ABSENT",
+    "eic-early-stop:DEPENDENCY_ABSENT",
+    "eic-eligibility:DEPENDENCY_ABSENT",
+    "eic-gate-result:DEPENDENCY_ABSENT",
+    "eic-qualifying-child-count:DEPENDENCY_INVALID",
+    "eic-questions-required:DEPENDENCY_ABSENT",
+    "eic-status-class:DEPENDENCY_ABSENT",
+    "eic-table-key:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-2:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-5:DEPENDENCY_ABSENT",
+    "eic-worksheet-a.line-6:DEPENDENCY_ABSENT",
+    "form1040-line24:DEPENDENCY_ABSENT",
+    "form1040-line27a:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT",
+    "form1040-lines28-31:DEPENDENCY_ABSENT",
+    "form1040-tax-after-credits:DEPENDENCY_ABSENT",
+    "odc-child-count:DEPENDENCY_INVALID",
+    "odc-child.counts:DEPENDENCY_ABSENT",
+    "odc-child.identity-met:DEPENDENCY_ABSENT",
+    "odc-dependent-present:DEPENDENCY_ABSENT",
+    "odc-return-gate:DEPENDENCY_ABSENT",
+    "odc-spouse-gate:DEPENDENCY_ABSENT",
+    "w2-box4-total:DEPENDENCY_ABSENT",
+    "w2-box6-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form.eic-worksheet-a.line-2": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form.eic-worksheet-a.line-5": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form.eic-worksheet-a.line-6": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-19": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-24": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-27a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-28": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "value": null
+    }
+   },
+   "reasons": {},
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": null,
+    "ctc.form1040-line19": null,
+    "eic.column-count": null,
+    "eic.eligibility-result": null,
+    "eic.gate-result": null,
+    "eic.qualifying-child-count": null,
+    "odc.child-count": null,
+    "odc.relative-count": 0,
+    "payments.line27a": null,
+    "tax.total-tax": 1475
+   }
+  },
+  "single/parent/30000/-": {
+   "blocked_page_lines_without_sentence": [],
+   "blocked_rules": [],
+   "lines": {
+    "form.eic-worksheet-a.line-2": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form.eic-worksheet-a.line-5": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form.eic-worksheet-a.line-6": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form1040.line-19": {
+     "disposition": "published_value",
+     "value": 500
+    },
+    "form1040.line-24": {
+     "disposition": "published_value",
+     "value": 975
+    },
+    "form1040.line-27a": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form1040.line-28": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form1040.line-33": {
+     "disposition": "published_value",
+     "value": 500
+    },
+    "form1040.line-34": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form1040.line-35a": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form1040.line-37": {
+     "disposition": "published_value",
+     "value": 475
+    }
+   },
+   "reasons": {},
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 0,
+    "ctc.form1040-line19": 500,
+    "eic.column-count": 0,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 0,
+    "eic.qualifying-child-count": 0,
+    "odc.child-count": 0,
+    "odc.relative-count": 1,
+    "payments.line27a": 0,
+    "tax.total-tax": 1475
+   }
+  },
+  "single/parent/30000/rel-citizen@p1": {
+   "blocked_page_lines_without_sentence": [
+    "form.sch8812.line-14",
+    "form.sch8812.line-17",
+    "form.sch8812.line-6",
+    "form.sch8812.line-7",
+    "form1040.line-19",
+    "form1040.line-24",
+    "form1040.line-28",
+    "form1040.line-32",
+    "form1040.line-33",
+    "form1040.line-34",
+    "form1040.line-35a",
+    "form1040.line-37",
+    "form1040.tax-after-credits"
+   ],
+   "blocked_rules": [
+    "ctc-form1040-line19:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-12:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-14:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16a:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-17:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-21:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-22:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-23:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-24:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-25:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-26:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-27:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-6:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-7:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-8:DEPENDENCY_ABSENT",
+    "ctc-sch8812-part-ii-b-needed:DEPENDENCY_ABSENT",
+    "form1040-line24:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT",
+    "form1040-lines28-31:DEPENDENCY_ABSENT",
+    "form1040-tax-after-credits:DEPENDENCY_ABSENT",
+    "odc-dependent-present:DEPENDENCY_ABSENT",
+    "odc-relative-count:DEPENDENCY_INVALID",
+    "odc-relative.counts:DEPENDENCY_ABSENT",
+    "odc-relative.tests-b-met:DEPENDENCY_ABSENT",
+    "odc-return-gate:DEPENDENCY_ABSENT",
+    "odc-spouse-gate:DEPENDENCY_ABSENT",
+    "w2-box4-total:DEPENDENCY_ABSENT",
+    "w2-box6-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form.eic-worksheet-a.line-2": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form.eic-worksheet-a.line-5": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form.eic-worksheet-a.line-6": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form1040.line-19": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-24": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-27a": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form1040.line-28": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "value": null
+    }
+   },
+   "reasons": {},
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 0,
+    "ctc.form1040-line19": null,
+    "eic.column-count": 0,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 0,
+    "eic.qualifying-child-count": 0,
+    "odc.child-count": 0,
+    "odc.relative-count": null,
+    "payments.line27a": 0,
+    "tax.total-tax": 1475
+   }
+  },
+  "single/parent/30000/rel-gross@p1": {
+   "blocked_page_lines_without_sentence": [
+    "form.sch8812.line-14",
+    "form.sch8812.line-17",
+    "form.sch8812.line-6",
+    "form.sch8812.line-7",
+    "form1040.line-19",
+    "form1040.line-24",
+    "form1040.line-28",
+    "form1040.line-32",
+    "form1040.line-33",
+    "form1040.line-34",
+    "form1040.line-35a",
+    "form1040.line-37",
+    "form1040.tax-after-credits"
+   ],
+   "blocked_rules": [
+    "ctc-form1040-line19:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-12:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-14:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16a:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-17:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-21:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-22:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-23:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-24:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-25:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-26:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-27:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-6:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-7:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-8:DEPENDENCY_ABSENT",
+    "ctc-sch8812-part-ii-b-needed:DEPENDENCY_ABSENT",
+    "form1040-line24:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT",
+    "form1040-lines28-31:DEPENDENCY_ABSENT",
+    "form1040-tax-after-credits:DEPENDENCY_ABSENT",
+    "odc-dependent-present:DEPENDENCY_ABSENT",
+    "odc-relative-count:DEPENDENCY_INVALID",
+    "odc-relative.counts:DEPENDENCY_ABSENT",
+    "odc-relative.tests-a-met:DEPENDENCY_ABSENT",
+    "odc-return-gate:DEPENDENCY_ABSENT",
+    "odc-spouse-gate:DEPENDENCY_ABSENT",
+    "w2-box4-total:DEPENDENCY_ABSENT",
+    "w2-box6-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form.eic-worksheet-a.line-2": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form.eic-worksheet-a.line-5": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form.eic-worksheet-a.line-6": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form1040.line-19": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-24": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-27a": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form1040.line-28": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "value": null
+    }
+   },
+   "reasons": {},
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 0,
+    "ctc.form1040-line19": null,
+    "eic.column-count": 0,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 0,
+    "eic.qualifying-child-count": 0,
+    "odc.child-count": 0,
+    "odc.relative-count": null,
+    "payments.line27a": 0,
+    "tax.total-tax": 1475
+   }
+  },
+  "single/parent/30000/rel-notjoint@p1": {
+   "blocked_page_lines_without_sentence": [
+    "form.sch8812.line-14",
+    "form.sch8812.line-17",
+    "form.sch8812.line-6",
+    "form.sch8812.line-7",
+    "form1040.line-19",
+    "form1040.line-24",
+    "form1040.line-28",
+    "form1040.line-32",
+    "form1040.line-33",
+    "form1040.line-34",
+    "form1040.line-35a",
+    "form1040.line-37",
+    "form1040.tax-after-credits"
+   ],
+   "blocked_rules": [
+    "ctc-form1040-line19:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-12:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-14:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16a:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-17:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-21:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-22:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-23:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-24:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-25:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-26:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-27:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-6:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-7:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-8:DEPENDENCY_ABSENT",
+    "ctc-sch8812-part-ii-b-needed:DEPENDENCY_ABSENT",
+    "form1040-line24:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT",
+    "form1040-lines28-31:DEPENDENCY_ABSENT",
+    "form1040-tax-after-credits:DEPENDENCY_ABSENT",
+    "odc-dependent-present:DEPENDENCY_ABSENT",
+    "odc-relative-count:DEPENDENCY_INVALID",
+    "odc-relative.counts:DEPENDENCY_ABSENT",
+    "odc-relative.tests-b-met:DEPENDENCY_ABSENT",
+    "odc-return-gate:DEPENDENCY_ABSENT",
+    "odc-spouse-gate:DEPENDENCY_ABSENT",
+    "w2-box4-total:DEPENDENCY_ABSENT",
+    "w2-box6-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form.eic-worksheet-a.line-2": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form.eic-worksheet-a.line-5": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form.eic-worksheet-a.line-6": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form1040.line-19": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-24": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-27a": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form1040.line-28": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "value": null
+    }
+   },
+   "reasons": {},
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 0,
+    "ctc.form1040-line19": null,
+    "eic.column-count": 0,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 0,
+    "eic.qualifying-child-count": 0,
+    "odc.child-count": 0,
+    "odc.relative-count": null,
+    "payments.line27a": 0,
+    "tax.total-tax": 1475
+   }
+  },
+  "single/parent/30000/rel-notqc@p1": {
+   "blocked_page_lines_without_sentence": [
+    "form.sch8812.line-14",
+    "form.sch8812.line-17",
+    "form.sch8812.line-6",
+    "form.sch8812.line-7",
+    "form1040.line-19",
+    "form1040.line-24",
+    "form1040.line-28",
+    "form1040.line-32",
+    "form1040.line-33",
+    "form1040.line-34",
+    "form1040.line-35a",
+    "form1040.line-37",
+    "form1040.tax-after-credits"
+   ],
+   "blocked_rules": [
+    "ctc-form1040-line19:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-12:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-14:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16a:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-17:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-21:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-22:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-23:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-24:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-25:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-26:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-27:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-6:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-7:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-8:DEPENDENCY_ABSENT",
+    "ctc-sch8812-part-ii-b-needed:DEPENDENCY_ABSENT",
+    "form1040-line24:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT",
+    "form1040-lines28-31:DEPENDENCY_ABSENT",
+    "form1040-tax-after-credits:DEPENDENCY_ABSENT",
+    "odc-dependent-present:DEPENDENCY_ABSENT",
+    "odc-relative-count:DEPENDENCY_INVALID",
+    "odc-relative.counts:DEPENDENCY_ABSENT",
+    "odc-relative.tests-a-met:DEPENDENCY_ABSENT",
+    "odc-return-gate:DEPENDENCY_ABSENT",
+    "odc-spouse-gate:DEPENDENCY_ABSENT",
+    "w2-box4-total:DEPENDENCY_ABSENT",
+    "w2-box6-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form.eic-worksheet-a.line-2": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form.eic-worksheet-a.line-5": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form.eic-worksheet-a.line-6": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form1040.line-19": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-24": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-27a": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form1040.line-28": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "value": null
+    }
+   },
+   "reasons": {},
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 0,
+    "ctc.form1040-line19": null,
+    "eic.column-count": 0,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 0,
+    "eic.qualifying-child-count": 0,
+    "odc.child-count": 0,
+    "odc.relative-count": null,
+    "payments.line27a": 0,
+    "tax.total-tax": 1475
+   }
+  },
+  "single/parent/30000/rel-relationship@p1": {
+   "blocked_page_lines_without_sentence": [
+    "form.sch8812.line-14",
+    "form.sch8812.line-17",
+    "form.sch8812.line-6",
+    "form.sch8812.line-7",
+    "form1040.line-19",
+    "form1040.line-24",
+    "form1040.line-28",
+    "form1040.line-32",
+    "form1040.line-33",
+    "form1040.line-34",
+    "form1040.line-35a",
+    "form1040.line-37",
+    "form1040.tax-after-credits"
+   ],
+   "blocked_rules": [
+    "ctc-form1040-line19:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-12:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-14:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16a:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-17:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-21:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-22:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-23:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-24:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-25:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-26:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-27:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-6:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-7:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-8:DEPENDENCY_ABSENT",
+    "ctc-sch8812-part-ii-b-needed:DEPENDENCY_ABSENT",
+    "form1040-line24:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT",
+    "form1040-lines28-31:DEPENDENCY_ABSENT",
+    "form1040-tax-after-credits:DEPENDENCY_ABSENT",
+    "odc-dependent-present:DEPENDENCY_ABSENT",
+    "odc-relative-count:DEPENDENCY_INVALID",
+    "odc-relative.counts:DEPENDENCY_ABSENT",
+    "odc-return-gate:DEPENDENCY_ABSENT",
+    "odc-spouse-gate:DEPENDENCY_ABSENT",
+    "w2-box4-total:DEPENDENCY_ABSENT",
+    "w2-box6-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form.eic-worksheet-a.line-2": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form.eic-worksheet-a.line-5": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form.eic-worksheet-a.line-6": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form1040.line-19": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-24": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-27a": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form1040.line-28": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "value": null
+    }
+   },
+   "reasons": {},
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 0,
+    "ctc.form1040-line19": null,
+    "eic.column-count": 0,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 0,
+    "eic.qualifying-child-count": 0,
+    "odc.child-count": 0,
+    "odc.relative-count": null,
+    "payments.line27a": 0,
+    "tax.total-tax": 1475
+   }
+  },
+  "single/parent/30000/rel-support@p1": {
+   "blocked_page_lines_without_sentence": [
+    "form.sch8812.line-14",
+    "form.sch8812.line-17",
+    "form.sch8812.line-6",
+    "form.sch8812.line-7",
+    "form1040.line-19",
+    "form1040.line-24",
+    "form1040.line-28",
+    "form1040.line-32",
+    "form1040.line-33",
+    "form1040.line-34",
+    "form1040.line-35a",
+    "form1040.line-37",
+    "form1040.tax-after-credits"
+   ],
+   "blocked_rules": [
+    "ctc-form1040-line19:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-12:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-14:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16a:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-17:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-21:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-22:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-23:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-24:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-25:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-26:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-27:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-6:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-7:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-8:DEPENDENCY_ABSENT",
+    "ctc-sch8812-part-ii-b-needed:DEPENDENCY_ABSENT",
+    "form1040-line24:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT",
+    "form1040-lines28-31:DEPENDENCY_ABSENT",
+    "form1040-tax-after-credits:DEPENDENCY_ABSENT",
+    "odc-dependent-present:DEPENDENCY_ABSENT",
+    "odc-relative-count:DEPENDENCY_INVALID",
+    "odc-relative.counts:DEPENDENCY_ABSENT",
+    "odc-relative.tests-a-met:DEPENDENCY_ABSENT",
+    "odc-return-gate:DEPENDENCY_ABSENT",
+    "odc-spouse-gate:DEPENDENCY_ABSENT",
+    "w2-box4-total:DEPENDENCY_ABSENT",
+    "w2-box6-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form.eic-worksheet-a.line-2": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form.eic-worksheet-a.line-5": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form.eic-worksheet-a.line-6": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form1040.line-19": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-24": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-27a": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form1040.line-28": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "value": null
+    }
+   },
+   "reasons": {},
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 0,
+    "ctc.form1040-line19": null,
+    "eic.column-count": 0,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 0,
+    "eic.qualifying-child-count": 0,
+    "odc.child-count": 0,
+    "odc.relative-count": null,
+    "payments.line27a": 0,
+    "tax.total-tax": 1475
+   }
+  },
+  "single/parent/30000/rel-tin@p1": {
+   "blocked_page_lines_without_sentence": [
+    "form.sch8812.line-14",
+    "form.sch8812.line-17",
+    "form.sch8812.line-6",
+    "form.sch8812.line-7",
+    "form1040.line-19",
+    "form1040.line-24",
+    "form1040.line-28",
+    "form1040.line-32",
+    "form1040.line-33",
+    "form1040.line-34",
+    "form1040.line-35a",
+    "form1040.line-37",
+    "form1040.tax-after-credits"
+   ],
+   "blocked_rules": [
+    "ctc-form1040-line19:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-12:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-14:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16a:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-17:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-21:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-22:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-23:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-24:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-25:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-26:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-27:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-6:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-7:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-8:DEPENDENCY_ABSENT",
+    "ctc-sch8812-part-ii-b-needed:DEPENDENCY_ABSENT",
+    "form1040-line24:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT",
+    "form1040-lines28-31:DEPENDENCY_ABSENT",
+    "form1040-tax-after-credits:DEPENDENCY_ABSENT",
+    "odc-dependent-present:DEPENDENCY_ABSENT",
+    "odc-relative-count:DEPENDENCY_INVALID",
+    "odc-relative.counts:DEPENDENCY_ABSENT",
+    "odc-return-gate:DEPENDENCY_ABSENT",
+    "odc-spouse-gate:DEPENDENCY_ABSENT",
+    "w2-box4-total:DEPENDENCY_ABSENT",
+    "w2-box6-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form.eic-worksheet-a.line-2": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form.eic-worksheet-a.line-5": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form.eic-worksheet-a.line-6": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form1040.line-19": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-24": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-27a": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form1040.line-28": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "value": null
+    }
+   },
+   "reasons": {},
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 0,
+    "ctc.form1040-line19": null,
+    "eic.column-count": 0,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 0,
+    "eic.qualifying-child-count": 0,
+    "odc.child-count": 0,
+    "odc.relative-count": null,
+    "payments.line27a": 0,
+    "tax.total-tax": 1475
+   }
+  },
+  "single/parent2/30000/-": {
+   "blocked_page_lines_without_sentence": [],
+   "blocked_rules": [],
+   "lines": {
+    "form.eic-worksheet-a.line-2": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form.eic-worksheet-a.line-5": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form.eic-worksheet-a.line-6": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form1040.line-19": {
+     "disposition": "published_value",
+     "value": 1000
+    },
+    "form1040.line-24": {
+     "disposition": "published_value",
+     "value": 475
+    },
+    "form1040.line-27a": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form1040.line-28": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form1040.line-33": {
+     "disposition": "published_value",
+     "value": 500
+    },
+    "form1040.line-34": {
+     "disposition": "published_value",
+     "value": 25
+    },
+    "form1040.line-35a": {
+     "disposition": "published_value",
+     "value": 25
+    },
+    "form1040.line-37": {
+     "disposition": "computed_zero",
+     "value": 0
+    }
+   },
+   "reasons": {},
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 0,
+    "ctc.form1040-line19": 1000,
+    "eic.column-count": 0,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 0,
+    "eic.qualifying-child-count": 0,
+    "odc.child-count": 0,
+    "odc.relative-count": 2,
+    "payments.line27a": 0,
+    "tax.total-tax": 1475
+   }
+  },
+  "single/parent2/30000/rel-citizen@p2": {
+   "blocked_page_lines_without_sentence": [
+    "form.sch8812.line-14",
+    "form.sch8812.line-17",
+    "form.sch8812.line-6",
+    "form.sch8812.line-7",
+    "form1040.line-19",
+    "form1040.line-24",
+    "form1040.line-28",
+    "form1040.line-32",
+    "form1040.line-33",
+    "form1040.line-34",
+    "form1040.line-35a",
+    "form1040.line-37",
+    "form1040.tax-after-credits"
+   ],
+   "blocked_rules": [
+    "ctc-form1040-line19:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-12:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-14:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16a:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-17:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-21:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-22:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-23:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-24:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-25:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-26:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-27:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-6:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-7:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-8:DEPENDENCY_ABSENT",
+    "ctc-sch8812-part-ii-b-needed:DEPENDENCY_ABSENT",
+    "form1040-line24:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT",
+    "form1040-lines28-31:DEPENDENCY_ABSENT",
+    "form1040-tax-after-credits:DEPENDENCY_ABSENT",
+    "odc-dependent-present:DEPENDENCY_ABSENT",
+    "odc-relative-count:DEPENDENCY_INVALID",
+    "odc-relative.counts:DEPENDENCY_ABSENT",
+    "odc-relative.tests-b-met:DEPENDENCY_ABSENT",
+    "odc-return-gate:DEPENDENCY_ABSENT",
+    "odc-spouse-gate:DEPENDENCY_ABSENT",
+    "w2-box4-total:DEPENDENCY_ABSENT",
+    "w2-box6-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form.eic-worksheet-a.line-2": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form.eic-worksheet-a.line-5": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form.eic-worksheet-a.line-6": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form1040.line-19": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-24": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-27a": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form1040.line-28": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "value": null
+    }
+   },
+   "reasons": {},
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 0,
+    "ctc.form1040-line19": null,
+    "eic.column-count": 0,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 0,
+    "eic.qualifying-child-count": 0,
+    "odc.child-count": 0,
+    "odc.relative-count": null,
+    "payments.line27a": 0,
+    "tax.total-tax": 1475
+   }
+  },
+  "single/parent2/30000/rel-gross@p2": {
+   "blocked_page_lines_without_sentence": [
+    "form.sch8812.line-14",
+    "form.sch8812.line-17",
+    "form.sch8812.line-6",
+    "form.sch8812.line-7",
+    "form1040.line-19",
+    "form1040.line-24",
+    "form1040.line-28",
+    "form1040.line-32",
+    "form1040.line-33",
+    "form1040.line-34",
+    "form1040.line-35a",
+    "form1040.line-37",
+    "form1040.tax-after-credits"
+   ],
+   "blocked_rules": [
+    "ctc-form1040-line19:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-12:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-14:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16a:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-17:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-21:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-22:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-23:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-24:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-25:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-26:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-27:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-6:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-7:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-8:DEPENDENCY_ABSENT",
+    "ctc-sch8812-part-ii-b-needed:DEPENDENCY_ABSENT",
+    "form1040-line24:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT",
+    "form1040-lines28-31:DEPENDENCY_ABSENT",
+    "form1040-tax-after-credits:DEPENDENCY_ABSENT",
+    "odc-dependent-present:DEPENDENCY_ABSENT",
+    "odc-relative-count:DEPENDENCY_INVALID",
+    "odc-relative.counts:DEPENDENCY_ABSENT",
+    "odc-relative.tests-a-met:DEPENDENCY_ABSENT",
+    "odc-return-gate:DEPENDENCY_ABSENT",
+    "odc-spouse-gate:DEPENDENCY_ABSENT",
+    "w2-box4-total:DEPENDENCY_ABSENT",
+    "w2-box6-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form.eic-worksheet-a.line-2": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form.eic-worksheet-a.line-5": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form.eic-worksheet-a.line-6": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form1040.line-19": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-24": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-27a": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form1040.line-28": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "value": null
+    }
+   },
+   "reasons": {},
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 0,
+    "ctc.form1040-line19": null,
+    "eic.column-count": 0,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 0,
+    "eic.qualifying-child-count": 0,
+    "odc.child-count": 0,
+    "odc.relative-count": null,
+    "payments.line27a": 0,
+    "tax.total-tax": 1475
+   }
+  },
+  "single/parent2/30000/rel-notjoint@p2": {
+   "blocked_page_lines_without_sentence": [
+    "form.sch8812.line-14",
+    "form.sch8812.line-17",
+    "form.sch8812.line-6",
+    "form.sch8812.line-7",
+    "form1040.line-19",
+    "form1040.line-24",
+    "form1040.line-28",
+    "form1040.line-32",
+    "form1040.line-33",
+    "form1040.line-34",
+    "form1040.line-35a",
+    "form1040.line-37",
+    "form1040.tax-after-credits"
+   ],
+   "blocked_rules": [
+    "ctc-form1040-line19:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-12:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-14:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16a:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-17:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-21:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-22:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-23:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-24:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-25:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-26:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-27:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-6:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-7:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-8:DEPENDENCY_ABSENT",
+    "ctc-sch8812-part-ii-b-needed:DEPENDENCY_ABSENT",
+    "form1040-line24:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT",
+    "form1040-lines28-31:DEPENDENCY_ABSENT",
+    "form1040-tax-after-credits:DEPENDENCY_ABSENT",
+    "odc-dependent-present:DEPENDENCY_ABSENT",
+    "odc-relative-count:DEPENDENCY_INVALID",
+    "odc-relative.counts:DEPENDENCY_ABSENT",
+    "odc-relative.tests-b-met:DEPENDENCY_ABSENT",
+    "odc-return-gate:DEPENDENCY_ABSENT",
+    "odc-spouse-gate:DEPENDENCY_ABSENT",
+    "w2-box4-total:DEPENDENCY_ABSENT",
+    "w2-box6-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form.eic-worksheet-a.line-2": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form.eic-worksheet-a.line-5": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form.eic-worksheet-a.line-6": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form1040.line-19": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-24": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-27a": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form1040.line-28": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "value": null
+    }
+   },
+   "reasons": {},
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 0,
+    "ctc.form1040-line19": null,
+    "eic.column-count": 0,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 0,
+    "eic.qualifying-child-count": 0,
+    "odc.child-count": 0,
+    "odc.relative-count": null,
+    "payments.line27a": 0,
+    "tax.total-tax": 1475
+   }
+  },
+  "single/parent2/30000/rel-notqc@p2": {
+   "blocked_page_lines_without_sentence": [
+    "form.sch8812.line-14",
+    "form.sch8812.line-17",
+    "form.sch8812.line-6",
+    "form.sch8812.line-7",
+    "form1040.line-19",
+    "form1040.line-24",
+    "form1040.line-28",
+    "form1040.line-32",
+    "form1040.line-33",
+    "form1040.line-34",
+    "form1040.line-35a",
+    "form1040.line-37",
+    "form1040.tax-after-credits"
+   ],
+   "blocked_rules": [
+    "ctc-form1040-line19:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-12:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-14:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16a:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-17:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-21:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-22:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-23:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-24:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-25:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-26:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-27:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-6:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-7:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-8:DEPENDENCY_ABSENT",
+    "ctc-sch8812-part-ii-b-needed:DEPENDENCY_ABSENT",
+    "form1040-line24:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT",
+    "form1040-lines28-31:DEPENDENCY_ABSENT",
+    "form1040-tax-after-credits:DEPENDENCY_ABSENT",
+    "odc-dependent-present:DEPENDENCY_ABSENT",
+    "odc-relative-count:DEPENDENCY_INVALID",
+    "odc-relative.counts:DEPENDENCY_ABSENT",
+    "odc-relative.tests-a-met:DEPENDENCY_ABSENT",
+    "odc-return-gate:DEPENDENCY_ABSENT",
+    "odc-spouse-gate:DEPENDENCY_ABSENT",
+    "w2-box4-total:DEPENDENCY_ABSENT",
+    "w2-box6-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form.eic-worksheet-a.line-2": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form.eic-worksheet-a.line-5": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form.eic-worksheet-a.line-6": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form1040.line-19": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-24": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-27a": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form1040.line-28": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "value": null
+    }
+   },
+   "reasons": {},
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 0,
+    "ctc.form1040-line19": null,
+    "eic.column-count": 0,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 0,
+    "eic.qualifying-child-count": 0,
+    "odc.child-count": 0,
+    "odc.relative-count": null,
+    "payments.line27a": 0,
+    "tax.total-tax": 1475
+   }
+  },
+  "single/parent2/30000/rel-relationship@p2": {
+   "blocked_page_lines_without_sentence": [
+    "form.sch8812.line-14",
+    "form.sch8812.line-17",
+    "form.sch8812.line-6",
+    "form.sch8812.line-7",
+    "form1040.line-19",
+    "form1040.line-24",
+    "form1040.line-28",
+    "form1040.line-32",
+    "form1040.line-33",
+    "form1040.line-34",
+    "form1040.line-35a",
+    "form1040.line-37",
+    "form1040.tax-after-credits"
+   ],
+   "blocked_rules": [
+    "ctc-form1040-line19:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-12:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-14:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16a:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-17:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-21:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-22:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-23:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-24:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-25:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-26:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-27:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-6:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-7:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-8:DEPENDENCY_ABSENT",
+    "ctc-sch8812-part-ii-b-needed:DEPENDENCY_ABSENT",
+    "form1040-line24:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT",
+    "form1040-lines28-31:DEPENDENCY_ABSENT",
+    "form1040-tax-after-credits:DEPENDENCY_ABSENT",
+    "odc-dependent-present:DEPENDENCY_ABSENT",
+    "odc-relative-count:DEPENDENCY_INVALID",
+    "odc-relative.counts:DEPENDENCY_ABSENT",
+    "odc-return-gate:DEPENDENCY_ABSENT",
+    "odc-spouse-gate:DEPENDENCY_ABSENT",
+    "w2-box4-total:DEPENDENCY_ABSENT",
+    "w2-box6-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form.eic-worksheet-a.line-2": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form.eic-worksheet-a.line-5": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form.eic-worksheet-a.line-6": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form1040.line-19": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-24": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-27a": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form1040.line-28": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "value": null
+    }
+   },
+   "reasons": {},
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 0,
+    "ctc.form1040-line19": null,
+    "eic.column-count": 0,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 0,
+    "eic.qualifying-child-count": 0,
+    "odc.child-count": 0,
+    "odc.relative-count": null,
+    "payments.line27a": 0,
+    "tax.total-tax": 1475
+   }
+  },
+  "single/parent2/30000/rel-support@p2": {
+   "blocked_page_lines_without_sentence": [
+    "form.sch8812.line-14",
+    "form.sch8812.line-17",
+    "form.sch8812.line-6",
+    "form.sch8812.line-7",
+    "form1040.line-19",
+    "form1040.line-24",
+    "form1040.line-28",
+    "form1040.line-32",
+    "form1040.line-33",
+    "form1040.line-34",
+    "form1040.line-35a",
+    "form1040.line-37",
+    "form1040.tax-after-credits"
+   ],
+   "blocked_rules": [
+    "ctc-form1040-line19:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-12:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-14:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16a:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-17:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-21:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-22:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-23:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-24:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-25:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-26:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-27:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-6:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-7:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-8:DEPENDENCY_ABSENT",
+    "ctc-sch8812-part-ii-b-needed:DEPENDENCY_ABSENT",
+    "form1040-line24:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT",
+    "form1040-lines28-31:DEPENDENCY_ABSENT",
+    "form1040-tax-after-credits:DEPENDENCY_ABSENT",
+    "odc-dependent-present:DEPENDENCY_ABSENT",
+    "odc-relative-count:DEPENDENCY_INVALID",
+    "odc-relative.counts:DEPENDENCY_ABSENT",
+    "odc-relative.tests-a-met:DEPENDENCY_ABSENT",
+    "odc-return-gate:DEPENDENCY_ABSENT",
+    "odc-spouse-gate:DEPENDENCY_ABSENT",
+    "w2-box4-total:DEPENDENCY_ABSENT",
+    "w2-box6-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form.eic-worksheet-a.line-2": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form.eic-worksheet-a.line-5": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form.eic-worksheet-a.line-6": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form1040.line-19": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-24": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-27a": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form1040.line-28": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "value": null
+    }
+   },
+   "reasons": {},
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 0,
+    "ctc.form1040-line19": null,
+    "eic.column-count": 0,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 0,
+    "eic.qualifying-child-count": 0,
+    "odc.child-count": 0,
+    "odc.relative-count": null,
+    "payments.line27a": 0,
+    "tax.total-tax": 1475
+   }
+  },
+  "single/parent2/30000/rel-tin@p1+rel-citizen@p2": {
+   "blocked_page_lines_without_sentence": [
+    "form.sch8812.line-14",
+    "form.sch8812.line-17",
+    "form.sch8812.line-6",
+    "form.sch8812.line-7",
+    "form1040.line-19",
+    "form1040.line-24",
+    "form1040.line-28",
+    "form1040.line-32",
+    "form1040.line-33",
+    "form1040.line-34",
+    "form1040.line-35a",
+    "form1040.line-37",
+    "form1040.tax-after-credits"
+   ],
+   "blocked_rules": [
+    "ctc-form1040-line19:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-12:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-14:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16a:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-17:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-21:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-22:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-23:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-24:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-25:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-26:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-27:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-6:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-7:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-8:DEPENDENCY_ABSENT",
+    "ctc-sch8812-part-ii-b-needed:DEPENDENCY_ABSENT",
+    "form1040-line24:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT",
+    "form1040-lines28-31:DEPENDENCY_ABSENT",
+    "form1040-tax-after-credits:DEPENDENCY_ABSENT",
+    "odc-dependent-present:DEPENDENCY_ABSENT",
+    "odc-relative-count:DEPENDENCY_INVALID",
+    "odc-relative.counts:DEPENDENCY_ABSENT",
+    "odc-relative.tests-b-met:DEPENDENCY_ABSENT",
+    "odc-return-gate:DEPENDENCY_ABSENT",
+    "odc-spouse-gate:DEPENDENCY_ABSENT",
+    "w2-box4-total:DEPENDENCY_ABSENT",
+    "w2-box6-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form.eic-worksheet-a.line-2": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form.eic-worksheet-a.line-5": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form.eic-worksheet-a.line-6": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form1040.line-19": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-24": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-27a": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form1040.line-28": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "value": null
+    }
+   },
+   "reasons": {},
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 0,
+    "ctc.form1040-line19": null,
+    "eic.column-count": 0,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 0,
+    "eic.qualifying-child-count": 0,
+    "odc.child-count": 0,
+    "odc.relative-count": null,
+    "payments.line27a": 0,
+    "tax.total-tax": 1475
+   }
+  },
+  "single/parent2/30000/rel-tin@p2": {
+   "blocked_page_lines_without_sentence": [
+    "form.sch8812.line-14",
+    "form.sch8812.line-17",
+    "form.sch8812.line-6",
+    "form.sch8812.line-7",
+    "form1040.line-19",
+    "form1040.line-24",
+    "form1040.line-28",
+    "form1040.line-32",
+    "form1040.line-33",
+    "form1040.line-34",
+    "form1040.line-35a",
+    "form1040.line-37",
+    "form1040.tax-after-credits"
+   ],
+   "blocked_rules": [
+    "ctc-form1040-line19:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-12:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-14:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-16a:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-17:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-21:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-22:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-23:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-24:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-25:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-26:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-27:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-6:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-7:DEPENDENCY_ABSENT",
+    "ctc-sch8812-line-8:DEPENDENCY_ABSENT",
+    "ctc-sch8812-part-ii-b-needed:DEPENDENCY_ABSENT",
+    "form1040-line24:DEPENDENCY_ABSENT",
+    "form1040-line32:DEPENDENCY_ABSENT",
+    "form1040-line33:DEPENDENCY_ABSENT",
+    "form1040-line34:DEPENDENCY_ABSENT",
+    "form1040-line35a:DEPENDENCY_ABSENT",
+    "form1040-line36:DEPENDENCY_ABSENT",
+    "form1040-line37:DEPENDENCY_ABSENT",
+    "form1040-lines27-31-total:DEPENDENCY_ABSENT",
+    "form1040-lines28-31:DEPENDENCY_ABSENT",
+    "form1040-tax-after-credits:DEPENDENCY_ABSENT",
+    "odc-dependent-present:DEPENDENCY_ABSENT",
+    "odc-relative-count:DEPENDENCY_INVALID",
+    "odc-relative.counts:DEPENDENCY_ABSENT",
+    "odc-return-gate:DEPENDENCY_ABSENT",
+    "odc-spouse-gate:DEPENDENCY_ABSENT",
+    "w2-box4-total:DEPENDENCY_ABSENT",
+    "w2-box6-total:DEPENDENCY_ABSENT"
+   ],
+   "lines": {
+    "form.eic-worksheet-a.line-2": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form.eic-worksheet-a.line-5": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form.eic-worksheet-a.line-6": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form1040.line-19": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-24": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-27a": {
+     "disposition": "computed_zero",
+     "value": 0
+    },
+    "form1040.line-28": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-33": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-34": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-35a": {
+     "disposition": "blocked",
+     "value": null
+    },
+    "form1040.line-37": {
+     "disposition": "blocked",
+     "value": null
+    }
+   },
+   "reasons": {},
+   "stop": "saturated",
+   "symbols": {
+    "ctc.child-count": 0,
+    "ctc.form1040-line19": null,
+    "eic.column-count": 0,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 0,
+    "eic.qualifying-child-count": 0,
+    "odc.child-count": 0,
+    "odc.relative-count": null,
+    "payments.line27a": 0,
+    "tax.total-tax": 1475
+   }
+  }
+ },
+ "wall_time_s": 29.6
+}

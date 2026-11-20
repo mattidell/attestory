@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.dtb.child.multiple-other-claimants",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.dtb-child-multiple-other-claimants",
+  "question": "Does this child meet the conditions to be a qualifying child of more than one other person for 2025, not counting your spouse if you file a joint return? Answer yes if two or more other people could also claim the child as a qualifying child. Answer no if only one other person could.",
+  "schema": "input-question.v1",
+  "version": "v1"
+}

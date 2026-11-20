@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.ctc.child.lived-with-you",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.ctc-child-lived-with-you",
+  "question": "Did this child live with you for more than half of 2025? Count temporary absences for special circumstances, such as school, vacation, business, medical care, military service, or detention in a juvenile facility, as time the child lived with you. A child who was born or died in 2025 lived with you for more than half of 2025 if your home was the child's home for more than half the time the child was alive in 2025. A child you adopted in 2025, who was lawfully placed with you for legal adoption in 2025, or who was an eligible foster child placed with you during 2025, lived with you for more than half of 2025 if your main home was the child's main home for more than half the time since the adoption or placement. Answer yes if the child lived with you for more than half of 2025. Answer no if not.",
+  "schema": "input-question.v1",
+  "version": "v1"
+}
