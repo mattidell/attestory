@@ -1,0 +1,108 @@
+{
+ "core": "v100",
+ "median-cold": {
+  "after_s": 1.7063,
+  "before_s": 1.7907,
+  "change_pct": -4.7,
+  "median_paired_change_pct": -4.8
+ },
+ "median-warm": {
+  "after_s": 1.4567,
+  "before_s": 1.5579,
+  "change_pct": -6.5,
+  "median_paired_change_pct": -6.4
+ },
+ "method": "alternating processes, order flipped each round; per round the median of three interleaved repetitions; figures are the median over rounds",
+ "per_round": {
+  "after": [
+   {
+    "median-cold": 1.7216,
+    "median-warm": 1.4586,
+    "slowest-cold": 1.8325,
+    "slowest-warm": 1.5616
+   },
+   {
+    "median-cold": 1.7052,
+    "median-warm": 1.4548,
+    "slowest-cold": 1.8261,
+    "slowest-warm": 1.5726
+   },
+   {
+    "median-cold": 1.7073,
+    "median-warm": 1.4487,
+    "slowest-cold": 1.8227,
+    "slowest-warm": 1.5565
+   },
+   {
+    "median-cold": 1.7024,
+    "median-warm": 1.4667,
+    "slowest-cold": 1.7985,
+    "slowest-warm": 1.5756
+   },
+   {
+    "median-cold": 1.6954,
+    "median-warm": 1.4715,
+    "slowest-cold": 1.7886,
+    "slowest-warm": 1.5846
+   },
+   {
+    "median-cold": 1.7118,
+    "median-warm": 1.4537,
+    "slowest-cold": 1.8359,
+    "slowest-warm": 1.5712
+   }
+  ],
+  "before": [
+   {
+    "median-cold": 1.7833,
+    "median-warm": 1.5623,
+    "slowest-cold": 1.8923,
+    "slowest-warm": 1.6673
+   },
+   {
+    "median-cold": 1.7909,
+    "median-warm": 1.5627,
+    "slowest-cold": 1.9093,
+    "slowest-warm": 1.6689
+   },
+   {
+    "median-cold": 1.7905,
+    "median-warm": 1.5458,
+    "slowest-cold": 1.8869,
+    "slowest-warm": 1.6598
+   },
+   {
+    "median-cold": 1.7926,
+    "median-warm": 1.5593,
+    "slowest-cold": 1.883,
+    "slowest-warm": 1.6583
+   },
+   {
+    "median-cold": 1.7802,
+    "median-warm": 1.5475,
+    "slowest-cold": 1.879,
+    "slowest-warm": 1.6567
+   },
+   {
+    "median-cold": 1.7971,
+    "median-warm": 1.5565,
+    "slowest-cold": 1.8875,
+    "slowest-warm": 1.6636
+   }
+  ]
+ },
+ "repetitions_per_round": 3,
+ "rounds": 6,
+ "slowest-cold": {
+  "after_s": 1.8244,
+  "before_s": 1.8872,
+  "change_pct": -3.3,
+  "median_paired_change_pct": -3.9
+ },
+ "slowest-warm": {
+  "after_s": 1.5719,
+  "before_s": 1.6617,
+  "change_pct": -5.4,
+  "median_paired_change_pct": -5.7
+ }
+}

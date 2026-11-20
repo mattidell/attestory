@@ -1,0 +1,48 @@
+{
+ "cold": {
+  "checksum_share_of_uninstrumented": 0.0575,
+  "citizen_checksum_calls": {
+   "production_resolver.py:271 checksum": 1747
+  },
+  "citizen_checksum_calls_total": 1747,
+  "citizen_checksum_s": {
+   "production_resolver.py:271 checksum": 0.0978
+  },
+  "citizen_checksum_s_total": 0.0978,
+  "inclusive_s": {
+   "_validation_memo_key": {
+    "calls": 2,
+    "s": 0.0188
+   },
+   "validate_package": {
+    "calls": 1,
+    "s": 0.2551
+   }
+  },
+  "instrumented_total_s": 1.7114,
+  "uninstrumented_total_s": 1.7
+ },
+ "core": "v100",
+ "label": "after",
+ "list": "v83/returns/v80/carried_covered_flag_no_w_lt/recorded",
+ "warm": {
+  "checksum_share_of_uninstrumented": 0.0,
+  "citizen_checksum_calls": {},
+  "citizen_checksum_calls_total": 0,
+  "citizen_checksum_s": {},
+  "citizen_checksum_s_total": 0,
+  "inclusive_s": {
+   "_validation_memo_key": {
+    "calls": 2,
+    "s": 0.0186
+   },
+   "validate_package": {
+    "calls": 1,
+    "s": 0.2552
+   }
+  },
+  "instrumented_total_s": 1.6413,
+  "uninstrumented_total_s": 1.6826
+ },
+ "workload": "slowest"
+}
