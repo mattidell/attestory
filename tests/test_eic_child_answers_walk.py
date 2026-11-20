@@ -191,13 +191,14 @@ class MemberWalk(unittest.TestCase):
 
 
 class ReasonValidator(unittest.TestCase):
-    BLOCKED = {"disposition": "blocked", "activeCodes": ["DEPENDENCY_ABSENT"], "act": None,
-               "reasons": [{"sentence": "demo age question", "member_label": "Synthetic demo-child-1"}]}
+    BLOCKED: dict[str, Any] = {"disposition": "blocked", "activeCodes": ["DEPENDENCY_ABSENT"], "act": None,
+                               "reasons": [{"sentence": "demo age question", "member_label": "Synthetic demo-child-1"}]}
 
     def test_a_member_label_is_admitted(self) -> None:
         _validate_resolved(self.BLOCKED, "demo")
 
     def test_a_malformed_member_label_is_refused(self) -> None:
+        bad: Any
         for bad in ("", 3, None, {"name": "x"}):
             resolved = copy.deepcopy(self.BLOCKED)
             resolved["reasons"][0]["member_label"] = bad

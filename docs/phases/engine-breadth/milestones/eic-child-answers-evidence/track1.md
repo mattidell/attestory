@@ -370,4 +370,31 @@ Question: Did this person file a joint return for 2025, other than one filed onl
 
 ## Result lines
 
-(after the last edit; filled in below)
+After the last code edit (commit `e6ab104c`), the full suite (`pytest`, its
+379 test files in eleven foreground runs, each under the ten-minute command
+bound; together they are every file `pytest` collects):
+
+- `1505 passed, 394 subtests passed in 440.92s`
+- `419 passed, 2118 subtests passed in 73.19s`
+- `409 passed, 1 skipped, 106 subtests passed in 368.42s`
+- `759 passed, 62 subtests passed in 200.86s`
+- `431 passed, 1097 subtests passed in 158.02s`
+- `374 passed, 3680 subtests passed in 74.60s`
+- `415 passed, 3 skipped, 2445 subtests passed in 150.75s`
+- `755 passed, 782 subtests passed in 164.26s`
+- `742 passed, 8 skipped, 94 subtests passed in 235.24s`
+- `1141 passed, 165 subtests passed in 416.18s`
+- `489 passed, 13 skipped, 190 subtests passed in 84.53s`
+
+Together: 7439 passed, 25 skipped, 11133 subtests passed, no failure.
+
+`python3 -m mypy` then found three typing errors in the new unit test's
+validator fixture; it was annotated (no behavior change). After that last
+edit:
+
+- `python3 -m mypy`: `Success: no issues found in 531 source files`
+- `pytest tests/test_eic_child_answers_walk.py`: `14 passed, 6 subtests passed in 1.18s`
+- `pytest -m "not live"`: `1940 passed, 8 skipped, 5970 subtests passed in 15.62s`
+- `pytest tests/test_schema_registry.py`: `14 passed in 1.22s`
+- `python3 tools/governance_lint.py`: `governance lint: conformant`;
+  `python3 tools/envelope_scan.py --range 77aefd25..HEAD`: no finding.
