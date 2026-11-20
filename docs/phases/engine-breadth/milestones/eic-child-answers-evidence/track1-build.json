@@ -436,7 +436,7 @@
   },
   "written": {
     "input-question.ctc-child-citizen-or-resident.v1.json": "e58ced7f8a698ceeffaa6ce36869ee11e968ecab45be23cb91a46cb7d973a4f4",
-    "input-question.ctc-child-lived-with-you.v1.json": "4ae00c0f569bc6a67d2a57e02bd0c6f3267452fc47ff68137ae0271837060d54",
+    "input-question.ctc-child-lived-with-you.v1.json": "88342bb12c072fef042ee61fd4a9bb2009df1b13f41441f1d8bebaae93d9fc8e",
     "input-question.ctc-child-no-over-half-support.v1.json": "3bdcbdff0e5a6cb373aef1410fb274599ac4f0df30bb5aa1b7779f8a021b934d",
     "input-question.ctc-child-under-17.v1.json": "557d9df42d73ab42a1da0b3e95ac85c1ab48f83abb643124a8f6d8c310fec482",
     "input-question.dtb-child-another-could-claim.v1.json": "50cccfbd247dc873f400df05edc7823c06fa49f49c78e25bfc4013558b15c15a",
@@ -449,16 +449,16 @@
     "input-question.dtb-child-other-will-claim.v1.json": "870e7a943acd5b27360774ccf374cb28376ffddb5b18d9b6346f6387ad0e9983",
     "input-question.dtb-child-same-agi.v1.json": "4e78887ed0c49dddf8cde408891a1bc2a3168dc8800c543812afcf27c5873beb",
     "input-question.dtb-child-same-nights.v1.json": "a43f8719b673ac2cca1e38a6d1c16864eae84d1ffd7c05c17b2a91ac66531587",
-    "input-question.eic-child-age.v1.json": "a414f8c925cefcb79b0d307a535df4385082915b86d6ffa3777c711e9eb399b1",
+    "input-question.eic-child-age.v1.json": "38b9cc659e3dc91280148f2e842803a2911b918c2d00fe3be6a7a490206a53a9",
     "input-question.eic-child-joint-return.v1.json": "89a43963800a952021116384ce8abba2a961ba275ba7ac8d13a70c71554049f9",
-    "input-question.eic-child-residency.v1.json": "3e49f9ec63cff61fd74b51afe50755e6af7534efeb5958517ef9dbf8afbc0809",
+    "input-question.eic-child-residency.v1.json": "55e7c49116e22541d489002c1e454285e4264b4e1d60fddfb3b0cfa73827887e",
     "input-question.eic-child-ssn.v1.json": "227be4e498636fc5947ec484c13b379c225c97f666894c696733a4ea2a052ff4",
     "input-question.odc-child-tin.v1.json": "91da2900147536395240aae1e6979b12c51e639123e138c42bb27063ed540423",
     "input-question.odc-dependent-citizen-or-resident.v1.json": "b6086f6fb2795bdcc75a832a82149ded7eb2dcafd44a8366be5d7a2dad5f26d4",
     "input-question.odc-dependent-gross-income-under-limit.v1.json": "08fcefca4f4dc48173fafb00a3ea117fbeb7d72d4ab4ba95b716b41622eb0a07",
     "input-question.odc-dependent-not-joint-return.v1.json": "e73eef3aa3e7de1f198456be839531c45f7db3057f6dad4cb75928c74b147e15",
     "input-question.odc-dependent-not-qualifying-child.v1.json": "7a38b7501fba47c748e79132d4045c298516d5b998dff382ae0ef5b0976c94ad",
-    "input-question.odc-dependent-over-half-support.v1.json": "546a1dc4bc10d74fafeaefbd5101ea62f23bcccead603c2c473caa9101e8ca9a",
+    "input-question.odc-dependent-over-half-support.v1.json": "63e6aa9daf3a6c0139e87c09760a7602439390416190323ad5cd498880a61774",
     "input-question.odc-dependent-relationship.v1.json": "a9ac6babf8fade5d7cdca2a17202183609c37ab2b73dabe58e3c76ef8b71f719",
     "input-question.odc-dependent-tin.v1.json": "c24d718992d728e1e6852132f1f69a124482382bb89abc026ec1b1c5841da7db"
   },
@@ -466,7 +466,7 @@
   "status": "valid",
   "validation": "generate_to_directory passed package, registry and release validation",
   "generation": {
-    "registry_sha256": "4be1ef19e83abcff2ff4541552d59a3a824ea08651259b46eca230eebffacc04",
+    "registry_sha256": "0b55c95bf8f2d32d2ef4c045204842086a6d3e7c415de4717eb1ab9572ed01cb",
     "publication_boundary": "Candidate only: successor companion declaration and live release evidence are separate duties under ADR-0082."
   },
   "published": [

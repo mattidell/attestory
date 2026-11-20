@@ -206,7 +206,7 @@ def observe(core: Any, case: str, page_out: Path | None = None) -> dict[str, Any
         fid = p0.short(field.get("id"))
         resolved = section.get("resolved") or {}
         if resolved.get("disposition") == "blocked":
-            said = [[str(r.get("member_label") or ""), h.scrub(str(r.get("sentence")))]
+            said = [[str(r.get("memberLabel") or ""), h.scrub(str(r.get("sentence")))]
                     for r in resolved.get("reasons") or [] if isinstance(r, dict)]
             if said:
                 reasons[fid] = said

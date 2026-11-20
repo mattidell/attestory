@@ -46,6 +46,14 @@ BUNDLES: dict[str, str] = {
         "citizen-or-resident", "not-joint-return")},
 }
 
+_KIDNAPPED = (
+    " A kidnapped child is treated as living with you for more than half of the year if the child lived with you "
+    "for more than half the part of the year before the date of the kidnapping or following the date of the "
+    "child's return. The child must be presumed by law enforcement authorities to have been kidnapped by someone "
+    "who isn't a member of your family or the child's family. This treatment applies for all years until the "
+    "child is returned, but the last year it can apply is the earlier of the year there is a determination that "
+    "the child is dead or the year the child would have reached age 18."
+)
 _TIME_LIVED = (
     "Count temporary absences for special circumstances, such as school, vacation, business, medical care, "
     "military service, or detention in a juvenile facility, as time the child lived with you. A child who was born"
@@ -53,7 +61,7 @@ _TIME_LIVED = (
     "half the time the child was alive in 2025. A child you adopted in 2025, who was lawfully placed with you for"
     " legal adoption in 2025, or who was an eligible foster child placed with you during 2025, lived with you for"
     " more than half of 2025 if your main home was the child's main home for more than half the time since the "
-    "adoption or placement."
+    "adoption or placement." + _KIDNAPPED
 )
 _CITIZEN_EXCEPTION = (
     "Also answer yes if {who} is your adopted child, lived with you all year as a member of your household, and you"
@@ -76,7 +84,9 @@ QUESTIONS: dict[str, str] = {
         "age 24, a full-time student, and younger than you (or your spouse if you file a joint return); or was "
         "any age and permanently and totally disabled. A full-time student is a child who during any part of 5 "
         "calendar months of 2025 was enrolled as a full-time student at a school or took a full-time, on-farm "
-        "training course given by a school or a state, county, or local government agency. A person is "
+        "training course given by a school or a state, county, or local government agency. A school includes a "
+        "technical, trade, or mechanical school. It doesn't include an on-the-job training course, correspondence "
+        "school, or school offering courses only through the Internet. A person is "
         "permanently and totally disabled if, at any time in 2025, the person couldn't engage in any substantial "
         "gainful activity because of a physical or mental condition and a doctor has determined that this "
         "condition has lasted or can be expected to last continuously for at least a year, or can be expected to "
@@ -86,6 +96,8 @@ QUESTIONS: dict[str, str] = {
         "Did this child live with you in the United States for more than half of 2025? " + _TIME_LIVED + " If you"
         " were on extended active military duty outside the United States (duty ordered for an indefinite period"
         " or for more than 90 days), your main home is considered to be in the United States during that duty. "
+        "Once you begin serving extended active duty, you are considered to be on extended active duty even if you"
+        " don't serve more than 90 days. "
         "The United States means the 50 states and the District of Columbia, not Puerto Rico or a U.S. territory."
         " Answer yes if the child lived with you in the United States for more than half of 2025. Answer no if "
         "not, even if you paid most of the child's living expenses."
@@ -195,7 +207,10 @@ QUESTIONS: dict[str, str] = {
     ),
     P + "odc.dependent.over-half-support": (
         "Did you provide over half of this person's support in 2025? Answer yes if you did. Answer no if you did"
-        " not, including where you would be treated as providing it only under a multiple support agreement."
+        " not, including where you would be treated as providing it only under a multiple support agreement. If "
+        "this person is your child who is presumed by law enforcement authorities to have been kidnapped by someone"
+        " who isn't a family member, you may be able to take the child into account for the credit for other "
+        "dependents."
     ),
     P + "odc.dependent.tin": _TIN.format(who="this person", they="they", has="have", them="them"),
     P + "odc.dependent.citizen-or-resident": (
@@ -219,10 +234,12 @@ POLARITY.update({P + "ctc.child.no-over-half-support": "abs", P + "odc.dependent
 _DTB = "i1040gi 1943-1976 and 4828-4864 (Qualifying child of more than one person)"
 SOURCES: dict[str, list[str]] = {
     P + "eic.child.age": ["i1040gi 4424-4436 (line 27a Step 3, qualifying child: age)",
-                          "i1040gi 4788-4794 (Full-time student), 4813-4817 (Permanently and totally disabled)"],
+                          "i1040gi 4788-4794 (Full-time student; school does not include on-the-job training, correspondence or "
+                          "Internet-only schools), 4813-4817 (Permanently and totally disabled)"],
     P + "eic.child.residency": ["i1040gi 4444-4449, 4453-4454 (line 27a Step 3: lived with you in the United States)",
                                 "i1040gi 4753-4763 (Exception to time lived with you), 4802-4808 (Members of the "
-                                "military), 4911-4912 (United States)"],
+                                "military: extended active duty counts once begun), 4911-4912 (United States)",
+                                "i1040gi 4462-4464 and p596 1241-1254 (Kidnapped child)"],
     P + "eic.child.joint-return": ["i1040gi 4439-4441 (line 27a Step 3: joint return)",
                                    "i1040gi 4799-4801 (Married child)"],
     P + "eic.child.ssn": ["i1040gi 4876-4889, 4894-4898 (Social security number (SSN))",
@@ -243,7 +260,8 @@ SOURCES: dict[str, list[str]] = {
                                        "p596 1399-1405, 1417-1419 (you and the other person may choose who claims)"],
     P + "ctc.child.under-17": ["i1040gi 1586 (Step 3 question 3)", "i1040s8 140-150 (Credits for Qualifying Children)"],
     P + "ctc.child.lived-with-you": ["i1040gi 1492-1495 (Step 1: lived with you)",
-                                     "i1040gi 1881-1896 (Exception to time lived with you)"],
+                                     "i1040gi 1881-1896 (Exception to time lived with you)",
+                                     "i1040gi 1916-1920 and p596 1241-1254 (Kidnapped child)"],
     P + "ctc.child.no-over-half-support": ["i1040gi 1482 (Step 1: didn't provide over half of their own support)"],
     P + "ctc.child.citizen-or-resident": ["i1040gi 1573-1576 (Step 3 question 2)",
                                           "i1040gi 1871-1873 (Exception to citizen test)",
@@ -255,7 +273,8 @@ SOURCES: dict[str, list[str]] = {
     P + "odc.dependent.gross-income-under-limit": ["i1040gi 1668-1669 (Step 4: gross income)",
                                                    "i1040gi 1874-1877 (Exception to gross income test)"],
     P + "odc.dependent.over-half-support": ["i1040gi 1673-1675 (Step 4: support)",
-                                            "i1040gi 1925-1933 (Multiple support agreements)"],
+                                            "i1040gi 1925-1933 (Multiple support agreements)",
+                                            "i1040gi 1673-1675 and 1916-1920 (Kidnapped child)"],
     P + "odc.dependent.tin": ["i1040gi 1734-1738 (Step 5 question 2)",
                               "i1040s8 97-107 (Dependent required to have a TIN)"],
     P + "odc.dependent.citizen-or-resident": ["i1040gi 1763-1774 (Step 5 question 3)",

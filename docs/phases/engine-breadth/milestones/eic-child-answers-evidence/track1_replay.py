@@ -59,7 +59,7 @@ def expectations() -> list[rr.Expectation]:
         specs.append(rr.Expectation(("page", "model"), r"sentence", r"", "added", rr.ANY, text,
                                     note="question shown:" + fact.removeprefix(P)))
     # Each such reason names its member by the member's recorded label (ADR 0087 Decision 2).
-    specs.append(rr.Expectation(("page", "model"), r"member_label", r"", "added", rr.ANY, rr.ANY,
+    specs.append(rr.Expectation(("page", "model"), r"memberLabel", r"", "added", rr.ANY, rr.ANY,
                                 note="member label shown beside the question"))
     # The order record of a reasons list that is new on the line; "added" only, so a reorder still fails.
     specs.append(rr.Expectation(("page", "model"), r"resolved\.reasons@order", r"^sections\[", "added", None, rr.ANY,

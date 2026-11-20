@@ -35,18 +35,18 @@ on v100.
   up as the member's own row (`<name>|<subject>|<keys>`) and walked; if the
   member has no such row and the name has one publisher, its subject fact is
   the missing answer. A missing fact individuated on the member (by its
-  declared entity keys) is asked with `member_label`; a return-level fact
+  declared entity keys) is asked with `memberLabel`; a return-level fact
   reached from a member is asked without one. A member key with no blocked
   rows, or no single current labelled entity in its keys, leaves the line
   without a sentence, as before; every root must still have a question.
-- One reason per member and question: `{"sentence", "member_label"}`, after
+- One reason per member and question: `{"sentence", "memberLabel"}`, after
   the plain reasons, ordered by label then sentence. The walk memo carries
   the member questions like the others (`_WalkFrame.member_facts`).
-- The blocked-reason validator admits the optional `member_label` (a
+- The blocked-reason validator admits the optional `memberLabel` (a
   non-empty string).
 
 `packages/presentation/pages/citation-walk.v1.html`: a reason's
-`member_label`, when present, is shown as the bold prefix the page already
+`memberLabel`, when present, is shown as the bold prefix the page already
 draws for a statement label ("Synthetic demo-eicc-child-2: <question>").
 
 The walk is not switched by package version. On v100 and every earlier core
@@ -125,7 +125,7 @@ are in the ignored `temp/` directory, never committed):
   reached from a member is not labelled; no recorded label, no
   `roster_members`, a count rule that reads no member results, and an
   unclosed roster row all stay as before; the validator admits
-  `member_label` and refuses a malformed one.
+  `memberLabel` and refuses a malformed one.
 - `tests/test_eic_child_answers_v101.py` (live): the real coordinator and
   saved page (`track1_probe.py`), nothing pre-filled that a test is about.
   For each roster, one member and the second of two, 44 returns each leaving
@@ -152,7 +152,7 @@ are in the ignored `temp/` directory, never committed):
 `track1_replay.py` over `tools/recorded_replay.py` unchanged (strict
 full-surface comparison), published v100 against published v101, both on
 the Track 1 projection. Expectations: the package version, each of the 26
-question sentences added, `member_label` added, and a reasons list added on
+question sentences added, `memberLabel` added, and a reasons list added on
 a line that had none.
 
 | Set | Lists | Pass | Unexpected | Unused expectations |
@@ -167,6 +167,69 @@ returns each). On every return v101 publishes the same lines, symbols and
 blocked rules as v100, and the lines v101 asks are exactly the lines v100
 left silent.
 
+## Repair
+
+Review `docs/reviews/eic-child-answers/review.md` (ECA-R1, R2, R4, R5, R6),
+charter `docs/reviews/eic-child-answers/charter-repair.md`. Core v101,
+registry v99 and release v99 are not on main, so they were regenerated in
+place through `track1_build.py` (validated by
+`tools/package_successor.generate_to_directory`) and keep their numbers.
+Diff against the previous build: four question files, their four registry
+checksums, and the release's registry digest. The package file is
+byte-identical and no other question changed.
+
+Questions changed, each by adding the source's own words (sources quoted in
+the section for each question below):
+
+- ECA-R1, `eic.child.residency` and `ctc.child.lived-with-you`: a kidnapped
+  child is treated as living with you for more than half of the year if the
+  child lived with you for more than half the part of the year before the
+  date of the kidnapping or following the date of the child's return; the
+  child must be presumed by law enforcement authorities to have been
+  kidnapped by someone who isn't a member of your family or the child's
+  family; the treatment applies for all years until the child is returned,
+  but the last year is the earlier of the year there is a determination that
+  the child is dead or the year the child would have reached age 18
+  (i1040gi 1916-1920, 4462-4464; Pub. 596 1241-1254).
+- ECA-R1, `odc.dependent.over-half-support`: if the person is your child
+  presumed by law enforcement authorities to have been kidnapped by someone
+  who isn't a family member, you may be able to take the child into account
+  for the credit for other dependents (i1040gi 1673-1675, 1916-1920). The
+  source states no support-specific condition, so none is added.
+- ECA-R2, `eic.child.age`: a school includes a technical, trade, or
+  mechanical school and doesn't include an on-the-job training course,
+  correspondence school, or school offering courses only through the
+  Internet (i1040gi 4792-4794).
+- ECA-R4, `eic.child.residency`: once you begin serving extended active duty,
+  you are considered to be on extended active duty even if you don't serve
+  more than 90 days (i1040gi 4806-4808).
+
+ECA-R5: the reason field `member_label` is now `memberLabel` in the
+projection, the blocked-reason validator, the page and the tests.
+
+ECA-R6: `test_a_member_with_two_recorded_labels_leaves_the_line_silent` (a
+member whose keys name two current entities leaves the line silent; the same
+member keyed on one entity is asked). On a scratch copy with the one-label
+guard in `_RosterMembers.label` removed it fails (`[{'memberLabel': ...,
+'sentence': ...}] != []`); with the guard it passes.
+
+Replay after the repair (same expectations): recorded 775 of 775 pass (691
+package version only, 84 identical `error/error`), 0 unexpected, 28 unused
+as before; probe 101 of 101 pass, 0 unexpected, none unused.
+`track1-probe-v101.json` was regenerated: only the sentences of the lines
+that show the changed questions differ.
+
+Checks after the repair:
+
+- `pytest tests/test_eic_child_answers_walk.py`: `15 passed, 6 subtests passed in 1.19s`
+- `pytest tests/test_eic_child_answers_v101_package.py`: `6 passed in 1.26s`
+- `pytest tests/test_eic_child_answers_v101.py`: `59 passed in 38.30s`
+- `pytest tests/test_input_questions.py`: `27 passed, 49 subtests passed in 108.64s`
+- `pytest tests/test_schema_registry.py`: `14 passed in 1.22s`
+- `pytest tests/test_noncovered_sales_v78_switch.py`: `5 passed in 1.15s`
+- `pytest -m "not live"`: `1941 passed, 8 skipped, 5970 subtests passed in 15.56s`
+- `python3 -m mypy`: `Success: no issues found in 531 source files`
+
 ## Questions and their sources
 
 Each question as published, its polarity, and the source lines it is written
@@ -174,7 +237,7 @@ from, quoted from the extraction (column breaks of the PDF join some lines).
 
 ### `eic.child.age` (pos)
 
-Question: Does this child meet the age test for the earned income credit? Answer yes if, at the end of 2025, the child was under age 19 and younger than you (or your spouse if you file a joint return); or was under age 24, a full-time student, and younger than you (or your spouse if you file a joint return); or was any age and permanently and totally disabled. A full-time student is a child who during any part of 5 calendar months of 2025 was enrolled as a full-time student at a school or took a full-time, on-farm training course given by a school or a state, county, or local government agency. A person is permanently and totally disabled if, at any time in 2025, the person couldn't engage in any substantial gainful activity because of a physical or mental condition and a doctor has determined that this condition has lasted or can be expected to last continuously for at least a year, or can be expected to lead to death. Answer no if none of these applies.
+Question: Does this child meet the age test for the earned income credit? Answer yes if, at the end of 2025, the child was under age 19 and younger than you (or your spouse if you file a joint return); or was under age 24, a full-time student, and younger than you (or your spouse if you file a joint return); or was any age and permanently and totally disabled. A full-time student is a child who during any part of 5 calendar months of 2025 was enrolled as a full-time student at a school or took a full-time, on-farm training course given by a school or a state, county, or local government agency. A school includes a technical, trade, or mechanical school. It doesn't include an on-the-job training course, correspondence school, or school offering courses only through the Internet. A person is permanently and totally disabled if, at any time in 2025, the person couldn't engage in any substantial gainful activity because of a physical or mental condition and a doctor has determined that this condition has lasted or can be expected to last continuously for at least a year, or can be expected to lead to death. Answer no if none of these applies.
 
 - i1040gi 4424-4436 (line 27a Step 3, qualifying child: age): "was ... Under age 19 at the end of 2025 and younger than you (or your spouse if filing jointly) or Under age 24 at the end of 2025, a full-time student (defined later), and younger than you (or your spouse if filing jointly). If the child is a full-time student, check the “Full-time student” box on row (6) of the Dependents section on page 1 of Form 1040 or 1040-SR or Any age and permanently and totally disabled (defined later). If the child is permanently and totally disabled, check the “Permanently and totally disabled” box on row (6) of the Dependents section on page 1 of Form 1040 or 1040-SR."
 - i1040gi 4788-4794 (Full-time student): "Full-time student. A full-time student is a child who during any part of 5 calendar months of 2025 was enrolled as a full-time student at a school or took a full-time, on-farm training course given by a school or a state, county, or local government agency. A school includes a technical, trade, or mechanical school. It doesn't include an on-the-job training course, correspondence school, or school offering courses only through the Internet."
@@ -182,13 +245,15 @@ Question: Does this child meet the age test for the earned income credit? Answer
 
 ### `eic.child.residency` (pos)
 
-Question: Did this child live with you in the United States for more than half of 2025? Count temporary absences for special circumstances, such as school, vacation, business, medical care, military service, or detention in a juvenile facility, as time the child lived with you. A child who was born or died in 2025 lived with you for more than half of 2025 if your home was the child's home for more than half the time the child was alive in 2025. A child you adopted in 2025, who was lawfully placed with you for legal adoption in 2025, or who was an eligible foster child placed with you during 2025, lived with you for more than half of 2025 if your main home was the child's main home for more than half the time since the adoption or placement. If you were on extended active military duty outside the United States (duty ordered for an indefinite period or for more than 90 days), your main home is considered to be in the United States during that duty. The United States means the 50 states and the District of Columbia, not Puerto Rico or a U.S. territory. Answer yes if the child lived with you in the United States for more than half of 2025. Answer no if not, even if you paid most of the child's living expenses.
+Question: Did this child live with you in the United States for more than half of 2025? Count temporary absences for special circumstances, such as school, vacation, business, medical care, military service, or detention in a juvenile facility, as time the child lived with you. A child who was born or died in 2025 lived with you for more than half of 2025 if your home was the child's home for more than half the time the child was alive in 2025. A child you adopted in 2025, who was lawfully placed with you for legal adoption in 2025, or who was an eligible foster child placed with you during 2025, lived with you for more than half of 2025 if your main home was the child's main home for more than half the time since the adoption or placement. A kidnapped child is treated as living with you for more than half of the year if the child lived with you for more than half the part of the year before the date of the kidnapping or following the date of the child's return. The child must be presumed by law enforcement authorities to have been kidnapped by someone who isn't a member of your family or the child's family. This treatment applies for all years until the child is returned, but the last year it can apply is the earlier of the year there is a determination that the child is dead or the year the child would have reached age 18. If you were on extended active military duty outside the United States (duty ordered for an indefinite period or for more than 90 days), your main home is considered to be in the United States during that duty. Once you begin serving extended active duty, you are considered to be on extended active duty even if you don't serve more than 90 days. The United States means the 50 states and the District of Columbia, not Puerto Rico or a U.S. territory. Answer yes if the child lived with you in the United States for more than half of 2025. Answer no if not, even if you paid most of the child's living expenses.
 
 - i1040gi 4444-4449: "Who lived with you in the United States for more than half of 2025. If the child lived with you in the United States for more than half of 2025, check both boxes (box (a) and box (b)) on row (5) of the Dependents section on page 1 of Form 1040 or 1040-SR. Also, make sure to check the box to the right of the address block on page 1 of Form 1040 or 1040-SR. See Main home and United States, later."
 - i1040gi 4453-4454 (line 27a Step 3: lived with you in the United States): "You can’t take the credit for a child who didn’t live with you for more than half the year, even if you paid most of the child’s living expenses. The"
 - i1040gi 4753-4763 (Exception to time lived with you): "Exception to time lived with you. Temporary absences by you or the child for special circumstances, such as school, vacation, business, medical care, military service, or detention in a juvenile facility, count as time the child lived with you. Also see Kidnapped child under Who Qualifies as Your Dependent, earlier, and Members of the military, later. A child is considered to have lived with you for more than half of 2025 if the child was born or died in 2025 and your home was this child’s home for more than half the time the child was alive in 2025 or, if you adopted the child in 2025, the child was lawfully placed with you for legal adoption by you in 2025, or if the child was an eligible foster child placed with you during 2025 and your main home was the child’s main home for more than half the time since the child was adopted or placed with you in 2025."
 - i1040gi 4802-4808 (Members of the military): "Members of the military. If you were on extended active duty outside the United States, your main home is considered to be in the United States during that duty period. Extended active duty is military duty ordered for an indefinite period or for a period of more than 90 days. Once you begin serving extended active duty, you are considered to be on extended active duty even if you don’t serve more than 90 days."
 - i1040gi 4911-4912 (United States): "United States. The United States means the 50 states and the District of Columbia. It doesn’t include Puerto Rico or U.S. ter-"
+- i1040gi 4462-4464 (line 27a Step 3: kidnapping): "If the child didn’t live with you for more than half of 2025 because of a temporary absence, birth, death, placement with you for foster or adoption, or kidnapping, see Exception to time lived with you, later."
+- p596 1241-1254 (Kidnapped child): "Kidnapped child. A kidnapped child is treated as living with you for more than half of the year if the child lived with you for more than half the part of the year before the date of the kidnapping or following the date of the child’s return. The child must be presumed by law enforcement authorities to have been kidnapped by someone who isn’t a member of your family or the child’s family. This treatment applies for all years until the child is returned. However, the last year this treatment can apply is the earlier of: 1. The year there is a determination that the child is dead, or 2. The year the child would have reached age 18. If your qualifying child has been kidnapped and meets these requirements, enter “KC,” instead of a number, on line 6 of Schedule EIC."
 
 ### `eic.child.joint-return` (pos)
 
@@ -292,10 +357,12 @@ Question: Was this child under age 17 at the end of 2025? Answer yes if so. Answ
 
 ### `ctc.child.lived-with-you` (pos)
 
-Question: Did this child live with you for more than half of 2025? Count temporary absences for special circumstances, such as school, vacation, business, medical care, military service, or detention in a juvenile facility, as time the child lived with you. A child who was born or died in 2025 lived with you for more than half of 2025 if your home was the child's home for more than half the time the child was alive in 2025. A child you adopted in 2025, who was lawfully placed with you for legal adoption in 2025, or who was an eligible foster child placed with you during 2025, lived with you for more than half of 2025 if your main home was the child's main home for more than half the time since the adoption or placement. Answer yes if the child lived with you for more than half of 2025. Answer no if not.
+Question: Did this child live with you for more than half of 2025? Count temporary absences for special circumstances, such as school, vacation, business, medical care, military service, or detention in a juvenile facility, as time the child lived with you. A child who was born or died in 2025 lived with you for more than half of 2025 if your home was the child's home for more than half the time the child was alive in 2025. A child you adopted in 2025, who was lawfully placed with you for legal adoption in 2025, or who was an eligible foster child placed with you during 2025, lived with you for more than half of 2025 if your main home was the child's main home for more than half the time since the adoption or placement. A kidnapped child is treated as living with you for more than half of the year if the child lived with you for more than half the part of the year before the date of the kidnapping or following the date of the child's return. The child must be presumed by law enforcement authorities to have been kidnapped by someone who isn't a member of your family or the child's family. This treatment applies for all years until the child is returned, but the last year it can apply is the earlier of the year there is a determination that the child is dead or the year the child would have reached age 18. Answer yes if the child lived with you for more than half of 2025. Answer no if not.
 
 - i1040gi 1492-1495 (Step 1: lived with you): "Who lived with you for more than half of 2025. If the child didn’t live with you for the required time, see Exception to time lived with you, later. If the child lived with you for more than half of 2025, check the “Yes” box (box (a)) on row (5) of the Dependents section on page 1 of Form 1040 or 1040-SR."
 - i1040gi 1881-1896 (Exception to time lived with you): "Exception to time lived with you. Temporary absences by you or the other person for special circumstances, such as school, vacation, business, medical care, military service, or detention in a juvenile facility, count as time the person lived with you. Also see Children of divorced or separated parents, earlier, or Kidnapped child, later. If the person meets all other requirements to be your qualifying child but was born or died in 2025, the person is considered to have lived with you for more than half of 2025 if your home was this person’s home for more than half the time the person was alive in 2025. If the person meets all other requirements to be your qualifying child but you adopted the person in 2025, the person was lawfully placed with you for legal adoption by you in 2025, or if the person was an eligible foster child placed with you during 2025, the person is considered to have lived with you for more than half of 2025 if your main home was this person’s main home for more than half the time since the person was adopted or placed with you in 2025."
+- i1040gi 1916-1920 (Kidnapped child): "Kidnapped child. If your child is presumed by law enforcement authorities to have been kidnapped by someone who isn’t a family member, you may be able to take the child into account in determining your eligibility for head of household or qualifying surviving spouse filing status, the child tax credit, the credit for other dependents, and the earned income credit (EIC). For details, see Pub. 501 (Pub. 596 for the EIC)."
+- p596 1241-1254 (Kidnapped child): "Kidnapped child. A kidnapped child is treated as living with you for more than half of the year if the child lived with you for more than half the part of the year before the date of the kidnapping or following the date of the child’s return. The child must be presumed by law enforcement authorities to have been kidnapped by someone who isn’t a member of your family or the child’s family. This treatment applies for all years until the child is returned. However, the last year this treatment can apply is the earlier of: 1. The year there is a determination that the child is dead, or 2. The year the child would have reached age 18. If your qualifying child has been kidnapped and meets these requirements, enter “KC,” instead of a number, on line 6 of Schedule EIC."
 
 ### `ctc.child.no-over-half-support` (abs)
 
@@ -339,10 +406,11 @@ Question: Did this person have gross income of less than $5,200 in 2025? Answer 
 
 ### `odc.dependent.over-half-support` (pos)
 
-Question: Did you provide over half of this person's support in 2025? Answer yes if you did. Answer no if you did not, including where you would be treated as providing it only under a multiple support agreement.
+Question: Did you provide over half of this person's support in 2025? Answer yes if you did. Answer no if you did not, including where you would be treated as providing it only under a multiple support agreement. If this person is your child who is presumed by law enforcement authorities to have been kidnapped by someone who isn't a family member, you may be able to take the child into account for the credit for other dependents.
 
 - i1040gi 1673-1675 (Step 4: support): "For whom you provided over half of the person’s support in 2025. But see Children of divorced or separated parents, Multiple support agreements, and Kidnapped child, later."
 - i1040gi 1925-1933 (Multiple support agreements): "Multiple support agreements. If no one person contributed over half of the support of your relative (or a person who lived Need more information or forms? Visit IRS.gov. with you all year as a member of your household) but you and another person(s) provided more than half of your relative’s support, special rules may apply that would treat you as having provided over half of the support. For details, see Pub. 501."
+- i1040gi 1916-1920 (Kidnapped child): "Kidnapped child. If your child is presumed by law enforcement authorities to have been kidnapped by someone who isn’t a family member, you may be able to take the child into account in determining your eligibility for head of household or qualifying surviving spouse filing status, the child tax credit, the credit for other dependents, and the earned income credit (EIC). For details, see Pub. 501 (Pub. 596 for the EIC)."
 
 ### `odc.dependent.tin` (pos)
 
