@@ -1,0 +1,1602 @@
+{
+ "core": "v100 against scratch",
+ "lists": {
+  "probe/single/kid1/30000/-": {
+   "differences": 6173,
+   "sorted": {
+    "declared": 583,
+    "alias": 96,
+    "count input": 114,
+    "alias rekeyed (removed half)": 2690,
+    "alias rekeyed (added half)": 2690
+   },
+   "other_total": 0,
+   "other": []
+  },
+  "probe/single/kid2/30000/-": {
+   "differences": 6331,
+   "sorted": {
+    "declared": 613,
+    "alias": 96,
+    "count input": 222,
+    "alias rekeyed (removed half)": 2700,
+    "alias rekeyed (added half)": 2700
+   },
+   "other_total": 0,
+   "other": []
+  },
+  "probe/mfj/kid1/30000/-": {
+   "differences": 5971,
+   "sorted": {
+    "alias": 100,
+    "declared": 589,
+    "count input": 114,
+    "alias rekeyed (removed half)": 2584,
+    "alias rekeyed (added half)": 2584
+   },
+   "other_total": 0,
+   "other": []
+  },
+  "probe/single/kid1/30000/age@1": {
+   "differences": 2656,
+   "sorted": {
+    "declared": 574,
+    "count input": 76,
+    "alias": 42,
+    "alias rekeyed (removed half)": 982,
+    "alias rekeyed (added half)": 982
+   },
+   "other_total": 0,
+   "other": []
+  },
+  "probe/single/kid1/30000/res@1": {
+   "differences": 2664,
+   "sorted": {
+    "declared": 574,
+    "count input": 84,
+    "alias": 42,
+    "alias rekeyed (removed half)": 982,
+    "alias rekeyed (added half)": 982
+   },
+   "other_total": 0,
+   "other": []
+  },
+  "probe/single/kid1/30000/joint@1": {
+   "differences": 630,
+   "sorted": {
+    "declared": 562,
+    "count input": 68
+   },
+   "other_total": 0,
+   "other": []
+  },
+  "probe/single/kid1/30000/ssn@1": {
+   "differences": 646,
+   "sorted": {
+    "declared": 562,
+    "count input": 84
+   },
+   "other_total": 0,
+   "other": []
+  },
+  "probe/single/kid1/30000/dtb-another@1": {
+   "differences": 624,
+   "sorted": {
+    "declared": 524,
+    "count input": 100
+   },
+   "other_total": 0,
+   "other": []
+  },
+  "probe/single/kid1/30000/dtb-filer-parent@1": {
+   "differences": 624,
+   "sorted": {
+    "declared": 524,
+    "count input": 100
+   },
+   "other_total": 0,
+   "other": []
+  },
+  "probe/single/kid1/30000/u17@1": {
+   "differences": 3147,
+   "sorted": {
+    "declared": 580,
+    "count input": 58,
+    "alias": 49,
+    "alias rekeyed (removed half)": 1230,
+    "alias rekeyed (added half)": 1230
+   },
+   "other_total": 0,
+   "other": []
+  },
+  "probe/single/kid1/30000/lived@1": {
+   "differences": 3155,
+   "sorted": {
+    "declared": 580,
+    "count input": 66,
+    "alias": 49,
+    "alias rekeyed (removed half)": 1230,
+    "alias rekeyed (added half)": 1230
+   },
+   "other_total": 0,
+   "other": []
+  },
+  "probe/single/kid1/30000/support@1": {
+   "differences": 3163,
+   "sorted": {
+    "declared": 580,
+    "count input": 74,
+    "alias": 49,
+    "alias rekeyed (removed half)": 1230,
+    "alias rekeyed (added half)": 1230
+   },
+   "other_total": 0,
+   "other": []
+  },
+  "probe/single/kid1/30000/citizen@1": {
+   "differences": 3171,
+   "sorted": {
+    "declared": 580,
+    "count input": 82,
+    "alias": 49,
+    "alias rekeyed (removed half)": 1230,
+    "alias rekeyed (added half)": 1230
+   },
+   "other_total": 0,
+   "other": []
+  },
+  "probe/single/kid2/30000/age@2": {
+   "differences": 2769,
+   "sorted": {
+    "declared": 598,
+    "count input": 155,
+    "alias": 42,
+    "alias rekeyed (removed half)": 987,
+    "alias rekeyed (added half)": 987
+   },
+   "other_total": 0,
+   "other": []
+  },
+  "probe/single/kid2/30000/res@2": {
+   "differences": 2785,
+   "sorted": {
+    "declared": 598,
+    "count input": 171,
+    "alias": 42,
+    "alias rekeyed (removed half)": 987,
+    "alias rekeyed (added half)": 987
+   },
+   "other_total": 0,
+   "other": []
+  },
+  "probe/single/kid2/30000/joint@2": {
+   "differences": 725,
+   "sorted": {
+    "declared": 577,
+    "count input": 148
+   },
+   "other_total": 0,
+   "other": []
+  },
+  "probe/single/kid2/30000/ssn@2": {
+   "differences": 757,
+   "sorted": {
+    "declared": 577,
+    "count input": 180
+   },
+   "other_total": 0,
+   "other": []
+  },
+  "probe/single/kid2/30000/dtb-another@2": {
+   "differences": 735,
+   "sorted": {
+    "declared": 539,
+    "count input": 196
+   },
+   "other_total": 0,
+   "other": []
+  },
+  "probe/single/kid2/30000/dtb-filer-parent@2": {
+   "differences": 735,
+   "sorted": {
+    "declared": 539,
+    "count input": 196
+   },
+   "other_total": 0,
+   "other": []
+  },
+  "probe/single/kid2/30000/u17@2": {
+   "differences": 3240,
+   "sorted": {
+    "declared": 602,
+    "count input": 119,
+    "alias": 49,
+    "alias rekeyed (removed half)": 1235,
+    "alias rekeyed (added half)": 1235
+   },
+   "other_total": 0,
+   "other": []
+  },
+  "probe/single/kid2/30000/lived@2": {
+   "differences": 3256,
+   "sorted": {
+    "declared": 602,
+    "count input": 135,
+    "alias": 49,
+    "alias rekeyed (removed half)": 1235,
+    "alias rekeyed (added half)": 1235
+   },
+   "other_total": 0,
+   "other": []
+  },
+  "probe/single/kid2/30000/support@2": {
+   "differences": 3272,
+   "sorted": {
+    "declared": 602,
+    "count input": 151,
+    "alias": 49,
+    "alias rekeyed (removed half)": 1235,
+    "alias rekeyed (added half)": 1235
+   },
+   "other_total": 0,
+   "other": []
+  },
+  "probe/single/kid2/30000/citizen@2": {
+   "differences": 3288,
+   "sorted": {
+    "declared": 602,
+    "count input": 167,
+    "alias": 49,
+    "alias rekeyed (removed half)": 1235,
+    "alias rekeyed (added half)": 1235
+   },
+   "other_total": 0,
+   "other": []
+  },
+  "probe/mfj/kid1/30000/age@1": {
+   "differences": 2678,
+   "sorted": {
+    "declared": 576,
+    "count input": 76,
+    "alias": 42,
+    "alias rekeyed (removed half)": 992,
+    "alias rekeyed (added half)": 992
+   },
+   "other_total": 0,
+   "other": []
+  },
+  "probe/mfj/kid1/30000/joint@1": {
+   "differences": 632,
+   "sorted": {
+    "declared": 564,
+    "count input": 68
+   },
+   "other_total": 0,
+   "other": []
+  },
+  "probe/single/odckid/30000/-": {
+   "differences": 5459,
+   "sorted": {
+    "declared": 586,
+    "alias": 70,
+    "count input": 114,
+    "alias rekeyed (removed half)": 2051,
+    "alias rekeyed (added half)": 2051
+   },
+   "other_total": 587,
+   "other": [
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-2]",
+     "attribute": "citationSites@order",
+     "before": [
+      "line-eic-a-2-src-0",
+      "line-eic-a-2-src-1",
+      "line-eic-a-2-src-2",
+      "line-eic-a-2-src-3",
+      "line-eic-a-2-src-4"
+     ],
+     "after": [
+      "line-eic-a-2-src-0",
+      "line-eic-a-2-src-1",
+      "line-eic-a-2-src-2",
+      "line-eic-a-2-src-3",
+      "line-eic-a-2-src-4",
+      "line-eic-a-2-src-5",
+      "line-eic-a-2-src-6",
+      "line-eic-a-2-src-7"
+     ]
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]",
+     "attribute": "citationSites@order",
+     "before": [
+      "line-eic-a-5-src-0",
+      "line-eic-a-5-src-1",
+      "line-eic-a-5-src-2",
+      "line-eic-a-5-src-3",
+      "line-eic-a-5-src-4",
+      "line-eic-a-5-src-5",
+      "line-eic-a-5-src-6",
+      "line-eic-a-5-src-7",
+      "line-eic-a-5-src-8",
+      "line-eic-a-5-src-9",
+      "line-eic-a-5-src-10",
+      "line-eic-a-5-src-11",
+      "line-eic-a-5-src-12",
+      "line-eic-a-5-src-13",
+      "line-eic-a-5-src-14",
+      "line-eic-a-5-src-15",
+      "line-eic-a-5-src-16",
+      "line-eic-a-5-src-17",
+      "line-eic-a-5-src-18",
+      "line-eic-a-5-src-19",
+      "line-eic-a-5-src-20",
+      "line-eic-a-5-src-21",
+      "line-eic-a-5-src-22",
+      "line-eic-a-5-src-23",
+      "line-eic-a-5-src-24",
+      "line-eic-a-5-src-25",
+      "line-eic-a-5-src-26",
+      "line-eic-a-5-src-27",
+      "line-eic-a-5-src-28",
+      "line-eic-a-5-src-29",
+      "line-eic-a-5-src-30",
+      "line-eic-a-5-src-31",
+      "line-eic-a-5-src-32",
+      "line-eic-a-5-src-33"
+     ],
+     "after": [
+      "line-eic-a-5-src-0",
+      "line-eic-a-5-src-1",
+      "line-eic-a-5-src-2",
+      "line-eic-a-5-src-3",
+      "line-eic-a-5-src-4",
+      "line-eic-a-5-src-5",
+      "line-eic-a-5-src-6",
+      "line-eic-a-5-src-7",
+      "line-eic-a-5-src-8",
+      "line-eic-a-5-src-9",
+      "line-eic-a-5-src-10",
+      "line-eic-a-5-src-11",
+      "line-eic-a-5-src-12",
+      "line-eic-a-5-src-13",
+      "line-eic-a-5-src-14",
+      "line-eic-a-5-src-15",
+      "line-eic-a-5-src-16",
+      "line-eic-a-5-src-17",
+      "line-eic-a-5-src-18",
+      "line-eic-a-5-src-19",
+      "line-eic-a-5-src-20",
+      "line-eic-a-5-src-21",
+      "line-eic-a-5-src-22",
+      "line-eic-a-5-src-23",
+      "line-eic-a-5-src-24",
+      "line-eic-a-5-src-25",
+      "line-eic-a-5-src-26",
+      "line-eic-a-5-src-27",
+      "line-eic-a-5-src-28",
+      "line-eic-a-5-src-29",
+      "line-eic-a-5-src-30",
+      "line-eic-a-5-src-31",
+      "line-eic-a-5-src-32",
+      "line-eic-a-5-src-33",
+      "line-eic-a-5-src-34",
+      "line-eic-a-5-src-35",
+      "line-eic-a-5-src-36"
+     ]
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-9]",
+     "attribute": "pinId",
+     "before": "demo.probe.sched1-scope.no-line11-educator",
+     "after": "demo.eic.res.demo-eicc-child-1"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-10]",
+     "attribute": "pinId",
+     "before": "demo.probe.sched1-scope.no-line12-business-expenses",
+     "after": "demo.joint-return.demo-eicc-child-1"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-11]",
+     "attribute": "pinId",
+     "before": "demo.probe.sched1-scope.no-line13-hsa",
+     "after": "demo.probe.sched1-scope.no-line11-educator"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-12]",
+     "attribute": "pinId",
+     "before": "demo.probe.sched1-scope.no-line14-moving",
+     "after": "demo.probe.sched1-scope.no-line12-business-expenses"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-13]",
+     "attribute": "pinId",
+     "before": "demo.probe.sched1-scope.no-line15-deductible-se",
+     "after": "demo.probe.sched1-scope.no-line13-hsa"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-14]",
+     "attribute": "pinId",
+     "before": "demo.probe.sched1-scope.no-line16-se-retirement",
+     "after": "demo.probe.sched1-scope.no-line14-moving"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-15]",
+     "attribute": "pinId",
+     "before": "demo.probe.sched1-scope.no-line17-se-health",
+     "after": "demo.probe.sched1-scope.no-line15-deductible-se"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-16]",
+     "attribute": "pinId",
+     "before": "demo.probe.sched1-scope.no-line18-penalty",
+     "after": "demo.probe.sched1-scope.no-line16-se-retirement"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-17]",
+     "attribute": "pinId",
+     "before": "demo.probe.sched1-scope.no-line19-alimony-paid",
+     "after": "demo.probe.sched1-scope.no-line17-se-health"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-18]",
+     "attribute": "pinId",
+     "before": "demo.probe.sched1-scope.no-line20-ira-deduction",
+     "after": "demo.probe.sched1-scope.no-line18-penalty"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-19]",
+     "attribute": "pinId",
+     "before": "demo.probe.sched1-scope.no-line23-archer-msa",
+     "after": "demo.probe.sched1-scope.no-line19-alimony-paid"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-20]",
+     "attribute": "pinId",
+     "before": "demo.probe.sched1-scope.no-line25-other-adjustments",
+     "after": "demo.probe.sched1-scope.no-line20-ira-deduction"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-21]",
+     "attribute": "pinId",
+     "before": "demo.sfa.answer.form8949",
+     "after": "demo.probe.sched1-scope.no-line23-archer-msa"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-22]",
+     "attribute": "pinId",
+     "before": "demo.ssa.scope.no-rrb-or-foreign-social-benefit",
+     "after": "demo.probe.sched1-scope.no-line25-other-adjustments"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-23]",
+     "attribute": "pinId",
+     "before": "demo.ug.scope.no-f1099g-box2-state-refund",
+     "after": "demo.sfa.answer.form8949"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-24]",
+     "attribute": "pinId",
+     "before": "demo.ug.scope.no-f1099g-other-payment-classes",
+     "after": "demo.ssa.scope.no-rrb-or-foreign-social-benefit"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-25]",
+     "attribute": "pinId",
+     "before": "demo.ug.scope.no-sch1-line1-taxable-refunds",
+     "after": "demo.ssn.demo-eicc-child-1"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-26]",
+     "attribute": "pinId",
+     "before": "demo.ug.scope.no-sch1-line2a-alimony",
+     "after": "demo.ug.scope.no-f1099g-box2-state-refund"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-27]",
+     "attribute": "pinId",
+     "before": "demo.ug.scope.no-sch1-line3-business",
+     "after": "demo.ug.scope.no-f1099g-other-payment-classes"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-28]",
+     "attribute": "pinId",
+     "before": "demo.ug.scope.no-sch1-line4-other-gains",
+     "after": "demo.ug.scope.no-sch1-line1-taxable-refunds"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-29]",
+     "attribute": "pinId",
+     "before": "demo.ug.scope.no-sch1-line5-rental",
+     "after": "demo.ug.scope.no-sch1-line2a-alimony"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-30]",
+     "attribute": "pinId",
+     "before": "demo.ug.scope.no-sch1-line6-farm",
+     "after": "demo.ug.scope.no-sch1-line3-business"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-31]",
+     "attribute": "pinId",
+     "before": "demo.ug.scope.no-unemployment-repayment",
+     "after": "demo.ug.scope.no-sch1-line4-other-gains"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-32]",
+     "attribute": "pinId",
+     "before": "demo.ug.sd-boundary.no-inbound-capital-loss-carryovers",
+     "after": "demo.ug.scope.no-sch1-line5-rental"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-33]",
+     "attribute": "pinId",
+     "before": "demo.w2g.scope.other-income",
+     "after": "demo.ug.scope.no-sch1-line6-farm"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-6]",
+     "attribute": "citationSites@order",
+     "before": [
+      "line-eic-a-6-src-0",
+      "line-eic-a-6-src-1",
+      "line-eic-a-6-src-2",
+      "line-eic-a-6-src-3",
+      "line-eic-a-6-src-4",
+      "line-eic-a-6-src-5",
+      "line-eic-a-6-src-6",
+      "line-eic-a-6-src-7",
+      "line-eic-a-6-src-8",
+      "line-eic-a-6-src-9",
+      "line-eic-a-6-src-10",
+      "line-eic-a-6-src-11",
+      "line-eic-a-6-src-12",
+      "line-eic-a-6-src-13",
+      "line-eic-a-6-src-14",
+      "line-eic-a-6-src-15",
+      "line-eic-a-6-src-16",
+      "line-eic-a-6-src-17",
+      "line-eic-a-6-src-18",
+      "line-eic-a-6-src-19",
+      "line-eic-a-6-src-20",
+      "line-eic-a-6-src-21",
+      "line-eic-a-6-src-22",
+      "line-eic-a-6-src-23",
+      "line-eic-a-6-src-24",
+      "line-eic-a-6-src-25",
+      "line-eic-a-6-src-26",
+      "line-eic-a-6-src-27",
+      "line-eic-a-6-src-28",
+      "line-eic-a-6-src-29",
+      "line-eic-a-6-src-30",
+      "line-eic-a-6-src-31",
+      "line-eic-a-6-src-32",
+      "line-eic-a-6-src-33"
+     ],
+     "after": [
+      "line-eic-a-6-src-0",
+      "line-eic-a-6-src-1",
+      "line-eic-a-6-src-2",
+      "line-eic-a-6-src-3",
+      "line-eic-a-6-src-4",
+      "line-eic-a-6-src-5",
+      "line-eic-a-6-src-6",
+      "line-eic-a-6-src-7",
+      "line-eic-a-6-src-8",
+      "line-eic-a-6-src-9",
+      "line-eic-a-6-src-10",
+      "line-eic-a-6-src-11",
+      "line-eic-a-6-src-12",
+      "line-eic-a-6-src-13",
+      "line-eic-a-6-src-14",
+      "line-eic-a-6-src-15",
+      "line-eic-a-6-src-16",
+      "line-eic-a-6-src-17",
+      "line-eic-a-6-src-18",
+      "line-eic-a-6-src-19",
+      "line-eic-a-6-src-20",
+      "line-eic-a-6-src-21",
+      "line-eic-a-6-src-22",
+      "line-eic-a-6-src-23",
+      "line-eic-a-6-src-24",
+      "line-eic-a-6-src-25",
+      "line-eic-a-6-src-26",
+      "line-eic-a-6-src-27",
+      "line-eic-a-6-src-28",
+      "line-eic-a-6-src-29",
+      "line-eic-a-6-src-30",
+      "line-eic-a-6-src-31",
+      "line-eic-a-6-src-32",
+      "line-eic-a-6-src-33",
+      "line-eic-a-6-src-34",
+      "line-eic-a-6-src-35",
+      "line-eic-a-6-src-36"
+     ]
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-6]/citationSites[line-eic-a-6-src-9]",
+     "attribute": "pinId",
+     "before": "demo.probe.sched1-scope.no-line11-educator",
+     "after": "demo.eic.res.demo-eicc-child-1"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-6]/citationSites[line-eic-a-6-src-10]",
+     "attribute": "pinId",
+     "before": "demo.probe.sched1-scope.no-line12-business-expenses",
+     "after": "demo.joint-return.demo-eicc-child-1"
+    }
+   ]
+  },
+  "probe/single/odckid/30000/odc-tin@1": {
+   "differences": 2831,
+   "sorted": {
+    "declared": 561,
+    "alias": 52,
+    "count input": 143,
+    "alias rekeyed (removed half)": 914,
+    "alias rekeyed (added half)": 914
+   },
+   "other_total": 247,
+   "other": [
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-2]",
+     "attribute": "citationSites@order",
+     "before": [
+      "line-eic-a-2-src-0",
+      "line-eic-a-2-src-1",
+      "line-eic-a-2-src-2",
+      "line-eic-a-2-src-3",
+      "line-eic-a-2-src-4"
+     ],
+     "after": [
+      "line-eic-a-2-src-0",
+      "line-eic-a-2-src-1",
+      "line-eic-a-2-src-2",
+      "line-eic-a-2-src-3",
+      "line-eic-a-2-src-4",
+      "line-eic-a-2-src-5",
+      "line-eic-a-2-src-6",
+      "line-eic-a-2-src-7"
+     ]
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]",
+     "attribute": "citationSites@order",
+     "before": [
+      "line-eic-a-5-src-0",
+      "line-eic-a-5-src-1",
+      "line-eic-a-5-src-2",
+      "line-eic-a-5-src-3",
+      "line-eic-a-5-src-4",
+      "line-eic-a-5-src-5",
+      "line-eic-a-5-src-6",
+      "line-eic-a-5-src-7",
+      "line-eic-a-5-src-8",
+      "line-eic-a-5-src-9",
+      "line-eic-a-5-src-10",
+      "line-eic-a-5-src-11",
+      "line-eic-a-5-src-12",
+      "line-eic-a-5-src-13",
+      "line-eic-a-5-src-14",
+      "line-eic-a-5-src-15",
+      "line-eic-a-5-src-16",
+      "line-eic-a-5-src-17",
+      "line-eic-a-5-src-18",
+      "line-eic-a-5-src-19",
+      "line-eic-a-5-src-20",
+      "line-eic-a-5-src-21",
+      "line-eic-a-5-src-22",
+      "line-eic-a-5-src-23",
+      "line-eic-a-5-src-24",
+      "line-eic-a-5-src-25",
+      "line-eic-a-5-src-26",
+      "line-eic-a-5-src-27",
+      "line-eic-a-5-src-28",
+      "line-eic-a-5-src-29",
+      "line-eic-a-5-src-30",
+      "line-eic-a-5-src-31",
+      "line-eic-a-5-src-32",
+      "line-eic-a-5-src-33"
+     ],
+     "after": [
+      "line-eic-a-5-src-0",
+      "line-eic-a-5-src-1",
+      "line-eic-a-5-src-2",
+      "line-eic-a-5-src-3",
+      "line-eic-a-5-src-4",
+      "line-eic-a-5-src-5",
+      "line-eic-a-5-src-6",
+      "line-eic-a-5-src-7",
+      "line-eic-a-5-src-8",
+      "line-eic-a-5-src-9",
+      "line-eic-a-5-src-10",
+      "line-eic-a-5-src-11",
+      "line-eic-a-5-src-12",
+      "line-eic-a-5-src-13",
+      "line-eic-a-5-src-14",
+      "line-eic-a-5-src-15",
+      "line-eic-a-5-src-16",
+      "line-eic-a-5-src-17",
+      "line-eic-a-5-src-18",
+      "line-eic-a-5-src-19",
+      "line-eic-a-5-src-20",
+      "line-eic-a-5-src-21",
+      "line-eic-a-5-src-22",
+      "line-eic-a-5-src-23",
+      "line-eic-a-5-src-24",
+      "line-eic-a-5-src-25",
+      "line-eic-a-5-src-26",
+      "line-eic-a-5-src-27",
+      "line-eic-a-5-src-28",
+      "line-eic-a-5-src-29",
+      "line-eic-a-5-src-30",
+      "line-eic-a-5-src-31",
+      "line-eic-a-5-src-32",
+      "line-eic-a-5-src-33",
+      "line-eic-a-5-src-34",
+      "line-eic-a-5-src-35",
+      "line-eic-a-5-src-36"
+     ]
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-9]",
+     "attribute": "pinId",
+     "before": "demo.probe.sched1-scope.no-line11-educator",
+     "after": "demo.eic.res.demo-eicc-child-1"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-10]",
+     "attribute": "pinId",
+     "before": "demo.probe.sched1-scope.no-line12-business-expenses",
+     "after": "demo.joint-return.demo-eicc-child-1"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-11]",
+     "attribute": "pinId",
+     "before": "demo.probe.sched1-scope.no-line13-hsa",
+     "after": "demo.probe.sched1-scope.no-line11-educator"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-12]",
+     "attribute": "pinId",
+     "before": "demo.probe.sched1-scope.no-line14-moving",
+     "after": "demo.probe.sched1-scope.no-line12-business-expenses"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-13]",
+     "attribute": "pinId",
+     "before": "demo.probe.sched1-scope.no-line15-deductible-se",
+     "after": "demo.probe.sched1-scope.no-line13-hsa"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-14]",
+     "attribute": "pinId",
+     "before": "demo.probe.sched1-scope.no-line16-se-retirement",
+     "after": "demo.probe.sched1-scope.no-line14-moving"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-15]",
+     "attribute": "pinId",
+     "before": "demo.probe.sched1-scope.no-line17-se-health",
+     "after": "demo.probe.sched1-scope.no-line15-deductible-se"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-16]",
+     "attribute": "pinId",
+     "before": "demo.probe.sched1-scope.no-line18-penalty",
+     "after": "demo.probe.sched1-scope.no-line16-se-retirement"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-17]",
+     "attribute": "pinId",
+     "before": "demo.probe.sched1-scope.no-line19-alimony-paid",
+     "after": "demo.probe.sched1-scope.no-line17-se-health"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-18]",
+     "attribute": "pinId",
+     "before": "demo.probe.sched1-scope.no-line20-ira-deduction",
+     "after": "demo.probe.sched1-scope.no-line18-penalty"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-19]",
+     "attribute": "pinId",
+     "before": "demo.probe.sched1-scope.no-line23-archer-msa",
+     "after": "demo.probe.sched1-scope.no-line19-alimony-paid"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-20]",
+     "attribute": "pinId",
+     "before": "demo.probe.sched1-scope.no-line25-other-adjustments",
+     "after": "demo.probe.sched1-scope.no-line20-ira-deduction"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-21]",
+     "attribute": "pinId",
+     "before": "demo.sfa.answer.form8949",
+     "after": "demo.probe.sched1-scope.no-line23-archer-msa"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-22]",
+     "attribute": "pinId",
+     "before": "demo.ssa.scope.no-rrb-or-foreign-social-benefit",
+     "after": "demo.probe.sched1-scope.no-line25-other-adjustments"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-23]",
+     "attribute": "pinId",
+     "before": "demo.ug.scope.no-f1099g-box2-state-refund",
+     "after": "demo.sfa.answer.form8949"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-24]",
+     "attribute": "pinId",
+     "before": "demo.ug.scope.no-f1099g-other-payment-classes",
+     "after": "demo.ssa.scope.no-rrb-or-foreign-social-benefit"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-25]",
+     "attribute": "pinId",
+     "before": "demo.ug.scope.no-sch1-line1-taxable-refunds",
+     "after": "demo.ssn.demo-eicc-child-1"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-26]",
+     "attribute": "pinId",
+     "before": "demo.ug.scope.no-sch1-line2a-alimony",
+     "after": "demo.ug.scope.no-f1099g-box2-state-refund"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-27]",
+     "attribute": "pinId",
+     "before": "demo.ug.scope.no-sch1-line3-business",
+     "after": "demo.ug.scope.no-f1099g-other-payment-classes"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-28]",
+     "attribute": "pinId",
+     "before": "demo.ug.scope.no-sch1-line4-other-gains",
+     "after": "demo.ug.scope.no-sch1-line1-taxable-refunds"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-29]",
+     "attribute": "pinId",
+     "before": "demo.ug.scope.no-sch1-line5-rental",
+     "after": "demo.ug.scope.no-sch1-line2a-alimony"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-30]",
+     "attribute": "pinId",
+     "before": "demo.ug.scope.no-sch1-line6-farm",
+     "after": "demo.ug.scope.no-sch1-line3-business"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-31]",
+     "attribute": "pinId",
+     "before": "demo.ug.scope.no-unemployment-repayment",
+     "after": "demo.ug.scope.no-sch1-line4-other-gains"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-32]",
+     "attribute": "pinId",
+     "before": "demo.ug.sd-boundary.no-inbound-capital-loss-carryovers",
+     "after": "demo.ug.scope.no-sch1-line5-rental"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-33]",
+     "attribute": "pinId",
+     "before": "demo.w2g.scope.other-income",
+     "after": "demo.ug.scope.no-sch1-line6-farm"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-6]",
+     "attribute": "citationSites@order",
+     "before": [
+      "line-eic-a-6-src-0",
+      "line-eic-a-6-src-1",
+      "line-eic-a-6-src-2",
+      "line-eic-a-6-src-3",
+      "line-eic-a-6-src-4",
+      "line-eic-a-6-src-5",
+      "line-eic-a-6-src-6",
+      "line-eic-a-6-src-7",
+      "line-eic-a-6-src-8",
+      "line-eic-a-6-src-9",
+      "line-eic-a-6-src-10",
+      "line-eic-a-6-src-11",
+      "line-eic-a-6-src-12",
+      "line-eic-a-6-src-13",
+      "line-eic-a-6-src-14",
+      "line-eic-a-6-src-15",
+      "line-eic-a-6-src-16",
+      "line-eic-a-6-src-17",
+      "line-eic-a-6-src-18",
+      "line-eic-a-6-src-19",
+      "line-eic-a-6-src-20",
+      "line-eic-a-6-src-21",
+      "line-eic-a-6-src-22",
+      "line-eic-a-6-src-23",
+      "line-eic-a-6-src-24",
+      "line-eic-a-6-src-25",
+      "line-eic-a-6-src-26",
+      "line-eic-a-6-src-27",
+      "line-eic-a-6-src-28",
+      "line-eic-a-6-src-29",
+      "line-eic-a-6-src-30",
+      "line-eic-a-6-src-31",
+      "line-eic-a-6-src-32",
+      "line-eic-a-6-src-33"
+     ],
+     "after": [
+      "line-eic-a-6-src-0",
+      "line-eic-a-6-src-1",
+      "line-eic-a-6-src-2",
+      "line-eic-a-6-src-3",
+      "line-eic-a-6-src-4",
+      "line-eic-a-6-src-5",
+      "line-eic-a-6-src-6",
+      "line-eic-a-6-src-7",
+      "line-eic-a-6-src-8",
+      "line-eic-a-6-src-9",
+      "line-eic-a-6-src-10",
+      "line-eic-a-6-src-11",
+      "line-eic-a-6-src-12",
+      "line-eic-a-6-src-13",
+      "line-eic-a-6-src-14",
+      "line-eic-a-6-src-15",
+      "line-eic-a-6-src-16",
+      "line-eic-a-6-src-17",
+      "line-eic-a-6-src-18",
+      "line-eic-a-6-src-19",
+      "line-eic-a-6-src-20",
+      "line-eic-a-6-src-21",
+      "line-eic-a-6-src-22",
+      "line-eic-a-6-src-23",
+      "line-eic-a-6-src-24",
+      "line-eic-a-6-src-25",
+      "line-eic-a-6-src-26",
+      "line-eic-a-6-src-27",
+      "line-eic-a-6-src-28",
+      "line-eic-a-6-src-29",
+      "line-eic-a-6-src-30",
+      "line-eic-a-6-src-31",
+      "line-eic-a-6-src-32",
+      "line-eic-a-6-src-33",
+      "line-eic-a-6-src-34",
+      "line-eic-a-6-src-35",
+      "line-eic-a-6-src-36"
+     ]
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-6]/citationSites[line-eic-a-6-src-9]",
+     "attribute": "pinId",
+     "before": "demo.probe.sched1-scope.no-line11-educator",
+     "after": "demo.eic.res.demo-eicc-child-1"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-6]/citationSites[line-eic-a-6-src-10]",
+     "attribute": "pinId",
+     "before": "demo.probe.sched1-scope.no-line12-business-expenses",
+     "after": "demo.joint-return.demo-eicc-child-1"
+    }
+   ]
+  },
+  "probe/single/odckid/30000/ssn@1": {
+   "differences": 616,
+   "sorted": {
+    "declared": 532,
+    "count input": 84
+   },
+   "other_total": 0,
+   "other": []
+  },
+  "probe/single/odckid/30000/lived@1": {
+   "differences": 2220,
+   "sorted": {
+    "declared": 546,
+    "count input": 66,
+    "alias": 25,
+    "alias rekeyed (removed half)": 661,
+    "alias rekeyed (added half)": 661
+   },
+   "other_total": 261,
+   "other": [
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-2]",
+     "attribute": "citationSites@order",
+     "before": [
+      "line-eic-a-2-src-0",
+      "line-eic-a-2-src-1",
+      "line-eic-a-2-src-2",
+      "line-eic-a-2-src-3",
+      "line-eic-a-2-src-4"
+     ],
+     "after": [
+      "line-eic-a-2-src-0",
+      "line-eic-a-2-src-1",
+      "line-eic-a-2-src-2",
+      "line-eic-a-2-src-3",
+      "line-eic-a-2-src-4",
+      "line-eic-a-2-src-5",
+      "line-eic-a-2-src-6",
+      "line-eic-a-2-src-7"
+     ]
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]",
+     "attribute": "citationSites@order",
+     "before": [
+      "line-eic-a-5-src-0",
+      "line-eic-a-5-src-1",
+      "line-eic-a-5-src-2",
+      "line-eic-a-5-src-3",
+      "line-eic-a-5-src-4",
+      "line-eic-a-5-src-5",
+      "line-eic-a-5-src-6",
+      "line-eic-a-5-src-7",
+      "line-eic-a-5-src-8",
+      "line-eic-a-5-src-9",
+      "line-eic-a-5-src-10",
+      "line-eic-a-5-src-11",
+      "line-eic-a-5-src-12",
+      "line-eic-a-5-src-13",
+      "line-eic-a-5-src-14",
+      "line-eic-a-5-src-15",
+      "line-eic-a-5-src-16",
+      "line-eic-a-5-src-17",
+      "line-eic-a-5-src-18",
+      "line-eic-a-5-src-19",
+      "line-eic-a-5-src-20",
+      "line-eic-a-5-src-21",
+      "line-eic-a-5-src-22",
+      "line-eic-a-5-src-23",
+      "line-eic-a-5-src-24",
+      "line-eic-a-5-src-25",
+      "line-eic-a-5-src-26",
+      "line-eic-a-5-src-27",
+      "line-eic-a-5-src-28",
+      "line-eic-a-5-src-29",
+      "line-eic-a-5-src-30",
+      "line-eic-a-5-src-31",
+      "line-eic-a-5-src-32",
+      "line-eic-a-5-src-33"
+     ],
+     "after": [
+      "line-eic-a-5-src-0",
+      "line-eic-a-5-src-1",
+      "line-eic-a-5-src-2",
+      "line-eic-a-5-src-3",
+      "line-eic-a-5-src-4",
+      "line-eic-a-5-src-5",
+      "line-eic-a-5-src-6",
+      "line-eic-a-5-src-7",
+      "line-eic-a-5-src-8",
+      "line-eic-a-5-src-9",
+      "line-eic-a-5-src-10",
+      "line-eic-a-5-src-11",
+      "line-eic-a-5-src-12",
+      "line-eic-a-5-src-13",
+      "line-eic-a-5-src-14",
+      "line-eic-a-5-src-15",
+      "line-eic-a-5-src-16",
+      "line-eic-a-5-src-17",
+      "line-eic-a-5-src-18",
+      "line-eic-a-5-src-19",
+      "line-eic-a-5-src-20",
+      "line-eic-a-5-src-21",
+      "line-eic-a-5-src-22",
+      "line-eic-a-5-src-23",
+      "line-eic-a-5-src-24",
+      "line-eic-a-5-src-25",
+      "line-eic-a-5-src-26",
+      "line-eic-a-5-src-27",
+      "line-eic-a-5-src-28",
+      "line-eic-a-5-src-29",
+      "line-eic-a-5-src-30",
+      "line-eic-a-5-src-31",
+      "line-eic-a-5-src-32",
+      "line-eic-a-5-src-33",
+      "line-eic-a-5-src-34",
+      "line-eic-a-5-src-35",
+      "line-eic-a-5-src-36"
+     ]
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-9]",
+     "attribute": "pinId",
+     "before": "demo.probe.sched1-scope.no-line11-educator",
+     "after": "demo.eic.res.demo-eicc-child-1"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-10]",
+     "attribute": "pinId",
+     "before": "demo.probe.sched1-scope.no-line12-business-expenses",
+     "after": "demo.joint-return.demo-eicc-child-1"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-11]",
+     "attribute": "pinId",
+     "before": "demo.probe.sched1-scope.no-line13-hsa",
+     "after": "demo.probe.sched1-scope.no-line11-educator"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-12]",
+     "attribute": "pinId",
+     "before": "demo.probe.sched1-scope.no-line14-moving",
+     "after": "demo.probe.sched1-scope.no-line12-business-expenses"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-13]",
+     "attribute": "pinId",
+     "before": "demo.probe.sched1-scope.no-line15-deductible-se",
+     "after": "demo.probe.sched1-scope.no-line13-hsa"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-14]",
+     "attribute": "pinId",
+     "before": "demo.probe.sched1-scope.no-line16-se-retirement",
+     "after": "demo.probe.sched1-scope.no-line14-moving"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-15]",
+     "attribute": "pinId",
+     "before": "demo.probe.sched1-scope.no-line17-se-health",
+     "after": "demo.probe.sched1-scope.no-line15-deductible-se"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-16]",
+     "attribute": "pinId",
+     "before": "demo.probe.sched1-scope.no-line18-penalty",
+     "after": "demo.probe.sched1-scope.no-line16-se-retirement"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-17]",
+     "attribute": "pinId",
+     "before": "demo.probe.sched1-scope.no-line19-alimony-paid",
+     "after": "demo.probe.sched1-scope.no-line17-se-health"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-18]",
+     "attribute": "pinId",
+     "before": "demo.probe.sched1-scope.no-line20-ira-deduction",
+     "after": "demo.probe.sched1-scope.no-line18-penalty"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-19]",
+     "attribute": "pinId",
+     "before": "demo.probe.sched1-scope.no-line23-archer-msa",
+     "after": "demo.probe.sched1-scope.no-line19-alimony-paid"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-20]",
+     "attribute": "pinId",
+     "before": "demo.probe.sched1-scope.no-line25-other-adjustments",
+     "after": "demo.probe.sched1-scope.no-line20-ira-deduction"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-21]",
+     "attribute": "pinId",
+     "before": "demo.sfa.answer.form8949",
+     "after": "demo.probe.sched1-scope.no-line23-archer-msa"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-22]",
+     "attribute": "pinId",
+     "before": "demo.ssa.scope.no-rrb-or-foreign-social-benefit",
+     "after": "demo.probe.sched1-scope.no-line25-other-adjustments"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-23]",
+     "attribute": "pinId",
+     "before": "demo.ug.scope.no-f1099g-box2-state-refund",
+     "after": "demo.sfa.answer.form8949"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-24]",
+     "attribute": "pinId",
+     "before": "demo.ug.scope.no-f1099g-other-payment-classes",
+     "after": "demo.ssa.scope.no-rrb-or-foreign-social-benefit"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-25]",
+     "attribute": "pinId",
+     "before": "demo.ug.scope.no-sch1-line1-taxable-refunds",
+     "after": "demo.ssn.demo-eicc-child-1"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-26]",
+     "attribute": "pinId",
+     "before": "demo.ug.scope.no-sch1-line2a-alimony",
+     "after": "demo.ug.scope.no-f1099g-box2-state-refund"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-27]",
+     "attribute": "pinId",
+     "before": "demo.ug.scope.no-sch1-line3-business",
+     "after": "demo.ug.scope.no-f1099g-other-payment-classes"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-28]",
+     "attribute": "pinId",
+     "before": "demo.ug.scope.no-sch1-line4-other-gains",
+     "after": "demo.ug.scope.no-sch1-line1-taxable-refunds"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-29]",
+     "attribute": "pinId",
+     "before": "demo.ug.scope.no-sch1-line5-rental",
+     "after": "demo.ug.scope.no-sch1-line2a-alimony"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-30]",
+     "attribute": "pinId",
+     "before": "demo.ug.scope.no-sch1-line6-farm",
+     "after": "demo.ug.scope.no-sch1-line3-business"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-31]",
+     "attribute": "pinId",
+     "before": "demo.ug.scope.no-unemployment-repayment",
+     "after": "demo.ug.scope.no-sch1-line4-other-gains"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-32]",
+     "attribute": "pinId",
+     "before": "demo.ug.sd-boundary.no-inbound-capital-loss-carryovers",
+     "after": "demo.ug.scope.no-sch1-line5-rental"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-5]/citationSites[line-eic-a-5-src-33]",
+     "attribute": "pinId",
+     "before": "demo.w2g.scope.other-income",
+     "after": "demo.ug.scope.no-sch1-line6-farm"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-6]",
+     "attribute": "citationSites@order",
+     "before": [
+      "line-eic-a-6-src-0",
+      "line-eic-a-6-src-1",
+      "line-eic-a-6-src-2",
+      "line-eic-a-6-src-3",
+      "line-eic-a-6-src-4",
+      "line-eic-a-6-src-5",
+      "line-eic-a-6-src-6",
+      "line-eic-a-6-src-7",
+      "line-eic-a-6-src-8",
+      "line-eic-a-6-src-9",
+      "line-eic-a-6-src-10",
+      "line-eic-a-6-src-11",
+      "line-eic-a-6-src-12",
+      "line-eic-a-6-src-13",
+      "line-eic-a-6-src-14",
+      "line-eic-a-6-src-15",
+      "line-eic-a-6-src-16",
+      "line-eic-a-6-src-17",
+      "line-eic-a-6-src-18",
+      "line-eic-a-6-src-19",
+      "line-eic-a-6-src-20",
+      "line-eic-a-6-src-21",
+      "line-eic-a-6-src-22",
+      "line-eic-a-6-src-23",
+      "line-eic-a-6-src-24",
+      "line-eic-a-6-src-25",
+      "line-eic-a-6-src-26",
+      "line-eic-a-6-src-27",
+      "line-eic-a-6-src-28",
+      "line-eic-a-6-src-29",
+      "line-eic-a-6-src-30",
+      "line-eic-a-6-src-31",
+      "line-eic-a-6-src-32",
+      "line-eic-a-6-src-33"
+     ],
+     "after": [
+      "line-eic-a-6-src-0",
+      "line-eic-a-6-src-1",
+      "line-eic-a-6-src-2",
+      "line-eic-a-6-src-3",
+      "line-eic-a-6-src-4",
+      "line-eic-a-6-src-5",
+      "line-eic-a-6-src-6",
+      "line-eic-a-6-src-7",
+      "line-eic-a-6-src-8",
+      "line-eic-a-6-src-9",
+      "line-eic-a-6-src-10",
+      "line-eic-a-6-src-11",
+      "line-eic-a-6-src-12",
+      "line-eic-a-6-src-13",
+      "line-eic-a-6-src-14",
+      "line-eic-a-6-src-15",
+      "line-eic-a-6-src-16",
+      "line-eic-a-6-src-17",
+      "line-eic-a-6-src-18",
+      "line-eic-a-6-src-19",
+      "line-eic-a-6-src-20",
+      "line-eic-a-6-src-21",
+      "line-eic-a-6-src-22",
+      "line-eic-a-6-src-23",
+      "line-eic-a-6-src-24",
+      "line-eic-a-6-src-25",
+      "line-eic-a-6-src-26",
+      "line-eic-a-6-src-27",
+      "line-eic-a-6-src-28",
+      "line-eic-a-6-src-29",
+      "line-eic-a-6-src-30",
+      "line-eic-a-6-src-31",
+      "line-eic-a-6-src-32",
+      "line-eic-a-6-src-33",
+      "line-eic-a-6-src-34",
+      "line-eic-a-6-src-35",
+      "line-eic-a-6-src-36"
+     ]
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-6]/citationSites[line-eic-a-6-src-9]",
+     "attribute": "pinId",
+     "before": "demo.probe.sched1-scope.no-line11-educator",
+     "after": "demo.eic.res.demo-eicc-child-1"
+    },
+    {
+     "change": "changed",
+     "kind": "page",
+     "identity": "sections[line-eic-a-6]/citationSites[line-eic-a-6-src-10]",
+     "attribute": "pinId",
+     "before": "demo.probe.sched1-scope.no-line12-business-expenses",
+     "after": "demo.joint-return.demo-eicc-child-1"
+    }
+   ]
+  },
+  "probe/single/odckid/30000/joint@1": {
+   "differences": 600,
+   "sorted": {
+    "declared": 532,
+    "count input": 68
+   },
+   "other_total": 0,
+   "other": []
+  },
+  "probe/single/parent/30000/-": {
+   "differences": 614,
+   "sorted": {
+    "declared": 614
+   },
+   "other_total": 0,
+   "other": []
+  },
+  "probe/single/parent/30000/rel-relationship@p": {
+   "differences": 559,
+   "sorted": {
+    "declared": 559
+   },
+   "other_total": 0,
+   "other": []
+  },
+  "probe/single/parent/30000/rel-notqc@p": {
+   "differences": 560,
+   "sorted": {
+    "declared": 560
+   },
+   "other_total": 0,
+   "other": []
+  },
+  "probe/single/parent/30000/rel-gross@p": {
+   "differences": 560,
+   "sorted": {
+    "declared": 560
+   },
+   "other_total": 0,
+   "other": []
+  },
+  "probe/single/parent/30000/rel-support@p": {
+   "differences": 560,
+   "sorted": {
+    "declared": 560
+   },
+   "other_total": 0,
+   "other": []
+  },
+  "probe/single/parent/30000/rel-tin@p": {
+   "differences": 559,
+   "sorted": {
+    "declared": 559
+   },
+   "other_total": 0,
+   "other": []
+  },
+  "probe/single/parent/30000/rel-citizen@p": {
+   "differences": 560,
+   "sorted": {
+    "declared": 560
+   },
+   "other_total": 0,
+   "other": []
+  },
+  "probe/single/parent/30000/rel-notjoint@p": {
+   "differences": 560,
+   "sorted": {
+    "declared": 560
+   },
+   "other_total": 0,
+   "other": []
+  }
+ }
+}
