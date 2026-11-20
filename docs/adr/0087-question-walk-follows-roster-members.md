@@ -30,20 +30,23 @@ silent, and change the explanation of every return with a rostered member.
 ## Decision
 
 1. **The walk follows a blocked member key.** When the question walk
-   reaches a root that is a roster member's subject key, it continues to
+   reaches a root that is a member's subject key (a per-subject read,
+   ADR 0081: the four rosters today, and any other per-subject read whose
+   member has its own blocked rows and adopted questions), it continues to
    that member's own blocked rows and walks their missing names as it walks
    any other root. A line gets a question only if every root, including
    each followed member, resolves to a question, as today.
 2. **One reason per member, labelled with that member.** The reasons for
    a member carry that member's recorded label (the label the filer gave
    when adding the member, already present in the saved record) in one
-   new optional reason field, `member_label`. The page shows it beside
+   new optional reason field, `memberLabel`. The page shows it beside
    the question so a filer with two children knows which child is missing
-   the answer. A reason with no member has no `member_label`.
+   the answer. A reason with no member has no `memberLabel`.
 3. **Explanation only.** The change adds no reads, pins, dependencies,
    values or refusal codes, and it changes no number, no rule and no
-   published schema version. A member key that does not resolve to rows
-   leaves the line without a sentence, as today.
+   published schema version. A member key that does not resolve to rows, or
+   whose member has no single recorded label, leaves the line without a
+   sentence, as today.
 4. **Content supplies the questions.** Per-member answers become
    reachable only through adopted input questions for their fact types;
    a package that adopts none shows nothing new.
@@ -52,7 +55,7 @@ silent, and change the explanation of every return with a rostered member.
 
 The eic-child-answers Track 1 changes `_closure_question_reasons` in
 `packages/derivation/presentation_projection.py`, its reason validator,
-and the page's reason rendering (`member_label`). It publishes sourced
+and the page's reason rendering (`memberLabel`). It publishes sourced
 input questions for the per-member answers of the four rosters, as a core
 successor. Saved pages of returns with a blocked member gain question
 sentences; no other output changes.

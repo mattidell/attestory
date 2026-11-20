@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "eic-child-answers",
-  "status": "Track 1 chartered 2026-11-19; ADR 0087 awaits owner acceptance.",
+  "status": "Repair chartered 2026-11-20; ADR 0087 awaits owner acceptance.",
   "scope": [
     "when a child counted for the earned income credit is missing an answer the credit needs (age, residency or another per-child test), the saved page asks that question for that child instead of blocking the credit and refund lines with no sentence",
     "every recorded return keeps its numbers"
@@ -104,7 +104,7 @@ Decisions for the foreman are in p0.md, section 7.
 2. The projection change (P0 recommendation 1), recorded as ADR 0087,
    which is **proposed** and awaits the owner. Track 1 may build it, but
    the PR does not go ready until the owner accepts the ADR.
-3. A new optional reason field, `member_label`, holds the member's
+3. A new optional reason field, `memberLabel`, holds the member's
    recorded label (P0 recommendation 2). It shows an existing recorded
    label beside an existing kind of question, so it is within the "no
    page design change" non-goal.
@@ -116,3 +116,18 @@ Decisions for the foreman are in p0.md, section 7.
    (line 27a, Schedule 8812, and the dependents and other-dependents
    sections), each with its source lines quoted. A question must not
    change which answer a path needs.
+7. Repair before merge (review ECA-R1, R2, R4, R5, R6, R8). The residency,
+   lived-with-you and relative support questions state the kidnapped-child
+   rule; the age question's student definition states the training,
+   correspondence and internet-only exclusions; the military note says
+   extended duty counts even if fewer than 90 days are served. The reason
+   field is `memberLabel` (camelCase, like `statementLabel`). A test pins
+   that a member with two labels stays silent. ADR 0087 says the walk
+   follows any per-subject member, which is what the code does. v101 is not
+   on main, so its files are regenerated in place.
+8. Parked: questions that tell the filer to answer no where the fact is
+   narrower than the instructions (the sheltered-workshop and multiple
+   support agreement cases compute a smaller credit instead of blocking,
+   ECA-R3); two members with the same recorded label share one reason
+   (ECA-R7); question polarity is recorded only in the evidence design and
+   tests, not in published content (ECA-R9).
