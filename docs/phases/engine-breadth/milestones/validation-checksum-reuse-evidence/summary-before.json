@@ -1,0 +1,22 @@
+{
+ "core": "v100",
+ "errors": [
+  "FindingModelError",
+  "HorizonModelError",
+  "SourceAuthorityError"
+ ],
+ "label": "before",
+ "lists": 775,
+ "outcomes": {
+  "error": 84,
+  "refused": 0,
+  "success": 691
+ },
+ "per_list_digest": "03113fb0eca7488e89f706928d6a4dc8730a027a41a02b4ff9fcee7538d3f0bf",
+ "shard_wall_s": [
+  68.1,
+  67.7,
+  68.3
+ ],
+ "shards": 3
+}

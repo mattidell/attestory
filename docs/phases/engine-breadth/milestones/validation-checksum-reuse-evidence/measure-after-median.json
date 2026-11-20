@@ -1,0 +1,48 @@
+{
+ "cold": {
+  "checksum_share_of_uninstrumented": 0.0617,
+  "citizen_checksum_calls": {
+   "production_resolver.py:271 checksum": 1747
+  },
+  "citizen_checksum_calls_total": 1747,
+  "citizen_checksum_s": {
+   "production_resolver.py:271 checksum": 0.0979
+  },
+  "citizen_checksum_s_total": 0.0979,
+  "inclusive_s": {
+   "_validation_memo_key": {
+    "calls": 2,
+    "s": 0.0187
+   },
+   "validate_package": {
+    "calls": 1,
+    "s": 0.2512
+   }
+  },
+  "instrumented_total_s": 1.5963,
+  "uninstrumented_total_s": 1.5856
+ },
+ "core": "v100",
+ "label": "after",
+ "list": "v81/case/m_8949_no_ic3_yes_q3_no",
+ "warm": {
+  "checksum_share_of_uninstrumented": 0.0,
+  "citizen_checksum_calls": {},
+  "citizen_checksum_calls_total": 0,
+  "citizen_checksum_s": {},
+  "citizen_checksum_s_total": 0,
+  "inclusive_s": {
+   "_validation_memo_key": {
+    "calls": 2,
+    "s": 0.0187
+   },
+   "validate_package": {
+    "calls": 1,
+    "s": 0.2501
+   }
+  },
+  "instrumented_total_s": 1.5449,
+  "uninstrumented_total_s": 1.5667
+ },
+ "workload": "median"
+}

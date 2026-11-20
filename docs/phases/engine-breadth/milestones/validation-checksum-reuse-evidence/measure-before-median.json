@@ -1,0 +1,58 @@
+{
+ "cold": {
+  "checksum_share_of_uninstrumented": 0.0952,
+  "citizen_checksum_calls": {
+   "package_validation.py:1854 validate_package": 1064,
+   "production_resolver.py:129 <genexpr>": 2128,
+   "production_resolver.py:205 checksum": 1747
+  },
+  "citizen_checksum_calls_total": 4939,
+  "citizen_checksum_s": {
+   "package_validation.py:1854 validate_package": 0.0201,
+   "production_resolver.py:129 <genexpr>": 0.0428,
+   "production_resolver.py:205 checksum": 0.0975
+  },
+  "citizen_checksum_s_total": 0.1605,
+  "inclusive_s": {
+   "_validation_memo_key": {
+    "calls": 2,
+    "s": 0.0668
+   },
+   "validate_package": {
+    "calls": 1,
+    "s": 0.2814
+   }
+  },
+  "instrumented_total_s": 1.6775,
+  "uninstrumented_total_s": 1.6852
+ },
+ "core": "v100",
+ "label": "before",
+ "list": "v81/case/m_8949_no_ic3_yes_q3_no",
+ "warm": {
+  "checksum_share_of_uninstrumented": 0.0383,
+  "citizen_checksum_calls": {
+   "package_validation.py:1854 validate_package": 1064,
+   "production_resolver.py:129 <genexpr>": 2128
+  },
+  "citizen_checksum_calls_total": 3192,
+  "citizen_checksum_s": {
+   "package_validation.py:1854 validate_package": 0.0203,
+   "production_resolver.py:129 <genexpr>": 0.0428
+  },
+  "citizen_checksum_s_total": 0.0631,
+  "inclusive_s": {
+   "_validation_memo_key": {
+    "calls": 2,
+    "s": 0.0662
+   },
+   "validate_package": {
+    "calls": 1,
+    "s": 0.2801
+   }
+  },
+  "instrumented_total_s": 1.6218,
+  "uninstrumented_total_s": 1.6483
+ },
+ "workload": "median"
+}
