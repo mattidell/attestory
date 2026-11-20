@@ -1090,6 +1090,17 @@ claimable as a dependent, and the spouse's SSN. A filer missing one was
 blocked on the credit and refund lines with no sentence; now the page
 asks. No rule changed, and every answered return computes as before.
 
+## Bounded return — A Counted Child's Missing Credit Answer Is Asked (2025)
+
+[Plan](milestones/eic-child-answers.md); retrospective:
+`docs/milestone-retrospectives/2026-11-20-eic-child-answers.md`.
+
+Core v101 (registry v99, release v99) and ADR 0087 make the saved page ask
+a roster member's missing answer and name the member. This covers the
+earned income credit, child tax credit, other-dependent child and
+relative rosters. Before, 9 to 18 lines blocked with no sentence. No
+number changed, and pages on earlier cores are unchanged.
+
 ## Saved-page observation — Mortgage and Sales (2025)
 
 [Plan](milestones/sale-page-observation.md); retrospective:
@@ -1161,11 +1172,12 @@ delivers an item removes it.
 - A sale entered both on a Form 1099-B family and as a no-1099-B sale is
   refused only by the in-class answer ("entered only once"); the two are
   keyed differently, so content cannot see it.
-- A counted child's earned income credit age and residency answers, when
-  missing, block the credit and refund lines with no sentence: the
-  projection cannot reach a question there (eic-answer-questions P0; a
-  projection change). The per-child tie-breaker answers (`dtb.child.*`)
-  also have no question (EAQ-R4).
+- Per-member questions that tell the filer to answer no where the fact is
+  narrower than the instructions (a sheltered workshop's gross income, a
+  multiple support agreement) compute a smaller credit instead of
+  blocking (eic-child-answers ECA-R3). Two members with the same recorded
+  label share one reason (ECA-R7). A question's yes/no polarity is
+  recorded only in evidence and tests, not in published content (ECA-R9).
 - The earned income credit "not claimable as a dependent" answer could be
   derived from the line 12a "someone can claim you" answer (Publication
   596 Rule 12), but a rule cannot prefer an explicit answer and fall back
