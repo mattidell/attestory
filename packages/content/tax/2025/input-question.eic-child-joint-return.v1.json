@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.eic.child.joint-return",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.eic-child-joint-return",
+  "question": "Does this child meet the joint return test? Answer yes if the child did not file a joint return for 2025, or filed one only to claim a refund of withheld income tax or estimated tax paid, and, if the child was married at the end of 2025, you can claim the child as your dependent (or could, except for the special rule for children of divorced or separated parents). Answer no otherwise.",
+  "schema": "input-question.v1",
+  "version": "v1"
+}
