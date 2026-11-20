@@ -450,7 +450,7 @@
     "input-question.dtb-child-same-agi.v1.json": "4e78887ed0c49dddf8cde408891a1bc2a3168dc8800c543812afcf27c5873beb",
     "input-question.dtb-child-same-nights.v1.json": "a43f8719b673ac2cca1e38a6d1c16864eae84d1ffd7c05c17b2a91ac66531587",
     "input-question.eic-child-age.v1.json": "a414f8c925cefcb79b0d307a535df4385082915b86d6ffa3777c711e9eb399b1",
-    "input-question.eic-child-joint-return.v1.json": "4a19f1b6dd1e2e36415d36745e0472d95263efb1a6ac97c0b5c2d70ac3fa87b1",
+    "input-question.eic-child-joint-return.v1.json": "89a43963800a952021116384ce8abba2a961ba275ba7ac8d13a70c71554049f9",
     "input-question.eic-child-residency.v1.json": "3e49f9ec63cff61fd74b51afe50755e6af7534efeb5958517ef9dbf8afbc0809",
     "input-question.eic-child-ssn.v1.json": "227be4e498636fc5947ec484c13b379c225c97f666894c696733a4ea2a052ff4",
     "input-question.odc-child-tin.v1.json": "91da2900147536395240aae1e6979b12c51e639123e138c42bb27063ed540423",
@@ -466,7 +466,7 @@
   "status": "valid",
   "validation": "generate_to_directory passed package, registry and release validation",
   "generation": {
-    "registry_sha256": "6dc56a4933f019e8cf8d5c2e1071017259116019c75dc554006e0bd7d0b91f21",
+    "registry_sha256": "4be1ef19e83abcff2ff4541552d59a3a824ea08651259b46eca230eebffacc04",
     "publication_boundary": "Candidate only: successor companion declaration and live release evidence are separate duties under ADR-0082."
   },
   "published": [

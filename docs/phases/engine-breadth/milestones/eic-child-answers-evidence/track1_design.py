@@ -91,8 +91,8 @@ QUESTIONS: dict[str, str] = {
         "not, even if you paid most of the child's living expenses."
     ),
     P + "eic.child.joint-return": (
-        "Does this child meet the joint return test for the earned income credit? Answer yes if the child did not"
-        " file a joint return for 2025, or filed one only to claim a refund of withheld income tax or estimated "
+        "Does this child meet the joint return test? Answer yes if the child did not file a joint return for "
+        "2025, or filed one only to claim a refund of withheld income tax or estimated "
         "tax paid, and, if the child was married at the end of 2025, you can claim the child as your dependent "
         "(or could, except for the special rule for children of divorced or separated parents). Answer no "
         "otherwise."
@@ -261,7 +261,7 @@ SOURCES: dict[str, list[str]] = {
     P + "odc.dependent.citizen-or-resident": ["i1040gi 1763-1774 (Step 5 question 3)",
                                               "i1040gi 1871-1873 (Exception to citizen test)",
                                               "i1040s8 170-172, 186-193 (ODC condition 3; Adopted child)"],
-    P + "odc.dependent.not-joint-return": ["i1040gi 1683-1694 (Step 4 question 4)",
+    P + "odc.dependent.not-joint-return": ["i1040gi 1752-1756 (Step 4 question 3: was your qualifying relative married)",
                                            "i1040gi 1921-1924 (Married person)"],
 }
 

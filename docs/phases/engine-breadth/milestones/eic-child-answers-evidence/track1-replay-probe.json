@@ -1,0 +1,321 @@
+{
+ "format": "full-surface-replay.v1",
+ "cores": [
+  {
+   "version": "v100",
+   "registry": "v98",
+   "release_version": "v98",
+   "loader_from": null,
+   "presence_pairs": [],
+   "package_sha256": "e45be7f2ff2a83d847ebea5995ab25da1a4c0b155eeecd411216ce6f740c97da",
+   "release_sha256": "049c93d6267940a90d93597b6705d68a74780a015c1aa9e5da02787429b38f6a"
+  },
+  {
+   "version": "v101",
+   "registry": "v99",
+   "release_version": "v99",
+   "loader_from": null,
+   "presence_pairs": [],
+   "package_sha256": "ffe7eea73d229b246a4fe86217138b2c2267d0b22b79340470497533c55a4476",
+   "release_sha256": "ffec1c0f5b9dda88dcf18cdd37c452c254c8ebecfe044e5ca8dcbb7dd2a1d5b8"
+  }
+ ],
+ "lists": 101,
+ "classes": {
+  "expected_changes": 101
+ },
+ "passing": 101,
+ "failing": 0,
+ "unexpected_differences": 0,
+ "unexpected_by_kind_attribute": {},
+ "expectations_declared": 29,
+ "expectations_used": 29,
+ "unused_expectations": [],
+ "expectation_lists": {
+  "version:tax.us.2025.package.core-calculations": 101,
+  "question shown:ctc.child.citizen-or-resident": [
+   "probe/single/kid1/30000/citizen@1",
+   "probe/single/kid2/30000/citizen@2",
+   "track1/single/kid1/30000/citizen@1",
+   "track1/single/kid2/30000/citizen@2"
+  ],
+  "question shown:ctc.child.lived-with-you": [
+   "probe/single/kid1/30000/lived@1",
+   "probe/single/kid2/30000/lived@2",
+   "probe/single/odckid/30000/lived@1",
+   "track1/single/kid1/30000/lived@1",
+   "track1/single/kid2/30000/lived@2",
+   "track1/single/odckid/30000/lived@1",
+   "track1/single/odckid2/30000/lived@2"
+  ],
+  "question shown:ctc.child.no-over-half-support": [
+   "probe/single/kid1/30000/support@1",
+   "probe/single/kid2/30000/support@2",
+   "track1/single/kid1/30000/support@1",
+   "track1/single/kid2/30000/support@2"
+  ],
+  "question shown:ctc.child.under-17": [
+   "probe/single/kid1/30000/u17@1",
+   "probe/single/kid2/30000/u17@2",
+   "track1/single/kid1/30000/u17@1",
+   "track1/single/kid2/30000/u17@2"
+  ],
+  "question shown:dtb.child.another-could-claim": [
+   "probe/single/kid1/30000/dtb-another@1",
+   "probe/single/kid2/30000/dtb-another@2",
+   "track1/single/kid1/30000/dtb-another@1",
+   "track1/single/kid2/30000/dtb-another@2"
+  ],
+  "question shown:dtb.child.filer-agi-higher": [
+   "track1/single/kid1pp/30000/dtb-agi@1"
+  ],
+  "question shown:dtb.child.filer-is-parent": [
+   "probe/single/kid1/30000/dtb-filer-parent@1",
+   "probe/single/kid2/30000/dtb-filer-parent@2",
+   "track1/single/kid1/30000/dtb-filer-parent@1",
+   "track1/single/kid2/30000/dtb-filer-parent@2"
+  ],
+  "question shown:dtb.child.form-8332-released": [
+   "track1/single/kid1pp/30000/dtb-8332@1"
+  ],
+  "question shown:dtb.child.more-nights-with-filer": [
+   "track1/single/kid1pp/30000/dtb-nights@1"
+  ],
+  "question shown:dtb.child.multiple-other-claimants": [
+   "track1/single/kid1/30000/dtb-multiple@1"
+  ],
+  "question shown:dtb.child.other-is-parent": [
+   "track1/single/kid1/30000/dtb-other-parent@1"
+  ],
+  "question shown:dtb.child.other-will-claim": [
+   "track1/single/kid1pp/30000/dtb-will-claim@1"
+  ],
+  "question shown:dtb.child.same-agi": [
+   "track1/single/kid1pp/30000/dtb-same-agi@1"
+  ],
+  "question shown:dtb.child.same-nights": [
+   "track1/single/kid1pp/30000/dtb-same-nights@1"
+  ],
+  "question shown:eic.child.age": [
+   "probe/mfj/kid1/30000/age@1",
+   "probe/single/kid1/30000/age@1",
+   "probe/single/kid2/30000/age@2",
+   "track1/mfj/kid1/30000/age@1",
+   "track1/single/kid1/30000/age@1",
+   "track1/single/kid2/30000/age@1",
+   "track1/single/kid2/30000/age@1+age@2",
+   "track1/single/kid2/30000/age@1+res@2",
+   "track1/single/kid2/30000/age@2"
+  ],
+  "question shown:eic.child.joint-return": [
+   "probe/mfj/kid1/30000/joint@1",
+   "probe/single/kid1/30000/joint@1",
+   "probe/single/kid2/30000/joint@2",
+   "probe/single/odckid/30000/joint@1",
+   "track1/mfj/kid1/30000/joint@1",
+   "track1/single/kid1/30000/joint@1",
+   "track1/single/kid2/30000/joint@2",
+   "track1/single/odckid/30000/joint@1",
+   "track1/single/odckid2/30000/joint@2"
+  ],
+  "question shown:eic.child.residency": [
+   "probe/single/kid1/30000/res@1",
+   "probe/single/kid2/30000/res@2",
+   "track1/single/kid1/30000/res@1",
+   "track1/single/kid2/30000/age@1+res@2",
+   "track1/single/kid2/30000/res@2"
+  ],
+  "question shown:eic.child.ssn": [
+   "probe/single/kid1/30000/ssn@1",
+   "probe/single/kid2/30000/ssn@2",
+   "probe/single/odckid/30000/ssn@1",
+   "track1/single/kid1/30000/ssn@1",
+   "track1/single/kid2/30000/ssn@2",
+   "track1/single/odckid/30000/ssn@1",
+   "track1/single/odckid2/30000/ssn@2"
+  ],
+  "question shown:odc.child.tin": [
+   "probe/single/odckid/30000/odc-tin@1",
+   "track1/single/odckid/30000/odc-tin@1",
+   "track1/single/odckid2/30000/odc-tin@2"
+  ],
+  "question shown:odc.dependent.citizen-or-resident": [
+   "probe/single/parent/30000/rel-citizen@p",
+   "track1/single/parent/30000/rel-citizen@p1",
+   "track1/single/parent2/30000/rel-citizen@p2",
+   "track1/single/parent2/30000/rel-tin@p1+rel-citizen@p2"
+  ],
+  "question shown:odc.dependent.gross-income-under-limit": [
+   "probe/single/parent/30000/rel-gross@p",
+   "track1/single/parent/30000/rel-gross@p1",
+   "track1/single/parent2/30000/rel-gross@p2"
+  ],
+  "question shown:odc.dependent.not-joint-return": [
+   "probe/single/parent/30000/rel-notjoint@p",
+   "track1/single/parent/30000/rel-notjoint@p1",
+   "track1/single/parent2/30000/rel-notjoint@p2"
+  ],
+  "question shown:odc.dependent.not-qualifying-child": [
+   "probe/single/parent/30000/rel-notqc@p",
+   "track1/single/parent/30000/rel-notqc@p1",
+   "track1/single/parent2/30000/rel-notqc@p2"
+  ],
+  "question shown:odc.dependent.over-half-support": [
+   "probe/single/parent/30000/rel-support@p",
+   "track1/single/parent/30000/rel-support@p1",
+   "track1/single/parent2/30000/rel-support@p2"
+  ],
+  "question shown:odc.dependent.relationship": [
+   "probe/single/parent/30000/rel-relationship@p",
+   "track1/single/parent/30000/rel-relationship@p1",
+   "track1/single/parent2/30000/rel-relationship@p2"
+  ],
+  "question shown:odc.dependent.tin": [
+   "probe/single/parent/30000/rel-tin@p",
+   "track1/single/parent/30000/rel-tin@p1",
+   "track1/single/parent2/30000/rel-tin@p1+rel-citizen@p2",
+   "track1/single/parent2/30000/rel-tin@p2"
+  ],
+  "member label shown beside the question": 89,
+  "reasons list added on a line that had none": 89
+ },
+ "expected_by_note": {
+  "member label shown beside the question": 1231,
+  "question shown:ctc.child.citizen-or-resident": 48,
+  "question shown:ctc.child.lived-with-you": 90,
+  "question shown:ctc.child.no-over-half-support": 48,
+  "question shown:ctc.child.under-17": 48,
+  "question shown:dtb.child.another-could-claim": 64,
+  "question shown:dtb.child.filer-agi-higher": 16,
+  "question shown:dtb.child.filer-is-parent": 64,
+  "question shown:dtb.child.form-8332-released": 16,
+  "question shown:dtb.child.more-nights-with-filer": 16,
+  "question shown:dtb.child.multiple-other-claimants": 16,
+  "question shown:dtb.child.other-is-parent": 16,
+  "question shown:dtb.child.other-will-claim": 16,
+  "question shown:dtb.child.same-agi": 16,
+  "question shown:dtb.child.same-nights": 16,
+  "question shown:eic.child.age": 90,
+  "question shown:eic.child.joint-return": 150,
+  "question shown:eic.child.residency": 45,
+  "question shown:eic.child.ssn": 118,
+  "question shown:odc.child.tin": 39,
+  "question shown:odc.dependent.citizen-or-resident": 52,
+  "question shown:odc.dependent.gross-income-under-limit": 39,
+  "question shown:odc.dependent.not-joint-return": 39,
+  "question shown:odc.dependent.not-qualifying-child": 39,
+  "question shown:odc.dependent.over-half-support": 39,
+  "question shown:odc.dependent.relationship": 39,
+  "question shown:odc.dependent.tin": 52,
+  "reasons list added on a line that had none": 1200,
+  "version:tax.us.2025.package.core-calculations": 57279
+ },
+ "outcomes": {
+  "success/success": 101
+ },
+ "list_classes": {
+  "probe/mfj/kid1/30000/-": "expected_changes",
+  "probe/mfj/kid1/30000/age@1": "expected_changes",
+  "probe/mfj/kid1/30000/joint@1": "expected_changes",
+  "probe/single/kid1/30000/-": "expected_changes",
+  "probe/single/kid1/30000/age@1": "expected_changes",
+  "probe/single/kid1/30000/citizen@1": "expected_changes",
+  "probe/single/kid1/30000/dtb-another@1": "expected_changes",
+  "probe/single/kid1/30000/dtb-filer-parent@1": "expected_changes",
+  "probe/single/kid1/30000/joint@1": "expected_changes",
+  "probe/single/kid1/30000/lived@1": "expected_changes",
+  "probe/single/kid1/30000/res@1": "expected_changes",
+  "probe/single/kid1/30000/ssn@1": "expected_changes",
+  "probe/single/kid1/30000/support@1": "expected_changes",
+  "probe/single/kid1/30000/u17@1": "expected_changes",
+  "probe/single/kid2/30000/-": "expected_changes",
+  "probe/single/kid2/30000/age@2": "expected_changes",
+  "probe/single/kid2/30000/citizen@2": "expected_changes",
+  "probe/single/kid2/30000/dtb-another@2": "expected_changes",
+  "probe/single/kid2/30000/dtb-filer-parent@2": "expected_changes",
+  "probe/single/kid2/30000/joint@2": "expected_changes",
+  "probe/single/kid2/30000/lived@2": "expected_changes",
+  "probe/single/kid2/30000/res@2": "expected_changes",
+  "probe/single/kid2/30000/ssn@2": "expected_changes",
+  "probe/single/kid2/30000/support@2": "expected_changes",
+  "probe/single/kid2/30000/u17@2": "expected_changes",
+  "probe/single/odckid/30000/-": "expected_changes",
+  "probe/single/odckid/30000/joint@1": "expected_changes",
+  "probe/single/odckid/30000/lived@1": "expected_changes",
+  "probe/single/odckid/30000/odc-tin@1": "expected_changes",
+  "probe/single/odckid/30000/ssn@1": "expected_changes",
+  "probe/single/parent/30000/-": "expected_changes",
+  "probe/single/parent/30000/rel-citizen@p": "expected_changes",
+  "probe/single/parent/30000/rel-gross@p": "expected_changes",
+  "probe/single/parent/30000/rel-notjoint@p": "expected_changes",
+  "probe/single/parent/30000/rel-notqc@p": "expected_changes",
+  "probe/single/parent/30000/rel-relationship@p": "expected_changes",
+  "probe/single/parent/30000/rel-support@p": "expected_changes",
+  "probe/single/parent/30000/rel-tin@p": "expected_changes",
+  "track1/mfj/kid1/30000/age@1": "expected_changes",
+  "track1/mfj/kid1/30000/joint@1": "expected_changes",
+  "track1/single/kid1/30000/-": "expected_changes",
+  "track1/single/kid1/30000/age@1": "expected_changes",
+  "track1/single/kid1/30000/citizen@1": "expected_changes",
+  "track1/single/kid1/30000/dtb-another@1": "expected_changes",
+  "track1/single/kid1/30000/dtb-filer-parent@1": "expected_changes",
+  "track1/single/kid1/30000/dtb-multiple@1": "expected_changes",
+  "track1/single/kid1/30000/dtb-other-parent@1": "expected_changes",
+  "track1/single/kid1/30000/joint@1": "expected_changes",
+  "track1/single/kid1/30000/lived@1": "expected_changes",
+  "track1/single/kid1/30000/res@1": "expected_changes",
+  "track1/single/kid1/30000/ssn@1": "expected_changes",
+  "track1/single/kid1/30000/support@1": "expected_changes",
+  "track1/single/kid1/30000/u17@1": "expected_changes",
+  "track1/single/kid1pp/30000/-": "expected_changes",
+  "track1/single/kid1pp/30000/dtb-8332@1": "expected_changes",
+  "track1/single/kid1pp/30000/dtb-agi@1": "expected_changes",
+  "track1/single/kid1pp/30000/dtb-nights@1": "expected_changes",
+  "track1/single/kid1pp/30000/dtb-same-agi@1": "expected_changes",
+  "track1/single/kid1pp/30000/dtb-same-nights@1": "expected_changes",
+  "track1/single/kid1pp/30000/dtb-will-claim@1": "expected_changes",
+  "track1/single/kid2/30000/-": "expected_changes",
+  "track1/single/kid2/30000/age@1": "expected_changes",
+  "track1/single/kid2/30000/age@1+age@2": "expected_changes",
+  "track1/single/kid2/30000/age@1+res@2": "expected_changes",
+  "track1/single/kid2/30000/age@2": "expected_changes",
+  "track1/single/kid2/30000/citizen@2": "expected_changes",
+  "track1/single/kid2/30000/dtb-another@2": "expected_changes",
+  "track1/single/kid2/30000/dtb-filer-parent@2": "expected_changes",
+  "track1/single/kid2/30000/joint@2": "expected_changes",
+  "track1/single/kid2/30000/lived@2": "expected_changes",
+  "track1/single/kid2/30000/res@2": "expected_changes",
+  "track1/single/kid2/30000/ssn@2": "expected_changes",
+  "track1/single/kid2/30000/support@2": "expected_changes",
+  "track1/single/kid2/30000/u17@2": "expected_changes",
+  "track1/single/odckid/30000/-": "expected_changes",
+  "track1/single/odckid/30000/joint@1": "expected_changes",
+  "track1/single/odckid/30000/lived@1": "expected_changes",
+  "track1/single/odckid/30000/odc-tin@1": "expected_changes",
+  "track1/single/odckid/30000/ssn@1": "expected_changes",
+  "track1/single/odckid2/30000/-": "expected_changes",
+  "track1/single/odckid2/30000/joint@2": "expected_changes",
+  "track1/single/odckid2/30000/lived@2": "expected_changes",
+  "track1/single/odckid2/30000/odc-tin@2": "expected_changes",
+  "track1/single/odckid2/30000/ssn@2": "expected_changes",
+  "track1/single/parent/30000/-": "expected_changes",
+  "track1/single/parent/30000/rel-citizen@p1": "expected_changes",
+  "track1/single/parent/30000/rel-gross@p1": "expected_changes",
+  "track1/single/parent/30000/rel-notjoint@p1": "expected_changes",
+  "track1/single/parent/30000/rel-notqc@p1": "expected_changes",
+  "track1/single/parent/30000/rel-relationship@p1": "expected_changes",
+  "track1/single/parent/30000/rel-support@p1": "expected_changes",
+  "track1/single/parent/30000/rel-tin@p1": "expected_changes",
+  "track1/single/parent2/30000/-": "expected_changes",
+  "track1/single/parent2/30000/rel-citizen@p2": "expected_changes",
+  "track1/single/parent2/30000/rel-gross@p2": "expected_changes",
+  "track1/single/parent2/30000/rel-notjoint@p2": "expected_changes",
+  "track1/single/parent2/30000/rel-notqc@p2": "expected_changes",
+  "track1/single/parent2/30000/rel-relationship@p2": "expected_changes",
+  "track1/single/parent2/30000/rel-support@p2": "expected_changes",
+  "track1/single/parent2/30000/rel-tin@p1+rel-citizen@p2": "expected_changes",
+  "track1/single/parent2/30000/rel-tin@p2": "expected_changes"
+ },
+ "failing_lists": {},
+ "lists_set": "probe"
+}

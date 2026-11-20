@@ -61,8 +61,16 @@ from packages.derivation.live_session import _render_page  # noqa: E402
 P = h.P
 CHILD = p0.CHILD
 PARENT = (p0.PARENT, "demo-eicc-parent-2")
-ANSWERS = p0.ANSWERS
+ANSWERS = {**p0.ANSWERS, **{short: (P + "dtb.child." + name, "child") for short, name in (
+    ("dtb-multiple", "multiple-other-claimants"), ("dtb-other-parent", "other-is-parent"),
+    ("dtb-8332", "form-8332-released"), ("dtb-nights", "more-nights-with-filer"), ("dtb-same-nights", "same-nights"),
+    ("dtb-agi", "filer-agi-higher"), ("dtb-will-claim", "other-will-claim"), ("dtb-same-agi", "same-agi"))}}
 KID = p0.KID
+# ``kid1pp``: one child whom both you and the other person, both its parents, could claim, with equal nights; every
+# tie-breaker answer is then read on the way to "the same AGI" (no: the other parent, with the higher AGI, wins).
+BOTH_PARENTS = {"another-could-claim": "yes", "multiple-other-claimants": "no", "filer-is-parent": "yes",
+                "other-is-parent": "yes", "form-8332-released": "no", "more-nights-with-filer": "no",
+                "same-nights": "yes", "filer-agi-higher": "no", "other-will-claim": "yes", "same-agi": "no"}
 REL = tuple(a for a in ANSWERS if a.startswith("rel-"))
 ODC_KID = ("odc-tin", "ssn", "lived", "joint")
 CASES: tuple[str, ...] = (
@@ -70,6 +78,9 @@ CASES: tuple[str, ...] = (
     *(f"single/kid1/30000/{a}@1" for a in KID),
     *(f"single/kid2/30000/{a}@2" for a in KID),
     "single/kid2/30000/age@1", "single/kid2/30000/age@1+age@2", "single/kid2/30000/age@1+res@2",
+    "single/kid1/30000/dtb-multiple@1", "single/kid1/30000/dtb-other-parent@1", "single/kid1pp/30000/-",
+    *(f"single/kid1pp/30000/{a}@1" for a in ("dtb-8332", "dtb-nights", "dtb-same-nights", "dtb-agi",
+                                              "dtb-will-claim", "dtb-same-agi")),
     "mfj/kid1/30000/age@1", "mfj/kid1/30000/joint@1",
     "single/odckid/30000/-", "single/odckid2/30000/-",
     *(f"single/odckid/30000/{a}@1" for a in ODC_KID),
@@ -115,8 +126,8 @@ def build(case: str, content: Path = h.CONTENT) -> h.Acts:
     wages = float(wages_text)
     status = hoh_eic.STATUS[status_key]
     kids: dict[str, dict[str, str]] = {}
-    if roster in ("kid1", "kid2"):
-        kids = {name: odc.ctc_child() for name in CHILD[: int(roster[-1])]}
+    if roster in ("kid1", "kid2", "kid1pp"):
+        kids = {name: odc.ctc_child() for name in CHILD[: 2 if roster == "kid2" else 1]}
     elif roster in ("odckid", "odckid2"):
         count = 2 if roster.endswith("2") else 1
         kids = {name: odc.odc_child() for name in CHILD[:count]}  # 17: the credit for other dependents
@@ -138,7 +149,7 @@ def build(case: str, content: Path = h.CONTENT) -> h.Acts:
     if kids:
         acts.append(p0._act(len(acts), "bundle-adoption", {"bundle": ccr._load("dtb-questions.bundle.json")}))
         for name in kids:
-            for question, value in ccr._TIE_BREAKER_ANSWERS.items():
+            for question, value in (BOTH_PARENTS if roster == "kid1pp" else ccr._TIE_BREAKER_ANSWERS).items():
                 fid = f"{P}dtb.child.{question}|child={name},tax-year={h.YEAR}"
                 acts.append(p0._act(len(acts), "assertion",
                                     {"finding": p0._attested(f"demo.eicc.dtb.{question}.{name}", fid, value)}))
