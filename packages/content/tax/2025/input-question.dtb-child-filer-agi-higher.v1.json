@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.dtb.child.filer-agi-higher",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.dtb-child-filer-agi-higher",
+  "question": "Was your adjusted gross income (AGI) for 2025 higher than the other person's AGI for 2025? Answer yes if your AGI was higher. Answer no if it was the same or lower.",
+  "schema": "input-question.v1",
+  "version": "v1"
+}

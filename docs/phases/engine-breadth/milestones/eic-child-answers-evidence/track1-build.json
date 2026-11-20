@@ -1,0 +1,503 @@
+{
+  "from": {
+    "core": "v100",
+    "registry": "v98",
+    "release": "v98"
+  },
+  "to": {
+    "core": "v101",
+    "registry": "v99",
+    "release": "v99"
+  },
+  "changes": {
+    "package_version": "v101",
+    "release_version": "v99",
+    "members": [
+      {
+        "op": "add",
+        "new": {
+          "id": "tax.us.2025.input-question.ctc-child-citizen-or-resident",
+          "version": "v1",
+          "schema": "input-question.v1",
+          "role": "input-question"
+        }
+      },
+      {
+        "op": "add",
+        "new": {
+          "id": "tax.us.2025.input-question.ctc-child-lived-with-you",
+          "version": "v1",
+          "schema": "input-question.v1",
+          "role": "input-question"
+        }
+      },
+      {
+        "op": "add",
+        "new": {
+          "id": "tax.us.2025.input-question.ctc-child-no-over-half-support",
+          "version": "v1",
+          "schema": "input-question.v1",
+          "role": "input-question"
+        }
+      },
+      {
+        "op": "add",
+        "new": {
+          "id": "tax.us.2025.input-question.ctc-child-under-17",
+          "version": "v1",
+          "schema": "input-question.v1",
+          "role": "input-question"
+        }
+      },
+      {
+        "op": "add",
+        "new": {
+          "id": "tax.us.2025.input-question.dtb-child-another-could-claim",
+          "version": "v1",
+          "schema": "input-question.v1",
+          "role": "input-question"
+        }
+      },
+      {
+        "op": "add",
+        "new": {
+          "id": "tax.us.2025.input-question.dtb-child-filer-agi-higher",
+          "version": "v1",
+          "schema": "input-question.v1",
+          "role": "input-question"
+        }
+      },
+      {
+        "op": "add",
+        "new": {
+          "id": "tax.us.2025.input-question.dtb-child-filer-is-parent",
+          "version": "v1",
+          "schema": "input-question.v1",
+          "role": "input-question"
+        }
+      },
+      {
+        "op": "add",
+        "new": {
+          "id": "tax.us.2025.input-question.dtb-child-form-8332-released",
+          "version": "v1",
+          "schema": "input-question.v1",
+          "role": "input-question"
+        }
+      },
+      {
+        "op": "add",
+        "new": {
+          "id": "tax.us.2025.input-question.dtb-child-more-nights-with-filer",
+          "version": "v1",
+          "schema": "input-question.v1",
+          "role": "input-question"
+        }
+      },
+      {
+        "op": "add",
+        "new": {
+          "id": "tax.us.2025.input-question.dtb-child-multiple-other-claimants",
+          "version": "v1",
+          "schema": "input-question.v1",
+          "role": "input-question"
+        }
+      },
+      {
+        "op": "add",
+        "new": {
+          "id": "tax.us.2025.input-question.dtb-child-other-is-parent",
+          "version": "v1",
+          "schema": "input-question.v1",
+          "role": "input-question"
+        }
+      },
+      {
+        "op": "add",
+        "new": {
+          "id": "tax.us.2025.input-question.dtb-child-other-will-claim",
+          "version": "v1",
+          "schema": "input-question.v1",
+          "role": "input-question"
+        }
+      },
+      {
+        "op": "add",
+        "new": {
+          "id": "tax.us.2025.input-question.dtb-child-same-agi",
+          "version": "v1",
+          "schema": "input-question.v1",
+          "role": "input-question"
+        }
+      },
+      {
+        "op": "add",
+        "new": {
+          "id": "tax.us.2025.input-question.dtb-child-same-nights",
+          "version": "v1",
+          "schema": "input-question.v1",
+          "role": "input-question"
+        }
+      },
+      {
+        "op": "add",
+        "new": {
+          "id": "tax.us.2025.input-question.eic-child-age",
+          "version": "v1",
+          "schema": "input-question.v1",
+          "role": "input-question"
+        }
+      },
+      {
+        "op": "add",
+        "new": {
+          "id": "tax.us.2025.input-question.eic-child-joint-return",
+          "version": "v1",
+          "schema": "input-question.v1",
+          "role": "input-question"
+        }
+      },
+      {
+        "op": "add",
+        "new": {
+          "id": "tax.us.2025.input-question.eic-child-residency",
+          "version": "v1",
+          "schema": "input-question.v1",
+          "role": "input-question"
+        }
+      },
+      {
+        "op": "add",
+        "new": {
+          "id": "tax.us.2025.input-question.eic-child-ssn",
+          "version": "v1",
+          "schema": "input-question.v1",
+          "role": "input-question"
+        }
+      },
+      {
+        "op": "add",
+        "new": {
+          "id": "tax.us.2025.input-question.odc-child-tin",
+          "version": "v1",
+          "schema": "input-question.v1",
+          "role": "input-question"
+        }
+      },
+      {
+        "op": "add",
+        "new": {
+          "id": "tax.us.2025.input-question.odc-dependent-citizen-or-resident",
+          "version": "v1",
+          "schema": "input-question.v1",
+          "role": "input-question"
+        }
+      },
+      {
+        "op": "add",
+        "new": {
+          "id": "tax.us.2025.input-question.odc-dependent-gross-income-under-limit",
+          "version": "v1",
+          "schema": "input-question.v1",
+          "role": "input-question"
+        }
+      },
+      {
+        "op": "add",
+        "new": {
+          "id": "tax.us.2025.input-question.odc-dependent-not-joint-return",
+          "version": "v1",
+          "schema": "input-question.v1",
+          "role": "input-question"
+        }
+      },
+      {
+        "op": "add",
+        "new": {
+          "id": "tax.us.2025.input-question.odc-dependent-not-qualifying-child",
+          "version": "v1",
+          "schema": "input-question.v1",
+          "role": "input-question"
+        }
+      },
+      {
+        "op": "add",
+        "new": {
+          "id": "tax.us.2025.input-question.odc-dependent-over-half-support",
+          "version": "v1",
+          "schema": "input-question.v1",
+          "role": "input-question"
+        }
+      },
+      {
+        "op": "add",
+        "new": {
+          "id": "tax.us.2025.input-question.odc-dependent-relationship",
+          "version": "v1",
+          "schema": "input-question.v1",
+          "role": "input-question"
+        }
+      },
+      {
+        "op": "add",
+        "new": {
+          "id": "tax.us.2025.input-question.odc-dependent-tin",
+          "version": "v1",
+          "schema": "input-question.v1",
+          "role": "input-question"
+        }
+      }
+    ],
+    "entrypoints": [
+      {
+        "op": "add",
+        "value": {
+          "id": "tax.us.2025.input-question.ctc-child-citizen-or-resident",
+          "version": "v1"
+        }
+      },
+      {
+        "op": "add",
+        "value": {
+          "id": "tax.us.2025.input-question.ctc-child-lived-with-you",
+          "version": "v1"
+        }
+      },
+      {
+        "op": "add",
+        "value": {
+          "id": "tax.us.2025.input-question.ctc-child-no-over-half-support",
+          "version": "v1"
+        }
+      },
+      {
+        "op": "add",
+        "value": {
+          "id": "tax.us.2025.input-question.ctc-child-under-17",
+          "version": "v1"
+        }
+      },
+      {
+        "op": "add",
+        "value": {
+          "id": "tax.us.2025.input-question.dtb-child-another-could-claim",
+          "version": "v1"
+        }
+      },
+      {
+        "op": "add",
+        "value": {
+          "id": "tax.us.2025.input-question.dtb-child-filer-agi-higher",
+          "version": "v1"
+        }
+      },
+      {
+        "op": "add",
+        "value": {
+          "id": "tax.us.2025.input-question.dtb-child-filer-is-parent",
+          "version": "v1"
+        }
+      },
+      {
+        "op": "add",
+        "value": {
+          "id": "tax.us.2025.input-question.dtb-child-form-8332-released",
+          "version": "v1"
+        }
+      },
+      {
+        "op": "add",
+        "value": {
+          "id": "tax.us.2025.input-question.dtb-child-more-nights-with-filer",
+          "version": "v1"
+        }
+      },
+      {
+        "op": "add",
+        "value": {
+          "id": "tax.us.2025.input-question.dtb-child-multiple-other-claimants",
+          "version": "v1"
+        }
+      },
+      {
+        "op": "add",
+        "value": {
+          "id": "tax.us.2025.input-question.dtb-child-other-is-parent",
+          "version": "v1"
+        }
+      },
+      {
+        "op": "add",
+        "value": {
+          "id": "tax.us.2025.input-question.dtb-child-other-will-claim",
+          "version": "v1"
+        }
+      },
+      {
+        "op": "add",
+        "value": {
+          "id": "tax.us.2025.input-question.dtb-child-same-agi",
+          "version": "v1"
+        }
+      },
+      {
+        "op": "add",
+        "value": {
+          "id": "tax.us.2025.input-question.dtb-child-same-nights",
+          "version": "v1"
+        }
+      },
+      {
+        "op": "add",
+        "value": {
+          "id": "tax.us.2025.input-question.eic-child-age",
+          "version": "v1"
+        }
+      },
+      {
+        "op": "add",
+        "value": {
+          "id": "tax.us.2025.input-question.eic-child-joint-return",
+          "version": "v1"
+        }
+      },
+      {
+        "op": "add",
+        "value": {
+          "id": "tax.us.2025.input-question.eic-child-residency",
+          "version": "v1"
+        }
+      },
+      {
+        "op": "add",
+        "value": {
+          "id": "tax.us.2025.input-question.eic-child-ssn",
+          "version": "v1"
+        }
+      },
+      {
+        "op": "add",
+        "value": {
+          "id": "tax.us.2025.input-question.odc-child-tin",
+          "version": "v1"
+        }
+      },
+      {
+        "op": "add",
+        "value": {
+          "id": "tax.us.2025.input-question.odc-dependent-citizen-or-resident",
+          "version": "v1"
+        }
+      },
+      {
+        "op": "add",
+        "value": {
+          "id": "tax.us.2025.input-question.odc-dependent-gross-income-under-limit",
+          "version": "v1"
+        }
+      },
+      {
+        "op": "add",
+        "value": {
+          "id": "tax.us.2025.input-question.odc-dependent-not-joint-return",
+          "version": "v1"
+        }
+      },
+      {
+        "op": "add",
+        "value": {
+          "id": "tax.us.2025.input-question.odc-dependent-not-qualifying-child",
+          "version": "v1"
+        }
+      },
+      {
+        "op": "add",
+        "value": {
+          "id": "tax.us.2025.input-question.odc-dependent-over-half-support",
+          "version": "v1"
+        }
+      },
+      {
+        "op": "add",
+        "value": {
+          "id": "tax.us.2025.input-question.odc-dependent-relationship",
+          "version": "v1"
+        }
+      },
+      {
+        "op": "add",
+        "value": {
+          "id": "tax.us.2025.input-question.odc-dependent-tin",
+          "version": "v1"
+        }
+      }
+    ],
+    "registry_sort": "id_version"
+  },
+  "written": {
+    "input-question.ctc-child-citizen-or-resident.v1.json": "e58ced7f8a698ceeffaa6ce36869ee11e968ecab45be23cb91a46cb7d973a4f4",
+    "input-question.ctc-child-lived-with-you.v1.json": "88342bb12c072fef042ee61fd4a9bb2009df1b13f41441f1d8bebaae93d9fc8e",
+    "input-question.ctc-child-no-over-half-support.v1.json": "3bdcbdff0e5a6cb373aef1410fb274599ac4f0df30bb5aa1b7779f8a021b934d",
+    "input-question.ctc-child-under-17.v1.json": "557d9df42d73ab42a1da0b3e95ac85c1ab48f83abb643124a8f6d8c310fec482",
+    "input-question.dtb-child-another-could-claim.v1.json": "50cccfbd247dc873f400df05edc7823c06fa49f49c78e25bfc4013558b15c15a",
+    "input-question.dtb-child-filer-agi-higher.v1.json": "a8b42600c6433258ba0fb566e06d2d522d33fc1c8cd534c01a59574a99e1a6af",
+    "input-question.dtb-child-filer-is-parent.v1.json": "8a1efc692767eec0dbd9c5a6ba4cb0c75681ff2169337d5cb5f833d3415625b8",
+    "input-question.dtb-child-form-8332-released.v1.json": "e46ae3039fe24ed6784dd82a126de5aed103f3af880f9e0990213e572b3035bc",
+    "input-question.dtb-child-more-nights-with-filer.v1.json": "2cbf2dcf4107d15805ae4dcb6870a3a4d745d9cc4108cc5d04fb8bda643c7a55",
+    "input-question.dtb-child-multiple-other-claimants.v1.json": "fcbd4ab348e1ae5c3d7a265233f72032110e83d7ee945161ffb4561a3f66b8fb",
+    "input-question.dtb-child-other-is-parent.v1.json": "aeace2254829309f665af881d1e3b9508fcaa5da6b4448fe634b673add0cd0ae",
+    "input-question.dtb-child-other-will-claim.v1.json": "870e7a943acd5b27360774ccf374cb28376ffddb5b18d9b6346f6387ad0e9983",
+    "input-question.dtb-child-same-agi.v1.json": "4e78887ed0c49dddf8cde408891a1bc2a3168dc8800c543812afcf27c5873beb",
+    "input-question.dtb-child-same-nights.v1.json": "a43f8719b673ac2cca1e38a6d1c16864eae84d1ffd7c05c17b2a91ac66531587",
+    "input-question.eic-child-age.v1.json": "38b9cc659e3dc91280148f2e842803a2911b918c2d00fe3be6a7a490206a53a9",
+    "input-question.eic-child-joint-return.v1.json": "89a43963800a952021116384ce8abba2a961ba275ba7ac8d13a70c71554049f9",
+    "input-question.eic-child-residency.v1.json": "55e7c49116e22541d489002c1e454285e4264b4e1d60fddfb3b0cfa73827887e",
+    "input-question.eic-child-ssn.v1.json": "227be4e498636fc5947ec484c13b379c225c97f666894c696733a4ea2a052ff4",
+    "input-question.odc-child-tin.v1.json": "91da2900147536395240aae1e6979b12c51e639123e138c42bb27063ed540423",
+    "input-question.odc-dependent-citizen-or-resident.v1.json": "b6086f6fb2795bdcc75a832a82149ded7eb2dcafd44a8366be5d7a2dad5f26d4",
+    "input-question.odc-dependent-gross-income-under-limit.v1.json": "08fcefca4f4dc48173fafb00a3ea117fbeb7d72d4ab4ba95b716b41622eb0a07",
+    "input-question.odc-dependent-not-joint-return.v1.json": "e73eef3aa3e7de1f198456be839531c45f7db3057f6dad4cb75928c74b147e15",
+    "input-question.odc-dependent-not-qualifying-child.v1.json": "7a38b7501fba47c748e79132d4045c298516d5b998dff382ae0ef5b0976c94ad",
+    "input-question.odc-dependent-over-half-support.v1.json": "63e6aa9daf3a6c0139e87c09760a7602439390416190323ad5cd498880a61774",
+    "input-question.odc-dependent-relationship.v1.json": "a9ac6babf8fade5d7cdca2a17202183609c37ab2b73dabe58e3c76ef8b71f719",
+    "input-question.odc-dependent-tin.v1.json": "c24d718992d728e1e6852132f1f69a124482382bb89abc026ec1b1c5841da7db"
+  },
+  "replaced_members": [],
+  "status": "valid",
+  "validation": "generate_to_directory passed package, registry and release validation",
+  "generation": {
+    "registry_sha256": "0b55c95bf8f2d32d2ef4c045204842086a6d3e7c415de4717eb1ab9572ed01cb",
+    "publication_boundary": "Candidate only: successor companion declaration and live release evidence are separate duties under ADR-0082."
+  },
+  "published": [
+    "demo.release.sli-worksheet-integration.2025.v99.json",
+    "input-question.ctc-child-citizen-or-resident.v1.json",
+    "input-question.ctc-child-lived-with-you.v1.json",
+    "input-question.ctc-child-no-over-half-support.v1.json",
+    "input-question.ctc-child-under-17.v1.json",
+    "input-question.dtb-child-another-could-claim.v1.json",
+    "input-question.dtb-child-filer-agi-higher.v1.json",
+    "input-question.dtb-child-filer-is-parent.v1.json",
+    "input-question.dtb-child-form-8332-released.v1.json",
+    "input-question.dtb-child-more-nights-with-filer.v1.json",
+    "input-question.dtb-child-multiple-other-claimants.v1.json",
+    "input-question.dtb-child-other-is-parent.v1.json",
+    "input-question.dtb-child-other-will-claim.v1.json",
+    "input-question.dtb-child-same-agi.v1.json",
+    "input-question.dtb-child-same-nights.v1.json",
+    "input-question.eic-child-age.v1.json",
+    "input-question.eic-child-joint-return.v1.json",
+    "input-question.eic-child-residency.v1.json",
+    "input-question.eic-child-ssn.v1.json",
+    "input-question.odc-child-tin.v1.json",
+    "input-question.odc-dependent-citizen-or-resident.v1.json",
+    "input-question.odc-dependent-gross-income-under-limit.v1.json",
+    "input-question.odc-dependent-not-joint-return.v1.json",
+    "input-question.odc-dependent-not-qualifying-child.v1.json",
+    "input-question.odc-dependent-over-half-support.v1.json",
+    "input-question.odc-dependent-relationship.v1.json",
+    "input-question.odc-dependent-tin.v1.json",
+    "package.core-calculations.v101.json",
+    "published-packages.v99.json"
+  ]
+}

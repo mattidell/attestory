@@ -274,14 +274,17 @@ def _reference_closure_question_reasons(row: Any, *, resolved_members: Any, by_s
                                         later_any_arm_refs: bool = False,
                                         refusal_sentence: Any = None,
                                         refusal_token: Any = None,
-                                        constraint_meanings: Any = None) -> list[dict[str, Any]]:
+                                        constraint_meanings: Any = None,
+                                        roster_members: Any = None) -> list[dict[str, Any]]:
     """The v69 algorithm as it stood before the input question (the closure roots only).
 
     ``later_any_arm_refs`` is the core v76 walk. This reference keeps the
     earlier walk, which is what v68 through v71 render. The refusal and
     constraint arguments are the core v79 walk; this reference ignores them.
+    ``roster_members`` is the ADR 0087 member walk, which these cases never
+    reach; this reference ignores it.
     """
-    del later_any_arm_refs, refusal_sentence, refusal_token, constraint_meanings
+    del later_any_arm_refs, refusal_sentence, refusal_token, constraint_meanings, roster_members
     questions: dict[str, str] = {}
     for member in resolved_members:
         question = member.get("closure_question")
