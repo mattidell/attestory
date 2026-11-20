@@ -4,7 +4,7 @@
     "version": "v1"
   },
   "id": "tax.us.2025.input-question.odc-dependent-over-half-support",
-  "question": "Did you provide over half of this person's support in 2025? Answer yes if you did. Answer no if you did not, including where you would be treated as providing it only under a multiple support agreement.",
+  "question": "Did you provide over half of this person's support in 2025? Answer yes if you did. Answer no if you did not, including where you would be treated as providing it only under a multiple support agreement. If this person is your child who is presumed by law enforcement authorities to have been kidnapped by someone who isn't a family member, you may be able to take the child into account for the credit for other dependents.",
   "schema": "input-question.v1",
   "version": "v1"
 }

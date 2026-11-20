@@ -578,7 +578,7 @@ def _closure_question_reasons(
     blocked rows and walks their missing names. A name the member has no row
     for, published by a per-subject rule, is that rule's subject fact, which
     the member has not supplied. A fact individuated on the member is asked
-    with the member's recorded label as ``member_label``, one reason per
+    with the member's recorded label as ``memberLabel``, one reason per
     member and question. A member key with no blocked rows, or no single
     recorded label, leaves the line without a sentence, as before.
     """
@@ -827,7 +827,7 @@ def _closure_question_reasons(
         )
         reasons = [{"sentence": sentence} for sentence in sorted(sentences)]
         reasons.extend(
-            {"sentence": sentence, "member_label": label}
+            {"sentence": sentence, "memberLabel": label}
             for label, sentence in sorted({(label, input_questions[fact]) for fact, label in member_facts})
         )
     if (
@@ -5251,11 +5251,11 @@ def _validate_resolved(resolved: Mapping[str, Any], path: str) -> None:
                 raise PresentationModelError(f"{path}.reasons: expected a non-empty list")
             for index, reason in enumerate(reasons):
                 rp = f"{path}.reasons[{index}]"
-                _require_keys(reason, frozenset({"sentence"}), frozenset({"factId", "statementLabel", "member_label"}), rp)
+                _require_keys(reason, frozenset({"sentence"}), frozenset({"factId", "statementLabel", "memberLabel"}), rp)
                 if not isinstance(reason["sentence"], str) or not reason["sentence"]:
                     raise PresentationModelError(f"{rp}.sentence: expected non-empty string")
-                if "member_label" in reason and (not isinstance(reason["member_label"], str) or not reason["member_label"]):
-                    raise PresentationModelError(f"{rp}.member_label: expected non-empty string")
+                if "memberLabel" in reason and (not isinstance(reason["memberLabel"], str) or not reason["memberLabel"]):
+                    raise PresentationModelError(f"{rp}.memberLabel: expected non-empty string")
                 if "factId" in reason and (not isinstance(reason["factId"], str) or not reason["factId"]):
                     raise PresentationModelError(f"{rp}.factId: expected non-empty string")
                 label = reason.get("statementLabel", {})

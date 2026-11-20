@@ -99,7 +99,7 @@ class MemberWalk(unittest.TestCase):
         for later in (False, True):
             with self.subTest(later_any_arm_refs=later):
                 self.assertEqual(_reasons(row, by_symbol, later_any_arm_refs=later),
-                                 [{"sentence": "demo age question", "member_label": "Synthetic demo-child-1"}])
+                                 [{"sentence": "demo age question", "memberLabel": "Synthetic demo-child-1"}])
 
     def test_a_member_row_naming_an_answer_directly_is_asked_for_that_member(self) -> None:
         kid = KIDS[1]
@@ -107,7 +107,7 @@ class MemberWalk(unittest.TestCase):
                      f"{CLEAR}|{_key(kid)}": [_member_row(kid, CLEAR, "demo.rule.clear", FILER_PARENT)]}
         row = _line(by_symbol, kid)
         self.assertEqual(_reasons(row, by_symbol),
-                         [{"sentence": "demo parent question", "member_label": "Synthetic demo-child-2"}])
+                         [{"sentence": "demo parent question", "memberLabel": "Synthetic demo-child-2"}])
 
     def test_a_member_key_with_no_rows_leaves_the_line_silent(self) -> None:
         by_symbol: dict[str, list[dict[str, Any]]] = {}
@@ -121,16 +121,16 @@ class MemberWalk(unittest.TestCase):
         by_symbol = {**_missing_age(KIDS[0]), **_missing_age(KIDS[1])}
         row = _line(by_symbol, *KIDS)
         self.assertEqual(_reasons(row, by_symbol), [
-            {"sentence": "demo age question", "member_label": "Synthetic demo-child-1"},
-            {"sentence": "demo age question", "member_label": "Synthetic demo-child-2"},
+            {"sentence": "demo age question", "memberLabel": "Synthetic demo-child-1"},
+            {"sentence": "demo age question", "memberLabel": "Synthetic demo-child-2"},
         ])
         # Different answers for different members: each member's own question.
         kid = KIDS[1]
         by_symbol[f"{COUNTS}|{_key(kid)}"] = [_member_row(kid, COUNTS, "demo.rule.counts", CLEAR)]
         by_symbol[f"{CLEAR}|{_key(kid)}"] = [_member_row(kid, CLEAR, "demo.rule.clear", FILER_PARENT)]
         self.assertEqual(_reasons(row, by_symbol), [
-            {"sentence": "demo age question", "member_label": "Synthetic demo-child-1"},
-            {"sentence": "demo parent question", "member_label": "Synthetic demo-child-2"},
+            {"sentence": "demo age question", "memberLabel": "Synthetic demo-child-1"},
+            {"sentence": "demo parent question", "memberLabel": "Synthetic demo-child-2"},
         ])
 
     def test_one_member_missing_two_answers_is_asked_both(self) -> None:
@@ -172,6 +172,21 @@ class MemberWalk(unittest.TestCase):
         row = _line(by_symbol, KIDS[0])
         self.assertEqual(_reasons(row, by_symbol, state=_state({})), [])
 
+    def test_a_member_with_two_recorded_labels_leaves_the_line_silent(self) -> None:
+        # The member's keys name two current entities, so there is no single label to show.
+        kid = KIDS[0]
+        two = f"{ROSTER}|child={kid},child={KIDS[1]},tax-year=2025"
+        by_symbol = {f"{COUNTS}|{two}": [dict(_member_row(kid, COUNTS, "demo.rule.counts", AGE_MET),
+                                              symbol=f"{COUNTS}|{two}")]}
+        by_symbol["demo.child-count"] = [{"disposition": "blocked", "code": "DEPENDENCY_INVALID",
+                                          "artifact_id": "demo.rule.count", "missing": [two]}]
+        row = {"disposition": "blocked", "code": "DEPENDENCY_ABSENT", "artifact_id": "demo.rule.line",
+               "missing": ["demo.child-count"]}
+        self.assertEqual(_reasons(row, by_symbol), [])
+        # The same member keyed on one entity is asked, so the silence above is the label guard.
+        one = _missing_age(kid)
+        self.assertEqual([r["memberLabel"] for r in _reasons(_line(one, kid), one)], [f"Synthetic {kid}"])
+
     def test_without_roster_members_the_walk_is_the_earlier_one(self) -> None:
         by_symbol = _missing_age(KIDS[0])
         row = _line(by_symbol, KIDS[0])
@@ -192,7 +207,7 @@ class MemberWalk(unittest.TestCase):
 
 class ReasonValidator(unittest.TestCase):
     BLOCKED: dict[str, Any] = {"disposition": "blocked", "activeCodes": ["DEPENDENCY_ABSENT"], "act": None,
-                               "reasons": [{"sentence": "demo age question", "member_label": "Synthetic demo-child-1"}]}
+                               "reasons": [{"sentence": "demo age question", "memberLabel": "Synthetic demo-child-1"}]}
 
     def test_a_member_label_is_admitted(self) -> None:
         _validate_resolved(self.BLOCKED, "demo")
@@ -201,7 +216,7 @@ class ReasonValidator(unittest.TestCase):
         bad: Any
         for bad in ("", 3, None, {"name": "x"}):
             resolved = copy.deepcopy(self.BLOCKED)
-            resolved["reasons"][0]["member_label"] = bad
+            resolved["reasons"][0]["memberLabel"] = bad
             with self.subTest(bad=bad), self.assertRaises(PresentationModelError):
                 _validate_resolved(resolved, "demo")
 

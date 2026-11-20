@@ -2688,7 +2688,7 @@
     {
       "id": "tax.us.2025.input-question.ctc-child-lived-with-you",
       "version": "v1",
-      "checksum": "a78d0a34e020a98a206b07d250b5e6915c245ee740b8bec7f829d48d7480796f"
+      "checksum": "79227d12fa0c2337974947fa45f0ad13be59dd4ca8bb83899595afb1ee6cbf02"
     },
     {
       "id": "tax.us.2025.input-question.ctc-child-no-over-half-support",
@@ -2888,7 +2888,7 @@
     {
       "id": "tax.us.2025.input-question.eic-child-age",
       "version": "v1",
-      "checksum": "a7f9b5831e10f56bda16c911a2c32b127b0ac53d85c2021836914b55b2bb6278"
+      "checksum": "fdba1eabbd5cfd696bf92d7ecad009af71cf7586204c309c666afaad88d9ca25"
     },
     {
       "id": "tax.us.2025.input-question.eic-child-joint-return",
@@ -2898,7 +2898,7 @@
     {
       "id": "tax.us.2025.input-question.eic-child-residency",
       "version": "v1",
-      "checksum": "496eb299427bebc42d96ca228acccb08b40eb02ff08287644f2cc192c401fda1"
+      "checksum": "930a61322e30ebdc92790713f7d6b99c608c2d7760271a06b731562d026ee366"
     },
     {
       "id": "tax.us.2025.input-question.eic-child-ssn",
@@ -3238,7 +3238,7 @@
     {
       "id": "tax.us.2025.input-question.odc-dependent-over-half-support",
       "version": "v1",
-      "checksum": "0c249134084cbe05f765f647e3443640b9aee9402cf1a3cec415c86763c4379b"
+      "checksum": "0e204ea9710c06dc444fcddba4641255a4577a0ac8e8e80436e024101c9154b6"
     },
     {
       "id": "tax.us.2025.input-question.odc-dependent-relationship",
