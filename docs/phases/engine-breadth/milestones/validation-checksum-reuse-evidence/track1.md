@@ -195,3 +195,33 @@ by path), `vcr_measure.py`, `vcr_dump.py`, `vcr_timing.py`; summaries:
 `measure-*.json`, `summary-{before,after}.json`, `compare-before-after.json`,
 `timing-paired.json`. The materialized lists, the full per-list dumps and the
 base export stay in an uncommitted scratch directory.
+
+## Final checks
+
+Fast lane (`pytest -m "not live"`):
+
+```
+======================= 1929 passed, 8 skipped in 15.56s =======================
+```
+
+Full suite (`pytest`), one command covering every test file (no chunks):
+
+```
+=========== 1 failed, 7368 passed, 25 skipped in 1771.51s (0:29:31) ============
+```
+
+Wall time (`time` real): 1772.40 s.
+
+mypy (`python3 -m mypy`):
+
+```
+Success: no issues found in 529 source files
+```
+
+The one full-suite failure is
+`tests/test_sale_page_observation_diagnostics.py::test_node_observer_emits_safe_manifest_stage_without_starting_chrome`.
+The test and `tools/presentation_harness/sale-page-observation.mjs` are
+identical to base `330b472c`; this branch did not touch them. It fails when
+both `FORCE_COLOR` and `NO_COLOR` are set, because node writes a warning onto
+stderr before the JSON the test parses; with those variables unset the same
+test passes. Left unfixed.
