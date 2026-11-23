@@ -1,6 +1,6 @@
 # Track 1: A Counted Child's Missing Credit Answer Is Asked (2025)
 
-The probe, build and replay scripts and their raw JSON outputs named below were working artifacts and were removed at publication; the milestone's tests reproduce the behavior, and `tools/recorded_replay.py` reruns the replay.
+The probe scripts the tests load (`probe.py`, `track1_probe.py`, `track1_design.py`) are kept beside this note. The other build and replay scripts and their raw JSON outputs named below were working artifacts and were removed at publication; the milestone's tests reproduce the behavior, and `tools/recorded_replay.py` reruns the replay.
 
 Plan:
 `docs/phases/engine-breadth/milestones/eic-child-answers.md`. ADR:
@@ -438,7 +438,7 @@ Question: Did this person file a joint return for 2025, other than one filed onl
 
 ## Result lines
 
-After the last code edit (commit `e6ab104c`), the full suite (`pytest`, its
+After the last code edit, the full suite (`pytest`, its
 379 test files in eleven foreground runs, each under the ten-minute command
 bound; together they are every file `pytest` collects):
 
@@ -465,4 +465,4 @@ edit:
 - `pytest -m "not live"`: `1940 passed, 8 skipped, 5970 subtests passed in 15.62s`
 - `pytest tests/test_schema_registry.py`: `14 passed in 1.22s`
 - `python3 tools/governance_lint.py`: `governance lint: conformant`;
-  `python3 tools/envelope_scan.py --range 77aefd25..HEAD`: no finding.
+  `python3 tools/envelope_scan.py` over the Track 1 range: no finding.
