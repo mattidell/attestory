@@ -83,3 +83,54 @@ must still be able to follow every pin to its id.
    model); a page-level check over the recorded lists shows no engine
    enum, symbol or id in the caption text a filer reads first.
 4. **Fresh review**, repair, closeout.
+
+## P0 result
+
+Completed 2026-11-23. Evidence in
+`docs/phases/engine-breadth/milestones/page-plain-words-evidence/` (`p0.md`,
+`census.py`, `census.json`, `inventory.json`).
+
+- **775-list census (core v100, registry v98, release v98):** 691 recorded
+  lists rendered to saved `presentation-model.v3` pages with zero
+  `.section-error` alerts; 84 failed with unchanged pre-page errors (82
+  `FindingModelError`, 1 `HorizonModelError`, 1 `SourceAuthorityError`).
+  Full replay took 172.187 s on 9 workers; 7 representative saved pages
+  covering all observed kinds were cross-checked in headless Chromium
+  with zero render alerts.
+- **Inventory:** 140 filer-visible page-owned string kinds across
+  `packages/presentation/pages/citation-walk.v1.html` (1,369 lines).
+  70 kinds appeared on at least one recorded list (including 18
+  `line21Explanation` kinds on 2 lists); 70 did not appear on any
+  recorded list (`REASON_TEXT` alerts, mortgage explanations,
+  diagnostics, empty-code fallbacks). 69 kinds need plain wording or
+  moving raw IDs/codes behind auditor details (44 observed on recorded
+  lists); 71 already read plainly.
+- **Top observed leaks (691/691 rendered pages):** all 6 line badges and
+  2–3 attachment badges print raw disposition enums; blocked banners
+  print `"No value published — cannot compute."`,
+  `"Missing dependency code(s): DEPENDENCY_ABSENT"` (and
+  `SOURCE_SET_UNCLOSED` on 28 lists), and `"Remedy: contribute the
+  missing dependency..."` (148 lists); question groups use `"blocked"`
+  and `"this scope"`; citation buttons fall back to raw
+  `pinId@pinVersion` on 691/691 lists (`pinLabels` is empty on live
+  models); all 9 live support-trace templates print raw symbols, rule
+  IDs, finding IDs, pin roles, and disposition enums. On the 2
+  `line21Explanation` lists, `"Combined class: none."`, `"Currency:
+  current."`, raw parameter IDs (`tax.us.2025.parameter.sli-*`), and
+  raw run ID / workspace revision appear.
+- **Pins & risks:** 16 test files/helpers, `tools/sale_page_observation.py`
+  (parses `.badge` against `disposition.replace("_", " ")` and
+  `.line-value` against `"No value published — cannot compute."`),
+  `tools/presentation_harness/check_mortgage_renderer.mjs`, and 5
+  standalone harness manifests pin existing strings.
+  `tests/test_f1098_circumstances_explanation.py:199-214` enforces exact
+  byte parity of `validateMortgageBorrowingExplanation` and
+  `renderMortgageBorrowingExplanation` between the product page and
+  `tools/presentation_harness/examples/pages/citation-walk.v1.html`.
+- **Decisions awaiting foreman (`p0.md` Section 7):** (1) Track 1 scope
+  (live surfaces + alerts vs also mortgage borrowing), (2) page
+  title/heading (`Form 1040 — Citation Walk`), (3) citation button
+  fallback labels, (4) auditor ID presentation (`<details>` vs secondary
+  line), (5) whether `tools/presentation_harness/examples/pages/citation-walk.v1.html`
+  and its 5 manifests follow or stay frozen, and (6) sign-off on drafted
+  wording.
