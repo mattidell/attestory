@@ -1090,6 +1090,16 @@ claimable as a dependent, and the spouse's SSN. A filer missing one was
 blocked on the credit and refund lines with no sentence; now the page
 asks. No rule changed, and every answered return computes as before.
 
+## Bounded return — Validation Reuses Member Checksums
+
+[Plan](milestones/validation-checksum-reuse.md); retrospective:
+`docs/milestone-retrospectives/2026-11-23-validation-checksum-reuse.md`.
+
+The validation memo key and `validate_package` reuse the member cache's
+checksum for the same bytes instead of recomputing about 3,192 per recorded
+list. Every output is byte-identical, and the median list is about 5 to 6
+percent faster. No package version change.
+
 ## Saved-page observation — Mortgage and Sales (2025)
 
 [Plan](milestones/sale-page-observation.md); retrospective:
@@ -1146,10 +1156,10 @@ delivers an item removes it.
 - Replay speed, next levers (rust-kernel-experiment and member-reads-once,
   2026-11-18): recorder stories re-project the whole act log on every
   save and rebuild the fact lattice metadata per assertion (about 60 % of
-  test K13; a kernel edit that needs the owner's confirmation); about
-  3,159 citizen checksums per median list are still recomputed in the
-  validation memo key and `validate_package` rather than reused from the
-  member cache.
+  test K13; a kernel edit that needs the owner's confirmation). The
+  checksum reuse is done (validation-checksum-reuse); its one note is that
+  a supplied digest, or one cached for a parse later mutated through the
+  view's private body, is trusted for the body it is handed with.
 - Form 8949 adjustment codes other than B and W (refused by answer on
   core v81).
 - Per-row Form 8949 column (f) code letters: B on a box B/E row with a
