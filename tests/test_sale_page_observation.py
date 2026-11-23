@@ -227,17 +227,20 @@ def test_real_chrome_cases_match_supported_model_and_dom_properties(observed: di
     assert line12e["resolved"]["value"] == 15750 and line12e_dom["value"] == "15750"
     mortgage_schedule_a, mortgage_schedule_a_dom = _require_attachment(mortgage, SCHEDULE_A)
     assert mortgage_schedule_a["resolved"]["disposition"] == "guard_inapplicable"
-    assert mortgage_schedule_a_dom["disposition"] == "GUARD INAPPLICABLE"
+    assert mortgage_schedule_a_dom["disposition_raw"] == "guard_inapplicable"
+    assert mortgage_schedule_a_dom["disposition"] == "NOT REQUIRED"
 
     covered = cases["covered-long-term-sale"]
     _assert_published_line(covered, "tax.us.2025.schedule-d.line-8a", 4000)
     _, covered_schedule_d = _require_attachment(covered, "tax.us.2025.rule.attachment.schedule-d")
-    assert covered_schedule_d["disposition"] == "PUBLISHED"
+    assert covered_schedule_d["disposition_raw"] == "published"
+    assert covered_schedule_d["disposition"] == "COMPLETE"
 
     noncovered = cases["noncovered-box-e-sale"]
     _assert_published_line(noncovered, "tax.us.2025.schedule-d.line-9", 4000)
     _, noncovered_f8949 = _require_attachment(noncovered, "tax.us.2025.rule.attachment.f8949")
-    assert noncovered_f8949["disposition"] == "PUBLISHED"
+    assert noncovered_f8949["disposition_raw"] == "published"
+    assert noncovered_f8949["disposition"] == "COMPLETE"
     noncovered_parts = citation_part_text(noncovered["dom"])
     for heading_part, total in (("box e column (d)", "6000"), ("box e column (e)", "2000"), ("box e column (g)", "0")):
         assert any(heading_part in heading.casefold() and f"Reported subtotal: {total}" in text for heading, text in noncovered_parts)
@@ -251,7 +254,7 @@ def test_real_chrome_cases_match_supported_model_and_dom_properties(observed: di
     corrected = cases["covered-basis-not-reported"]
     blocked_line, blocked_dom = _require_line(corrected, "tax.us.2025.schedule-d.line-8a")
     assert blocked_line["resolved"]["disposition"] == "blocked"
-    assert blocked_dom["value"] == "No value published — cannot compute."
+    assert blocked_dom["value"] == "This line could not be calculated."
     assert blocked_dom["blocked_reasons"] == [
         "Record this sale as a noncovered sale. The broker did not report its basis to the IRS."
     ]
@@ -261,7 +264,8 @@ def test_real_chrome_cases_match_supported_model_and_dom_properties(observed: di
     assert wage_line["resolved"]["disposition"] == "closure_backed_zero"
     assert wage_line["resolved"]["value"] == 0 and wage_dom["value"] == "0"
     _, wage_schedule_d = _require_attachment(wage, "tax.us.2025.rule.attachment.schedule-d")
-    assert wage_schedule_d["disposition"] == "GUARD INAPPLICABLE"
+    assert wage_schedule_d["disposition_raw"] == "guard_inapplicable"
+    assert wage_schedule_d["disposition"] == "NOT REQUIRED"
     closures = wage["metadata"]["noncovered_source_closures"]
     assert closures == [{
         "fact_id": "tax.us.2025.f1099b.noncovered-sold.source-closure|tax-year=2025",
@@ -296,7 +300,8 @@ def test_real_chrome_cases_match_supported_model_and_dom_properties(observed: di
 
     missing_schedule_a, missing_schedule_a_dom = _require_attachment(missing, SCHEDULE_A)
     assert missing_schedule_a["resolved"]["disposition"] == "blocked"
-    assert missing_schedule_a_dom["disposition"] == "BLOCKED"
+    assert missing_schedule_a_dom["disposition_raw"] == "blocked"
+    assert missing_schedule_a_dom["disposition"] == "INCOMPLETE"
     missing_report = _schedule_a_report_row(missing)
     assert missing_report["code"] == "DEPENDENCY_ABSENT"
     assert missing_report["missing"] == [SCHEDULE_A_BOUNDARY]
@@ -305,7 +310,8 @@ def test_real_chrome_cases_match_supported_model_and_dom_properties(observed: di
 
     complete_schedule_a, complete_schedule_a_dom = _require_attachment(complete, SCHEDULE_A)
     assert complete_schedule_a["resolved"]["disposition"] == "published"
-    assert complete_schedule_a_dom["disposition"] == "PUBLISHED"
+    assert complete_schedule_a_dom["disposition_raw"] == "published"
+    assert complete_schedule_a_dom["disposition"] == "COMPLETE"
     complete_report = _schedule_a_report_row(complete)
     assert complete_report["disposition"] == "published" and complete_report.get("missing", []) == []
     complete_inputs = {row["fact_id"].split("|", maxsplit=1)[0] for row in complete["metadata"]["source_scope_declarations"]}

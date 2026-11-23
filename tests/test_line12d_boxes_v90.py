@@ -49,8 +49,8 @@ QW = REPO / "docs/phases/engine-breadth/milestones/question-wording-evidence"
 CONTENT = REPO / "packages/content/tax/2025"
 FIXTURE = REPO / "tests/fixtures/f1099b_backup_withholding_v83/expected.json"
 LINE12D = ("form1040.line-12d", "form1040-line12d-")
-ALERT = "This line is missing its rendering instruction for the declared disposition."
-BLOCKED = "No value published — cannot compute."
+ALERT = "This line is missing display instructions for its status."
+BLOCKED = "This line could not be calculated."
 HIDDEN = "Not applicable."
 
 

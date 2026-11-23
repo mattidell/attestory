@@ -231,7 +231,7 @@ class SavedLine21ExplanationPage(unittest.TestCase):
         for parameter_id in ("sli-interest-cap", "sli-magi-phase-range", "sli-magi-threshold"):
             self.assertIn(parameter_id, text)
         self.assertIn("Deduction: 2500", text)
-        self.assertIn("run demo.run.track2.c1", text)
+        self.assertIn("Run ID: demo.run.track2.c1", text)
         self.assertNotIn("DEPENDENCY_INVALID", text)
         groups = self._group_texts
         self.assertEqual([group["title"] for group in groups], [

@@ -90,7 +90,12 @@ def test_actual_saved_graph_browser_reuse_and_contained_refusal() -> None:
       if (!button) break;
       button.dataset.clicked = "yes"; button.click(); item = button.nextElementSibling.firstElementChild;
     }
-    const sourceReached = item && item.textContent.includes("demo.cgd.t2.finding.wages = 30000");
+    const caption = item && item.querySelector("span");
+    const audit = item && item.querySelector("details.audit-ids");
+    const sourceReached = Boolean(
+      caption && caption.textContent.includes("Recorded input: 30000") &&
+      audit && audit.textContent.includes("demo.cgd.t2.finding.wages")
+    );
     const bounded = unit.querySelectorAll("[data-explanation-node]").length <= (path || []).length + 1;
     for (let i=0; i<1000 && !unit.querySelector("[data-explanation-reuse]"); i++) {
       const button = [...unit.querySelectorAll("details.shared-explanation button")].find(b => b.dataset.explanationTarget && !b.dataset.clicked);
