@@ -557,6 +557,71 @@ def _line9_mixed_blocker_explanation(
     if not isinstance(explanation, str) or not explanation:
         return None
     return explanation, next(iter(unresolved_transaction_facts))
+class _RosterMembers:
+    """What the question walk needs to follow a blocked roster member (ADR 0087).
+
+    A roster count that blocks names a member's subject key, for example
+    ``<member fact type>|child=<entity>,tax-year=2025``. The member's own rows
+    are recorded under ``<symbol>|<subject fact id>`` for each subject result
+    the count reads (``subject_dispatch``). This reads the count's declared
+    ``reads_subject_results``, the per-subject publisher of a name a member row
+    is missing, the declared identity keys of a fact type, and the member's
+    recorded entity label. It adds nothing to the record.
+    """
+
+    def __init__(self, rules_by_id: Mapping[str, Mapping[str, Any]], state: FindingState) -> None:
+        self._rules = rules_by_id
+        self._state = state
+        self._subjects_by_symbol: dict[str, list[str]] = {}
+        for rule in rules_by_id.values():
+            subject = rule.get("subject")
+            if isinstance(subject, Mapping) and isinstance(subject.get("id"), str):
+                self._subjects_by_symbol.setdefault(str(rule.get("publishes")), []).append(subject["id"])
+
+    def reads(self, artifact_id: Any, subject_type: str) -> list[str]:
+        """The subject-result symbols the blocked row's rule reads for members of ``subject_type``."""
+        rule = self._rules.get(str(artifact_id))
+        if rule is None:
+            return []
+        declared: list[Any] = list(rule.get("reads_subject_results") or [])
+        selection = rule.get("selection")
+        if isinstance(selection, Mapping):
+            for path in [*(selection.get("paths") or []), selection.get("default")]:
+                if isinstance(path, Mapping):
+                    declared.extend(path.get("reads_subject_results") or [])
+        found: list[str] = []
+        for read in declared:
+            subject = read.get("subject") if isinstance(read, Mapping) else None
+            symbol = read.get("symbol") if isinstance(read, Mapping) else None
+            if (isinstance(subject, Mapping) and subject.get("id") == subject_type
+                    and isinstance(symbol, str) and symbol not in found):
+                found.append(symbol)
+        return found
+
+    def subjects(self, symbol: str) -> list[str]:
+        """The subject fact types of the per-subject rules that publish ``symbol``."""
+        return list(self._subjects_by_symbol.get(symbol, ()))
+
+    def label(self, keys: str) -> str | None:
+        """The recorded label of the one current entity named in a subject's keys."""
+        labels: list[str] = []
+        for part in keys.split(","):
+            _, sep, value = part.partition("=")
+            lifecycle = self._state.fact_state.entities.get(value) if sep else None
+            if lifecycle is not None and lifecycle.status == "current":
+                recorded = lifecycle.entity.get("label")
+                if isinstance(recorded, str) and recorded:
+                    labels.append(recorded)
+        return labels[0] if len(labels) == 1 else None
+
+    def keyed_on_member(self, fact_type: str, keys: str) -> bool:
+        """Whether ``fact_type`` is individuated on an entity named in the member's keys."""
+        declaration = self._state.fact_state.fact_types.get(fact_type)
+        identity = declaration.get("identity_keys") if isinstance(declaration, Mapping) else None
+        names = {part.partition("=")[0] for part in keys.split(",")}
+        entity_keys = [key.get("name") for key in identity or []
+                       if isinstance(key, Mapping) and key.get("kind") == "entity"]
+        return bool(entity_keys) and all(name in names for name in entity_keys)
 
 
 def _closure_question_reasons(
@@ -575,6 +640,7 @@ def _closure_question_reasons(
     partial_family: str | None = None,
     partial_leaf: str | None = None,
     partial_explanation: str | None = None,
+    roster_members: _RosterMembers | None = None,
 ) -> list[dict[str, Any]]:
     """The declared question for every cause a blocked line waits on and a filer can answer.
 
@@ -610,6 +676,15 @@ def _closure_question_reasons(
     then shows that sentence, and a constraint code that would otherwise
     leave the page blank shows the meaning its family declared. Both stay
     unset for every earlier package.
+
+    ``roster_members`` (ADR 0087) lets the walk follow a roster member's
+    subject key that a count names. The walk continues to that member's own
+    blocked rows and walks their missing names. A name the member has no row
+    for, published by a per-subject rule, is that rule's subject fact, which
+    the member has not supplied. A fact individuated on the member is asked
+    with the member's recorded label as ``memberLabel``, one reason per
+    member and question. A member key with no blocked rows, or no single
+    recorded label, leaves the line without a sentence, as before.
     """
     questions: dict[str, str] = {}
     input_questions: dict[str, str] = {}
@@ -640,6 +715,7 @@ def _closure_question_reasons(
     extras: set[str] = set()
     unexplained_leaves: set[str] = set()
     unexplained_shapes: set[str] = set()
+    member_facts: set[tuple[str, str]] = set()
     meanings = constraint_meanings or {}
 
     # Resolved members by id, with each member's own constraint meanings
@@ -714,7 +790,10 @@ def _closure_question_reasons(
     # and the same additions under any other ``seen`` that holds none of the
     # keys it examined, so shared rows are walked once. A False walk ends the
     # whole closure, so it is never reused. The memo lives only for this call.
-    root = _WalkFrame(families, facts, extras, fact_targets, unbound_fact_types)
+    root = _WalkFrame(
+        families, facts, extras, fact_targets, unbound_fact_types,
+        member_facts=member_facts,
+    )
     frames: list[_WalkFrame] = [root]
     memo: dict[tuple[str, int], _WalkFrame] = {}
 
@@ -780,6 +859,8 @@ def _closure_question_reasons(
             bound = (symbol_fact_types or {}).get(key, key)
             if record_input_fact(key, bound):
                 continue
+            if current.get("code") != "SOURCE_SET_UNCLOSED" and follow_member(current, key, seen):
+                continue
             # The later arm of a blocked count is recorded on this same
             # SOURCE_SET_UNCLOSED row. When that ref is not itself a question,
             # the family question is still the filer's answer.
@@ -815,13 +896,72 @@ def _closure_question_reasons(
                 bound = (symbol_fact_types or {}).get(key, key)
                 if current.get("code") == "DEPENDENCY_ABSENT" and record_input_fact(key, bound):
                     continue
+                if current.get("code") != "SOURCE_SET_UNCLOSED" and follow_member(current, key, seen):
+                    continue
                 return False
             if not all(walk_plain(r, seen | {key}) for r in blocked):
                 return False
         return True
 
+    def follow_member(current: Mapping[str, Any], key: str, seen: frozenset[str]) -> bool:
+        """ADR 0087: walk a named roster member's own blocked rows; False when there are none."""
+        if roster_members is None or "|" not in key:
+            return False
+        subject_type, _, keys = key.partition("|")
+        if "|" in keys or roster_members.label(keys) is None:
+            return False
+        rows = [r for symbol in roster_members.reads(current.get("artifact_id"), subject_type)
+                for r in by_symbol.get(f"{symbol}|{key}", []) if r.get("disposition") == "blocked"]
+        return bool(rows) and all(walk_member(r, seen | {key}) for r in rows)
+
+    def reach_member(current: Mapping[str, Any], seen: frozenset[str]) -> bool:
+        """One of a member's own blocked rows, recorded under ``<symbol>|<subject fact id>``."""
+        assert roster_members is not None
+        missing = current.get("missing")
+        keys = str(current.get("symbol") or "").rpartition("|")[2]
+        label = roster_members.label(keys) if "=" in keys else None
+        if not isinstance(missing, list) or not missing or label is None:
+            return False
+        frame = frames[-1]
+        for entry in missing:
+            key = str(entry)
+            frame.examined.add(key)
+            if key in seen:
+                frame.hits.add(key)
+                continue
+            if explain(current, key):
+                continue
+            subjects = roster_members.subjects(key)
+            if subjects:
+                own = [r for subject in subjects for r in by_symbol.get(f"{key}|{subject}|{keys}", [])]
+                blocked = [r for r in own if r.get("disposition") == "blocked"]
+                if blocked:
+                    if not all(walk_member(r, seen | {key}) for r in blocked):
+                        return False
+                    continue
+                # No row of the member's own: the one subject fact it needs is absent.
+                if (own or len(subjects) != 1 or current.get("code") != "DEPENDENCY_ABSENT"
+                        or subjects[0] not in input_questions
+                        or not roster_members.keyed_on_member(subjects[0], keys)):
+                    return False
+                frame.member_facts.add((subjects[0], label))
+                continue
+            blocked = [r for r in by_symbol.get(key, []) if r.get("disposition") == "blocked"]
+            if blocked:
+                if not all(reach(r, seen | {key}) for r in blocked):
+                    return False
+                continue
+            if current.get("code") != "DEPENDENCY_ABSENT" or key not in input_questions:
+                return False
+            if roster_members.keyed_on_member(key, keys):
+                frame.member_facts.add((key, label))
+            else:
+                frame.facts.add(key)
+        return True
+
     walk_mixed = memoized("mixed", reach_mixed)
     walk_plain = memoized("plain", reach_plain)
+    walk_member = memoized("member", reach_member)
 
     def reach(current: Mapping[str, Any], seen: frozenset[str]) -> bool:
         if later_any_arm_refs:
@@ -830,19 +970,24 @@ def _closure_question_reasons(
 
     all_roots_explained = reach(row, frozenset())
     valid_questions = not any(family not in questions for family in families)
-    if all_roots_explained and (families or facts or extras) and valid_questions:
+    if all_roots_explained and (families or facts or extras or member_facts) and valid_questions:
         sentences = (
             {questions[family] for family in families}
             | {input_questions[fact] for fact in facts}
             | extras
         )
         reasons = [{"sentence": sentence} for sentence in sorted(sentences)]
+        reasons.extend(
+            {"sentence": sentence, "memberLabel": label}
+            for label, sentence in sorted({(label, input_questions[fact]) for fact, label in member_facts})
+        )
     elif (
         partial_family is not None
         and partial_family in questions
         and families == {partial_family}
         and not facts
         and not extras
+        and not member_facts
         and partial_leaf is not None
         and unexplained_leaves == {partial_leaf}
         and not unexplained_shapes
@@ -866,7 +1011,8 @@ def _closure_question_reasons(
         reason_indices: dict[str, list[int]] = {}
         for index, reason in enumerate(reasons):
             sentence = reason.get("sentence")
-            if isinstance(sentence, str):
+            # A member's question (ADR 0087) is explanation only; it links no group.
+            if isinstance(sentence, str) and "memberLabel" not in reason:
                 reason_indices.setdefault(sentence, []).append(index)
         for family in sorted(families):
             question = questions.get(family)
@@ -1190,7 +1336,7 @@ class _WalkFrame:
 
     __slots__ = (
         "families", "facts", "fact_targets", "unbound_fact_types",
-        "extras", "examined", "hits",
+        "extras", "member_facts", "examined", "hits",
     )
 
     def __init__(
@@ -1200,12 +1346,14 @@ class _WalkFrame:
         extras: set[str] | None = None,
         fact_targets: set[tuple[str, str]] | None = None,
         unbound_fact_types: set[str] | None = None,
+        member_facts: set[tuple[str, str]] | None = None,
     ) -> None:
         self.families: set[str] = set() if families is None else families
         self.facts: set[str] = set() if facts is None else facts
         self.fact_targets = set() if fact_targets is None else fact_targets
         self.unbound_fact_types = set() if unbound_fact_types is None else unbound_fact_types
         self.extras: set[str] = set() if extras is None else extras
+        self.member_facts: set[tuple[str, str]] = set() if member_facts is None else member_facts
         self.examined: set[str] = set()
         self.hits: set[str] = set()
 
@@ -1215,6 +1363,7 @@ class _WalkFrame:
         self.fact_targets |= other.fact_targets
         self.unbound_fact_types |= other.unbound_fact_types
         self.extras |= other.extras
+        self.member_facts |= other.member_facts
         self.examined |= other.examined
         self.hits |= other.hits
 
@@ -5317,6 +5466,7 @@ def build_presentation_model(
         resolved_members, state, current_finding_ids=current_finding_ids,
         authoritative_acts=authoritative_acts,
     )
+    roster_members = _RosterMembers(rules_by_id, state)
 
     pin_labels: dict[str, str] = {}
     sections: list[dict[str, Any]] = []
@@ -5372,6 +5522,7 @@ def build_presentation_model(
             "refusal_sentence": refusal_sentence,
             "refusal_token": refusal_token,
             "constraint_meanings": constraint_meanings,
+            "roster_members": roster_members,
         }
         mixed_blocker = _line9_mixed_blocker_explanation(
             field, row, by_symbol, adopted_package,
@@ -5653,9 +5804,11 @@ def _validate_resolved(resolved: Mapping[str, Any], path: str) -> None:
                 raise PresentationModelError(f"{path}.reasons: expected a non-empty list")
             for index, reason in enumerate(reasons):
                 rp = f"{path}.reasons[{index}]"
-                _require_keys(reason, frozenset({"sentence"}), frozenset({"factId", "statementLabel"}), rp)
+                _require_keys(reason, frozenset({"sentence"}), frozenset({"factId", "statementLabel", "memberLabel"}), rp)
                 if not isinstance(reason["sentence"], str) or not reason["sentence"]:
                     raise PresentationModelError(f"{rp}.sentence: expected non-empty string")
+                if "memberLabel" in reason and (not isinstance(reason["memberLabel"], str) or not reason["memberLabel"]):
+                    raise PresentationModelError(f"{rp}.memberLabel: expected non-empty string")
                 if "factId" in reason and (not isinstance(reason["factId"], str) or not reason["factId"]):
                     raise PresentationModelError(f"{rp}.factId: expected non-empty string")
                 label = reason.get("statementLabel", {})

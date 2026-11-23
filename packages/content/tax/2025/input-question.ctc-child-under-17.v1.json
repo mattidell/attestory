@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.ctc.child.under-17",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.ctc-child-under-17",
+  "question": "Was this child under age 17 at the end of 2025? Answer yes if so. Answer no if the child was age 17 or older at the end of 2025.",
+  "schema": "input-question.v1",
+  "version": "v1"
+}

@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.odc.dependent.citizen-or-resident",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.odc-dependent-citizen-or-resident",
+  "question": "Was this person a U.S. citizen, U.S. national, or U.S. resident alien? Answer yes if so. Also answer yes if the person is your adopted child, lived with you all year as a member of your household, and you are a U.S. citizen or U.S. national. Answer no otherwise, including if the person was only a resident of Canada or Mexico.",
+  "schema": "input-question.v1",
+  "version": "v1"
+}

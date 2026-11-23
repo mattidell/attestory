@@ -268,6 +268,8 @@ def named_covered_flag_refusal_maps() -> dict[tuple[str, str], dict[str, str]]:
         ("tax.us.2025.package.core-calculations", "v99"): dict(COVERED_FLAG_REFUSAL_OBJECTS),
         # Core v100 adds four earned income credit input questions only and carries v99's map.
         ("tax.us.2025.package.core-calculations", "v100"): dict(COVERED_FLAG_REFUSAL_OBJECTS),
+        # Core v101 adds twenty-six roster member input questions only and carries v100's map.
+        ("tax.us.2025.package.core-calculations", "v101"): dict(COVERED_FLAG_REFUSAL_OBJECTS),
     }
 
 
@@ -799,6 +801,17 @@ def domain_package_companion_declarations() -> dict[tuple[str, str], dict[str, A
         },
         # Core v100 adds four earned income credit input questions only and carries v99's declaration.
         ("tax.us.2025.package.core-calculations", "v100"): {
+            "presence_pairs": {
+                **gambling["presence_pairs"],
+                **noncovered_scalar_presence_pairs(),
+                **no1099b_scalar_presence_pairs(),
+                **code_b_scalar_presence_pairs(),
+                **covered_scalar_presence_pairs(),
+            },
+            "value_domains": dict(gambling["value_domains"]),
+        },
+        # Core v101 adds twenty-six roster member input questions only and carries v100's declaration.
+        ("tax.us.2025.package.core-calculations", "v101"): {
             "presence_pairs": {
                 **gambling["presence_pairs"],
                 **noncovered_scalar_presence_pairs(),

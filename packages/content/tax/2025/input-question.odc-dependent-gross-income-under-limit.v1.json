@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.odc.dependent.gross-income-under-limit",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.odc-dependent-gross-income-under-limit",
+  "question": "Did this person have gross income of less than $5,200 in 2025? Answer yes if so. Answer no if it was $5,200 or more, even if the person was permanently and totally disabled.",
+  "schema": "input-question.v1",
+  "version": "v1"
+}
