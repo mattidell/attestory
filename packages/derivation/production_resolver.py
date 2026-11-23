@@ -23,8 +23,7 @@ import json
 from collections import OrderedDict
 from dataclasses import dataclass
 from pathlib import Path
-from types import MappingProxyType
-from typing import Any, Mapping, Sequence
+from typing import Any, Iterator, Mapping, Sequence
 
 from packages.derivation.loader import DerivationSchemas
 from packages.derivation.package_validation import (
@@ -99,7 +98,13 @@ def _sha256_bytes(data: bytes) -> str:
 # to the validator (computed from the bodies, so a corpus that disagrees with
 # the registry checksums misses rather than hits), a SHA-256 of
 # every schema document in the registry, and the validator's code object (so
-# a swapped validator never hits). Any changed byte changes the key. It lives
+# a swapped validator never hits). Any changed byte changes the key. The corpus
+# checksums are the member cache's (validation-checksum-reuse) when the corpus
+# was just copied from cache entries by ``_resolve_member_corpus``: each is the
+# canonical checksum of the private parse the body was copied from, which is
+# keyed on the SHA-256 of the bytes read and never reachable outside this
+# module, so it is the checksum of the body. Any other corpus body is
+# checksummed here, as before. It lives
 # in this module's globals for the life of the process and keeps the last
 # ``_VALIDATION_MEMO_LIMIT`` keys; ``clear_validation_memo`` empties it. A hit
 # returns a deep copy, so callers never share mutable members.
@@ -117,7 +122,9 @@ def _validation_memo_key(
     corpus: Mapping[tuple[str, str], dict[str, Any]],
     citizen_checksums: Mapping[tuple[str, str], str],
     schemas: DerivationSchemas,
+    corpus_checksums: Mapping[tuple[str, str], str] | None = None,
 ) -> tuple[Any, ...]:
+    known = corpus_checksums or {}
     package_digest = hashlib.sha256(
         json.dumps(package, sort_keys=True, separators=(",", ":")).encode("utf-8")
     ).hexdigest()
@@ -126,7 +133,10 @@ def _validation_memo_key(
         for pin in package.get("members", [])
     )
     corpus_digest = tuple(
-        sorted((ident, version, citizen_checksum(body)) for (ident, version), body in corpus.items())
+        sorted(
+            (ident, version, known.get((ident, version)) or citizen_checksum(body))
+            for (ident, version), body in corpus.items()
+        )
     )
     schema_digest = hashlib.sha256(
         json.dumps([[sid, schemas.get(sid)] for sid in schemas.schema_ids()],
@@ -140,17 +150,28 @@ def _validate_once(
     corpus: dict[tuple[str, str], dict[str, Any]],
     schemas: DerivationSchemas,
     citizen_checksums: Mapping[tuple[str, str], str],
+    corpus_checksums: Mapping[tuple[str, str], str] | None = None,
 ) -> PackageValidation:
-    """``validate_package``, computed once per identical package bytes."""
+    """``validate_package``, computed once per identical package bytes.
+
+    ``corpus_checksums`` is only ever the mapping ``_resolve_member_corpus``
+    returns beside the corpus it just copied (see the memo comment above).
+    """
+
+    def validate() -> PackageValidation:
+        if corpus_checksums is None:
+            return validate_package(package, corpus, schemas, citizen_checksums)
+        return validate_package(package, corpus, schemas, citizen_checksums, corpus_checksums=corpus_checksums)
+
     try:
-        key = _validation_memo_key(package, corpus, citizen_checksums, schemas)
+        key = _validation_memo_key(package, corpus, citizen_checksums, schemas, corpus_checksums)
     except (TypeError, ValueError, KeyError):
-        return validate_package(package, corpus, schemas, citizen_checksums)
+        return validate()
     cached = _VALIDATION_MEMO.get(key)
     if cached is not None:
         _VALIDATION_MEMO.move_to_end(key)
         return copy.deepcopy(cached)
-    validation = validate_package(package, corpus, schemas, citizen_checksums)
+    validation = validate()
     _VALIDATION_MEMO[key] = copy.deepcopy(validation)
     while len(_VALIDATION_MEMO) > _VALIDATION_MEMO_LIMIT:
         _VALIDATION_MEMO.popitem(last=False)
@@ -165,8 +186,13 @@ def _validate_once(
 # bytes, and reuses the parse and the canonical checksum only for an entry of
 # the same SHA-256. A file edited between calls therefore re-parses, and a
 # cache hit can only serve a parse of bytes it has just seen. Entries are
-# shared and never handed out: callers get a read-only top-level view for
-# inspection and a private copy (``body()``) for anything they keep. The cache
+# shared and never handed out: callers get a read-only view for inspection
+# (scalars as they are, any nested object or array as a private copy, so no
+# caller can reach the shared parse) and a private copy (``body()``) for
+# anything they keep. The shared parse is therefore only ever what
+# ``json.loads`` returned for the bytes keyed, and its canonical checksum is
+# a function of those bytes: validation reuses it for the bodies
+# ``_resolve_member_corpus`` copies (validation-checksum-reuse). The cache
 # lives in this module for the life of the process, keeps the last
 # ``_MEMBER_CACHE_LIMIT`` distinct contents (about twice the published
 # member corpus, which must fit or a sequential scan thrashes), and
@@ -190,14 +216,54 @@ def _copy_json(value: Any) -> Any:
     return value
 
 
+_JSON_SCALARS = (str, int, float, bool, type(None))
+
+
+class _MemberView(Mapping[str, Any]):
+    """A read-only view of a shared parse that never hands out a shared object.
+
+    Scalars are returned as they are (they are immutable); a nested object or
+    array is returned as a private copy, so mutating it cannot reach the
+    shared parse, its cached checksum, or any later caller.
+    """
+
+    __slots__ = ("_body",)
+
+    def __init__(self, body: dict[str, Any]) -> None:
+        self._body = body
+
+    def __getitem__(self, key: str) -> Any:
+        value = self._body[key]
+        return value if type(value) in _JSON_SCALARS else _copy_json(value)
+
+    def get(self, key: str, default: Any = None) -> Any:
+        if key not in self._body:
+            return default
+        return self[key]
+
+    def __iter__(self) -> Iterator[str]:
+        return iter(tuple(self._body))
+
+    def __len__(self) -> int:
+        return len(self._body)
+
+    def __contains__(self, key: object) -> bool:
+        return key in self._body
+
+
 class _MemberEntry:
-    """One distinct file content: its parse and (lazily) its canonical checksum."""
+    """One distinct file content: its parse and (lazily) its canonical checksum.
+
+    ``_body`` is the parse of the keyed bytes and is never handed out (only
+    ``_MemberView`` reads and ``body()`` copies), so ``checksum()`` stands for
+    exactly those bytes.
+    """
 
     __slots__ = ("_body", "view", "_checksum")
 
     def __init__(self, body: dict[str, Any]) -> None:
         self._body = body
-        self.view: Mapping[str, Any] = MappingProxyType(body)
+        self.view: Mapping[str, Any] = _MemberView(body)
         self._checksum: str | None = None
 
     def checksum(self) -> str:
@@ -213,10 +279,10 @@ class _MemberEntry:
 class MemberCandidate:
     """A parseable object file on a surface.
 
-    ``view`` is a read-only top-level mapping over a parse shared with other
-    callers: read scalar fields from it, never keep it or anything nested in
-    it. ``body()`` returns a private copy a caller may keep or mutate.
-    ``checksum()`` is the canonical citizen checksum of the parse.
+    ``view`` is a read-only mapping over a parse shared with other callers;
+    read scalar fields from it (nested values come back as private copies).
+    ``body()`` returns a private copy a caller may keep or mutate.
+    ``checksum()`` is the canonical citizen checksum of the bytes read.
     """
 
     _entry: _MemberEntry
@@ -495,7 +561,7 @@ def _resolve_member_corpus(
     package: Mapping[str, Any],
     surface: PublicationSurface,
     citizen_checksums: Mapping[tuple[str, str], str],
-) -> dict[tuple[str, str], dict[str, Any]] | Refusal:
+) -> tuple[dict[tuple[str, str], dict[str, Any]], dict[tuple[str, str], str]] | Refusal:
     """Walk exact member pins; admit only checksum-verified bodies (Decision 3).
 
     For each pinned (id, version) the resolver gathers every candidate body on
@@ -504,6 +570,10 @@ def _resolve_member_corpus(
     duplicates collapse; two distinct bodies for one key refuse. Filesystem and
     glob order never affect admission (candidates are matched by digest, not
     order). Co-located unpinned files are never candidates for any key.
+
+    Returns the corpus and, beside it, the canonical checksum of each body:
+    the member cache's checksum of the bytes the body was just copied from.
+    The caller hands both straight to validation and nothing else.
     """
     # Index candidate bodies by (id, version) -> set of distinct canonical checksums.
     by_key: dict[tuple[str, str], dict[str, MemberCandidate]] = {}
@@ -515,6 +585,7 @@ def _resolve_member_corpus(
         by_key.setdefault(key, {})[candidate.checksum()] = candidate
 
     corpus: dict[tuple[str, str], dict[str, Any]] = {}
+    checksums: dict[tuple[str, str], str] = {}
     for pin in package.get("members", []):
         key = (pin["id"], pin["version"])
         expected = citizen_checksums.get(key)
@@ -526,7 +597,8 @@ def _resolve_member_corpus(
         if len(matches) > 1:  # pragma: no cover - identical digests dedupe in the dict
             return Refusal("MEMBER_AMBIGUOUS", f"ambiguous verified bodies for member {key[0]}@{key[1]}")
         corpus[key] = matches[0].body()
-    return corpus
+        checksums[key] = matches[0].checksum()
+    return corpus, checksums
 
 
 def resolve_production_package(
@@ -593,11 +665,12 @@ def resolve_production_package(
     except PackageIntegrityError as exc:
         return Refusal("PACKAGE_INTEGRITY", str(exc))
 
-    corpus = _resolve_member_corpus(package, surface, citizen_checksums)
-    if isinstance(corpus, Refusal):
-        return corpus
+    admitted = _resolve_member_corpus(package, surface, citizen_checksums)
+    if isinstance(admitted, Refusal):
+        return admitted
+    corpus, corpus_checksums = admitted
 
-    validation = _validate_once(package, corpus, schemas, citizen_checksums)
+    validation = _validate_once(package, corpus, schemas, citizen_checksums, corpus_checksums)
     if not validation.ok:
         # Contained issues are reported in the refusal; they never authorize a
         # clean subset or an allowlist (ADR-0033 Decision 3 / Decision 5).

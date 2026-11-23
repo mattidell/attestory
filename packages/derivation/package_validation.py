@@ -1798,12 +1798,21 @@ def validate_package(
     corpus: dict[tuple[str, str], dict[str, Any]],
     schemas: DerivationSchemas,
     published_citizen_checksums: Mapping[tuple[str, str], str] | None = None,
+    *,
+    corpus_checksums: Mapping[tuple[str, str], str] | None = None,
 ) -> PackageValidation:
     """Validate a package against a corpus of (id, version) -> citizen.
 
     Never raises for citizen-level defects: each becomes a MemberIssue and
     validation continues, so the caller can record every problem at once and
     let unaffected members proceed.
+
+    ``corpus_checksums`` optionally gives, per corpus key, the canonical
+    ``citizen_checksum`` of that exact corpus body, already computed by the
+    caller from the bytes the body was parsed from (the production
+    resolver's member cache). A key it does not name is checksummed here.
+    It changes no verdict: it only spares recomputing a digest the caller
+    holds for the same bytes.
 
 """
     package_id = str(package.get("id", "<unidentified>"))
@@ -1851,7 +1860,7 @@ def validate_package(
             if expected_checksum is None:
                 issues.append(MemberIssue(pin["id"], pin["version"], "MEMBER_UNPUBLISHED", "member not in publication registry"))
                 continue
-            actual_checksum = citizen_checksum(citizen)
+            actual_checksum = (corpus_checksums or {}).get(key) or citizen_checksum(citizen)
             if expected_checksum != actual_checksum:
                 issues.append(MemberIssue(pin["id"], pin["version"], "MEMBER_CHECKSUM_MISMATCH", "member bytes do not match publication registry"))
                 continue
