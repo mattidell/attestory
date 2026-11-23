@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "page-plain-words",
-  "status": "Open 2026-11-23. P0 next.",
+  "status": "Open 2026-11-23. P0 done; Track 1 next.",
   "retrospective": null,
   "scope": [
     "the words the saved page writes itself (status badges, blocked banners, support-trace captions and their buttons) read as plain language to a filer, not as engine enums, symbols or ids",
@@ -43,7 +43,7 @@
 Milestone key: page-plain-words.
 Branch: milestone/page-plain-words-2025.
 Phase: Engine Breadth, bounded return. Opening plan: 2026-11-23.
-Starting point: main at `3f11bde2` (core v100, registry v98, release v98; rebase onto #297 when it merges).
+Starting point: main at `3f11bde2` (core v100, registry v98, release v98); rebased onto `e3a4397f` (core v101, registry v99, release v99) after #297.
 Expected target: no package version change; the page
 (`packages/presentation/pages/citation-walk.v1.html`) and its tests.
 
@@ -134,3 +134,33 @@ Completed 2026-11-23. Evidence in
   line), (5) whether `tools/presentation_harness/examples/pages/citation-walk.v1.html`
   and its 5 manifests follow or stay frozen, and (6) sign-off on drafted
   wording.
+
+## Decisions
+
+1. Track 1 covers every surface in p0.md section 2 that needs words,
+   including the mortgage interest and mortgage borrowing explanations
+   (P0 Option B), the error texts and the suppressed-diagnostic text. The
+   harness copy of `validateMortgageBorrowingExplanation` and
+   `renderMortgageBorrowingExplanation` changes byte for byte with the
+   product page, as `test_f1098_circumstances_explanation.py` requires.
+2. The page is titled `Form 1040 — Return Summary`. The subtitle reads:
+   "Every figure below comes from your saved records, with its source
+   cited. This page shows saved results; it does not calculate anything."
+3. Citation buttons read `Line reference` or `Supporting record`. The pin
+   id and version stay in the expandable detail, labelled `Record ID` and
+   `Record version`, and in `data-pin-id`, `data-pin-version` and `title`.
+4. Ids, enums and codes an auditor follows move into a collapsed
+   `<details>` ("Technical details" on banners and panels, "Technical IDs"
+   in the support trace) plus `data-*` and `title` attributes, never into
+   the text a filer reads first (p0.md section 3).
+5. The harness example page otherwise stays a frozen evaluation baseline;
+   its five manifests do not change.
+6. Wording is p0.md section 2 as drafted, with one change: the blocked
+   line badge reads `Not calculated`, not `Cannot calculate`, because a
+   blocked line may wait on an answer or a correction, and "not
+   calculated" is true of every blocked cause (p0.md risk 6).
+7. Anything that reads page text as data reads the raw value instead:
+   `tools/sale_page_observation.py` compares `data-disposition` and the
+   plain label table, not the badge text. Tests that pin old strings
+   follow the new words. `malformed-blocked-reason` gets its own error
+   text (p0.md risk 5).
