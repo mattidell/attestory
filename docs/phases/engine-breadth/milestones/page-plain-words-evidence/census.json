@@ -1,0 +1,413 @@
+{
+  "format": "page-plain-words-p0-census.v1",
+  "source": {
+    "core": "v100",
+    "registry": "v98",
+    "release": "v98",
+    "page": "packages/presentation/pages/citation-walk.v1.html"
+  },
+  "recorded_lists_total": 775,
+  "lists_attempted": 775,
+  "lists_rendered": 691,
+  "outcomes": {
+    "error": 84,
+    "success": 691
+  },
+  "non_success_errors": {
+    "FindingModelError": 82,
+    "HorizonModelError": 1,
+    "SourceAuthorityError": 1
+  },
+  "workers": 8,
+  "wall_time_s": 17.612,
+  "string_kind_counts": {
+    "attach.badge.blocked": {
+      "lists": 691,
+      "example": "blocked",
+      "sample_list": "v81/case/a_8949_yes"
+    },
+    "attach.badge.guard_inapplicable": {
+      "lists": 691,
+      "example": "guard inapplicable",
+      "sample_list": "v81/case/a_8949_yes"
+    },
+    "attach.badge.published": {
+      "lists": 366,
+      "example": "published",
+      "sample_list": "v81/case/a_bw"
+    },
+    "attach.blocked.banner_heading": {
+      "lists": 691,
+      "example": "Not shown \u2014 required and incomplete.",
+      "sample_list": "v81/case/a_8949_yes"
+    },
+    "attach.blocked.codes_label": {
+      "lists": 691,
+      "example": "Missing or violated condition code(s): ",
+      "sample_list": "v81/case/a_8949_yes"
+    },
+    "attach.blocked.codes_value": {
+      "lists": 691,
+      "example": "DEPENDENCY_ABSENT",
+      "sample_list": "v81/case/a_8949_yes"
+    },
+    "attach.blocked.remedy": {
+      "lists": 691,
+      "example": "Remedy: contribute or correct the missing or violated condition to complete this attachment.",
+      "sample_list": "v81/case/a_8949_yes"
+    },
+    "attach.explain.blocked": {
+      "lists": 691,
+      "example": "This attachment is required, but is incomplete: a required condition is missing or violated.",
+      "sample_list": "v81/case/a_8949_yes"
+    },
+    "attach.explain.guard_inapplicable": {
+      "lists": 691,
+      "example": "This attachment is not required for this return.",
+      "sample_list": "v81/case/a_8949_yes"
+    },
+    "attach.explain.published": {
+      "lists": 366,
+      "example": "This attachment is required and complete.",
+      "sample_list": "v81/case/a_bw"
+    },
+    "attach.guard_inapplicable.value": {
+      "lists": 691,
+      "example": "Not required.",
+      "sample_list": "v81/case/a_8949_yes"
+    },
+    "citation.button_fallback_id": {
+      "lists": 691,
+      "example": "demo.cgd.t2.finding.rounding@v1",
+      "sample_list": "v81/case/a_8949_yes"
+    },
+    "citation.detail.aria_label": {
+      "lists": 691,
+      "example": "Citation detail for demo.cgd.t2.finding.rounding",
+      "sample_list": "v81/case/a_8949_yes"
+    },
+    "citation.detail.backlink": {
+      "lists": 691,
+      "example": "also cited in Worksheet A line 2",
+      "sample_list": "v81/case/a_8949_yes"
+    },
+    "citation.detail.pin_id_label": {
+      "lists": 691,
+      "example": "Pin id: demo.cgd.t2.finding.rounding",
+      "sample_list": "v81/case/a_8949_yes"
+    },
+    "citation.detail.pin_version_label": {
+      "lists": 691,
+      "example": "Pin version: v1",
+      "sample_list": "v81/case/a_8949_yes"
+    },
+    "line.badge.blocked": {
+      "lists": 691,
+      "example": "blocked",
+      "sample_list": "v81/case/a_8949_yes"
+    },
+    "line.badge.closure_backed_zero": {
+      "lists": 691,
+      "example": "closure backed zero",
+      "sample_list": "v81/case/a_8949_yes"
+    },
+    "line.badge.computed_zero": {
+      "lists": 691,
+      "example": "computed zero",
+      "sample_list": "v81/case/a_8949_yes"
+    },
+    "line.badge.guard_inapplicable": {
+      "lists": 691,
+      "example": "guard inapplicable",
+      "sample_list": "v81/case/a_8949_yes"
+    },
+    "line.badge.published_categorical": {
+      "lists": 691,
+      "example": "published categorical",
+      "sample_list": "v81/case/a_8949_yes"
+    },
+    "line.badge.published_value": {
+      "lists": 691,
+      "example": "published value",
+      "sample_list": "v81/case/a_8949_yes"
+    },
+    "line.blocked.banner_heading": {
+      "lists": 691,
+      "example": "No value published \u2014 cannot compute.",
+      "sample_list": "v81/case/a_8949_yes"
+    },
+    "line.blocked.missing_codes_label": {
+      "lists": 691,
+      "example": "Missing dependency code(s): ",
+      "sample_list": "v81/case/a_8949_yes"
+    },
+    "line.blocked.missing_codes_value": {
+      "lists": 691,
+      "example": "DEPENDENCY_ABSENT",
+      "sample_list": "v81/case/a_8949_yes"
+    },
+    "line.blocked.question_group_link": {
+      "lists": 691,
+      "example": "See the question and affected lines above",
+      "sample_list": "v81/case/a_8949_yes"
+    },
+    "line.blocked.remedy": {
+      "lists": 148,
+      "example": "Remedy: contribute the missing dependency to unblock this line.",
+      "sample_list": "v81/case/a_duplicate_on_direct"
+    },
+    "line.blocked.why_label": {
+      "lists": 691,
+      "example": "Why: ",
+      "sample_list": "v81/case/a_8949_yes"
+    },
+    "line.categorical.checked": {
+      "lists": 59,
+      "example": "checked",
+      "sample_list": "v81/case/m_8949_no_ic3_yes_q3_no"
+    },
+    "line.categorical.not_checked": {
+      "lists": 691,
+      "example": "not checked",
+      "sample_list": "v81/case/a_8949_yes"
+    },
+    "line.guard_inapplicable.value": {
+      "lists": 691,
+      "example": "Not applicable.",
+      "sample_list": "v81/case/a_8949_yes"
+    },
+    "line.heading_line_suffix": {
+      "lists": 691,
+      "example": "Worksheet A line 1 (Line eic-a-1)",
+      "sample_list": "v81/case/a_8949_yes"
+    },
+    "line21.account.combined_class": {
+      "lists": 2,
+      "example": "Combined class: none.",
+      "sample_list": "v81/v80/carried_one_student_loan"
+    },
+    "line21.account.group_headings": {
+      "lists": 2,
+      "example": "What the person said / What the calculation used / What it assumed / Recorded, not used",
+      "sample_list": "v81/v80/carried_one_student_loan"
+    },
+    "line21.account.left_with_you_prefix": {
+      "lists": 2,
+      "example": "Left with you: The institution is an eligible educational institution.",
+      "sample_list": "v81/v80/carried_one_student_loan"
+    },
+    "line21.account.older_present": {
+      "lists": 2,
+      "example": "Older answer about this form's box 1: yes. Currency: current.",
+      "sample_list": "v81/v80/carried_one_student_loan"
+    },
+    "line21.account.recorded_none": {
+      "lists": 2,
+      "example": "None.",
+      "sample_list": "v81/v80/carried_one_student_loan"
+    },
+    "line21.account.said_current": {
+      "lists": 2,
+      "example": "Current. No related-person interest is in this form's box 1. Recorded answer: yes.",
+      "sample_list": "v81/v80/carried_one_student_loan"
+    },
+    "line21.account.summary": {
+      "lists": 2,
+      "example": "What this form accounts for",
+      "sample_list": "v81/v80/carried_one_student_loan"
+    },
+    "line21.account.used_sentence": {
+      "lists": 2,
+      "example": "older-method",
+      "sample_list": "v81/v80/carried_one_student_loan"
+    },
+    "line21.amount.with_account": {
+      "lists": 2,
+      "example": "Form 1098-E box 1: 200",
+      "sample_list": "v81/v80/carried_one_student_loan"
+    },
+    "line21.citations.summary": {
+      "lists": 2,
+      "example": "All records this line depends on (45)",
+      "sample_list": "v81/v80/carried_one_student_loan"
+    },
+    "line21.heading": {
+      "lists": 2,
+      "example": "Statements on this line",
+      "sample_list": "v81/v80/carried_one_student_loan"
+    },
+    "line21.run_footer": {
+      "lists": 2,
+      "example": "This explanation describes run demo.ppw.11efa5f1bc347acf809e, which read workspace revision 340. Later changes to the workspace are not reflected here.",
+      "sample_list": "v81/v80/carried_one_student_loan"
+    },
+    "line21.working.deduction": {
+      "lists": 2,
+      "example": "Deduction: 200",
+      "sample_list": "v81/v80/carried_one_student_loan"
+    },
+    "line21.working.income_used": {
+      "lists": 2,
+      "example": "Income the worksheet used: 50000",
+      "sample_list": "v81/v80/carried_one_student_loan"
+    },
+    "line21.working.interest_reported": {
+      "lists": 2,
+      "example": "Interest reported (worksheet line 1): 200",
+      "sample_list": "v81/v80/carried_one_student_loan"
+    },
+    "line21.working.limit_row": {
+      "lists": 2,
+      "example": "Limit tax.us.2025.parameter.sli-interest-cap: 2500",
+      "sample_list": "v81/v80/carried_one_student_loan"
+    },
+    "line21.working.limits_caveat": {
+      "lists": 2,
+      "example": "This page does not say which of these limits changed the amount.",
+      "sample_list": "v81/v80/carried_one_student_loan"
+    },
+    "line21.working.summary": {
+      "lists": 2,
+      "example": "How the amount was worked out",
+      "sample_list": "v81/v80/carried_one_student_loan"
+    },
+    "qgroups.affected_line_suffix": {
+      "lists": 691,
+      "example": "Worksheet A line 3 (Line eic-a-3) \u2014 A response is recorded for this scope.",
+      "sample_list": "v81/case/a_8949_yes"
+    },
+    "qgroups.heading": {
+      "lists": 691,
+      "example": "Questions for blocked lines",
+      "sample_list": "v81/case/a_8949_yes"
+    },
+    "qgroups.status.current": {
+      "lists": 115,
+      "example": "A response is recorded for this scope.",
+      "sample_list": "v81/case/a_8949_yes"
+    },
+    "qgroups.status.stale": {
+      "lists": 24,
+      "example": "This scope needs reconfirmation.",
+      "sample_list": "v81/case/late_member_after_no"
+    },
+    "qgroups.status.unanswered": {
+      "lists": 691,
+      "example": "This scope needs an answer.",
+      "sample_list": "v81/case/a_8949_yes"
+    },
+    "qgroups.target_prefix": {
+      "lists": 33,
+      "example": "For Synthetic, 2025",
+      "sample_list": "v81/case/a_adjustment_row_missing"
+    },
+    "shell.heading": {
+      "lists": 691,
+      "example": "Form 1040 \u2014 Citation Walk",
+      "sample_list": "v81/case/a_8949_yes"
+    },
+    "shell.skip_link": {
+      "lists": 691,
+      "example": "Skip to main content",
+      "sample_list": "v81/case/a_8949_yes"
+    },
+    "shell.subtitle": {
+      "lists": 691,
+      "example": "Every figure below is projected from a cited source fact. Nothing on this page is computed here.",
+      "sample_list": "v81/case/a_8949_yes"
+    },
+    "shell.title": {
+      "lists": 691,
+      "example": "Form 1040 \u2014 Citation Walk",
+      "sample_list": "v81/case/a_8949_yes"
+    },
+    "trace.disp.caption": {
+      "lists": 691,
+      "example": "tax.us.2025.eic.worksheet-a.line-3: blocked",
+      "sample_list": "v81/case/a_8949_yes"
+    },
+    "trace.disp.dependency_button": {
+      "lists": 691,
+      "example": "Show dependency tax.us.2025.income.agi",
+      "sample_list": "v81/case/a_8949_yes"
+    },
+    "trace.disp.predecessor_button": {
+      "lists": 691,
+      "example": "Show recorded predecessor",
+      "sample_list": "v81/case/a_8949_yes"
+    },
+    "trace.disp.reuse_button": {
+      "lists": 691,
+      "example": "Reused tax.us.2025.f1099b.code-b-lt-count",
+      "sample_list": "v81/case/a_8949_yes"
+    },
+    "trace.node.caption": {
+      "lists": 691,
+      "example": "output: tax.us.2025.eic.worksheet-a.line-1",
+      "sample_list": "v81/case/a_8949_yes"
+    },
+    "trace.node.caption_numeric_input": {
+      "lists": 691,
+      "example": "input: demo.cgd.t2.finding.wages = 50000",
+      "sample_list": "v81/case/a_8949_yes"
+    },
+    "trace.node.edge_button": {
+      "lists": 691,
+      "example": "Show adoption tax.us.2025.package.core-calculations",
+      "sample_list": "v81/case/a_8949_yes"
+    },
+    "trace.node.producer": {
+      "lists": 691,
+      "example": " \u2014 tax.us.2025.rule.eic-worksheet-a.line-1",
+      "sample_list": "v81/case/a_8949_yes"
+    },
+    "trace.node.reuse_button": {
+      "lists": 691,
+      "example": "adoption: reused tax.us.2025.package.core-calculations",
+      "sample_list": "v81/case/a_8949_yes"
+    },
+    "trace.summary": {
+      "lists": 691,
+      "example": "Trace recorded support",
+      "sample_list": "v81/case/a_8949_yes"
+    }
+  },
+  "observed_details": {
+    "attach_blocked_codes": {
+      "DEPENDENCY_ABSENT": 691
+    },
+    "error_codes": {},
+    "line_blocked_codes": {
+      "DEPENDENCY_ABSENT": 691,
+      "SOURCE_SET_UNCLOSED": 28
+    },
+    "optional_blocks": {
+      "attachments": 691,
+      "citationGroups": 366,
+      "line21Explanation": 2,
+      "questionGroups": 691
+    },
+    "schemas": {
+      "presentation-model.v3": 691
+    },
+    "trace_disp_values": {
+      "blocked": 691,
+      "inapplicable": 691,
+      "published": 691
+    },
+    "trace_edge_roles": {
+      "adoption": 691,
+      "citation": 691,
+      "composition": 59,
+      "computation": 691,
+      "field-mapping": 691,
+      "input": 691,
+      "operation-semantics": 691,
+      "package": 691,
+      "parameter": 691
+    },
+    "trace_root_roles": {
+      "output": 691
+    }
+  }
+}
