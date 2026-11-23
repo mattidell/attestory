@@ -462,6 +462,100 @@ def _missing_mentions(
     return hit(row)
 
 
+_SCHEDULE_D_LINE9_SYMBOL = "tax.us.2025.schedule-d.line-9"
+_SCHEDULE_D_LINE9_RULE = "tax.us.2025.rule.schedule-d-line9"
+_CORE_CALCULATIONS_PACKAGE = "tax.us.2025.package.core-calculations"
+_SCHEDULE_D_MIXED_REASON_FROM = 91
+_NONCOVERED_LT_FAMILY = "tax.us.2025.f1099b.noncovered-lt"
+_NONCOVERED_LT_MEMBER_VALIDATION = _NONCOVERED_LT_FAMILY + ".member-validation"
+_NONCOVERED_LT_AMOUNT_CHECK = "tax.us.2025.f1099b.noncovered-lt-txn.amounts-check"
+_NONCOVERED_LT_TRANSACTION_FACT_TYPE = "tax.us.2025.f1099b.noncovered-lt-txn"
+_NONCOVERED_LT_SUBTOTALS = (
+    "tax.us.2025.f1099b.noncovered-lt-proceeds-subtotal",
+    "tax.us.2025.f1099b.noncovered-lt-basis-subtotal",
+    "tax.us.2025.f1099b.noncovered-lt-adjustment-subtotal",
+)
+
+
+def _line9_mixed_blocker_explanation(
+    field: Mapping[str, Any],
+    row: Mapping[str, Any],
+    by_symbol: Mapping[str, Sequence[Mapping[str, Any]]],
+    adopted_package: tuple[str, str] | None,
+) -> tuple[str, str] | None:
+    """Return the field's existing explanation for the exact mixed line-9 trace.
+
+    The stale noncovered long-term closure question is kept beside this text
+    only for core v91 onward, when Schedule D line 9 also reaches the blocked
+    current-transaction amount check. Other lines, earlier saved cores, and
+    other invalid dependencies keep the existing all-roots-must-be-explained
+    behavior. The returned fact key is the exact unresolved transaction leaf.
+    """
+    if adopted_package is None or adopted_package[0] != _CORE_CALCULATIONS_PACKAGE:
+        return None
+    version = adopted_package[1]
+    if not version.startswith("v") or not version[1:].isdigit():
+        return None
+    if int(version[1:]) < _SCHEDULE_D_MIXED_REASON_FROM:
+        return None
+    if (field.get("binds_symbol") != _SCHEDULE_D_LINE9_SYMBOL
+            or row.get("disposition") != "blocked"
+            or row.get("code") != "DEPENDENCY_ABSENT"
+            or row.get("artifact_id") != _SCHEDULE_D_LINE9_RULE):
+        return None
+    missing = row.get("missing")
+    if not isinstance(missing, list) or not all(isinstance(item, str) for item in missing):
+        return None
+    required = {*_NONCOVERED_LT_SUBTOTALS, _NONCOVERED_LT_AMOUNT_CHECK}
+    if len(missing) != len(required) or set(missing) != required:
+        return None
+
+    unresolved_transaction_facts: set[str] = set()
+    for check in by_symbol.get(_NONCOVERED_LT_AMOUNT_CHECK, ()):
+        check_missing = check.get("missing")
+        if (
+            check.get("disposition") == "blocked"
+            and check.get("code") == "DEPENDENCY_INVALID"
+            and isinstance(check_missing, list)
+            and any(
+                isinstance(item, str) and item.startswith(_NONCOVERED_LT_TRANSACTION_FACT_TYPE + "|")
+                for item in check_missing
+            )
+        ):
+            unresolved_transaction_facts.update(
+                item for item in check_missing
+                if isinstance(item, str) and item.startswith(_NONCOVERED_LT_TRANSACTION_FACT_TYPE + "|")
+            )
+    if len(unresolved_transaction_facts) != 1:
+        return None
+
+    def blocked_missing(record: Mapping[str, Any], symbol: str) -> bool:
+        record_missing = record.get("missing")
+        return record.get("disposition") == "blocked" and isinstance(record_missing, list) and symbol in record_missing
+
+    subtotal_paths_reach_family = all(
+        any(
+            blocked_missing(subtotal_row, _NONCOVERED_LT_MEMBER_VALIDATION)
+            for subtotal_row in by_symbol.get(subtotal, ())
+        )
+        for subtotal in _NONCOVERED_LT_SUBTOTALS
+    )
+    family_is_unclosed = any(
+        validation.get("code") == "SOURCE_SET_UNCLOSED"
+        and blocked_missing(validation, _NONCOVERED_LT_FAMILY)
+        for validation in by_symbol.get(_NONCOVERED_LT_MEMBER_VALIDATION, ())
+    )
+    if not subtotal_paths_reach_family or not family_is_unclosed:
+        return None
+
+    dispositions = field.get("dispositions")
+    blocked = dispositions.get("blocked") if isinstance(dispositions, Mapping) else None
+    explanation = blocked.get("explain") if isinstance(blocked, Mapping) else None
+    if not isinstance(explanation, str) or not explanation:
+        return None
+    return explanation, next(iter(unresolved_transaction_facts))
+
+
 def _closure_question_reasons(
     row: Mapping[str, Any],
     *,
@@ -472,6 +566,9 @@ def _closure_question_reasons(
     refusal_sentence: str | None = None,
     refusal_token: str | None = None,
     constraint_meanings: Mapping[str, str] | None = None,
+    partial_family: str | None = None,
+    partial_leaf: str | None = None,
+    partial_explanation: str | None = None,
 ) -> list[dict[str, Any]]:
     """The declared question for every cause a blocked line waits on and a filer can answer.
 
@@ -483,9 +580,12 @@ def _closure_question_reasons(
     pinning that fact type declares what to enter. Every sentence is copied
     verbatim, never composed here and never replaced by a family title, claim,
     fact title or id. Nothing is attached unless every root the line reaches is
-    one of those with a declared question: a reason hides the generic blocked
-    text, so a line with a second, different cause must keep it. The distinct
-    sentences are returned sorted as strings.
+    one of those with a declared question. By default, a mixed walk stays
+    silent because a reason hides the generic blocked text. One narrowly
+    scoped mixed trace may name its declared closure question beside the
+    field's existing blocked explanation when the only unexplained leaf is
+    the exact unresolved fact leaf. The distinct sentences are returned sorted as
+    strings for a fully explained walk.
 
     ``symbol_fact_types`` maps a package input-binding symbol (for example
     ``filing_status``) to the fact type it binds, so a missing binding symbol
@@ -530,6 +630,8 @@ def _closure_question_reasons(
     families: set[str] = set()
     facts: set[str] = set()
     extras: set[str] = set()
+    unexplained_leaves: set[str] = set()
+    unexplained_shapes: set[str] = set()
     meanings = constraint_meanings or {}
 
     # Resolved members by id, with each member's own constraint meanings
@@ -609,13 +711,19 @@ def _closure_question_reasons(
     def reach_mixed(current: Mapping[str, Any], seen: frozenset[str]) -> bool:
         missing = current.get("missing")
         if not isinstance(missing, list) or not missing:
+            if partial_family is not None:
+                unexplained_shapes.add("missing-list-unavailable")
             return False
         frame = frames[-1]
+        all_explained = True
         for entry in missing:
             key = str(entry)
             frame.examined.add(key)
             if key in seen:
                 frame.hits.add(key)
+                if partial_family is not None:
+                    unexplained_shapes.add("dependency-cycle")
+                    all_explained = False
                 continue
             if key in questions:
                 frame.families.add(key)
@@ -624,8 +732,11 @@ def _closure_question_reasons(
                 continue
             blocked = [r for r in by_symbol.get(key, []) if r.get("disposition") == "blocked"]
             if blocked:
-                if not all(walk_mixed(r, seen | {key}) for r in blocked):
-                    return False
+                for blocked_row in blocked:
+                    if not walk_mixed(blocked_row, seen | {key}):
+                        if partial_family is None:
+                            return False
+                        all_explained = False
                 continue
             bound = (symbol_fact_types or {}).get(key, key)
             if bound in input_questions:
@@ -636,8 +747,11 @@ def _closure_question_reasons(
             # the family question is still the filer's answer.
             if current.get("code") == "SOURCE_SET_UNCLOSED":
                 continue
-            return False
-        return True
+            if partial_family is None:
+                return False
+            unexplained_leaves.add(key)
+            all_explained = False
+        return all_explained
 
     def reach_plain(current: Mapping[str, Any], seen: frozenset[str]) -> bool:
         frame = frames[-1]
@@ -677,16 +791,33 @@ def _closure_question_reasons(
             return walk_mixed(current, seen)
         return walk_plain(current, seen)
 
-    if (not reach(row, frozenset()) or not (families or facts or extras)
-            or any(family not in questions for family in families)):
-        reasons: list[dict[str, Any]] = []
-    else:
+    all_roots_explained = reach(row, frozenset())
+    valid_questions = not any(family not in questions for family in families)
+    if all_roots_explained and (families or facts or extras) and valid_questions:
         sentences = (
             {questions[family] for family in families}
             | {input_questions[fact] for fact in facts}
             | extras
         )
         reasons = [{"sentence": sentence} for sentence in sorted(sentences)]
+    elif (
+        partial_family is not None
+        and partial_family in questions
+        and families == {partial_family}
+        and not facts
+        and not extras
+        and partial_leaf is not None
+        and unexplained_leaves == {partial_leaf}
+        and not unexplained_shapes
+        and isinstance(partial_explanation, str)
+        and partial_explanation
+    ):
+        question = questions[partial_family]
+        reasons = [{"sentence": question}]
+        if partial_explanation != question:
+            reasons.append({"sentence": partial_explanation})
+    else:
+        reasons = []
     if (
         refusal_sentence
         and refusal_token
@@ -4844,6 +4975,30 @@ def build_presentation_model(
         disposition_nodes[symbol] = node
         return symbol
 
+    def field_closure_reasons(
+        field: Mapping[str, Any], row: Mapping[str, Any],
+    ) -> list[dict[str, Any]]:
+        closure_options: dict[str, Any] = {
+            "resolved_members": resolved_members,
+            "by_symbol": by_symbol,
+            "symbol_fact_types": symbol_fact_types,
+            "later_any_arm_refs": names_later_refs,
+            "refusal_sentence": refusal_sentence,
+            "refusal_token": refusal_token,
+            "constraint_meanings": constraint_meanings,
+        }
+        mixed_blocker = _line9_mixed_blocker_explanation(
+            field, row, by_symbol, adopted_package,
+        )
+        if mixed_blocker is not None:
+            explanation, partial_leaf = mixed_blocker
+            closure_options.update({
+                "partial_family": _NONCOVERED_LT_FAMILY,
+                "partial_leaf": partial_leaf,
+                "partial_explanation": explanation,
+            })
+        return _closure_question_reasons(row, **closure_options)
+
     for field in sorted(fields, key=lambda f: f["id"]):
         symbol = field["binds_symbol"]
         row = _one_row(by_symbol.get(symbol, []), symbol=symbol)
@@ -4866,28 +5021,14 @@ def build_presentation_model(
                 resolved["reasons"] = reasons
                 selection_attached = True
         if resolved["disposition"] == "blocked" and "reasons" not in resolved:
-            closure_reasons = _closure_question_reasons(
-                row, resolved_members=resolved_members, by_symbol=by_symbol,
-                symbol_fact_types=symbol_fact_types,
-                later_any_arm_refs=names_later_refs,
-                refusal_sentence=refusal_sentence,
-                refusal_token=refusal_token,
-                constraint_meanings=constraint_meanings,
-            )
+            closure_reasons = field_closure_reasons(field, row)
             if closure_reasons:
                 resolved["reasons"] = closure_reasons
         elif selection_attached and names_closure_question and resolved["disposition"] == "blocked":
             # The selection reason is already attached, which used to skip
             # the closure walk. From core v75 the walk still runs, and its
             # question is named beside that reason.
-            closure_reasons = _closure_question_reasons(
-                row, resolved_members=resolved_members, by_symbol=by_symbol,
-                symbol_fact_types=symbol_fact_types,
-                later_any_arm_refs=names_later_refs,
-                refusal_sentence=refusal_sentence,
-                refusal_token=refusal_token,
-                constraint_meanings=constraint_meanings,
-            )
+            closure_reasons = field_closure_reasons(field, row)
             if closure_reasons:
                 resolved["reasons"] = _reasons_beside(resolved["reasons"], closure_reasons)
         if row["disposition"] == "published":
