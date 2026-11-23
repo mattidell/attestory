@@ -520,7 +520,7 @@ class UnrelatedSectionsUnaffected(unittest.TestCase):
             self.assertEqual(without_block, {
                 "schema", "runId", "pinLabels", "sections", "citationGroups",
                 "attachments", "unsupportedSourceFindings", "authorization",
-                "explanationGraph", "sectionRoots", "dispositionNodes",
+                "explanationGraph", "sectionRoots", "dispositionNodes", "questionGroups",
             })
 
 

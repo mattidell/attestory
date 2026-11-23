@@ -1114,6 +1114,15 @@ is retired. Specific rendering and question findings remain parked. The
 ten-case fixture is opt-in because a post-launch CI stall remains unexplained.
 The separate short owned temp-root regression remains in the live suite.
 
+## Saved-page questions — Blocked Sale Pages (2025)
+
+[Plan](milestones/blocked-sale-pages.md) and [retrospective](../../milestone-retrospectives/2026-11-22-blocked-sale-pages.md).
+New saved pages group declared prompts by answer target in
+presentation-model.v3. Blocked rows retain their scope, answer status, and
+independent reasons. The stale Schedule D line 9 row names its basis question
+alongside the amount-check explanation. Existing v1 and v2 pages remain
+readable.
+
 ## Parked work and open questions
 
 This is the single list of parked work and open owner-held questions for the
@@ -1199,10 +1208,6 @@ delivers an item removes it.
 - A v1 Form 1099-K workspace re-answers its completeness question under the
   successor package; recovery for a log with two current family versions; a
   full pre-save fold for every act kind.
-- Shared-question display on the saved citation-walk page: unanswered/stale
-  noncovered-sale questions repeat on line-local blocked-reason lists. Ask once
-  without losing each line's reason/connection; a page change is not selected
-  by the observation milestone.
 - Schedule A8a display/itemization: the special mortgage explanation shows
   the amount and a complete-scope itemizer's attachment publishes, but the
   observed v79 page has no ordinary line-8a row or Schedule A subtotal.

@@ -48,6 +48,10 @@
   .line-value { font-size:1.6rem; font-weight:700; margin:.35rem 0; }
   .line-value.blocked-value, .line-value.guard-value { font-size:1.05rem; font-weight:600; }
   .explain { font-size:.9rem; opacity:.9; }
+  .question-groups { margin:0 0 1.5rem; border:2px solid var(--link); border-radius:8px; padding:.75rem 1rem; }
+  .question-group { margin:.75rem 0; padding:.65rem .75rem; border-left:4px solid var(--link); background:var(--detail-bg); }
+  .question-group h3 { margin:.1rem 0 .35rem; }
+  .question-group ul { margin:.25rem 0; padding-left:1.25rem; }
 
   button.citation { font: inherit; color: var(--link); background: var(--detail-bg);
     border:2px solid var(--link); border-radius:6px; padding:.3rem .6rem; margin:.15rem .25rem .15rem 0;
@@ -92,6 +96,7 @@
 </header>
 
 <main id="main">
+  <div id="question-groups-root"></div>
   <div id="sections-root"></div>
   <div id="mortgage-explanation-root"></div>
   <div id="attachment-status-root"></div>
@@ -143,6 +148,7 @@ const REASON_TEXT = Object.freeze({
   "missing-field-citation": "This line published a value with no citation attached. No value can be shown safely.",
   "unrecognized-attachment-code": "This attachment named a condition code this renderer does not recognize. No detail can be shown safely.",
   "malformed-mortgage-explanation": "The saved mortgage explanation failed validation. No account detail can be shown safely.",
+  "malformed-question-groups": "The saved question links could not be displayed safely.",
   "unknown-error": "This section failed to render safely.",
 });
 
@@ -258,6 +264,7 @@ function renderLine(container, section) {
   const field = section.field;
   const resolved = section.resolved;
   const disposition = resolved.disposition;
+  const isLine21 = section.id === "line-sch1-21";
   const instructionKey = disposition === "published_categorical" ? "published_value" : disposition;
   const instruction = field.dispositions ? field.dispositions[instructionKey] : undefined;
 
@@ -308,16 +315,34 @@ function renderLine(container, section) {
     const codes = Array.isArray(resolved.activeCodes) ? resolved.activeCodes : [];
     const knownCodes = new Set(instruction.codes || []);
     const shownCodes = codes.filter((c) => knownCodes.has(c));
+    const reasons = Array.isArray(resolved.reasons) ? resolved.reasons : [];
+    const questionRefsByReason = questionGroupRefsForReasons(resolved);
+    const items = reasons.flatMap((reason, index) => {
+      if (!reason || typeof reason.sentence !== "string" || !reason.sentence) throw new SectionError("malformed-question-groups");
+      const linked = questionRefsByReason.get(index);
+      if (linked) return [el("li", { id: isLine21 ? "line21-reason-" + index : undefined }, linked.flatMap((group, groupIndex) => [
+        ...(groupIndex ? ["; "] : []),
+        el("a", { href: "#question-group-" + group.id }, ["See the question and affected lines above"]),
+      ]))];
+      return [el("li", { id: isLine21 ? "line21-reason-" + index : undefined }, [reason.sentence])];
+    });
     container.appendChild(el("div", { class: "blocked-banner", role: "alert" }, [
       el("div", null, [
         el("p", { class: "line-value blocked-value" }, ["No value published — cannot compute."]),
-        el("p", null, [instruction.explain]),
+        ...(items.length ? [] : [el("p", null, [instruction.explain])]),
         el("p", null, [
           el("strong", null, ["Missing dependency code(s): "]),
           shownCodes.length ? shownCodes.join(", ") : "(unspecified)",
         ]),
       ]),
     ]));
+    if (items.length) {
+      container.appendChild(el("div", { class: "blocked-reasons" }, [
+        el("p", null, [el("strong", null, ["Why: "])]),
+        el("ul", null, items),
+      ]));
+      return;
+    }
     container.appendChild(el("div", { class: "remedy-box" }, [
       el("strong", null, ["Remedy: "]),
       "contribute the missing dependency to unblock this line.",
@@ -332,6 +357,92 @@ function renderLine(container, section) {
   }
 
   throw new SectionError("unrecognized-disposition");
+}
+
+function questionGroupStatusText(status) {
+  const labels = Object.freeze({
+    current: "A response is recorded for this scope.",
+    stale: "This scope needs reconfirmation.",
+    unanswered: "This scope needs an answer.",
+  });
+  if (!Object.prototype.hasOwnProperty.call(labels, status)) throw new SectionError("malformed-question-groups");
+  return labels[status];
+}
+
+function questionGroupRefsForReasons(resolved) {
+  if (FIXTURE.schema !== "presentation-model.v3") return new Map();
+  const refs = resolved.questionRefs;
+  if (refs === undefined) return new Map();
+  if (resolved.disposition !== "blocked" || !Array.isArray(refs)) throw new SectionError("malformed-question-groups");
+  const groups = new Map((FIXTURE.questionGroups || []).map((group) => [group.id, group]));
+  const byReason = new Map();
+  for (const ref of refs) {
+    const group = ref && groups.get(ref.groupId);
+    if (!group || !Array.isArray(ref.reasonIndices) || !Array.isArray(ref.scopes) || !ref.scopes.length) {
+      throw new SectionError("malformed-question-groups");
+    }
+    for (const index of ref.reasonIndices) {
+      const reason = (resolved.reasons || [])[index];
+      if (!Number.isInteger(index) || !reason || reason.sentence !== group.question) {
+        throw new SectionError("malformed-question-groups");
+      }
+      const rows = byReason.get(index) || [];
+      rows.push(group);
+      byReason.set(index, rows);
+    }
+  }
+  return byReason;
+}
+
+function renderQuestionGroups(container) {
+  if (FIXTURE.schema !== "presentation-model.v3") return;
+  if (!Array.isArray(FIXTURE.questionGroups)) throw new SectionError("malformed-question-groups");
+  const sectionsByGroup = new Map();
+  for (const section of FIXTURE.sections || []) {
+    const refs = section.resolved && section.resolved.questionRefs;
+    if (refs === undefined) continue;
+    if (!Array.isArray(refs)) throw new SectionError("malformed-question-groups");
+    for (const ref of refs) {
+      if (!ref || !Array.isArray(ref.scopes)) throw new SectionError("malformed-question-groups");
+      const rows = sectionsByGroup.get(ref.groupId) || [];
+      for (const scope of ref.scopes) {
+        if (!scope || typeof scope.status !== "string") throw new SectionError("malformed-question-groups");
+        rows.push({ section, status: scope.status });
+      }
+      sectionsByGroup.set(ref.groupId, rows);
+    }
+  }
+  if (!FIXTURE.questionGroups.length) return;
+  const root = el("section", { class: "question-groups", "aria-labelledby": "question-groups-title" }, []);
+  root.appendChild(el("h2", { id: "question-groups-title" }, ["Questions for blocked lines"]));
+  const byId = new Set();
+  for (const group of FIXTURE.questionGroups) {
+    if (!group || typeof group.id !== "string" || !group.id || byId.has(group.id) || typeof group.question !== "string" || !group.question) {
+      throw new SectionError("malformed-question-groups");
+    }
+    byId.add(group.id);
+    const card = el("article", { class: "question-group", id: "question-group-" + group.id }, []);
+    card.appendChild(el("h3", null, [group.question]));
+    const statementLabel = group.answerTarget && group.answerTarget.statementLabel;
+    if (statementLabel) {
+      const label = [statementLabel.statement, statementLabel.lender, statementLabel.taxYear]
+        .filter((part) => typeof part === "string" && part).join(", ");
+      if (!label) throw new SectionError("malformed-question-groups");
+      card.appendChild(el("p", { class: "question-target" }, ["For " + label]));
+    }
+    const affected = new Map();
+    for (const row of sectionsByGroup.get(group.id) || []) {
+      const field = row.section.field || {};
+      const label = (typeof field.label === "string" ? field.label : row.section.id) +
+        (field.line !== undefined ? " (Line " + field.line + ")" : "");
+      affected.set(row.section.id + "|" + row.status, label + " — " + questionGroupStatusText(row.status));
+    }
+    if (!affected.size) throw new SectionError("malformed-question-groups");
+    card.appendChild(el("ul", null, [...affected.values()].sort().map((text) => el("li", null, [text]))));
+    root.appendChild(card);
+  }
+  if (byId.size !== sectionsByGroup.size) throw new SectionError("malformed-question-groups");
+  container.appendChild(root);
 }
 
 /* ADR-0056: an attachment's own three-state disposition (published,
@@ -458,6 +569,14 @@ function renderSafely(elementId, renderFn, arg, label) {
     unit.appendChild(el("div", { class: "section-error", role: "alert" }, [REASON_TEXT[reasonCode]]));
   }
   container.appendChild(unit);
+}
+
+const questionGroupsRoot = document.getElementById("question-groups-root");
+try {
+  renderQuestionGroups(questionGroupsRoot);
+} catch (err) {
+  const reasonCode = err instanceof SectionError ? err.reasonCode : "unknown-error";
+  questionGroupsRoot.appendChild(el("div", { class: "section-error", role: "alert" }, [REASON_TEXT[reasonCode]]));
 }
 
 function renderMortgageExplanation(container, block) {

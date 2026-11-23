@@ -74,6 +74,7 @@
   "operation-semantics.v2.schema.json": "ef8811497229e9d3120dc91f444c8e143efe3f5c759f0f2d5ec5f4975cb78f22",
   "parameter-declaration.v1.schema.json": "f8a8fa869c4c64d2ac081083fdfa81a8aca42fa791aa478d3d392040e4c510b1",
   "presentation-model.v2.schema.json": "4cb8476275f67456b4d5e7e11a8cb3d6730fa01ea3fec2213220b54ed6443845",
+  "presentation-model.v3.schema.json": "3abd92d38ae60a0b43f5622fc82328caf49c940142d9f10bc69b4cfc4b2be8ef",
   "release-registry.v1.schema.json": "c81e432be13e81d038598236df2670c788cec7b9506fbfd3a0142993f44e6be0",
   "rule-artifact.v1.schema.json": "9a98d3f4f7e1d1d842291db2f28291c3b61812a64a4ed7069ab23950ca458118",
   "rule-artifact.v10.schema.json": "dace417ff64f5447c93d633f9b3314d930bd2c1156ba344cb477e4e930b8a03f",

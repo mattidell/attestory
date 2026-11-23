@@ -214,7 +214,8 @@ def test_chrome_draws_the_v93_question_with_zero_safe_render_alerts() -> None:
         drawn = _section(dom, section["field"]["label"])
         plain = html.unescape(re.sub(r"<[^>]+>", " ", drawn))
         plain = re.sub(r"\s+", " ", plain)
-        assert wanted in plain
+        assert "See the question and affected lines above" in plain
+        assert wanted in html.unescape(dom)
         generic = section["field"]["dispositions"]["blocked"].get("explain")
         assert not generic or generic not in plain
         assert 'class="remedy-box"' not in drawn
