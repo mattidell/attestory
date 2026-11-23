@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.dtb.child.more-nights-with-filer",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.dtb-child-more-nights-with-filer",
+  "question": "Did this child live with you for more nights in 2025 than with the other parent? Answer yes if the child lived with you for the greater number of nights. Answer no if not.",
+  "schema": "input-question.v1",
+  "version": "v1"
+}

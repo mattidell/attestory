@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.odc.dependent.not-qualifying-child",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.odc-dependent-not-qualifying-child",
+  "question": "Was this person a qualifying child of any taxpayer for 2025? For this question, a person isn't a taxpayer if the person isn't required to file a U.S. income tax return and either doesn't file one or files only to get a refund of withheld income tax or estimated tax paid. Answer yes if this person was a qualifying child of any taxpayer. Answer no if not.",
+  "schema": "input-question.v1",
+  "version": "v1"
+}
