@@ -1,10 +1,10 @@
 # Track 1: validation reuses member checksums
 
-Milestone: validation-checksum-reuse. Charter:
-`docs/reviews/validation-checksum-reuse/charter-track1.md`. Published core
-v100 (registry and release v98), 10-CPU machine, Python 3.14, base commit
-`330b472c`. Every number below is read from the JSON file named beside it in
-this directory. The machine was shared (load average 3 to 8 during the runs),
+Milestone: validation-checksum-reuse. Published core v100 (registry and
+release v98), 10-CPU machine, Python 3.14, base main `97507165`. The
+measurement and timing scripts and the JSON files named below were working
+artifacts and were removed at publication; the numbers are quoted here, and
+`tests/test_validation_checksum_reuse.py` pins the behavior. The machine was shared (load average 3 to 8 during the runs),
 so the timing that counts is the paired, interleaved run in section 4.
 
 ## Result in one paragraph
@@ -143,7 +143,7 @@ fails the view-mutation test.
 ### Paired and interleaved (`vcr_timing.py`, `timing-paired.json`)
 
 Six rounds. Each round runs one process of the base tree (a pristine export
-of `330b472c`) and one of this tree, the order flipped every round, so both
+of main `97507165`) and one of this tree, the order flipped every round, so both
 see the same machine load. In each process: a warm-up, then three
 interleaved repetitions of median cold, median warm, slowest cold and
 slowest warm (each with an empty validation memo; cold also empties the
@@ -221,7 +221,7 @@ Success: no issues found in 529 source files
 The one full-suite failure is
 `tests/test_sale_page_observation_diagnostics.py::test_node_observer_emits_safe_manifest_stage_without_starting_chrome`.
 The test and `tools/presentation_harness/sale-page-observation.mjs` are
-identical to base `330b472c`; this branch did not touch them. It fails when
+identical to base main `97507165`; this branch did not touch them. It fails when
 both `FORCE_COLOR` and `NO_COLOR` are set, because node writes a warning onto
 stderr before the JSON the test parses; with those variables unset the same
 test passes. Left unfixed.
