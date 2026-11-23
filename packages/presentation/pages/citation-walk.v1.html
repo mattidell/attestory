@@ -25,7 +25,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Form 1040 — Citation Walk</title>
+<title>Form 1040 — Return Summary</title>
 <style>
   :root {
     --bg:#ffffff;
@@ -117,6 +117,12 @@
   }
 
   .section-error { border:2px solid var(--error-border); background:var(--error-bg); padding:.6rem .75rem; border-radius:6px; font-weight:600; }
+  .technical-details, .audit-ids { margin-top:.4rem; font-size:.86rem; }
+  .technical-details summary, .audit-ids summary { cursor:pointer; color:#444; }
+  .technical-details p, .audit-ids p { margin:.25rem 0; overflow-wrap:anywhere; }
+  .audit-ids dl { margin:.25rem 0 0; display:grid; grid-template-columns:max-content 1fr; gap:.1rem .6rem; }
+  .audit-ids dt { font-weight:600; }
+  .audit-ids dd { margin:0; overflow-wrap:anywhere; }
 </style>
 </head>
 <body>
@@ -124,9 +130,9 @@
 <a class="skip-link" href="#main">Skip to main content</a>
 
 <header role="banner">
-  <h1 id="page-heading">Form 1040 — Citation Walk</h1>
-  <p>Every figure below is projected from a cited source fact. Nothing on this
-  page is computed here.</p>
+  <h1 id="page-heading">Form 1040 — Return Summary</h1>
+  <p>Every figure below comes from your saved records, with its source cited.
+  This page shows saved results; it does not calculate anything.</p>
 </header>
 
 <main id="main">
@@ -176,16 +182,17 @@ function el(tag, attrs, children) {
    redaction (ADR-0046 foreclosure 6) structural rather than a discipline
    someone could forget under a new disposition kind. */
 const REASON_TEXT = Object.freeze({
-  "unrecognized-disposition": "This line named a disposition this renderer does not recognize. No value can be shown safely.",
-  "invalid-numeric-value": "This line's published value failed validation. No value can be shown safely.",
-  "missing-instruction": "This line is missing its rendering instruction for the declared disposition.",
-  "missing-field-citation": "This line published a value with no citation attached. No value can be shown safely.",
-  "unrecognized-attachment-code": "This attachment named a condition code this renderer does not recognize. No detail can be shown safely.",
-  "malformed-mortgage-explanation": "The saved mortgage explanation failed validation. No account detail can be shown safely.",
+  "unrecognized-disposition": "This line has a status this page does not recognize. No value can be shown safely.",
+  "invalid-numeric-value": "This line's saved value failed validation. No value can be shown safely.",
+  "missing-instruction": "This line is missing display instructions for its status.",
+  "missing-field-citation": "This line has a value with no source reference attached. No value can be shown safely.",
+  "unrecognized-attachment-code": "This attachment reported a status code this page does not recognize. No detail can be shown safely.",
+  "malformed-mortgage-explanation": "The saved mortgage explanation could not be displayed safely. No account detail can be shown.",
   "malformed-shared-explanation": "The saved explanation could not be displayed safely.",
   "malformed-question-groups": "The saved question links could not be displayed safely.",
   "malformed-line21-explanation": "This section's saved explanation could not be displayed safely.",
-  "unknown-error": "This section failed to render safely.",
+  "malformed-blocked-reason": "This line's saved explanation for why it could not be calculated is incomplete. No detail can be shown safely.",
+  "unknown-error": "This section could not be displayed safely.",
 });
 
 class SectionError extends Error {
@@ -232,36 +239,38 @@ for (const site of ALL_CITATION_SITES) {
   (SITES_BY_PIN[key] ||= []).push(site);
 }
 
-function pinLabel(pinId, pinVersion) {
+function pinLabel(pinId, fallbackLabel) {
   const label = (MODEL.pinLabels || {})[pinId];
-  return label || (pinId + "@" + pinVersion);
+  return label || fallbackLabel || "Supporting record";
 }
 
-function renderCitation(siteId, pinId, pinVersion) {
+function renderCitation(siteId, pinId, pinVersion, fallbackLabel) {
   const key = pinId + "@" + pinVersion;
   const siblings = (SITES_BY_PIN[key] || []).filter((s) => s.siteId !== siteId);
   const detailId = siteId + "-detail";
+  const label = pinLabel(pinId, fallbackLabel);
 
   const button = el("button", {
     type: "button", id: siteId, class: "citation",
     "aria-expanded": "false", "aria-controls": detailId,
     "data-pin-id": pinId, "data-pin-version": pinVersion,
+    title: key,
   }, [
-    el("span", { class: "citation-label" }, [pinLabel(pinId, pinVersion)]),
+    el("span", { class: "citation-label" }, [label]),
   ]);
 
   const dl = el("dl", null, [
-    el("dt", null, ["Pin id"]), el("dd", null, [pinId]),
-    el("dt", null, ["Pin version"]), el("dd", null, [pinVersion]),
+    el("dt", null, ["Record ID"]), el("dd", null, [pinId]),
+    el("dt", null, ["Record version"]), el("dd", null, [pinVersion]),
   ]);
 
   const backlinks = siblings.map((s) =>
-    el("a", { class: "backlink", href: "#" + s.siteId }, ["also cited in " + s.context])
+    el("a", { class: "backlink", href: "#" + s.siteId }, ["also used in " + s.context])
   );
 
   const detail = el("div", {
     id: detailId, class: "citation-detail", hidden: "",
-    role: "group", "aria-label": "Citation detail for " + pinId,
+    role: "group", "aria-label": "Reference details for " + label,
   }, [dl, ...backlinks]);
 
   return el("div", null, [button, detail]);
@@ -279,7 +288,7 @@ function renderFieldCitation(siteId, field) {
   if (!citation || !citation.id || !citation.version) {
     throw new SectionError("missing-field-citation");
   }
-  return renderCitation(siteId, citation.id, citation.version);
+  return renderCitation(siteId, citation.id, citation.version, "Line reference");
 }
 
 const LINE21_USED_KINDS = Object.freeze(["plain-case", "older-yes-cover", "older-method", "nothing"]);
@@ -397,16 +406,23 @@ function line21AnswerText(item) {
   return proposition + "Recorded answer: " + line21PlainResponse(item.response) + ".";
 }
 
+const LINE21_PARAMETER_LABELS = Object.freeze({
+  "tax.us.2025.parameter.sli-interest-cap": "Maximum deduction",
+  "tax.us.2025.parameter.sli-magi-threshold": "Income phaseout start",
+  "tax.us.2025.parameter.sli-magi-phase-range": "Income phaseout range",
+});
+
 function renderLine21Account(row) {
   const account = row.account;
   const said = account.said;
   const older = said.olderAnswer;
   const saidItems = [];
   if (older.currency === "absent") {
-    saidItems.push(el("li", null, ["Older answer about this form's box 1: absent. No older answer was recorded."]));
+    saidItems.push(el("li", null, ["Earlier answer about this form's box 1: none recorded."]));
   } else {
+    const currencyText = older.currency === "current" ? "current" : "earlier record, no longer current";
     saidItems.push(el("li", null, [
-      "Older answer about this form's box 1: " + older.value + ". Currency: " + older.currency + ".",
+      "Earlier answer about this form's box 1: " + older.value + " (" + currencyText + ").",
     ]));
   }
   for (const item of said.current) saidItems.push(el("li", null, ["Current. " + line21AnswerText(item)]));
@@ -415,7 +431,6 @@ function renderLine21Account(row) {
   if (row.basis && Array.isArray(row.basis.standsInFor)) {
     for (const sentence of row.basis.standsInFor) usedItems.push(el("li", null, [sentence]));
   }
-  usedItems.push(el("li", null, ["Combined class: " + account.used.combined + "."]));
   const assumedItems = [];
   if (account.used.kind === "nothing") {
     assumedItems.push(el("li", null, ["Nothing favorable is assumed. The reason is named above."]));
@@ -444,9 +459,14 @@ function renderLine21Account(row) {
     line21Group("What it assumed", assumedItems),
     line21Group("Recorded, not used", recordedItems),
   ]);
+  const tech = el("details", { class: "technical-details" }, [
+    el("summary", null, ["Technical details"]),
+    el("p", null, ["Combined class: " + account.used.combined + "."]),
+  ]);
   return el("details", { class: "line21-account", open: "" }, [
     el("summary", null, ["What this form accounts for"]),
     groups,
+    tech,
   ]);
 }
 
@@ -531,17 +551,29 @@ function renderLine21Explanation(container, section, block) {
     const working = el("details", { class: "line21-working" }, [el("summary", null, ["How the amount was worked out"])]);
     working.appendChild(el("p", null, ["Interest reported (worksheet line 1): " + block.working.lineOneSubtotal]));
     if (block.working.totalIncome !== undefined) working.appendChild(el("p", null, ["Income the worksheet used: " + block.working.totalIncome]));
+    const paramAuditRows = [];
     for (const parameter of block.working.parameters) {
       if (!parameter || typeof parameter.id !== "string" || typeof parameter.version !== "string" ||
           (typeof parameter.value !== "string" && typeof parameter.value !== "number")) throw new SectionError("malformed-line21-explanation");
-      working.appendChild(el("p", null, ["Limit " + (parameter.label || parameter.title || parameter.id) + ": " + parameter.value]));
+      const paramLabel = parameter.label || parameter.title || LINE21_PARAMETER_LABELS[parameter.id] || "Tax limit";
+      working.appendChild(el("p", { title: parameter.id + "@" + parameter.version }, [paramLabel + ": " + parameter.value]));
+      paramAuditRows.push(el("li", null, [parameter.id + "@" + parameter.version + ": " + parameter.value]));
     }
     working.appendChild(el("p", null, ["Deduction: " + block.working.value]));
     if (block.working.parameters.length) working.appendChild(el("p", null, ["This page does not say which of these limits changed the amount."]));
+    if (paramAuditRows.length) {
+      working.appendChild(el("details", { class: "technical-details" }, [
+        el("summary", null, ["Technical details"]),
+        el("ul", null, paramAuditRows),
+      ]));
+    }
     root.appendChild(working);
   }
-  root.appendChild(el("p", { class: "line21-run" }, ["This explanation describes run " + block.runId +
-    ", which read workspace revision " + block.workspaceRevision + ". Later changes to the workspace are not reflected here."]));
+  root.appendChild(el("p", { class: "line21-run" }, ["This explanation is a snapshot from when this return was calculated. Later changes to your records are not reflected here."]));
+  root.appendChild(el("details", { class: "technical-details" }, [
+    el("summary", null, ["Technical details"]),
+    el("p", null, ["Run ID: " + block.runId + "; workspace revision: " + block.workspaceRevision]),
+  ]));
   container.appendChild(root);
 }
 
@@ -606,25 +638,39 @@ function renderMortgageExplanation(container, block) {
   card.appendChild(el("p", null, ["Form 1098 box 1 reported interest: " + String(row.reportedInterest.value)]));
   card.appendChild(el("p", null, ["Schedule A line 8a deductible amount: " + String(row.deductibleAmount)]));
   card.appendChild(el("p", null, [el("strong", null, ["Conclusion: "]), row.description]));
+  const renderMortgageItem = (item) => {
+    const isDefault = item.origin.kind === "declared-default";
+    const text = item.title + ": " + (item.responseLabel || item.response) +
+      (isDefault ? " — default setting" : " — recorded value");
+    if (!isDefault) return el("li", null, [text]);
+    const paramRef = item.origin.parameter.id + "@" + item.origin.parameter.version;
+    return el("li", { title: paramRef }, [
+      text,
+      el("details", { class: "technical-details" }, [
+        el("summary", null, ["Technical details"]),
+        el("p", null, ["Parameter: " + paramRef]),
+      ]),
+    ]);
+  };
   if (row.reason === "qualified") {
     const basis = row.basis;
     const details = el("details", null, [el("summary", null, ["What this conclusion rests on"])]);
     const groups = el("div", { class: "mortgage-basis-groups" }, []);
-    for (const [key, title] of [["said", "What was recorded"], ["derived", "What the application derived"],
+    for (const [key, title] of [["said", "What was recorded"], ["derived", "What the calculation determined"],
                                 ["assumed", "What the rule assumes"], ["left_with_person", "Conditions left with you"]]) {
       const content = basis[key].map((item) => el("li", null, [item]));
       groups.appendChild(el("section", null, [el("h4", null, [title]), el("ul", null, content)]));
     }
-    for (const [key, title] of [["sourceDocuments", "Current source-document values"], ["personAnswers", "Current ordinary answers"], ["declaredDefaults", "Current declared defaults"]]) {
-      const items = row[key].map((item) => el("li", null, [item.title + ": " + (item.responseLabel || item.response) + (item.origin.kind === "declared-default" ? " — application default (" + item.origin.parameter.id + "@" + item.origin.parameter.version + ")" : " — recorded value")]));
+    for (const [key, title] of [["sourceDocuments", "Current source-document values"], ["personAnswers", "Current ordinary answers"], ["declaredDefaults", "Default settings used"]]) {
+      const items = row[key].map(renderMortgageItem);
       if (items.length) groups.appendChild(el("section", null, [el("h4", null, [title]), el("ul", null, items)]));
     }
     details.appendChild(groups);
     card.appendChild(details);
   } else {
     const details = el("details", null, [el("summary", null, ["Current answers supporting this result"])]);
-    for (const [key, title] of [["sourceDocuments", "Current source-document values"], ["personAnswers", "Current ordinary answers"], ["declaredDefaults", "Current declared defaults"]]) {
-      const items = row[key].map((item) => el("li", null, [item.title + ": " + (item.responseLabel || item.response) + (item.origin.kind === "declared-default" ? " — application default (" + item.origin.parameter.id + "@" + item.origin.parameter.version + ")" : " — recorded value")]));
+    for (const [key, title] of [["sourceDocuments", "Current source-document values"], ["personAnswers", "Current ordinary answers"], ["declaredDefaults", "Default settings used"]]) {
+      const items = row[key].map(renderMortgageItem);
       if (items.length) details.appendChild(el("section", null, [el("h4", null, [title]), el("ul", null, items)]));
     }
     card.appendChild(details);
@@ -705,6 +751,17 @@ function validateMortgageBorrowingExplanation(block) {
 function renderMortgageBorrowingExplanation(container, block) {
   validateMortgageBorrowingExplanation(block);
   const legacy = block.schema === "mortgage-borrowing-explanation.v1";
+  const linkDispositionLabel = (disp) => ({
+    published: "Confirmed",
+    blocked: "Incomplete",
+    inapplicable: "Not applicable",
+    guard_inapplicable: "Not applicable",
+    current: "Current",
+    withdrawn: "Withdrawn",
+    unresolved: "Unresolved",
+    affirmed: "Confirmed",
+    denied: "Denied",
+  }[disp] || String(disp).replace(/[_-]+/g, " "));
   const root = el("section", { class: "mortgage-explanation", "data-mortgage-borrowing-explanation": "true" }, []);
   root.appendChild(el("h2", null, ["Connected mortgage borrowing"]));
   const disposition = block.line8aDispositions[0] && block.line8aDispositions[0].disposition;
@@ -712,7 +769,7 @@ function renderMortgageBorrowingExplanation(container, block) {
   if (amount !== undefined) {
     root.appendChild(el("p", { class: "line-value" }, ["Schedule A line 8a group amount: " + String(amount)]));
   } else {
-    root.appendChild(el("p", { class: "line-value blocked-value", role: "status" }, ["Schedule A line 8a amount unavailable; the connected result is not published."]));
+    root.appendChild(el("p", { class: "line-value blocked-value", role: "status" }, ["Schedule A line 8a amount unavailable; the combined result could not be calculated."]));
   }
   for (const report of block.reports) {
     const statementLabel = report.statementLabel || { statement: report.statement, lender: report.payer, taxYear: report.taxYear };
@@ -734,10 +791,17 @@ function renderMortgageBorrowingExplanation(container, block) {
         const peer = comparison.peerIdentityStatus === "unavailable" ? "peer report identity unavailable" :
           comparison.peer.statement + " (" + comparison.peer.payer + ", " + comparison.peer["tax-year"] + ")";
         const state = comparison.applicability === "current" ? "currently applicable" : "not currently applicable";
-        const ids = comparison.supportFindingIds.length ? " Current support finding IDs: " + comparison.supportFindingIds.join(", ") + "." : "";
+        const auditRows = [el("p", null, ["Finding ID: " + comparison.findingId])];
+        if (comparison.supportFindingIds.length) {
+          auditRows.push(el("p", null, ["Support finding IDs: " + comparison.supportFindingIds.join(", ")]));
+        }
         return el("li", null, [
           comparison.title + ": " + String(comparison.valueLabel || comparison.value) + " for peer " + peer +
-          " (" + comparison.findingId + "); " + state + ". " + comparison.explanation + ids,
+          "; " + state + ". " + comparison.explanation,
+          el("details", { class: "technical-details" }, [
+            el("summary", null, ["Technical details"]),
+            ...auditRows,
+          ]),
         ]);
       })));
       card.appendChild(details);
@@ -750,9 +814,13 @@ function renderMortgageBorrowingExplanation(container, block) {
         const item = el("li", null, [
           conflict.question + ": " + conflict.local.scope + " says " +
           String(conflict.local.valueLabel || conflict.local.value) +
-          " (" + conflict.local.findingId + "); " + conflict.shared.scope + " says " +
+          "; " + conflict.shared.scope + " says " +
           String(conflict.shared.valueLabel || conflict.shared.value) +
-          " (" + conflict.shared.findingId + "). " + conflict.correctionGuidance,
+          ". " + conflict.correctionGuidance,
+          el("details", { class: "technical-details" }, [
+            el("summary", null, ["Technical details"]),
+            el("p", null, ["Local finding ID: " + conflict.local.findingId + "; shared finding ID: " + conflict.shared.findingId]),
+          ]),
         ]);
         return item;
       })));
@@ -760,18 +828,27 @@ function renderMortgageBorrowingExplanation(container, block) {
     }
     if (report.reasonChain) {
       const pins = (report.reasonChain.pins || []).map((pin) => String(pin.id || pin)).join(", ");
-      card.appendChild(el("p", { class: "reason-chain" }, ["Saved explanation: " + String(report.reasonChain.value) + (pins ? " — pins: " + pins : "")]));
+      card.appendChild(el("p", { class: "reason-chain" }, ["Saved explanation: " + String(report.reasonChain.value)]));
+      if (pins) {
+        card.appendChild(el("details", { class: "technical-details" }, [
+          el("summary", null, ["Technical details"]),
+          el("p", null, ["Pins: " + pins]),
+        ]));
+      }
     }
     if ((report.relationships || []).length) {
       const details = el("details", null, [el("summary", null, ["How this form is linked to the borrowing"])]);
-      details.appendChild(el("ul", null, report.relationships.map((link) => el("li", null, [link.disposition + " — " + link.response]))));
+      details.appendChild(el("ul", null, report.relationships.map((link) =>
+        el("li", { "data-disposition": link.disposition, title: "Recorded status: " + link.disposition }, [
+          linkDispositionLabel(link.disposition) + " — " + link.response,
+        ]))));
       card.appendChild(details);
     }
     if ((report.effectiveAnswers || []).length) {
-      const details = el("details", null, [el("summary", null, ["Effective answers available for this linked report; pins show actual use"])]);
+      const details = el("details", null, [el("summary", null, ["Answers available for this linked form"])]);
       details.appendChild(el("ul", null, report.effectiveAnswers.map((answer) => el("li", null, [
         (answer.title || answer.factType) + ": " + String(answer.valueLabel || answer.value) +
-        " — " + (answer.consumption === "consumed" ? "consumed by published line 8a" : "available, not consumed by published line 8a")
+        " — " + (answer.consumption === "consumed" ? "used in line 8a" : "recorded, not used in line 8a")
       ]))));
       card.appendChild(details);
     }
@@ -784,12 +861,12 @@ function renderMortgageBorrowingExplanation(container, block) {
     const details = el("details", null, [el("summary", null, ["Recorded borrowing-wide answers for " + (group.borrowingLabel || group.borrowing) + " (not all are necessarily active in this result)"])]);
     details.appendChild(el("ul", null, claims.map(([factType, claim]) => el("li", null, [
       (claim.title || factType) + ": " + String(claim.valueLabel || claim.value) +
-      " — " + (consumed.has(claim.findingId) ? "consumed by the published result" : "not shown as consumed")
+      " — " + (consumed.has(claim.findingId) ? "used in this result" : "not shown as used")
     ]))));
     root.appendChild(details);
   }
   if (block.calculationChain && !legacy) {
-    const chain = el("details", null, [el("summary", null, ["Saved calculation evidence: publications, producers, pins, and missing inputs"])]);
+    const chain = el("details", null, [el("summary", null, ["Technical calculation record (for audit)"])]);
     const rows = [];
     for (const finding of block.calculationChain.publications) {
       const pins = (finding.pins || []).map((pin) => String(pin.id || pin)).join(", ");
@@ -817,7 +894,9 @@ function renderMortgageBorrowingExplanation(container, block) {
   if (block.orphanRelationships.length) {
     const details = el("details", null, [el("summary", null, ["Recorded links whose source is no longer a current form"])]);
     details.appendChild(el("ul", null, block.orphanRelationships.map((link) =>
-      el("li", null, [link.statement + " (" + link.taxYear + "): " + link.disposition + " — " + link.response]))));
+      el("li", { "data-disposition": link.disposition, title: "Recorded status: " + link.disposition }, [
+        link.statement + " (" + link.taxYear + "): " + linkDispositionLabel(link.disposition) + " — " + link.response,
+      ]))));
     root.appendChild(details);
   }
   container.appendChild(root);
@@ -922,25 +1001,113 @@ function sharedSection(section) {
   return {graph, root};
 }
 
+const FIELD_LABEL_BY_SYMBOL = Object.create(null);
+for (const section of MODEL.sections || []) {
+  const field = section && section.field;
+  if (field && typeof field.binds_symbol === "string" && field.binds_symbol) {
+    const lbl = typeof field.label === "string" && field.label ? field.label : section.id;
+    if (!FIELD_LABEL_BY_SYMBOL[field.binds_symbol]) FIELD_LABEL_BY_SYMBOL[field.binds_symbol] = lbl;
+  }
+}
+
+const TRACE_ROLE_LABELS = Object.freeze({
+  output: "Line result",
+  input: "Input",
+  choice: "Recorded answer",
+  computation: "Calculation rule",
+  applicability: "Eligibility rule",
+  "field-mapping": "Form line rule",
+  "cross-form-bridge": "Cross-form rule",
+  citation: "Form instructions reference",
+  parameter: "Tax limit or parameter",
+  composition: "Source-group rule",
+  "operation-semantics": "Calculation method",
+  package: "Tax rules bundle",
+  adoption: "Active tax rules set",
+});
+
+const TRACE_DISP_LABELS = Object.freeze({
+  published: "calculated",
+  blocked: "not calculated",
+  inapplicable: "not applicable",
+});
+
+function traceRoleLabel(role, nodeKind) {
+  if (role === "input") {
+    if (nodeKind === "input") return "Recorded input";
+    if (nodeKind === "derived") return "Earlier calculation";
+  }
+  return TRACE_ROLE_LABELS[role] || "Supporting record";
+}
+
+function traceNodeSubject(node) {
+  if (node && typeof node.symbol === "string" && FIELD_LABEL_BY_SYMBOL[node.symbol]) {
+    return FIELD_LABEL_BY_SYMBOL[node.symbol];
+  }
+  if (node && node.kind === "derived") return "Intermediate calculation";
+  return null;
+}
+
+function renderAuditDl(entries) {
+  const children = [];
+  for (const [term, value] of entries) {
+    if (value === undefined || value === null || value === "") continue;
+    children.push(el("dt", null, [term]), el("dd", null, [String(value)]));
+  }
+  return el("details", { class: "audit-ids" }, [
+    el("summary", null, ["Technical IDs"]),
+    el("dl", null, children),
+  ]);
+}
+
 function renderShared(container, shared) {
   if (!shared) return;
-  const details = el("details", {class: "shared-explanation"}, [el("summary", null, ["Trace recorded support"])]);
+  const details = el("details", {class: "shared-explanation"}, [el("summary", null, ["How this line was determined"])]);
   const visited = new Map();
   const body = el("div", null, []);
   function show(key, role, target) {
     const node = shared.graph.nodes[key];
     const item = el("div", {"data-explanation-node": key, tabindex: "-1"}, []);
+    const roleText = traceRoleLabel(role, node.kind);
+    const subject = traceNodeSubject(node);
     if (visited.has(key)) {
-      const reference = el("button", {type: "button", "data-explanation-reuse": key}, [role + ": reused " + (node.symbol || node.id)]);
+      const reuseLabel = "Jump to earlier " + roleText + (subject ? ": " + subject : "");
+      const reference = el("button", {
+        type: "button",
+        "data-explanation-reuse": key,
+        title: role + ": " + (node.symbol || node.id),
+      }, [reuseLabel]);
       reference.addEventListener("click", () => { const original = visited.get(key); original.focus(); original.scrollIntoView({block: "nearest"}); });
       item.appendChild(reference);
     } else {
       visited.set(key, item);
       const numeric = node.kind === "input" && (typeof node.value === "number" || (typeof node.value === "string" && /^-?\d+(?:\.\d+)?$/.test(node.value)));
-      item.appendChild(el("span", null, [role + ": " + (node.symbol || node.id) + (numeric ? " = " + node.value : "")]));
-      if (node.produced_by && typeof node.produced_by.id === "string") item.appendChild(el("span", null, [" — " + node.produced_by.id]));
+      const caption = numeric
+        ? roleText + ": " + node.value
+        : subject
+          ? roleText + ": " + subject
+          : roleText;
+      item.appendChild(el("span", null, [caption]));
+      const auditEntries = [["Role", role]];
+      if (node.symbol) auditEntries.push(["Symbol", node.symbol]);
+      auditEntries.push(["ID", node.id]);
+      if (numeric) auditEntries.push(["Value", node.value]);
+      if (node.version) auditEntries.push(["Version", node.version]);
+      if (node.produced_by && typeof node.produced_by.id === "string") {
+        auditEntries.push(["Rule ID", node.produced_by.id]);
+      }
+      item.appendChild(renderAuditDl(auditEntries));
       for (const edge of node.edges) {
-        const button = el("button", {type: "button", "data-explanation-target": edge.target}, ["Show " + edge.pin.role + " " + edge.pin.id]);
+        const targetNode = shared.graph.nodes[edge.target];
+        const edgeRoleText = traceRoleLabel(edge.pin.role, targetNode && targetNode.kind);
+        const edgeSubject = targetNode && typeof targetNode.symbol === "string" && FIELD_LABEL_BY_SYMBOL[targetNode.symbol];
+        const buttonLabel = "Show " + edgeRoleText + (edgeSubject ? ": " + edgeSubject : "");
+        const button = el("button", {
+          type: "button",
+          "data-explanation-target": edge.target,
+          "data-pin-id": edge.pin.id,
+          title: edge.pin.role + ": " + edge.pin.id,
+        }, [buttonLabel]);
         const child = el("div", null, []);
         button.addEventListener("click", () => { if (!child.firstChild) show(edge.target, edge.pin.role, child); });
         item.appendChild(button);
@@ -952,22 +1119,44 @@ function renderShared(container, shared) {
   const dispositionVisited = new Map();
   function showDisposition(key, target) {
     const node = MODEL.dispositionNodes[key];
+    const dispSubject = FIELD_LABEL_BY_SYMBOL[node.symbol] || "Related calculation";
     if (dispositionVisited.has(key)) {
-      const reference = el("button", {type: "button", "data-explanation-reuse": key}, ["Reused " + node.symbol]);
+      const reference = el("button", {
+        type: "button",
+        "data-explanation-reuse": key,
+        "data-dependency-symbol": node.symbol,
+        title: node.symbol,
+      }, ["Jump to earlier " + dispSubject]);
       reference.addEventListener("click", () => { const original = dispositionVisited.get(key); original.focus(); original.scrollIntoView({block: "nearest"}); });
       target.appendChild(reference);
       return;
     }
-    const item = el("div", {tabindex: "-1", "data-disposition-node": key}, [node.symbol + (node.records.length ? ": " + node.records[0].disposition : ": no recorded disposition")]);
+    const statusText = node.records.length
+      ? (TRACE_DISP_LABELS[node.records[0].disposition] || "status recorded")
+      : "no result recorded";
+    const item = el("div", {tabindex: "-1", "data-disposition-node": key}, [
+      el("span", null, [dispSubject + ": " + statusText]),
+    ]);
+    const dispAudit = [["Symbol", node.symbol]];
+    if (node.records.length) {
+      dispAudit.push(["Disposition", node.records[0].disposition]);
+      if (node.records[0].artifact_id) dispAudit.push(["Rule ID", node.records[0].artifact_id]);
+    }
+    item.appendChild(renderAuditDl(dispAudit));
     dispositionVisited.set(key, item);
     if (node.findingRoot) {
-      const button = el("button", {type: "button"}, ["Show recorded predecessor"]);
+      const button = el("button", {type: "button"}, ["Show earlier calculated value"]);
       const child = el("div", null, []);
       button.addEventListener("click", () => { if (!child.firstChild) show(node.findingRoot, "input", child); });
       item.appendChild(button); item.appendChild(child);
     }
     for (const ref of node.children) {
-      const button = el("button", {type: "button"}, ["Show dependency " + ref]);
+      const childSubject = FIELD_LABEL_BY_SYMBOL[ref] || "related step";
+      const button = el("button", {
+        type: "button",
+        "data-dependency-symbol": ref,
+        title: ref,
+      }, ["Show what this waits on: " + childSubject]);
       const child = el("div", null, []);
       button.addEventListener("click", () => { if (!child.firstChild) showDisposition(ref, child); });
       item.appendChild(button); item.appendChild(child);
@@ -985,9 +1174,9 @@ function renderShared(container, shared) {
 
 function questionGroupStatusText(status) {
   const labels = Object.freeze({
-    current: "A response is recorded for this scope.",
-    stale: "This scope needs reconfirmation.",
-    unanswered: "This scope needs an answer.",
+    current: "An answer is recorded here.",
+    stale: "Needs reconfirmation.",
+    unanswered: "Needs an answer.",
   });
   if (!Object.prototype.hasOwnProperty.call(labels, status)) throw new SectionError("malformed-question-groups");
   return labels[status];
@@ -1038,7 +1227,7 @@ function renderQuestionGroups(container) {
   }
   if (!MODEL.questionGroups.length) return;
   const root = el("section", { class: "question-groups", "aria-labelledby": "question-groups-title" }, []);
-  root.appendChild(el("h2", { id: "question-groups-title" }, ["Questions for blocked lines"]));
+  root.appendChild(el("h2", { id: "question-groups-title" }, ["Questions holding up lines below"]));
   const byId = new Set();
   for (const group of MODEL.questionGroups) {
     if (!group || typeof group.id !== "string" || !group.id || byId.has(group.id) || typeof group.question !== "string" || !group.question) {
@@ -1070,6 +1259,21 @@ function renderQuestionGroups(container) {
   container.appendChild(root);
 }
 
+const LINE_BADGE_LABELS = Object.freeze({
+  published_value: "Calculated",
+  computed_zero: "Calculated zero",
+  closure_backed_zero: "Confirmed none",
+  published_categorical: "Determined",
+  blocked: "Not calculated",
+  guard_inapplicable: "Not applicable",
+});
+
+const LINE_BLOCKED_CODE_TEXT = Object.freeze({
+  DEPENDENCY_ABSENT: "Required information is missing.",
+  SOURCE_SET_UNCLOSED: "A set of tax forms has not been confirmed as complete.",
+  DEPENDENCY_INVALID: "Recorded information does not meet the rule's requirements.",
+});
+
 function renderLine(container, section) {
   const field = section.field;
   const resolved = section.resolved;
@@ -1084,9 +1288,15 @@ function renderLine(container, section) {
   }
   if (!instruction) throw new SectionError("missing-instruction");
 
+  const badgeLabel = LINE_BADGE_LABELS[disposition];
+  if (!badgeLabel) throw new SectionError("unrecognized-disposition");
   container.appendChild(el("h2", null, [
     field.label + " (Line " + field.line + ") ",
-    el("span", { class: "badge " + disposition }, [disposition.replace(/_/g, " ")]),
+    el("span", {
+      class: "badge " + disposition,
+      "data-disposition": disposition,
+      title: "Recorded status: " + disposition,
+    }, [badgeLabel]),
   ]));
 
   if (NUMERIC_DISPOSITIONS.has(disposition)) {
@@ -1152,14 +1362,25 @@ function renderLine(container, section) {
     // field's generic blocked sentence and the generic remedy would
     // contradict it (a person who answered "no" is not missing anything),
     // so neither is shown on this line. Lines without reasons keep both.
-    container.appendChild(el("div", { class: "blocked-banner", role: "alert" }, [
+    const plainCodeSummaries = [...new Set(shownCodes.map((c) => LINE_BLOCKED_CODE_TEXT[c]).filter(Boolean))];
+    const techDetails = el("details", { class: "technical-details" }, [
+      el("summary", null, ["Technical details"]),
+      el("p", null, [
+        shownCodes.length
+          ? "Recorded code(s): " + shownCodes.join(", ")
+          : "No specific reason code was recorded.",
+      ]),
+    ]);
+    container.appendChild(el("div", {
+      class: "blocked-banner",
+      role: "alert",
+      "data-active-codes": shownCodes.join(","),
+    }, [
       el("div", null, [
-        el("p", { class: "line-value blocked-value" }, ["No value published — cannot compute."]),
+        el("p", { class: "line-value blocked-value" }, ["This line could not be calculated."]),
         ...(items.length ? [] : [el("p", null, [instruction.explain])]),
-        ...(isLine21 && items.length ? [] : [el("p", null, [
-          el("strong", null, ["Missing dependency code(s): "]),
-          shownCodes.length ? shownCodes.join(", ") : "(unspecified)",
-        ])]),
+        ...(items.length || !plainCodeSummaries.length ? [] : [el("p", null, [plainCodeSummaries.join(" ")])]),
+        ...(isLine21 && items.length ? [] : [techDetails]),
       ]),
     ]));
     if (items.length) {
@@ -1174,8 +1395,8 @@ function renderLine(container, section) {
       return;
     }
     container.appendChild(el("div", { class: "remedy-box" }, [
-      el("strong", null, ["Remedy: "]),
-      "contribute the missing dependency to unblock this line.",
+      el("strong", null, ["What to do: "]),
+      "add or confirm the missing information so this line can be calculated.",
     ]));
     if (hasLine21Block) {
       renderLine21Explanation(container, section, MODEL.line21Explanation);
@@ -1203,10 +1424,22 @@ function renderLine(container, section) {
    one. resolved.activeCodes is filtered through the closed three-code
    allowlist before display; any other code is a rendering error, never
    shown verbatim. */
+const ATTACHMENT_BADGE_LABELS = Object.freeze({
+  published: "Complete",
+  blocked: "Incomplete",
+  guard_inapplicable: "Not required",
+});
+
 const ATTACHMENT_EXPLAIN = Object.freeze({
   published: "This attachment is required and complete.",
-  blocked: "This attachment is required, but is incomplete: a required condition is missing or violated.",
+  blocked: "This attachment is required, but some needed information is missing or needs to be corrected.",
   guard_inapplicable: "This attachment is not required for this return.",
+});
+
+const ATTACHMENT_CODE_TEXT = Object.freeze({
+  DEPENDENCY_ABSENT: "Required information is missing.",
+  ITEMIZATION_TIE_OUT_VIOLATION: "Itemized entries do not match the total.",
+  COMPLETENESS_VALUE_VIOLATION: "A required confirmation answer does not match what this form needs.",
 });
 
 const ATTACHMENT_KNOWN_CODES = new Set([
@@ -1223,7 +1456,11 @@ function renderAttachmentStatus(container, attachment) {
 
   container.appendChild(el("h2", null, [
     attachment.title + " ",
-    el("span", { class: "badge " + disposition }, [disposition.replace(/_/g, " ")]),
+    el("span", {
+      class: "badge " + disposition,
+      "data-disposition": disposition,
+      title: "Recorded status: " + disposition,
+    }, [ATTACHMENT_BADGE_LABELS[disposition]]),
   ]));
 
   if (disposition === "published") {
@@ -1239,19 +1476,29 @@ function renderAttachmentStatus(container, attachment) {
       if (!ATTACHMENT_KNOWN_CODES.has(code)) throw new SectionError("unrecognized-attachment-code");
       shownCodes.push(code);
     }
-    container.appendChild(el("div", { class: "blocked-banner", role: "alert" }, [
+    const plainCodeSummaries = [...new Set(shownCodes.map((c) => ATTACHMENT_CODE_TEXT[c]).filter(Boolean))];
+    container.appendChild(el("div", {
+      class: "blocked-banner",
+      role: "alert",
+      "data-active-codes": shownCodes.join(","),
+    }, [
       el("div", null, [
-        el("p", { class: "line-value blocked-value" }, ["Not shown — required and incomplete."]),
+        el("p", { class: "line-value blocked-value" }, ["Cannot include yet — required information is incomplete."]),
         el("p", null, [explain]),
-        el("p", null, [
-          el("strong", null, ["Missing or violated condition code(s): "]),
-          shownCodes.length ? shownCodes.join(", ") : "(unspecified)",
+        ...(plainCodeSummaries.length ? [el("p", null, [plainCodeSummaries.join(" ")])] : []),
+        el("details", { class: "technical-details" }, [
+          el("summary", null, ["Technical details"]),
+          el("p", null, [
+            shownCodes.length
+              ? "Recorded code(s): " + shownCodes.join(", ")
+              : "No specific condition code was recorded.",
+          ]),
         ]),
       ]),
     ]));
     container.appendChild(el("div", { class: "remedy-box" }, [
-      el("strong", null, ["Remedy: "]),
-      "contribute or correct the missing or violated condition to complete this attachment.",
+      el("strong", null, ["What to do: "]),
+      "add or correct the missing information to complete this attachment.",
     ]));
     return;
   }
@@ -1296,7 +1543,7 @@ function renderDiagnostic(container, diag) {
   const box = el("div", { id: diag.id, class: "diagnostic" + (healthy ? "" : " suppressed") }, []);
   box.appendChild(el("strong", null, [diag.label + ": "]));
   box.appendChild(el("span", null, [
-    healthy ? diag.renderText : "Not shown — computed from a blocked or inapplicable input.",
+    healthy ? diag.renderText : "Not shown — depends on a line that could not be calculated or does not apply.",
   ]));
   container.appendChild(box);
 }
@@ -1314,7 +1561,7 @@ function renderSafely(elementId, renderFn, arg, label) {
     while (unit.firstChild) unit.removeChild(unit.firstChild);
     const reasonCode = err instanceof SectionError ? err.reasonCode : "unknown-error";
     unit.appendChild(el("h2", null, [label]));
-    unit.appendChild(el("div", { class: "section-error", role: "alert" }, [REASON_TEXT[reasonCode]]));
+    unit.appendChild(el("div", { class: "section-error", role: "alert", "data-reason-code": reasonCode }, [REASON_TEXT[reasonCode]]));
   }
   container.appendChild(unit);
 }
@@ -1324,7 +1571,7 @@ try {
   renderQuestionGroups(questionGroupsRoot);
 } catch (err) {
   const reasonCode = err instanceof SectionError ? err.reasonCode : "unknown-error";
-  questionGroupsRoot.appendChild(el("div", { class: "section-error", role: "alert" }, [REASON_TEXT[reasonCode]]));
+  questionGroupsRoot.appendChild(el("div", { class: "section-error", role: "alert", "data-reason-code": reasonCode }, [REASON_TEXT[reasonCode]]));
 }
 
 const sectionsRoot = document.getElementById("sections-root");
