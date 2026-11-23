@@ -3,7 +3,8 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "validation-checksum-reuse",
-  "status": "Track 1 chartered 2026-11-20.",
+  "status": "Closed 2026-11-23. No package version change.",
+  "retrospective": "docs/milestone-retrospectives/2026-11-23-validation-checksum-reuse.md",
   "scope": [
     "a live run stops recomputing citizen checksums that the member cache already holds for the same bytes, in the validation memo key and in validate_package, so a recorded-return replay and the full suite get faster",
     "every output stays byte-identical"
@@ -68,3 +69,16 @@ real cost to every milestone.
    changed citizen pass validation.
 2. A kernel edit is out of scope; if the lever lives in
    `packages/kernel/`, stop and report.
+
+## Closeout
+
+Closed 2026-11-23. A live run no longer recomputes the canonical checksum
+of every corpus body for the validation memo key and `validate_package`:
+it reuses the one the member cache computed for the same bytes (about 3,192
+per recorded list). All 775 recorded lists replay byte-identically, and the
+paired median list is about 5 to 6 percent faster. A changed byte still
+changes the key and is still validated. No kernel, package, content,
+schema or projection change. The fresh review (grok) was READY with one
+low note, which is parked: a digest the caller supplies, or one cached for
+a parse that is later mutated through the view's private body, is
+trusted for the body it is handed with.
