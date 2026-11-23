@@ -1,0 +1,570 @@
+{
+  "format": "page-plain-words-track1-census.v1",
+  "source": {
+    "core": "v101",
+    "registry": "v99",
+    "release": "v99",
+    "page": "packages/presentation/pages/citation-walk.v1.html"
+  },
+  "recorded_lists_total": 775,
+  "lists_rendered": 691,
+  "outcomes": {
+    "error": 84,
+    "success": 691
+  },
+  "non_success_errors": {
+    "FindingModelError": 82,
+    "HorizonModelError": 1,
+    "SourceAuthorityError": 1
+  },
+  "after": {
+    "section_errors_total": 0,
+    "lists_with_first_read_leaks": 0,
+    "total_first_read_leaks": 0,
+    "leak_kinds_sampled": {},
+    "sample_leaks": [],
+    "lists_with_content_supplied_matches": 2,
+    "total_content_supplied_matches": 96,
+    "sample_content_matches": [
+      {
+        "list": "v83/returns/v80/probe_a_bw_on_w_broker/recorded",
+        "kind": "raw_tax_id",
+        "match": "tax.us.2025.block.f8949.adjustment-exceeds-loss.",
+        "snippet": "The wash-sale disallowed amount exceeds this transaction's own otherwise-deductible loss, floor_zero(basis - proceeds). Existing block code:"
+      },
+      {
+        "list": "v83/returns/v80/probe_a_bw_on_w_broker/recorded",
+        "kind": "raw_tax_id",
+        "match": "tax.us.2025.block.f8949.adjustment-exceeds-loss.",
+        "snippet": "The wash-sale disallowed amount exceeds this transaction's own otherwise-deductible loss, floor_zero(basis - proceeds). Existing block code:"
+      },
+      {
+        "list": "v83/returns/v80/probe_a_bw_on_w_broker/recorded",
+        "kind": "raw_tax_id",
+        "match": "tax.us.2025.block.f8949.adjustment-exceeds-loss.",
+        "snippet": "The wash-sale disallowed amount exceeds this transaction's own otherwise-deductible loss, floor_zero(basis - proceeds). Existing block code:"
+      },
+      {
+        "list": "v83/returns/v80/probe_a_bw_on_w_broker/recorded",
+        "kind": "raw_tax_id",
+        "match": "tax.us.2025.block.f8949.adjustment-exceeds-loss.",
+        "snippet": "The wash-sale disallowed amount exceeds this transaction's own otherwise-deductible loss, floor_zero(basis - proceeds). Existing block code:"
+      },
+      {
+        "list": "v83/returns/v80/probe_a_bw_on_w_broker/recorded",
+        "kind": "raw_tax_id",
+        "match": "tax.us.2025.block.f8949.adjustment-exceeds-loss.",
+        "snippet": "The wash-sale disallowed amount exceeds this transaction's own otherwise-deductible loss, floor_zero(basis - proceeds). Existing block code:"
+      },
+      {
+        "list": "v83/returns/v80/probe_a_high_on_w_broker/recorded",
+        "kind": "raw_tax_id",
+        "match": "tax.us.2025.block.f8949.code-w-on-gain.",
+        "snippet": "A positive wash-sale disallowed amount is asserted on a transaction whose proceeds are greater than or equal to its basis (code W on an indi"
+      },
+      {
+        "list": "v83/returns/v80/probe_a_high_on_w_broker/recorded",
+        "kind": "raw_tax_id",
+        "match": "tax.us.2025.block.f8949.adjustment-exceeds-loss.",
+        "snippet": "The wash-sale disallowed amount exceeds this transaction's own otherwise-deductible loss, floor_zero(basis - proceeds). Existing block code:"
+      },
+      {
+        "list": "v83/returns/v80/probe_a_high_on_w_broker/recorded",
+        "kind": "raw_tax_id",
+        "match": "tax.us.2025.block.f8949.code-w-on-gain.",
+        "snippet": "A positive wash-sale disallowed amount is asserted on a transaction whose proceeds are greater than or equal to its basis (code W on an indi"
+      },
+      {
+        "list": "v83/returns/v80/probe_a_high_on_w_broker/recorded",
+        "kind": "raw_tax_id",
+        "match": "tax.us.2025.block.f8949.adjustment-exceeds-loss.",
+        "snippet": "The wash-sale disallowed amount exceeds this transaction's own otherwise-deductible loss, floor_zero(basis - proceeds). Existing block code:"
+      },
+      {
+        "list": "v83/returns/v80/probe_a_high_on_w_broker/recorded",
+        "kind": "raw_tax_id",
+        "match": "tax.us.2025.block.f8949.code-w-on-gain.",
+        "snippet": "A positive wash-sale disallowed amount is asserted on a transaction whose proceeds are greater than or equal to its basis (code W on an indi"
+      }
+    ]
+  },
+  "synthetic_pages_after": {
+    "synthetic/mortgage-interest-qualified-default": {
+      "section_errors": 1,
+      "initial_leak_count": 0,
+      "trace_leak_count": 0,
+      "panel_leak_count": 0,
+      "total_first_read_leaks": 0,
+      "content_supplied_matches": 21,
+      "sample_leaks": [],
+      "sample_content_matches": [
+        {
+          "kind": "raw_enum_spaced",
+          "match": "computed zero",
+          "snippet": "A current derived finding publishes a computed zero under complete authority."
+        },
+        {
+          "kind": "raw_enum_spaced",
+          "match": "computed zero",
+          "snippet": "computed zero"
+        },
+        {
+          "kind": "raw_enum_spaced",
+          "match": "computed zero",
+          "snippet": "computed zero"
+        },
+        {
+          "kind": "raw_enum_spaced",
+          "match": "computed zero",
+          "snippet": "A current derived finding publishes a computed zero from present box-12 and/or box-8 findings that sum to zero under explicit scope authorit"
+        },
+        {
+          "kind": "raw_enum_spaced",
+          "match": "computed zero",
+          "snippet": "A current derived finding publishes a computed zero from present subtotals that sum to zero. All constituent families are closed."
+        }
+      ]
+    },
+    "synthetic/mortgage-borrowing-v4": {
+      "section_errors": 0,
+      "initial_leak_count": 0,
+      "trace_leak_count": 0,
+      "panel_leak_count": 0,
+      "total_first_read_leaks": 0,
+      "content_supplied_matches": 0,
+      "sample_leaks": [],
+      "sample_content_matches": []
+    },
+    "synthetic/line21-c1": {
+      "section_errors": 1,
+      "initial_leak_count": 0,
+      "trace_leak_count": 0,
+      "panel_leak_count": 0,
+      "total_first_read_leaks": 0,
+      "content_supplied_matches": 18,
+      "sample_leaks": [],
+      "sample_content_matches": [
+        {
+          "kind": "raw_enum_spaced",
+          "match": "computed zero",
+          "snippet": "A current derived finding publishes a computed zero from present box-12 and/or box-8 findings that sum to zero under explicit scope authorit"
+        },
+        {
+          "kind": "raw_enum_spaced",
+          "match": "computed zero",
+          "snippet": "A current derived finding publishes a computed zero from present subtotals that sum to zero. All constituent families are closed."
+        },
+        {
+          "kind": "raw_enum_spaced",
+          "match": "computed zero",
+          "snippet": "A current derived finding publishes a computed zero from present box-1b findings that sum to zero. The box-1b family is closed."
+        },
+        {
+          "kind": "raw_enum_spaced",
+          "match": "computed zero",
+          "snippet": "A current derived finding publishes a computed zero from present box-1a findings that sum to zero. The box-1a family is closed."
+        },
+        {
+          "kind": "raw_enum_spaced",
+          "match": "computed zero",
+          "snippet": "computed zero under the admitted family"
+        }
+      ]
+    }
+  },
+  "workers": 9,
+  "wall_time_s": 16.61,
+  "before": {
+    "section_errors_total": 0,
+    "lists_with_first_read_leaks": 691,
+    "total_first_read_leaks": 4004368,
+    "leak_kinds_sampled": {
+      "old_engine_phrase": 6720,
+      "raw_demo_id": 94,
+      "raw_enum_spaced": 96
+    },
+    "sample_leaks": [
+      {
+        "list": "v81/case/a_8949_yes",
+        "kind": "old_engine_phrase",
+        "match": "Form 1040 \u2014 Citation Walk",
+        "snippet": "Form 1040 \u2014 Citation Walk"
+      },
+      {
+        "list": "v81/case/a_8949_yes",
+        "kind": "old_engine_phrase",
+        "match": "Form 1040 \u2014 Citation Walk",
+        "snippet": "Form 1040 \u2014 Citation Walk Every figure below is projected from a cited source fact. Nothing on this page is computed here."
+      },
+      {
+        "list": "v81/case/a_8949_yes",
+        "kind": "old_engine_phrase",
+        "match": "for this scope",
+        "snippet": "Add lines 12e, 13a, and 13b (Line 1040-14) \u2014 A response is recorded for this scope."
+      },
+      {
+        "list": "v81/case/a_8949_yes",
+        "kind": "old_engine_phrase",
+        "match": "for this scope",
+        "snippet": "Additional child tax credit (Line 28) \u2014 A response is recorded for this scope."
+      },
+      {
+        "list": "v81/case/a_8949_yes",
+        "kind": "old_engine_phrase",
+        "match": "for this scope",
+        "snippet": "Adjusted gross income (Line 11a) \u2014 A response is recorded for this scope."
+      },
+      {
+        "list": "v81/case/a_8949_yes",
+        "kind": "old_engine_phrase",
+        "match": "for this scope",
+        "snippet": "Amount from line 11a (adjusted gross income) (Line 11b) \u2014 A response is recorded for this scope."
+      },
+      {
+        "list": "v81/case/a_8949_yes",
+        "kind": "old_engine_phrase",
+        "match": "for this scope",
+        "snippet": "Amount you owe (Line 37) \u2014 A response is recorded for this scope."
+      },
+      {
+        "list": "v81/case/a_8949_yes",
+        "kind": "old_engine_phrase",
+        "match": "for this scope",
+        "snippet": "Capital gain or (loss) (Line 7a) \u2014 A response is recorded for this scope."
+      },
+      {
+        "list": "v81/case/a_8949_yes",
+        "kind": "old_engine_phrase",
+        "match": "for this scope",
+        "snippet": "Child tax credit and credit for other dependents (Line 19) \u2014 A response is recorded for this scope."
+      },
+      {
+        "list": "v81/case/a_8949_yes",
+        "kind": "old_engine_phrase",
+        "match": "for this scope",
+        "snippet": "Child tax credit and credit for other dependents (Line 8812-14) \u2014 A response is recorded for this scope."
+      },
+      {
+        "list": "v81/case/a_adjustment_row_missing",
+        "kind": "old_engine_phrase",
+        "match": "Form 1040 \u2014 Citation Walk",
+        "snippet": "Form 1040 \u2014 Citation Walk"
+      },
+      {
+        "list": "v81/case/a_adjustment_row_missing",
+        "kind": "old_engine_phrase",
+        "match": "Form 1040 \u2014 Citation Walk",
+        "snippet": "Form 1040 \u2014 Citation Walk Every figure below is projected from a cited source fact. Nothing on this page is computed here."
+      },
+      {
+        "list": "v81/case/a_adjustment_row_missing",
+        "kind": "old_engine_phrase",
+        "match": "This scope needs",
+        "snippet": "Add lines 12e, 13a, and 13b (Line 1040-14) \u2014 This scope needs an answer."
+      },
+      {
+        "list": "v81/case/a_adjustment_row_missing",
+        "kind": "old_engine_phrase",
+        "match": "This scope needs",
+        "snippet": "Additional child tax credit (Line 28) \u2014 This scope needs an answer."
+      },
+      {
+        "list": "v81/case/a_adjustment_row_missing",
+        "kind": "old_engine_phrase",
+        "match": "This scope needs",
+        "snippet": "Amount you owe (Line 37) \u2014 This scope needs an answer."
+      }
+    ],
+    "lists_with_content_supplied_matches": 2,
+    "total_content_supplied_matches": 96,
+    "sample_content_matches": [
+      {
+        "list": "v83/returns/v80/probe_a_bw_on_w_broker/recorded",
+        "kind": "raw_tax_id",
+        "match": "tax.us.2025.block.f8949.adjustment-exceeds-loss.",
+        "snippet": "The wash-sale disallowed amount exceeds this transaction's own otherwise-deductible loss, floor_zero(basis - proceeds). Existing block code:"
+      },
+      {
+        "list": "v83/returns/v80/probe_a_bw_on_w_broker/recorded",
+        "kind": "raw_tax_id",
+        "match": "tax.us.2025.block.f8949.adjustment-exceeds-loss.",
+        "snippet": "The wash-sale disallowed amount exceeds this transaction's own otherwise-deductible loss, floor_zero(basis - proceeds). Existing block code:"
+      },
+      {
+        "list": "v83/returns/v80/probe_a_bw_on_w_broker/recorded",
+        "kind": "raw_tax_id",
+        "match": "tax.us.2025.block.f8949.adjustment-exceeds-loss.",
+        "snippet": "The wash-sale disallowed amount exceeds this transaction's own otherwise-deductible loss, floor_zero(basis - proceeds). Existing block code:"
+      },
+      {
+        "list": "v83/returns/v80/probe_a_bw_on_w_broker/recorded",
+        "kind": "raw_tax_id",
+        "match": "tax.us.2025.block.f8949.adjustment-exceeds-loss.",
+        "snippet": "The wash-sale disallowed amount exceeds this transaction's own otherwise-deductible loss, floor_zero(basis - proceeds). Existing block code:"
+      },
+      {
+        "list": "v83/returns/v80/probe_a_bw_on_w_broker/recorded",
+        "kind": "raw_tax_id",
+        "match": "tax.us.2025.block.f8949.adjustment-exceeds-loss.",
+        "snippet": "The wash-sale disallowed amount exceeds this transaction's own otherwise-deductible loss, floor_zero(basis - proceeds). Existing block code:"
+      },
+      {
+        "list": "v83/returns/v80/probe_a_high_on_w_broker/recorded",
+        "kind": "raw_tax_id",
+        "match": "tax.us.2025.block.f8949.code-w-on-gain.",
+        "snippet": "A positive wash-sale disallowed amount is asserted on a transaction whose proceeds are greater than or equal to its basis (code W on an indi"
+      },
+      {
+        "list": "v83/returns/v80/probe_a_high_on_w_broker/recorded",
+        "kind": "raw_tax_id",
+        "match": "tax.us.2025.block.f8949.adjustment-exceeds-loss.",
+        "snippet": "The wash-sale disallowed amount exceeds this transaction's own otherwise-deductible loss, floor_zero(basis - proceeds). Existing block code:"
+      },
+      {
+        "list": "v83/returns/v80/probe_a_high_on_w_broker/recorded",
+        "kind": "raw_tax_id",
+        "match": "tax.us.2025.block.f8949.code-w-on-gain.",
+        "snippet": "A positive wash-sale disallowed amount is asserted on a transaction whose proceeds are greater than or equal to its basis (code W on an indi"
+      },
+      {
+        "list": "v83/returns/v80/probe_a_high_on_w_broker/recorded",
+        "kind": "raw_tax_id",
+        "match": "tax.us.2025.block.f8949.adjustment-exceeds-loss.",
+        "snippet": "The wash-sale disallowed amount exceeds this transaction's own otherwise-deductible loss, floor_zero(basis - proceeds). Existing block code:"
+      },
+      {
+        "list": "v83/returns/v80/probe_a_high_on_w_broker/recorded",
+        "kind": "raw_tax_id",
+        "match": "tax.us.2025.block.f8949.code-w-on-gain.",
+        "snippet": "A positive wash-sale disallowed amount is asserted on a transaction whose proceeds are greater than or equal to its basis (code W on an indi"
+      }
+    ]
+  },
+  "synthetic_pages_before": {
+    "synthetic/mortgage-interest-qualified-default": {
+      "section_errors": 1,
+      "initial_leak_count": 708,
+      "trace_leak_count": 1785,
+      "panel_leak_count": 5,
+      "total_first_read_leaks": 2498,
+      "content_supplied_matches": 42,
+      "sample_leaks": [
+        {
+          "kind": "old_engine_phrase",
+          "match": "Form 1040 \u2014 Citation Walk",
+          "snippet": "Form 1040 \u2014 Citation Walk"
+        },
+        {
+          "kind": "old_engine_phrase",
+          "match": "Form 1040 \u2014 Citation Walk",
+          "snippet": "Form 1040 \u2014 Citation Walk Every figure below is projected from a cited source fact. Nothing on this page is computed here."
+        },
+        {
+          "kind": "raw_enum_spaced",
+          "match": "guard inapplicable",
+          "snippet": "guard inapplicable"
+        },
+        {
+          "kind": "old_engine_phrase",
+          "match": "Trace recorded support",
+          "snippet": "Trace recorded support"
+        },
+        {
+          "kind": "raw_demo_id",
+          "match": "demo.sched1.no-line11-educator",
+          "snippet": "demo.sched1.no-line11-educator@v1"
+        },
+        {
+          "kind": "raw_pin_version",
+          "match": "demo.sched1.no-line11-educator@v1",
+          "snippet": "demo.sched1.no-line11-educator@v1"
+        },
+        {
+          "kind": "raw_demo_id",
+          "match": "demo.sched1.no-line12-business-expenses",
+          "snippet": "demo.sched1.no-line12-business-expenses@v1"
+        },
+        {
+          "kind": "raw_pin_version",
+          "match": "demo.sched1.no-line12-business-expenses@v1",
+          "snippet": "demo.sched1.no-line12-business-expenses@v1"
+        },
+        {
+          "kind": "raw_demo_id",
+          "match": "demo.sched1.no-line13-hsa",
+          "snippet": "demo.sched1.no-line13-hsa@v1"
+        },
+        {
+          "kind": "raw_pin_version",
+          "match": "demo.sched1.no-line13-hsa@v1",
+          "snippet": "demo.sched1.no-line13-hsa@v1"
+        }
+      ],
+      "sample_content_matches": [
+        {
+          "kind": "raw_enum_spaced",
+          "match": "computed zero",
+          "snippet": "computed zero"
+        },
+        {
+          "kind": "raw_enum_spaced",
+          "match": "computed zero",
+          "snippet": "A current derived finding publishes a computed zero under complete authority."
+        },
+        {
+          "kind": "raw_enum_spaced",
+          "match": "computed zero",
+          "snippet": "computed zero"
+        },
+        {
+          "kind": "raw_enum_spaced",
+          "match": "computed zero",
+          "snippet": "computed zero"
+        },
+        {
+          "kind": "raw_enum_spaced",
+          "match": "computed zero",
+          "snippet": "computed zero"
+        }
+      ]
+    },
+    "synthetic/mortgage-borrowing-v4": {
+      "section_errors": 0,
+      "initial_leak_count": 5,
+      "trace_leak_count": 0,
+      "panel_leak_count": 3,
+      "total_first_read_leaks": 8,
+      "content_supplied_matches": 0,
+      "sample_leaks": [
+        {
+          "kind": "old_engine_phrase",
+          "match": "Form 1040 \u2014 Citation Walk",
+          "snippet": "Form 1040 \u2014 Citation Walk"
+        },
+        {
+          "kind": "old_engine_phrase",
+          "match": "Form 1040 \u2014 Citation Walk",
+          "snippet": "Form 1040 \u2014 Citation Walk Every figure below is projected from a cited source fact. Nothing on this page is computed here."
+        },
+        {
+          "kind": "old_engine_phrase",
+          "match": "not published.",
+          "snippet": "Schedule A line 8a amount unavailable; the connected result is not published."
+        },
+        {
+          "kind": "raw_demo_id",
+          "match": "demo.local.original",
+          "snippet": "Is this the original loan?: this exact Form 1098 says no (demo.local.original); this named borrowing for 2025 says yes (demo.shared.original"
+        },
+        {
+          "kind": "raw_demo_id",
+          "match": "demo.pin.reason",
+          "snippet": "Saved explanation: All criteria satisfied. \u2014 pins: demo.pin.reason"
+        },
+        {
+          "kind": "raw_demo_id",
+          "match": "demo.comparison",
+          "snippet": "All payments are separate: different-payments for peer peer report identity unavailable (demo.comparison); not currently applicable. This re"
+        },
+        {
+          "kind": "old_engine_phrase",
+          "match": "consumed by published",
+          "snippet": "Home is collateral: yes \u2014 consumed by published line 8a"
+        },
+        {
+          "kind": "old_engine_phrase",
+          "match": "consumed by the published",
+          "snippet": "Loan purpose: yes \u2014 consumed by the published result"
+        }
+      ],
+      "sample_content_matches": []
+    },
+    "synthetic/line21-c1": {
+      "section_errors": 1,
+      "initial_leak_count": 528,
+      "trace_leak_count": 1794,
+      "panel_leak_count": 3,
+      "total_first_read_leaks": 2325,
+      "content_supplied_matches": 36,
+      "sample_leaks": [
+        {
+          "kind": "old_engine_phrase",
+          "match": "Form 1040 \u2014 Citation Walk",
+          "snippet": "Form 1040 \u2014 Citation Walk"
+        },
+        {
+          "kind": "old_engine_phrase",
+          "match": "Form 1040 \u2014 Citation Walk",
+          "snippet": "Form 1040 \u2014 Citation Walk Every figure below is projected from a cited source fact. Nothing on this page is computed here."
+        },
+        {
+          "kind": "raw_enum_spaced",
+          "match": "published value",
+          "snippet": "published value"
+        },
+        {
+          "kind": "raw_demo_id",
+          "match": "demo.cgd.t2.finding.c1",
+          "snippet": "demo.cgd.t2.finding.c1@v1"
+        },
+        {
+          "kind": "raw_pin_version",
+          "match": "demo.cgd.t2.finding.c1@v1",
+          "snippet": "demo.cgd.t2.finding.c1@v1"
+        },
+        {
+          "kind": "raw_demo_id",
+          "match": "demo.cgd.t2.finding.c2",
+          "snippet": "demo.cgd.t2.finding.c2@v1"
+        },
+        {
+          "kind": "raw_pin_version",
+          "match": "demo.cgd.t2.finding.c2@v1",
+          "snippet": "demo.cgd.t2.finding.c2@v1"
+        },
+        {
+          "kind": "raw_demo_id",
+          "match": "demo.cgd.t2.finding.c3",
+          "snippet": "demo.cgd.t2.finding.c3@v1"
+        },
+        {
+          "kind": "raw_pin_version",
+          "match": "demo.cgd.t2.finding.c3@v1",
+          "snippet": "demo.cgd.t2.finding.c3@v1"
+        },
+        {
+          "kind": "raw_demo_id",
+          "match": "demo.cgd.t2.finding.c4",
+          "snippet": "demo.cgd.t2.finding.c4@v1"
+        }
+      ],
+      "sample_content_matches": [
+        {
+          "kind": "raw_enum_spaced",
+          "match": "computed zero",
+          "snippet": "computed zero"
+        },
+        {
+          "kind": "raw_enum_spaced",
+          "match": "computed zero",
+          "snippet": "A current derived finding publishes a computed zero from present box-12 and/or box-8 findings that sum to zero under explicit scope authorit"
+        },
+        {
+          "kind": "raw_enum_spaced",
+          "match": "computed zero",
+          "snippet": "computed zero"
+        },
+        {
+          "kind": "raw_enum_spaced",
+          "match": "computed zero",
+          "snippet": "A current derived finding publishes a computed zero from present subtotals that sum to zero. All constituent families are closed."
+        },
+        {
+          "kind": "raw_enum_spaced",
+          "match": "computed zero",
+          "snippet": "computed zero"
+        }
+      ]
+    }
+  }
+}

@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "page-plain-words",
-  "status": "Open 2026-11-23. P0 done; Track 1 next.",
+  "status": "Open 2026-11-23. P0 and Track 1 done; Fresh review next.",
   "retrospective": null,
   "scope": [
     "the words the saved page writes itself (status badges, blocked banners, support-trace captions and their buttons) read as plain language to a filer, not as engine enums, symbols or ids",
@@ -164,3 +164,41 @@ Completed 2026-11-23. Evidence in
    plain label table, not the badge text. Tests that pin old strings
    follow the new words. `malformed-blocked-reason` gets its own error
    text (p0.md risk 5).
+
+## Track 1 result
+
+Completed 2026-11-23 on published core v101 (registry v99, release v99).
+Evidence in `docs/phases/engine-breadth/milestones/page-plain-words-evidence/`
+(`track1.md`, `track1_census.py`, `check_page_dom.mjs`, `track1-census.json`).
+
+- **Page & harness copy:** updated `packages/presentation/pages/citation-walk.v1.html`
+  to the plain wording of P0 section 2 as amended by Decisions 1–7, with
+  auditor IDs/codes/enums moved behind collapsed `Technical details` /
+  `Technical IDs` `<details>` elements and `data-*` / `title` attributes.
+  Synced `renderMortgageBorrowingExplanation` byte-for-byte into
+  `tools/presentation_harness/examples/pages/citation-walk.v1.html`
+  (nothing else in the harness file or its five manifests changed).
+  Preserved `const MODEL = Object.freeze(__MODEL_JSON__);`, all anchors,
+  ADR-0046 static `REASON_TEXT` (adding `malformed-blocked-reason`), and
+  ADR-0087's bold `memberLabel` prefix.
+- **Readers & pinned tests:** updated `tools/presentation_harness/sale-page-observation.mjs`,
+  `tools/sale_page_observation.py` (reads `data-disposition` and plain
+  badge label tables), and all pinned-string tests in P0 section 4.
+- **Track 1 census (core v101):** across 691 rendered recorded lists (of
+  775; 84 unchanged pre-page errors), page-owned first-read leaks dropped
+  from **691 lists / 4,004,368 leaks** to **0 lists / 0 leaks**, with **0**
+  `.section-error` alerts. Synthetic mortgage interest, mortgage
+  borrowing (v4), and Schedule 1 line 21 pages dropped from 2,498 / 8 /
+  2,325 page-owned leaks to **0 / 0 / 0**. (Two recorded lists carry
+  content-supplied wash-sale `reason.sentence` text naming
+  `tax.us.2025.block.f8949.*`, outside Track 1 scope.)
+- **No model change:** `tools/recorded_replay.py full v101 v101` reported
+  **775 / 775 identical**, 0 failing, 0 unexpected differences.
+- **Tests:** `check_mortgage_renderer.mjs` passed; fast lane
+  `pytest -m "not live"` passed (1952 passed, 8 skipped); `mypy` clean on
+  all touched Python files; all targeted live/browser suites (including
+  `test_eic_child_answers_walk.py` and `test_eic_child_answers_v101.py`)
+  passed. Opt-in `SALE_PAGE_OBSERVATION_BROWSER=1` passed all badge/value
+  checks on all 10 cases and surfaced a pre-existing v3 `questionGroups`
+  reason-comparison mismatch on `sale-answer-needs-reconfirmation` in
+  `tools/sale_page_observation.py`.
