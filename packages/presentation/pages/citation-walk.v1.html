@@ -1142,7 +1142,10 @@ function renderLine(container, section) {
         ]))];
       }
       const label = reason.statementLabel || {};
-      const name = [label.statement, label.lender].filter((part) => typeof part === "string" && part).join(", ");
+      // A roster member's question names that member by the label the filer recorded (ADR 0087).
+      const name = typeof reason.memberLabel === "string" && reason.memberLabel
+        ? reason.memberLabel
+        : [label.statement, label.lender].filter((part) => typeof part === "string" && part).join(", ");
       return [el("li", { id: isLine21 ? "line21-reason-" + index : undefined }, name ? [el("strong", null, [name + ": "]), reason.sentence] : [reason.sentence])];
     });
     // When the line says why it is blocked, that is its explanation: the

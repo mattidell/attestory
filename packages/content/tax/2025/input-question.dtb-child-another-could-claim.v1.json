@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.dtb.child.another-could-claim",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.dtb-child-another-could-claim",
+  "question": "Does this child also meet the conditions to be a qualifying child of any other person for 2025, other than your spouse if you file a joint return? Answer yes if another person could also claim the child as a qualifying child. Answer no if no other person could.",
+  "schema": "input-question.v1",
+  "version": "v1"
+}

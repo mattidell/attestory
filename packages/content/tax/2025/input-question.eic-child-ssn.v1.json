@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.eic.child.ssn",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.eic-child-ssn",
+  "question": "Does this child have a social security number (SSN) issued by the Social Security Administration on or before the due date of your 2025 return (including extensions) that is valid for employment? Answer yes if so. A number with \"Not Valid for Employment\" printed on the card, issued solely to apply for or receive a federally funded benefit, does not count; a number with \"Valid for Work Only With DHS Authorization\" counts only while that authorization is still valid. Answer no if the child had no such number by that date; an ITIN or ATIN is not an SSN.",
+  "schema": "input-question.v1",
+  "version": "v1"
+}
