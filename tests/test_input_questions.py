@@ -274,14 +274,15 @@ def _reference_closure_question_reasons(row: Any, *, resolved_members: Any, by_s
                                         later_any_arm_refs: bool = False,
                                         refusal_sentence: Any = None,
                                         refusal_token: Any = None,
-                                        constraint_meanings: Any = None) -> list[dict[str, Any]]:
+                                        constraint_meanings: Any = None,
+                                        **presentation_options: Any) -> list[dict[str, Any]]:
     """The v69 algorithm as it stood before the input question (the closure roots only).
 
     ``later_any_arm_refs`` is the core v76 walk. This reference keeps the
     earlier walk, which is what v68 through v71 render. The refusal and
     constraint arguments are the core v79 walk; this reference ignores them.
     """
-    del later_any_arm_refs, refusal_sentence, refusal_token, constraint_meanings
+    del later_any_arm_refs, refusal_sentence, refusal_token, constraint_meanings, presentation_options
     questions: dict[str, str] = {}
     for member in resolved_members:
         question = member.get("closure_question")
@@ -321,10 +322,14 @@ class EarlierCoresAreUnchanged(unittest.TestCase):
         for core in ("v68", "v69", "v70", "v71"):
             for case in self.CASES:
                 with self.subTest(core=core, case=case):
-                    after = model(case, core)
+                    after = pp.project_presentation_v1(json.loads(model(case, core)))
                     with mock.patch.object(pp, "_closure_question_reasons", _reference_closure_question_reasons):
-                        before = json.dumps(run_model(BUILDERS[case](), f"demo.miq.{case}.{core}", core), sort_keys=True)
-                    self.assertEqual(after, before)
+                        before = pp.project_presentation_v1(
+                            run_model(BUILDERS[case](), f"demo.miq.{case}.{core}", core)
+                        )
+                    before_json = json.dumps(before, sort_keys=True)
+                    after_json = json.dumps(after, sort_keys=True)
+                    self.assertEqual(after_json, before_json)
 
     def test_v71_names_no_missing_amount(self) -> None:
         got = blocked(loaded("box2", "v71"))

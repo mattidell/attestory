@@ -19,7 +19,10 @@ def _output_registry() -> SchemaRegistry:
 
 def validate_output_schema(name: str, value: object) -> None:
     """Validate only the three published shared-output boundaries."""
-    if name not in {"explanation-graph.v1", "npe-walk.v4", "presentation-model.v2"}:
+    if name not in {
+        "explanation-graph.v1", "npe-walk.v4",
+        "presentation-model.v2", "presentation-model.v3",
+    }:
         raise ValueError("unknown shared output schema")
     try:
         _output_registry().validate(name, value)

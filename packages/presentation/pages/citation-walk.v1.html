@@ -61,6 +61,10 @@
   .line-value { font-size:1.6rem; font-weight:700; margin:.35rem 0; }
   .line-value.blocked-value, .line-value.guard-value { font-size:1.05rem; font-weight:600; }
   .explain { font-size:.9rem; opacity:.9; }
+  .question-groups { margin:0 0 1.5rem; border:2px solid var(--link); border-radius:8px; padding:.75rem 1rem; }
+  .question-group { margin:.75rem 0; padding:.65rem .75rem; border-left:4px solid var(--link); background:var(--detail-bg); }
+  .question-group h3 { margin:.1rem 0 .35rem; }
+  .question-group ul { margin:.25rem 0; padding-left:1.25rem; }
 
   button.citation { font: inherit; color: var(--link); background: var(--detail-bg);
     border:2px solid var(--link); border-radius:6px; padding:.3rem .6rem; margin:.15rem .25rem .15rem 0;
@@ -126,6 +130,7 @@
 </header>
 
 <main id="main">
+  <div id="question-groups-root"></div>
   <div id="sections-root"></div>
   <div id="mortgage-explanation-root"></div>
   <div id="attachment-status-root"></div>
@@ -178,6 +183,7 @@ const REASON_TEXT = Object.freeze({
   "unrecognized-attachment-code": "This attachment named a condition code this renderer does not recognize. No detail can be shown safely.",
   "malformed-mortgage-explanation": "The saved mortgage explanation failed validation. No account detail can be shown safely.",
   "malformed-shared-explanation": "The saved explanation could not be displayed safely.",
+  "malformed-question-groups": "The saved question links could not be displayed safely.",
   "malformed-line21-explanation": "This section's saved explanation could not be displayed safely.",
   "unknown-error": "This section failed to render safely.",
 });
@@ -846,7 +852,7 @@ function checkExplanationEdge(edge, graph) {
 
 function sharedSection(section) {
   if (MODEL.schema === "presentation-model.v1") return null;
-  if (MODEL.schema !== "presentation-model.v2") throw new SectionError("malformed-shared-explanation");
+  if (MODEL.schema !== "presentation-model.v2" && MODEL.schema !== "presentation-model.v3") throw new SectionError("malformed-shared-explanation");
   const graph = MODEL.explanationGraph;
   const sectionRoot = MODEL.sectionRoots && MODEL.sectionRoots[section.id];
   if (!graph || graph.schema !== "explanation-graph.v1" || graph.run_id !== MODEL.runId || !Array.isArray(graph.roots) ||
@@ -977,6 +983,93 @@ function renderShared(container, shared) {
   container.appendChild(details);
 }
 
+function questionGroupStatusText(status) {
+  const labels = Object.freeze({
+    current: "A response is recorded for this scope.",
+    stale: "This scope needs reconfirmation.",
+    unanswered: "This scope needs an answer.",
+  });
+  if (!Object.prototype.hasOwnProperty.call(labels, status)) throw new SectionError("malformed-question-groups");
+  return labels[status];
+}
+
+function questionGroupRefsForReasons(resolved) {
+  if (MODEL.schema !== "presentation-model.v3") return new Map();
+  const refs = resolved.questionRefs;
+  if (refs === undefined) return new Map();
+  if (resolved.disposition !== "blocked" || !Array.isArray(refs)) throw new SectionError("malformed-question-groups");
+  const groups = new Map((MODEL.questionGroups || []).map((group) => [group.id, group]));
+  const byReason = new Map();
+  for (const ref of refs) {
+    const group = ref && groups.get(ref.groupId);
+    if (!group || !Array.isArray(ref.reasonIndices) || !Array.isArray(ref.scopes) || !ref.scopes.length) {
+      throw new SectionError("malformed-question-groups");
+    }
+    for (const index of ref.reasonIndices) {
+      const reason = (resolved.reasons || [])[index];
+      if (!Number.isInteger(index) || !reason || reason.sentence !== group.question) {
+        throw new SectionError("malformed-question-groups");
+      }
+      const rows = byReason.get(index) || [];
+      rows.push(group);
+      byReason.set(index, rows);
+    }
+  }
+  return byReason;
+}
+
+function renderQuestionGroups(container) {
+  if (MODEL.schema !== "presentation-model.v3") return;
+  if (!Array.isArray(MODEL.questionGroups)) throw new SectionError("malformed-question-groups");
+  const sectionsByGroup = new Map();
+  for (const section of MODEL.sections || []) {
+    const refs = section.resolved && section.resolved.questionRefs;
+    if (refs === undefined) continue;
+    if (!Array.isArray(refs)) throw new SectionError("malformed-question-groups");
+    for (const ref of refs) {
+      if (!ref || !Array.isArray(ref.scopes)) throw new SectionError("malformed-question-groups");
+      const rows = sectionsByGroup.get(ref.groupId) || [];
+      for (const scope of ref.scopes) {
+        if (!scope || typeof scope.status !== "string") throw new SectionError("malformed-question-groups");
+        rows.push({ section, status: scope.status });
+      }
+      sectionsByGroup.set(ref.groupId, rows);
+    }
+  }
+  if (!MODEL.questionGroups.length) return;
+  const root = el("section", { class: "question-groups", "aria-labelledby": "question-groups-title" }, []);
+  root.appendChild(el("h2", { id: "question-groups-title" }, ["Questions for blocked lines"]));
+  const byId = new Set();
+  for (const group of MODEL.questionGroups) {
+    if (!group || typeof group.id !== "string" || !group.id || byId.has(group.id) || typeof group.question !== "string" || !group.question) {
+      throw new SectionError("malformed-question-groups");
+    }
+    byId.add(group.id);
+    const card = el("article", { class: "question-group", id: "question-group-" + group.id }, []);
+    card.appendChild(el("h3", null, [group.question]));
+    const statementLabel = group.answerTarget && group.answerTarget.statementLabel;
+    if (statementLabel) {
+      const label = [statementLabel.statement, statementLabel.lender, statementLabel.taxYear]
+        .filter((part) => typeof part === "string" && part).join(", ");
+      if (!label) throw new SectionError("malformed-question-groups");
+      card.appendChild(el("p", { class: "question-target" }, ["For " + label]));
+    }
+    const affected = new Map();
+    for (const row of sectionsByGroup.get(group.id) || []) {
+      const field = row.section.field || {};
+      const label = (typeof field.label === "string" ? field.label : row.section.id) +
+        (field.line !== undefined ? " (Line " + field.line + ")" : "");
+      const key = row.section.id + "|" + row.status;
+      affected.set(key, label + " — " + questionGroupStatusText(row.status));
+    }
+    if (!affected.size) throw new SectionError("malformed-question-groups");
+    card.appendChild(el("ul", null, [...affected.values()].sort().map((text) => el("li", null, [text]))));
+    root.appendChild(card);
+  }
+  if (byId.size !== sectionsByGroup.size) throw new SectionError("malformed-question-groups");
+  container.appendChild(root);
+}
+
 function renderLine(container, section) {
   const field = section.field;
   const resolved = section.resolved;
@@ -1036,13 +1129,21 @@ function renderLine(container, section) {
     // Reasons the projector copied from declared content, one per statement
     // it names. Rendered as text only; a malformed entry is an error.
     const reasons = Array.isArray(resolved.reasons) ? resolved.reasons : [];
-    const items = reasons.map((reason, index) => {
+    const questionRefsByReason = questionGroupRefsForReasons(resolved);
+    const items = reasons.flatMap((reason, index) => {
       if (!reason || typeof reason.sentence !== "string" || !reason.sentence) {
         throw new SectionError("malformed-blocked-reason");
       }
+      const questionGroups = questionRefsByReason.get(index);
+      if (questionGroups) {
+        return [el("li", { id: isLine21 ? "line21-reason-" + index : undefined }, questionGroups.flatMap((group, groupIndex) => [
+          ...(groupIndex ? ["; "] : []),
+          el("a", { href: "#question-group-" + group.id }, ["See the question and affected lines above"]),
+        ]))];
+      }
       const label = reason.statementLabel || {};
       const name = [label.statement, label.lender].filter((part) => typeof part === "string" && part).join(", ");
-      return el("li", { id: isLine21 ? "line21-reason-" + index : undefined }, name ? [el("strong", null, [name + ": "]), reason.sentence] : [reason.sentence]);
+      return [el("li", { id: isLine21 ? "line21-reason-" + index : undefined }, name ? [el("strong", null, [name + ": "]), reason.sentence] : [reason.sentence])];
     });
     // When the line says why it is blocked, that is its explanation: the
     // field's generic blocked sentence and the generic remedy would
@@ -1213,6 +1314,14 @@ function renderSafely(elementId, renderFn, arg, label) {
     unit.appendChild(el("div", { class: "section-error", role: "alert" }, [REASON_TEXT[reasonCode]]));
   }
   container.appendChild(unit);
+}
+
+const questionGroupsRoot = document.getElementById("question-groups-root");
+try {
+  renderQuestionGroups(questionGroupsRoot);
+} catch (err) {
+  const reasonCode = err instanceof SectionError ? err.reasonCode : "unknown-error";
+  questionGroupsRoot.appendChild(el("div", { class: "section-error", role: "alert" }, [REASON_TEXT[reasonCode]]));
 }
 
 const sectionsRoot = document.getElementById("sections-root");

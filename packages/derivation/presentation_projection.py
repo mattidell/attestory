@@ -30,6 +30,8 @@ zero-authority) rather than guessing or rendering a fabricated value.
 
 from __future__ import annotations
 
+import hashlib
+import json
 import re
 import inspect
 import math
@@ -38,11 +40,12 @@ from typing import Any, Callable, Mapping, Sequence, cast
 
 from packages.derivation.derived_enumeration import derived_activity_present, fact_type_matches_symbol
 from packages.derivation.explanation_graph import GraphBuilder, validate_graph, validate_output_schema
-from packages.kernel.facts import fact_id_for
+from packages.kernel.facts import fact_id_for, facts_of
 from packages.kernel.findings import FindingState
 from packages.tax.coverage import untranslated_source_findings
 
-PRESENTATION_MODEL_VERSION = "presentation-model.v2"
+PRESENTATION_MODEL_VERSION = "presentation-model.v3"
+V2_PRESENTATION_MODEL_VERSION = "presentation-model.v2"
 LEGACY_PRESENTATION_MODEL_VERSION = "presentation-model.v1"
 
 # form-field.v2 and .v3 share an identical renderer-facing shape (schema,
@@ -561,6 +564,9 @@ def _closure_question_reasons(
     *,
     resolved_members: Sequence[Mapping[str, Any]],
     by_symbol: Mapping[str, Sequence[Mapping[str, Any]]],
+    question_refs_out: list[dict[str, Any]] | None = None,
+    question_refs_by_family: Mapping[str, Sequence[Mapping[str, Any]]] | None = None,
+    question_refs_by_fact_type: Mapping[str, Sequence[Mapping[str, Any]]] | None = None,
     symbol_fact_types: Mapping[str, str] | None = None,
     later_any_arm_refs: bool = False,
     refusal_sentence: str | None = None,
@@ -629,6 +635,8 @@ def _closure_question_reasons(
 
     families: set[str] = set()
     facts: set[str] = set()
+    fact_targets: set[tuple[str, str]] = set()
+    unbound_fact_types: set[str] = set()
     extras: set[str] = set()
     unexplained_leaves: set[str] = set()
     unexplained_shapes: set[str] = set()
@@ -640,6 +648,37 @@ def _closure_question_reasons(
     for member in resolved_members:
         members_by_id.setdefault(str(member.get("id")), []).append(member)
     owned_meanings: dict[int, Mapping[str, str]] = {}
+
+    question_target_ids = {
+        fact_type: {
+            str(reference.get("targetFactId"))
+            for reference in references
+            if isinstance(reference.get("targetFactId"), str)
+        }
+        for fact_type, references in (question_refs_by_fact_type or {}).items()
+    }
+
+    def record_input_fact(key: str, bound: str) -> bool:
+        """Record a declared question while retaining any exact answer target."""
+        if bound in input_questions:
+            frames[-1].facts.add(bound)
+            if key in question_target_ids.get(bound, set()):
+                frames[-1].fact_targets.add((bound, key))
+            elif key == bound or not key.startswith(bound + "|"):
+                # A package binding symbol names only a type. It is safe to
+                # attach a group later only if that type has one target.
+                frames[-1].unbound_fact_types.add(bound)
+            return True
+        # Some rules record the canonical fact id directly in `missing`
+        # instead of a package binding symbol. Recover its type only from the
+        # exact known type prefix, then keep the complete fact id for linking.
+        for fact_type in sorted(input_questions, key=len, reverse=True):
+            if key.startswith(fact_type + "|"):
+                frames[-1].facts.add(fact_type)
+                if key in question_target_ids.get(fact_type, set()):
+                    frames[-1].fact_targets.add((fact_type, key))
+                return True
+        return False
 
     def owned_by(member: Mapping[str, Any]) -> Mapping[str, str]:
         found = owned_meanings.get(id(member))
@@ -675,7 +714,7 @@ def _closure_question_reasons(
     # and the same additions under any other ``seen`` that holds none of the
     # keys it examined, so shared rows are walked once. A False walk ends the
     # whole closure, so it is never reused. The memo lives only for this call.
-    root = _WalkFrame(families, facts, extras)
+    root = _WalkFrame(families, facts, extras, fact_targets, unbound_fact_types)
     frames: list[_WalkFrame] = [root]
     memo: dict[tuple[str, int], _WalkFrame] = {}
 
@@ -739,8 +778,7 @@ def _closure_question_reasons(
                         all_explained = False
                 continue
             bound = (symbol_fact_types or {}).get(key, key)
-            if bound in input_questions:
-                frame.facts.add(bound)
+            if record_input_fact(key, bound):
                 continue
             # The later arm of a blocked count is recorded on this same
             # SOURCE_SET_UNCLOSED row. When that ref is not itself a question,
@@ -775,8 +813,7 @@ def _closure_question_reasons(
             blocked = [r for r in by_symbol.get(key, []) if r.get("disposition") == "blocked"]
             if not blocked:
                 bound = (symbol_fact_types or {}).get(key, key)
-                if current.get("code") == "DEPENDENCY_ABSENT" and bound in input_questions:
-                    frame.facts.add(bound)
+                if current.get("code") == "DEPENDENCY_ABSENT" and record_input_fact(key, bound):
                     continue
                 return False
             if not all(walk_plain(r, seen | {key}) for r in blocked):
@@ -825,22 +862,349 @@ def _closure_question_reasons(
         and not any(reason.get("sentence") == refusal_sentence for reason in reasons)
     ):
         reasons = [{"sentence": refusal_sentence}, *reasons]
+    if question_refs_out is not None and reasons:
+        reason_indices: dict[str, list[int]] = {}
+        for index, reason in enumerate(reasons):
+            sentence = reason.get("sentence")
+            if isinstance(sentence, str):
+                reason_indices.setdefault(sentence, []).append(index)
+        for family in sorted(families):
+            question = questions.get(family)
+            if question is None or question not in reason_indices:
+                continue
+            references = (question_refs_by_family or {}).get(family, ())
+            target_ids = {
+                str(reference.get("targetFactId"))
+                for reference in references
+                if isinstance(reference.get("targetFactId"), str)
+            }
+            # The family id does not identify a closure fact when several
+            # horizon targets are present. Do not link every scope from a
+            # type-level family trace unless its answer target is unique.
+            if len(target_ids) != 1:
+                continue
+            for reference in references:
+                if reference.get("question") == question:
+                    question_refs_out.append({
+                        "groupId": reference["groupId"],
+                        "question": question,
+                        "reasonIndices": reason_indices[question],
+                        "scope": reference["scope"],
+                    })
+        for fact_type in sorted(facts):
+            question = input_questions.get(fact_type)
+            if question is None or question not in reason_indices:
+                continue
+            references = (question_refs_by_fact_type or {}).get(fact_type, ())
+            exact_targets = {
+                target_id for target_type, target_id in fact_targets
+                if target_type == fact_type
+            }
+            if fact_type in unbound_fact_types:
+                available_targets = {
+                    str(reference.get("targetFactId"))
+                    for reference in references
+                    if isinstance(reference.get("targetFactId"), str)
+                }
+                if len(available_targets) == 1:
+                    exact_targets |= available_targets
+            for reference in references:
+                if reference.get("targetFactId") not in exact_targets:
+                    continue
+                if reference.get("question") == question:
+                    question_refs_out.append({
+                        "groupId": reference["groupId"],
+                        "question": question,
+                        "reasonIndices": reason_indices[question],
+                        "scope": reference["scope"],
+                    })
     return reasons
+
+
+def _question_group_id(fact_type_id: str, fact_type_version: str, keys: Sequence[Mapping[str, str]]) -> str:
+    identity = {
+        "factTypeId": fact_type_id,
+        "factTypeVersion": fact_type_version,
+        "identityKeys": [{"name": item["name"], "value": item["value"]} for item in keys],
+    }
+    canonical = json.dumps(identity, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
+    return "question-" + hashlib.sha256(canonical.encode("utf-8")).hexdigest()
+
+
+def _question_group_catalog(
+    resolved_members: Sequence[Mapping[str, Any]],
+    state: FindingState,
+    *,
+    current_finding_ids: frozenset[str] | None,
+    authoritative_acts: Sequence[Mapping[str, Any]] | None,
+) -> tuple[dict[str, dict[str, Any]], dict[str, list[dict[str, Any]]], dict[str, list[dict[str, Any]]]]:
+    """Build typed question groups from declared producers and current fact identities."""
+    fact_map = facts_of(state.fact_state)
+    current_ids = current_finding_ids
+    if current_ids is None:
+        from packages.kernel.currency import compute_currency
+
+        current_ids = compute_currency(state).current_finding_ids
+    current_findings: dict[str, list[Mapping[str, Any]]] = {}
+    historical_findings: dict[str, list[Mapping[str, Any]]] = {}
+    for finding_id, finding in state.findings.items():
+        fact_id = finding.get("fact_id")
+        if not isinstance(fact_id, str):
+            continue
+        historical_findings.setdefault(fact_id, []).append(finding)
+        if finding_id in current_ids:
+            current_findings.setdefault(fact_id, []).append(finding)
+
+    def answer_status(fact_id: str) -> str:
+        if current_findings.get(fact_id):
+            return "current"
+        if historical_findings.get(fact_id):
+            return "stale"
+        return "unanswered"
+
+    fact_types = state.fact_state.fact_types
+    facts_by_type: dict[str, list[Any]] = {}
+    for fact in fact_map.values():
+        facts_by_type.setdefault(fact.fact_type_id, []).append(fact)
+
+    groups: dict[str, dict[str, Any]] = {}
+    by_family: dict[str, list[dict[str, Any]]] = {}
+    by_fact_type: dict[str, list[dict[str, Any]]] = {}
+
+    def add_target(
+        *,
+        fact: Any,
+        fact_type_version: str,
+        question: str,
+        producer: Mapping[str, Any],
+        scope: Mapping[str, str],
+        family_id: str | None = None,
+        fact_type_id: str | None = None,
+    ) -> None:
+        identity_keys = [{"name": name, "value": value} for name, value in fact.keys]
+        expected_fact_id = fact_id_for(fact.fact_type_id, tuple((key["name"], key["value"]) for key in identity_keys))
+        if fact.fact_id != expected_fact_id:
+            raise PresentationModelError("question target has a noncanonical fact identity")
+        group_id = _question_group_id(fact.fact_type_id, fact_type_version, identity_keys)
+        answer_target = {
+            "factTypeId": fact.fact_type_id,
+            "factTypeVersion": fact_type_version,
+            "factId": fact.fact_id,
+            "identityKeys": identity_keys,
+        }
+        statement_label = _statement_label(dict(fact.keys), state)
+        if "statement" in statement_label or "lender" in statement_label:
+            answer_target["statementLabel"] = statement_label
+        group = groups.get(group_id)
+        if group is None:
+            group = {
+                "id": group_id,
+                "question": question,
+                "answerTarget": answer_target,
+                "producers": [],
+            }
+            groups[group_id] = group
+        elif group["question"] != question or group["answerTarget"] != answer_target:
+            raise PresentationModelError("question producers disagree for one answer target")
+        producer_ref = {
+            "schema": str(producer["schema"]),
+            "id": str(producer["id"]),
+            "version": str(producer["version"]),
+        }
+        if producer_ref not in group["producers"]:
+            group["producers"].append(producer_ref)
+            group["producers"].sort(key=lambda item: (item["schema"], item["id"], item["version"]))
+        reference = {
+            "groupId": group_id,
+            "question": question,
+            "scope": dict(scope),
+            "targetFactId": fact.fact_id,
+        }
+        if family_id is not None:
+            by_family.setdefault(family_id, []).append(reference)
+        if fact_type_id is not None:
+            by_fact_type.setdefault(fact_type_id, []).append(reference)
+
+    def type_version(fact_type_id: str, pinned_version: Any, *, owner: str) -> str | None:
+        fact_type = fact_types.get(fact_type_id)
+        if not isinstance(fact_type, Mapping):
+            return None
+        version = pinned_version if isinstance(pinned_version, str) else fact_type.get("version")
+        if not isinstance(version, str) or version != fact_type.get("version"):
+            raise PresentationModelError(f"{owner} answer-target version is not current")
+        return version
+
+    mappings = [member for member in resolved_members if str(member.get("schema", "")).startswith("source-closure-mapping.")]
+    stale_group_families: frozenset[str] = frozenset()
+    if authoritative_acts is not None and mappings:
+        from packages.derivation.source_authority import stale_group_families as _stale_group_families
+
+        stale_group_families = _stale_group_families(authoritative_acts, mappings)
+
+    for member in resolved_members:
+        schema = member.get("schema")
+        question = member.get("closure_question") if isinstance(schema, str) and schema.startswith("source-closure-mapping.") else member.get("question")
+        if not isinstance(question, str) or not question.strip():
+            continue
+        producer = {key: member.get(key) for key in ("schema", "id", "version")}
+        if not all(isinstance(value, str) and value for value in producer.values()):
+            raise PresentationModelError("question producer identity is incomplete")
+
+        if isinstance(schema, str) and schema.startswith("source-closure-mapping."):
+            target_ref = member.get("closure_fact_type")
+            target_id = target_ref.get("id") if isinstance(target_ref, Mapping) else target_ref
+            target_pin_version = target_ref.get("version") if isinstance(target_ref, Mapping) else None
+            if not isinstance(target_id, str) or not target_id:
+                continue
+            version = type_version(target_id, target_pin_version, owner=str(member.get("id")))
+            if version is None:
+                continue
+            candidates = facts_by_type.get(target_id, [])
+            if schema == "source-closure-mapping.v4":
+                family_rows = member.get("families")
+                if not isinstance(family_rows, list):
+                    continue
+                for fact in candidates:
+                    base_status = answer_status(fact.fact_id)
+                    for family_row in family_rows:
+                        family = family_row.get("family") if isinstance(family_row, Mapping) else None
+                        if not isinstance(family, Mapping) or not isinstance(family.get("id"), str):
+                            continue
+                        family_id = family["id"]
+                        scope = {
+                            "kind": "family",
+                            "id": family_id,
+                            "version": str(family.get("version", "")),
+                            "status": "stale" if family_id in stale_group_families and base_status == "current" else base_status,
+                        }
+                        horizon_ids = sorted(
+                            horizon_id for chain, horizon_id in state.horizon_state.current_by_chain.items()
+                            if chain[0] == family_id and chain[1] == family.get("version")
+                        )
+                        if len(horizon_ids) == 1:
+                            scope["horizonId"] = horizon_ids[0]
+                        add_target(
+                            fact=fact, fact_type_version=version, question=question,
+                            producer=producer, scope=scope, family_id=family_id,
+                        )
+            else:
+                family = member.get("family")
+                horizon_key = member.get("closure_horizon_key")
+                if not isinstance(family, Mapping) or not isinstance(family.get("id"), str) or not isinstance(family.get("version"), str) or not isinstance(horizon_key, str):
+                    continue
+                family_id = family["id"]
+                for chain, horizon_id in state.horizon_state.current_by_chain.items():
+                    if chain[0] != family_id or chain[1] != family["version"]:
+                        continue
+                    current_fact = next((fact for fact in candidates if dict(fact.keys).get(horizon_key) == horizon_id), None)
+                    if current_fact is None:
+                        continue
+                    status = answer_status(current_fact.fact_id)
+                    if status != "current":
+                        old_horizons = [
+                            old_id for old_id, lifecycle in state.horizon_state.horizons.items()
+                            if lifecycle.horizon.get("family") == dict(family)
+                            and lifecycle.horizon.get("scope") == dict(chain[2])
+                            and lifecycle.status != "current"
+                        ]
+                        current_keys = dict(current_fact.keys)
+                        for old_horizon in old_horizons:
+                            old_keys = dict(current_keys)
+                            old_keys[horizon_key] = old_horizon
+                            old_fact_id = fact_id_for(target_id, tuple((name, old_keys[name]) for name, _ in current_fact.keys))
+                            if historical_findings.get(old_fact_id):
+                                status = "stale"
+                                break
+                    scope = {
+                        "kind": "family", "id": family_id,
+                        "version": family["version"], "horizonId": horizon_id,
+                        "status": status,
+                    }
+                    add_target(
+                        fact=current_fact, fact_type_version=version, question=question,
+                        producer=producer, scope=scope, family_id=family_id,
+                    )
+            continue
+
+        fact_type = member.get("fact_type")
+        target_id = fact_type.get("id") if isinstance(fact_type, Mapping) else None
+        target_pin_version = fact_type.get("version") if isinstance(fact_type, Mapping) else None
+        if not isinstance(target_id, str) or not target_id:
+            continue
+        version = type_version(target_id, target_pin_version, owner=str(member.get("id")))
+        if version is None:
+            continue
+        for fact in facts_by_type.get(target_id, []):
+            scope = {"kind": "fact", "id": fact.fact_id, "status": answer_status(fact.fact_id)}
+            add_target(
+                fact=fact, fact_type_version=version, question=question,
+                producer=producer, scope=scope, fact_type_id=target_id,
+            )
+
+    for references in (*by_family.values(), *by_fact_type.values()):
+        references.sort(key=lambda item: (item["groupId"], json.dumps(item["scope"], sort_keys=True)))
+    return groups, by_family, by_fact_type
+
+
+def _finalize_question_references(
+    references: Sequence[Mapping[str, Any]], reasons: Sequence[Mapping[str, Any]],
+) -> list[dict[str, Any]]:
+    merged: dict[str, dict[str, Any]] = {}
+    for reference in references:
+        group_id = reference.get("groupId")
+        question = reference.get("question")
+        scope = reference.get("scope")
+        if not isinstance(group_id, str) or not isinstance(question, str) or not isinstance(scope, Mapping):
+            raise PresentationModelError("invalid question reference from projector")
+        target = merged.setdefault(
+            group_id,
+            {"groupId": group_id, "question": question, "scopes": [], "reasonIndices": set()},
+        )
+        if target["question"] != question:
+            raise PresentationModelError("question reference disagrees with its answer target")
+        scope_copy = dict(scope)
+        if scope_copy not in target["scopes"]:
+            target["scopes"].append(scope_copy)
+        indices = reference.get("reasonIndices")
+        if isinstance(indices, Sequence) and not isinstance(indices, (str, bytes)):
+            for index in indices:
+                if (
+                    isinstance(index, int)
+                    and not isinstance(index, bool)
+                    and 0 <= index < len(reasons)
+                    and reasons[index].get("sentence") == question
+                ):
+                    target["reasonIndices"].add(index)
+    result: list[dict[str, Any]] = []
+    for group_id, reference in sorted(merged.items()):
+        indices = sorted(reference["reasonIndices"])
+        if not indices:
+            continue
+        scopes = sorted(reference["scopes"], key=lambda scope: json.dumps(scope, sort_keys=True))
+        result.append({"groupId": group_id, "reasonIndices": indices, "scopes": scopes})
+    return result
 
 
 class _WalkFrame:
     """What one closure walk added, examined and skipped (see the walk memo)."""
 
-    __slots__ = ("families", "facts", "extras", "examined", "hits")
+    __slots__ = (
+        "families", "facts", "fact_targets", "unbound_fact_types",
+        "extras", "examined", "hits",
+    )
 
     def __init__(
         self,
         families: set[str] | None = None,
         facts: set[str] | None = None,
         extras: set[str] | None = None,
+        fact_targets: set[tuple[str, str]] | None = None,
+        unbound_fact_types: set[str] | None = None,
     ) -> None:
         self.families: set[str] = set() if families is None else families
         self.facts: set[str] = set() if facts is None else facts
+        self.fact_targets = set() if fact_targets is None else fact_targets
+        self.unbound_fact_types = set() if unbound_fact_types is None else unbound_fact_types
         self.extras: set[str] = set() if extras is None else extras
         self.examined: set[str] = set()
         self.hits: set[str] = set()
@@ -848,6 +1212,8 @@ class _WalkFrame:
     def absorb(self, other: "_WalkFrame") -> None:
         self.families |= other.families
         self.facts |= other.facts
+        self.fact_targets |= other.fact_targets
+        self.unbound_fact_types |= other.unbound_fact_types
         self.extras |= other.extras
         self.examined |= other.examined
         self.hits |= other.hits
@@ -856,7 +1222,7 @@ class _WalkFrame:
 def _reasons_beside(
     selection: Sequence[Mapping[str, Any]],
     closure: Sequence[Mapping[str, Any]],
-) -> list[dict[str, Any]]:
+) -> tuple[list[dict[str, Any]], dict[str, list[int]]]:
     """The selection reasons plus the closure questions, sorted and distinct.
 
     A closure sentence the selection already states is not repeated. Each
@@ -866,7 +1232,18 @@ def _reasons_beside(
     present = {str(reason.get("sentence")) for reason in selection}
     added = [dict(reason) for reason in closure if str(reason.get("sentence")) not in present]
     combined = [dict(reason) for reason in selection] + added
-    return sorted(combined, key=lambda reason: str(reason.get("sentence")))
+    ordered = sorted(combined, key=lambda reason: str(reason.get("sentence")))
+    closure_indices = {
+        str(reason["sentence"]): (
+            [] if str(reason.get("sentence")) in present else [
+                index for index, candidate in enumerate(ordered)
+                if candidate.get("sentence") == reason.get("sentence")
+            ]
+        )
+        for reason in closure
+        if isinstance(reason.get("sentence"), str)
+    }
+    return ordered, closure_indices
 
 
 def _is_closure_finding(finding_id: str, state: FindingState) -> bool:
@@ -4857,6 +5234,8 @@ def build_presentation_model(
     workspace_revision: int | None = None,
     symbol_fact_types: Mapping[str, str] | None = None,
     adopted_package: tuple[str, str] | None = None,
+    current_finding_ids: frozenset[str] | None = None,
+    authoritative_acts: Sequence[Mapping[str, Any]] | None = None,
 ) -> dict[str, Any]:
     """Build the presentation-model.v1 payload from coordinator-internal state only.
 
@@ -4934,6 +5313,10 @@ def build_presentation_model(
             raise PresentationModelError(f"duplicate publication finding id {finding_id!r}")
         publications_by_id[finding_id] = finding
     by_symbol = _dispositions_by_symbol(dispositions, rules_by_id)
+    question_groups, question_refs_by_family, question_refs_by_fact_type = _question_group_catalog(
+        resolved_members, state, current_finding_ids=current_finding_ids,
+        authoritative_acts=authoritative_acts,
+    )
 
     pin_labels: dict[str, str] = {}
     sections: list[dict[str, Any]] = []
@@ -4981,6 +5364,9 @@ def build_presentation_model(
         closure_options: dict[str, Any] = {
             "resolved_members": resolved_members,
             "by_symbol": by_symbol,
+            "question_refs_out": row_question_candidates,
+            "question_refs_by_family": question_refs_by_family,
+            "question_refs_by_fact_type": question_refs_by_fact_type,
             "symbol_fact_types": symbol_fact_types,
             "later_any_arm_refs": names_later_refs,
             "refusal_sentence": refusal_sentence,
@@ -5011,6 +5397,7 @@ def build_presentation_model(
             _require_declared_field_citation_chain(field, row, rules_by_id, citations)
         producer = rules_by_id.get(str(row.get("artifact_id")))
         selection_attached = False
+        row_question_candidates: list[dict[str, Any]] = []
         if (resolved["disposition"] == "blocked" and producer is not None
                 and producer.get("schema") in ("rule-artifact.v13", "rule-artifact.v14", "rule-artifact.v15", "rule-artifact.v16", "rule-artifact.v17") and "selection" in producer):
             reasons = _selection_blocked_reasons(
@@ -5030,7 +5417,21 @@ def build_presentation_model(
             # question is named beside that reason.
             closure_reasons = field_closure_reasons(field, row)
             if closure_reasons:
-                resolved["reasons"] = _reasons_beside(resolved["reasons"], closure_reasons)
+                selection_reasons = resolved["reasons"]
+                combined_reasons, closure_reason_indices = _reasons_beside(
+                    selection_reasons, closure_reasons,
+                )
+                resolved["reasons"] = combined_reasons
+                for reference in row_question_candidates:
+                    reference["reasonIndices"] = closure_reason_indices.get(
+                        str(reference.get("question")), [],
+                    )
+        if row_question_candidates:
+            question_refs = _finalize_question_references(
+                row_question_candidates, resolved.get("reasons", []),
+            )
+            if question_refs:
+                resolved["questionRefs"] = question_refs
         if row["disposition"] == "published":
             try:
                 graph_builder.add_root(str(row["finding_id"]), role="output", authorization=authorization)
@@ -5079,6 +5480,11 @@ def build_presentation_model(
         for finding in untranslated_source_findings(state, resolved_members)
     ]
 
+    used_question_group_ids = {
+        reference["groupId"]
+        for section in sections
+        for reference in section["resolved"].get("questionRefs", [])
+    }
     model = {
         "schema": PRESENTATION_MODEL_VERSION,
         "runId": run_id,
@@ -5090,6 +5496,10 @@ def build_presentation_model(
         "explanationGraph": graph_builder.to_dict(),
         "sectionRoots": section_roots,
         "dispositionNodes": disposition_nodes,
+        "questionGroups": [
+            question_groups[group_id]
+            for group_id in sorted(used_question_group_ids)
+        ],
     }
     if provenance_groups:
         model["provenanceGroups"] = provenance_groups
@@ -5473,21 +5883,180 @@ def project_presentation_v1(model: Mapping[str, Any]) -> dict[str, Any]:
     """Return the named historical view without inventing graph data."""
     validate_presentation_model(model)
     result = dict(model)
-    if result["schema"] == PRESENTATION_MODEL_VERSION:
+    if result["schema"] in {V2_PRESENTATION_MODEL_VERSION, PRESENTATION_MODEL_VERSION}:
         result.pop("explanationGraph")
         result.pop("sectionRoots")
         result.pop("dispositionNodes")
+        if result["schema"] == PRESENTATION_MODEL_VERSION:
+            result.pop("questionGroups")
+            projected_sections = []
+            for section in result["sections"]:
+                row = dict(section)
+                resolved = dict(row["resolved"])
+                resolved.pop("questionRefs", None)
+                row["resolved"] = resolved
+                projected_sections.append(row)
+            result["sections"] = projected_sections
         result["schema"] = LEGACY_PRESENTATION_MODEL_VERSION
     return result
 
 
+def _validate_question_groups(model: Mapping[str, Any]) -> None:
+    groups = model.get("questionGroups")
+    if not isinstance(groups, list):
+        raise PresentationModelError("$.questionGroups: expected a list")
+    by_id: dict[str, Mapping[str, Any]] = {}
+    by_target: set[tuple[str, str, str]] = set()
+    for index, group in enumerate(groups):
+        path = f"$.questionGroups[{index}]"
+        _require_keys(group, frozenset({"id", "question", "answerTarget", "producers"}), frozenset(), path)
+        if not isinstance(group["id"], str) or not group["id"] or group["id"] in by_id:
+            raise PresentationModelError(f"{path}.id: expected unique non-empty string")
+        if not isinstance(group["question"], str) or not group["question"].strip():
+            raise PresentationModelError(f"{path}.question: expected non-empty string")
+        target = group["answerTarget"]
+        tp = f"{path}.answerTarget"
+        _require_keys(
+            target,
+            frozenset({"factTypeId", "factTypeVersion", "factId", "identityKeys"}),
+            frozenset({"statementLabel"}),
+            tp,
+        )
+        for key in ("factTypeId", "factTypeVersion", "factId"):
+            if not isinstance(target[key], str) or not target[key]:
+                raise PresentationModelError(f"{tp}.{key}: expected non-empty string")
+        keys = target["identityKeys"]
+        if not isinstance(keys, list) or not keys:
+            raise PresentationModelError(f"{tp}.identityKeys: expected a non-empty list")
+        key_names: set[str] = set()
+        identity: list[tuple[str, str]] = []
+        for key_index, key in enumerate(keys):
+            kp = f"{tp}.identityKeys[{key_index}]"
+            _require_keys(key, frozenset({"name", "value"}), frozenset(), kp)
+            name, value = key["name"], key["value"]
+            if not isinstance(name, str) or not name or name in key_names:
+                raise PresentationModelError(f"{kp}.name: expected a unique non-empty string")
+            if not isinstance(value, str) or not value:
+                raise PresentationModelError(f"{kp}.value: expected non-empty string")
+            key_names.add(name)
+            identity.append((name, value))
+        statement_label = target.get("statementLabel")
+        if statement_label is not None:
+            label_path = f"{tp}.statementLabel"
+            _require_keys(
+                statement_label,
+                frozenset(),
+                frozenset({"lender", "statement", "taxYear"}),
+                label_path,
+            )
+            if (
+                not isinstance(statement_label, Mapping)
+                or not (statement_label.get("statement") or statement_label.get("lender"))
+                or any(not isinstance(value, str) or not value for value in statement_label.values())
+            ):
+                raise PresentationModelError(f"{label_path}: expected safe statement labels")
+        try:
+            canonical_fact_id = fact_id_for(target["factTypeId"], tuple(identity))
+        except (TypeError, ValueError) as exc:
+            raise PresentationModelError(f"{tp}: malformed identity keys") from exc
+        if target["factId"] != canonical_fact_id:
+            raise PresentationModelError(f"{tp}.factId: does not match its identity keys")
+        expected_id = _question_group_id(target["factTypeId"], target["factTypeVersion"], keys)
+        if group["id"] != expected_id:
+            raise PresentationModelError(f"{path}.id: does not match answer target")
+        target_key = (target["factTypeId"], target["factTypeVersion"], target["factId"])
+        if target_key in by_target:
+            raise PresentationModelError(f"{path}.answerTarget: duplicate group for answer target")
+        by_target.add(target_key)
+        producers = group["producers"]
+        if not isinstance(producers, list) or not producers:
+            raise PresentationModelError(f"{path}.producers: expected a non-empty list")
+        seen_producers: set[tuple[str, str, str]] = set()
+        for producer_index, producer in enumerate(producers):
+            pp = f"{path}.producers[{producer_index}]"
+            _require_keys(producer, frozenset({"schema", "id", "version"}), frozenset(), pp)
+            if any(not isinstance(producer[key], str) or not producer[key] for key in ("schema", "id", "version")):
+                raise PresentationModelError(f"{pp}: expected non-empty producer identity strings")
+            producer_key = (producer["schema"], producer["id"], producer["version"])
+            if producer_key in seen_producers:
+                raise PresentationModelError(f"{pp}: duplicate producer reference")
+            seen_producers.add(producer_key)
+        by_id[group["id"]] = group
+
+    referenced_groups: set[str] = set()
+    for section_index, section in enumerate(model.get("sections", [])):
+        if not isinstance(section, Mapping) or not isinstance(section.get("resolved"), Mapping):
+            continue
+        resolved = section["resolved"]
+        refs = resolved.get("questionRefs")
+        if refs is None:
+            continue
+        rp = f"$.sections[{section_index}].resolved.questionRefs"
+        if resolved.get("disposition") != "blocked" or not isinstance(refs, list) or not refs:
+            raise PresentationModelError(f"{rp}: expected non-empty references on a blocked row")
+        reasons = resolved.get("reasons")
+        if not isinstance(reasons, list) or not reasons:
+            raise PresentationModelError(f"{rp}: linked reasons are missing")
+        row_group_ids: set[str] = set()
+        for reference_index, reference in enumerate(refs):
+            p = f"{rp}[{reference_index}]"
+            _require_keys(reference, frozenset({"groupId", "reasonIndices", "scopes"}), frozenset(), p)
+            group_id = reference["groupId"]
+            group = by_id.get(group_id) if isinstance(group_id, str) else None
+            if group is None or group_id in row_group_ids:
+                raise PresentationModelError(f"{p}.groupId: unknown or duplicate group reference")
+            row_group_ids.add(group_id)
+            referenced_groups.add(group_id)
+            indices = reference["reasonIndices"]
+            if not isinstance(indices, list) or not indices:
+                raise PresentationModelError(f"{p}.reasonIndices: expected a non-empty list")
+            seen_indices: set[int] = set()
+            for reason_index in indices:
+                if not isinstance(reason_index, int) or isinstance(reason_index, bool) or reason_index < 0 or reason_index >= len(reasons) or reason_index in seen_indices:
+                    raise PresentationModelError(f"{p}.reasonIndices: invalid reason index")
+                if not isinstance(reasons[reason_index], Mapping) or reasons[reason_index].get("sentence") != group["question"]:
+                    raise PresentationModelError(f"{p}.reasonIndices: linked reason differs from question")
+                seen_indices.add(reason_index)
+            scopes = reference["scopes"]
+            if not isinstance(scopes, list) or not scopes:
+                raise PresentationModelError(f"{p}.scopes: expected a non-empty list")
+            seen_scopes: set[tuple[str, str, str, str]] = set()
+            for scope_index, scope in enumerate(scopes):
+                sp = f"{p}.scopes[{scope_index}]"
+                if not isinstance(scope, Mapping):
+                    raise PresentationModelError(f"{sp}: expected an object")
+                kind = scope.get("kind")
+                expected = {"kind", "id", "status"} if kind == "fact" else {"kind", "id", "version", "status"}
+                optional = {"horizonId"} if kind == "family" else set()
+                _require_keys(scope, frozenset(expected), frozenset(optional), sp)
+                if not isinstance(scope["id"], str) or not scope["id"]:
+                    raise PresentationModelError(f"{sp}.id: expected non-empty string")
+                if kind == "family" and (not isinstance(scope["version"], str) or not scope["version"]):
+                    raise PresentationModelError(f"{sp}.version: expected non-empty string")
+                if "horizonId" in scope and (not isinstance(scope["horizonId"], str) or not scope["horizonId"]):
+                    raise PresentationModelError(f"{sp}.horizonId: expected non-empty string")
+                if kind not in {"family", "fact"} or scope["status"] not in {"current", "stale", "unanswered"}:
+                    raise PresentationModelError(f"{sp}: invalid scope kind or status")
+                if kind == "fact" and scope["id"] != group["answerTarget"]["factId"]:
+                    raise PresentationModelError(f"{sp}.id: fact scope differs from answer target")
+                scope_key = (str(kind), str(scope["id"]), str(scope.get("version", "")), str(scope.get("horizonId", "")))
+                if scope_key in seen_scopes:
+                    raise PresentationModelError(f"{sp}: duplicate scope")
+                seen_scopes.add(scope_key)
+    if referenced_groups != set(by_id):
+        raise PresentationModelError("$.questionGroups: every group must be linked from a row")
+
+
 def validate_presentation_model(model: Mapping[str, Any]) -> None:
     """Strict structural validation: unknown keys and invalid combinations reject."""
-    if model.get("schema") == PRESENTATION_MODEL_VERSION:
+    if model.get("schema") in {V2_PRESENTATION_MODEL_VERSION, PRESENTATION_MODEL_VERSION}:
+        schema_name = str(model["schema"])
         if "explanationGraph" not in model or "sectionRoots" not in model or "dispositionNodes" not in model:
             raise PresentationModelError("missing shared explanation")
         try:
-            validate_output_schema("presentation-model.v2", model)
+            validate_output_schema(schema_name, model)
+            if schema_name == PRESENTATION_MODEL_VERSION:
+                _validate_question_groups(model)
             graph = model["explanationGraph"]
             validate_graph(graph)
             if graph["run_id"] != model["runId"]:
@@ -5556,6 +6125,16 @@ def validate_presentation_model(model: Mapping[str, Any]) -> None:
         legacy.pop("explanationGraph")
         legacy.pop("sectionRoots")
         legacy.pop("dispositionNodes")
+        if schema_name == PRESENTATION_MODEL_VERSION:
+            legacy.pop("questionGroups")
+            legacy_sections = []
+            for section in legacy["sections"]:
+                row = dict(section)
+                resolved = dict(row["resolved"])
+                resolved.pop("questionRefs", None)
+                row["resolved"] = resolved
+                legacy_sections.append(row)
+            legacy["sections"] = legacy_sections
         legacy["schema"] = LEGACY_PRESENTATION_MODEL_VERSION
         validate_presentation_model(legacy)
         return

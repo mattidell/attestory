@@ -483,7 +483,8 @@ def test_unanswered_taxpayer_age_and_blindness_block(track: ModuleType) -> None:
     blind_question = _question("input-question.taxpayer-blind.v1.json")
     for section, question in ((age, age_question), (blind, blind_question)):
         assert BLOCKED in section
-        assert question in html.unescape(section)
+        assert 'href="#question-group-' in section
+        assert question in html.unescape(dom)
         assert ">not checked</p>" not in section
         assert ": not checked\"" not in section
 
