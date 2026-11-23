@@ -3,7 +3,8 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "eic-child-answers",
-  "status": "Repair chartered 2026-11-20; ADR 0087 awaits owner acceptance.",
+  "status": "Closed 2026-11-20 pending owner acceptance of ADR 0087. Core v101, registry v99, release v99.",
+  "retrospective": "docs/milestone-retrospectives/2026-11-20-eic-child-answers.md",
   "scope": [
     "when a child counted for the earned income credit is missing an answer the credit needs (age, residency or another per-child test), the saved page asks that question for that child instead of blocking the credit and refund lines with no sentence",
     "every recorded return keeps its numbers"
@@ -131,3 +132,20 @@ Decisions for the foreman are in p0.md, section 7.
    ECA-R3); two members with the same recorded label share one reason
    (ECA-R7); question polarity is recorded only in the evidence design and
    tests, not in published content (ECA-R9).
+
+## Closeout
+
+Closed 2026-11-20, pending the owner's acceptance of ADR 0087. When a child or
+relative on the earned income credit, child tax credit, other-dependent
+child or relative roster is missing an answer, the saved page now asks
+that question on every line it blocks and names the member it belongs to
+(core v101, ADR 0087). Before, 9 to 18 lines blocked with no sentence.
+The question walk follows a blocked member's subject key to that member's
+own rows. Each reason carries the member's recorded label in
+`memberLabel`. Twenty-six sourced per-member questions were added. No number, rule, refusal code or published
+schema version changed, and saved pages on earlier cores are unchanged.
+The fresh review found two questions missing conditions their own source
+lines state (the kidnapped-child rule; the online-school exclusion), and
+these were repaired before merge. Parked: answer-no questions where a
+fact is narrower than the instructions, two members sharing a label,
+and polarity recorded only outside published content.
