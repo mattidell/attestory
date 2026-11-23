@@ -1,10 +1,11 @@
 # Track 1: A Counted Child's Missing Credit Answer Is Asked (2025)
 
-Charter: `docs/reviews/eic-child-answers/charter-track1.md`. Plan:
+The probe, build and replay scripts and their raw JSON outputs named below were working artifacts and were removed at publication; the milestone's tests reproduce the behavior, and `tools/recorded_replay.py` reruns the replay.
+
+Plan:
 `docs/phases/engine-breadth/milestones/eic-child-answers.md`. ADR:
 `docs/adr/0087-question-walk-follows-roster-members.md` (proposed; built to
-its Decision). P0: `p0.md` beside this note. Source head `77aefd25` on
-milestone/eic-child-answers-2025.
+its Decision). P0: `p0.md` beside this note.
 
 ## Result
 
@@ -169,8 +170,7 @@ left silent.
 
 ## Repair
 
-Review `docs/reviews/eic-child-answers/review.md` (ECA-R1, R2, R4, R5, R6),
-charter `docs/reviews/eic-child-answers/charter-repair.md`. Core v101,
+The fresh review's findings ECA-R1, R2, R4, R5 and R6 (summarized in the retrospective). Core v101,
 registry v99 and release v99 are not on main, so they were regenerated in
 place through `track1_build.py` (validated by
 `tools/package_successor.generate_to_directory`) and keep their numbers.
