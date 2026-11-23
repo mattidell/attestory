@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.odc.child.tin",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.odc-child-tin",
+  "question": "Does this child have a social security number (SSN), individual taxpayer identification number (ITIN), or adoption taxpayer identification number (ATIN) issued on or before the due date of your 2025 return (including extensions)? Answer yes if the child has one, or if you apply for an ITIN or ATIN for the child on or before that date. Answer no if the child has none of these numbers.",
+  "schema": "input-question.v1",
+  "version": "v1"
+}

@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.odc.dependent.not-joint-return",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.odc-dependent-not-joint-return",
+  "question": "Did this person file a joint return for 2025, other than one filed only to claim a refund of withheld income tax or estimated tax paid? Answer yes if so. Answer no if the person did not file a joint return, including if the person was married and filed separately, or filed one only to claim such a refund.",
+  "schema": "input-question.v1",
+  "version": "v1"
+}

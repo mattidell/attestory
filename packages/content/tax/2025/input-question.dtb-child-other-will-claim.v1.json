@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.dtb.child.other-will-claim",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.dtb-child-other-will-claim",
+  "question": "Will the other person claim this child as a qualifying child on their 2025 tax return? Answer yes if they will claim the child, or if you do not know. Answer no if they will not.",
+  "schema": "input-question.v1",
+  "version": "v1"
+}

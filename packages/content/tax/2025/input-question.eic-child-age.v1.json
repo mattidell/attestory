@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.eic.child.age",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.eic-child-age",
+  "question": "Does this child meet the age test for the earned income credit? Answer yes if, at the end of 2025, the child was under age 19 and younger than you (or your spouse if you file a joint return); or was under age 24, a full-time student, and younger than you (or your spouse if you file a joint return); or was any age and permanently and totally disabled. A full-time student is a child who during any part of 5 calendar months of 2025 was enrolled as a full-time student at a school or took a full-time, on-farm training course given by a school or a state, county, or local government agency. A school includes a technical, trade, or mechanical school. It doesn't include an on-the-job training course, correspondence school, or school offering courses only through the Internet. A person is permanently and totally disabled if, at any time in 2025, the person couldn't engage in any substantial gainful activity because of a physical or mental condition and a doctor has determined that this condition has lasted or can be expected to last continuously for at least a year, or can be expected to lead to death. Answer no if none of these applies.",
+  "schema": "input-question.v1",
+  "version": "v1"
+}

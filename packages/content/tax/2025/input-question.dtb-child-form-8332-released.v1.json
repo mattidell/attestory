@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.dtb.child.form-8332-released",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.dtb-child-form-8332-released",
+  "question": "Does the special rule for children of divorced or separated parents apply to this child for 2025 through a release of the claim to the child: the custodial parent signs Form 8332 or a substantially similar statement that they won't claim the child as a dependent for 2025 (or, for a decree or agreement that went into effect after 1984 and before 2009, certain pages from it), or a pre-1985 decree of divorce or separate maintenance or written separation agreement provides that the noncustodial parent can claim the child and the noncustodial parent provides at least $600 for the child's support during 2025? Answer yes if such a release applies. Answer no if none does.",
+  "schema": "input-question.v1",
+  "version": "v1"
+}
