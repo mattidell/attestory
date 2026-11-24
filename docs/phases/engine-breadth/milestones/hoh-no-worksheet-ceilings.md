@@ -3,8 +3,8 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "hoh-no-worksheet-ceilings",
-  "status": "Open 2026-11-24. Track 1 done; closeout next.",
-  "retrospective": null,
+  "status": "Closed 2026-11-24. Core v104, registry v102, release v102.",
+  "retrospective": "docs/milestone-retrospectives/2026-11-24-hoh-no-worksheet-ceilings.md",
   "scope": [
     "after a head of household or qualifying surviving spouse 'no' (the filer does not meet that status's tests), the Qualified Dividends and Capital Gain Tax Worksheet lines 6 and 13 do not show that status's ceiling, and every line that uses them gets the answer the 2025 instructions give for that filer",
     "every other recorded return keeps its numbers"
@@ -149,3 +149,15 @@ v104, registry v102, release v102, from published v103).
   refused status publishing its ceiling, a fallback to the single ceiling,
   and a control status blocking. The fast lane passed (1,979 passed, 8
   skipped, 5,997 subtests). mypy reported no issues in 543 source files.
+
+## Closeout
+
+Closed 2026-11-24. Core v104 (registry v102, release v102) publishes
+Qualified Dividends and Capital Gain Tax Worksheet lines 6 and 13 v2: a
+claimed head of household or qualifying surviving spouse whose status
+tests are refused or unanswered blocks both lines and names the same answer
+standard-deduction line 3 names, instead of showing that status's ceiling.
+A "yes", and single, joint and separate filers, keep the 2025 ceilings. The
+lines that read the ceilings were already blocked, so no amount changes;
+the page no longer shows a ceiling the filer is not entitled to. The 775
+recorded lists replay with no number changed.
