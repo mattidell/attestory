@@ -8,7 +8,7 @@ each finding's repair is in scope). Do not read governance.
 
 ## Scope
 
-1. **Badges and trace words (R1).** Apply Decision 8's words. Update
+1. **Badges and trace words (R1).** Apply Decision 8's words.
    Record the final words in
    track1.md.
 2. **Code-chosen sentences (R2).** Enumerate every blocked code that a
