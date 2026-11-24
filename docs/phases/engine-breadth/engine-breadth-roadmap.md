@@ -1180,6 +1180,16 @@ The `eic.age-25-under-65` title omits age at death, but no filer or auditor
 surface shows it, and the question a filer sees already states age at
 death. Kept parked with a safe route recorded. No package change.
 
+## Bounded return — A Refused Head of Household Status Does Not Set the Worksheet Ceilings (2025)
+
+[Plan](milestones/hoh-no-worksheet-ceilings.md); retrospective:
+`docs/milestone-retrospectives/2026-11-24-hoh-no-worksheet-ceilings.md`.
+
+Core v104 (registry v102, release v102) blocks Qualified Dividends and
+Capital Gain Tax Worksheet lines 6 and 13 when a claimed head of household
+or qualifying surviving spouse status is refused or unanswered, instead of
+showing that status's ceiling. No amount changed.
+
 ## Saved-page observation — Mortgage and Sales (2025)
 
 [Plan](milestones/sale-page-observation.md); retrospective:
@@ -1274,10 +1284,6 @@ delivers an item removes it.
   the question also counts age at death in 2025 (EAQ-R7). No surface shows
   the title today; if one does, a bundle successor that keeps fact type
   version v1 keeps saved answers (eic-age-title, closed on P0).
-- After a head of household or surviving spouse "no", the Qualified
-  Dividends and Capital Gain Tax Worksheet lines 6 and 13 still show that
-  status's ceiling; every line that uses them blocks
-  (hoh-qualifying-person HOH-R5).
 - The covered-flag refusal code sits in `missing` as
   `BASIS_NOT_REPORTED_ON_COVERED`; a derivation-record successor would put
   it on the row.

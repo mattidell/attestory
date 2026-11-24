@@ -274,6 +274,8 @@ def named_covered_flag_refusal_maps() -> dict[tuple[str, str], dict[str, str]]:
         ("tax.us.2025.package.core-calculations", "v102"): dict(COVERED_FLAG_REFUSAL_OBJECTS),
         # Core v103 asks Step 3 question 3 of a head of household with a qualifying child and carries v102's map.
         ("tax.us.2025.package.core-calculations", "v103"): dict(COVERED_FLAG_REFUSAL_OBJECTS),
+        # Core v104 blocks the preferential ceilings when a claimed head of household or qualifying surviving spouse does not meet that status's tests, and carries v103's map.
+        ("tax.us.2025.package.core-calculations", "v104"): dict(COVERED_FLAG_REFUSAL_OBJECTS),
     }
 
 
@@ -838,6 +840,17 @@ def domain_package_companion_declarations() -> dict[tuple[str, str], dict[str, A
         },
         # Core v103 asks Step 3 question 3 of a head of household with a qualifying child and carries v102's declaration.
         ("tax.us.2025.package.core-calculations", "v103"): {
+            "presence_pairs": {
+                **gambling["presence_pairs"],
+                **noncovered_scalar_presence_pairs(),
+                **no1099b_scalar_presence_pairs(),
+                **code_b_scalar_presence_pairs(),
+                **covered_scalar_presence_pairs(),
+            },
+            "value_domains": dict(gambling["value_domains"]),
+        },
+        # Core v104 blocks the preferential ceilings when a claimed head of household or qualifying surviving spouse does not meet that status's tests, and carries v103's declaration.
+        ("tax.us.2025.package.core-calculations", "v104"): {
             "presence_pairs": {
                 **gambling["presence_pairs"],
                 **noncovered_scalar_presence_pairs(),

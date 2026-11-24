@@ -48,6 +48,10 @@ WORKSHEET_CAP = 6 * 1024
 WORKSHEET_LINES = (4, 5, *range(6, 26))
 WORKSHEET_NAMES = {
     f"rule.qdcg-worksheet.line-{number}.json" for number in WORKSHEET_LINES
+} | {
+    # Core v104 successors. The unversioned v1 files stay published history.
+    "rule.qdcg-worksheet.line-6.v2.json",
+    "rule.qdcg-worksheet.line-13.v2.json",
 }
 
 # Named by the earned-income guard in addition to the rule.eic-*.json glob.
