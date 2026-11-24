@@ -1125,6 +1125,19 @@ On all 691 rendered recorded lists no engine id or enum is in the text a
 filer reads first. Page and tests only; the model is unchanged on all 775
 lists.
 
+## Bounded return — A Child Without a Valid SSN Routes the Earned Income Credit (2025)
+
+[Plan](milestones/eic-no-ssn-child.md); retrospective:
+`docs/milestone-retrospectives/2026-11-23-eic-no-ssn-child.md`.
+
+Core v102 (registry v100, release v100) counts a qualifying child without a
+valid SSN as a qualifying child for the earned income credit's status,
+separated-spouse and Step 4 tests, for every filing status, while the
+amount column counts only children with a valid SSN (Schedule EIC: such a
+filer "can claim the self-only EIC"). A separated married filer whose
+children all lack an SSN gets the self-only credit instead of $0. No
+recorded number changed.
+
 ## Saved-page observation — Mortgage and Sales (2025)
 
 [Plan](milestones/sale-page-observation.md); retrospective:
@@ -1217,10 +1230,9 @@ delivers an item removes it.
   to another; the filer is asked both.
 - The `eic.age-25-under-65` fact's title states only the birth-date range;
   the question also counts age at death in 2025 (EAQ-R7, a bundle change).
-- A qualifying child without a valid SSN is not counted for the earned
-  income credit, so a married head of household or married filing
-  separately filer with only such a child is not routed to the
-  separated-spouse test and gets $0 (hoh-eic Decision 5).
+- An unmarried head of household is asked the earned income credit's
+  separated-spouse question (its "yes" includes "not married"); the 2025
+  instructions ask it only of a married filer (eic-no-ssn-child ENS-R1).
 - After a head of household or surviving spouse "no", the Qualified
   Dividends and Capital Gain Tax Worksheet lines 6 and 13 still show that
   status's ceiling; every line that uses them blocks

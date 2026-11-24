@@ -295,11 +295,19 @@ class PackageChain(unittest.TestCase):
             "rule.form1040-lines27-31-total.v2.json",
             "rule.form1040-line32.v2.json",
         ]
-        over_5kb_formatting = ("rule.eic-gate-result.v3.json", "rule.eic-answer.no-unsupported-situations.v3.json")
+        over_5kb_formatting = (
+            "rule.eic-gate-result.v3.json",
+            "rule.eic-answer.no-unsupported-situations.v3.json",
+            "rule.eic-status-class.v3.json",
+            "rule.eic-early-stop.v3.json",
+        )
         for name in names:
             size = (CONTENT / name).stat().st_size
             # Core v99 writes the gate result v3 and the no-unsupported-situations answer v3 with indent=2; v2 of each was
             # hand-compacted (the gate result v2 re-dumped the same way is 5,944 bytes). The growth is mostly formatting.
+            # Core v102 status class v3 adds the qualifying-child-present condition for head of household
+            # (eic-no-ssn-child); that is content, 2,730 to 3,263 bytes compacted. Early stop v3 is written with
+            # indent=2 (v2 was hand-compacted; v2 re-dumped that way is 6,031 bytes) and adds the same condition.
             self.assertLessEqual(size, 7000 if name in over_5kb_formatting else 5000, name)
 
     def test_table_matches_probe_for_every_0_child_band(self) -> None:
