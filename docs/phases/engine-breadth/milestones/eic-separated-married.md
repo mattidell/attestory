@@ -1,0 +1,79 @@
+<!-- foreman-context-v1
+{
+  "version": 1,
+  "phase": "Engine Breadth",
+  "topic": "eic-separated-married",
+  "status": "Open 2026-11-23. P0 next.",
+  "retrospective": null,
+  "scope": [
+    "the earned income credit asks the separated-spouse question (Step 3 questions 4 and 5 of the 2025 Form 1040 instructions) only of a married filer whose status is head of household or married filing separately, as the instructions do",
+    "an unmarried head of household with a qualifying child is not asked it and keeps the credit the sources give",
+    "every other recorded return keeps its numbers"
+  ],
+  "non_goals": [
+    "no change to the credit tables, the other credits, or which answers an unrelated path needs",
+    "no kernel or engine change; a new question only if P0 shows the record cannot tell whether a head of household was married, and then from the 2025 instructions",
+    "no page change"
+  ],
+  "deep_reads": {
+    "planning": [
+      "docs/process/planning-and-development.md",
+      "docs/phases/engine-breadth/engine-breadth-roadmap.md#Parked work and open questions",
+      "docs/phases/engine-breadth/milestones/eic-separated-married.md"
+    ],
+    "implementation": [
+      "docs/process/planning-and-development.md",
+      "docs/phases/engine-breadth/milestones/eic-separated-married.md"
+    ],
+    "review": [
+      "docs/process/planning-and-development.md",
+      "docs/roles/qualitative-review.md",
+      "docs/phases/engine-breadth/milestones/eic-separated-married.md"
+    ],
+    "new_milestone": [
+      "docs/phases/engine-breadth/milestones/eic-separated-married.md",
+      "docs/phases/engine-breadth/engine-breadth-roadmap.md#Parked work and open questions"
+    ]
+  }
+}
+-->
+
+# The Separated-Spouse Question Is Asked Only of a Married Filer (2025)
+
+Milestone key: eic-separated-married.
+Branch: milestone/eic-separated-married-2025.
+Phase: Engine Breadth, bounded return. Opening plan: 2026-11-23.
+Starting point: the eic-no-ssn-child branch (core v102, registry v100,
+release v100; PR #301), stacked; rebased onto main once #301 merges.
+Expected target: core v103, registry v101, release v101 if content can do
+it; otherwise a P0 decision for the foreman.
+
+## What we are trying to accomplish
+
+eic-no-ssn-child parked ENS-R1. On core v101 and v102 a head of household
+with a qualifying child is asked the earned income credit's
+separated-spouse question, whose "yes" includes "not married at the end of
+2025". The 2025 instructions ask Step 3 questions 4 and 5 only of "a
+married taxpayer whose filing status is married filing separately or head
+of household" (Step 3 question 3). An unmarried head of household who
+answers the question as worded "no" (they were not separated; they were
+never married) gets $0. The record may already say whether the filer was
+married (for example the head-of-household or not-married answers); if it
+does, the question can be skipped for an unmarried filer.
+
+## Stages
+
+1. **P0.** Quote Step 3 questions 3 to 5 and the special rule for
+   separated spouses (2025 Form 1040 instructions, line 27a) and the
+   matching Publication 596 text. Trace published core v102 on synthetic
+   demo.* returns: head of household married or not married, with a
+   qualifying child with and without a valid SSN, separated or not; and
+   married filing separately. Name which recorded answer, if any, already
+   says the head of household was married at the end of 2025, and where
+   it comes from. Find a content route that asks questions 4 and 5 only of
+   a married filer; if the record cannot tell, name the smallest question
+   from the instructions and stop. Full-surface replay of a scratch
+   successor against v102 with expected changes declared.
+2. **Decisions** by the foreman.
+3. **Track 1.** Publish it.
+4. **Fresh review**, repair, closeout.
