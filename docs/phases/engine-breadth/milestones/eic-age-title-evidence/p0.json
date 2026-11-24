@@ -1,0 +1,804 @@
+{
+ "answered": {
+  "age_question_groups": [],
+  "calculation_view_present": false,
+  "graph_nodes": [
+   {
+    "key_kind": "derived",
+    "kind": "derived",
+    "node_keys": [
+     "edges",
+     "id",
+     "kind",
+     "produced_by",
+     "symbol",
+     "value",
+     "version"
+    ],
+    "symbol": "tax.us.2025.eic.answer.age-25-under-65",
+    "title_present": false,
+    "value": "1"
+   },
+   {
+    "key_kind": "input",
+    "kind": "input",
+    "node_keys": [
+     "edges",
+     "id",
+     "kind",
+     "produced_by",
+     "symbol",
+     "value",
+     "version"
+    ],
+    "symbol": null,
+    "title_present": false,
+    "value": "yes"
+   },
+   {
+    "key_kind": "reference",
+    "kind": "reference",
+    "node_keys": [
+     "edges",
+     "id",
+     "kind",
+     "produced_by",
+     "symbol",
+     "value",
+     "version"
+    ],
+    "symbol": null,
+    "title_present": false,
+    "value": null
+   }
+  ],
+  "graph_nodes_for_fact": 3,
+  "kernel": {
+   "bundle_adoptions": [
+    {
+     "bundle_version": "v1",
+     "fact_type_version": "v1",
+     "title_is_published": true,
+     "title_is_successor": false
+    }
+   ],
+   "fact_type_present": true,
+   "fact_type_version": "v1",
+   "findings": [
+    {
+     "basis": "attested",
+     "current": true,
+     "fact_id": "tax.us.2025.eic.age-25-under-65|tax-year=2025",
+     "id": "demo.age-25-under-65",
+     "keys": [
+      "basis",
+      "evidence_ids",
+      "fact_id",
+      "id",
+      "schema",
+      "value"
+     ],
+     "pins_field": false,
+     "schema": "finding.v2",
+     "value": "yes"
+    }
+   ],
+   "package_adoption": {
+    "id": "tax.us.2025.package.core-calculations",
+    "version": "v103"
+   },
+   "title_is_published": true,
+   "title_is_successor": false
+  },
+  "line_27a": {
+   "disposition": "published_value",
+   "sentences": [],
+   "value": 537
+  },
+  "page_question_excerpt": null,
+  "page_title_excerpt": null,
+  "publications": [
+   {
+    "pins": [
+     {
+      "id_is_fact_type": false,
+      "id_is_rule": false,
+      "origin": null,
+      "role": "adoption",
+      "version": "v103"
+     },
+     {
+      "id_is_fact_type": false,
+      "id_is_rule": false,
+      "origin": null,
+      "role": "citation",
+      "version": "v1"
+     },
+     {
+      "id_is_fact_type": false,
+      "id_is_rule": true,
+      "origin": null,
+      "role": "computation",
+      "version": "v4"
+     },
+     {
+      "id_is_fact_type": false,
+      "id_is_rule": false,
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+     },
+     {
+      "id_is_fact_type": false,
+      "id_is_rule": false,
+      "origin": "assertion",
+      "role": "input",
+      "version": "v2"
+     },
+     {
+      "id_is_fact_type": false,
+      "id_is_rule": false,
+      "origin": "assertion",
+      "role": "input",
+      "version": "v2"
+     },
+     {
+      "id_is_fact_type": false,
+      "id_is_rule": false,
+      "origin": "assertion",
+      "role": "input",
+      "version": "v2"
+     },
+     {
+      "id_is_fact_type": false,
+      "id_is_rule": false,
+      "origin": "assertion",
+      "role": "input",
+      "version": "v2"
+     }
+    ],
+    "schema": "derived-finding.v2",
+    "symbol": "eic.answer.age-25-under-65",
+    "value": "1",
+    "version": "v2"
+   },
+   {
+    "pins": [
+     {
+      "id_is_fact_type": false,
+      "id_is_rule": false,
+      "origin": null,
+      "role": "adoption",
+      "version": "v103"
+     },
+     {
+      "id_is_fact_type": false,
+      "id_is_rule": false,
+      "origin": null,
+      "role": "citation",
+      "version": "v1"
+     },
+     {
+      "id_is_fact_type": false,
+      "id_is_rule": true,
+      "origin": null,
+      "role": "computation",
+      "version": "v1"
+     },
+     {
+      "id_is_fact_type": false,
+      "id_is_rule": false,
+      "origin": "assertion",
+      "role": "input",
+      "version": "v2"
+     }
+    ],
+    "schema": "derived-finding.v2",
+    "symbol": "payments.line27a",
+    "value": "537",
+    "version": "v2"
+   }
+  ],
+  "question_hits": {
+   "explanation_graph": [],
+   "page_visible": false,
+   "question_groups": [],
+   "report": []
+  },
+  "stop": "saturated",
+  "title_hits": {
+   "explanation_graph": [],
+   "page_visible": [],
+   "presentation_model": [],
+   "question_groups": [],
+   "report": []
+  },
+  "title_on_any_surface": false,
+  "unsupported_source_finding": []
+ },
+ "core": {
+  "core": "v103",
+  "registry": "v101",
+  "release": "v101"
+ },
+ "loads": {
+  "acts_refinished_after_bundle_v2_adoption": {
+   "age_question_groups": [],
+   "calculation_view_present": false,
+   "graph_nodes": [
+    {
+     "key_kind": "derived",
+     "kind": "derived",
+     "node_keys": [
+      "edges",
+      "id",
+      "kind",
+      "produced_by",
+      "symbol",
+      "value",
+      "version"
+     ],
+     "symbol": "tax.us.2025.eic.answer.age-25-under-65",
+     "title_present": false,
+     "value": "1"
+    },
+    {
+     "key_kind": "input",
+     "kind": "input",
+     "node_keys": [
+      "edges",
+      "id",
+      "kind",
+      "produced_by",
+      "symbol",
+      "value",
+      "version"
+     ],
+     "symbol": null,
+     "title_present": false,
+     "value": "yes"
+    },
+    {
+     "key_kind": "reference",
+     "kind": "reference",
+     "node_keys": [
+      "edges",
+      "id",
+      "kind",
+      "produced_by",
+      "symbol",
+      "value",
+      "version"
+     ],
+     "symbol": null,
+     "title_present": false,
+     "value": null
+    }
+   ],
+   "graph_nodes_for_fact": 3,
+   "kernel": {
+    "bundle_adoptions": [
+     {
+      "bundle_version": "v1",
+      "fact_type_version": "v1",
+      "title_is_published": true,
+      "title_is_successor": false
+     },
+     {
+      "bundle_version": "v2",
+      "fact_type_version": "v1",
+      "title_is_published": false,
+      "title_is_successor": true
+     }
+    ],
+    "fact_type_present": true,
+    "fact_type_version": "v1",
+    "findings": [
+     {
+      "basis": "attested",
+      "current": true,
+      "fact_id": "tax.us.2025.eic.age-25-under-65|tax-year=2025",
+      "id": "demo.age-25-under-65",
+      "keys": [
+       "basis",
+       "evidence_ids",
+       "fact_id",
+       "id",
+       "schema",
+       "value"
+      ],
+      "pins_field": false,
+      "schema": "finding.v2",
+      "value": "yes"
+     }
+    ],
+    "package_adoption": {
+     "id": "tax.us.2025.package.core-calculations",
+     "version": "v104"
+    },
+    "title_is_published": false,
+    "title_is_successor": true
+   },
+   "line_27a": {
+    "disposition": "published_value",
+    "sentences": [],
+    "value": 537
+   },
+   "page_question_excerpt": null,
+   "page_title_excerpt": null,
+   "publications": [
+    {
+     "pins": [
+      {
+       "id_is_fact_type": false,
+       "id_is_rule": false,
+       "origin": null,
+       "role": "adoption",
+       "version": "v104"
+      },
+      {
+       "id_is_fact_type": false,
+       "id_is_rule": false,
+       "origin": null,
+       "role": "citation",
+       "version": "v1"
+      },
+      {
+       "id_is_fact_type": false,
+       "id_is_rule": true,
+       "origin": null,
+       "role": "computation",
+       "version": "v4"
+      },
+      {
+       "id_is_fact_type": false,
+       "id_is_rule": false,
+       "origin": "assertion",
+       "role": "input",
+       "version": "v1"
+      },
+      {
+       "id_is_fact_type": false,
+       "id_is_rule": false,
+       "origin": "assertion",
+       "role": "input",
+       "version": "v2"
+      },
+      {
+       "id_is_fact_type": false,
+       "id_is_rule": false,
+       "origin": "assertion",
+       "role": "input",
+       "version": "v2"
+      },
+      {
+       "id_is_fact_type": false,
+       "id_is_rule": false,
+       "origin": "assertion",
+       "role": "input",
+       "version": "v2"
+      },
+      {
+       "id_is_fact_type": false,
+       "id_is_rule": false,
+       "origin": "assertion",
+       "role": "input",
+       "version": "v2"
+      }
+     ],
+     "schema": "derived-finding.v2",
+     "symbol": "eic.answer.age-25-under-65",
+     "value": "1",
+     "version": "v2"
+    },
+    {
+     "pins": [
+      {
+       "id_is_fact_type": false,
+       "id_is_rule": false,
+       "origin": null,
+       "role": "adoption",
+       "version": "v104"
+      },
+      {
+       "id_is_fact_type": false,
+       "id_is_rule": false,
+       "origin": null,
+       "role": "citation",
+       "version": "v1"
+      },
+      {
+       "id_is_fact_type": false,
+       "id_is_rule": true,
+       "origin": null,
+       "role": "computation",
+       "version": "v1"
+      },
+      {
+       "id_is_fact_type": false,
+       "id_is_rule": false,
+       "origin": "assertion",
+       "role": "input",
+       "version": "v2"
+      }
+     ],
+     "schema": "derived-finding.v2",
+     "symbol": "payments.line27a",
+     "value": "537",
+     "version": "v2"
+    }
+   ],
+   "question_hits": {
+    "explanation_graph": [],
+    "page_visible": false,
+    "question_groups": [],
+    "report": []
+   },
+   "stop": "saturated",
+   "title_hits": {
+    "explanation_graph": [],
+    "page_visible": [],
+    "presentation_model": [],
+    "question_groups": [],
+    "report": []
+   },
+   "title_on_any_surface": false,
+   "unsupported_source_finding": []
+  },
+  "acts_refinished_on_successor": {
+   "age_question_groups": [],
+   "calculation_view_present": false,
+   "graph_nodes": [
+    {
+     "key_kind": "derived",
+     "kind": "derived",
+     "node_keys": [
+      "edges",
+      "id",
+      "kind",
+      "produced_by",
+      "symbol",
+      "value",
+      "version"
+     ],
+     "symbol": "tax.us.2025.eic.answer.age-25-under-65",
+     "title_present": false,
+     "value": "1"
+    },
+    {
+     "key_kind": "input",
+     "kind": "input",
+     "node_keys": [
+      "edges",
+      "id",
+      "kind",
+      "produced_by",
+      "symbol",
+      "value",
+      "version"
+     ],
+     "symbol": null,
+     "title_present": false,
+     "value": "yes"
+    },
+    {
+     "key_kind": "reference",
+     "kind": "reference",
+     "node_keys": [
+      "edges",
+      "id",
+      "kind",
+      "produced_by",
+      "symbol",
+      "value",
+      "version"
+     ],
+     "symbol": null,
+     "title_present": false,
+     "value": null
+    }
+   ],
+   "graph_nodes_for_fact": 3,
+   "kernel": {
+    "bundle_adoptions": [
+     {
+      "bundle_version": "v1",
+      "fact_type_version": "v1",
+      "title_is_published": true,
+      "title_is_successor": false
+     }
+    ],
+    "fact_type_present": true,
+    "fact_type_version": "v1",
+    "findings": [
+     {
+      "basis": "attested",
+      "current": true,
+      "fact_id": "tax.us.2025.eic.age-25-under-65|tax-year=2025",
+      "id": "demo.age-25-under-65",
+      "keys": [
+       "basis",
+       "evidence_ids",
+       "fact_id",
+       "id",
+       "schema",
+       "value"
+      ],
+      "pins_field": false,
+      "schema": "finding.v2",
+      "value": "yes"
+     }
+    ],
+    "package_adoption": {
+     "id": "tax.us.2025.package.core-calculations",
+     "version": "v104"
+    },
+    "title_is_published": true,
+    "title_is_successor": false
+   },
+   "line_27a": {
+    "disposition": "published_value",
+    "sentences": [],
+    "value": 537
+   },
+   "page_question_excerpt": null,
+   "page_title_excerpt": null,
+   "publications": [
+    {
+     "pins": [
+      {
+       "id_is_fact_type": false,
+       "id_is_rule": false,
+       "origin": null,
+       "role": "adoption",
+       "version": "v104"
+      },
+      {
+       "id_is_fact_type": false,
+       "id_is_rule": false,
+       "origin": null,
+       "role": "citation",
+       "version": "v1"
+      },
+      {
+       "id_is_fact_type": false,
+       "id_is_rule": true,
+       "origin": null,
+       "role": "computation",
+       "version": "v4"
+      },
+      {
+       "id_is_fact_type": false,
+       "id_is_rule": false,
+       "origin": "assertion",
+       "role": "input",
+       "version": "v1"
+      },
+      {
+       "id_is_fact_type": false,
+       "id_is_rule": false,
+       "origin": "assertion",
+       "role": "input",
+       "version": "v2"
+      },
+      {
+       "id_is_fact_type": false,
+       "id_is_rule": false,
+       "origin": "assertion",
+       "role": "input",
+       "version": "v2"
+      },
+      {
+       "id_is_fact_type": false,
+       "id_is_rule": false,
+       "origin": "assertion",
+       "role": "input",
+       "version": "v2"
+      },
+      {
+       "id_is_fact_type": false,
+       "id_is_rule": false,
+       "origin": "assertion",
+       "role": "input",
+       "version": "v2"
+      }
+     ],
+     "schema": "derived-finding.v2",
+     "symbol": "eic.answer.age-25-under-65",
+     "value": "1",
+     "version": "v2"
+    },
+    {
+     "pins": [
+      {
+       "id_is_fact_type": false,
+       "id_is_rule": false,
+       "origin": null,
+       "role": "adoption",
+       "version": "v104"
+      },
+      {
+       "id_is_fact_type": false,
+       "id_is_rule": false,
+       "origin": null,
+       "role": "citation",
+       "version": "v1"
+      },
+      {
+       "id_is_fact_type": false,
+       "id_is_rule": true,
+       "origin": null,
+       "role": "computation",
+       "version": "v1"
+      },
+      {
+       "id_is_fact_type": false,
+       "id_is_rule": false,
+       "origin": "assertion",
+       "role": "input",
+       "version": "v2"
+      }
+     ],
+     "schema": "derived-finding.v2",
+     "symbol": "payments.line27a",
+     "value": "537",
+     "version": "v2"
+    }
+   ],
+   "question_hits": {
+    "explanation_graph": [],
+    "page_visible": false,
+    "question_groups": [],
+    "report": []
+   },
+   "stop": "saturated",
+   "title_hits": {
+    "explanation_graph": [],
+    "page_visible": [],
+    "presentation_model": [],
+    "question_groups": [],
+    "report": []
+   },
+   "title_on_any_surface": false,
+   "unsupported_source_finding": []
+  },
+  "saved_v103_log_on_successor_surface": {
+   "detail": "registry bytes do not match the release attestation",
+   "kernel": {
+    "bundle_adoptions": [
+     {
+      "bundle_version": "v1",
+      "fact_type_version": "v1",
+      "title_is_published": true,
+      "title_is_successor": false
+     }
+    ],
+    "fact_type_present": true,
+    "fact_type_version": "v1",
+    "findings": [
+     {
+      "basis": "attested",
+      "current": true,
+      "fact_id": "tax.us.2025.eic.age-25-under-65|tax-year=2025",
+      "id": "demo.age-25-under-65",
+      "keys": [
+       "basis",
+       "evidence_ids",
+       "fact_id",
+       "id",
+       "schema",
+       "value"
+      ],
+      "pins_field": false,
+      "schema": "finding.v2",
+      "value": "yes"
+     }
+    ],
+    "package_adoption": {
+     "id": "tax.us.2025.package.core-calculations",
+     "version": "v103"
+    },
+    "title_is_published": true,
+    "title_is_successor": false
+   },
+   "refusal": "REGISTRY_CHECKSUM_MISMATCH"
+  }
+ },
+ "return": "demo single filer, wages 7000, no qualifying child, other earned-income-credit answers yes",
+ "successor_build": {
+  "bundle": {
+   "id": "tax.us.2025.eic-questions.vocabulary",
+   "new_version": "v2",
+   "old_version": "v1"
+  },
+  "byte_undo_proof": true,
+  "entrypoint_replacements": 1,
+  "fact_type_version_kept": "v1",
+  "from": {
+   "core": "v103",
+   "registry": "v101",
+   "release": "v101"
+  },
+  "generation": {
+   "publication_boundary": "Candidate only: successor companion declaration and live release evidence are separate duties under ADR-0082.",
+   "registry_sha256": "b3eb16b93234398bea7dae2384f9afa1b4b6ff39c23109893f6b3be4d346d343"
+  },
+  "other_members_pinning_bundle": [],
+  "status": "valid",
+  "successor_sha256": "3d99539b153453ffb6d87a6e6cc011788d72e8f598f303ed9121cbdaee50f247",
+  "to": {
+   "core": "v104",
+   "registry": "v102",
+   "release": "v102"
+  },
+  "validation": "generate_to_directory passed package, registry and release validation"
+ },
+ "title_shown_on_v103": false,
+ "unanswered": {
+  "age_question_groups": [
+   {
+    "factTypeId": "tax.us.2025.eic.age-25-under-65",
+    "factTypeVersion": "v1",
+    "keys": [
+     "answerTarget",
+     "id",
+     "producers",
+     "question"
+    ],
+    "question_is_input_question": true,
+    "title_in_question": false
+   }
+  ],
+  "calculation_view_present": false,
+  "graph_nodes": [],
+  "graph_nodes_for_fact": 0,
+  "kernel": {
+   "bundle_adoptions": [
+    {
+     "bundle_version": "v1",
+     "fact_type_version": "v1",
+     "title_is_published": true,
+     "title_is_successor": false
+    }
+   ],
+   "fact_type_present": true,
+   "fact_type_version": "v1",
+   "findings": [],
+   "package_adoption": {
+    "id": "tax.us.2025.package.core-calculations",
+    "version": "v103"
+   },
+   "title_is_published": true,
+   "title_is_successor": false
+  },
+  "line_27a": {
+   "disposition": "blocked",
+   "sentences": [
+    "Were you, or your spouse if you file a joint return, at least age 25 but under age 65 at the end of 2025? Answer yes if you, or your spouse if you file a joint return, were born after December 31, 1960, and before January 2, 2001, with one exception: if that person died in 2025, answer yes for them only if they were at least age 25 but under age 65 at the time of death. A person is considered to reach age 25 on the day before their 25th birthday, and age 65 on their 65th birthday."
+   ],
+   "value": null
+  },
+  "page_question_excerpt": null,
+  "page_title_excerpt": null,
+  "publications": [],
+  "question_hits": {
+   "explanation_graph": [],
+   "page_visible": false,
+   "question_groups": [
+    "$[0].question"
+   ],
+   "report": []
+  },
+  "stop": "saturated",
+  "title_hits": {
+   "explanation_graph": [],
+   "page_visible": [],
+   "presentation_model": [],
+   "question_groups": [],
+   "report": []
+  },
+  "title_on_any_surface": false,
+  "unsupported_source_finding": []
+ },
+ "wall_time_s": 23.6
+}

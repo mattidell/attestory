@@ -1,0 +1,7 @@
+{
+  "fact_type": "tax.us.2025.eic.age-25-under-65",
+  "bundle": "tax.us.2025.eic-questions.vocabulary",
+  "bundle_file": "eic-questions.bundle.json",
+  "fact_type_version_kept": "v1",
+  "title": "You, or your spouse if you are filing a joint return, were born after December 31, 1960, and before January 2, 2001. If you or your spouse died in 2025, count that person only when they were at least age 25 but under age 65 at the time of death. A person reaches age 25 on the day before their 25th birthday, and age 65 on their 65th birthday. No means the credit is $0. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession."
+}
