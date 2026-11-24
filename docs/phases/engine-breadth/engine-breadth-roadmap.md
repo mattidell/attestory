@@ -1138,6 +1138,17 @@ filer "can claim the self-only EIC"). A separated married filer whose
 children all lack an SSN gets the self-only credit instead of $0. No
 recorded number changed.
 
+## Bounded return — Content Guards Run in the Fast Lane
+
+[Plan](milestones/fast-content-guards.md); retrospective:
+`docs/milestone-retrospectives/2026-11-23-fast-content-guards.md`.
+
+The content rule-file size guards moved from five live modules into one
+fast module with one exception table, so a builder's fast-lane run catches
+an oversized rule before CI does (as eic-no-ssn-child's first verify did
+not). The observer manifest test no longer fails when FORCE_COLOR and
+NO_COLOR are set. Tests only.
+
 ## Saved-page observation — Mortgage and Sales (2025)
 
 [Plan](milestones/sale-page-observation.md); retrospective:

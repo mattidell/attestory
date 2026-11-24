@@ -12,8 +12,8 @@ from pathlib import Path
 
 CONTENT = Path(__file__).resolve().parents[1] / "packages" / "content" / "tax" / "2025"
 
-# file, cap, reason. The earned-income glob uses 5,000 bytes except these two,
-# which carry the reason that was written beside the old checks.
+# file, cap, reason. The earned-income glob uses 5,000 bytes except these,
+# each with the reason that was written beside the old checks.
 EXCEPTIONS: tuple[tuple[str, int, str], ...] = (
     (
         "rule.eic-gate-result.v3.json",
@@ -28,6 +28,18 @@ EXCEPTIONS: tuple[tuple[str, int, str], ...] = (
         "Core v99 writes the gate result v3 and the no-unsupported-situations "
         "answer v3 with indent=2; v2 of each was hand-compacted (the gate result "
         "v2 re-dumped the same way is 5,944 bytes). The growth is mostly formatting.",
+    ),
+    (
+        "rule.eic-status-class.v3.json",
+        7000,
+        "Core v102 status class v3 adds the qualifying-child-present condition for "
+        "head of household (eic-no-ssn-child); that is content, 2,730 to 3,263 bytes compacted.",
+    ),
+    (
+        "rule.eic-early-stop.v3.json",
+        7000,
+        "Core v102 early stop v3 is written with indent=2 (v2 was hand-compacted; v2 "
+        "re-dumped that way is 6,031 bytes) and adds the qualifying-child-present condition.",
     ),
 )
 
