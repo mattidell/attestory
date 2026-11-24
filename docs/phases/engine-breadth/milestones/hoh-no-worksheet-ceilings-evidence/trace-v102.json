@@ -1,0 +1,2035 @@
+{
+ "core": "v102",
+ "wall_time_s": 20.3,
+ "return": "demo wages 50000, withholding 4500, standard deduction, no qualified dividends and no sale",
+ "runs": {
+  "hoh/none/yes": {
+   "stop": "saturated",
+   "symbols": {
+    "qdcg-worksheet.line-4": 0,
+    "qdcg-worksheet.line-5": 26375,
+    "qdcg-worksheet.line-6": 64750,
+    "qdcg-worksheet.line-7": 26375,
+    "qdcg-worksheet.line-8": 26375,
+    "qdcg-worksheet.line-9": 0,
+    "qdcg-worksheet.line-10": 0,
+    "qdcg-worksheet.line-11": 0,
+    "qdcg-worksheet.line-12": 0,
+    "qdcg-worksheet.line-13": 566700,
+    "qdcg-worksheet.line-14": 26375,
+    "qdcg-worksheet.line-15": 26375,
+    "qdcg-worksheet.line-16": 0,
+    "qdcg-worksheet.line-17": 0,
+    "qdcg-worksheet.line-18": 0,
+    "qdcg-worksheet.line-19": 0,
+    "qdcg-worksheet.line-20": 0,
+    "qdcg-worksheet.line-21": 0,
+    "qdcg-worksheet.line-22": 2825,
+    "qdcg-worksheet.line-23": 2825,
+    "qdcg-worksheet.line-24": 2825,
+    "qdcg-worksheet.line-25": 2825,
+    "dependents-worksheet.line3": 23625,
+    "income.taxable-income": 26375,
+    "deductions.line-12e": 23625
+   },
+   "rules": {
+    "dependents-worksheet-line-3": {
+     "disposition": "published",
+     "code": null,
+     "value": 23625
+    },
+    "qdcg-worksheet.line-13": {
+     "disposition": "published",
+     "code": null,
+     "value": 566700
+    },
+    "qdcg-worksheet.line-6": {
+     "disposition": "published",
+     "code": null,
+     "value": 64750
+    },
+    "form1040-line12e": {
+     "disposition": "published",
+     "code": null,
+     "value": 23625
+    },
+    "qdcg-worksheet.line-4": {
+     "disposition": "published",
+     "code": null,
+     "value": 0
+    },
+    "form1040-line15": {
+     "disposition": "published",
+     "code": null,
+     "value": 26375
+    },
+    "qdcg-worksheet.line-10": {
+     "disposition": "published",
+     "code": null,
+     "value": 0
+    },
+    "qdcg-worksheet.line-14": {
+     "disposition": "published",
+     "code": null,
+     "value": 26375
+    },
+    "qdcg-worksheet.line-24": {
+     "disposition": "published",
+     "code": null,
+     "value": 2825
+    },
+    "qdcg-worksheet.line-5": {
+     "disposition": "published",
+     "code": null,
+     "value": 26375
+    },
+    "qdcg-worksheet.line-7": {
+     "disposition": "published",
+     "code": null,
+     "value": 26375
+    },
+    "qdcg-worksheet.line-8": {
+     "disposition": "published",
+     "code": null,
+     "value": 26375
+    },
+    "qdcg-worksheet.line-9": {
+     "disposition": "published",
+     "code": null,
+     "value": 0
+    },
+    "qdcg-worksheet.line-11": {
+     "disposition": "published",
+     "code": null,
+     "value": 0
+    },
+    "qdcg-worksheet.line-12": {
+     "disposition": "published",
+     "code": null,
+     "value": 0
+    },
+    "qdcg-worksheet.line-15": {
+     "disposition": "published",
+     "code": null,
+     "value": 26375
+    },
+    "qdcg-worksheet.line-16": {
+     "disposition": "published",
+     "code": null,
+     "value": 0
+    },
+    "qdcg-worksheet.line-17": {
+     "disposition": "published",
+     "code": null,
+     "value": 0
+    },
+    "qdcg-worksheet.line-18": {
+     "disposition": "published",
+     "code": null,
+     "value": 0
+    },
+    "qdcg-worksheet.line-19": {
+     "disposition": "published",
+     "code": null,
+     "value": 0
+    },
+    "qdcg-worksheet.line-20": {
+     "disposition": "published",
+     "code": null,
+     "value": 0
+    },
+    "qdcg-worksheet.line-21": {
+     "disposition": "published",
+     "code": null,
+     "value": 0
+    },
+    "qdcg-worksheet.line-22": {
+     "disposition": "published",
+     "code": null,
+     "value": 2825
+    },
+    "qdcg-worksheet.line-23": {
+     "disposition": "published",
+     "code": null,
+     "value": 2825
+    },
+    "qdcg-worksheet.line-25": {
+     "disposition": "published",
+     "code": null,
+     "value": 2825
+    },
+    "form1040-line16": {
+     "disposition": "published",
+     "code": null,
+     "value": 2825
+    }
+   },
+   "graph": {
+    "income.taxable-income": {
+     "kind": "derived",
+     "value": 26375,
+     "version": "v2"
+    },
+    "dependents-worksheet.line3": {
+     "kind": "derived",
+     "value": 23625,
+     "version": "v2"
+    },
+    "qdcg-worksheet.line-24": {
+     "kind": "derived",
+     "value": 2825,
+     "version": "v2"
+    },
+    "deductions.line-12e": {
+     "kind": "derived",
+     "value": 23625,
+     "version": "v2"
+    }
+   },
+   "page": {
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "value": 23625
+    },
+    "form1040.line-15": {
+     "disposition": "published_value",
+     "value": 26375
+    },
+    "form1040.line-16": {
+     "disposition": "published_value",
+     "value": 2825
+    }
+   },
+   "question_on_page": [],
+   "html_hits": {}
+  },
+  "hoh/none/no": {
+   "stop": "saturated",
+   "symbols": {
+    "qdcg-worksheet.line-4": 0,
+    "qdcg-worksheet.line-6": 64750,
+    "qdcg-worksheet.line-13": 566700
+   },
+   "rules": {
+    "dependents-worksheet-line-3": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_INVALID",
+     "missing": [
+      "hoh.tests-met"
+     ]
+    },
+    "qdcg-worksheet.line-13": {
+     "disposition": "published",
+     "code": null,
+     "value": 566700
+    },
+    "qdcg-worksheet.line-6": {
+     "disposition": "published",
+     "code": null,
+     "value": 64750
+    },
+    "qdcg-worksheet.line-4": {
+     "disposition": "published",
+     "code": null,
+     "value": 0
+    },
+    "form1040-line12e": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "demo.form1040.standard_deduction"
+     ]
+    },
+    "form1040-line15": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "deductions.line-14"
+     ]
+    },
+    "form1040-line16": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "income.taxable-income",
+      "qdcg-worksheet.line-24",
+      "qdcg-worksheet.line-25"
+     ]
+    },
+    "qdcg-worksheet.line-10": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "income.taxable-income"
+     ]
+    },
+    "qdcg-worksheet.line-11": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-9"
+     ]
+    },
+    "qdcg-worksheet.line-12": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-10",
+      "qdcg-worksheet.line-11"
+     ]
+    },
+    "qdcg-worksheet.line-14": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "income.taxable-income"
+     ]
+    },
+    "qdcg-worksheet.line-15": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-5",
+      "qdcg-worksheet.line-9"
+     ]
+    },
+    "qdcg-worksheet.line-16": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-14",
+      "qdcg-worksheet.line-15"
+     ]
+    },
+    "qdcg-worksheet.line-17": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-12",
+      "qdcg-worksheet.line-16"
+     ]
+    },
+    "qdcg-worksheet.line-18": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-17"
+     ]
+    },
+    "qdcg-worksheet.line-19": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-9",
+      "qdcg-worksheet.line-17"
+     ]
+    },
+    "qdcg-worksheet.line-20": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-10",
+      "qdcg-worksheet.line-19"
+     ]
+    },
+    "qdcg-worksheet.line-21": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-20"
+     ]
+    },
+    "qdcg-worksheet.line-22": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-5"
+     ]
+    },
+    "qdcg-worksheet.line-23": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-18",
+      "qdcg-worksheet.line-21",
+      "qdcg-worksheet.line-22"
+     ]
+    },
+    "qdcg-worksheet.line-24": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "income.taxable-income"
+     ]
+    },
+    "qdcg-worksheet.line-25": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-23",
+      "qdcg-worksheet.line-24"
+     ]
+    },
+    "qdcg-worksheet.line-5": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "income.taxable-income"
+     ]
+    },
+    "qdcg-worksheet.line-7": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "income.taxable-income"
+     ]
+    },
+    "qdcg-worksheet.line-8": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-5",
+      "qdcg-worksheet.line-7"
+     ]
+    },
+    "qdcg-worksheet.line-9": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-7",
+      "qdcg-worksheet.line-8"
+     ]
+    }
+   },
+   "graph": {
+    "qdcg-worksheet.line-6": {
+     "kind": "derived",
+     "value": 64750,
+     "version": "v2"
+    },
+    "qdcg-worksheet.line-4": {
+     "kind": "derived",
+     "value": 0,
+     "version": "v2"
+    },
+    "qdcg-worksheet.line-13": {
+     "kind": "derived",
+     "value": 566700,
+     "version": "v2"
+    }
+   },
+   "page": {
+    "form1040.line-12e": {
+     "disposition": "blocked",
+     "value": null,
+     "said": [
+      "You chose head of household. Answer yes only if all three of these apply. (1) You were unmarried on December 31, 2025, or you were married but your spouse did not live in your home at any time during the last 6 months of 2025 and your child, stepchild or foster child whom you can claim as a dependent (or could claim except that the child's other parent claims them) lived in your home for more than half of 2025. If your spouse died in 2025, you count as married for all of 2025 and cannot answer y"
+     ]
+    },
+    "form1040.line-15": {
+     "disposition": "blocked",
+     "value": null,
+     "said": [
+      "You chose head of household. Answer yes only if all three of these apply. (1) You were unmarried on December 31, 2025, or you were married but your spouse did not live in your home at any time during the last 6 months of 2025 and your child, stepchild or foster child whom you can claim as a dependent (or could claim except that the child's other parent claims them) lived in your home for more than half of 2025. If your spouse died in 2025, you count as married for all of 2025 and cannot answer y"
+     ]
+    },
+    "form1040.line-16": {
+     "disposition": "blocked",
+     "value": null,
+     "said": [
+      "You chose head of household. Answer yes only if all three of these apply. (1) You were unmarried on December 31, 2025, or you were married but your spouse did not live in your home at any time during the last 6 months of 2025 and your child, stepchild or foster child whom you can claim as a dependent (or could claim except that the child's other parent claims them) lived in your home for more than half of 2025. If your spouse died in 2025, you count as married for all of 2025 and cannot answer y"
+     ]
+    }
+   },
+   "question_on_page": [],
+   "html_hits": {
+    "64,750": 1,
+    "566,700": 1,
+    "cannot file as head of household": 20
+   }
+  },
+  "hoh/none/none": {
+   "stop": "saturated",
+   "symbols": {
+    "qdcg-worksheet.line-4": 0,
+    "qdcg-worksheet.line-6": 64750,
+    "qdcg-worksheet.line-13": 566700
+   },
+   "rules": {
+    "dependents-worksheet-line-3": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "hoh.tests-met"
+     ]
+    },
+    "qdcg-worksheet.line-13": {
+     "disposition": "published",
+     "code": null,
+     "value": 566700
+    },
+    "qdcg-worksheet.line-6": {
+     "disposition": "published",
+     "code": null,
+     "value": 64750
+    },
+    "qdcg-worksheet.line-4": {
+     "disposition": "published",
+     "code": null,
+     "value": 0
+    },
+    "form1040-line12e": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "demo.form1040.standard_deduction"
+     ]
+    },
+    "form1040-line15": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "deductions.line-14"
+     ]
+    },
+    "form1040-line16": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "income.taxable-income",
+      "qdcg-worksheet.line-24",
+      "qdcg-worksheet.line-25"
+     ]
+    },
+    "qdcg-worksheet.line-10": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "income.taxable-income"
+     ]
+    },
+    "qdcg-worksheet.line-11": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-9"
+     ]
+    },
+    "qdcg-worksheet.line-12": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-10",
+      "qdcg-worksheet.line-11"
+     ]
+    },
+    "qdcg-worksheet.line-14": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "income.taxable-income"
+     ]
+    },
+    "qdcg-worksheet.line-15": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-5",
+      "qdcg-worksheet.line-9"
+     ]
+    },
+    "qdcg-worksheet.line-16": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-14",
+      "qdcg-worksheet.line-15"
+     ]
+    },
+    "qdcg-worksheet.line-17": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-12",
+      "qdcg-worksheet.line-16"
+     ]
+    },
+    "qdcg-worksheet.line-18": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-17"
+     ]
+    },
+    "qdcg-worksheet.line-19": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-9",
+      "qdcg-worksheet.line-17"
+     ]
+    },
+    "qdcg-worksheet.line-20": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-10",
+      "qdcg-worksheet.line-19"
+     ]
+    },
+    "qdcg-worksheet.line-21": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-20"
+     ]
+    },
+    "qdcg-worksheet.line-22": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-5"
+     ]
+    },
+    "qdcg-worksheet.line-23": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-18",
+      "qdcg-worksheet.line-21",
+      "qdcg-worksheet.line-22"
+     ]
+    },
+    "qdcg-worksheet.line-24": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "income.taxable-income"
+     ]
+    },
+    "qdcg-worksheet.line-25": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-23",
+      "qdcg-worksheet.line-24"
+     ]
+    },
+    "qdcg-worksheet.line-5": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "income.taxable-income"
+     ]
+    },
+    "qdcg-worksheet.line-7": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "income.taxable-income"
+     ]
+    },
+    "qdcg-worksheet.line-8": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-5",
+      "qdcg-worksheet.line-7"
+     ]
+    },
+    "qdcg-worksheet.line-9": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-7",
+      "qdcg-worksheet.line-8"
+     ]
+    }
+   },
+   "graph": {
+    "qdcg-worksheet.line-6": {
+     "kind": "derived",
+     "value": 64750,
+     "version": "v2"
+    },
+    "qdcg-worksheet.line-4": {
+     "kind": "derived",
+     "value": 0,
+     "version": "v2"
+    },
+    "qdcg-worksheet.line-13": {
+     "kind": "derived",
+     "value": 566700,
+     "version": "v2"
+    }
+   },
+   "page": {
+    "form1040.line-12e": {
+     "disposition": "blocked",
+     "value": null,
+     "said": [
+      "You chose head of household. Answer yes only if all three of these apply. (1) You were unmarried on December 31, 2025, or you were married but your spouse did not live in your home at any time during the last 6 months of 2025 and your child, stepchild or foster child whom you can claim as a dependent (or could claim except that the child's other parent claims them) lived in your home for more than half of 2025. If your spouse died in 2025, you count as married for all of 2025 and cannot answer y"
+     ]
+    },
+    "form1040.line-15": {
+     "disposition": "blocked",
+     "value": null,
+     "said": [
+      "You chose head of household. Answer yes only if all three of these apply. (1) You were unmarried on December 31, 2025, or you were married but your spouse did not live in your home at any time during the last 6 months of 2025 and your child, stepchild or foster child whom you can claim as a dependent (or could claim except that the child's other parent claims them) lived in your home for more than half of 2025. If your spouse died in 2025, you count as married for all of 2025 and cannot answer y"
+     ]
+    },
+    "form1040.line-16": {
+     "disposition": "blocked",
+     "value": null,
+     "said": [
+      "You chose head of household. Answer yes only if all three of these apply. (1) You were unmarried on December 31, 2025, or you were married but your spouse did not live in your home at any time during the last 6 months of 2025 and your child, stepchild or foster child whom you can claim as a dependent (or could claim except that the child's other parent claims them) lived in your home for more than half of 2025. If your spouse died in 2025, you count as married for all of 2025 and cannot answer y"
+     ]
+    }
+   },
+   "question_on_page": [],
+   "html_hits": {
+    "64,750": 1,
+    "566,700": 1,
+    "cannot file as head of household": 19
+   }
+  },
+  "qss/none/yes": {
+   "stop": "saturated",
+   "symbols": {
+    "qdcg-worksheet.line-4": 0,
+    "qdcg-worksheet.line-5": 18500,
+    "qdcg-worksheet.line-6": 96700,
+    "qdcg-worksheet.line-7": 18500,
+    "qdcg-worksheet.line-8": 18500,
+    "qdcg-worksheet.line-9": 0,
+    "qdcg-worksheet.line-10": 0,
+    "qdcg-worksheet.line-11": 0,
+    "qdcg-worksheet.line-12": 0,
+    "qdcg-worksheet.line-13": 600050,
+    "qdcg-worksheet.line-14": 18500,
+    "qdcg-worksheet.line-15": 18500,
+    "qdcg-worksheet.line-16": 0,
+    "qdcg-worksheet.line-17": 0,
+    "qdcg-worksheet.line-18": 0,
+    "qdcg-worksheet.line-19": 0,
+    "qdcg-worksheet.line-20": 0,
+    "qdcg-worksheet.line-21": 0,
+    "qdcg-worksheet.line-22": 1853,
+    "qdcg-worksheet.line-23": 1853,
+    "qdcg-worksheet.line-24": 1853,
+    "qdcg-worksheet.line-25": 1853,
+    "dependents-worksheet.line3": 31500,
+    "income.taxable-income": 18500,
+    "deductions.line-12e": 31500
+   },
+   "rules": {
+    "dependents-worksheet-line-3": {
+     "disposition": "published",
+     "code": null,
+     "value": 31500
+    },
+    "qdcg-worksheet.line-13": {
+     "disposition": "published",
+     "code": null,
+     "value": 600050
+    },
+    "qdcg-worksheet.line-6": {
+     "disposition": "published",
+     "code": null,
+     "value": 96700
+    },
+    "form1040-line12e": {
+     "disposition": "published",
+     "code": null,
+     "value": 31500
+    },
+    "qdcg-worksheet.line-4": {
+     "disposition": "published",
+     "code": null,
+     "value": 0
+    },
+    "form1040-line15": {
+     "disposition": "published",
+     "code": null,
+     "value": 18500
+    },
+    "qdcg-worksheet.line-10": {
+     "disposition": "published",
+     "code": null,
+     "value": 0
+    },
+    "qdcg-worksheet.line-14": {
+     "disposition": "published",
+     "code": null,
+     "value": 18500
+    },
+    "qdcg-worksheet.line-24": {
+     "disposition": "published",
+     "code": null,
+     "value": 1853
+    },
+    "qdcg-worksheet.line-5": {
+     "disposition": "published",
+     "code": null,
+     "value": 18500
+    },
+    "qdcg-worksheet.line-7": {
+     "disposition": "published",
+     "code": null,
+     "value": 18500
+    },
+    "qdcg-worksheet.line-8": {
+     "disposition": "published",
+     "code": null,
+     "value": 18500
+    },
+    "qdcg-worksheet.line-9": {
+     "disposition": "published",
+     "code": null,
+     "value": 0
+    },
+    "qdcg-worksheet.line-11": {
+     "disposition": "published",
+     "code": null,
+     "value": 0
+    },
+    "qdcg-worksheet.line-12": {
+     "disposition": "published",
+     "code": null,
+     "value": 0
+    },
+    "qdcg-worksheet.line-15": {
+     "disposition": "published",
+     "code": null,
+     "value": 18500
+    },
+    "qdcg-worksheet.line-16": {
+     "disposition": "published",
+     "code": null,
+     "value": 0
+    },
+    "qdcg-worksheet.line-17": {
+     "disposition": "published",
+     "code": null,
+     "value": 0
+    },
+    "qdcg-worksheet.line-18": {
+     "disposition": "published",
+     "code": null,
+     "value": 0
+    },
+    "qdcg-worksheet.line-19": {
+     "disposition": "published",
+     "code": null,
+     "value": 0
+    },
+    "qdcg-worksheet.line-20": {
+     "disposition": "published",
+     "code": null,
+     "value": 0
+    },
+    "qdcg-worksheet.line-21": {
+     "disposition": "published",
+     "code": null,
+     "value": 0
+    },
+    "qdcg-worksheet.line-22": {
+     "disposition": "published",
+     "code": null,
+     "value": 1853
+    },
+    "qdcg-worksheet.line-23": {
+     "disposition": "published",
+     "code": null,
+     "value": 1853
+    },
+    "qdcg-worksheet.line-25": {
+     "disposition": "published",
+     "code": null,
+     "value": 1853
+    },
+    "form1040-line16": {
+     "disposition": "published",
+     "code": null,
+     "value": 1853
+    }
+   },
+   "graph": {
+    "deductions.line-12e": {
+     "kind": "derived",
+     "value": 31500,
+     "version": "v2"
+    },
+    "dependents-worksheet.line3": {
+     "kind": "derived",
+     "value": 31500,
+     "version": "v2"
+    },
+    "qdcg-worksheet.line-24": {
+     "kind": "derived",
+     "value": 1853,
+     "version": "v2"
+    },
+    "income.taxable-income": {
+     "kind": "derived",
+     "value": 18500,
+     "version": "v2"
+    }
+   },
+   "page": {
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "value": 31500
+    },
+    "form1040.line-15": {
+     "disposition": "published_value",
+     "value": 18500
+    },
+    "form1040.line-16": {
+     "disposition": "published_value",
+     "value": 1853
+    }
+   },
+   "question_on_page": [],
+   "html_hits": {}
+  },
+  "qss/none/no": {
+   "stop": "saturated",
+   "symbols": {
+    "qdcg-worksheet.line-4": 0,
+    "qdcg-worksheet.line-6": 96700,
+    "qdcg-worksheet.line-13": 600050
+   },
+   "rules": {
+    "dependents-worksheet-line-3": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_INVALID",
+     "missing": [
+      "qss.tests-met"
+     ]
+    },
+    "qdcg-worksheet.line-13": {
+     "disposition": "published",
+     "code": null,
+     "value": 600050
+    },
+    "qdcg-worksheet.line-6": {
+     "disposition": "published",
+     "code": null,
+     "value": 96700
+    },
+    "qdcg-worksheet.line-4": {
+     "disposition": "published",
+     "code": null,
+     "value": 0
+    },
+    "form1040-line12e": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "demo.form1040.standard_deduction"
+     ]
+    },
+    "form1040-line15": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "deductions.line-14"
+     ]
+    },
+    "form1040-line16": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "income.taxable-income",
+      "qdcg-worksheet.line-24",
+      "qdcg-worksheet.line-25"
+     ]
+    },
+    "qdcg-worksheet.line-10": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "income.taxable-income"
+     ]
+    },
+    "qdcg-worksheet.line-11": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-9"
+     ]
+    },
+    "qdcg-worksheet.line-12": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-10",
+      "qdcg-worksheet.line-11"
+     ]
+    },
+    "qdcg-worksheet.line-14": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "income.taxable-income"
+     ]
+    },
+    "qdcg-worksheet.line-15": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-5",
+      "qdcg-worksheet.line-9"
+     ]
+    },
+    "qdcg-worksheet.line-16": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-14",
+      "qdcg-worksheet.line-15"
+     ]
+    },
+    "qdcg-worksheet.line-17": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-12",
+      "qdcg-worksheet.line-16"
+     ]
+    },
+    "qdcg-worksheet.line-18": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-17"
+     ]
+    },
+    "qdcg-worksheet.line-19": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-9",
+      "qdcg-worksheet.line-17"
+     ]
+    },
+    "qdcg-worksheet.line-20": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-10",
+      "qdcg-worksheet.line-19"
+     ]
+    },
+    "qdcg-worksheet.line-21": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-20"
+     ]
+    },
+    "qdcg-worksheet.line-22": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-5"
+     ]
+    },
+    "qdcg-worksheet.line-23": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-18",
+      "qdcg-worksheet.line-21",
+      "qdcg-worksheet.line-22"
+     ]
+    },
+    "qdcg-worksheet.line-24": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "income.taxable-income"
+     ]
+    },
+    "qdcg-worksheet.line-25": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-23",
+      "qdcg-worksheet.line-24"
+     ]
+    },
+    "qdcg-worksheet.line-5": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "income.taxable-income"
+     ]
+    },
+    "qdcg-worksheet.line-7": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "income.taxable-income"
+     ]
+    },
+    "qdcg-worksheet.line-8": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-5",
+      "qdcg-worksheet.line-7"
+     ]
+    },
+    "qdcg-worksheet.line-9": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-7",
+      "qdcg-worksheet.line-8"
+     ]
+    }
+   },
+   "graph": {
+    "qdcg-worksheet.line-13": {
+     "kind": "derived",
+     "value": 600050,
+     "version": "v2"
+    },
+    "qdcg-worksheet.line-4": {
+     "kind": "derived",
+     "value": 0,
+     "version": "v2"
+    },
+    "qdcg-worksheet.line-6": {
+     "kind": "derived",
+     "value": 96700,
+     "version": "v2"
+    }
+   },
+   "page": {
+    "form1040.line-12e": {
+     "disposition": "blocked",
+     "value": null,
+     "said": [
+      "You chose qualifying surviving spouse. Answer yes only if all of these apply: your spouse died in 2023 or 2024 and you did not remarry before the end of 2025; you could have filed a joint return with your spouse for the year your spouse died; you have a child or stepchild (not a foster child) whom you can claim as a dependent, or could claim except that the child had gross income of $5,200 or more, filed a joint return, or you can be claimed as someone else's dependent; that child lived in your "
+     ]
+    },
+    "form1040.line-15": {
+     "disposition": "blocked",
+     "value": null,
+     "said": [
+      "You chose qualifying surviving spouse. Answer yes only if all of these apply: your spouse died in 2023 or 2024 and you did not remarry before the end of 2025; you could have filed a joint return with your spouse for the year your spouse died; you have a child or stepchild (not a foster child) whom you can claim as a dependent, or could claim except that the child had gross income of $5,200 or more, filed a joint return, or you can be claimed as someone else's dependent; that child lived in your "
+     ]
+    },
+    "form1040.line-16": {
+     "disposition": "blocked",
+     "value": null,
+     "said": [
+      "You chose qualifying surviving spouse. Answer yes only if all of these apply: your spouse died in 2023 or 2024 and you did not remarry before the end of 2025; you could have filed a joint return with your spouse for the year your spouse died; you have a child or stepchild (not a foster child) whom you can claim as a dependent, or could claim except that the child had gross income of $5,200 or more, filed a joint return, or you can be claimed as someone else's dependent; that child lived in your "
+     ]
+    }
+   },
+   "question_on_page": [],
+   "html_hits": {
+    "96,700": 1,
+    "600,050": 1,
+    "cannot file as a qualifying surviving spouse": 20
+   }
+  },
+  "qss/none/none": {
+   "stop": "saturated",
+   "symbols": {
+    "qdcg-worksheet.line-4": 0,
+    "qdcg-worksheet.line-6": 96700,
+    "qdcg-worksheet.line-13": 600050
+   },
+   "rules": {
+    "dependents-worksheet-line-3": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qss.tests-met"
+     ]
+    },
+    "qdcg-worksheet.line-13": {
+     "disposition": "published",
+     "code": null,
+     "value": 600050
+    },
+    "qdcg-worksheet.line-6": {
+     "disposition": "published",
+     "code": null,
+     "value": 96700
+    },
+    "qdcg-worksheet.line-4": {
+     "disposition": "published",
+     "code": null,
+     "value": 0
+    },
+    "form1040-line12e": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "demo.form1040.standard_deduction"
+     ]
+    },
+    "form1040-line15": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "deductions.line-14"
+     ]
+    },
+    "form1040-line16": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "income.taxable-income",
+      "qdcg-worksheet.line-24",
+      "qdcg-worksheet.line-25"
+     ]
+    },
+    "qdcg-worksheet.line-10": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "income.taxable-income"
+     ]
+    },
+    "qdcg-worksheet.line-11": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-9"
+     ]
+    },
+    "qdcg-worksheet.line-12": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-10",
+      "qdcg-worksheet.line-11"
+     ]
+    },
+    "qdcg-worksheet.line-14": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "income.taxable-income"
+     ]
+    },
+    "qdcg-worksheet.line-15": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-5",
+      "qdcg-worksheet.line-9"
+     ]
+    },
+    "qdcg-worksheet.line-16": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-14",
+      "qdcg-worksheet.line-15"
+     ]
+    },
+    "qdcg-worksheet.line-17": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-12",
+      "qdcg-worksheet.line-16"
+     ]
+    },
+    "qdcg-worksheet.line-18": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-17"
+     ]
+    },
+    "qdcg-worksheet.line-19": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-9",
+      "qdcg-worksheet.line-17"
+     ]
+    },
+    "qdcg-worksheet.line-20": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-10",
+      "qdcg-worksheet.line-19"
+     ]
+    },
+    "qdcg-worksheet.line-21": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-20"
+     ]
+    },
+    "qdcg-worksheet.line-22": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-5"
+     ]
+    },
+    "qdcg-worksheet.line-23": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-18",
+      "qdcg-worksheet.line-21",
+      "qdcg-worksheet.line-22"
+     ]
+    },
+    "qdcg-worksheet.line-24": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "income.taxable-income"
+     ]
+    },
+    "qdcg-worksheet.line-25": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-23",
+      "qdcg-worksheet.line-24"
+     ]
+    },
+    "qdcg-worksheet.line-5": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "income.taxable-income"
+     ]
+    },
+    "qdcg-worksheet.line-7": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "income.taxable-income"
+     ]
+    },
+    "qdcg-worksheet.line-8": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-5",
+      "qdcg-worksheet.line-7"
+     ]
+    },
+    "qdcg-worksheet.line-9": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-7",
+      "qdcg-worksheet.line-8"
+     ]
+    }
+   },
+   "graph": {
+    "qdcg-worksheet.line-13": {
+     "kind": "derived",
+     "value": 600050,
+     "version": "v2"
+    },
+    "qdcg-worksheet.line-4": {
+     "kind": "derived",
+     "value": 0,
+     "version": "v2"
+    },
+    "qdcg-worksheet.line-6": {
+     "kind": "derived",
+     "value": 96700,
+     "version": "v2"
+    }
+   },
+   "page": {
+    "form1040.line-12e": {
+     "disposition": "blocked",
+     "value": null,
+     "said": [
+      "You chose qualifying surviving spouse. Answer yes only if all of these apply: your spouse died in 2023 or 2024 and you did not remarry before the end of 2025; you could have filed a joint return with your spouse for the year your spouse died; you have a child or stepchild (not a foster child) whom you can claim as a dependent, or could claim except that the child had gross income of $5,200 or more, filed a joint return, or you can be claimed as someone else's dependent; that child lived in your "
+     ]
+    },
+    "form1040.line-15": {
+     "disposition": "blocked",
+     "value": null,
+     "said": [
+      "You chose qualifying surviving spouse. Answer yes only if all of these apply: your spouse died in 2023 or 2024 and you did not remarry before the end of 2025; you could have filed a joint return with your spouse for the year your spouse died; you have a child or stepchild (not a foster child) whom you can claim as a dependent, or could claim except that the child had gross income of $5,200 or more, filed a joint return, or you can be claimed as someone else's dependent; that child lived in your "
+     ]
+    },
+    "form1040.line-16": {
+     "disposition": "blocked",
+     "value": null,
+     "said": [
+      "You chose qualifying surviving spouse. Answer yes only if all of these apply: your spouse died in 2023 or 2024 and you did not remarry before the end of 2025; you could have filed a joint return with your spouse for the year your spouse died; you have a child or stepchild (not a foster child) whom you can claim as a dependent, or could claim except that the child had gross income of $5,200 or more, filed a joint return, or you can be claimed as someone else's dependent; that child lived in your "
+     ]
+    }
+   },
+   "question_on_page": [],
+   "html_hits": {
+    "96,700": 1,
+    "600,050": 1,
+    "cannot file as a qualifying surviving spouse": 19
+   }
+  },
+  "single/none/none": {
+   "stop": "saturated",
+   "symbols": {
+    "qdcg-worksheet.line-4": 0,
+    "qdcg-worksheet.line-5": 34250,
+    "qdcg-worksheet.line-6": 48350,
+    "qdcg-worksheet.line-7": 34250,
+    "qdcg-worksheet.line-8": 34250,
+    "qdcg-worksheet.line-9": 0,
+    "qdcg-worksheet.line-10": 0,
+    "qdcg-worksheet.line-11": 0,
+    "qdcg-worksheet.line-12": 0,
+    "qdcg-worksheet.line-13": 533400,
+    "qdcg-worksheet.line-14": 34250,
+    "qdcg-worksheet.line-15": 34250,
+    "qdcg-worksheet.line-16": 0,
+    "qdcg-worksheet.line-17": 0,
+    "qdcg-worksheet.line-18": 0,
+    "qdcg-worksheet.line-19": 0,
+    "qdcg-worksheet.line-20": 0,
+    "qdcg-worksheet.line-21": 0,
+    "qdcg-worksheet.line-22": 3875,
+    "qdcg-worksheet.line-23": 3875,
+    "qdcg-worksheet.line-24": 3875,
+    "qdcg-worksheet.line-25": 3875,
+    "dependents-worksheet.line3": 15750,
+    "income.taxable-income": 34250,
+    "deductions.line-12e": 15750
+   },
+   "rules": {
+    "dependents-worksheet-line-3": {
+     "disposition": "published",
+     "code": null,
+     "value": 15750
+    },
+    "qdcg-worksheet.line-13": {
+     "disposition": "published",
+     "code": null,
+     "value": 533400
+    },
+    "qdcg-worksheet.line-6": {
+     "disposition": "published",
+     "code": null,
+     "value": 48350
+    },
+    "form1040-line12e": {
+     "disposition": "published",
+     "code": null,
+     "value": 15750
+    },
+    "qdcg-worksheet.line-4": {
+     "disposition": "published",
+     "code": null,
+     "value": 0
+    },
+    "form1040-line15": {
+     "disposition": "published",
+     "code": null,
+     "value": 34250
+    },
+    "qdcg-worksheet.line-10": {
+     "disposition": "published",
+     "code": null,
+     "value": 0
+    },
+    "qdcg-worksheet.line-14": {
+     "disposition": "published",
+     "code": null,
+     "value": 34250
+    },
+    "qdcg-worksheet.line-24": {
+     "disposition": "published",
+     "code": null,
+     "value": 3875
+    },
+    "qdcg-worksheet.line-5": {
+     "disposition": "published",
+     "code": null,
+     "value": 34250
+    },
+    "qdcg-worksheet.line-7": {
+     "disposition": "published",
+     "code": null,
+     "value": 34250
+    },
+    "qdcg-worksheet.line-8": {
+     "disposition": "published",
+     "code": null,
+     "value": 34250
+    },
+    "qdcg-worksheet.line-9": {
+     "disposition": "published",
+     "code": null,
+     "value": 0
+    },
+    "qdcg-worksheet.line-11": {
+     "disposition": "published",
+     "code": null,
+     "value": 0
+    },
+    "qdcg-worksheet.line-12": {
+     "disposition": "published",
+     "code": null,
+     "value": 0
+    },
+    "qdcg-worksheet.line-15": {
+     "disposition": "published",
+     "code": null,
+     "value": 34250
+    },
+    "qdcg-worksheet.line-16": {
+     "disposition": "published",
+     "code": null,
+     "value": 0
+    },
+    "qdcg-worksheet.line-17": {
+     "disposition": "published",
+     "code": null,
+     "value": 0
+    },
+    "qdcg-worksheet.line-18": {
+     "disposition": "published",
+     "code": null,
+     "value": 0
+    },
+    "qdcg-worksheet.line-19": {
+     "disposition": "published",
+     "code": null,
+     "value": 0
+    },
+    "qdcg-worksheet.line-20": {
+     "disposition": "published",
+     "code": null,
+     "value": 0
+    },
+    "qdcg-worksheet.line-21": {
+     "disposition": "published",
+     "code": null,
+     "value": 0
+    },
+    "qdcg-worksheet.line-22": {
+     "disposition": "published",
+     "code": null,
+     "value": 3875
+    },
+    "qdcg-worksheet.line-23": {
+     "disposition": "published",
+     "code": null,
+     "value": 3875
+    },
+    "qdcg-worksheet.line-25": {
+     "disposition": "published",
+     "code": null,
+     "value": 3875
+    },
+    "form1040-line16": {
+     "disposition": "published",
+     "code": null,
+     "value": 3875
+    }
+   },
+   "graph": {
+    "income.taxable-income": {
+     "kind": "derived",
+     "value": 34250,
+     "version": "v2"
+    },
+    "dependents-worksheet.line3": {
+     "kind": "derived",
+     "value": 15750,
+     "version": "v2"
+    },
+    "deductions.line-12e": {
+     "kind": "derived",
+     "value": 15750,
+     "version": "v2"
+    },
+    "qdcg-worksheet.line-24": {
+     "kind": "derived",
+     "value": 3875,
+     "version": "v2"
+    }
+   },
+   "page": {
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "value": 15750
+    },
+    "form1040.line-15": {
+     "disposition": "published_value",
+     "value": 34250
+    },
+    "form1040.line-16": {
+     "disposition": "published_value",
+     "value": 3875
+    }
+   },
+   "question_on_page": [],
+   "html_hits": {}
+  },
+  "mfj/none/none": {
+   "stop": "saturated",
+   "symbols": {
+    "qdcg-worksheet.line-4": 0,
+    "qdcg-worksheet.line-5": 18500,
+    "qdcg-worksheet.line-6": 96700,
+    "qdcg-worksheet.line-7": 18500,
+    "qdcg-worksheet.line-8": 18500,
+    "qdcg-worksheet.line-9": 0,
+    "qdcg-worksheet.line-10": 0,
+    "qdcg-worksheet.line-11": 0,
+    "qdcg-worksheet.line-12": 0,
+    "qdcg-worksheet.line-13": 600050,
+    "qdcg-worksheet.line-14": 18500,
+    "qdcg-worksheet.line-15": 18500,
+    "qdcg-worksheet.line-16": 0,
+    "qdcg-worksheet.line-17": 0,
+    "qdcg-worksheet.line-18": 0,
+    "qdcg-worksheet.line-19": 0,
+    "qdcg-worksheet.line-20": 0,
+    "qdcg-worksheet.line-21": 0,
+    "qdcg-worksheet.line-22": 1853,
+    "qdcg-worksheet.line-23": 1853,
+    "qdcg-worksheet.line-24": 1853,
+    "qdcg-worksheet.line-25": 1853,
+    "dependents-worksheet.line3": 31500,
+    "income.taxable-income": 18500,
+    "deductions.line-12e": 31500
+   },
+   "rules": {
+    "dependents-worksheet-line-3": {
+     "disposition": "published",
+     "code": null,
+     "value": 31500
+    },
+    "qdcg-worksheet.line-13": {
+     "disposition": "published",
+     "code": null,
+     "value": 600050
+    },
+    "qdcg-worksheet.line-6": {
+     "disposition": "published",
+     "code": null,
+     "value": 96700
+    },
+    "form1040-line12e": {
+     "disposition": "published",
+     "code": null,
+     "value": 31500
+    },
+    "qdcg-worksheet.line-4": {
+     "disposition": "published",
+     "code": null,
+     "value": 0
+    },
+    "form1040-line15": {
+     "disposition": "published",
+     "code": null,
+     "value": 18500
+    },
+    "qdcg-worksheet.line-10": {
+     "disposition": "published",
+     "code": null,
+     "value": 0
+    },
+    "qdcg-worksheet.line-14": {
+     "disposition": "published",
+     "code": null,
+     "value": 18500
+    },
+    "qdcg-worksheet.line-24": {
+     "disposition": "published",
+     "code": null,
+     "value": 1853
+    },
+    "qdcg-worksheet.line-5": {
+     "disposition": "published",
+     "code": null,
+     "value": 18500
+    },
+    "qdcg-worksheet.line-7": {
+     "disposition": "published",
+     "code": null,
+     "value": 18500
+    },
+    "qdcg-worksheet.line-8": {
+     "disposition": "published",
+     "code": null,
+     "value": 18500
+    },
+    "qdcg-worksheet.line-9": {
+     "disposition": "published",
+     "code": null,
+     "value": 0
+    },
+    "qdcg-worksheet.line-11": {
+     "disposition": "published",
+     "code": null,
+     "value": 0
+    },
+    "qdcg-worksheet.line-12": {
+     "disposition": "published",
+     "code": null,
+     "value": 0
+    },
+    "qdcg-worksheet.line-15": {
+     "disposition": "published",
+     "code": null,
+     "value": 18500
+    },
+    "qdcg-worksheet.line-16": {
+     "disposition": "published",
+     "code": null,
+     "value": 0
+    },
+    "qdcg-worksheet.line-17": {
+     "disposition": "published",
+     "code": null,
+     "value": 0
+    },
+    "qdcg-worksheet.line-18": {
+     "disposition": "published",
+     "code": null,
+     "value": 0
+    },
+    "qdcg-worksheet.line-19": {
+     "disposition": "published",
+     "code": null,
+     "value": 0
+    },
+    "qdcg-worksheet.line-20": {
+     "disposition": "published",
+     "code": null,
+     "value": 0
+    },
+    "qdcg-worksheet.line-21": {
+     "disposition": "published",
+     "code": null,
+     "value": 0
+    },
+    "qdcg-worksheet.line-22": {
+     "disposition": "published",
+     "code": null,
+     "value": 1853
+    },
+    "qdcg-worksheet.line-23": {
+     "disposition": "published",
+     "code": null,
+     "value": 1853
+    },
+    "qdcg-worksheet.line-25": {
+     "disposition": "published",
+     "code": null,
+     "value": 1853
+    },
+    "form1040-line16": {
+     "disposition": "published",
+     "code": null,
+     "value": 1853
+    }
+   },
+   "graph": {
+    "income.taxable-income": {
+     "kind": "derived",
+     "value": 18500,
+     "version": "v2"
+    },
+    "qdcg-worksheet.line-24": {
+     "kind": "derived",
+     "value": 1853,
+     "version": "v2"
+    },
+    "deductions.line-12e": {
+     "kind": "derived",
+     "value": 31500,
+     "version": "v2"
+    },
+    "dependents-worksheet.line3": {
+     "kind": "derived",
+     "value": 31500,
+     "version": "v2"
+    }
+   },
+   "page": {
+    "form1040.line-12e": {
+     "disposition": "published_value",
+     "value": 31500
+    },
+    "form1040.line-15": {
+     "disposition": "published_value",
+     "value": 18500
+    },
+    "form1040.line-16": {
+     "disposition": "published_value",
+     "value": 1853
+    }
+   },
+   "question_on_page": [],
+   "html_hits": {}
+  },
+  "mfs/none/none": {
+   "stop": "saturated",
+   "symbols": {
+    "qdcg-worksheet.line-4": 0,
+    "qdcg-worksheet.line-6": 48350,
+    "qdcg-worksheet.line-13": 300000,
+    "dependents-worksheet.line3": 15750
+   },
+   "rules": {
+    "dependents-worksheet-line-3": {
+     "disposition": "published",
+     "code": null,
+     "value": 15750
+    },
+    "qdcg-worksheet.line-13": {
+     "disposition": "published",
+     "code": null,
+     "value": 300000
+    },
+    "qdcg-worksheet.line-6": {
+     "disposition": "published",
+     "code": null,
+     "value": 48350
+    },
+    "qdcg-worksheet.line-4": {
+     "disposition": "published",
+     "code": null,
+     "value": 0
+    },
+    "form1040-line12e": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "demo.form1040.standard_deduction"
+     ]
+    },
+    "form1040-line15": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "deductions.line-14"
+     ]
+    },
+    "form1040-line16": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "income.taxable-income",
+      "qdcg-worksheet.line-24",
+      "qdcg-worksheet.line-25"
+     ]
+    },
+    "qdcg-worksheet.line-10": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "income.taxable-income"
+     ]
+    },
+    "qdcg-worksheet.line-11": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-9"
+     ]
+    },
+    "qdcg-worksheet.line-12": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-10",
+      "qdcg-worksheet.line-11"
+     ]
+    },
+    "qdcg-worksheet.line-14": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "income.taxable-income"
+     ]
+    },
+    "qdcg-worksheet.line-15": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-5",
+      "qdcg-worksheet.line-9"
+     ]
+    },
+    "qdcg-worksheet.line-16": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-14",
+      "qdcg-worksheet.line-15"
+     ]
+    },
+    "qdcg-worksheet.line-17": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-12",
+      "qdcg-worksheet.line-16"
+     ]
+    },
+    "qdcg-worksheet.line-18": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-17"
+     ]
+    },
+    "qdcg-worksheet.line-19": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-9",
+      "qdcg-worksheet.line-17"
+     ]
+    },
+    "qdcg-worksheet.line-20": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-10",
+      "qdcg-worksheet.line-19"
+     ]
+    },
+    "qdcg-worksheet.line-21": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-20"
+     ]
+    },
+    "qdcg-worksheet.line-22": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-5"
+     ]
+    },
+    "qdcg-worksheet.line-23": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-18",
+      "qdcg-worksheet.line-21",
+      "qdcg-worksheet.line-22"
+     ]
+    },
+    "qdcg-worksheet.line-24": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "income.taxable-income"
+     ]
+    },
+    "qdcg-worksheet.line-25": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-23",
+      "qdcg-worksheet.line-24"
+     ]
+    },
+    "qdcg-worksheet.line-5": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "income.taxable-income"
+     ]
+    },
+    "qdcg-worksheet.line-7": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "income.taxable-income"
+     ]
+    },
+    "qdcg-worksheet.line-8": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-5",
+      "qdcg-worksheet.line-7"
+     ]
+    },
+    "qdcg-worksheet.line-9": {
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "qdcg-worksheet.line-7",
+      "qdcg-worksheet.line-8"
+     ]
+    }
+   },
+   "graph": {
+    "dependents-worksheet.line3": {
+     "kind": "derived",
+     "value": 15750,
+     "version": "v2"
+    },
+    "qdcg-worksheet.line-6": {
+     "kind": "derived",
+     "value": 48350,
+     "version": "v2"
+    },
+    "qdcg-worksheet.line-4": {
+     "kind": "derived",
+     "value": 0,
+     "version": "v2"
+    },
+    "qdcg-worksheet.line-13": {
+     "kind": "derived",
+     "value": 300000,
+     "version": "v2"
+    }
+   },
+   "page": {
+    "form1040.line-12e": {
+     "disposition": "blocked",
+     "value": null,
+     "said": [
+      "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+     ]
+    },
+    "form1040.line-15": {
+     "disposition": "blocked",
+     "value": null,
+     "said": [
+      "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+     ]
+    },
+    "form1040.line-16": {
+     "disposition": "blocked",
+     "value": null,
+     "said": [
+      "Is it true that your spouse had no income, isn't filing a return, and can't be claimed as a dependent on another person's return?"
+     ]
+    }
+   },
+   "question_on_page": [],
+   "html_hits": {
+    "48,350": 1,
+    "300,000": 1
+   }
+  }
+ }
+}

@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "hoh-no-worksheet-ceilings",
-  "status": "Open 2026-11-24. P0 next.",
+  "status": "Open 2026-11-24. P0 complete. Foreman decisions next.",
   "retrospective": null,
   "scope": [
     "after a head of household or qualifying surviving spouse 'no' (the filer does not meet that status's tests), the Qualified Dividends and Capital Gain Tax Worksheet lines 6 and 13 do not show that status's ceiling, and every line that uses them gets the answer the 2025 instructions give for that filer",
@@ -72,3 +72,31 @@ ceiling the filer is not entitled to beside blocked lines.
 2. **Decisions** by the foreman.
 3. **Track 1.** Publish it.
 4. **Fresh review**, repair, closeout.
+
+## P0 result
+
+Evidence: `hoh-no-worksheet-ceilings-evidence/p0.md` (2026-11-24, published
+core v102).
+
+- **The defect is real.** After a head of household "no" or no answer,
+  `rule.qdcg-worksheet.line-6` and `rule.qdcg-worksheet.line-13` publish
+  64,750 and 566,700. After a qualifying surviving spouse "no" or no answer,
+  96,700 and 600,050. Lines 7 and 14, the only direct readers, stay blocked
+  because taxable income is absent, so no return amount changes. The visible
+  sentences on Form 1040 lines 12e, 15, and 16 are the existing status
+  question. Each ceiling amount appears once, as a raw value, in the
+  explanation graph.
+- **The 2025 instructions** assign a ceiling to each filing status (worksheet
+  lines 6 and 13) and say to check only a status that applies. They do not
+  give another status's ceiling. The content route blocks lines 6 and 13 and
+  names the existing answer, the way `rule.dependents-worksheet-line-3` v2
+  already does. Yes keeps the published lookup. Single, joint, and separate
+  read nothing new.
+- **Replay:** all 775 recorded lists are single. 775 pass, 0 unexpected,
+  0 unused expectations, no number change. 691 lists carry the expected
+  version changes (success/success) and 84 are identical (error/error).
+- **Sizes:** the successors are 4,224 and 4,251 bytes, under the 6,144
+  worksheet cap. The fast size guard's filename set does not include the two
+  v2 names, so Track 1 admits them. No engine, schema, projection, or page
+  change. Scratch core v103 is the experiment's successor of v102; the
+  published number is the next free core after eic-separated-married.

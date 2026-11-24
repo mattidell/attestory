@@ -1,0 +1,28 @@
+{
+  "from": {
+    "core": "v102",
+    "registry": "v100",
+    "release": "v100"
+  },
+  "to": {
+    "core": "v103",
+    "registry": "v101",
+    "release": "v101"
+  },
+  "label": "scratch successor of published v102; the published number waits on the foreman because eic-separated-married is using v103",
+  "replaced_rules_pinned_by": [],
+  "written": {
+    "rule.qdcg-worksheet.line-6.v2.json": "84e0093914d162830cb391d8fd808dee1200803c8c8ba457bde62baa87c665b9",
+    "rule.qdcg-worksheet.line-13.v2.json": "1c01c3eeccd59d4ab61dee9cc6f646ffabca62455e0c6b534946e8fee25e630e"
+  },
+  "bytes": {
+    "rule.qdcg-worksheet.line-6.v2.json": 4224,
+    "rule.qdcg-worksheet.line-13.v2.json": 4251
+  },
+  "status": "valid",
+  "validation": "generate_to_directory passed package, registry and release validation",
+  "generation": {
+    "registry_sha256": "5dbea8c39741b75b549eabc67f8a902218c33ba34465537dbee8b6ec3caa0b81",
+    "publication_boundary": "Candidate only: successor companion declaration and live release evidence are separate duties under ADR-0082."
+  }
+}

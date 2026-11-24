@@ -1,0 +1,22 @@
+{
+  "guard": "tests.test_content_file_sizes.test_content_rule_files_stay_within_their_caps",
+  "result": "AssertionError",
+  "worksheet_cap": 6144,
+  "set_extra": [
+    "rule.qdcg-worksheet.line-13.v2.json",
+    "rule.qdcg-worksheet.line-6.v2.json"
+  ],
+  "set_missing": [],
+  "files": {
+    "rule.qdcg-worksheet.line-6.v2.json": {
+      "bytes": 4224,
+      "cap": 6144,
+      "within_cap": true
+    },
+    "rule.qdcg-worksheet.line-13.v2.json": {
+      "bytes": 4251,
+      "cap": 6144,
+      "within_cap": true
+    }
+  }
+}

@@ -1,0 +1,344 @@
+{
+ "tests_met_files": {
+  "tax.us.2025.hoh.tests-met": [
+   "filing-status-tests.bundle.json",
+   "input-question.hoh-tests-met.v1.json",
+   "rule.dependents-worksheet-line-3.v2.json"
+  ],
+  "tax.us.2025.qss.tests-met": [
+   "filing-status-tests.bundle.json",
+   "input-question.qss-tests-met.v1.json",
+   "rule.dependents-worksheet-line-3.v2.json"
+  ]
+ },
+ "tests_met_rule_readers": {
+  "tax.us.2025.hoh.tests-met": [
+   {
+    "id": "tax.us.2025.rule.dependents-worksheet-line-3",
+    "version": "v2",
+    "file": "rule.dependents-worksheet-line-3.v2.json",
+    "how": [
+     "ref"
+    ]
+   }
+  ],
+  "tax.us.2025.qss.tests-met": [
+   {
+    "id": "tax.us.2025.rule.dependents-worksheet-line-3",
+    "version": "v2",
+    "file": "rule.dependents-worksheet-line-3.v2.json",
+    "how": [
+     "ref"
+    ]
+   }
+  ]
+ },
+ "ceiling_parameter_readers": {
+  "tax.us.2025.parameter.preferential-zero-ceiling": [
+   "rule.qdcg-worksheet.line-6.json"
+  ],
+  "tax.us.2025.parameter.preferential-fifteen-ceiling": [
+   "rule.qdcg-worksheet.line-13.json"
+  ]
+ },
+ "line6_direct": [
+  {
+   "id": "tax.us.2025.rule.qdcg-worksheet.line-7",
+   "version": "v1",
+   "file": "rule.qdcg-worksheet.line-7.json",
+   "how": [
+    "requires",
+    "ref"
+   ]
+  }
+ ],
+ "line13_direct": [
+  {
+   "id": "tax.us.2025.rule.qdcg-worksheet.line-14",
+   "version": "v1",
+   "file": "rule.qdcg-worksheet.line-14.json",
+   "how": [
+    "requires",
+    "ref"
+   ]
+  }
+ ],
+ "line6_downstream_published": [
+  "tax.us.2025.qdcg-worksheet.line-7",
+  "tax.us.2025.qdcg-worksheet.line-8",
+  "tax.us.2025.qdcg-worksheet.line-9",
+  "tax.us.2025.qdcg-worksheet.line-11",
+  "tax.us.2025.qdcg-worksheet.line-15",
+  "tax.us.2025.qdcg-worksheet.line-19",
+  "tax.us.2025.qdcg-worksheet.line-12",
+  "tax.us.2025.qdcg-worksheet.line-16",
+  "tax.us.2025.qdcg-worksheet.line-20",
+  "tax.us.2025.qdcg-worksheet.line-17",
+  "tax.us.2025.qdcg-worksheet.line-21",
+  "tax.us.2025.qdcg-worksheet.line-18",
+  "tax.us.2025.qdcg-worksheet.line-23",
+  "tax.us.2025.qdcg-worksheet.line-25"
+ ],
+ "line13_downstream_published": [
+  "tax.us.2025.qdcg-worksheet.line-14",
+  "tax.us.2025.qdcg-worksheet.line-16",
+  "tax.us.2025.qdcg-worksheet.line-17",
+  "tax.us.2025.qdcg-worksheet.line-18",
+  "tax.us.2025.qdcg-worksheet.line-19",
+  "tax.us.2025.qdcg-worksheet.line-23",
+  "tax.us.2025.qdcg-worksheet.line-20",
+  "tax.us.2025.qdcg-worksheet.line-25",
+  "tax.us.2025.qdcg-worksheet.line-21"
+ ],
+ "worksheet_rules": {
+  "tax.us.2025.rule.qdcg-worksheet.line-10": {
+   "version": "v1",
+   "file": "rule.qdcg-worksheet.line-10.json",
+   "requires": [
+    "tax.us.2025.income.taxable-income",
+    "tax.us.2025.qdcg-worksheet.line-4"
+   ],
+   "refs": [
+    "tax.us.2025.qdcg-worksheet.line-4"
+   ]
+  },
+  "tax.us.2025.rule.qdcg-worksheet.line-11": {
+   "version": "v1",
+   "file": "rule.qdcg-worksheet.line-11.json",
+   "requires": [
+    "tax.us.2025.qdcg-worksheet.line-9"
+   ],
+   "refs": [
+    "tax.us.2025.qdcg-worksheet.line-9"
+   ]
+  },
+  "tax.us.2025.rule.qdcg-worksheet.line-12": {
+   "version": "v1",
+   "file": "rule.qdcg-worksheet.line-12.json",
+   "requires": [
+    "tax.us.2025.qdcg-worksheet.line-10",
+    "tax.us.2025.qdcg-worksheet.line-11"
+   ],
+   "refs": [
+    "tax.us.2025.qdcg-worksheet.line-10",
+    "tax.us.2025.qdcg-worksheet.line-11"
+   ]
+  },
+  "tax.us.2025.rule.qdcg-worksheet.line-13": {
+   "version": "v1",
+   "file": "rule.qdcg-worksheet.line-13.json",
+   "requires": [
+    "filing_status"
+   ],
+   "refs": [
+    "filing_status"
+   ]
+  },
+  "tax.us.2025.rule.qdcg-worksheet.line-14": {
+   "version": "v1",
+   "file": "rule.qdcg-worksheet.line-14.json",
+   "requires": [
+    "tax.us.2025.income.taxable-income",
+    "tax.us.2025.qdcg-worksheet.line-13"
+   ],
+   "refs": [
+    "tax.us.2025.qdcg-worksheet.line-13"
+   ]
+  },
+  "tax.us.2025.rule.qdcg-worksheet.line-15": {
+   "version": "v1",
+   "file": "rule.qdcg-worksheet.line-15.json",
+   "requires": [
+    "tax.us.2025.qdcg-worksheet.line-5",
+    "tax.us.2025.qdcg-worksheet.line-9"
+   ],
+   "refs": [
+    "tax.us.2025.qdcg-worksheet.line-5",
+    "tax.us.2025.qdcg-worksheet.line-9"
+   ]
+  },
+  "tax.us.2025.rule.qdcg-worksheet.line-16": {
+   "version": "v1",
+   "file": "rule.qdcg-worksheet.line-16.json",
+   "requires": [
+    "tax.us.2025.qdcg-worksheet.line-14",
+    "tax.us.2025.qdcg-worksheet.line-15"
+   ],
+   "refs": [
+    "tax.us.2025.qdcg-worksheet.line-14",
+    "tax.us.2025.qdcg-worksheet.line-15"
+   ]
+  },
+  "tax.us.2025.rule.qdcg-worksheet.line-17": {
+   "version": "v1",
+   "file": "rule.qdcg-worksheet.line-17.json",
+   "requires": [
+    "tax.us.2025.qdcg-worksheet.line-12",
+    "tax.us.2025.qdcg-worksheet.line-16"
+   ],
+   "refs": [
+    "tax.us.2025.qdcg-worksheet.line-12",
+    "tax.us.2025.qdcg-worksheet.line-16"
+   ]
+  },
+  "tax.us.2025.rule.qdcg-worksheet.line-18": {
+   "version": "v1",
+   "file": "rule.qdcg-worksheet.line-18.json",
+   "requires": [
+    "tax.us.2025.qdcg-worksheet.line-17"
+   ],
+   "refs": [
+    "tax.us.2025.qdcg-worksheet.line-17"
+   ]
+  },
+  "tax.us.2025.rule.qdcg-worksheet.line-19": {
+   "version": "v1",
+   "file": "rule.qdcg-worksheet.line-19.json",
+   "requires": [
+    "tax.us.2025.qdcg-worksheet.line-9",
+    "tax.us.2025.qdcg-worksheet.line-17"
+   ],
+   "refs": [
+    "tax.us.2025.qdcg-worksheet.line-17",
+    "tax.us.2025.qdcg-worksheet.line-9"
+   ]
+  },
+  "tax.us.2025.rule.qdcg-worksheet.line-20": {
+   "version": "v1",
+   "file": "rule.qdcg-worksheet.line-20.json",
+   "requires": [
+    "tax.us.2025.qdcg-worksheet.line-10",
+    "tax.us.2025.qdcg-worksheet.line-19"
+   ],
+   "refs": [
+    "tax.us.2025.qdcg-worksheet.line-10",
+    "tax.us.2025.qdcg-worksheet.line-19"
+   ]
+  },
+  "tax.us.2025.rule.qdcg-worksheet.line-21": {
+   "version": "v1",
+   "file": "rule.qdcg-worksheet.line-21.json",
+   "requires": [
+    "tax.us.2025.qdcg-worksheet.line-20"
+   ],
+   "refs": [
+    "tax.us.2025.qdcg-worksheet.line-20"
+   ]
+  },
+  "tax.us.2025.rule.qdcg-worksheet.line-22": {
+   "version": "v1",
+   "file": "rule.qdcg-worksheet.line-22.json",
+   "requires": [
+    "tax.us.2025.qdcg-worksheet.line-5",
+    "filing_status",
+    "rounding.convention"
+   ],
+   "refs": [
+    "filing_status",
+    "tax.us.2025.qdcg-worksheet.line-5"
+   ]
+  },
+  "tax.us.2025.rule.qdcg-worksheet.line-23": {
+   "version": "v1",
+   "file": "rule.qdcg-worksheet.line-23.json",
+   "requires": [
+    "tax.us.2025.qdcg-worksheet.line-18",
+    "tax.us.2025.qdcg-worksheet.line-21",
+    "tax.us.2025.qdcg-worksheet.line-22"
+   ],
+   "refs": [
+    "tax.us.2025.qdcg-worksheet.line-18",
+    "tax.us.2025.qdcg-worksheet.line-21",
+    "tax.us.2025.qdcg-worksheet.line-22"
+   ]
+  },
+  "tax.us.2025.rule.qdcg-worksheet.line-24": {
+   "version": "v1",
+   "file": "rule.qdcg-worksheet.line-24.json",
+   "requires": [
+    "tax.us.2025.income.taxable-income",
+    "filing_status",
+    "rounding.convention"
+   ],
+   "refs": [
+    "filing_status"
+   ]
+  },
+  "tax.us.2025.rule.qdcg-worksheet.line-25": {
+   "version": "v1",
+   "file": "rule.qdcg-worksheet.line-25.json",
+   "requires": [
+    "tax.us.2025.qdcg-worksheet.line-23",
+    "tax.us.2025.qdcg-worksheet.line-24"
+   ],
+   "refs": [
+    "tax.us.2025.qdcg-worksheet.line-23",
+    "tax.us.2025.qdcg-worksheet.line-24"
+   ]
+  },
+  "tax.us.2025.rule.qdcg-worksheet.line-4": {
+   "version": "v1",
+   "file": "rule.qdcg-worksheet.line-4.json",
+   "requires": [
+    "tax.us.2025.dividends.qualified-total",
+    "tax.us.2025.capital-gains.selected-preferential-base"
+   ],
+   "refs": []
+  },
+  "tax.us.2025.rule.qdcg-worksheet.line-5": {
+   "version": "v1",
+   "file": "rule.qdcg-worksheet.line-5.json",
+   "requires": [
+    "tax.us.2025.income.taxable-income",
+    "tax.us.2025.dividends.qualified-total",
+    "tax.us.2025.capital-gains.selected-preferential-base"
+   ],
+   "refs": []
+  },
+  "tax.us.2025.rule.qdcg-worksheet.line-6": {
+   "version": "v1",
+   "file": "rule.qdcg-worksheet.line-6.json",
+   "requires": [
+    "filing_status"
+   ],
+   "refs": [
+    "filing_status"
+   ]
+  },
+  "tax.us.2025.rule.qdcg-worksheet.line-7": {
+   "version": "v1",
+   "file": "rule.qdcg-worksheet.line-7.json",
+   "requires": [
+    "tax.us.2025.income.taxable-income",
+    "tax.us.2025.qdcg-worksheet.line-6"
+   ],
+   "refs": [
+    "tax.us.2025.qdcg-worksheet.line-6"
+   ]
+  },
+  "tax.us.2025.rule.qdcg-worksheet.line-8": {
+   "version": "v1",
+   "file": "rule.qdcg-worksheet.line-8.json",
+   "requires": [
+    "tax.us.2025.qdcg-worksheet.line-5",
+    "tax.us.2025.qdcg-worksheet.line-7"
+   ],
+   "refs": [
+    "tax.us.2025.qdcg-worksheet.line-5",
+    "tax.us.2025.qdcg-worksheet.line-7"
+   ]
+  },
+  "tax.us.2025.rule.qdcg-worksheet.line-9": {
+   "version": "v1",
+   "file": "rule.qdcg-worksheet.line-9.json",
+   "requires": [
+    "tax.us.2025.qdcg-worksheet.line-7",
+    "tax.us.2025.qdcg-worksheet.line-8"
+   ],
+   "refs": [
+    "tax.us.2025.qdcg-worksheet.line-7",
+    "tax.us.2025.qdcg-worksheet.line-8"
+   ]
+  }
+ }
+}

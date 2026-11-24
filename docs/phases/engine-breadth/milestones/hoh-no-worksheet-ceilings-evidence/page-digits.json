@@ -1,0 +1,20 @@
+{
+  "case": "hoh/none/no",
+  "return": "demo wages 50000, withholding 4500, standard deduction, no qualified dividends and no sale",
+  "method": "Second live render of the saved page for this one case. trace.py stores html_hits by adding the comma form and the raw digits and keeping the sum under the comma key.",
+  "v102": {
+    "comma_64750": 0,
+    "raw_64750": 1,
+    "comma_566700": 0,
+    "raw_566700": 1,
+    "cannot_file_as_head_of_household": 20,
+    "raw_value_site": "explanation-graph value on qdcg-worksheet.line-6 and qdcg-worksheet.line-13"
+  },
+  "scratch": {
+    "comma_64750": 0,
+    "raw_64750": 0,
+    "comma_566700": 0,
+    "raw_566700": 0,
+    "cannot_file_as_head_of_household": 20
+  }
+}

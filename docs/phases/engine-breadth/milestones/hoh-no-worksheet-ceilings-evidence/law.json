@@ -1,0 +1,32 @@
+{
+  "document": "2025 Instructions for Form 1040",
+  "url": "https://www.irs.gov/pub/irs-prior/i1040gi--2025.pdf",
+  "sha256": "482e9c487c608f1bbeaceef35bc3c0933e8b35443cfff447e4279d590468364a",
+  "extraction": "pdftotext without layout",
+  "quotes": [
+    {
+      "lines": "967-982",
+      "text": "Check only the filing status that applies to you. The ones that will usually give you the lowest tax are listed last: Married filing separately, Single, Head of household, Married filing jointly, Qualifying surviving spouse. More than one filing status can apply to you. You can choose the one for which you qualify that will give you the lowest tax."
+    },
+    {
+      "lines": "1126-1146",
+      "text": "You can check the “Head of household” box in the Filing Status section on page 1 of Form 1040 or 1040-SR if you are unmarried and provide a home for certain other persons. Check the “Head of household” box only if you are unmarried (or considered unmarried) and either Test 1 or Test 2 applies."
+    },
+    {
+      "lines": "1270-1291",
+      "text": "You can check the “Qualifying surviving spouse” box in the Filing Status section on page 1 of Form 1040 or 1040-SR and use joint return tax rates for 2025 if all of the following apply. If your spouse died in 2025, you can't file as qualifying surviving spouse. Instead, see the instructions for Married Filing Jointly, earlier."
+    },
+    {
+      "lines": "4002-4038",
+      "text": "Qualified Dividends and Capital Gain Tax Worksheet—Line 16. Before completing this worksheet, complete Form 1040 or 1040-SR through line 15."
+    },
+    {
+      "lines": "4057-4062",
+      "text": "Line 6. Enter: $48,350 if single or married filing separately, $96,700 if married filing jointly or qualifying surviving spouse, $64,750 if head of household. Line 7. Enter the smaller of line 1 or line 6."
+    },
+    {
+      "lines": "4068-4074",
+      "text": "Line 13. Enter: $533,400 if single, $300,000 if married filing separately, $600,050 if married filing jointly or qualifying surviving spouse, $566,700 if head of household. Line 14. Enter the smaller of line 1 or line 13."
+    }
+  ]
+}
