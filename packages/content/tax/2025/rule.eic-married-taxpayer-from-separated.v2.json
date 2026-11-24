@@ -1,0 +1,165 @@
+{
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": []
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.line-27-31",
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.rule.eic-married-taxpayer-from-separated",
+  "notes": "Recorded yes stays 0. Recorded no asks a head of household with a qualifying child.",
+  "pins": [],
+  "publishes": "tax.us.2025.eic.married-taxpayer-from-separated",
+  "requires": [],
+  "role": "computation",
+  "schema": "rule-artifact.v17",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "selection": {
+    "conflict": "refuse",
+    "default": {
+      "id": "neither",
+      "pins": [
+        {
+          "id": "tax.us.2025.eic.married-taxpayer-recorded",
+          "origin": "assertion",
+          "role": "input",
+          "version": "v1"
+        }
+      ],
+      "reads_subject_results": [],
+      "requires": [
+        "tax.us.2025.eic.married-taxpayer-recorded"
+      ],
+      "value": {
+        "name": "tax.us.2025.eic.married-taxpayer-recorded",
+        "op": "ref"
+      },
+      "when": true
+    },
+    "mode": "exclusive_presence",
+    "paths": [
+      {
+        "id": "separated-recorded",
+        "pins": [
+          {
+            "id": "tax.us.2025.eic.separated-spouse",
+            "origin": "assertion",
+            "role": "input",
+            "version": "v1"
+          },
+          {
+            "id": "tax.us.2025.eic.qualifying-child-present",
+            "origin": "assertion",
+            "role": "input",
+            "version": "v1"
+          },
+          {
+            "id": "filing_status",
+            "role": "choice",
+            "version": "v1"
+          }
+        ],
+        "reads_subject_results": [],
+        "requires": [
+          "tax.us.2025.eic.separated-spouse",
+          "tax.us.2025.eic.qualifying-child-present",
+          "filing_status"
+        ],
+        "value": {
+          "else": {
+            "else": 0,
+            "op": "choose",
+            "then": 2,
+            "when": {
+              "args": [
+                {
+                  "cmp": "eq",
+                  "left": {
+                    "name": "filing_status",
+                    "op": "ref"
+                  },
+                  "op": "categorical_compare",
+                  "right": {
+                    "fact_type": {
+                      "id": "tax.us.2025.filing-status",
+                      "version": "v1"
+                    },
+                    "op": "category_literal",
+                    "value": "head_of_household"
+                  }
+                },
+                {
+                  "cmp": "eq",
+                  "left": {
+                    "name": "tax.us.2025.eic.qualifying-child-present",
+                    "op": "ref"
+                  },
+                  "op": "compare",
+                  "right": 1
+                }
+              ],
+              "op": "all"
+            }
+          },
+          "op": "choose",
+          "then": 0,
+          "when": {
+            "args": [
+              {
+                "condition": true,
+                "members": [
+                  {
+                    "name": "tax.us.2025.eic.separated-spouse",
+                    "op": "ref"
+                  }
+                ],
+                "op": "conditional_dependency_set"
+              },
+              {
+                "cmp": "eq",
+                "left": {
+                  "name": "tax.us.2025.eic.separated-spouse",
+                  "op": "ref"
+                },
+                "op": "categorical_compare",
+                "right": {
+                  "fact_type": {
+                    "id": "tax.us.2025.eic.separated-spouse",
+                    "version": "v1"
+                  },
+                  "op": "category_literal",
+                  "value": "yes"
+                }
+              }
+            ],
+            "op": "all"
+          }
+        },
+        "when": true,
+        "activity": {
+          "kind": "source_nonempty",
+          "member_fact_type": {
+            "id": "tax.us.2025.eic.separated-spouse",
+            "version": "v1"
+          }
+        }
+      }
+    ],
+    "refusal": {
+      "code": "DEPENDENCY_INVALID",
+      "missing": [
+        "eic-married-from-separated"
+      ],
+      "pins": []
+    }
+  },
+  "version": "v2",
+  "when": true
+}
