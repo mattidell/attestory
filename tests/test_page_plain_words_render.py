@@ -12,6 +12,7 @@ import json
 import os
 from pathlib import Path
 import subprocess
+from typing import Any
 
 import pytest
 
@@ -124,7 +125,7 @@ ATTACHMENT_CODES = {
 }
 
 
-def _field(line: str, dispositions: dict) -> dict:
+def _field(line: str, dispositions: dict[str, Any]) -> dict[str, Any]:
     return {
         "label": f"Synthetic line {line}",
         "line": line,
@@ -133,7 +134,7 @@ def _field(line: str, dispositions: dict) -> dict:
     }
 
 
-def _section(section_id: str, disposition: str, **resolved_extra: object) -> dict:
+def _section(section_id: str, disposition: str, **resolved_extra: object) -> dict[str, Any]:
     instruction_key = "published_value" if disposition == "published_categorical" else disposition
     instruction: dict[str, object] = {"explain": "Saved explanation for this line."}
     if disposition == "published_categorical":
@@ -153,8 +154,8 @@ def _section(section_id: str, disposition: str, **resolved_extra: object) -> dic
     }
 
 
-def _model(sections: list[dict], attachments: list[dict] | None = None, mortgage: dict | None = None) -> dict:
-    model: dict = {
+def _model(sections: list[dict[str, Any]], attachments: list[dict[str, Any]] | None = None, mortgage: dict[str, Any] | None = None) -> dict[str, Any]:
+    model: dict[str, Any] = {
         "schema": "presentation-model.v1",
         "runId": "demo.run.ppw-render",
         "pinLabels": {},
@@ -169,7 +170,7 @@ def _model(sections: list[dict], attachments: list[dict] | None = None, mortgage
     return model
 
 
-def _render(model: dict) -> dict:
+def _render(model: dict[str, Any]) -> dict[str, Any]:
     payload = json.dumps({"key": "case", "model": model}) + "\n"
     env = os.environ.copy()
     env["PPW_CHECK_DETAIL"] = "1"
@@ -278,7 +279,7 @@ def test_unmapped_attachment_code_fails_closed() -> None:
     assert "NOT_A_REAL_CODE" not in report["first_read_text"]
 
 
-def _mortgage(disposition: str) -> dict:
+def _mortgage(disposition: str) -> dict[str, Any]:
     return {
         "schema": "mortgage-borrowing-explanation.v1",
         "reports": [{
