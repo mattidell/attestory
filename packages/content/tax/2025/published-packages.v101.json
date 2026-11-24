@@ -1298,7 +1298,7 @@
     {
       "id": "tax.us.2025.eic-married-taxpayer.vocabulary",
       "version": "v1",
-      "checksum": "e3f98b6fc9661aa0a1e45c9509222fe76b9da7045e5e3b1b2134e992fc9eb62f"
+      "checksum": "0f3497af4a787c941c296b39f1b91e1a1a6d5d244657d5ac7d37561a69135537"
     },
     {
       "checksum": "fb3dd6f079d58a57e9d0b308c03cb72fdca3f8785467fd43adcbf07e11002ba8",
@@ -2918,7 +2918,7 @@
     {
       "id": "tax.us.2025.input-question.eic-married-taxpayer",
       "version": "v1",
-      "checksum": "93b11c164b0dd4c55acfe3a5218db6b6f32632ecd5a6f3faf2eec68d2276ef02"
+      "checksum": "41e0fc20dee13a6db5eaeb1fea6503200809bb559e9b9d0431231e460f3e2326"
     },
     {
       "checksum": "b1d82411216336411f104a6fd6898d097ec2cf249850edd94386439a7aa7a344",

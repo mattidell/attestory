@@ -204,3 +204,11 @@ nonresident-alien spouse with no resident election is still married. A
 spouse who died in 2025, did not remarry, shared the home, and has no
 decree answers yes, then question 4 yes and question 5 no, and line 27a is
 0. No rule file and no package byte changed, so the replay was not rerun.
+
+One statement (ESM-R5 and ESM-R6). The question and the fact description are
+the same text. No is decided first: never married, widowed before January 1,
+2025, or a final decree in effect at the end of 2025. The 2026 death stays
+in the marriage-at-the-end-of-2025 sentence. A fast content test requires
+each rule clause and requires "Answer no" before "Otherwise answer yes".
+Removing the 2025 year-of-death clause fails that test. No rule file and
+no package byte changed, so the replay was not rerun.

@@ -46,50 +46,21 @@ CITATION = [{"id": P + "citation.form1040.line-27-31", "version": "v1"}]
 # alone, before either value is read.
 KEEP_INERT = True
 REFUSED_VALUE = {"not": {}}
-TITLE = (
-    "Are you a married taxpayer whose filing status is married filing separately or head of household "
-    "(2025 Form 1040 instructions, line 27a, Step 3 question 3)? "
-    "Under Married Filing Jointly in those instructions, you are married for this question if you were "
-    "married at the end of 2025, even if you did not live with your spouse at the end of 2025, or if your "
-    "spouse died in 2025 and you did not remarry in 2025, or if you were married at the end of 2025 and "
-    "your spouse died in 2026 before filing a 2025 return. Under Single, you are not married for this "
-    "question if you were never married, or if you were widowed before January 1, 2025, and did not "
-    "remarry before the end of 2025. Under Head of Household, an interlocutory decree still means you are "
-    "married, and a final decree of divorce or of separate maintenance at the end of 2025 means you are "
-    "considered unmarried. A spouse who died is not a decree of separate maintenance. You remain married "
-    "for this question if you are married and your spouse was a nonresident alien at any time during the "
-    "year and the election to treat that spouse as a resident was not made. Publication 596, Rule 3, still "
-    "treats you as married when you file as head of household under the special rules for married "
-    "taxpayers living apart, including when you lived apart and are considered unmarried for head of "
-    "household. Yes continues to the separated-spouse questions. No skips questions 4 and 5 and continues "
-    "to question 6. Asked of a head of household with a qualifying child, including one who already "
-    "answered the separated-spouse question no. Contributed categorical assertion, domain {yes, no}, no "
-    "default, presence-before-value, free supersession."
-)
+# One statement. The no cases are first, so they decide before any yes.
 QUESTION = (
     "You file as head of household and a child is your qualifying child for the earned income credit. "
     "Are you a married taxpayer whose filing status is married filing separately or head of household? "
-    "Under Married Filing Jointly in the 2025 Form 1040 instructions, you are married for this question "
-    "if you were married at the end of 2025, even if you did not live with your spouse at the end of "
-    "2025, or if your spouse died in 2025 and you did not remarry in 2025, or if you were married at the "
-    "end of 2025 and your spouse died in 2026 before filing a 2025 return. Under Single in those "
-    "instructions, you are not married for this question if you were never married, or if you were "
-    "widowed before January 1, 2025, and did not remarry before the end of 2025. Under Head of Household "
-    "in those instructions, an interlocutory decree still means you are married, and a final decree of "
-    "divorce or of separate maintenance at the end of 2025 means you are considered unmarried. A spouse "
-    "who died is not a decree of separate maintenance. You remain married for this question if you are "
-    "married and your spouse was a nonresident alien at any time during the year and the election to "
-    "treat that spouse as a resident was not made. Publication 596, Rule 3, still treats you as married "
-    "when you file as head of household under the special rules for married taxpayers living apart, "
-    "including when you lived apart and are considered unmarried for head of household. Answer yes if "
-    "you were married at the end of 2025, if your spouse died in 2025 and you did not remarry in 2025, "
-    "if your spouse died in 2026 before filing a 2025 return, if an interlocutory decree means you are "
-    "married, if your spouse was a nonresident alien and the resident election was not made, or if Rule 3 "
-    "still treats you as married. Yes continues to the separated-spouse questions. Answer no if you were "
-    "never married, if you were widowed before January 1, 2025, and did not remarry before the end of "
-    "2025, or if a final decree of divorce or of separate maintenance at the end of 2025 means you are "
-    "considered unmarried. No skips questions 4 and 5 and continues to question 6."
+    "Answer no if any of these is true: you were never married; you were widowed before January 1, 2025, "
+    "and did not remarry before the end of 2025; or a final decree of divorce or of separate maintenance "
+    "was in effect at the end of 2025. Otherwise answer yes if you were married at the end of 2025, even "
+    "if you did not live with your spouse, or your spouse died in 2026 before you filed; if your spouse "
+    "died in 2025 and you did not remarry in 2025; if only an interlocutory decree was in effect; or if "
+    "your spouse was a nonresident alien and you did not choose to treat your spouse as a resident. If "
+    "you live apart and file as head of household because you are considered unmarried, you are still "
+    "married for this question (Publication 596, Rule 3). A spouse's death is not a decree. Yes continues "
+    "to the separated-spouse questions. No skips them and continues to question 6."
 )
+TITLE = QUESTION
 
 
 def _pin(name: str, *, choice: bool = False) -> dict[str, Any]:
