@@ -3,8 +3,8 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "code-w-gain-question",
-  "status": "Open 2026-11-24. P0 next.",
-  "retrospective": null,
+  "status": "Closed 2026-11-24 on P0. Parked; needs an owner ADR.",
+  "retrospective": "docs/milestone-retrospectives/2026-11-24-code-w-gain-question.md",
   "scope": [
     "a Form 8949 row whose code W wash-sale adjustment (box 1g) sits on a gain or break-even sale, which blocks by ADR-0062 Decision 2, tells the filer what to answer or correct, not only why it blocks",
     "every recorded return keeps its numbers"
@@ -70,3 +70,49 @@ pinned meaning text on sale families, so it cannot simply be reworded.
 2. **Decisions** by the foreman.
 3. **Track 1** if content can.
 4. **Fresh review**, repair, closeout.
+
+## P0 result
+
+Builder, 2026-11-24. **Stopped under the charter's stop condition**;
+evidence in `code-w-gain-question-evidence/p0.md`.
+
+- Twelve synthetic `demo.*` returns on published core v103. Every gain and
+  break-even roots at `<family>.member-validation.synthesized`,
+  `DEPENDENCY_INVALID`, missing `ADJUSTMENT_EXCEEDS_LOSS` and
+  `CODE_W_ON_GAIN`. The page shows the pinned family meanings and zero
+  question groups. A loss the disallowance does not exceed publishes
+  column (h) -2500 and Form 1040 line 7a -2500.
+- The 2025 Form 8949 instructions (code W, box 1g) and ADR-0062 Decision 2:
+  the filer corrects column (g) to the nondeductible wash-sale loss, or to
+  0 when the row is not a loss.
+- Scratch successors: an input question for the adjustment fact, a
+  top-level `blocked.missing` name, a closure mapping keyed by the block
+  code, and a second publisher of the validation symbol do not attach a
+  question. An ADR 0086 block on line 1b does, and it also blocks the valid
+  loss. Family bytes were unchanged. Replay was not run.
+- Smallest change that keeps the pins and the valid loss: a projection
+  link at `presentation_projection.py:849` from those two block codes to
+  the sale's own adjustment question. It needs an ADR. The owner writes
+  it. Not built.
+
+## Decisions
+
+1. Close on P0 (stop condition met). Content cannot attach a question the
+   page's walk reaches for a code W gain or break-even without editing the
+   pinned sale family meaning text or unpinning saved sale records; the one
+   content route that attaches a question (an ADR 0086 expression block on
+   Schedule D line 1b) also blocks a valid wash-sale loss, so it is closed.
+2. The smallest change is a projection link at
+   `presentation_projection.py:849` from the family member-validation
+   block codes to the box 1g adjustment fact's input question. It changes
+   what the page explains, so it needs an ADR the owner accepts; it is
+   parked with that note. The filer's correction is the existing box 1g
+   amount (the 2025 Form 8949 instructions: the nondeductible wash-sale
+   loss, or 0).
+
+## Closeout
+
+Closed 2026-11-24 on P0. A code W adjustment on a gain or break-even row
+still blocks with only its reason; asking the filer to correct box 1g
+needs a projection change and an owner ADR. No package, rule or test
+change.
