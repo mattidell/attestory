@@ -3,8 +3,8 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "eic-separated-married",
-  "status": "Open 2026-11-24. Track 1 and repairs done; closeout next.",
-  "retrospective": null,
+  "status": "Closed 2026-11-24. Core v103, registry v101, release v101.",
+  "retrospective": "docs/milestone-retrospectives/2026-11-24-eic-separated-married.md",
   "scope": [
     "the earned income credit asks the separated-spouse question (Step 3 questions 4 and 5 of the 2025 Form 1040 instructions) only of a married filer whose status is head of household or married filing separately, as the instructions do",
     "an unmarried head of household with a qualifying child is not asked it and keeps the credit the sources give",
@@ -225,3 +225,18 @@ continues to question 6. The inert path stays. A stored
 value equal to the default would still refuse when a separated-spouse
 answer is also stored. The repaired replay is the same 691 and 84, with no
 unexpected difference and no number change.
+
+## Closeout
+
+Closed 2026-11-24. Core v103 (registry v101, release v101) asks Step 3
+question 3 of the 2025 Form 1040 instructions, "are you a married
+taxpayer", of a head of household with a qualifying child, as a new
+input question with the instructions' marital rules in its text. Only a
+"yes" goes on to the separated-spouse questions; a "no" skips them and
+continues to question 6. A recorded separated-spouse "yes" still passes
+without the new answer, and a recorded "no" asks it. An unmarried head
+of household who answered the separated-spouse question "no" no longer
+gets $0. Married filing separately is unchanged. The 775 recorded lists
+replay with no outcome or number changed (all are single filers). The
+second selection path the schema requires is keyed on a fact that is
+refused at assertion, so it cannot change a result.
