@@ -192,3 +192,15 @@ expectations, no newly blocked list, and no number change. `pytest -m "not live"
 passed (1,963 passed, 8 skipped, 5,993 subtests), including
 `tests/test_content_file_sizes.py`. `python3 -m mypy` reported no issues in
 539 source files. The live module passed 36 tests.
+
+Year of death (ESM-R4). Married Filing Jointly says you are married for this
+question if you were married at the end of 2025, even if you did not live
+with your spouse, or if your spouse died in 2025 and you did not remarry in
+2025, or if your spouse died in 2026 before filing a 2025 return. Single
+says you are not married if you were never married, or if you were widowed
+before January 1, 2025, and did not remarry. The decree and living-apart
+sentences stay. A death is not a decree of separate maintenance. A
+nonresident-alien spouse with no resident election is still married. A
+spouse who died in 2025, did not remarry, shared the home, and has no
+decree answers yes, then question 4 yes and question 5 no, and line 27a is
+0. No rule file and no package byte changed, so the replay was not rerun.

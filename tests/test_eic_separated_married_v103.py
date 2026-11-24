@@ -47,6 +47,14 @@ def _row(key: str) -> dict[str, Any]:
     return row
 
 
+def test_spouse_died_in_2025_answers_yes_and_the_credit_stops() -> None:
+    """Spouse died in 2025, no remarriage, same home, no decree. Question 3 yes, 4 yes, 5 no stops."""
+    row = _row("q3-yes-no/ssn")
+    assert row["credit"] == 0
+    assert row["asked"]["married-taxpayer"] is True
+    assert row["asked"]["separated-spouse"] is True
+
+
 def test_interlocutory_decree_answers_yes_and_the_credit_stops() -> None:
     """Question 3 yes, question 4 yes, question 5 no. The instructions stop the credit."""
     row = _row("q3-yes-no/ssn")

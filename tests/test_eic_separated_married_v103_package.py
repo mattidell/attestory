@@ -71,6 +71,13 @@ def test_published_files_match_the_design() -> None:
         assert "considered unmarried" in text
         assert "Rule 3" in text
         assert "continues to question 6" in text
+        assert "married at the end of 2025" in text
+        assert "spouse died in 2025 and you did not remarry in 2025" in text
+        assert "died in 2026 before filing a 2025 return" in text
+        assert "never married" in text
+        assert "widowed before January 1, 2025" in text
+        assert "not a decree of separate maintenance" in text
+        assert "nonresident alien" in text
         assert "keep the credit" not in text
     assert inert["value_schema"] == {"not": {}}
     fact_ids = {fact["id"] for fact in bodies["eic-married-taxpayer.bundle.json"]["fact_types"]}
