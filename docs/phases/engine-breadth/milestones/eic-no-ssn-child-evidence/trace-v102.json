@@ -1,0 +1,3561 @@
+{
+ "cases": 50,
+ "core": {
+  "package": "v102",
+  "registry": "v100",
+  "release": "v100"
+ },
+ "credit_equals_source": 50,
+ "errors": 0,
+ "mfs_standard_deduction_lived_apart": "yes on every married-filing-separately return; not the credit's separated-spouse test",
+ "runs": {
+  "hoh/both/apart/ll": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": true,
+    "not-qc": false,
+    "separated-spouse": false
+   },
+   "blocked_rules": [],
+   "children": {
+    "demo-ens-child-nossn": {
+     "eic.child.counts": 0,
+     "eic.child.qualifies": 0
+    },
+    "demo-ens-child-ssn": {
+     "eic.child.counts": 0,
+     "eic.child.qualifies": 0
+    }
+   },
+   "credit": 0,
+   "credit_disposition": "computed_zero",
+   "credit_equals_source": true,
+   "rules": {
+    "eic-answer.age-25-under-65": "published",
+    "eic-answer.main-home-in-us": "published",
+    "eic-answer.not-claimable-as-dependent": "published",
+    "eic-answer.not-married": "published",
+    "eic-answer.not-qualifying-child-of-another": "published",
+    "eic-answer.separated-spouse": "published",
+    "eic-child.counts": "published",
+    "eic-child.qualifies": "published",
+    "eic-column-count": "published",
+    "eic-early-stop": "published",
+    "eic-gate-result": "published",
+    "eic-qualifying-child-count": "published",
+    "eic-qualifying-child-present": "published",
+    "eic-questions-required": "published",
+    "eic-status-class": "published"
+   },
+   "source": {
+    "ask_age": false,
+    "ask_main_home": false,
+    "ask_not_married": true,
+    "ask_separated": false,
+    "column": 0,
+    "credit": 0,
+    "path": "no qualifying child; Step 4 question 1 stops a married filer",
+    "qualifying_children": 0,
+    "separated_prongs_are_one_yes": true,
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.not-married": 0,
+    "eic.answer.not-qualifying-child-of-another": 1,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 0,
+    "eic.early-stop": 0,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 0,
+    "eic.qualifying-child-count": 0,
+    "eic.qualifying-child-present": 0,
+    "eic.questions-required": 1,
+    "eic.status-class": 1,
+    "eic.worksheet-a.line-6": 537,
+    "payments.line27a": 0
+   }
+  },
+  "hoh/both/apart/lm": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": false,
+    "not-qc": true,
+    "separated-spouse": true
+   },
+   "blocked_rules": [],
+   "children": {
+    "demo-ens-child-nossn": {
+     "eic.child.counts": 0,
+     "eic.child.qualifies": 1
+    },
+    "demo-ens-child-ssn": {
+     "eic.child.counts": 0,
+     "eic.child.qualifies": 0
+    }
+   },
+   "credit": 537,
+   "credit_disposition": "published_value",
+   "credit_equals_source": true,
+   "rules": {
+    "eic-answer.age-25-under-65": "published",
+    "eic-answer.main-home-in-us": "published",
+    "eic-answer.not-claimable-as-dependent": "published",
+    "eic-answer.not-married": "published",
+    "eic-answer.not-qualifying-child-of-another": "published",
+    "eic-answer.separated-spouse": "published",
+    "eic-child.counts": "published",
+    "eic-child.qualifies": "published",
+    "eic-column-count": "published",
+    "eic-early-stop": "published",
+    "eic-gate-result": "published",
+    "eic-qualifying-child-count": "published",
+    "eic-qualifying-child-present": "published",
+    "eic-questions-required": "published",
+    "eic-status-class": "published"
+   },
+   "source": {
+    "ask_age": false,
+    "ask_main_home": false,
+    "ask_not_married": false,
+    "ask_separated": true,
+    "column": 0,
+    "credit": 537,
+    "path": "qualifying child and separated; column counts only children with a valid SSN",
+    "qualifying_children": 1,
+    "separated_prongs_are_one_yes": true,
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.not-married": 1,
+    "eic.answer.not-qualifying-child-of-another": 1,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 0,
+    "eic.early-stop": 0,
+    "eic.eligibility-result": 537,
+    "eic.gate-result": 537,
+    "eic.qualifying-child-count": 0,
+    "eic.qualifying-child-present": 1,
+    "eic.questions-required": 1,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 537,
+    "payments.line27a": 537
+   }
+  },
+  "hoh/both/apart/ml": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": false,
+    "not-qc": true,
+    "separated-spouse": true
+   },
+   "blocked_rules": [],
+   "children": {
+    "demo-ens-child-nossn": {
+     "eic.child.counts": 0,
+     "eic.child.qualifies": 0
+    },
+    "demo-ens-child-ssn": {
+     "eic.child.counts": 1,
+     "eic.child.qualifies": 1
+    }
+   },
+   "credit": 2389,
+   "credit_disposition": "published_value",
+   "credit_equals_source": true,
+   "rules": {
+    "eic-answer.age-25-under-65": "published",
+    "eic-answer.main-home-in-us": "published",
+    "eic-answer.not-claimable-as-dependent": "published",
+    "eic-answer.not-married": "published",
+    "eic-answer.not-qualifying-child-of-another": "published",
+    "eic-answer.separated-spouse": "published",
+    "eic-child.counts": "published",
+    "eic-child.qualifies": "published",
+    "eic-column-count": "published",
+    "eic-early-stop": "published",
+    "eic-gate-result": "published",
+    "eic-qualifying-child-count": "published",
+    "eic-qualifying-child-present": "published",
+    "eic-questions-required": "published",
+    "eic-status-class": "published"
+   },
+   "source": {
+    "ask_age": false,
+    "ask_main_home": false,
+    "ask_not_married": false,
+    "ask_separated": true,
+    "column": 1,
+    "credit": 2389,
+    "path": "qualifying child and separated; column counts only children with a valid SSN",
+    "qualifying_children": 1,
+    "separated_prongs_are_one_yes": true,
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.not-married": 1,
+    "eic.answer.not-qualifying-child-of-another": 1,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 1,
+    "eic.early-stop": 0,
+    "eic.eligibility-result": 2389,
+    "eic.gate-result": 2389,
+    "eic.qualifying-child-count": 1,
+    "eic.qualifying-child-present": 1,
+    "eic.questions-required": 1,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 2389,
+    "payments.line27a": 2389
+   }
+  },
+  "hoh/both/apart/mm": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": false,
+    "not-qc": true,
+    "separated-spouse": true
+   },
+   "blocked_rules": [],
+   "children": {
+    "demo-ens-child-nossn": {
+     "eic.child.counts": 0,
+     "eic.child.qualifies": 1
+    },
+    "demo-ens-child-ssn": {
+     "eic.child.counts": 1,
+     "eic.child.qualifies": 1
+    }
+   },
+   "credit": 2389,
+   "credit_disposition": "published_value",
+   "credit_equals_source": true,
+   "rules": {
+    "eic-answer.age-25-under-65": "published",
+    "eic-answer.main-home-in-us": "published",
+    "eic-answer.not-claimable-as-dependent": "published",
+    "eic-answer.not-married": "published",
+    "eic-answer.not-qualifying-child-of-another": "published",
+    "eic-answer.separated-spouse": "published",
+    "eic-child.counts": "published",
+    "eic-child.qualifies": "published",
+    "eic-column-count": "published",
+    "eic-early-stop": "published",
+    "eic-gate-result": "published",
+    "eic-qualifying-child-count": "published",
+    "eic-qualifying-child-present": "published",
+    "eic-questions-required": "published",
+    "eic-status-class": "published"
+   },
+   "source": {
+    "ask_age": false,
+    "ask_main_home": false,
+    "ask_not_married": false,
+    "ask_separated": true,
+    "column": 1,
+    "credit": 2389,
+    "path": "qualifying child and separated; column counts only children with a valid SSN",
+    "qualifying_children": 2,
+    "separated_prongs_are_one_yes": true,
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.not-married": 1,
+    "eic.answer.not-qualifying-child-of-another": 1,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 1,
+    "eic.early-stop": 0,
+    "eic.eligibility-result": 2389,
+    "eic.gate-result": 2389,
+    "eic.qualifying-child-count": 1,
+    "eic.qualifying-child-present": 2,
+    "eic.questions-required": 1,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 2389,
+    "payments.line27a": 2389
+   }
+  },
+  "hoh/both/no/ll": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": true,
+    "not-qc": false,
+    "separated-spouse": false
+   },
+   "blocked_rules": [],
+   "children": {
+    "demo-ens-child-nossn": {
+     "eic.child.counts": 0,
+     "eic.child.qualifies": 0
+    },
+    "demo-ens-child-ssn": {
+     "eic.child.counts": 0,
+     "eic.child.qualifies": 0
+    }
+   },
+   "credit": 0,
+   "credit_disposition": "computed_zero",
+   "credit_equals_source": true,
+   "rules": {
+    "eic-answer.age-25-under-65": "published",
+    "eic-answer.main-home-in-us": "published",
+    "eic-answer.not-claimable-as-dependent": "published",
+    "eic-answer.not-married": "published",
+    "eic-answer.not-qualifying-child-of-another": "published",
+    "eic-answer.separated-spouse": "published",
+    "eic-child.counts": "published",
+    "eic-child.qualifies": "published",
+    "eic-column-count": "published",
+    "eic-early-stop": "published",
+    "eic-gate-result": "published",
+    "eic-qualifying-child-count": "published",
+    "eic-qualifying-child-present": "published",
+    "eic-questions-required": "published",
+    "eic-status-class": "published"
+   },
+   "source": {
+    "ask_age": false,
+    "ask_main_home": false,
+    "ask_not_married": true,
+    "ask_separated": false,
+    "column": 0,
+    "credit": 0,
+    "path": "no qualifying child; Step 4 question 1 stops a married filer",
+    "qualifying_children": 0,
+    "separated_prongs_are_one_yes": true,
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.not-married": 0,
+    "eic.answer.not-qualifying-child-of-another": 1,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 0,
+    "eic.early-stop": 0,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 0,
+    "eic.qualifying-child-count": 0,
+    "eic.qualifying-child-present": 0,
+    "eic.questions-required": 1,
+    "eic.status-class": 1,
+    "eic.worksheet-a.line-6": 537,
+    "payments.line27a": 0
+   }
+  },
+  "hoh/both/no/lm": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": false,
+    "not-qc": true,
+    "separated-spouse": true
+   },
+   "blocked_rules": [],
+   "children": {
+    "demo-ens-child-nossn": {
+     "eic.child.counts": 0,
+     "eic.child.qualifies": 1
+    },
+    "demo-ens-child-ssn": {
+     "eic.child.counts": 0,
+     "eic.child.qualifies": 0
+    }
+   },
+   "credit": 0,
+   "credit_disposition": "computed_zero",
+   "credit_equals_source": true,
+   "rules": {
+    "eic-answer.age-25-under-65": "published",
+    "eic-answer.main-home-in-us": "published",
+    "eic-answer.not-claimable-as-dependent": "published",
+    "eic-answer.not-married": "published",
+    "eic-answer.not-qualifying-child-of-another": "published",
+    "eic-answer.separated-spouse": "published",
+    "eic-child.counts": "published",
+    "eic-child.qualifies": "published",
+    "eic-column-count": "published",
+    "eic-early-stop": "published",
+    "eic-gate-result": "published",
+    "eic-qualifying-child-count": "published",
+    "eic-qualifying-child-present": "published",
+    "eic-questions-required": "published",
+    "eic-status-class": "published"
+   },
+   "source": {
+    "ask_age": false,
+    "ask_main_home": false,
+    "ask_not_married": false,
+    "ask_separated": true,
+    "column": 0,
+    "credit": 0,
+    "path": "qualifying child, separated-spouse rule not met",
+    "qualifying_children": 1,
+    "separated_prongs_are_one_yes": true,
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.not-married": 1,
+    "eic.answer.not-qualifying-child-of-another": 1,
+    "eic.answer.separated-spouse": 0,
+    "eic.column-count": 0,
+    "eic.early-stop": 0,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 0,
+    "eic.qualifying-child-count": 0,
+    "eic.qualifying-child-present": 1,
+    "eic.questions-required": 1,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 537,
+    "payments.line27a": 0
+   }
+  },
+  "hoh/both/no/ml": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": false,
+    "not-qc": true,
+    "separated-spouse": true
+   },
+   "blocked_rules": [],
+   "children": {
+    "demo-ens-child-nossn": {
+     "eic.child.counts": 0,
+     "eic.child.qualifies": 0
+    },
+    "demo-ens-child-ssn": {
+     "eic.child.counts": 1,
+     "eic.child.qualifies": 1
+    }
+   },
+   "credit": 0,
+   "credit_disposition": "computed_zero",
+   "credit_equals_source": true,
+   "rules": {
+    "eic-answer.age-25-under-65": "published",
+    "eic-answer.main-home-in-us": "published",
+    "eic-answer.not-claimable-as-dependent": "published",
+    "eic-answer.not-married": "published",
+    "eic-answer.not-qualifying-child-of-another": "published",
+    "eic-answer.separated-spouse": "published",
+    "eic-child.counts": "published",
+    "eic-child.qualifies": "published",
+    "eic-column-count": "published",
+    "eic-early-stop": "published",
+    "eic-gate-result": "published",
+    "eic-qualifying-child-count": "published",
+    "eic-qualifying-child-present": "published",
+    "eic-questions-required": "published",
+    "eic-status-class": "published"
+   },
+   "source": {
+    "ask_age": false,
+    "ask_main_home": false,
+    "ask_not_married": false,
+    "ask_separated": true,
+    "column": 1,
+    "credit": 0,
+    "path": "qualifying child, separated-spouse rule not met",
+    "qualifying_children": 1,
+    "separated_prongs_are_one_yes": true,
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.not-married": 1,
+    "eic.answer.not-qualifying-child-of-another": 1,
+    "eic.answer.separated-spouse": 0,
+    "eic.column-count": 1,
+    "eic.early-stop": 0,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 0,
+    "eic.qualifying-child-count": 1,
+    "eic.qualifying-child-present": 1,
+    "eic.questions-required": 1,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 2389,
+    "payments.line27a": 0
+   }
+  },
+  "hoh/both/no/mm": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": false,
+    "not-qc": true,
+    "separated-spouse": true
+   },
+   "blocked_rules": [],
+   "children": {
+    "demo-ens-child-nossn": {
+     "eic.child.counts": 0,
+     "eic.child.qualifies": 1
+    },
+    "demo-ens-child-ssn": {
+     "eic.child.counts": 1,
+     "eic.child.qualifies": 1
+    }
+   },
+   "credit": 0,
+   "credit_disposition": "computed_zero",
+   "credit_equals_source": true,
+   "rules": {
+    "eic-answer.age-25-under-65": "published",
+    "eic-answer.main-home-in-us": "published",
+    "eic-answer.not-claimable-as-dependent": "published",
+    "eic-answer.not-married": "published",
+    "eic-answer.not-qualifying-child-of-another": "published",
+    "eic-answer.separated-spouse": "published",
+    "eic-child.counts": "published",
+    "eic-child.qualifies": "published",
+    "eic-column-count": "published",
+    "eic-early-stop": "published",
+    "eic-gate-result": "published",
+    "eic-qualifying-child-count": "published",
+    "eic-qualifying-child-present": "published",
+    "eic-questions-required": "published",
+    "eic-status-class": "published"
+   },
+   "source": {
+    "ask_age": false,
+    "ask_main_home": false,
+    "ask_not_married": false,
+    "ask_separated": true,
+    "column": 1,
+    "credit": 0,
+    "path": "qualifying child, separated-spouse rule not met",
+    "qualifying_children": 2,
+    "separated_prongs_are_one_yes": true,
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.not-married": 1,
+    "eic.answer.not-qualifying-child-of-another": 1,
+    "eic.answer.separated-spouse": 0,
+    "eic.column-count": 1,
+    "eic.early-stop": 0,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 0,
+    "eic.qualifying-child-count": 1,
+    "eic.qualifying-child-present": 2,
+    "eic.questions-required": 1,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 2389,
+    "payments.line27a": 0
+   }
+  },
+  "hoh/both/writing/ll": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": true,
+    "not-qc": false,
+    "separated-spouse": false
+   },
+   "blocked_rules": [],
+   "children": {
+    "demo-ens-child-nossn": {
+     "eic.child.counts": 0,
+     "eic.child.qualifies": 0
+    },
+    "demo-ens-child-ssn": {
+     "eic.child.counts": 0,
+     "eic.child.qualifies": 0
+    }
+   },
+   "credit": 0,
+   "credit_disposition": "computed_zero",
+   "credit_equals_source": true,
+   "rules": {
+    "eic-answer.age-25-under-65": "published",
+    "eic-answer.main-home-in-us": "published",
+    "eic-answer.not-claimable-as-dependent": "published",
+    "eic-answer.not-married": "published",
+    "eic-answer.not-qualifying-child-of-another": "published",
+    "eic-answer.separated-spouse": "published",
+    "eic-child.counts": "published",
+    "eic-child.qualifies": "published",
+    "eic-column-count": "published",
+    "eic-early-stop": "published",
+    "eic-gate-result": "published",
+    "eic-qualifying-child-count": "published",
+    "eic-qualifying-child-present": "published",
+    "eic-questions-required": "published",
+    "eic-status-class": "published"
+   },
+   "source": {
+    "ask_age": false,
+    "ask_main_home": false,
+    "ask_not_married": true,
+    "ask_separated": false,
+    "column": 0,
+    "credit": 0,
+    "path": "no qualifying child; Step 4 question 1 stops a married filer",
+    "qualifying_children": 0,
+    "separated_prongs_are_one_yes": true,
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.not-married": 0,
+    "eic.answer.not-qualifying-child-of-another": 1,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 0,
+    "eic.early-stop": 0,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 0,
+    "eic.qualifying-child-count": 0,
+    "eic.qualifying-child-present": 0,
+    "eic.questions-required": 1,
+    "eic.status-class": 1,
+    "eic.worksheet-a.line-6": 537,
+    "payments.line27a": 0
+   }
+  },
+  "hoh/both/writing/lm": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": false,
+    "not-qc": true,
+    "separated-spouse": true
+   },
+   "blocked_rules": [],
+   "children": {
+    "demo-ens-child-nossn": {
+     "eic.child.counts": 0,
+     "eic.child.qualifies": 1
+    },
+    "demo-ens-child-ssn": {
+     "eic.child.counts": 0,
+     "eic.child.qualifies": 0
+    }
+   },
+   "credit": 537,
+   "credit_disposition": "published_value",
+   "credit_equals_source": true,
+   "rules": {
+    "eic-answer.age-25-under-65": "published",
+    "eic-answer.main-home-in-us": "published",
+    "eic-answer.not-claimable-as-dependent": "published",
+    "eic-answer.not-married": "published",
+    "eic-answer.not-qualifying-child-of-another": "published",
+    "eic-answer.separated-spouse": "published",
+    "eic-child.counts": "published",
+    "eic-child.qualifies": "published",
+    "eic-column-count": "published",
+    "eic-early-stop": "published",
+    "eic-gate-result": "published",
+    "eic-qualifying-child-count": "published",
+    "eic-qualifying-child-present": "published",
+    "eic-questions-required": "published",
+    "eic-status-class": "published"
+   },
+   "source": {
+    "ask_age": false,
+    "ask_main_home": false,
+    "ask_not_married": false,
+    "ask_separated": true,
+    "column": 0,
+    "credit": 537,
+    "path": "qualifying child and separated; column counts only children with a valid SSN",
+    "qualifying_children": 1,
+    "separated_prongs_are_one_yes": true,
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.not-married": 1,
+    "eic.answer.not-qualifying-child-of-another": 1,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 0,
+    "eic.early-stop": 0,
+    "eic.eligibility-result": 537,
+    "eic.gate-result": 537,
+    "eic.qualifying-child-count": 0,
+    "eic.qualifying-child-present": 1,
+    "eic.questions-required": 1,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 537,
+    "payments.line27a": 537
+   }
+  },
+  "hoh/both/writing/ml": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": false,
+    "not-qc": true,
+    "separated-spouse": true
+   },
+   "blocked_rules": [],
+   "children": {
+    "demo-ens-child-nossn": {
+     "eic.child.counts": 0,
+     "eic.child.qualifies": 0
+    },
+    "demo-ens-child-ssn": {
+     "eic.child.counts": 1,
+     "eic.child.qualifies": 1
+    }
+   },
+   "credit": 2389,
+   "credit_disposition": "published_value",
+   "credit_equals_source": true,
+   "rules": {
+    "eic-answer.age-25-under-65": "published",
+    "eic-answer.main-home-in-us": "published",
+    "eic-answer.not-claimable-as-dependent": "published",
+    "eic-answer.not-married": "published",
+    "eic-answer.not-qualifying-child-of-another": "published",
+    "eic-answer.separated-spouse": "published",
+    "eic-child.counts": "published",
+    "eic-child.qualifies": "published",
+    "eic-column-count": "published",
+    "eic-early-stop": "published",
+    "eic-gate-result": "published",
+    "eic-qualifying-child-count": "published",
+    "eic-qualifying-child-present": "published",
+    "eic-questions-required": "published",
+    "eic-status-class": "published"
+   },
+   "source": {
+    "ask_age": false,
+    "ask_main_home": false,
+    "ask_not_married": false,
+    "ask_separated": true,
+    "column": 1,
+    "credit": 2389,
+    "path": "qualifying child and separated; column counts only children with a valid SSN",
+    "qualifying_children": 1,
+    "separated_prongs_are_one_yes": true,
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.not-married": 1,
+    "eic.answer.not-qualifying-child-of-another": 1,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 1,
+    "eic.early-stop": 0,
+    "eic.eligibility-result": 2389,
+    "eic.gate-result": 2389,
+    "eic.qualifying-child-count": 1,
+    "eic.qualifying-child-present": 1,
+    "eic.questions-required": 1,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 2389,
+    "payments.line27a": 2389
+   }
+  },
+  "hoh/both/writing/mm": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": false,
+    "not-qc": true,
+    "separated-spouse": true
+   },
+   "blocked_rules": [],
+   "children": {
+    "demo-ens-child-nossn": {
+     "eic.child.counts": 0,
+     "eic.child.qualifies": 1
+    },
+    "demo-ens-child-ssn": {
+     "eic.child.counts": 1,
+     "eic.child.qualifies": 1
+    }
+   },
+   "credit": 2389,
+   "credit_disposition": "published_value",
+   "credit_equals_source": true,
+   "rules": {
+    "eic-answer.age-25-under-65": "published",
+    "eic-answer.main-home-in-us": "published",
+    "eic-answer.not-claimable-as-dependent": "published",
+    "eic-answer.not-married": "published",
+    "eic-answer.not-qualifying-child-of-another": "published",
+    "eic-answer.separated-spouse": "published",
+    "eic-child.counts": "published",
+    "eic-child.qualifies": "published",
+    "eic-column-count": "published",
+    "eic-early-stop": "published",
+    "eic-gate-result": "published",
+    "eic-qualifying-child-count": "published",
+    "eic-qualifying-child-present": "published",
+    "eic-questions-required": "published",
+    "eic-status-class": "published"
+   },
+   "source": {
+    "ask_age": false,
+    "ask_main_home": false,
+    "ask_not_married": false,
+    "ask_separated": true,
+    "column": 1,
+    "credit": 2389,
+    "path": "qualifying child and separated; column counts only children with a valid SSN",
+    "qualifying_children": 2,
+    "separated_prongs_are_one_yes": true,
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.not-married": 1,
+    "eic.answer.not-qualifying-child-of-another": 1,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 1,
+    "eic.early-stop": 0,
+    "eic.eligibility-result": 2389,
+    "eic.gate-result": 2389,
+    "eic.qualifying-child-count": 1,
+    "eic.qualifying-child-present": 2,
+    "eic.questions-required": 1,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 2389,
+    "payments.line27a": 2389
+   }
+  },
+  "hoh/nossn/apart/less": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": true,
+    "not-qc": false,
+    "separated-spouse": false
+   },
+   "blocked_rules": [],
+   "children": {
+    "demo-ens-child-nossn": {
+     "eic.child.counts": 0,
+     "eic.child.qualifies": 0
+    }
+   },
+   "credit": 0,
+   "credit_disposition": "computed_zero",
+   "credit_equals_source": true,
+   "rules": {
+    "eic-answer.age-25-under-65": "published",
+    "eic-answer.main-home-in-us": "published",
+    "eic-answer.not-claimable-as-dependent": "published",
+    "eic-answer.not-married": "published",
+    "eic-answer.not-qualifying-child-of-another": "published",
+    "eic-answer.separated-spouse": "published",
+    "eic-child.counts": "published",
+    "eic-child.qualifies": "published",
+    "eic-column-count": "published",
+    "eic-early-stop": "published",
+    "eic-gate-result": "published",
+    "eic-qualifying-child-count": "published",
+    "eic-qualifying-child-present": "published",
+    "eic-questions-required": "published",
+    "eic-status-class": "published"
+   },
+   "source": {
+    "ask_age": false,
+    "ask_main_home": false,
+    "ask_not_married": true,
+    "ask_separated": false,
+    "column": 0,
+    "credit": 0,
+    "path": "no qualifying child; Step 4 question 1 stops a married filer",
+    "qualifying_children": 0,
+    "separated_prongs_are_one_yes": true,
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.not-married": 0,
+    "eic.answer.not-qualifying-child-of-another": 1,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 0,
+    "eic.early-stop": 0,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 0,
+    "eic.qualifying-child-count": 0,
+    "eic.qualifying-child-present": 0,
+    "eic.questions-required": 1,
+    "eic.status-class": 1,
+    "eic.worksheet-a.line-6": 537,
+    "payments.line27a": 0
+   }
+  },
+  "hoh/nossn/apart/more": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": false,
+    "not-qc": true,
+    "separated-spouse": true
+   },
+   "blocked_rules": [],
+   "children": {
+    "demo-ens-child-nossn": {
+     "eic.child.counts": 0,
+     "eic.child.qualifies": 1
+    }
+   },
+   "credit": 537,
+   "credit_disposition": "published_value",
+   "credit_equals_source": true,
+   "rules": {
+    "eic-answer.age-25-under-65": "published",
+    "eic-answer.main-home-in-us": "published",
+    "eic-answer.not-claimable-as-dependent": "published",
+    "eic-answer.not-married": "published",
+    "eic-answer.not-qualifying-child-of-another": "published",
+    "eic-answer.separated-spouse": "published",
+    "eic-child.counts": "published",
+    "eic-child.qualifies": "published",
+    "eic-column-count": "published",
+    "eic-early-stop": "published",
+    "eic-gate-result": "published",
+    "eic-qualifying-child-count": "published",
+    "eic-qualifying-child-present": "published",
+    "eic-questions-required": "published",
+    "eic-status-class": "published"
+   },
+   "source": {
+    "ask_age": false,
+    "ask_main_home": false,
+    "ask_not_married": false,
+    "ask_separated": true,
+    "column": 0,
+    "credit": 537,
+    "path": "qualifying child and separated; column counts only children with a valid SSN",
+    "qualifying_children": 1,
+    "separated_prongs_are_one_yes": true,
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.not-married": 1,
+    "eic.answer.not-qualifying-child-of-another": 1,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 0,
+    "eic.early-stop": 0,
+    "eic.eligibility-result": 537,
+    "eic.gate-result": 537,
+    "eic.qualifying-child-count": 0,
+    "eic.qualifying-child-present": 1,
+    "eic.questions-required": 1,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 537,
+    "payments.line27a": 537
+   }
+  },
+  "hoh/nossn/apart/more/age-no": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": true,
+    "not-qc": false,
+    "separated-spouse": false
+   },
+   "blocked_rules": [],
+   "children": {
+    "demo-ens-child-nossn": {
+     "eic.child.counts": 0,
+     "eic.child.qualifies": 0
+    }
+   },
+   "credit": 0,
+   "credit_disposition": "computed_zero",
+   "credit_equals_source": true,
+   "rules": {
+    "eic-answer.age-25-under-65": "published",
+    "eic-answer.main-home-in-us": "published",
+    "eic-answer.not-claimable-as-dependent": "published",
+    "eic-answer.not-married": "published",
+    "eic-answer.not-qualifying-child-of-another": "published",
+    "eic-answer.separated-spouse": "published",
+    "eic-child.counts": "published",
+    "eic-child.qualifies": "published",
+    "eic-column-count": "published",
+    "eic-early-stop": "published",
+    "eic-gate-result": "published",
+    "eic-qualifying-child-count": "published",
+    "eic-qualifying-child-present": "published",
+    "eic-questions-required": "published",
+    "eic-status-class": "published"
+   },
+   "source": {
+    "ask_age": false,
+    "ask_main_home": false,
+    "ask_not_married": true,
+    "ask_separated": false,
+    "column": 0,
+    "credit": 0,
+    "path": "no qualifying child; Step 4 question 1 stops a married filer",
+    "qualifying_children": 0,
+    "separated_prongs_are_one_yes": true,
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.not-married": 0,
+    "eic.answer.not-qualifying-child-of-another": 1,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 0,
+    "eic.early-stop": 0,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 0,
+    "eic.qualifying-child-count": 0,
+    "eic.qualifying-child-present": 0,
+    "eic.questions-required": 1,
+    "eic.status-class": 1,
+    "eic.worksheet-a.line-6": 537,
+    "payments.line27a": 0
+   }
+  },
+  "hoh/nossn/no/less": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": true,
+    "not-qc": false,
+    "separated-spouse": false
+   },
+   "blocked_rules": [],
+   "children": {
+    "demo-ens-child-nossn": {
+     "eic.child.counts": 0,
+     "eic.child.qualifies": 0
+    }
+   },
+   "credit": 0,
+   "credit_disposition": "computed_zero",
+   "credit_equals_source": true,
+   "rules": {
+    "eic-answer.age-25-under-65": "published",
+    "eic-answer.main-home-in-us": "published",
+    "eic-answer.not-claimable-as-dependent": "published",
+    "eic-answer.not-married": "published",
+    "eic-answer.not-qualifying-child-of-another": "published",
+    "eic-answer.separated-spouse": "published",
+    "eic-child.counts": "published",
+    "eic-child.qualifies": "published",
+    "eic-column-count": "published",
+    "eic-early-stop": "published",
+    "eic-gate-result": "published",
+    "eic-qualifying-child-count": "published",
+    "eic-qualifying-child-present": "published",
+    "eic-questions-required": "published",
+    "eic-status-class": "published"
+   },
+   "source": {
+    "ask_age": false,
+    "ask_main_home": false,
+    "ask_not_married": true,
+    "ask_separated": false,
+    "column": 0,
+    "credit": 0,
+    "path": "no qualifying child; Step 4 question 1 stops a married filer",
+    "qualifying_children": 0,
+    "separated_prongs_are_one_yes": true,
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.not-married": 0,
+    "eic.answer.not-qualifying-child-of-another": 1,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 0,
+    "eic.early-stop": 0,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 0,
+    "eic.qualifying-child-count": 0,
+    "eic.qualifying-child-present": 0,
+    "eic.questions-required": 1,
+    "eic.status-class": 1,
+    "eic.worksheet-a.line-6": 537,
+    "payments.line27a": 0
+   }
+  },
+  "hoh/nossn/no/more": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": false,
+    "not-qc": true,
+    "separated-spouse": true
+   },
+   "blocked_rules": [],
+   "children": {
+    "demo-ens-child-nossn": {
+     "eic.child.counts": 0,
+     "eic.child.qualifies": 1
+    }
+   },
+   "credit": 0,
+   "credit_disposition": "computed_zero",
+   "credit_equals_source": true,
+   "rules": {
+    "eic-answer.age-25-under-65": "published",
+    "eic-answer.main-home-in-us": "published",
+    "eic-answer.not-claimable-as-dependent": "published",
+    "eic-answer.not-married": "published",
+    "eic-answer.not-qualifying-child-of-another": "published",
+    "eic-answer.separated-spouse": "published",
+    "eic-child.counts": "published",
+    "eic-child.qualifies": "published",
+    "eic-column-count": "published",
+    "eic-early-stop": "published",
+    "eic-gate-result": "published",
+    "eic-qualifying-child-count": "published",
+    "eic-qualifying-child-present": "published",
+    "eic-questions-required": "published",
+    "eic-status-class": "published"
+   },
+   "source": {
+    "ask_age": false,
+    "ask_main_home": false,
+    "ask_not_married": false,
+    "ask_separated": true,
+    "column": 0,
+    "credit": 0,
+    "path": "qualifying child, separated-spouse rule not met",
+    "qualifying_children": 1,
+    "separated_prongs_are_one_yes": true,
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.not-married": 1,
+    "eic.answer.not-qualifying-child-of-another": 1,
+    "eic.answer.separated-spouse": 0,
+    "eic.column-count": 0,
+    "eic.early-stop": 0,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 0,
+    "eic.qualifying-child-count": 0,
+    "eic.qualifying-child-present": 1,
+    "eic.questions-required": 1,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 537,
+    "payments.line27a": 0
+   }
+  },
+  "hoh/nossn/writing/less": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": true,
+    "not-qc": false,
+    "separated-spouse": false
+   },
+   "blocked_rules": [],
+   "children": {
+    "demo-ens-child-nossn": {
+     "eic.child.counts": 0,
+     "eic.child.qualifies": 0
+    }
+   },
+   "credit": 0,
+   "credit_disposition": "computed_zero",
+   "credit_equals_source": true,
+   "rules": {
+    "eic-answer.age-25-under-65": "published",
+    "eic-answer.main-home-in-us": "published",
+    "eic-answer.not-claimable-as-dependent": "published",
+    "eic-answer.not-married": "published",
+    "eic-answer.not-qualifying-child-of-another": "published",
+    "eic-answer.separated-spouse": "published",
+    "eic-child.counts": "published",
+    "eic-child.qualifies": "published",
+    "eic-column-count": "published",
+    "eic-early-stop": "published",
+    "eic-gate-result": "published",
+    "eic-qualifying-child-count": "published",
+    "eic-qualifying-child-present": "published",
+    "eic-questions-required": "published",
+    "eic-status-class": "published"
+   },
+   "source": {
+    "ask_age": false,
+    "ask_main_home": false,
+    "ask_not_married": true,
+    "ask_separated": false,
+    "column": 0,
+    "credit": 0,
+    "path": "no qualifying child; Step 4 question 1 stops a married filer",
+    "qualifying_children": 0,
+    "separated_prongs_are_one_yes": true,
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.not-married": 0,
+    "eic.answer.not-qualifying-child-of-another": 1,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 0,
+    "eic.early-stop": 0,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 0,
+    "eic.qualifying-child-count": 0,
+    "eic.qualifying-child-present": 0,
+    "eic.questions-required": 1,
+    "eic.status-class": 1,
+    "eic.worksheet-a.line-6": 537,
+    "payments.line27a": 0
+   }
+  },
+  "hoh/nossn/writing/more": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": false,
+    "not-qc": true,
+    "separated-spouse": true
+   },
+   "blocked_rules": [],
+   "children": {
+    "demo-ens-child-nossn": {
+     "eic.child.counts": 0,
+     "eic.child.qualifies": 1
+    }
+   },
+   "credit": 537,
+   "credit_disposition": "published_value",
+   "credit_equals_source": true,
+   "rules": {
+    "eic-answer.age-25-under-65": "published",
+    "eic-answer.main-home-in-us": "published",
+    "eic-answer.not-claimable-as-dependent": "published",
+    "eic-answer.not-married": "published",
+    "eic-answer.not-qualifying-child-of-another": "published",
+    "eic-answer.separated-spouse": "published",
+    "eic-child.counts": "published",
+    "eic-child.qualifies": "published",
+    "eic-column-count": "published",
+    "eic-early-stop": "published",
+    "eic-gate-result": "published",
+    "eic-qualifying-child-count": "published",
+    "eic-qualifying-child-present": "published",
+    "eic-questions-required": "published",
+    "eic-status-class": "published"
+   },
+   "source": {
+    "ask_age": false,
+    "ask_main_home": false,
+    "ask_not_married": false,
+    "ask_separated": true,
+    "column": 0,
+    "credit": 537,
+    "path": "qualifying child and separated; column counts only children with a valid SSN",
+    "qualifying_children": 1,
+    "separated_prongs_are_one_yes": true,
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.not-married": 1,
+    "eic.answer.not-qualifying-child-of-another": 1,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 0,
+    "eic.early-stop": 0,
+    "eic.eligibility-result": 537,
+    "eic.gate-result": 537,
+    "eic.qualifying-child-count": 0,
+    "eic.qualifying-child-present": 1,
+    "eic.questions-required": 1,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 537,
+    "payments.line27a": 537
+   }
+  },
+  "hoh/ssn/apart/less": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": true,
+    "not-qc": false,
+    "separated-spouse": false
+   },
+   "blocked_rules": [],
+   "children": {
+    "demo-ens-child-ssn": {
+     "eic.child.counts": 0,
+     "eic.child.qualifies": 0
+    }
+   },
+   "credit": 0,
+   "credit_disposition": "computed_zero",
+   "credit_equals_source": true,
+   "rules": {
+    "eic-answer.age-25-under-65": "published",
+    "eic-answer.main-home-in-us": "published",
+    "eic-answer.not-claimable-as-dependent": "published",
+    "eic-answer.not-married": "published",
+    "eic-answer.not-qualifying-child-of-another": "published",
+    "eic-answer.separated-spouse": "published",
+    "eic-child.counts": "published",
+    "eic-child.qualifies": "published",
+    "eic-column-count": "published",
+    "eic-early-stop": "published",
+    "eic-gate-result": "published",
+    "eic-qualifying-child-count": "published",
+    "eic-qualifying-child-present": "published",
+    "eic-questions-required": "published",
+    "eic-status-class": "published"
+   },
+   "source": {
+    "ask_age": false,
+    "ask_main_home": false,
+    "ask_not_married": true,
+    "ask_separated": false,
+    "column": 0,
+    "credit": 0,
+    "path": "no qualifying child; Step 4 question 1 stops a married filer",
+    "qualifying_children": 0,
+    "separated_prongs_are_one_yes": true,
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.not-married": 0,
+    "eic.answer.not-qualifying-child-of-another": 1,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 0,
+    "eic.early-stop": 0,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 0,
+    "eic.qualifying-child-count": 0,
+    "eic.qualifying-child-present": 0,
+    "eic.questions-required": 1,
+    "eic.status-class": 1,
+    "eic.worksheet-a.line-6": 537,
+    "payments.line27a": 0
+   }
+  },
+  "hoh/ssn/apart/more": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": false,
+    "not-qc": true,
+    "separated-spouse": true
+   },
+   "blocked_rules": [],
+   "children": {
+    "demo-ens-child-ssn": {
+     "eic.child.counts": 1,
+     "eic.child.qualifies": 1
+    }
+   },
+   "credit": 2389,
+   "credit_disposition": "published_value",
+   "credit_equals_source": true,
+   "rules": {
+    "eic-answer.age-25-under-65": "published",
+    "eic-answer.main-home-in-us": "published",
+    "eic-answer.not-claimable-as-dependent": "published",
+    "eic-answer.not-married": "published",
+    "eic-answer.not-qualifying-child-of-another": "published",
+    "eic-answer.separated-spouse": "published",
+    "eic-child.counts": "published",
+    "eic-child.qualifies": "published",
+    "eic-column-count": "published",
+    "eic-early-stop": "published",
+    "eic-gate-result": "published",
+    "eic-qualifying-child-count": "published",
+    "eic-qualifying-child-present": "published",
+    "eic-questions-required": "published",
+    "eic-status-class": "published"
+   },
+   "source": {
+    "ask_age": false,
+    "ask_main_home": false,
+    "ask_not_married": false,
+    "ask_separated": true,
+    "column": 1,
+    "credit": 2389,
+    "path": "qualifying child and separated; column counts only children with a valid SSN",
+    "qualifying_children": 1,
+    "separated_prongs_are_one_yes": true,
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.not-married": 1,
+    "eic.answer.not-qualifying-child-of-another": 1,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 1,
+    "eic.early-stop": 0,
+    "eic.eligibility-result": 2389,
+    "eic.gate-result": 2389,
+    "eic.qualifying-child-count": 1,
+    "eic.qualifying-child-present": 1,
+    "eic.questions-required": 1,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 2389,
+    "payments.line27a": 2389
+   }
+  },
+  "hoh/ssn/no/less": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": true,
+    "not-qc": false,
+    "separated-spouse": false
+   },
+   "blocked_rules": [],
+   "children": {
+    "demo-ens-child-ssn": {
+     "eic.child.counts": 0,
+     "eic.child.qualifies": 0
+    }
+   },
+   "credit": 0,
+   "credit_disposition": "computed_zero",
+   "credit_equals_source": true,
+   "rules": {
+    "eic-answer.age-25-under-65": "published",
+    "eic-answer.main-home-in-us": "published",
+    "eic-answer.not-claimable-as-dependent": "published",
+    "eic-answer.not-married": "published",
+    "eic-answer.not-qualifying-child-of-another": "published",
+    "eic-answer.separated-spouse": "published",
+    "eic-child.counts": "published",
+    "eic-child.qualifies": "published",
+    "eic-column-count": "published",
+    "eic-early-stop": "published",
+    "eic-gate-result": "published",
+    "eic-qualifying-child-count": "published",
+    "eic-qualifying-child-present": "published",
+    "eic-questions-required": "published",
+    "eic-status-class": "published"
+   },
+   "source": {
+    "ask_age": false,
+    "ask_main_home": false,
+    "ask_not_married": true,
+    "ask_separated": false,
+    "column": 0,
+    "credit": 0,
+    "path": "no qualifying child; Step 4 question 1 stops a married filer",
+    "qualifying_children": 0,
+    "separated_prongs_are_one_yes": true,
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.not-married": 0,
+    "eic.answer.not-qualifying-child-of-another": 1,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 0,
+    "eic.early-stop": 0,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 0,
+    "eic.qualifying-child-count": 0,
+    "eic.qualifying-child-present": 0,
+    "eic.questions-required": 1,
+    "eic.status-class": 1,
+    "eic.worksheet-a.line-6": 537,
+    "payments.line27a": 0
+   }
+  },
+  "hoh/ssn/no/more": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": false,
+    "not-qc": true,
+    "separated-spouse": true
+   },
+   "blocked_rules": [],
+   "children": {
+    "demo-ens-child-ssn": {
+     "eic.child.counts": 1,
+     "eic.child.qualifies": 1
+    }
+   },
+   "credit": 0,
+   "credit_disposition": "computed_zero",
+   "credit_equals_source": true,
+   "rules": {
+    "eic-answer.age-25-under-65": "published",
+    "eic-answer.main-home-in-us": "published",
+    "eic-answer.not-claimable-as-dependent": "published",
+    "eic-answer.not-married": "published",
+    "eic-answer.not-qualifying-child-of-another": "published",
+    "eic-answer.separated-spouse": "published",
+    "eic-child.counts": "published",
+    "eic-child.qualifies": "published",
+    "eic-column-count": "published",
+    "eic-early-stop": "published",
+    "eic-gate-result": "published",
+    "eic-qualifying-child-count": "published",
+    "eic-qualifying-child-present": "published",
+    "eic-questions-required": "published",
+    "eic-status-class": "published"
+   },
+   "source": {
+    "ask_age": false,
+    "ask_main_home": false,
+    "ask_not_married": false,
+    "ask_separated": true,
+    "column": 1,
+    "credit": 0,
+    "path": "qualifying child, separated-spouse rule not met",
+    "qualifying_children": 1,
+    "separated_prongs_are_one_yes": true,
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.not-married": 1,
+    "eic.answer.not-qualifying-child-of-another": 1,
+    "eic.answer.separated-spouse": 0,
+    "eic.column-count": 1,
+    "eic.early-stop": 0,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 0,
+    "eic.qualifying-child-count": 1,
+    "eic.qualifying-child-present": 1,
+    "eic.questions-required": 1,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 2389,
+    "payments.line27a": 0
+   }
+  },
+  "hoh/ssn/writing/less": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": true,
+    "not-qc": false,
+    "separated-spouse": false
+   },
+   "blocked_rules": [],
+   "children": {
+    "demo-ens-child-ssn": {
+     "eic.child.counts": 0,
+     "eic.child.qualifies": 0
+    }
+   },
+   "credit": 0,
+   "credit_disposition": "computed_zero",
+   "credit_equals_source": true,
+   "rules": {
+    "eic-answer.age-25-under-65": "published",
+    "eic-answer.main-home-in-us": "published",
+    "eic-answer.not-claimable-as-dependent": "published",
+    "eic-answer.not-married": "published",
+    "eic-answer.not-qualifying-child-of-another": "published",
+    "eic-answer.separated-spouse": "published",
+    "eic-child.counts": "published",
+    "eic-child.qualifies": "published",
+    "eic-column-count": "published",
+    "eic-early-stop": "published",
+    "eic-gate-result": "published",
+    "eic-qualifying-child-count": "published",
+    "eic-qualifying-child-present": "published",
+    "eic-questions-required": "published",
+    "eic-status-class": "published"
+   },
+   "source": {
+    "ask_age": false,
+    "ask_main_home": false,
+    "ask_not_married": true,
+    "ask_separated": false,
+    "column": 0,
+    "credit": 0,
+    "path": "no qualifying child; Step 4 question 1 stops a married filer",
+    "qualifying_children": 0,
+    "separated_prongs_are_one_yes": true,
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.not-married": 0,
+    "eic.answer.not-qualifying-child-of-another": 1,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 0,
+    "eic.early-stop": 0,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 0,
+    "eic.qualifying-child-count": 0,
+    "eic.qualifying-child-present": 0,
+    "eic.questions-required": 1,
+    "eic.status-class": 1,
+    "eic.worksheet-a.line-6": 537,
+    "payments.line27a": 0
+   }
+  },
+  "hoh/ssn/writing/more": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": false,
+    "not-qc": true,
+    "separated-spouse": true
+   },
+   "blocked_rules": [],
+   "children": {
+    "demo-ens-child-ssn": {
+     "eic.child.counts": 1,
+     "eic.child.qualifies": 1
+    }
+   },
+   "credit": 2389,
+   "credit_disposition": "published_value",
+   "credit_equals_source": true,
+   "rules": {
+    "eic-answer.age-25-under-65": "published",
+    "eic-answer.main-home-in-us": "published",
+    "eic-answer.not-claimable-as-dependent": "published",
+    "eic-answer.not-married": "published",
+    "eic-answer.not-qualifying-child-of-another": "published",
+    "eic-answer.separated-spouse": "published",
+    "eic-child.counts": "published",
+    "eic-child.qualifies": "published",
+    "eic-column-count": "published",
+    "eic-early-stop": "published",
+    "eic-gate-result": "published",
+    "eic-qualifying-child-count": "published",
+    "eic-qualifying-child-present": "published",
+    "eic-questions-required": "published",
+    "eic-status-class": "published"
+   },
+   "source": {
+    "ask_age": false,
+    "ask_main_home": false,
+    "ask_not_married": false,
+    "ask_separated": true,
+    "column": 1,
+    "credit": 2389,
+    "path": "qualifying child and separated; column counts only children with a valid SSN",
+    "qualifying_children": 1,
+    "separated_prongs_are_one_yes": true,
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.not-married": 1,
+    "eic.answer.not-qualifying-child-of-another": 1,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 1,
+    "eic.early-stop": 0,
+    "eic.eligibility-result": 2389,
+    "eic.gate-result": 2389,
+    "eic.qualifying-child-count": 1,
+    "eic.qualifying-child-present": 1,
+    "eic.questions-required": 1,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 2389,
+    "payments.line27a": 2389
+   }
+  },
+  "mfs/both/apart/ll": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": false,
+    "not-qc": false,
+    "separated-spouse": false
+   },
+   "blocked_rules": [],
+   "children": {
+    "demo-ens-child-nossn": {
+     "eic.child.counts": 0,
+     "eic.child.qualifies": 0
+    },
+    "demo-ens-child-ssn": {
+     "eic.child.counts": 0,
+     "eic.child.qualifies": 0
+    }
+   },
+   "credit": 0,
+   "credit_disposition": "computed_zero",
+   "credit_equals_source": true,
+   "rules": {
+    "eic-answer.age-25-under-65": "published",
+    "eic-answer.main-home-in-us": "published",
+    "eic-answer.not-claimable-as-dependent": "published",
+    "eic-answer.not-married": "published",
+    "eic-answer.not-qualifying-child-of-another": "published",
+    "eic-answer.separated-spouse": "published",
+    "eic-child.counts": "published",
+    "eic-child.qualifies": "published",
+    "eic-column-count": "published",
+    "eic-early-stop": "published",
+    "eic-gate-result": "published",
+    "eic-qualifying-child-count": "published",
+    "eic-qualifying-child-present": "published",
+    "eic-questions-required": "published",
+    "eic-status-class": "published"
+   },
+   "source": {
+    "ask_age": false,
+    "ask_main_home": false,
+    "ask_not_married": false,
+    "ask_separated": false,
+    "column": 0,
+    "credit": 0,
+    "path": "no qualifying child; Step 4 question 1 stops a married filer",
+    "qualifying_children": 0,
+    "separated_prongs_are_one_yes": true,
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.not-married": 1,
+    "eic.answer.not-qualifying-child-of-another": 1,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 0,
+    "eic.early-stop": 1,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 537,
+    "eic.qualifying-child-count": 0,
+    "eic.qualifying-child-present": 0,
+    "eic.questions-required": 0,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 537,
+    "payments.line27a": 0
+   }
+  },
+  "mfs/both/apart/lm": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": false,
+    "not-qc": true,
+    "separated-spouse": true
+   },
+   "blocked_rules": [],
+   "children": {
+    "demo-ens-child-nossn": {
+     "eic.child.counts": 0,
+     "eic.child.qualifies": 1
+    },
+    "demo-ens-child-ssn": {
+     "eic.child.counts": 0,
+     "eic.child.qualifies": 0
+    }
+   },
+   "credit": 537,
+   "credit_disposition": "published_value",
+   "credit_equals_source": true,
+   "rules": {
+    "eic-answer.age-25-under-65": "published",
+    "eic-answer.main-home-in-us": "published",
+    "eic-answer.not-claimable-as-dependent": "published",
+    "eic-answer.not-married": "published",
+    "eic-answer.not-qualifying-child-of-another": "published",
+    "eic-answer.separated-spouse": "published",
+    "eic-child.counts": "published",
+    "eic-child.qualifies": "published",
+    "eic-column-count": "published",
+    "eic-early-stop": "published",
+    "eic-gate-result": "published",
+    "eic-qualifying-child-count": "published",
+    "eic-qualifying-child-present": "published",
+    "eic-questions-required": "published",
+    "eic-status-class": "published"
+   },
+   "source": {
+    "ask_age": false,
+    "ask_main_home": false,
+    "ask_not_married": false,
+    "ask_separated": true,
+    "column": 0,
+    "credit": 537,
+    "path": "qualifying child and separated; column counts only children with a valid SSN",
+    "qualifying_children": 1,
+    "separated_prongs_are_one_yes": true,
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.not-married": 1,
+    "eic.answer.not-qualifying-child-of-another": 1,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 0,
+    "eic.early-stop": 0,
+    "eic.eligibility-result": 537,
+    "eic.gate-result": 537,
+    "eic.qualifying-child-count": 0,
+    "eic.qualifying-child-present": 1,
+    "eic.questions-required": 1,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 537,
+    "payments.line27a": 537
+   }
+  },
+  "mfs/both/apart/ml": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": false,
+    "not-qc": true,
+    "separated-spouse": true
+   },
+   "blocked_rules": [],
+   "children": {
+    "demo-ens-child-nossn": {
+     "eic.child.counts": 0,
+     "eic.child.qualifies": 0
+    },
+    "demo-ens-child-ssn": {
+     "eic.child.counts": 1,
+     "eic.child.qualifies": 1
+    }
+   },
+   "credit": 2389,
+   "credit_disposition": "published_value",
+   "credit_equals_source": true,
+   "rules": {
+    "eic-answer.age-25-under-65": "published",
+    "eic-answer.main-home-in-us": "published",
+    "eic-answer.not-claimable-as-dependent": "published",
+    "eic-answer.not-married": "published",
+    "eic-answer.not-qualifying-child-of-another": "published",
+    "eic-answer.separated-spouse": "published",
+    "eic-child.counts": "published",
+    "eic-child.qualifies": "published",
+    "eic-column-count": "published",
+    "eic-early-stop": "published",
+    "eic-gate-result": "published",
+    "eic-qualifying-child-count": "published",
+    "eic-qualifying-child-present": "published",
+    "eic-questions-required": "published",
+    "eic-status-class": "published"
+   },
+   "source": {
+    "ask_age": false,
+    "ask_main_home": false,
+    "ask_not_married": false,
+    "ask_separated": true,
+    "column": 1,
+    "credit": 2389,
+    "path": "qualifying child and separated; column counts only children with a valid SSN",
+    "qualifying_children": 1,
+    "separated_prongs_are_one_yes": true,
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.not-married": 1,
+    "eic.answer.not-qualifying-child-of-another": 1,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 1,
+    "eic.early-stop": 0,
+    "eic.eligibility-result": 2389,
+    "eic.gate-result": 2389,
+    "eic.qualifying-child-count": 1,
+    "eic.qualifying-child-present": 1,
+    "eic.questions-required": 1,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 2389,
+    "payments.line27a": 2389
+   }
+  },
+  "mfs/both/apart/mm": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": false,
+    "not-qc": true,
+    "separated-spouse": true
+   },
+   "blocked_rules": [],
+   "children": {
+    "demo-ens-child-nossn": {
+     "eic.child.counts": 0,
+     "eic.child.qualifies": 1
+    },
+    "demo-ens-child-ssn": {
+     "eic.child.counts": 1,
+     "eic.child.qualifies": 1
+    }
+   },
+   "credit": 2389,
+   "credit_disposition": "published_value",
+   "credit_equals_source": true,
+   "rules": {
+    "eic-answer.age-25-under-65": "published",
+    "eic-answer.main-home-in-us": "published",
+    "eic-answer.not-claimable-as-dependent": "published",
+    "eic-answer.not-married": "published",
+    "eic-answer.not-qualifying-child-of-another": "published",
+    "eic-answer.separated-spouse": "published",
+    "eic-child.counts": "published",
+    "eic-child.qualifies": "published",
+    "eic-column-count": "published",
+    "eic-early-stop": "published",
+    "eic-gate-result": "published",
+    "eic-qualifying-child-count": "published",
+    "eic-qualifying-child-present": "published",
+    "eic-questions-required": "published",
+    "eic-status-class": "published"
+   },
+   "source": {
+    "ask_age": false,
+    "ask_main_home": false,
+    "ask_not_married": false,
+    "ask_separated": true,
+    "column": 1,
+    "credit": 2389,
+    "path": "qualifying child and separated; column counts only children with a valid SSN",
+    "qualifying_children": 2,
+    "separated_prongs_are_one_yes": true,
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.not-married": 1,
+    "eic.answer.not-qualifying-child-of-another": 1,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 1,
+    "eic.early-stop": 0,
+    "eic.eligibility-result": 2389,
+    "eic.gate-result": 2389,
+    "eic.qualifying-child-count": 1,
+    "eic.qualifying-child-present": 2,
+    "eic.questions-required": 1,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 2389,
+    "payments.line27a": 2389
+   }
+  },
+  "mfs/both/no/ll": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": false,
+    "not-qc": false,
+    "separated-spouse": false
+   },
+   "blocked_rules": [],
+   "children": {
+    "demo-ens-child-nossn": {
+     "eic.child.counts": 0,
+     "eic.child.qualifies": 0
+    },
+    "demo-ens-child-ssn": {
+     "eic.child.counts": 0,
+     "eic.child.qualifies": 0
+    }
+   },
+   "credit": 0,
+   "credit_disposition": "computed_zero",
+   "credit_equals_source": true,
+   "rules": {
+    "eic-answer.age-25-under-65": "published",
+    "eic-answer.main-home-in-us": "published",
+    "eic-answer.not-claimable-as-dependent": "published",
+    "eic-answer.not-married": "published",
+    "eic-answer.not-qualifying-child-of-another": "published",
+    "eic-answer.separated-spouse": "published",
+    "eic-child.counts": "published",
+    "eic-child.qualifies": "published",
+    "eic-column-count": "published",
+    "eic-early-stop": "published",
+    "eic-gate-result": "published",
+    "eic-qualifying-child-count": "published",
+    "eic-qualifying-child-present": "published",
+    "eic-questions-required": "published",
+    "eic-status-class": "published"
+   },
+   "source": {
+    "ask_age": false,
+    "ask_main_home": false,
+    "ask_not_married": false,
+    "ask_separated": false,
+    "column": 0,
+    "credit": 0,
+    "path": "no qualifying child; Step 4 question 1 stops a married filer",
+    "qualifying_children": 0,
+    "separated_prongs_are_one_yes": true,
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.not-married": 1,
+    "eic.answer.not-qualifying-child-of-another": 1,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 0,
+    "eic.early-stop": 1,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 537,
+    "eic.qualifying-child-count": 0,
+    "eic.qualifying-child-present": 0,
+    "eic.questions-required": 0,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 537,
+    "payments.line27a": 0
+   }
+  },
+  "mfs/both/no/lm": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": false,
+    "not-qc": true,
+    "separated-spouse": true
+   },
+   "blocked_rules": [],
+   "children": {
+    "demo-ens-child-nossn": {
+     "eic.child.counts": 0,
+     "eic.child.qualifies": 1
+    },
+    "demo-ens-child-ssn": {
+     "eic.child.counts": 0,
+     "eic.child.qualifies": 0
+    }
+   },
+   "credit": 0,
+   "credit_disposition": "computed_zero",
+   "credit_equals_source": true,
+   "rules": {
+    "eic-answer.age-25-under-65": "published",
+    "eic-answer.main-home-in-us": "published",
+    "eic-answer.not-claimable-as-dependent": "published",
+    "eic-answer.not-married": "published",
+    "eic-answer.not-qualifying-child-of-another": "published",
+    "eic-answer.separated-spouse": "published",
+    "eic-child.counts": "published",
+    "eic-child.qualifies": "published",
+    "eic-column-count": "published",
+    "eic-early-stop": "published",
+    "eic-gate-result": "published",
+    "eic-qualifying-child-count": "published",
+    "eic-qualifying-child-present": "published",
+    "eic-questions-required": "published",
+    "eic-status-class": "published"
+   },
+   "source": {
+    "ask_age": false,
+    "ask_main_home": false,
+    "ask_not_married": false,
+    "ask_separated": true,
+    "column": 0,
+    "credit": 0,
+    "path": "qualifying child, separated-spouse rule not met",
+    "qualifying_children": 1,
+    "separated_prongs_are_one_yes": true,
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.not-married": 1,
+    "eic.answer.not-qualifying-child-of-another": 1,
+    "eic.answer.separated-spouse": 0,
+    "eic.column-count": 0,
+    "eic.early-stop": 0,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 0,
+    "eic.qualifying-child-count": 0,
+    "eic.qualifying-child-present": 1,
+    "eic.questions-required": 1,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 537,
+    "payments.line27a": 0
+   }
+  },
+  "mfs/both/no/ml": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": false,
+    "not-qc": true,
+    "separated-spouse": true
+   },
+   "blocked_rules": [],
+   "children": {
+    "demo-ens-child-nossn": {
+     "eic.child.counts": 0,
+     "eic.child.qualifies": 0
+    },
+    "demo-ens-child-ssn": {
+     "eic.child.counts": 1,
+     "eic.child.qualifies": 1
+    }
+   },
+   "credit": 0,
+   "credit_disposition": "computed_zero",
+   "credit_equals_source": true,
+   "rules": {
+    "eic-answer.age-25-under-65": "published",
+    "eic-answer.main-home-in-us": "published",
+    "eic-answer.not-claimable-as-dependent": "published",
+    "eic-answer.not-married": "published",
+    "eic-answer.not-qualifying-child-of-another": "published",
+    "eic-answer.separated-spouse": "published",
+    "eic-child.counts": "published",
+    "eic-child.qualifies": "published",
+    "eic-column-count": "published",
+    "eic-early-stop": "published",
+    "eic-gate-result": "published",
+    "eic-qualifying-child-count": "published",
+    "eic-qualifying-child-present": "published",
+    "eic-questions-required": "published",
+    "eic-status-class": "published"
+   },
+   "source": {
+    "ask_age": false,
+    "ask_main_home": false,
+    "ask_not_married": false,
+    "ask_separated": true,
+    "column": 1,
+    "credit": 0,
+    "path": "qualifying child, separated-spouse rule not met",
+    "qualifying_children": 1,
+    "separated_prongs_are_one_yes": true,
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.not-married": 1,
+    "eic.answer.not-qualifying-child-of-another": 1,
+    "eic.answer.separated-spouse": 0,
+    "eic.column-count": 1,
+    "eic.early-stop": 0,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 0,
+    "eic.qualifying-child-count": 1,
+    "eic.qualifying-child-present": 1,
+    "eic.questions-required": 1,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 2389,
+    "payments.line27a": 0
+   }
+  },
+  "mfs/both/no/mm": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": false,
+    "not-qc": true,
+    "separated-spouse": true
+   },
+   "blocked_rules": [],
+   "children": {
+    "demo-ens-child-nossn": {
+     "eic.child.counts": 0,
+     "eic.child.qualifies": 1
+    },
+    "demo-ens-child-ssn": {
+     "eic.child.counts": 1,
+     "eic.child.qualifies": 1
+    }
+   },
+   "credit": 0,
+   "credit_disposition": "computed_zero",
+   "credit_equals_source": true,
+   "rules": {
+    "eic-answer.age-25-under-65": "published",
+    "eic-answer.main-home-in-us": "published",
+    "eic-answer.not-claimable-as-dependent": "published",
+    "eic-answer.not-married": "published",
+    "eic-answer.not-qualifying-child-of-another": "published",
+    "eic-answer.separated-spouse": "published",
+    "eic-child.counts": "published",
+    "eic-child.qualifies": "published",
+    "eic-column-count": "published",
+    "eic-early-stop": "published",
+    "eic-gate-result": "published",
+    "eic-qualifying-child-count": "published",
+    "eic-qualifying-child-present": "published",
+    "eic-questions-required": "published",
+    "eic-status-class": "published"
+   },
+   "source": {
+    "ask_age": false,
+    "ask_main_home": false,
+    "ask_not_married": false,
+    "ask_separated": true,
+    "column": 1,
+    "credit": 0,
+    "path": "qualifying child, separated-spouse rule not met",
+    "qualifying_children": 2,
+    "separated_prongs_are_one_yes": true,
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.not-married": 1,
+    "eic.answer.not-qualifying-child-of-another": 1,
+    "eic.answer.separated-spouse": 0,
+    "eic.column-count": 1,
+    "eic.early-stop": 0,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 0,
+    "eic.qualifying-child-count": 1,
+    "eic.qualifying-child-present": 2,
+    "eic.questions-required": 1,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 2389,
+    "payments.line27a": 0
+   }
+  },
+  "mfs/both/writing/ll": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": false,
+    "not-qc": false,
+    "separated-spouse": false
+   },
+   "blocked_rules": [],
+   "children": {
+    "demo-ens-child-nossn": {
+     "eic.child.counts": 0,
+     "eic.child.qualifies": 0
+    },
+    "demo-ens-child-ssn": {
+     "eic.child.counts": 0,
+     "eic.child.qualifies": 0
+    }
+   },
+   "credit": 0,
+   "credit_disposition": "computed_zero",
+   "credit_equals_source": true,
+   "rules": {
+    "eic-answer.age-25-under-65": "published",
+    "eic-answer.main-home-in-us": "published",
+    "eic-answer.not-claimable-as-dependent": "published",
+    "eic-answer.not-married": "published",
+    "eic-answer.not-qualifying-child-of-another": "published",
+    "eic-answer.separated-spouse": "published",
+    "eic-child.counts": "published",
+    "eic-child.qualifies": "published",
+    "eic-column-count": "published",
+    "eic-early-stop": "published",
+    "eic-gate-result": "published",
+    "eic-qualifying-child-count": "published",
+    "eic-qualifying-child-present": "published",
+    "eic-questions-required": "published",
+    "eic-status-class": "published"
+   },
+   "source": {
+    "ask_age": false,
+    "ask_main_home": false,
+    "ask_not_married": false,
+    "ask_separated": false,
+    "column": 0,
+    "credit": 0,
+    "path": "no qualifying child; Step 4 question 1 stops a married filer",
+    "qualifying_children": 0,
+    "separated_prongs_are_one_yes": true,
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.not-married": 1,
+    "eic.answer.not-qualifying-child-of-another": 1,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 0,
+    "eic.early-stop": 1,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 537,
+    "eic.qualifying-child-count": 0,
+    "eic.qualifying-child-present": 0,
+    "eic.questions-required": 0,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 537,
+    "payments.line27a": 0
+   }
+  },
+  "mfs/both/writing/lm": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": false,
+    "not-qc": true,
+    "separated-spouse": true
+   },
+   "blocked_rules": [],
+   "children": {
+    "demo-ens-child-nossn": {
+     "eic.child.counts": 0,
+     "eic.child.qualifies": 1
+    },
+    "demo-ens-child-ssn": {
+     "eic.child.counts": 0,
+     "eic.child.qualifies": 0
+    }
+   },
+   "credit": 537,
+   "credit_disposition": "published_value",
+   "credit_equals_source": true,
+   "rules": {
+    "eic-answer.age-25-under-65": "published",
+    "eic-answer.main-home-in-us": "published",
+    "eic-answer.not-claimable-as-dependent": "published",
+    "eic-answer.not-married": "published",
+    "eic-answer.not-qualifying-child-of-another": "published",
+    "eic-answer.separated-spouse": "published",
+    "eic-child.counts": "published",
+    "eic-child.qualifies": "published",
+    "eic-column-count": "published",
+    "eic-early-stop": "published",
+    "eic-gate-result": "published",
+    "eic-qualifying-child-count": "published",
+    "eic-qualifying-child-present": "published",
+    "eic-questions-required": "published",
+    "eic-status-class": "published"
+   },
+   "source": {
+    "ask_age": false,
+    "ask_main_home": false,
+    "ask_not_married": false,
+    "ask_separated": true,
+    "column": 0,
+    "credit": 537,
+    "path": "qualifying child and separated; column counts only children with a valid SSN",
+    "qualifying_children": 1,
+    "separated_prongs_are_one_yes": true,
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.not-married": 1,
+    "eic.answer.not-qualifying-child-of-another": 1,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 0,
+    "eic.early-stop": 0,
+    "eic.eligibility-result": 537,
+    "eic.gate-result": 537,
+    "eic.qualifying-child-count": 0,
+    "eic.qualifying-child-present": 1,
+    "eic.questions-required": 1,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 537,
+    "payments.line27a": 537
+   }
+  },
+  "mfs/both/writing/ml": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": false,
+    "not-qc": true,
+    "separated-spouse": true
+   },
+   "blocked_rules": [],
+   "children": {
+    "demo-ens-child-nossn": {
+     "eic.child.counts": 0,
+     "eic.child.qualifies": 0
+    },
+    "demo-ens-child-ssn": {
+     "eic.child.counts": 1,
+     "eic.child.qualifies": 1
+    }
+   },
+   "credit": 2389,
+   "credit_disposition": "published_value",
+   "credit_equals_source": true,
+   "rules": {
+    "eic-answer.age-25-under-65": "published",
+    "eic-answer.main-home-in-us": "published",
+    "eic-answer.not-claimable-as-dependent": "published",
+    "eic-answer.not-married": "published",
+    "eic-answer.not-qualifying-child-of-another": "published",
+    "eic-answer.separated-spouse": "published",
+    "eic-child.counts": "published",
+    "eic-child.qualifies": "published",
+    "eic-column-count": "published",
+    "eic-early-stop": "published",
+    "eic-gate-result": "published",
+    "eic-qualifying-child-count": "published",
+    "eic-qualifying-child-present": "published",
+    "eic-questions-required": "published",
+    "eic-status-class": "published"
+   },
+   "source": {
+    "ask_age": false,
+    "ask_main_home": false,
+    "ask_not_married": false,
+    "ask_separated": true,
+    "column": 1,
+    "credit": 2389,
+    "path": "qualifying child and separated; column counts only children with a valid SSN",
+    "qualifying_children": 1,
+    "separated_prongs_are_one_yes": true,
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.not-married": 1,
+    "eic.answer.not-qualifying-child-of-another": 1,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 1,
+    "eic.early-stop": 0,
+    "eic.eligibility-result": 2389,
+    "eic.gate-result": 2389,
+    "eic.qualifying-child-count": 1,
+    "eic.qualifying-child-present": 1,
+    "eic.questions-required": 1,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 2389,
+    "payments.line27a": 2389
+   }
+  },
+  "mfs/both/writing/mm": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": false,
+    "not-qc": true,
+    "separated-spouse": true
+   },
+   "blocked_rules": [],
+   "children": {
+    "demo-ens-child-nossn": {
+     "eic.child.counts": 0,
+     "eic.child.qualifies": 1
+    },
+    "demo-ens-child-ssn": {
+     "eic.child.counts": 1,
+     "eic.child.qualifies": 1
+    }
+   },
+   "credit": 2389,
+   "credit_disposition": "published_value",
+   "credit_equals_source": true,
+   "rules": {
+    "eic-answer.age-25-under-65": "published",
+    "eic-answer.main-home-in-us": "published",
+    "eic-answer.not-claimable-as-dependent": "published",
+    "eic-answer.not-married": "published",
+    "eic-answer.not-qualifying-child-of-another": "published",
+    "eic-answer.separated-spouse": "published",
+    "eic-child.counts": "published",
+    "eic-child.qualifies": "published",
+    "eic-column-count": "published",
+    "eic-early-stop": "published",
+    "eic-gate-result": "published",
+    "eic-qualifying-child-count": "published",
+    "eic-qualifying-child-present": "published",
+    "eic-questions-required": "published",
+    "eic-status-class": "published"
+   },
+   "source": {
+    "ask_age": false,
+    "ask_main_home": false,
+    "ask_not_married": false,
+    "ask_separated": true,
+    "column": 1,
+    "credit": 2389,
+    "path": "qualifying child and separated; column counts only children with a valid SSN",
+    "qualifying_children": 2,
+    "separated_prongs_are_one_yes": true,
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.not-married": 1,
+    "eic.answer.not-qualifying-child-of-another": 1,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 1,
+    "eic.early-stop": 0,
+    "eic.eligibility-result": 2389,
+    "eic.gate-result": 2389,
+    "eic.qualifying-child-count": 1,
+    "eic.qualifying-child-present": 2,
+    "eic.questions-required": 1,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 2389,
+    "payments.line27a": 2389
+   }
+  },
+  "mfs/nossn/apart/less": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": false,
+    "not-qc": false,
+    "separated-spouse": false
+   },
+   "blocked_rules": [],
+   "children": {
+    "demo-ens-child-nossn": {
+     "eic.child.counts": 0,
+     "eic.child.qualifies": 0
+    }
+   },
+   "credit": 0,
+   "credit_disposition": "computed_zero",
+   "credit_equals_source": true,
+   "rules": {
+    "eic-answer.age-25-under-65": "published",
+    "eic-answer.main-home-in-us": "published",
+    "eic-answer.not-claimable-as-dependent": "published",
+    "eic-answer.not-married": "published",
+    "eic-answer.not-qualifying-child-of-another": "published",
+    "eic-answer.separated-spouse": "published",
+    "eic-child.counts": "published",
+    "eic-child.qualifies": "published",
+    "eic-column-count": "published",
+    "eic-early-stop": "published",
+    "eic-gate-result": "published",
+    "eic-qualifying-child-count": "published",
+    "eic-qualifying-child-present": "published",
+    "eic-questions-required": "published",
+    "eic-status-class": "published"
+   },
+   "source": {
+    "ask_age": false,
+    "ask_main_home": false,
+    "ask_not_married": false,
+    "ask_separated": false,
+    "column": 0,
+    "credit": 0,
+    "path": "no qualifying child; Step 4 question 1 stops a married filer",
+    "qualifying_children": 0,
+    "separated_prongs_are_one_yes": true,
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.not-married": 1,
+    "eic.answer.not-qualifying-child-of-another": 1,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 0,
+    "eic.early-stop": 1,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 537,
+    "eic.qualifying-child-count": 0,
+    "eic.qualifying-child-present": 0,
+    "eic.questions-required": 0,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 537,
+    "payments.line27a": 0
+   }
+  },
+  "mfs/nossn/apart/more": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": false,
+    "not-qc": true,
+    "separated-spouse": true
+   },
+   "blocked_rules": [],
+   "children": {
+    "demo-ens-child-nossn": {
+     "eic.child.counts": 0,
+     "eic.child.qualifies": 1
+    }
+   },
+   "credit": 537,
+   "credit_disposition": "published_value",
+   "credit_equals_source": true,
+   "rules": {
+    "eic-answer.age-25-under-65": "published",
+    "eic-answer.main-home-in-us": "published",
+    "eic-answer.not-claimable-as-dependent": "published",
+    "eic-answer.not-married": "published",
+    "eic-answer.not-qualifying-child-of-another": "published",
+    "eic-answer.separated-spouse": "published",
+    "eic-child.counts": "published",
+    "eic-child.qualifies": "published",
+    "eic-column-count": "published",
+    "eic-early-stop": "published",
+    "eic-gate-result": "published",
+    "eic-qualifying-child-count": "published",
+    "eic-qualifying-child-present": "published",
+    "eic-questions-required": "published",
+    "eic-status-class": "published"
+   },
+   "source": {
+    "ask_age": false,
+    "ask_main_home": false,
+    "ask_not_married": false,
+    "ask_separated": true,
+    "column": 0,
+    "credit": 537,
+    "path": "qualifying child and separated; column counts only children with a valid SSN",
+    "qualifying_children": 1,
+    "separated_prongs_are_one_yes": true,
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.not-married": 1,
+    "eic.answer.not-qualifying-child-of-another": 1,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 0,
+    "eic.early-stop": 0,
+    "eic.eligibility-result": 537,
+    "eic.gate-result": 537,
+    "eic.qualifying-child-count": 0,
+    "eic.qualifying-child-present": 1,
+    "eic.questions-required": 1,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 537,
+    "payments.line27a": 537
+   }
+  },
+  "mfs/nossn/apart/more/age-no": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": false,
+    "not-qc": false,
+    "separated-spouse": false
+   },
+   "blocked_rules": [],
+   "children": {
+    "demo-ens-child-nossn": {
+     "eic.child.counts": 0,
+     "eic.child.qualifies": 0
+    }
+   },
+   "credit": 0,
+   "credit_disposition": "computed_zero",
+   "credit_equals_source": true,
+   "rules": {
+    "eic-answer.age-25-under-65": "published",
+    "eic-answer.main-home-in-us": "published",
+    "eic-answer.not-claimable-as-dependent": "published",
+    "eic-answer.not-married": "published",
+    "eic-answer.not-qualifying-child-of-another": "published",
+    "eic-answer.separated-spouse": "published",
+    "eic-child.counts": "published",
+    "eic-child.qualifies": "published",
+    "eic-column-count": "published",
+    "eic-early-stop": "published",
+    "eic-gate-result": "published",
+    "eic-qualifying-child-count": "published",
+    "eic-qualifying-child-present": "published",
+    "eic-questions-required": "published",
+    "eic-status-class": "published"
+   },
+   "source": {
+    "ask_age": false,
+    "ask_main_home": false,
+    "ask_not_married": false,
+    "ask_separated": false,
+    "column": 0,
+    "credit": 0,
+    "path": "no qualifying child; Step 4 question 1 stops a married filer",
+    "qualifying_children": 0,
+    "separated_prongs_are_one_yes": true,
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.not-married": 1,
+    "eic.answer.not-qualifying-child-of-another": 1,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 0,
+    "eic.early-stop": 1,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 537,
+    "eic.qualifying-child-count": 0,
+    "eic.qualifying-child-present": 0,
+    "eic.questions-required": 0,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 537,
+    "payments.line27a": 0
+   }
+  },
+  "mfs/nossn/no/less": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": false,
+    "not-qc": false,
+    "separated-spouse": false
+   },
+   "blocked_rules": [],
+   "children": {
+    "demo-ens-child-nossn": {
+     "eic.child.counts": 0,
+     "eic.child.qualifies": 0
+    }
+   },
+   "credit": 0,
+   "credit_disposition": "computed_zero",
+   "credit_equals_source": true,
+   "rules": {
+    "eic-answer.age-25-under-65": "published",
+    "eic-answer.main-home-in-us": "published",
+    "eic-answer.not-claimable-as-dependent": "published",
+    "eic-answer.not-married": "published",
+    "eic-answer.not-qualifying-child-of-another": "published",
+    "eic-answer.separated-spouse": "published",
+    "eic-child.counts": "published",
+    "eic-child.qualifies": "published",
+    "eic-column-count": "published",
+    "eic-early-stop": "published",
+    "eic-gate-result": "published",
+    "eic-qualifying-child-count": "published",
+    "eic-qualifying-child-present": "published",
+    "eic-questions-required": "published",
+    "eic-status-class": "published"
+   },
+   "source": {
+    "ask_age": false,
+    "ask_main_home": false,
+    "ask_not_married": false,
+    "ask_separated": false,
+    "column": 0,
+    "credit": 0,
+    "path": "no qualifying child; Step 4 question 1 stops a married filer",
+    "qualifying_children": 0,
+    "separated_prongs_are_one_yes": true,
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.not-married": 1,
+    "eic.answer.not-qualifying-child-of-another": 1,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 0,
+    "eic.early-stop": 1,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 537,
+    "eic.qualifying-child-count": 0,
+    "eic.qualifying-child-present": 0,
+    "eic.questions-required": 0,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 537,
+    "payments.line27a": 0
+   }
+  },
+  "mfs/nossn/no/more": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": false,
+    "not-qc": true,
+    "separated-spouse": true
+   },
+   "blocked_rules": [],
+   "children": {
+    "demo-ens-child-nossn": {
+     "eic.child.counts": 0,
+     "eic.child.qualifies": 1
+    }
+   },
+   "credit": 0,
+   "credit_disposition": "computed_zero",
+   "credit_equals_source": true,
+   "rules": {
+    "eic-answer.age-25-under-65": "published",
+    "eic-answer.main-home-in-us": "published",
+    "eic-answer.not-claimable-as-dependent": "published",
+    "eic-answer.not-married": "published",
+    "eic-answer.not-qualifying-child-of-another": "published",
+    "eic-answer.separated-spouse": "published",
+    "eic-child.counts": "published",
+    "eic-child.qualifies": "published",
+    "eic-column-count": "published",
+    "eic-early-stop": "published",
+    "eic-gate-result": "published",
+    "eic-qualifying-child-count": "published",
+    "eic-qualifying-child-present": "published",
+    "eic-questions-required": "published",
+    "eic-status-class": "published"
+   },
+   "source": {
+    "ask_age": false,
+    "ask_main_home": false,
+    "ask_not_married": false,
+    "ask_separated": true,
+    "column": 0,
+    "credit": 0,
+    "path": "qualifying child, separated-spouse rule not met",
+    "qualifying_children": 1,
+    "separated_prongs_are_one_yes": true,
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.not-married": 1,
+    "eic.answer.not-qualifying-child-of-another": 1,
+    "eic.answer.separated-spouse": 0,
+    "eic.column-count": 0,
+    "eic.early-stop": 0,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 0,
+    "eic.qualifying-child-count": 0,
+    "eic.qualifying-child-present": 1,
+    "eic.questions-required": 1,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 537,
+    "payments.line27a": 0
+   }
+  },
+  "mfs/nossn/writing/less": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": false,
+    "not-qc": false,
+    "separated-spouse": false
+   },
+   "blocked_rules": [],
+   "children": {
+    "demo-ens-child-nossn": {
+     "eic.child.counts": 0,
+     "eic.child.qualifies": 0
+    }
+   },
+   "credit": 0,
+   "credit_disposition": "computed_zero",
+   "credit_equals_source": true,
+   "rules": {
+    "eic-answer.age-25-under-65": "published",
+    "eic-answer.main-home-in-us": "published",
+    "eic-answer.not-claimable-as-dependent": "published",
+    "eic-answer.not-married": "published",
+    "eic-answer.not-qualifying-child-of-another": "published",
+    "eic-answer.separated-spouse": "published",
+    "eic-child.counts": "published",
+    "eic-child.qualifies": "published",
+    "eic-column-count": "published",
+    "eic-early-stop": "published",
+    "eic-gate-result": "published",
+    "eic-qualifying-child-count": "published",
+    "eic-qualifying-child-present": "published",
+    "eic-questions-required": "published",
+    "eic-status-class": "published"
+   },
+   "source": {
+    "ask_age": false,
+    "ask_main_home": false,
+    "ask_not_married": false,
+    "ask_separated": false,
+    "column": 0,
+    "credit": 0,
+    "path": "no qualifying child; Step 4 question 1 stops a married filer",
+    "qualifying_children": 0,
+    "separated_prongs_are_one_yes": true,
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.not-married": 1,
+    "eic.answer.not-qualifying-child-of-another": 1,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 0,
+    "eic.early-stop": 1,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 537,
+    "eic.qualifying-child-count": 0,
+    "eic.qualifying-child-present": 0,
+    "eic.questions-required": 0,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 537,
+    "payments.line27a": 0
+   }
+  },
+  "mfs/nossn/writing/more": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": false,
+    "not-qc": true,
+    "separated-spouse": true
+   },
+   "blocked_rules": [],
+   "children": {
+    "demo-ens-child-nossn": {
+     "eic.child.counts": 0,
+     "eic.child.qualifies": 1
+    }
+   },
+   "credit": 537,
+   "credit_disposition": "published_value",
+   "credit_equals_source": true,
+   "rules": {
+    "eic-answer.age-25-under-65": "published",
+    "eic-answer.main-home-in-us": "published",
+    "eic-answer.not-claimable-as-dependent": "published",
+    "eic-answer.not-married": "published",
+    "eic-answer.not-qualifying-child-of-another": "published",
+    "eic-answer.separated-spouse": "published",
+    "eic-child.counts": "published",
+    "eic-child.qualifies": "published",
+    "eic-column-count": "published",
+    "eic-early-stop": "published",
+    "eic-gate-result": "published",
+    "eic-qualifying-child-count": "published",
+    "eic-qualifying-child-present": "published",
+    "eic-questions-required": "published",
+    "eic-status-class": "published"
+   },
+   "source": {
+    "ask_age": false,
+    "ask_main_home": false,
+    "ask_not_married": false,
+    "ask_separated": true,
+    "column": 0,
+    "credit": 537,
+    "path": "qualifying child and separated; column counts only children with a valid SSN",
+    "qualifying_children": 1,
+    "separated_prongs_are_one_yes": true,
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.not-married": 1,
+    "eic.answer.not-qualifying-child-of-another": 1,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 0,
+    "eic.early-stop": 0,
+    "eic.eligibility-result": 537,
+    "eic.gate-result": 537,
+    "eic.qualifying-child-count": 0,
+    "eic.qualifying-child-present": 1,
+    "eic.questions-required": 1,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 537,
+    "payments.line27a": 537
+   }
+  },
+  "mfs/ssn/apart/less": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": false,
+    "not-qc": false,
+    "separated-spouse": false
+   },
+   "blocked_rules": [],
+   "children": {
+    "demo-ens-child-ssn": {
+     "eic.child.counts": 0,
+     "eic.child.qualifies": 0
+    }
+   },
+   "credit": 0,
+   "credit_disposition": "computed_zero",
+   "credit_equals_source": true,
+   "rules": {
+    "eic-answer.age-25-under-65": "published",
+    "eic-answer.main-home-in-us": "published",
+    "eic-answer.not-claimable-as-dependent": "published",
+    "eic-answer.not-married": "published",
+    "eic-answer.not-qualifying-child-of-another": "published",
+    "eic-answer.separated-spouse": "published",
+    "eic-child.counts": "published",
+    "eic-child.qualifies": "published",
+    "eic-column-count": "published",
+    "eic-early-stop": "published",
+    "eic-gate-result": "published",
+    "eic-qualifying-child-count": "published",
+    "eic-qualifying-child-present": "published",
+    "eic-questions-required": "published",
+    "eic-status-class": "published"
+   },
+   "source": {
+    "ask_age": false,
+    "ask_main_home": false,
+    "ask_not_married": false,
+    "ask_separated": false,
+    "column": 0,
+    "credit": 0,
+    "path": "no qualifying child; Step 4 question 1 stops a married filer",
+    "qualifying_children": 0,
+    "separated_prongs_are_one_yes": true,
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.not-married": 1,
+    "eic.answer.not-qualifying-child-of-another": 1,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 0,
+    "eic.early-stop": 1,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 537,
+    "eic.qualifying-child-count": 0,
+    "eic.qualifying-child-present": 0,
+    "eic.questions-required": 0,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 537,
+    "payments.line27a": 0
+   }
+  },
+  "mfs/ssn/apart/more": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": false,
+    "not-qc": true,
+    "separated-spouse": true
+   },
+   "blocked_rules": [],
+   "children": {
+    "demo-ens-child-ssn": {
+     "eic.child.counts": 1,
+     "eic.child.qualifies": 1
+    }
+   },
+   "credit": 2389,
+   "credit_disposition": "published_value",
+   "credit_equals_source": true,
+   "rules": {
+    "eic-answer.age-25-under-65": "published",
+    "eic-answer.main-home-in-us": "published",
+    "eic-answer.not-claimable-as-dependent": "published",
+    "eic-answer.not-married": "published",
+    "eic-answer.not-qualifying-child-of-another": "published",
+    "eic-answer.separated-spouse": "published",
+    "eic-child.counts": "published",
+    "eic-child.qualifies": "published",
+    "eic-column-count": "published",
+    "eic-early-stop": "published",
+    "eic-gate-result": "published",
+    "eic-qualifying-child-count": "published",
+    "eic-qualifying-child-present": "published",
+    "eic-questions-required": "published",
+    "eic-status-class": "published"
+   },
+   "source": {
+    "ask_age": false,
+    "ask_main_home": false,
+    "ask_not_married": false,
+    "ask_separated": true,
+    "column": 1,
+    "credit": 2389,
+    "path": "qualifying child and separated; column counts only children with a valid SSN",
+    "qualifying_children": 1,
+    "separated_prongs_are_one_yes": true,
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.not-married": 1,
+    "eic.answer.not-qualifying-child-of-another": 1,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 1,
+    "eic.early-stop": 0,
+    "eic.eligibility-result": 2389,
+    "eic.gate-result": 2389,
+    "eic.qualifying-child-count": 1,
+    "eic.qualifying-child-present": 1,
+    "eic.questions-required": 1,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 2389,
+    "payments.line27a": 2389
+   }
+  },
+  "mfs/ssn/no/less": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": false,
+    "not-qc": false,
+    "separated-spouse": false
+   },
+   "blocked_rules": [],
+   "children": {
+    "demo-ens-child-ssn": {
+     "eic.child.counts": 0,
+     "eic.child.qualifies": 0
+    }
+   },
+   "credit": 0,
+   "credit_disposition": "computed_zero",
+   "credit_equals_source": true,
+   "rules": {
+    "eic-answer.age-25-under-65": "published",
+    "eic-answer.main-home-in-us": "published",
+    "eic-answer.not-claimable-as-dependent": "published",
+    "eic-answer.not-married": "published",
+    "eic-answer.not-qualifying-child-of-another": "published",
+    "eic-answer.separated-spouse": "published",
+    "eic-child.counts": "published",
+    "eic-child.qualifies": "published",
+    "eic-column-count": "published",
+    "eic-early-stop": "published",
+    "eic-gate-result": "published",
+    "eic-qualifying-child-count": "published",
+    "eic-qualifying-child-present": "published",
+    "eic-questions-required": "published",
+    "eic-status-class": "published"
+   },
+   "source": {
+    "ask_age": false,
+    "ask_main_home": false,
+    "ask_not_married": false,
+    "ask_separated": false,
+    "column": 0,
+    "credit": 0,
+    "path": "no qualifying child; Step 4 question 1 stops a married filer",
+    "qualifying_children": 0,
+    "separated_prongs_are_one_yes": true,
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.not-married": 1,
+    "eic.answer.not-qualifying-child-of-another": 1,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 0,
+    "eic.early-stop": 1,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 537,
+    "eic.qualifying-child-count": 0,
+    "eic.qualifying-child-present": 0,
+    "eic.questions-required": 0,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 537,
+    "payments.line27a": 0
+   }
+  },
+  "mfs/ssn/no/more": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": false,
+    "not-qc": true,
+    "separated-spouse": true
+   },
+   "blocked_rules": [],
+   "children": {
+    "demo-ens-child-ssn": {
+     "eic.child.counts": 1,
+     "eic.child.qualifies": 1
+    }
+   },
+   "credit": 0,
+   "credit_disposition": "computed_zero",
+   "credit_equals_source": true,
+   "rules": {
+    "eic-answer.age-25-under-65": "published",
+    "eic-answer.main-home-in-us": "published",
+    "eic-answer.not-claimable-as-dependent": "published",
+    "eic-answer.not-married": "published",
+    "eic-answer.not-qualifying-child-of-another": "published",
+    "eic-answer.separated-spouse": "published",
+    "eic-child.counts": "published",
+    "eic-child.qualifies": "published",
+    "eic-column-count": "published",
+    "eic-early-stop": "published",
+    "eic-gate-result": "published",
+    "eic-qualifying-child-count": "published",
+    "eic-qualifying-child-present": "published",
+    "eic-questions-required": "published",
+    "eic-status-class": "published"
+   },
+   "source": {
+    "ask_age": false,
+    "ask_main_home": false,
+    "ask_not_married": false,
+    "ask_separated": true,
+    "column": 1,
+    "credit": 0,
+    "path": "qualifying child, separated-spouse rule not met",
+    "qualifying_children": 1,
+    "separated_prongs_are_one_yes": true,
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.not-married": 1,
+    "eic.answer.not-qualifying-child-of-another": 1,
+    "eic.answer.separated-spouse": 0,
+    "eic.column-count": 1,
+    "eic.early-stop": 0,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 0,
+    "eic.qualifying-child-count": 1,
+    "eic.qualifying-child-present": 1,
+    "eic.questions-required": 1,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 2389,
+    "payments.line27a": 0
+   }
+  },
+  "mfs/ssn/writing/less": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": false,
+    "not-qc": false,
+    "separated-spouse": false
+   },
+   "blocked_rules": [],
+   "children": {
+    "demo-ens-child-ssn": {
+     "eic.child.counts": 0,
+     "eic.child.qualifies": 0
+    }
+   },
+   "credit": 0,
+   "credit_disposition": "computed_zero",
+   "credit_equals_source": true,
+   "rules": {
+    "eic-answer.age-25-under-65": "published",
+    "eic-answer.main-home-in-us": "published",
+    "eic-answer.not-claimable-as-dependent": "published",
+    "eic-answer.not-married": "published",
+    "eic-answer.not-qualifying-child-of-another": "published",
+    "eic-answer.separated-spouse": "published",
+    "eic-child.counts": "published",
+    "eic-child.qualifies": "published",
+    "eic-column-count": "published",
+    "eic-early-stop": "published",
+    "eic-gate-result": "published",
+    "eic-qualifying-child-count": "published",
+    "eic-qualifying-child-present": "published",
+    "eic-questions-required": "published",
+    "eic-status-class": "published"
+   },
+   "source": {
+    "ask_age": false,
+    "ask_main_home": false,
+    "ask_not_married": false,
+    "ask_separated": false,
+    "column": 0,
+    "credit": 0,
+    "path": "no qualifying child; Step 4 question 1 stops a married filer",
+    "qualifying_children": 0,
+    "separated_prongs_are_one_yes": true,
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.not-married": 1,
+    "eic.answer.not-qualifying-child-of-another": 1,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 0,
+    "eic.early-stop": 1,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 537,
+    "eic.qualifying-child-count": 0,
+    "eic.qualifying-child-present": 0,
+    "eic.questions-required": 0,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 537,
+    "payments.line27a": 0
+   }
+  },
+  "mfs/ssn/writing/more": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": false,
+    "not-qc": true,
+    "separated-spouse": true
+   },
+   "blocked_rules": [],
+   "children": {
+    "demo-ens-child-ssn": {
+     "eic.child.counts": 1,
+     "eic.child.qualifies": 1
+    }
+   },
+   "credit": 2389,
+   "credit_disposition": "published_value",
+   "credit_equals_source": true,
+   "rules": {
+    "eic-answer.age-25-under-65": "published",
+    "eic-answer.main-home-in-us": "published",
+    "eic-answer.not-claimable-as-dependent": "published",
+    "eic-answer.not-married": "published",
+    "eic-answer.not-qualifying-child-of-another": "published",
+    "eic-answer.separated-spouse": "published",
+    "eic-child.counts": "published",
+    "eic-child.qualifies": "published",
+    "eic-column-count": "published",
+    "eic-early-stop": "published",
+    "eic-gate-result": "published",
+    "eic-qualifying-child-count": "published",
+    "eic-qualifying-child-present": "published",
+    "eic-questions-required": "published",
+    "eic-status-class": "published"
+   },
+   "source": {
+    "ask_age": false,
+    "ask_main_home": false,
+    "ask_not_married": false,
+    "ask_separated": true,
+    "column": 1,
+    "credit": 2389,
+    "path": "qualifying child and separated; column counts only children with a valid SSN",
+    "qualifying_children": 1,
+    "separated_prongs_are_one_yes": true,
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.age-25-under-65": 1,
+    "eic.answer.main-home-in-us": 1,
+    "eic.answer.not-claimable-as-dependent": 1,
+    "eic.answer.not-married": 1,
+    "eic.answer.not-qualifying-child-of-another": 1,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 1,
+    "eic.early-stop": 0,
+    "eic.eligibility-result": 2389,
+    "eic.gate-result": 2389,
+    "eic.qualifying-child-count": 1,
+    "eic.qualifying-child-present": 1,
+    "eic.questions-required": 1,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 2389,
+    "payments.line27a": 2389
+   }
+  }
+ },
+ "wages": 7000,
+ "wall_time_s": 29.5
+}
