@@ -216,3 +216,175 @@ place of the labelled sentence, which is the same branch as
 - `git fetch origin --prune`, `git rev-list --left-right --count origin/main...HEAD`, and `gh pr list` for this branch.
 
 Did not re-run pytest, the 691-list census, the full replay, or Chrome.
+
+## Re-review
+
+Reviewer, same seat. Reviewed commit `623819c3f7c2ba3e43c9661fbb35e6490df0e58c`
+on `milestone/page-plain-words-2025`. `git rev-parse HEAD` matches.
+Repair range `51b127bc^..HEAD`. Ratified line `origin/main`: 0 behind,
+16 ahead. Draft PR 300 is still open. No merged PR for this branch.
+The worktree is not spent.
+
+**Verdict: NOT READY.**
+
+PPW-R1 to R5 are repaired on the paths re-run below, except the two
+sentences in PPW-R6 and PPW-R7, and the fast-lane gap in PPW-R8.
+
+### PPW-R6. The Schedule 1 part II sentence describes the wrong fact
+
+Severity: high. Semantic.
+
+`SLI_SCHEDULE1_PART_II_OUT_OF_SCOPE` is mapped to "This student-loan
+deduction is outside what Schedule 1, part II can include," with the
+heading "This deduction is outside Schedule 1, part II" and the remedy
+"Review the student-loan answers. This deduction is outside Schedule 1,
+part II." (`packages/presentation/pages/citation-walk.v1.html:1316-1322`).
+
+Core v101 member `tax.us.2025.rule.sli-worksheet` v6 blocks with that
+code when any of the twelve Part II absence answers is not `yes`
+(`packages/content/tax/2025/rule.sli-worksheet.v6.json:522`). The
+published record description of the code is a Schedule 1 Part II
+adjustment this calculation cannot compute
+(`packages/schemas/derivation/derivation-record.v7.schema.json:285`).
+The rendered line is core v101 form field `tax.us.2025.schedule1.line-21`
+v2, which binds `tax.us.2025.schedule1.line21-sli-deduction`
+(`packages/content/tax/2025/schedule1.line-21.form-field.v2.json:2`).
+
+Failure: a return that has student-loan interest and another Part II
+adjustment (one of those absence answers is not `yes`) is told the
+student-loan deduction is outside Schedule 1, part II, and is told to
+review the student-loan answers. The deduction is itself a Part II line.
+The block means another adjustment is present and this calculation will
+not include it.
+
+### PPW-R7. A refused combination is shown as invalid recorded information
+
+Severity: high. Semantic.
+
+`DEPENDENCY_INVALID` is mapped to "Recorded information does not meet
+the requirements," heading "Recorded information is not valid for this
+line," remedy "Correct the recorded information that does not meet the
+requirements." (`citation-walk.v1.html:1291-1295`). The runner stores a
+block code under that name whenever the code is outside `RECORD_CODES`
+(`packages/derivation/runner.py:2545-2546`).
+
+Failure: core v101 rule `tax.us.2025.rule.form1040-line12e` v4 blocks
+with `ITEMIZED_TOTAL_WITH_GAMBLING_LOSSES` when the hand-entered
+itemized total and Schedule A line 16 are both nonzero
+(`packages/content/tax/2025/rule.form1040-line12e.v4.json:107-133`).
+That code is not in `RECORD_CODES`, so the disposition on
+`tax.us.2025.deductions.line-12e` is `DEPENDENCY_INVALID`. Core v101
+form field `tax.us.2025.form1040.line-12e` v2 binds that symbol
+(`packages/content/tax/2025/form1040.line-12e.form-field.v2.json:14`).
+The page then says the recorded information is not valid and tells the
+filer to correct it. Both amounts can be real; the rule refuses to add
+them so the losses are not counted twice. The page does not fail closed
+on `ITEMIZED_TOTAL_WITH_GAMBLING_LOSSES`, because the code it receives
+is already `DEPENDENCY_INVALID`. The same rewrite applies to
+`LOOKUP_MISS`, a parameter or table row that is absent
+(`packages/derivation/evaluator.py:307`), which is also shown as invalid
+recorded information. `track1.md` section 5 says a rendered line that
+carried the unmapped code fails closed
+(`docs/phases/engine-breadth/milestones/page-plain-words-evidence/track1.md:102-104`).
+The line shows the invalid-record sentence.
+
+A true sentence for that gambling block needs the runner to keep the
+code. That is a `packages/derivation` change, which the repair charter
+told the builder to stop and report.
+
+### PPW-R8. The render-boundary test is collected as live
+
+Severity: medium. Evidence.
+
+`tests/test_page_plain_words_render.py` imports `subprocess` (line 14).
+`tests/conftest.py` treats that token as live (`:41-46`) and marks every
+test in the module (`:68-74`). `pytest --collect-only -m "not live"`
+on this file collects 0 tests and deselects 32. `pytest --collect-only
+-m live` collects all 32.
+
+Failure: the fast lane does not run the test that is supposed to fail
+when a first-read text node or an `aria-label` holds a raw id, or when
+a badge text is a disposition enum. Invoked directly, the same tests
+pass on the repaired page and fail a scratch copy that puts a raw id on
+the badge caption, puts a raw id only in the badge `aria-label`, opens
+the line's technical details, puts a raw id in that summary, or sets
+the `published_value` badge text back to `published_value`. A raw id
+only inside the collapsed technical-details body still passes.
+
+## What held on re-run
+
+Synthetic renders through `check_page_dom.mjs` on the repaired page:
+
+- Line 11b `published_value` 42000 badges `Amount` beside the repeat
+  explanation. `computed_zero` badges `Zero`. `closure_backed_zero`
+  badges `Confirmed none`. Categorical badges `Determined`. Blocked
+  badges `No result` with banner "This line has no result."
+  `guard_inapplicable` badges `Not applicable`.
+- Attachment `published` badges `Complete` with "This attachment is
+  required and complete." `guard_inapplicable` badges `Not required`.
+  `ITEMIZATION_TIE_OUT_VIOLATION` badges `Not ready`, heading "The
+  itemized entries do not match the total," remedy "Correct the entries
+  or the total so they match."
+- `DEPENDENCY_ABSENT`, `CATEGORICAL_DOMAIN_MISMATCH`, and
+  `SOURCE_SET_UNCLOSED` show the mapped sentence, heading, and remedy,
+  and the code stays inside collapsed technical details.
+- An empty code list says "Review the saved records for this line" and
+  does not say the information is missing.
+- `NOT_A_REAL_CODE` on a line fails closed to `unmapped-blocked-code`.
+  The same token on an attachment fails closed to
+  `unrecognized-attachment-code`. A line code on an attachment, and an
+  attachment code on a line, fail closed the same way. The raw token is
+  absent from the banner.
+- Mortgage link `affirmed` reads `Confirmed`. `surprise-token` fails
+  closed to `unrecognized-mortgage-link`, and the token is absent from
+  the banner.
+- A v3 model still renders the question card "Needs an answer.", the
+  grouped reason as "See the question and affected lines above", and
+  the ungrouped reason as the `memberLabel` prefix
+  `Synthetic demo-child-1:`. The support trace on that blocked line
+  reads "has no result".
+
+The other mapped codes were read at the emit site and the sentence
+matches that site: `F1098_SCOPE_CONTRADICTION` (a no-statement answer
+while a statement is recorded), `SLI_MFS_INELIGIBLE` (married filing
+separately), `SLI_UNIVERSAL_COMPONENT_VIOLATION` (a universal
+eligibility condition present), `ACCRUED_EXCEEDS_ASSOCIATED_REPORT`
+(accrued interest greater than the associated report),
+`AGGREGATE_ACCRUED_EXCEEDS_REPORT` (the group's combined claim exceeds
+the report), `NOMINEE_ALLOCATIONS_EXCEED_REPORT` (allocation sum greater
+than the report), `SUPPORTABILITY_NOT_ESTABLISHED` (the supportability
+verdict does not pass), `COMPLETENESS_VALUE_VIOLATION` (a present answer
+other than the required value), and `EXCLUSIVE_PRESENCE_CONFLICT` (more
+than one exclusive path has rows). `DEPENDENCY_ABSENT` matches a missing
+required input or attachment answer.
+
+Counted on published core v101 members, the block codes that reach a
+rendered row are the mapped line codes. The runner also writes
+`COMPLETENESS_VALUE_VIOLATION`, `ITEMIZATION_TIE_OUT_VIOLATION`, and
+`EXCLUSIVE_PRESENCE_CONFLICT` onto an attachment row, and those three
+are mapped. `FINCEN_114_NAMED` is a named obligation on the Schedule B
+attachment, not a block code. `OPEN_DEPENDENCY` sits on a top-level
+rule field the runner does not copy onto the disposition.
+`VALUE_INVALID` and `MULTIPLE_F1098_OUT_OF_SCOPE` are in `RECORD_CODES`
+and are not named by a v101 member. Association refusals are recorded
+on the association symbol, which no form field binds.
+
+`_compare_model_and_dom`: an agreeing `Amount` / `published_value` row
+has no difference; an enum badge, a wrong raw value, and an empty
+`disposition_raw` each differ, for a line and for an attachment.
+`tests/test_sale_page_observation_diagnostics.py:510` asserts the empty
+raw case. That module is live because other tests in it use
+`subprocess`, so the fast lane does not run this new test. The compare
+itself treats the empty raw as a difference.
+
+`const MODEL = Object.freeze(__MODEL_JSON__);` matches `github/main`.
+The two mortgage functions are byte-identical between the product page
+and the harness page. The harness page outside those functions matches
+`github/main`. The repair range changes the page, the harness page,
+the observer, the census checker, the new render test, pinned wording
+in five existing tests, `track1.md`, and one line of the plan. No other
+file under `packages/` changed. `python3 tools/envelope_scan.py
+--range github/main..HEAD` exited 0.
+
+Did not re-run the 691-list census, the full replay, or Chrome. The
+census and replay counts in the plan are the builder's record.
