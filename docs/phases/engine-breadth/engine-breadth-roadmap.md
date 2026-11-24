@@ -1171,6 +1171,15 @@ asks the separated-spouse questions only after a "yes". An unmarried head
 of household is no longer stopped at $0 by the separated-spouse question.
 No recorded number changed.
 
+## Bounded return — The Age Fact's Title (2025, closed on P0)
+
+[Plan](milestones/eic-age-title.md); retrospective:
+`docs/milestone-retrospectives/2026-11-24-eic-age-title.md`.
+
+The `eic.age-25-under-65` title omits age at death, but no filer or auditor
+surface shows it, and the question a filer sees already states age at
+death. Kept parked with a safe route recorded. No package change.
+
 ## Saved-page observation — Mortgage and Sales (2025)
 
 [Plan](milestones/sale-page-observation.md); retrospective:
@@ -1262,7 +1271,9 @@ delivers an item removes it.
   596 Rule 12), but a rule cannot prefer an explicit answer and fall back
   to another; the filer is asked both.
 - The `eic.age-25-under-65` fact's title states only the birth-date range;
-  the question also counts age at death in 2025 (EAQ-R7, a bundle change).
+  the question also counts age at death in 2025 (EAQ-R7). No surface shows
+  the title today; if one does, a bundle successor that keeps fact type
+  version v1 keeps saved answers (eic-age-title, closed on P0).
 - After a head of household or surviving spouse "no", the Qualified
   Dividends and Capital Gain Tax Worksheet lines 6 and 13 still show that
   status's ceiling; every line that uses them blocks
