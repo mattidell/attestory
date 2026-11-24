@@ -1,0 +1,53 @@
+{
+  "core": {"package": "v103", "registry": "v101", "release": "v101"},
+  "orientation": "cefeb71443625997915960a6fd47594c1f298f0b",
+  "amounts": {
+    "gain": {"proceeds": 25000, "basis": 5000, "box_1g": 500},
+    "break-even": {"proceeds": 8000, "basis": 8000, "box_1g": 500},
+    "loss": {"proceeds": 1000, "basis": 4000, "box_1g": 500}
+  },
+  "trace": {
+    "wall_time_s": 20.2,
+    "question_group_count": 0,
+    "gain_and_break_even": {
+      "stop": "saturated",
+      "code": "DEPENDENCY_INVALID",
+      "missing": ["ADJUSTMENT_EXCEEDS_LOSS", "CODE_W_ON_GAIN"],
+      "roots": {
+        "covered/st": "f1099b.covered-w-st.member-validation.synthesized",
+        "covered/lt": "f1099b.covered-w-lt.member-validation.synthesized",
+        "noncovered/st": "f1099b.noncovered-st.member-validation.synthesized",
+        "noncovered/lt": "f1099b.noncovered-lt.member-validation.synthesized"
+      },
+      "sale_lines": {
+        "covered/st": "schedule-d.line-1b",
+        "covered/lt": "schedule-d.line-8b",
+        "noncovered/st": "schedule-d.line-2",
+        "noncovered/lt": "schedule-d.line-9"
+      }
+    },
+    "loss_publishes": {
+      "covered/st": {"schedule-d.line-1b": -2500, "schedule-d.line-7": -2500, "schedule-d.line-16": -2500, "schedule-d.line-21": 2500, "form1040.line-7a": -2500, "form1040.line-16": 3575},
+      "covered/lt": {"schedule-d.line-8b": -2500, "schedule-d.line-7": 0, "schedule-d.line-16": -2500, "schedule-d.line-21": 2500, "form1040.line-7a": -2500, "form1040.line-16": 3575},
+      "noncovered/st": {"schedule-d.line-2": -2500, "schedule-d.line-7": -2500, "schedule-d.line-16": -2500, "schedule-d.line-21": 2500, "form1040.line-7a": -2500, "form1040.line-16": 3575},
+      "noncovered/lt": {"schedule-d.line-9": -2500, "schedule-d.line-7": 0, "schedule-d.line-16": -2500, "schedule-d.line-21": 2500, "form1040.line-7a": -2500, "form1040.line-16": 3575}
+    }
+  },
+  "routes": [
+    {"name": "input-question", "status": "valid", "gain_questions": 0, "loss_line_1b": -2500, "family_bytes_unchanged": true},
+    {"name": "blocked-missing", "status": "valid", "gain_questions": 0, "loss_line_1b": -2500, "family_bytes_unchanged": true},
+    {"name": "expression-block", "status": "valid", "gain_questions": 1, "loss_line_1b": "blocked", "family_bytes_unchanged": true},
+    {"name": "conditional-block", "status": "valid", "gain_questions": 0, "loss_line_1b": -2500, "family_bytes_unchanged": true},
+    {"name": "closure-code", "status": "valid", "run": "SourceAuthorityError fabricated mapping", "family_bytes_unchanged": true},
+    {"name": "ambiguous-producer", "status": "rejected", "code": "VALIDATION_PRODUCER_AMBIGUOUS", "family_bytes_unchanged": true},
+    {"name": "closure-family-on-line", "status": "valid", "gain_questions": 1, "loss_line_1b": "blocked", "family_bytes_unchanged": true}
+  ],
+  "schema_probe": "source-family.v2 rejects member_constraints missing (additionalProperties)",
+  "rule_sizes": [
+    {"name": "rule.schedule-d-line1b.v4.json", "bytes": [2431, 2440, 3176, 3648], "covered_by_size_guard": false},
+    {"name": "rule.cwg-p0-validation-probe.v1.json", "bytes": 507, "covered_by_size_guard": false}
+  ],
+  "replay": "not run",
+  "route": "engine",
+  "smallest_change": "packages/derivation/presentation_projection.py:849"
+}
