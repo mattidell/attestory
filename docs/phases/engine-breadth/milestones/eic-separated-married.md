@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "eic-separated-married",
-  "status": "Open 2026-11-23. P0b done; Track 1 next.",
+  "status": "Open 2026-11-23. Track 1 done; review NOT READY; repair next.",
   "retrospective": null,
   "scope": [
     "the earned income credit asks the separated-spouse question (Step 3 questions 4 and 5 of the 2025 Form 1040 instructions) only of a married filer whose status is head of household or married filing separately, as the instructions do",
@@ -144,6 +144,19 @@ them and keeps the table credit. No engine change and no new ADR.
 7. Track 1 runs `pytest -m "not live" tests/test_content_file_sizes.py`
    (the size guards now run in the fast lane, #303) and, until #303 merges,
    the two live size tests.
+8. Repair before merge (review ESM-R1 to R3). The question states the
+   instructions' marital test, not only "married at the end of 2025": an
+   interlocutory decree is still married; a final decree of divorce or of
+   separate maintenance at the end of 2025 is not married for Step 3
+   question 3; a head of household who lived apart and is "considered
+   unmarried" for filing status is still married for the credit
+   (Publication 596 Rule 3). A "no" skips questions 4 and 5 and continues to
+   question 6; the question does not promise the credit. The second
+   selection path stays (the schema needs two) but can never change the
+   result: a stored `eic.married-taxpayer-inert` fact publishes what the
+   default publishes, or is refused at the assertion boundary, and never
+   trips the exclusive-presence refusal together with a separated-spouse
+   answer. v103 is not on main, so its files are regenerated in place.
 
 ## P0b result
 
