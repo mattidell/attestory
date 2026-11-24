@@ -505,3 +505,55 @@ def test_timeout_parsing_waits_for_term_and_kill_and_skips_deep_json(
         "category": "cleanup",
         "stage": "cleanup",
     }
+
+
+def test_empty_disposition_raw_on_a_rendered_row_is_a_difference() -> None:
+    model = {
+        "sections": [{
+            "id": "line-11b",
+            "field": {
+                "dispositions": {
+                    "published_value": {"explain": "Line 11b repeats line 11a."},
+                },
+            },
+            "resolved": {"disposition": "published_value", "value": 42000},
+        }],
+        "attachments": [{
+            "id": "demo.attachment.schedule-a",
+            "resolved": {"disposition": "published"},
+        }],
+    }
+    agreeing = {
+        "lines": [{
+            "id": "line-11b",
+            "disposition": "Amount",
+            "disposition_raw": "published_value",
+            "value": "42000",
+            "explain": "Line 11b repeats line 11a.",
+        }],
+        "attachments": [{
+            "id": "demo.attachment.schedule-a-status",
+            "disposition": "Complete",
+            "disposition_raw": "published",
+        }],
+    }
+    differences, _checks = sale_page_observation._compare_model_and_dom(model, agreeing)
+    assert differences == []
+
+    missing_raw = {
+        "lines": [{
+            "id": "line-11b",
+            "disposition": "Amount",
+            "disposition_raw": "",
+            "value": "42000",
+            "explain": "Line 11b repeats line 11a.",
+        }],
+        "attachments": [{
+            "id": "demo.attachment.schedule-a-status",
+            "disposition": "Complete",
+            "disposition_raw": "",
+        }],
+    }
+    differences, _checks = sale_page_observation._compare_model_and_dom(model, missing_raw)
+    assert any(item.startswith("line-11b:") for item in differences)
+    assert any(item.startswith("demo.attachment.schedule-a:") for item in differences)

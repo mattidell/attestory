@@ -709,19 +709,19 @@ def _expected_reason_text(reason: dict[str, Any]) -> str:
 
 
 _LINE_BADGE_LABELS: dict[str, str] = {
-    "published_value": "Calculated",
-    "computed_zero": "Calculated zero",
+    "published_value": "Amount",
+    "computed_zero": "Zero",
     "closure_backed_zero": "Confirmed none",
     "published_categorical": "Determined",
-    "blocked": "Not calculated",
+    "blocked": "No result",
     "guard_inapplicable": "Not applicable",
 }
 _ATTACHMENT_BADGE_LABELS: dict[str, str] = {
     "published": "Complete",
-    "blocked": "Incomplete",
+    "blocked": "Not ready",
     "guard_inapplicable": "Not required",
 }
-_BLOCKED_LINE_VALUE_TEXT = "This line could not be calculated."
+_BLOCKED_LINE_VALUE_TEXT = "This line has no result."
 
 
 def _compare_model_and_dom(model: dict[str, Any], dom: dict[str, Any]) -> tuple[list[str], list[dict[str, Any]]]:
@@ -755,9 +755,9 @@ def _compare_model_and_dom(model: dict[str, Any], dom: dict[str, Any]) -> tuple[
         expected_badge = _LINE_BADGE_LABELS.get(disposition, disposition.replace("_", " "))
         observed_status = str(row.get("disposition") or "")
         observed_raw = str(row.get("disposition_raw") or "")
-        raw_matches = (not observed_raw and not observed_status) or (
-            observed_raw == disposition if observed_raw else True
-        )
+        # A rendered row with no raw disposition is a disagreement even when
+        # the badge text matches the plain label.
+        raw_matches = bool(observed_raw) and observed_raw == disposition
         status_matches = raw_matches and expected_badge.casefold() == observed_status.casefold()
         checks.append({"kind": "disposition", "section": section_id, "matches": status_matches})
         if not status_matches:
@@ -835,9 +835,7 @@ def _compare_model_and_dom(model: dict[str, Any], dom: dict[str, Any]) -> tuple[
         expected_att_badge = _ATTACHMENT_BADGE_LABELS.get(att_disposition, att_disposition.replace("_", " "))
         observed_status = str(observed.get("disposition") or "")
         observed_raw = str(observed.get("disposition_raw") or "")
-        raw_matches = (not observed_raw and not observed_status) or (
-            observed_raw == att_disposition if observed_raw else True
-        )
+        raw_matches = bool(observed_raw) and observed_raw == att_disposition
         matches = raw_matches and expected_att_badge.casefold() == observed_status.casefold()
         checks.append({"kind": "attachment-status", "section": attachment_id, "matches": matches})
         if not matches:

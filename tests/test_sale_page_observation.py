@@ -254,7 +254,7 @@ def test_real_chrome_cases_match_supported_model_and_dom_properties(observed: di
     corrected = cases["covered-basis-not-reported"]
     blocked_line, blocked_dom = _require_line(corrected, "tax.us.2025.schedule-d.line-8a")
     assert blocked_line["resolved"]["disposition"] == "blocked"
-    assert blocked_dom["value"] == "This line could not be calculated."
+    assert blocked_dom["value"] == "This line has no result."
     assert blocked_dom["blocked_reasons"] == [
         "Record this sale as a noncovered sale. The broker did not report its basis to the IRS."
     ]
@@ -301,7 +301,7 @@ def test_real_chrome_cases_match_supported_model_and_dom_properties(observed: di
     missing_schedule_a, missing_schedule_a_dom = _require_attachment(missing, SCHEDULE_A)
     assert missing_schedule_a["resolved"]["disposition"] == "blocked"
     assert missing_schedule_a_dom["disposition_raw"] == "blocked"
-    assert missing_schedule_a_dom["disposition"] == "INCOMPLETE"
+    assert missing_schedule_a_dom["disposition"] == "NOT READY"
     missing_report = _schedule_a_report_row(missing)
     assert missing_report["code"] == "DEPENDENCY_ABSENT"
     assert missing_report["missing"] == [SCHEDULE_A_BOUNDARY]
