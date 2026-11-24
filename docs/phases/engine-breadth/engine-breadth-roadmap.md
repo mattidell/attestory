@@ -1149,6 +1149,16 @@ an oversized rule before CI does (as eic-no-ssn-child's first verify did
 not). The observer manifest test no longer fails when FORCE_COLOR and
 NO_COLOR are set. Tests only.
 
+## Bounded return — The Sale Page Observer Reads Question Groups
+
+[Plan](milestones/sale-observer-question-groups.md); retrospective:
+`docs/milestone-retrospectives/2026-11-23-sale-observer-question-groups.md`.
+
+The real-Chrome sale page observer expects each blocked reason as the
+saved page renders it (question-group link, member label, statement label,
+or sentence), so the opt-in ten-case fixture passes again. Tools and tests
+only.
+
 ## Saved-page observation — Mortgage and Sales (2025)
 
 [Plan](milestones/sale-page-observation.md); retrospective:
@@ -1296,9 +1306,6 @@ delivers an item removes it.
   page can only say a rule could not use the saved information; keeping
   the specific code on the row is a derivation change (page-plain-words
   Decision 9).
-- The opt-in Chrome sale-page observer (`SALE_PAGE_OBSERVATION_BROWSER=1`)
-  expects the raw question sentence on `sale-answer-needs-reconfirmation`,
-  where the page shows the question-group link since blocked-sale-pages.
 - Three sale blocked reasons are not plain: "The holding period does
   not match this short-term or long-term family.", the wash-sale reason
   naming `floor_zero(basis - proceeds)` and its block code, and the
