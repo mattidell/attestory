@@ -711,7 +711,7 @@ function validateMortgageBorrowingExplanation(block) {
 function renderMortgageBorrowingExplanation(container, block) {
   validateMortgageBorrowingExplanation(block);
   const legacy = block.schema === "mortgage-borrowing-explanation.v1";
-  const linkDispositionLabel = (disp) => ({
+  const linkDispositionLabels = Object.freeze({
     published: "Confirmed",
     blocked: "Incomplete",
     inapplicable: "Not applicable",
@@ -721,7 +721,14 @@ function renderMortgageBorrowingExplanation(container, block) {
     unresolved: "Unresolved",
     affirmed: "Confirmed",
     denied: "Denied",
-  }[disp] || String(disp).replace(/[_-]+/g, " "));
+    "cannot-tell": "Cannot tell",
+  });
+  const linkDispositionLabel = (disp) => {
+    if (!Object.prototype.hasOwnProperty.call(linkDispositionLabels, disp)) {
+      throw new SectionError("unrecognized-mortgage-link");
+    }
+    return linkDispositionLabels[disp];
+  };
   const root = el("section", { class: "mortgage-explanation", "data-mortgage-borrowing-explanation": "true" }, []);
   root.appendChild(el("h2", null, ["Connected mortgage borrowing"]));
   const disposition = block.line8aDispositions[0] && block.line8aDispositions[0].disposition;

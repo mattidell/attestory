@@ -192,6 +192,8 @@ const REASON_TEXT = Object.freeze({
   "malformed-question-groups": "The saved question links could not be displayed safely.",
   "malformed-line21-explanation": "This section's saved explanation could not be displayed safely.",
   "malformed-blocked-reason": "This line's saved explanation for why it could not be calculated is incomplete. No detail can be shown safely.",
+  "unmapped-blocked-code": "This section reported a reason code this page does not recognize. No detail can be shown safely.",
+  "unrecognized-mortgage-link": "A saved mortgage link has a status this page does not recognize. No account detail can be shown.",
   "unknown-error": "This section could not be displayed safely.",
 });
 
@@ -751,7 +753,7 @@ function validateMortgageBorrowingExplanation(block) {
 function renderMortgageBorrowingExplanation(container, block) {
   validateMortgageBorrowingExplanation(block);
   const legacy = block.schema === "mortgage-borrowing-explanation.v1";
-  const linkDispositionLabel = (disp) => ({
+  const linkDispositionLabels = Object.freeze({
     published: "Confirmed",
     blocked: "Incomplete",
     inapplicable: "Not applicable",
@@ -761,7 +763,14 @@ function renderMortgageBorrowingExplanation(container, block) {
     unresolved: "Unresolved",
     affirmed: "Confirmed",
     denied: "Denied",
-  }[disp] || String(disp).replace(/[_-]+/g, " "));
+    "cannot-tell": "Cannot tell",
+  });
+  const linkDispositionLabel = (disp) => {
+    if (!Object.prototype.hasOwnProperty.call(linkDispositionLabels, disp)) {
+      throw new SectionError("unrecognized-mortgage-link");
+    }
+    return linkDispositionLabels[disp];
+  };
   const root = el("section", { class: "mortgage-explanation", "data-mortgage-borrowing-explanation": "true" }, []);
   root.appendChild(el("h2", null, ["Connected mortgage borrowing"]));
   const disposition = block.line8aDispositions[0] && block.line8aDispositions[0].disposition;
@@ -1027,8 +1036,8 @@ const TRACE_ROLE_LABELS = Object.freeze({
 });
 
 const TRACE_DISP_LABELS = Object.freeze({
-  published: "calculated",
-  blocked: "not calculated",
+  published: "has a result",
+  blocked: "has no result",
   inapplicable: "not applicable",
 });
 
@@ -1145,7 +1154,7 @@ function renderShared(container, shared) {
     item.appendChild(renderAuditDl(dispAudit));
     dispositionVisited.set(key, item);
     if (node.findingRoot) {
-      const button = el("button", {type: "button"}, ["Show earlier calculated value"]);
+      const button = el("button", {type: "button"}, ["Show earlier result"]);
       const child = el("div", null, []);
       button.addEventListener("click", () => { if (!child.firstChild) show(node.findingRoot, "input", child); });
       item.appendChild(button); item.appendChild(child);
@@ -1260,19 +1269,112 @@ function renderQuestionGroups(container) {
 }
 
 const LINE_BADGE_LABELS = Object.freeze({
-  published_value: "Calculated",
-  computed_zero: "Calculated zero",
+  published_value: "Amount",
+  computed_zero: "Zero",
   closure_backed_zero: "Confirmed none",
   published_categorical: "Determined",
-  blocked: "Not calculated",
+  blocked: "No result",
   guard_inapplicable: "Not applicable",
 });
 
-const LINE_BLOCKED_CODE_TEXT = Object.freeze({
-  DEPENDENCY_ABSENT: "Required information is missing.",
-  SOURCE_SET_UNCLOSED: "A set of tax forms has not been confirmed as complete.",
-  DEPENDENCY_INVALID: "Recorded information does not meet the rule's requirements.",
+/* One static sentence, heading, and remedy per blocked code a current
+   form field, attachment, or rule in published core v101 can record on a
+   rendered row. A code with no entry for that surface fails closed. */
+const BLOCKED_CODE_COPY = Object.freeze({
+  DEPENDENCY_ABSENT: {
+    sentence: "Required information is missing.",
+    lineHeading: "This line is waiting on missing information.",
+    lineRemedy: "Add or confirm the missing information.",
+    attachmentHeading: "This attachment is waiting on missing information.",
+    attachmentRemedy: "Add the missing information this attachment requires.",
+  },
+  DEPENDENCY_INVALID: {
+    sentence: "Recorded information does not meet the requirements.",
+    lineHeading: "Recorded information is not valid for this line.",
+    lineRemedy: "Correct the recorded information that does not meet the requirements.",
+    attachmentHeading: "Recorded information is not valid for this attachment.",
+    attachmentRemedy: "Correct the recorded information that does not meet the requirements.",
+  },
+  CATEGORICAL_DOMAIN_MISMATCH: {
+    sentence: "A recorded answer is not one of the answers this line accepts.",
+    lineHeading: "A recorded answer does not fit this line.",
+    lineRemedy: "Replace the answer with one this line accepts.",
+  },
+  SOURCE_SET_UNCLOSED: {
+    sentence: "A set of tax forms has not been confirmed as complete.",
+    lineHeading: "A set of forms has not been confirmed complete.",
+    lineRemedy: "Confirm whether this set of forms is complete.",
+  },
+  F1098_SCOPE_CONTRADICTION: {
+    sentence: "A saved answer says there is no mortgage statement, but a mortgage statement is recorded.",
+    lineHeading: "The mortgage statement answers disagree.",
+    lineRemedy: "Correct the no-statement answer, or remove the recorded mortgage statement.",
+  },
+  SLI_MFS_INELIGIBLE: {
+    sentence: "The student-loan interest deduction is not available when the filing status is married filing separately.",
+    lineHeading: "Married filing separately does not allow this deduction.",
+    lineRemedy: "This deduction stays unavailable while the filing status is married filing separately.",
+  },
+  SLI_SCHEDULE1_PART_II_OUT_OF_SCOPE: {
+    sentence: "This student-loan deduction is outside what Schedule 1, part II can include.",
+    lineHeading: "This deduction is outside Schedule 1, part II.",
+    lineRemedy: "Review the student-loan answers. This deduction is outside Schedule 1, part II.",
+  },
+  SLI_UNIVERSAL_COMPONENT_VIOLATION: {
+    sentence: "A condition the student-loan interest deduction requires on every return is not met.",
+    lineHeading: "A required student-loan condition is not met.",
+    lineRemedy: "Review the student-loan conditions that apply to every return.",
+  },
+  ACCRUED_EXCEEDS_ASSOCIATED_REPORT: {
+    sentence: "The accrued interest claimed is more than the associated report shows.",
+    lineHeading: "Accrued interest is more than the associated report.",
+    lineRemedy: "Correct the accrued interest or the report it is tied to.",
+  },
+  AGGREGATE_ACCRUED_EXCEEDS_REPORT: {
+    sentence: "The accrued interest claimed across the reports is more than the report shows.",
+    lineHeading: "Combined accrued interest is more than the report.",
+    lineRemedy: "Correct the accrued amounts so they do not exceed the report.",
+  },
+  NOMINEE_ALLOCATIONS_EXCEED_REPORT: {
+    sentence: "Nominee amounts add up to more than the report shows.",
+    lineHeading: "Nominee amounts exceed the report.",
+    lineRemedy: "Correct the nominee amounts so they do not exceed the report.",
+  },
+  SUPPORTABILITY_NOT_ESTABLISHED: {
+    sentence: "The records do not yet show that this adjustment is supported.",
+    lineHeading: "Support for this adjustment is not established.",
+    lineRemedy: "Add the records that show this adjustment is supported.",
+  },
+  COMPLETENESS_VALUE_VIOLATION: {
+    sentence: "A required confirmation answer does not match what this form needs.",
+    attachmentHeading: "A required answer does not match what this form needs.",
+    attachmentRemedy: "Change the answer to the one this form requires.",
+  },
+  ITEMIZATION_TIE_OUT_VIOLATION: {
+    sentence: "Itemized entries do not match the total.",
+    attachmentHeading: "The itemized entries do not match the total.",
+    attachmentRemedy: "Correct the entries or the total so they match.",
+  },
+  EXCLUSIVE_PRESENCE_CONFLICT: {
+    sentence: "Two records that cannot both apply are present.",
+    attachmentHeading: "Conflicting records are both present.",
+    attachmentRemedy: "Keep only one of the conflicting records.",
+  },
 });
+
+function blockedCopyFor(code, surface) {
+  const copy = BLOCKED_CODE_COPY[code];
+  const headingKey = surface + "Heading";
+  const remedyKey = surface + "Remedy";
+  if (!copy || typeof copy.sentence !== "string" || typeof copy[headingKey] !== "string" || typeof copy[remedyKey] !== "string") {
+    throw new SectionError(surface === "attachment" ? "unrecognized-attachment-code" : "unmapped-blocked-code");
+  }
+  return { sentence: copy.sentence, heading: copy[headingKey], remedy: copy[remedyKey] };
+}
+
+function uniqueTexts(values) {
+  return [...new Set(values)];
+}
 
 function renderLine(container, section) {
   const field = section.field;
@@ -1334,8 +1436,11 @@ function renderLine(container, section) {
     // smuggled numeric field on the same object).
     container.classList.add("blocked-line");
     const codes = Array.isArray(resolved.activeCodes) ? resolved.activeCodes : [];
-    const knownCodes = new Set(instruction.codes || []);
-    const shownCodes = codes.filter((c) => knownCodes.has(c));
+    const shownCodes = [];
+    for (const code of codes) {
+      if (typeof code !== "string" || !code) throw new SectionError("unmapped-blocked-code");
+      shownCodes.push(code);
+    }
     // Reasons the projector copied from declared content, one per statement
     // it names. Rendered as text only; a malformed entry is an error.
     const reasons = Array.isArray(resolved.reasons) ? resolved.reasons : [];
@@ -1359,10 +1464,16 @@ function renderLine(container, section) {
       return [el("li", { id: isLine21 ? "line21-reason-" + index : undefined }, name ? [el("strong", null, [name + ": "]), reason.sentence] : [reason.sentence])];
     });
     // When the line says why it is blocked, that is its explanation: the
-    // field's generic blocked sentence and the generic remedy would
-    // contradict it (a person who answered "no" is not missing anything),
-    // so neither is shown on this line. Lines without reasons keep both.
-    const plainCodeSummaries = [...new Set(shownCodes.map((c) => LINE_BLOCKED_CODE_TEXT[c]).filter(Boolean))];
+    // field's blocked sentence and the code's heading and remedy would
+    // sit beside a reason that already names the cause, so neither is
+    // shown on this line. Lines without reasons keep both, and the
+    // heading and remedy come from the code.
+    const copies = shownCodes.map((code) => blockedCopyFor(code, "line"));
+    const codeHeadings = uniqueTexts(copies.map((copy) => copy.heading));
+    const codeSentences = uniqueTexts(copies.map((copy) => copy.sentence));
+    const codeRemedies = copies.length
+      ? uniqueTexts(copies.map((copy) => copy.remedy))
+      : ["Review the saved records for this line."];
     const techDetails = el("details", { class: "technical-details" }, [
       el("summary", null, ["Technical details"]),
       el("p", null, [
@@ -1377,9 +1488,10 @@ function renderLine(container, section) {
       "data-active-codes": shownCodes.join(","),
     }, [
       el("div", null, [
-        el("p", { class: "line-value blocked-value" }, ["This line could not be calculated."]),
+        el("p", { class: "line-value blocked-value" }, ["This line has no result."]),
+        ...(items.length ? [] : codeHeadings.map((heading) => el("p", { class: "blocked-heading" }, [heading]))),
         ...(items.length ? [] : [el("p", null, [instruction.explain])]),
-        ...(items.length || !plainCodeSummaries.length ? [] : [el("p", null, [plainCodeSummaries.join(" ")])]),
+        ...(items.length || !codeSentences.length ? [] : [el("p", null, [codeSentences.join(" ")])]),
         ...(isLine21 && items.length ? [] : [techDetails]),
       ]),
     ]));
@@ -1396,7 +1508,7 @@ function renderLine(container, section) {
     }
     container.appendChild(el("div", { class: "remedy-box" }, [
       el("strong", null, ["What to do: "]),
-      "add or confirm the missing information so this line can be calculated.",
+      codeRemedies.join(" "),
     ]));
     if (hasLine21Block) {
       renderLine21Explanation(container, section, MODEL.line21Explanation);
@@ -1421,38 +1533,26 @@ function renderLine(container, section) {
    allowlist from. Both live here as renderer-owned declared constants
    instead (ADR-0056 Decision 3): the attachment ontology has no
    per-schedule content surface for this text, and this ADR does not add
-   one. resolved.activeCodes is filtered through the closed three-code
-   allowlist before display; any other code is a rendering error, never
-   shown verbatim. */
+   one. A blocked attachment's heading, sentence, and remedy come from
+   BLOCKED_CODE_COPY. A code with no attachment entry is a rendering
+   error, never shown verbatim. */
 const ATTACHMENT_BADGE_LABELS = Object.freeze({
   published: "Complete",
-  blocked: "Incomplete",
+  blocked: "Not ready",
   guard_inapplicable: "Not required",
 });
 
 const ATTACHMENT_EXPLAIN = Object.freeze({
   published: "This attachment is required and complete.",
-  blocked: "This attachment is required, but some needed information is missing or needs to be corrected.",
   guard_inapplicable: "This attachment is not required for this return.",
 });
-
-const ATTACHMENT_CODE_TEXT = Object.freeze({
-  DEPENDENCY_ABSENT: "Required information is missing.",
-  ITEMIZATION_TIE_OUT_VIOLATION: "Itemized entries do not match the total.",
-  COMPLETENESS_VALUE_VIOLATION: "A required confirmation answer does not match what this form needs.",
-});
-
-const ATTACHMENT_KNOWN_CODES = new Set([
-  "DEPENDENCY_ABSENT",
-  "ITEMIZATION_TIE_OUT_VIOLATION",
-  "COMPLETENESS_VALUE_VIOLATION",
-]);
 
 function renderAttachmentStatus(container, attachment) {
   const resolved = attachment.resolved;
   const disposition = resolved.disposition;
+  const badgeLabel = ATTACHMENT_BADGE_LABELS[disposition];
+  if (!badgeLabel) throw new SectionError("unrecognized-disposition");
   const explain = ATTACHMENT_EXPLAIN[disposition];
-  if (!explain) throw new SectionError("unrecognized-disposition");
 
   container.appendChild(el("h2", null, [
     attachment.title + " ",
@@ -1460,7 +1560,7 @@ function renderAttachmentStatus(container, attachment) {
       class: "badge " + disposition,
       "data-disposition": disposition,
       title: "Recorded status: " + disposition,
-    }, [ATTACHMENT_BADGE_LABELS[disposition]]),
+    }, [badgeLabel]),
   ]));
 
   if (disposition === "published") {
@@ -1473,19 +1573,27 @@ function renderAttachmentStatus(container, attachment) {
     const codes = Array.isArray(resolved.activeCodes) ? resolved.activeCodes : [];
     const shownCodes = [];
     for (const code of codes) {
-      if (!ATTACHMENT_KNOWN_CODES.has(code)) throw new SectionError("unrecognized-attachment-code");
+      if (typeof code !== "string" || !code) throw new SectionError("unrecognized-attachment-code");
       shownCodes.push(code);
     }
-    const plainCodeSummaries = [...new Set(shownCodes.map((c) => ATTACHMENT_CODE_TEXT[c]).filter(Boolean))];
+    const copies = shownCodes.map((code) => blockedCopyFor(code, "attachment"));
+    const headings = copies.length
+      ? uniqueTexts(copies.map((copy) => copy.heading))
+      : ["This attachment is not ready."];
+    const sentences = uniqueTexts(copies.map((copy) => copy.sentence));
+    const remedies = copies.length
+      ? uniqueTexts(copies.map((copy) => copy.remedy))
+      : ["Review the saved records for this attachment."];
     container.appendChild(el("div", {
       class: "blocked-banner",
       role: "alert",
       "data-active-codes": shownCodes.join(","),
     }, [
       el("div", null, [
-        el("p", { class: "line-value blocked-value" }, ["Cannot include yet — required information is incomplete."]),
-        el("p", null, [explain]),
-        ...(plainCodeSummaries.length ? [el("p", null, [plainCodeSummaries.join(" ")])] : []),
+        ...headings.map((heading, index) => el("p", {
+          class: index === 0 ? "line-value blocked-value" : "blocked-heading",
+        }, [heading])),
+        ...(sentences.length ? [el("p", null, [sentences.join(" ")])] : []),
         el("details", { class: "technical-details" }, [
           el("summary", null, ["Technical details"]),
           el("p", null, [
@@ -1498,7 +1606,7 @@ function renderAttachmentStatus(container, attachment) {
     ]));
     container.appendChild(el("div", { class: "remedy-box" }, [
       el("strong", null, ["What to do: "]),
-      "add or correct the missing information to complete this attachment.",
+      remedies.join(" "),
     ]));
     return;
   }
