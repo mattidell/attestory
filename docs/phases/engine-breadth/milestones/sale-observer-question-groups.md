@@ -1,0 +1,61 @@
+<!-- foreman-context-v1
+{
+  "version": 1,
+  "phase": "Engine Breadth",
+  "topic": "sale-observer-question-groups",
+  "status": "Open 2026-11-23. Track 1 next.",
+  "retrospective": null,
+  "scope": [
+    "the real-Chrome sale page observer expects, for each blocked reason, exactly what the saved page renders: the question-group link for a reason a question group names (presentation-model v3, blocked-sale-pages), the bold member label prefix (ADR 0087), and the statement label prefix",
+    "the opt-in ten-case browser fixture (SALE_PAGE_OBSERVATION_BROWSER=1) passes on main"
+  ],
+  "non_goals": [
+    "no page, model, package, rule or schema change; tools and tests only",
+    "no change to which page/model disagreements the observer reports, beyond reading the reason rendering the page actually uses"
+  ],
+  "deep_reads": {
+    "planning": [
+      "docs/process/planning-and-development.md",
+      "docs/phases/engine-breadth/milestones/sale-observer-question-groups.md"
+    ],
+    "implementation": [
+      "docs/process/planning-and-development.md",
+      "docs/phases/engine-breadth/milestones/sale-observer-question-groups.md"
+    ],
+    "review": [
+      "docs/process/planning-and-development.md",
+      "docs/roles/qualitative-review.md",
+      "docs/phases/engine-breadth/milestones/sale-observer-question-groups.md"
+    ],
+    "new_milestone": [
+      "docs/phases/engine-breadth/milestones/sale-observer-question-groups.md"
+    ]
+  }
+}
+-->
+
+# The Sale Page Observer Reads Question Groups
+
+Milestone key: sale-observer-question-groups.
+Branch: milestone/sale-observer-question-groups-2025.
+Phase: Engine Breadth, tooling. Opening plan: 2026-11-23.
+Starting point: main at `94c3f02f` (core v102, registry v100, release v100).
+Expected target: tools and tests only; no package version change.
+
+## What we are trying to accomplish
+
+page-plain-words parked a mismatch: `tools/sale_page_observation.py`
+`_expected_reason_text` still expects each blocked reason's raw sentence,
+but since blocked-sale-pages (#299) the saved page renders a reason that a
+question group names as the link "See the question and affected lines
+above", and since ADR 0087 it prefixes a member's reason with its bold
+`memberLabel`. The opt-in real-Chrome fixture fails on
+`sale-answer-needs-reconfirmation`.
+
+## Stages
+
+1. **Track 1** (no P0). Make the observer's expected reason follow the
+   page's rendering rules exactly (read `renderBlocked` in
+   `packages/presentation/pages/citation-walk.v1.html`), add fast unit
+   tests for each branch, and run the opt-in fixture in real Chrome.
+2. **Fresh review**, repair, closeout.
