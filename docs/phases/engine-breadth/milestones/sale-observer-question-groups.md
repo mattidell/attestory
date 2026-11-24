@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "sale-observer-question-groups",
-  "status": "Open 2026-11-23. Track 1 next.",
+  "status": "Open 2026-11-23. Track 1 done; closeout next.",
   "retrospective": null,
   "scope": [
     "the real-Chrome sale page observer expects, for each blocked reason, exactly what the saved page renders: the question-group link for a reason a question group names (presentation-model v3, blocked-sale-pages), the bold member label prefix (ADR 0087), and the statement label prefix",
@@ -59,3 +59,18 @@ above", and since ADR 0087 it prefixes a member's reason with its bold
    `packages/presentation/pages/citation-walk.v1.html`), add fast unit
    tests for each branch, and run the opt-in fixture in real Chrome.
 2. **Fresh review**, repair, closeout.
+
+## Decisions
+
+1. Review SOQ-R1 and SOQ-R2 (low) are accepted. Both concern a malformed
+   model the page refuses: a question ref the page cannot read clears the
+   line into the section error, and one group without an id. In each the
+   observer reports a difference, which is the right outcome for a page it
+   cannot trust; it only words the expected text differently from the
+   page's error.
+
+## Track 1 result
+
+The observer expects the blocked-reason text the saved page renders. A presentation-model v3 reason that a question group names is the link, including the semicolon when several groups name one reason. Other reasons use the member label, then the statement and lender prefix, then the plain sentence. A raw sentence where that page would show the link is still a difference. Disposition, value, explanation, and attachment checks are unchanged.
+
+Fast unit tests cover each branch and a mismatch in each direction. The opt-in real-Chrome fixture passed all ten cases. The fast lane, mypy on the touched Python, and the envelope scan passed. The record is `docs/phases/engine-breadth/milestones/sale-observer-question-groups-evidence/track1.md`.
