@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "hoh-no-worksheet-ceilings",
-  "status": "Open 2026-11-24. P0 complete. Foreman decisions next.",
+  "status": "Open 2026-11-24. P0 done; Track 1 next.",
   "retrospective": null,
   "scope": [
     "after a head of household or qualifying surviving spouse 'no' (the filer does not meet that status's tests), the Qualified Dividends and Capital Gain Tax Worksheet lines 6 and 13 do not show that status's ceiling, and every line that uses them gets the answer the 2025 instructions give for that filer",
@@ -100,3 +100,21 @@ core v102).
   v2 names, so Track 1 admits them. No engine, schema, projection, or page
   change. Scratch core v103 is the experiment's successor of v102; the
   published number is the next free core after eic-separated-married.
+
+## Decisions
+
+1. Publish the P0 content route: successors of
+   `rule.qdcg-worksheet.line-6` and `rule.qdcg-worksheet.line-13` read the
+   head-of-household and surviving-spouse test answers the way
+   standard-deduction line 3 does, so a refused or unanswered status
+   blocks lines 6 and 13 instead of publishing that status's ceiling. No
+   other status's ceiling is published as a fallback: the 2025 worksheet
+   gives each filing status its own ceiling. Single, married filing
+   jointly and married filing separately keep the v1 lookup.
+2. Track 1 publishes the next free core version after eic-separated-married
+   (#302): core v104, registry v102, release v102 once #302 merges, from
+   published v103.
+3. The two successor files go into `tests/test_content_file_sizes.py` at
+   the worksheet cap (6,144 bytes); the fast guard's worksheet name set
+   gains them.
+4. No engine, schema, projection or page change.
