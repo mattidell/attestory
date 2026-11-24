@@ -99,7 +99,11 @@ Counted by reading published core v101 members and `packages/derivation/runner.p
 | `ITEMIZATION_TIE_OUT_VIOLATION` | Attachment attempt in the runner; survives `RECORD_CODES` | Attachment |
 | `EXCLUSIVE_PRESENCE_CONFLICT` | Attachment attempt in the runner. Outside `RECORD_CODES`, so a form-field row collapses it to `DEPENDENCY_INVALID` | Attachment |
 
-Left without a page sentence, so a rendered line that carried one fails closed:
+Codes with no page sentence of their own. The first three reach the page as
+`DEPENDENCY_INVALID` (the runner keeps only `RECORD_CODES`), so the line shows
+the general `DEPENDENCY_INVALID` sentence, which is worded to stay true for
+each of them (re-review PPW-R7, plan Decision 9). A code the page receives and
+does not know fails closed:
 
 - `OPEN_DEPENDENCY` (12 v101 rules) and `ITEMIZED_TOTAL_WITH_GAMBLING_LOSSES` (`rule.form1040-line12e.v4.json`) collapse to `DEPENDENCY_INVALID` before the page sees them.
 - `FAMILY_VALIDATION_BLOCKED` is a runner block code outside `RECORD_CODES`, so it collapses the same way.

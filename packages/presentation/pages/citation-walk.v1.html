@@ -1289,11 +1289,11 @@ const BLOCKED_CODE_COPY = Object.freeze({
     attachmentRemedy: "Add the missing information this attachment requires.",
   },
   DEPENDENCY_INVALID: {
-    sentence: "Recorded information does not meet the requirements.",
-    lineHeading: "Recorded information is not valid for this line.",
-    lineRemedy: "Correct the recorded information that does not meet the requirements.",
-    attachmentHeading: "Recorded information is not valid for this attachment.",
-    attachmentRemedy: "Correct the recorded information that does not meet the requirements.",
+    sentence: "A rule could not use the saved information as it stands.",
+    lineHeading: "This line could not use the saved information as it stands.",
+    lineRemedy: "Review the related answers and entries for this line.",
+    attachmentHeading: "This attachment could not use the saved information as it stands.",
+    attachmentRemedy: "Review the related answers and entries for this attachment.",
   },
   CATEGORICAL_DOMAIN_MISMATCH: {
     sentence: "A recorded answer is not one of the answers this line accepts.",
@@ -1316,9 +1316,9 @@ const BLOCKED_CODE_COPY = Object.freeze({
     lineRemedy: "This deduction stays unavailable while the filing status is married filing separately.",
   },
   SLI_SCHEDULE1_PART_II_OUT_OF_SCOPE: {
-    sentence: "This student-loan deduction is outside what Schedule 1, part II can include.",
-    lineHeading: "This deduction is outside Schedule 1, part II.",
-    lineRemedy: "Review the student-loan answers. This deduction is outside Schedule 1, part II.",
+    sentence: "Another Schedule 1, part II adjustment is recorded, and this calculation does not include it, so the student-loan deduction is not worked out.",
+    lineHeading: "Another Schedule 1, part II adjustment is recorded.",
+    lineRemedy: "Review your answers about other Schedule 1, part II adjustments.",
   },
   SLI_UNIVERSAL_COMPONENT_VIOLATION: {
     sentence: "A condition the student-loan interest deduction requires on every return is not met.",

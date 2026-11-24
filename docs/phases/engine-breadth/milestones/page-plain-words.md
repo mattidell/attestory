@@ -216,9 +216,21 @@ Evidence in `docs/phases/engine-breadth/milestones/page-plain-words-evidence/`
    record or a total that does not match is not "missing"), including
    `CATEGORICAL_DOMAIN_MISMATCH` and `ITEMIZATION_TIE_OUT_VIOLATION`. An
    unmapped code, and an unknown mortgage-link disposition, fail closed
-   into the static error banner. A fast render-boundary test fails when a
+   into the static error banner. A render-boundary test fails when a
    first-read text node or an `aria-label` holds a raw id or a badge holds
    the disposition enum. The sale page observer treats an empty
    `data-disposition` on a rendered row as a difference. The first-read
    census judges `aria-label` too.
 - **Repair result:** recorded in `page-plain-words-evidence/track1.md` section 5. After that repair, the core v101 census was 691 rendered lists, 0 first-read leaks, and 0 section errors. Synthetic mortgage-interest, mortgage-borrowing, and line 21 pages stayed at 0 page-owned leaks. Full-surface replay v101 against v101 stayed 775 identical, 0 failing, 0 unexpected differences.
+9. Repair before merge (re-review PPW-R6 to R8). The Schedule 1 part II
+   block says another Part II adjustment is recorded and this calculation
+   does not include it, and points to those answers. Because the runner
+   stores every code outside `RECORD_CODES` as `DEPENDENCY_INVALID`
+   (a refused combination such as line 12e's gambling losses, an absent
+   table row, an open dependency), that code's sentence says only that a
+   rule could not use the saved information as it stands and points to
+   the related answers; it never says the information is invalid or
+   missing. Keeping the specific code on the row is a derivation change,
+   parked. The render-boundary test runs Node, so it is an honest live
+   test (conftest's rule) and runs in the full suite that gates merge, not
+   the fast lane.

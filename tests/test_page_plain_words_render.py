@@ -41,9 +41,9 @@ LINE_CODES = {
         "Add or confirm the missing information.",
     ),
     "DEPENDENCY_INVALID": (
-        "Recorded information does not meet the requirements.",
-        "Recorded information is not valid for this line.",
-        "Correct the recorded information that does not meet the requirements.",
+        "A rule could not use the saved information as it stands.",
+        "This line could not use the saved information as it stands.",
+        "Review the related answers and entries for this line.",
     ),
     "CATEGORICAL_DOMAIN_MISMATCH": (
         "A recorded answer is not one of the answers this line accepts.",
@@ -66,9 +66,9 @@ LINE_CODES = {
         "This deduction stays unavailable while the filing status is married filing separately.",
     ),
     "SLI_SCHEDULE1_PART_II_OUT_OF_SCOPE": (
-        "This student-loan deduction is outside what Schedule 1, part II can include.",
-        "This deduction is outside Schedule 1, part II.",
-        "Review the student-loan answers. This deduction is outside Schedule 1, part II.",
+        "Another Schedule 1, part II adjustment is recorded, and this calculation does not include it, so the student-loan deduction is not worked out.",
+        "Another Schedule 1, part II adjustment is recorded.",
+        "Review your answers about other Schedule 1, part II adjustments.",
     ),
     "SLI_UNIVERSAL_COMPONENT_VIOLATION": (
         "A condition the student-loan interest deduction requires on every return is not met.",
@@ -103,9 +103,9 @@ ATTACHMENT_CODES = {
         "Add the missing information this attachment requires.",
     ),
     "DEPENDENCY_INVALID": (
-        "Recorded information does not meet the requirements.",
-        "Recorded information is not valid for this attachment.",
-        "Correct the recorded information that does not meet the requirements.",
+        "A rule could not use the saved information as it stands.",
+        "This attachment could not use the saved information as it stands.",
+        "Review the related answers and entries for this attachment.",
     ),
     "COMPLETENESS_VALUE_VIOLATION": (
         "A required confirmation answer does not match what this form needs.",
