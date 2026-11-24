@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "eic-no-ssn-child",
-  "status": "Open 2026-11-23. P0 evidence recorded; foreman decisions next.",
+  "status": "Open 2026-11-23. Track 1 published core v102.",
   "retrospective": null,
   "scope": [
     "a married filer (head of household or married filing separately) whose qualifying child lacks a valid SSN is routed by the earned income credit as the 2025 Form 1040 instructions and Publication 596 say, instead of getting $0 because the child is not counted",
@@ -136,3 +136,11 @@ Step 4 for the separated-spouse question.
    live coordinator, including a case that fails if the SSN test is
    dropped from `rule.eic-child.counts` (the amount column) or added to
    `rule.eic-child.qualifies`.
+
+## Track 1 result
+
+Evidence: `docs/phases/engine-breadth/milestones/eic-no-ssn-child-evidence/track1.md`.
+
+No sentence in the 2025 Form 1040 instructions or Publication 596 sends a filer whose qualifying children all lack a valid SSN to Step 4 or chapter 3. Schedule EIC says that filer claims the self-only credit and attaches Schedule EIC. The published route is the widened one: every filing status, Step 4 skipped when a qualifying child is present, self-only column when none of those children has a valid SSN.
+
+Core v102, registry v100, and release v100 are published. The loader entries carry v101. The 775 recorded lists replay with declared structural changes and no recorded number changed. Ninety-five live coordinator cases match the 2025 table. No engine change and no new ADR.
