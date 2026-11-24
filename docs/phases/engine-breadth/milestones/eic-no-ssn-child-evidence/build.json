@@ -1,0 +1,170 @@
+{
+  "from": {
+    "core": "v101",
+    "registry": "v99",
+    "release": "v99"
+  },
+  "to": {
+    "core": "v102",
+    "registry": "v100",
+    "release": "v100"
+  },
+  "changes": {
+    "package_version": "v102",
+    "release_version": "v100",
+    "members": [
+      {
+        "op": "replace",
+        "old": {
+          "id": "tax.us.2025.rule.eic-status-class",
+          "role": "computation",
+          "schema": "rule-artifact.v14",
+          "version": "v2"
+        },
+        "new": {
+          "id": "tax.us.2025.rule.eic-status-class",
+          "role": "computation",
+          "schema": "rule-artifact.v14",
+          "version": "v3"
+        }
+      },
+      {
+        "op": "replace",
+        "old": {
+          "id": "tax.us.2025.rule.eic-early-stop",
+          "role": "computation",
+          "schema": "rule-artifact.v14",
+          "version": "v2"
+        },
+        "new": {
+          "id": "tax.us.2025.rule.eic-early-stop",
+          "role": "computation",
+          "schema": "rule-artifact.v14",
+          "version": "v3"
+        }
+      },
+      {
+        "op": "replace",
+        "old": {
+          "id": "tax.us.2025.rule.eic-questions-required",
+          "role": "computation",
+          "schema": "rule-artifact.v14",
+          "version": "v2"
+        },
+        "new": {
+          "id": "tax.us.2025.rule.eic-questions-required",
+          "role": "computation",
+          "schema": "rule-artifact.v14",
+          "version": "v3"
+        }
+      },
+      {
+        "op": "replace",
+        "old": {
+          "id": "tax.us.2025.rule.eic-answer.separated-spouse",
+          "role": "computation",
+          "schema": "rule-artifact.v14",
+          "version": "v1"
+        },
+        "new": {
+          "id": "tax.us.2025.rule.eic-answer.separated-spouse",
+          "role": "computation",
+          "schema": "rule-artifact.v14",
+          "version": "v2"
+        }
+      },
+      {
+        "op": "replace",
+        "old": {
+          "id": "tax.us.2025.rule.eic-answer.not-married",
+          "version": "v1",
+          "schema": "rule-artifact.v14",
+          "role": "computation"
+        },
+        "new": {
+          "id": "tax.us.2025.rule.eic-answer.not-married",
+          "version": "v2",
+          "schema": "rule-artifact.v14",
+          "role": "computation"
+        }
+      },
+      {
+        "op": "replace",
+        "old": {
+          "id": "tax.us.2025.rule.eic-answer.age-25-under-65",
+          "role": "computation",
+          "schema": "rule-artifact.v14",
+          "version": "v3"
+        },
+        "new": {
+          "id": "tax.us.2025.rule.eic-answer.age-25-under-65",
+          "role": "computation",
+          "schema": "rule-artifact.v14",
+          "version": "v4"
+        }
+      },
+      {
+        "op": "replace",
+        "old": {
+          "id": "tax.us.2025.rule.eic-answer.main-home-in-us",
+          "role": "computation",
+          "schema": "rule-artifact.v14",
+          "version": "v3"
+        },
+        "new": {
+          "id": "tax.us.2025.rule.eic-answer.main-home-in-us",
+          "role": "computation",
+          "schema": "rule-artifact.v14",
+          "version": "v4"
+        }
+      },
+      {
+        "op": "add",
+        "new": {
+          "id": "tax.us.2025.rule.eic-child.qualifies",
+          "version": "v1",
+          "schema": "rule-artifact.v14",
+          "role": "computation"
+        }
+      },
+      {
+        "op": "add",
+        "new": {
+          "id": "tax.us.2025.rule.eic-qualifying-child-present",
+          "version": "v1",
+          "schema": "rule-artifact.v14",
+          "role": "computation"
+        }
+      }
+    ],
+    "registry_sort": "id_version"
+  },
+  "written": {
+    "rule.eic-child.qualifies.json": "00f238181c9a7c7f8ae041ac9e9240f257833ebd7b06e7a2310b8ab4b982f8b8",
+    "rule.eic-qualifying-child-present.json": "8c14dd93eae5fe385c3ced6e50239c71e76eb4e805f57ee32e1face3804b98a6",
+    "rule.eic-status-class.v3.json": "19aa65553d1aa4a6371dd80af835d1bc169b730fb3fb45dd295ffcea604553af",
+    "rule.eic-early-stop.v3.json": "f94bff3124a52f89ce5e608768f6a1fb9e23637f1b70a69fcea1da8a83b25b59",
+    "rule.eic-questions-required.v3.json": "1ce722ec32c292af443c735e46db2a1a96764c075963d4e074758cb34d7539b2",
+    "rule.eic-answer.separated-spouse.v2.json": "5cbb85e7399281b146694ccc8145f1fed0e843e4a7953c0eb5ea1daa5edc2156",
+    "rule.eic-answer.not-married.v2.json": "5ed8a7fbaf89a5e79cae8b4d8005a699d467f4d98e2f089c6aeadd7a1374bd32",
+    "rule.eic-answer.age-25-under-65.v4.json": "913a4fa195eb9970aacd203df704cb1bb1820f265232cec0455965c05ae47493",
+    "rule.eic-answer.main-home-in-us.v4.json": "766f195c63c79a096645ecc8d2137938aa6b347844789bad04603b629559e4a3"
+  },
+  "replaced_rules_pinned_by": [],
+  "status": "valid",
+  "validation": "generate_to_directory passed package, registry and release validation",
+  "generation": {
+    "package": {
+      "id": "tax.us.2025.package.core-calculations",
+      "version": "v102",
+      "checksum": "1b74ad22aefa22c4d4877ba3afe869e37bc57c988a1e49b10f08605ef8b42c80"
+    },
+    "registry_sha256": "9b3919cfcc1fe13e0050b7aa65d88b8e59591ada1aae9c429e212de613455747",
+    "release": {
+      "id": "demo.release.sli-worksheet-integration.2025",
+      "version": "v100",
+      "sha256": "ebdce3fb64fa86682a75c6d8d7af47704a06204989c092a56a0585d7d4db9460"
+    },
+    "publication_boundary": "Candidate only: successor companion declaration and live release evidence are separate duties under ADR-0082."
+  }
+}
