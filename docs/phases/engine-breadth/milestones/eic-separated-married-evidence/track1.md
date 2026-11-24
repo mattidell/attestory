@@ -145,3 +145,50 @@ is not on this branch. The two live size tests, `-k 5kb` in
 `tests/test_earned_income_credit_track1.py` and
 `tests/test_eic_qualifying_children_track1.py`, passed. `python3 -m mypy`
 reported no issues in 538 source files. The live 31 passed.
+
+## Repair
+
+Review ESM-R1 to R3. Decision 8.
+
+The question and the fact-type title state the instructions' marital test.
+An interlocutory decree is still married. A final decree of divorce or of
+separate maintenance at the end of 2025 means considered unmarried, so
+question 3 is no. A head of household who lived apart and is considered
+unmarried for filing status is still married under Publication 596, Rule 3.
+Yes continues to the separated-spouse questions. No skips questions 4 and 5
+and continues to question 6. The question does not say the credit is kept.
+
+A path value equal to the default does not stop the exclusive-presence
+refusal. Two active paths refuse from activity alone, before either value
+is read. The second path stays, because `selection.paths` `minItems` is 2,
+and its value is still the unreachable block. `eic.married-taxpayer-inert`
+accepts no value (`value_schema` `{"not": {}}`), so assertion of a stored
+fact is refused and the path never becomes active. Nothing asks the fact.
+
+The published question is 1,153 bytes and the bundle is 2,379. The four
+rule files are unchanged. Registry v101 and release v101 were regenerated.
+The package checksum is unchanged. Loader entries are unchanged.
+
+Live results, wages 7,000, one qualifying child with a valid SSN:
+
+| Case | Result |
+| --- | --- |
+| Interlocutory decree: question 3 yes, then separated-spouse no (`q3-yes-no/ssn`) | line 27a is 0; both questions are asked |
+| Final decree, shared household: question 3 no (`q3-no/ssn`) | line 27a is 2,389; the separated-spouse question is not asked |
+| Lived apart and considered unmarried: separated-spouse yes (`hoh-married/ssn/apart`) | line 27a is 2,389; the new question is not asked |
+| Question 3 no, then question 6 no | line 27a is 0; the separated-spouse question is not asked |
+| Stored inert fact, with and without a separated-spouse answer | assertion is refused (`FindingModelError` naming `eic.married-taxpayer-inert`); the return without that fact keeps 2,389 and does not refuse on two paths |
+
+The review's mutants fail the hand assertion. A stored no that publishes 0
+makes `recorded-no/ssn/unmarried` credit 0. A stored yes that publishes 2
+blocks `hoh-unmarried/ssn/apart`. A married-taxpayer no that publishes 0
+blocks `q3-no/ssn`. A separated-spouse no that publishes 1 makes
+`q3-yes-no/ssn` and `mfs/ssn/no` credit 2,389. Pointing the inert activity
+at `eic.not-married` blocks `q3-no/ssn`.
+
+The repaired v103 replay of the 775 lists matches the earlier result: 691
+success on both cores, 84 identical errors, 0 unexpected, 0 unused
+expectations, no newly blocked list, and no number change. `pytest -m "not live"`
+passed (1,963 passed, 8 skipped, 5,993 subtests), including
+`tests/test_content_file_sizes.py`. `python3 -m mypy` reported no issues in
+539 source files. The live module passed 36 tests.

@@ -85,7 +85,10 @@ def build(key: str, content: Path = h.CONTENT) -> h.Acts:
 
 
 def observe(core: Any, key: str) -> dict[str, Any]:
-    acts = build(key, core.content)
+    return run(core, build(key, core.content), key)
+
+
+def run(core: Any, acts: h.Acts, key: str) -> dict[str, Any]:
     asserted = {label: p0._assertion_ids(acts, fact) for label, fact in ASK.items()}
     run_id = "demo.esm.p0b." + key.replace("/", ".")
     surface = core.surface()

@@ -4,7 +4,7 @@
     "version": "v1"
   },
   "id": "tax.us.2025.input-question.eic-married-taxpayer",
-  "question": "You file as head of household and a child is your qualifying child for the earned income credit. Are you a married taxpayer whose filing status is married filing separately or head of household? Answer yes if you were married at the end of 2025. Publication 596, Rule 3, still treats you as married when you file as head of household under the special rules for married taxpayers living apart. Yes continues to the separated-spouse questions. Answer no if you were not married at the end of 2025. No skips those questions and you keep the credit.",
+  "question": "You file as head of household and a child is your qualifying child for the earned income credit. Are you a married taxpayer whose filing status is married filing separately or head of household? Under Head of Household in the 2025 Form 1040 instructions, an interlocutory decree still means you are married, and a final decree of divorce or of separate maintenance at the end of 2025 means you are considered unmarried. Publication 596, Rule 3, still treats you as married when you file as head of household under the special rules for married taxpayers living apart, including when you lived apart and are considered unmarried for head of household. Answer yes if those rules treat you as married. Yes continues to the separated-spouse questions. Answer no if a final decree of divorce or of separate maintenance at the end of 2025 means you are not married for this question. No skips questions 4 and 5 and continues to question 6.",
   "schema": "input-question.v1",
   "version": "v1"
 }

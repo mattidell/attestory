@@ -207,3 +207,14 @@ Thirty-one synthetic returns match the hand credit and the asked flags. The
 691 success on both cores and 84 identical errors. None newly block and none
 change a number. Rule files are 4,733, 4,797, 2,422, and 4,305 bytes. No
 engine change and no ADR.
+
+Repair (ESM-R1 to R3). The question states the instructions' marital test:
+an interlocutory decree is still married, a final decree of divorce or of
+separate maintenance at the end of 2025 is not married for question 3, and
+a head of household who lived apart and is considered unmarried is still
+married under Publication 596, Rule 3. No skips questions 4 and 5 and
+continues to question 6. The inert path stays. A stored
+`eic.married-taxpayer-inert` fact is refused at assertion, because a path
+value equal to the default would still refuse when a separated-spouse
+answer is also stored. The repaired replay is the same 691 and 84, with no
+unexpected difference and no number change.

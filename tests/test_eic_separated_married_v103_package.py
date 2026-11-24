@@ -63,6 +63,16 @@ def test_published_files_match_the_design() -> None:
             assert (CONTENT / name).stat().st_size <= CAP
     question = bodies["input-question.eic-married-taxpayer.v1.json"]
     assert question["fact_type"]["id"] == design.MARRIED
+    married = next(fact for fact in bodies["eic-married-taxpayer.bundle.json"]["fact_types"] if fact["id"] == design.MARRIED)
+    inert = next(fact for fact in bodies["eic-married-taxpayer.bundle.json"]["fact_types"] if fact["id"] == design.INERT)
+    for text in (question["question"], married["title"]):
+        assert "interlocutory decree" in text
+        assert "final decree of divorce or of separate maintenance" in text
+        assert "considered unmarried" in text
+        assert "Rule 3" in text
+        assert "continues to question 6" in text
+        assert "keep the credit" not in text
+    assert inert["value_schema"] == {"not": {}}
     fact_ids = {fact["id"] for fact in bodies["eic-married-taxpayer.bundle.json"]["fact_types"]}
     assert fact_ids == {design.MARRIED, design.INERT}
     for path in CONTENT.glob("input-question*.json"):

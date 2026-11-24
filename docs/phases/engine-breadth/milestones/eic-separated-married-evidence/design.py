@@ -38,25 +38,37 @@ QUESTION_FILE = "input-question.eic-married-taxpayer.v1.json"
 SCOPE = {"family": "individual-income-tax", "jurisdiction": "US-federal", "tax_year": 2025}
 CITATION = [{"id": P + "citation.form1040.line-27-31", "version": "v1"}]
 
-# rule-artifact.v14 selection paths have minItems 2. The second path is inert
-# unless a build without it validates. Track 1 sets this from that result.
+# rule-artifact.v14 selection paths have minItems 2. A one-path selection is
+# rejected. The second path stays. Its fact accepts no value, so a stored fact
+# is refused at assertion and the path never becomes active. A path value equal
+# to the default would still refuse when that fact and a separated-spouse
+# answer are both present: exclusive_presence decides conflict from activity
+# alone, before either value is read.
 KEEP_INERT = True
+REFUSED_VALUE = {"not": {}}
 TITLE = (
     "Are you a married taxpayer whose filing status is married filing separately or head of household "
-    "(2025 Form 1040 instructions, line 27a, Step 3 question 3)? Yes means married at the end of 2025. "
-    "Publication 596, Rule 3, still treats a head of household who lived apart as married. Yes continues "
-    "to the separated-spouse questions. No means not married at the end of 2025, so those questions are "
-    "skipped. Asked of a head of household with a qualifying child, including one who already answered "
-    "the separated-spouse question no. Contributed categorical assertion, domain {yes, no}, no default, "
-    "presence-before-value, free supersession."
+    "(2025 Form 1040 instructions, line 27a, Step 3 question 3)? "
+    "Under Head of Household in those instructions, an interlocutory decree still means you are married, "
+    "and a final decree of divorce or of separate maintenance at the end of 2025 means you are considered "
+    "unmarried. Publication 596, Rule 3, still treats you as married when you file as head of household "
+    "under the special rules for married taxpayers living apart, including when you lived apart and are "
+    "considered unmarried for head of household. Yes continues to the separated-spouse questions. "
+    "No skips questions 4 and 5 and continues to question 6. Asked of a head of household with a "
+    "qualifying child, including one who already answered the separated-spouse question no. "
+    "Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession."
 )
 QUESTION = (
     "You file as head of household and a child is your qualifying child for the earned income credit. "
     "Are you a married taxpayer whose filing status is married filing separately or head of household? "
-    "Answer yes if you were married at the end of 2025. Publication 596, Rule 3, still treats you as "
-    "married when you file as head of household under the special rules for married taxpayers living "
-    "apart. Yes continues to the separated-spouse questions. Answer no if you were not married at the "
-    "end of 2025. No skips those questions and you keep the credit."
+    "Under Head of Household in the 2025 Form 1040 instructions, an interlocutory decree still means you "
+    "are married, and a final decree of divorce or of separate maintenance at the end of 2025 means you "
+    "are considered unmarried. Publication 596, Rule 3, still treats you as married when you file as head "
+    "of household under the special rules for married taxpayers living apart, including when you lived "
+    "apart and are considered unmarried for head of household. Answer yes if those rules treat you as "
+    "married. Yes continues to the separated-spouse questions. Answer no if a final decree of divorce or "
+    "of separate maintenance at the end of 2025 means you are not married for this question. No skips "
+    "questions 4 and 5 and continues to question 6."
 )
 
 
@@ -118,7 +130,7 @@ def _decl(ident: str, value: dict[str, Any], names: tuple[str, ...], *, activity
     return body
 
 
-def _fact(fact_id: str, title: str) -> dict[str, Any]:
+def _fact(fact_id: str, title: str, *, value_schema: dict[str, Any] | None = None) -> dict[str, Any]:
     return {
         "id": fact_id,
         "identity_keys": [{"kind": "literal", "name": "tax-year", "values": ["2025"]}],
@@ -126,7 +138,7 @@ def _fact(fact_id: str, title: str) -> dict[str, Any]:
         "schema": "fact-type.v2",
         "supersession": {"policy": "free"},
         "title": title,
-        "value_schema": {"enum": ["yes", "no"]},
+        "value_schema": {"enum": ["yes", "no"]} if value_schema is None else value_schema,
         "version": "v1",
     }
 
@@ -135,10 +147,11 @@ def bundle() -> dict[str, Any]:
     facts = [_fact(MARRIED, TITLE)]
     if KEEP_INERT:
         facts.append(_fact(INERT, (
-            "Inactive second path for the Step 3 question 3 selection. Nothing asks this fact and no "
-            "return records it. Contributed categorical assertion, domain {yes, no}, no default, "
-            "presence-before-value, free supersession."
-        )))
+            "Second selection path required by rule-artifact.v14 selection.paths minItems 2. "
+            "Nothing asks this fact. Every value is refused at assertion, so a stored value cannot "
+            "activate the path, change line 27a, or refuse together with a separated-spouse answer. "
+            "Not an input question."
+        ), value_schema=REFUSED_VALUE))
     return {
         "fact_types": facts,
         "id": BUNDLE_ID,
