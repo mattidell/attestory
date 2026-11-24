@@ -1,0 +1,55 @@
+{
+  "fact_types": [
+    {
+      "id": "tax.us.2025.eic.married-taxpayer",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "You file as head of household and a child is your qualifying child for the earned income credit. Are you a married taxpayer whose filing status is married filing separately or head of household? Answer no if any of these is true: you were never married; you were widowed before January 1, 2025, and did not remarry before the end of 2025; or a final decree of divorce or of separate maintenance was in effect at the end of 2025. Otherwise answer yes if you were married at the end of 2025, even if you did not live with your spouse, or your spouse died in 2026 before you filed; if your spouse died in 2025 and you did not remarry in 2025; if only an interlocutory decree was in effect; or if your spouse was a nonresident alien and you did not choose to treat your spouse as a resident. If you live apart and file as head of household because you are considered unmarried, you are still married for this question (Publication 596, Rule 3). A spouse's death is not a decree. Yes continues to the separated-spouse questions. No skips them and continues to question 6.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.eic.married-taxpayer-inert",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Second selection path required by rule-artifact.v14 selection.paths minItems 2. Nothing asks this fact. Every value is refused at assertion, so a stored value cannot activate the path, change line 27a, or refuse together with a separated-spouse answer. Not an input question.",
+      "value_schema": {
+        "not": {}
+      },
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.eic-married-taxpayer.vocabulary",
+  "label": "Earned income credit Step 3 question 3 for a head of household with a qualifying child, tax year 2025",
+  "schema": "bundle.v2",
+  "version": "v1"
+}

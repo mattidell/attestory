@@ -1159,6 +1159,18 @@ saved page renders it (question-group link, member label, statement label,
 or sentence), so the opt-in ten-case fixture passes again. Tools and tests
 only.
 
+## Bounded return — The Separated-Spouse Question Is Asked Only of a Married Filer (2025)
+
+[Plan](milestones/eic-separated-married.md); retrospective:
+`docs/milestone-retrospectives/2026-11-24-eic-separated-married.md`.
+
+Core v103 (registry v101, release v101) asks a head of household with a
+qualifying child whether they were a married taxpayer at the end of 2025
+(Step 3 question 3, with the year's marital rules in the question), and
+asks the separated-spouse questions only after a "yes". An unmarried head
+of household is no longer stopped at $0 by the separated-spouse question.
+No recorded number changed.
+
 ## Saved-page observation — Mortgage and Sales (2025)
 
 [Plan](milestones/sale-page-observation.md); retrospective:
@@ -1251,9 +1263,6 @@ delivers an item removes it.
   to another; the filer is asked both.
 - The `eic.age-25-under-65` fact's title states only the birth-date range;
   the question also counts age at death in 2025 (EAQ-R7, a bundle change).
-- An unmarried head of household is asked the earned income credit's
-  separated-spouse question (its "yes" includes "not married"); the 2025
-  instructions ask it only of a married filer (eic-no-ssn-child ENS-R1).
 - After a head of household or surviving spouse "no", the Qualified
   Dividends and Capital Gain Tax Worksheet lines 6 and 13 still show that
   status's ceiling; every line that uses them blocks
