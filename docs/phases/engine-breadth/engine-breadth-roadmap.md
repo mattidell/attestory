@@ -1190,6 +1190,16 @@ Capital Gain Tax Worksheet lines 6 and 13 when a claimed head of household
 or qualifying surviving spouse status is refused or unanswered, instead of
 showing that status's ceiling. No amount changed.
 
+## Bounded return — A Blocked Code W Gain (2025, closed on P0)
+
+[Plan](milestones/code-w-gain-question.md); retrospective:
+`docs/milestone-retrospectives/2026-11-24-code-w-gain-question.md`.
+
+A code W gain or break-even row blocks with only its reason. Content cannot
+attach a question without editing pinned sale meaning text or blocking a
+valid wash-sale loss; the route is a projection link that needs an owner
+ADR. Parked. No package change.
+
 ## Saved-page observation — Mortgage and Sales (2025)
 
 [Plan](milestones/sale-page-observation.md); retrospective:
@@ -1289,6 +1299,10 @@ delivers an item removes it.
   it on the row.
 - A blocked code W gain (box 1g on a gain or break-even row) asks the
   filer no question; the page shows only the reason (gain-break-even).
+  Content cannot attach one without blocking valid wash losses; the route
+  is a projection link from the family block codes to the box 1g question
+  at `presentation_projection.py:849`, which needs an owner ADR
+  (code-w-gain-question, closed on P0).
 - Additional seller-paid shipping under platform pass-through.
 - A v1 Form 1099-K workspace re-answers its completeness question under the
   successor package; recovery for a log with two current family versions; a
