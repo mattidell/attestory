@@ -3,8 +3,8 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "eic-no-ssn-child",
-  "status": "Open 2026-11-23. Track 1 published core v102.",
-  "retrospective": null,
+  "status": "Closed 2026-11-23. Core v102, registry v100, release v100.",
+  "retrospective": "docs/milestone-retrospectives/2026-11-23-eic-no-ssn-child.md",
   "scope": [
     "a married filer (head of household or married filing separately) whose qualifying child lacks a valid SSN is routed by the earned income credit as the 2025 Form 1040 instructions and Publication 596 say, instead of getting $0 because the child is not counted",
     "every other recorded return keeps its numbers"
@@ -80,8 +80,7 @@ filer may then claim, must come from the sources, not from this plan.
 
 ## P0 result
 
-Evidence: `docs/phases/engine-breadth/milestones/eic-no-ssn-child-evidence/p0.md`,
-recorded at source head `b51994331d46b3f4c8e2843144c45e127131210d`.
+Evidence: `docs/phases/engine-breadth/milestones/eic-no-ssn-child-evidence/p0.md`.
 
 A qualifying child for the earned income credit is relationship, age,
 residency, and joint return. A valid SSN is not one of those tests. It
@@ -136,6 +135,12 @@ Step 4 for the separated-spouse question.
    live coordinator, including a case that fails if the SSN test is
    dropped from `rule.eic-child.counts` (the amount column) or added to
    `rule.eic-child.qualifies`.
+5. Review ENS-R1 is accepted as recorded: an unmarried head of household
+   whose only qualifying child lacks a valid SSN is asked the
+   separated-spouse question, as a head of household with a counted child
+   already is on v101 (Decision 3); the question's "yes" includes "not
+   married", so a truthful answer gets the self-only credit. Asking it
+   only of a married filer is parked for both cases.
 
 ## Track 1 result
 
@@ -144,3 +149,17 @@ Evidence: `docs/phases/engine-breadth/milestones/eic-no-ssn-child-evidence/track
 No sentence in the 2025 Form 1040 instructions or Publication 596 sends a filer whose qualifying children all lack a valid SSN to Step 4 or chapter 3. Schedule EIC says that filer claims the self-only credit and attaches Schedule EIC. The published route is the widened one: every filing status, Step 4 skipped when a qualifying child is present, self-only column when none of those children has a valid SSN.
 
 Core v102, registry v100, and release v100 are published. The loader entries carry v101. The 775 recorded lists replay with declared structural changes and no recorded number changed. Ninety-five live coordinator cases match the 2025 table. No engine change and no new ADR.
+
+## Closeout
+
+Closed 2026-11-23. A qualifying child without a valid SSN is a qualifying
+child for the earned income credit; the SSN decides only the amount column.
+Core v102 (registry v100, release v100) counts that child for the
+filer's status, the early stop, the separated-spouse test and the Step 4
+skip, for every filing status, while the amount column still counts only
+children with a valid SSN. A separated married filer whose qualifying
+children all lack an SSN now gets the self-only credit (537 at wages of
+7,000) instead of $0, and no such filer is asked the Step 4 no-child
+tests. The 775 recorded lists replay with no recorded number changed, and
+95 live cases match the 2025 table. Parked: ask the separated-spouse
+question only of a married filer.
