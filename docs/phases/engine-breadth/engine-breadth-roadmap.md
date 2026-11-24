@@ -1190,6 +1190,15 @@ Capital Gain Tax Worksheet lines 6 and 13 when a claimed head of household
 or qualifying surviving spouse status is refused or unanswered, instead of
 showing that status's ceiling. No amount changed.
 
+## Bounded return — The Married-Taxpayer Rules Need No Inert Path (2025)
+
+[Plan](milestones/eic-married-one-path.md); retrospective:
+`docs/milestone-retrospectives/2026-11-24-eic-married-one-path.md`.
+
+Core v105 (registry v103, release v103) moves the two earned income credit
+married-taxpayer selection rules from v103 onto `rule-artifact.v17` with a
+single path, so no rule reads the inert fact v103 needed. No result changed.
+
 ## Saved-page observation — Mortgage and Sales (2025)
 
 [Plan](milestones/sale-page-observation.md); retrospective:

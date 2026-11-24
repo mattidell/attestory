@@ -3,8 +3,8 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "eic-married-one-path",
-  "status": "Open 2026-11-24. Track 1 built; fresh review next.",
-  "retrospective": null,
+  "status": "Closed 2026-11-24. Core v105, registry v103, release v103.",
+  "retrospective": "docs/milestone-retrospectives/2026-11-24-eic-married-one-path.md",
   "scope": [
     "the two earned income credit married-taxpayer selection rules published in core v103 carry one path on rule-artifact.v17 instead of a second path keyed on a fact nothing asks",
     "every computed result, question and recorded return is unchanged"
@@ -99,3 +99,11 @@ registry v103, release v103, from published v104).
 - **Tests.** The package test, the size guard, the covered-flag list, and
   the 37 live cases passed. The fast lane passed (1,984 passed, 8 skipped,
   6,001 subtests). mypy reported no issues in 545 source files.
+
+## Closeout
+
+Closed 2026-11-24. Core v105 (registry v103, release v103) publishes the
+two married-taxpayer selection rules as v2 on `rule-artifact.v17` with one
+path; neither reads `eic.married-taxpayer-inert`, which stays published and
+refused at assertion. Every v103 case computes the same, and the 775
+recorded lists replay with no number changed.
