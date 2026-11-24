@@ -202,3 +202,22 @@ Evidence in `docs/phases/engine-breadth/milestones/page-plain-words-evidence/`
   checks on all 10 cases and surfaced a pre-existing v3 `questionGroups`
   reason-comparison mismatch on `sale-answer-needs-reconfirmation` in
   `tools/sale_page_observation.py`.
+8. Repair before merge (review PPW-R1 to R5). Badges claim only what the
+   disposition proves, since a published amount may be carried from
+   another line: `published_value` reads `Amount`, `computed_zero` reads
+   `Zero`, `closure_backed_zero` keeps `Confirmed none`,
+   `published_categorical` keeps `Determined`, `guard_inapplicable` keeps
+   `Not applicable`, and `blocked` reads `No result`, with the banner
+   "This line has no result." The support trace says `has a result`, not
+   `calculated`. The attachment badge for `blocked` reads `Not ready`.
+   Under a blocked line or attachment, the explanation sentence, heading
+   and remedy are chosen from the code: every code a current field or
+   attachment can carry has its own true sentence and remedy (an invalid
+   record or a total that does not match is not "missing"), including
+   `CATEGORICAL_DOMAIN_MISMATCH` and `ITEMIZATION_TIE_OUT_VIOLATION`. An
+   unmapped code, and an unknown mortgage-link disposition, fail closed
+   into the static error banner. A fast render-boundary test fails when a
+   first-read text node or an `aria-label` holds a raw id or a badge holds
+   the disposition enum. The sale page observer treats an empty
+   `data-disposition` on a rendered row as a difference. The first-read
+   census judges `aria-label` too.
