@@ -77,3 +77,26 @@ does, the question can be skipped for an unmarried filer.
 2. **Decisions** by the foreman.
 3. **Track 1.** Publish it.
 4. **Fresh review**, repair, closeout.
+
+## P0 result
+
+Evidence: `docs/phases/engine-breadth/milestones/eic-separated-married-evidence/p0.md`.
+
+Published core v102 cannot tell whether a head of household with a qualifying
+child was married at the end of 2025. `eic.not-married` is asked only when no
+qualifying child is present, and its words do not match Step 3 question 3.
+`hoh.tests-met` yes covers an unmarried filer and a married filer who lived
+apart for the last six months. The separated-spouse question is asked of
+every head of household with a qualifying child. Twenty-one synthetic
+demo.* returns on the live coordinator match the 2025 table except the two
+unmarried head-of-household returns that answer that question no: line 27a
+is $0 where the instructions give 2,389 (valid SSN) or 537 (no valid SSN)
+at wages of 7,000. The other four unmarried returns with a qualifying child
+keep those table amounts only because the published yes includes "not
+married," and they are still asked.
+
+No scratch successor was built and the 775 recorded lists were not replayed.
+The smallest new question is Step 3 question 3, asked of a head of household
+who has a qualifying child. Married filing separately is already a married
+taxpayer by filing status. A yes continues to questions 4 and 5. A no skips
+them and keeps the table credit. No engine change and no new ADR.

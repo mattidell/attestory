@@ -1,0 +1,967 @@
+{
+ "asked_matches_source": 15,
+ "cases": 21,
+ "core": {
+  "package": "v102",
+  "registry": "v100",
+  "release": "v100"
+ },
+ "credit_equals_source": 19,
+ "errors": 0,
+ "mfs_standard_deduction_lived_apart": "yes on every married-filing-separately return; not the credit's separated-spouse test",
+ "runs": {
+  "hoh-married/none": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": true,
+    "not-qc": false,
+    "separated-spouse": false
+   },
+   "asked_matches_source": true,
+   "blocked_rules": [],
+   "children": {},
+   "credit": 0,
+   "credit_disposition": "computed_zero",
+   "credit_equals_source": true,
+   "source": {
+    "ask_not_married": true,
+    "ask_separated": false,
+    "column": 0,
+    "credit": 0,
+    "married_for_step3_question3": true,
+    "path": "no qualifying child; Step 4 question 1 stops a married taxpayer filing as head of household or married filing separately",
+    "qualifying_child": false,
+    "separated_prongs_are_one_yes": true,
+    "table_key": "other-0",
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.not-married": 0,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 0,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 0,
+    "eic.qualifying-child-present": 0,
+    "eic.status-class": 1,
+    "eic.worksheet-a.line-6": 537,
+    "payments.line27a": 0
+   }
+  },
+  "hoh-married/nossn/apart": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": false,
+    "not-qc": true,
+    "separated-spouse": true
+   },
+   "asked_matches_source": true,
+   "blocked_rules": [],
+   "children": {
+    "demo-esm-child-nossn": {
+     "eic.child.counts": 0,
+     "eic.child.qualifies": 1
+    }
+   },
+   "credit": 537,
+   "credit_disposition": "published_value",
+   "credit_equals_source": true,
+   "source": {
+    "ask_not_married": false,
+    "ask_separated": true,
+    "column": 0,
+    "credit": 537,
+    "married_for_step3_question3": true,
+    "path": "qualifying child and one separated-spouse prong; the column counts only a child with a valid SSN",
+    "qualifying_child": true,
+    "separated_prongs_are_one_yes": true,
+    "table_key": "other-0",
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.not-married": 1,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 0,
+    "eic.eligibility-result": 537,
+    "eic.gate-result": 537,
+    "eic.qualifying-child-present": 1,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 537,
+    "payments.line27a": 537
+   }
+  },
+  "hoh-married/nossn/no": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": false,
+    "not-qc": true,
+    "separated-spouse": true
+   },
+   "asked_matches_source": true,
+   "blocked_rules": [],
+   "children": {
+    "demo-esm-child-nossn": {
+     "eic.child.counts": 0,
+     "eic.child.qualifies": 1
+    }
+   },
+   "credit": 0,
+   "credit_disposition": "computed_zero",
+   "credit_equals_source": true,
+   "source": {
+    "ask_not_married": false,
+    "ask_separated": true,
+    "column": 0,
+    "credit": 0,
+    "married_for_step3_question3": true,
+    "path": "qualifying child, and neither separated-spouse prong is met",
+    "qualifying_child": true,
+    "separated_prongs_are_one_yes": true,
+    "table_key": "other-0",
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.not-married": 1,
+    "eic.answer.separated-spouse": 0,
+    "eic.column-count": 0,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 0,
+    "eic.qualifying-child-present": 1,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 537,
+    "payments.line27a": 0
+   }
+  },
+  "hoh-married/nossn/writing": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": false,
+    "not-qc": true,
+    "separated-spouse": true
+   },
+   "asked_matches_source": true,
+   "blocked_rules": [],
+   "children": {
+    "demo-esm-child-nossn": {
+     "eic.child.counts": 0,
+     "eic.child.qualifies": 1
+    }
+   },
+   "credit": 537,
+   "credit_disposition": "published_value",
+   "credit_equals_source": true,
+   "source": {
+    "ask_not_married": false,
+    "ask_separated": true,
+    "column": 0,
+    "credit": 537,
+    "married_for_step3_question3": true,
+    "path": "qualifying child and one separated-spouse prong; the column counts only a child with a valid SSN",
+    "qualifying_child": true,
+    "separated_prongs_are_one_yes": true,
+    "table_key": "other-0",
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.not-married": 1,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 0,
+    "eic.eligibility-result": 537,
+    "eic.gate-result": 537,
+    "eic.qualifying-child-present": 1,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 537,
+    "payments.line27a": 537
+   }
+  },
+  "hoh-married/ssn/apart": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": false,
+    "not-qc": true,
+    "separated-spouse": true
+   },
+   "asked_matches_source": true,
+   "blocked_rules": [],
+   "children": {
+    "demo-esm-child-ssn": {
+     "eic.child.counts": 1,
+     "eic.child.qualifies": 1
+    }
+   },
+   "credit": 2389,
+   "credit_disposition": "published_value",
+   "credit_equals_source": true,
+   "source": {
+    "ask_not_married": false,
+    "ask_separated": true,
+    "column": 1,
+    "credit": 2389,
+    "married_for_step3_question3": true,
+    "path": "qualifying child and one separated-spouse prong; the column counts only a child with a valid SSN",
+    "qualifying_child": true,
+    "separated_prongs_are_one_yes": true,
+    "table_key": "other-1",
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.not-married": 1,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 1,
+    "eic.eligibility-result": 2389,
+    "eic.gate-result": 2389,
+    "eic.qualifying-child-present": 1,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 2389,
+    "payments.line27a": 2389
+   }
+  },
+  "hoh-married/ssn/no": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": false,
+    "not-qc": true,
+    "separated-spouse": true
+   },
+   "asked_matches_source": true,
+   "blocked_rules": [],
+   "children": {
+    "demo-esm-child-ssn": {
+     "eic.child.counts": 1,
+     "eic.child.qualifies": 1
+    }
+   },
+   "credit": 0,
+   "credit_disposition": "computed_zero",
+   "credit_equals_source": true,
+   "source": {
+    "ask_not_married": false,
+    "ask_separated": true,
+    "column": 1,
+    "credit": 0,
+    "married_for_step3_question3": true,
+    "path": "qualifying child, and neither separated-spouse prong is met",
+    "qualifying_child": true,
+    "separated_prongs_are_one_yes": true,
+    "table_key": "other-1",
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.not-married": 1,
+    "eic.answer.separated-spouse": 0,
+    "eic.column-count": 1,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 0,
+    "eic.qualifying-child-present": 1,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 2389,
+    "payments.line27a": 0
+   }
+  },
+  "hoh-married/ssn/writing": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": false,
+    "not-qc": true,
+    "separated-spouse": true
+   },
+   "asked_matches_source": true,
+   "blocked_rules": [],
+   "children": {
+    "demo-esm-child-ssn": {
+     "eic.child.counts": 1,
+     "eic.child.qualifies": 1
+    }
+   },
+   "credit": 2389,
+   "credit_disposition": "published_value",
+   "credit_equals_source": true,
+   "source": {
+    "ask_not_married": false,
+    "ask_separated": true,
+    "column": 1,
+    "credit": 2389,
+    "married_for_step3_question3": true,
+    "path": "qualifying child and one separated-spouse prong; the column counts only a child with a valid SSN",
+    "qualifying_child": true,
+    "separated_prongs_are_one_yes": true,
+    "table_key": "other-1",
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.not-married": 1,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 1,
+    "eic.eligibility-result": 2389,
+    "eic.gate-result": 2389,
+    "eic.qualifying-child-present": 1,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 2389,
+    "payments.line27a": 2389
+   }
+  },
+  "hoh-unmarried/none": {
+   "agi": null,
+   "asked": {
+    "age": true,
+    "main-home": true,
+    "not-claimable": true,
+    "not-married": true,
+    "not-qc": true,
+    "separated-spouse": false
+   },
+   "asked_matches_source": true,
+   "blocked_rules": [],
+   "children": {},
+   "credit": 537,
+   "credit_disposition": "published_value",
+   "credit_equals_source": true,
+   "source": {
+    "ask_not_married": true,
+    "ask_separated": false,
+    "column": 0,
+    "credit": 537,
+    "married_for_step3_question3": false,
+    "path": "no qualifying child; an unmarried head of household who answers the remaining Step 4 questions yes",
+    "qualifying_child": false,
+    "separated_prongs_are_one_yes": true,
+    "table_key": "other-0",
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.not-married": 1,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 0,
+    "eic.eligibility-result": 537,
+    "eic.gate-result": 537,
+    "eic.qualifying-child-present": 0,
+    "eic.status-class": 1,
+    "eic.worksheet-a.line-6": 537,
+    "payments.line27a": 537
+   }
+  },
+  "hoh-unmarried/nossn/apart": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": false,
+    "not-qc": true,
+    "separated-spouse": true
+   },
+   "asked_matches_source": false,
+   "blocked_rules": [],
+   "children": {
+    "demo-esm-child-nossn": {
+     "eic.child.counts": 0,
+     "eic.child.qualifies": 1
+    }
+   },
+   "credit": 537,
+   "credit_disposition": "published_value",
+   "credit_equals_source": true,
+   "source": {
+    "ask_not_married": false,
+    "ask_separated": false,
+    "column": 0,
+    "credit": 537,
+    "married_for_step3_question3": false,
+    "path": "unmarried head of household; Step 3 question 3 is no, so questions 4 and 5 are skipped",
+    "qualifying_child": true,
+    "separated_prongs_are_one_yes": true,
+    "table_key": "other-0",
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.not-married": 1,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 0,
+    "eic.eligibility-result": 537,
+    "eic.gate-result": 537,
+    "eic.qualifying-child-present": 1,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 537,
+    "payments.line27a": 537
+   }
+  },
+  "hoh-unmarried/nossn/no": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": false,
+    "not-qc": true,
+    "separated-spouse": true
+   },
+   "asked_matches_source": false,
+   "blocked_rules": [],
+   "children": {
+    "demo-esm-child-nossn": {
+     "eic.child.counts": 0,
+     "eic.child.qualifies": 1
+    }
+   },
+   "credit": 0,
+   "credit_disposition": "computed_zero",
+   "credit_equals_source": false,
+   "source": {
+    "ask_not_married": false,
+    "ask_separated": false,
+    "column": 0,
+    "credit": 537,
+    "married_for_step3_question3": false,
+    "path": "unmarried head of household; Step 3 question 3 is no, so questions 4 and 5 are skipped",
+    "qualifying_child": true,
+    "separated_prongs_are_one_yes": true,
+    "table_key": "other-0",
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.not-married": 1,
+    "eic.answer.separated-spouse": 0,
+    "eic.column-count": 0,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 0,
+    "eic.qualifying-child-present": 1,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 537,
+    "payments.line27a": 0
+   }
+  },
+  "hoh-unmarried/nossn/writing": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": false,
+    "not-qc": true,
+    "separated-spouse": true
+   },
+   "asked_matches_source": false,
+   "blocked_rules": [],
+   "children": {
+    "demo-esm-child-nossn": {
+     "eic.child.counts": 0,
+     "eic.child.qualifies": 1
+    }
+   },
+   "credit": 537,
+   "credit_disposition": "published_value",
+   "credit_equals_source": true,
+   "source": {
+    "ask_not_married": false,
+    "ask_separated": false,
+    "column": 0,
+    "credit": 537,
+    "married_for_step3_question3": false,
+    "path": "unmarried head of household; Step 3 question 3 is no, so questions 4 and 5 are skipped",
+    "qualifying_child": true,
+    "separated_prongs_are_one_yes": true,
+    "table_key": "other-0",
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.not-married": 1,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 0,
+    "eic.eligibility-result": 537,
+    "eic.gate-result": 537,
+    "eic.qualifying-child-present": 1,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 537,
+    "payments.line27a": 537
+   }
+  },
+  "hoh-unmarried/ssn/apart": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": false,
+    "not-qc": true,
+    "separated-spouse": true
+   },
+   "asked_matches_source": false,
+   "blocked_rules": [],
+   "children": {
+    "demo-esm-child-ssn": {
+     "eic.child.counts": 1,
+     "eic.child.qualifies": 1
+    }
+   },
+   "credit": 2389,
+   "credit_disposition": "published_value",
+   "credit_equals_source": true,
+   "source": {
+    "ask_not_married": false,
+    "ask_separated": false,
+    "column": 1,
+    "credit": 2389,
+    "married_for_step3_question3": false,
+    "path": "unmarried head of household; Step 3 question 3 is no, so questions 4 and 5 are skipped",
+    "qualifying_child": true,
+    "separated_prongs_are_one_yes": true,
+    "table_key": "other-1",
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.not-married": 1,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 1,
+    "eic.eligibility-result": 2389,
+    "eic.gate-result": 2389,
+    "eic.qualifying-child-present": 1,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 2389,
+    "payments.line27a": 2389
+   }
+  },
+  "hoh-unmarried/ssn/no": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": false,
+    "not-qc": true,
+    "separated-spouse": true
+   },
+   "asked_matches_source": false,
+   "blocked_rules": [],
+   "children": {
+    "demo-esm-child-ssn": {
+     "eic.child.counts": 1,
+     "eic.child.qualifies": 1
+    }
+   },
+   "credit": 0,
+   "credit_disposition": "computed_zero",
+   "credit_equals_source": false,
+   "source": {
+    "ask_not_married": false,
+    "ask_separated": false,
+    "column": 1,
+    "credit": 2389,
+    "married_for_step3_question3": false,
+    "path": "unmarried head of household; Step 3 question 3 is no, so questions 4 and 5 are skipped",
+    "qualifying_child": true,
+    "separated_prongs_are_one_yes": true,
+    "table_key": "other-1",
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.not-married": 1,
+    "eic.answer.separated-spouse": 0,
+    "eic.column-count": 1,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 0,
+    "eic.qualifying-child-present": 1,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 2389,
+    "payments.line27a": 0
+   }
+  },
+  "hoh-unmarried/ssn/writing": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": false,
+    "not-qc": true,
+    "separated-spouse": true
+   },
+   "asked_matches_source": false,
+   "blocked_rules": [],
+   "children": {
+    "demo-esm-child-ssn": {
+     "eic.child.counts": 1,
+     "eic.child.qualifies": 1
+    }
+   },
+   "credit": 2389,
+   "credit_disposition": "published_value",
+   "credit_equals_source": true,
+   "source": {
+    "ask_not_married": false,
+    "ask_separated": false,
+    "column": 1,
+    "credit": 2389,
+    "married_for_step3_question3": false,
+    "path": "unmarried head of household; Step 3 question 3 is no, so questions 4 and 5 are skipped",
+    "qualifying_child": true,
+    "separated_prongs_are_one_yes": true,
+    "table_key": "other-1",
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.not-married": 1,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 1,
+    "eic.eligibility-result": 2389,
+    "eic.gate-result": 2389,
+    "eic.qualifying-child-present": 1,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 2389,
+    "payments.line27a": 2389
+   }
+  },
+  "mfs/none": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": false,
+    "not-qc": false,
+    "separated-spouse": false
+   },
+   "asked_matches_source": true,
+   "blocked_rules": [],
+   "children": {},
+   "credit": 0,
+   "credit_disposition": "computed_zero",
+   "credit_equals_source": true,
+   "source": {
+    "ask_not_married": false,
+    "ask_separated": false,
+    "column": 0,
+    "credit": 0,
+    "married_for_step3_question3": true,
+    "path": "no qualifying child; Step 4 question 1 stops a married taxpayer filing as head of household or married filing separately",
+    "qualifying_child": false,
+    "separated_prongs_are_one_yes": true,
+    "table_key": "other-0",
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.not-married": 1,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 0,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 537,
+    "eic.qualifying-child-present": 0,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 537,
+    "payments.line27a": 0
+   }
+  },
+  "mfs/nossn/apart": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": false,
+    "not-qc": true,
+    "separated-spouse": true
+   },
+   "asked_matches_source": true,
+   "blocked_rules": [],
+   "children": {
+    "demo-esm-child-nossn": {
+     "eic.child.counts": 0,
+     "eic.child.qualifies": 1
+    }
+   },
+   "credit": 537,
+   "credit_disposition": "published_value",
+   "credit_equals_source": true,
+   "source": {
+    "ask_not_married": false,
+    "ask_separated": true,
+    "column": 0,
+    "credit": 537,
+    "married_for_step3_question3": true,
+    "path": "qualifying child and one separated-spouse prong; the column counts only a child with a valid SSN",
+    "qualifying_child": true,
+    "separated_prongs_are_one_yes": true,
+    "table_key": "other-0",
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.not-married": 1,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 0,
+    "eic.eligibility-result": 537,
+    "eic.gate-result": 537,
+    "eic.qualifying-child-present": 1,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 537,
+    "payments.line27a": 537
+   }
+  },
+  "mfs/nossn/no": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": false,
+    "not-qc": true,
+    "separated-spouse": true
+   },
+   "asked_matches_source": true,
+   "blocked_rules": [],
+   "children": {
+    "demo-esm-child-nossn": {
+     "eic.child.counts": 0,
+     "eic.child.qualifies": 1
+    }
+   },
+   "credit": 0,
+   "credit_disposition": "computed_zero",
+   "credit_equals_source": true,
+   "source": {
+    "ask_not_married": false,
+    "ask_separated": true,
+    "column": 0,
+    "credit": 0,
+    "married_for_step3_question3": true,
+    "path": "qualifying child, and neither separated-spouse prong is met",
+    "qualifying_child": true,
+    "separated_prongs_are_one_yes": true,
+    "table_key": "other-0",
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.not-married": 1,
+    "eic.answer.separated-spouse": 0,
+    "eic.column-count": 0,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 0,
+    "eic.qualifying-child-present": 1,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 537,
+    "payments.line27a": 0
+   }
+  },
+  "mfs/nossn/writing": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": false,
+    "not-qc": true,
+    "separated-spouse": true
+   },
+   "asked_matches_source": true,
+   "blocked_rules": [],
+   "children": {
+    "demo-esm-child-nossn": {
+     "eic.child.counts": 0,
+     "eic.child.qualifies": 1
+    }
+   },
+   "credit": 537,
+   "credit_disposition": "published_value",
+   "credit_equals_source": true,
+   "source": {
+    "ask_not_married": false,
+    "ask_separated": true,
+    "column": 0,
+    "credit": 537,
+    "married_for_step3_question3": true,
+    "path": "qualifying child and one separated-spouse prong; the column counts only a child with a valid SSN",
+    "qualifying_child": true,
+    "separated_prongs_are_one_yes": true,
+    "table_key": "other-0",
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.not-married": 1,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 0,
+    "eic.eligibility-result": 537,
+    "eic.gate-result": 537,
+    "eic.qualifying-child-present": 1,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 537,
+    "payments.line27a": 537
+   }
+  },
+  "mfs/ssn/apart": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": false,
+    "not-qc": true,
+    "separated-spouse": true
+   },
+   "asked_matches_source": true,
+   "blocked_rules": [],
+   "children": {
+    "demo-esm-child-ssn": {
+     "eic.child.counts": 1,
+     "eic.child.qualifies": 1
+    }
+   },
+   "credit": 2389,
+   "credit_disposition": "published_value",
+   "credit_equals_source": true,
+   "source": {
+    "ask_not_married": false,
+    "ask_separated": true,
+    "column": 1,
+    "credit": 2389,
+    "married_for_step3_question3": true,
+    "path": "qualifying child and one separated-spouse prong; the column counts only a child with a valid SSN",
+    "qualifying_child": true,
+    "separated_prongs_are_one_yes": true,
+    "table_key": "other-1",
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.not-married": 1,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 1,
+    "eic.eligibility-result": 2389,
+    "eic.gate-result": 2389,
+    "eic.qualifying-child-present": 1,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 2389,
+    "payments.line27a": 2389
+   }
+  },
+  "mfs/ssn/no": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": false,
+    "not-qc": true,
+    "separated-spouse": true
+   },
+   "asked_matches_source": true,
+   "blocked_rules": [],
+   "children": {
+    "demo-esm-child-ssn": {
+     "eic.child.counts": 1,
+     "eic.child.qualifies": 1
+    }
+   },
+   "credit": 0,
+   "credit_disposition": "computed_zero",
+   "credit_equals_source": true,
+   "source": {
+    "ask_not_married": false,
+    "ask_separated": true,
+    "column": 1,
+    "credit": 0,
+    "married_for_step3_question3": true,
+    "path": "qualifying child, and neither separated-spouse prong is met",
+    "qualifying_child": true,
+    "separated_prongs_are_one_yes": true,
+    "table_key": "other-1",
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.not-married": 1,
+    "eic.answer.separated-spouse": 0,
+    "eic.column-count": 1,
+    "eic.eligibility-result": 0,
+    "eic.gate-result": 0,
+    "eic.qualifying-child-present": 1,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 2389,
+    "payments.line27a": 0
+   }
+  },
+  "mfs/ssn/writing": {
+   "agi": null,
+   "asked": {
+    "age": false,
+    "main-home": false,
+    "not-claimable": false,
+    "not-married": false,
+    "not-qc": true,
+    "separated-spouse": true
+   },
+   "asked_matches_source": true,
+   "blocked_rules": [],
+   "children": {
+    "demo-esm-child-ssn": {
+     "eic.child.counts": 1,
+     "eic.child.qualifies": 1
+    }
+   },
+   "credit": 2389,
+   "credit_disposition": "published_value",
+   "credit_equals_source": true,
+   "source": {
+    "ask_not_married": false,
+    "ask_separated": true,
+    "column": 1,
+    "credit": 2389,
+    "married_for_step3_question3": true,
+    "path": "qualifying child and one separated-spouse prong; the column counts only a child with a valid SSN",
+    "qualifying_child": true,
+    "separated_prongs_are_one_yes": true,
+    "table_key": "other-1",
+    "wages": 7000
+   },
+   "stop": "saturated",
+   "symbols": {
+    "eic.answer.not-married": 1,
+    "eic.answer.separated-spouse": 1,
+    "eic.column-count": 1,
+    "eic.eligibility-result": 2389,
+    "eic.gate-result": 2389,
+    "eic.qualifying-child-present": 1,
+    "eic.status-class": 0,
+    "eic.worksheet-a.line-6": 2389,
+    "payments.line27a": 2389
+   }
+  }
+ },
+ "wages": 7000,
+ "wall_time_s": 22.3
+}
