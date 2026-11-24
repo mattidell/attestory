@@ -317,3 +317,137 @@ the final-decree test. `tests/test_content_file_sizes.py` and
   (6 passed).
 - Checksums, the release digest, and the v103 loader entries against v102.
 - `python3 tools/envelope_scan.py --range 3a7140624..HEAD` exited 0.
+
+## Second re-review
+
+Second re-review at `6ea305eb44197aed384d2b2aafc65bc189100e38`. That commit
+rewrote the question. Governance not read.
+
+**Verdict: NOT READY.**
+
+The body leads every named filer to the Step 3 question 3 answer the 2025
+instructions give, and it promises no result. The closing yes list can be
+read to answer yes where the body answers no. The new live test stays green
+when the 2025 year-of-death sentence is removed.
+
+### ESM-R5 (medium). The closing yes list drops the 2026 marriage limit
+
+- **Where.** `packages/content/tax/2025/input-question.eic-married-taxpayer.v1.json:7`.
+  The bundle title states the 2026 rule as one conjunction with marriage at
+  the end of 2025. It has no closing yes list.
+- **What the question says.** The body, under Married Filing Jointly: "if
+  you were married at the end of 2025 and your spouse died in 2026 before
+  filing a 2025 return." The close is a list of separate ifs: "Answer yes
+  if you were married at the end of 2025, if your spouse died in 2025 and
+  you did not remarry in 2025, if your spouse died in 2026 before filing a
+  2025 return, ..." The 2026 item stands on its own.
+- **What the sources say.** Instructions, Married Filing Jointly, third
+  bullet: married at the end of 2025 and the spouse died in 2026 before
+  filing a 2025 return. A final decree of divorce or of separate
+  maintenance at the end of 2025 means considered unmarried. Step 3
+  question 3 no skips questions 4 and 5 and goes to question 6.
+- **Consequence.** A filer can follow the broader yes and stop the credit
+  the sources still allow. The closing no still names the decree, so the
+  two instructions conflict. "Your spouse" after a 2025 divorce is a
+  stretch, which is why this is medium.
+- **Reproduction.** Final decree of divorce during 2025, same home all
+  year, former spouse dies in 2026 before the 2025 return is filed. The
+  body answers no: the decree means considered unmarried, and the 2026
+  clause applies together with marriage at the end of 2025. The closing
+  list answers yes on the 2026 death alone and no on the decree. The yes
+  path is question 4 yes and question 5 no. This turn's live call of
+  `q3-yes-no/ssn` stops at line 27a of 0. The no path is `q3-no/ssn`. The
+  published final-decree test asserts line 27a is 2,389 there, and
+  question 6 is still reachable.
+- **Repair.** Keep the 2026 death in the same sentence as marriage at the
+  end of 2025. State each rule once.
+
+### ESM-R6 (low). The new live test stays green when the year-of-death sentence is removed
+
+- **Where.** `tests/test_eic_separated_married_v103.py:50`.
+  `test_spouse_died_in_2025_answers_yes_and_the_credit_stops` calls
+  `_row("q3-yes-no/ssn")` and asserts credit 0 with both facts pinned.
+  `test_interlocutory_decree_answers_yes_and_the_credit_stops` at line 58
+  is the same call.
+- **Consequence.** The call passed on the published tree. It passed again
+  after both copies of "your spouse died in 2025 and you did not remarry
+  in 2025" were removed from a question copy and that citizen checksum and
+  the release digest were rewritten. The call never reads the question.
+  `tests/test_eic_separated_married_v103_package.py:75` is the assert that
+  names the sentence. This turn did not run that file.
+- **Repair.** Make a test fail when that sentence is absent.
+
+### What holds
+
+Each named filer, reading the body, reaches the Step 3 question 3 answer
+the instructions give.
+
+- Never married: the Single sentence and the closing no. Question 3 no.
+- Widowed before January 1, 2025, and did not remarry before the end of
+  2025: both say no. Remarriage is "married at the end of 2025," which is
+  yes.
+- Spouse died in 2025 and did not remarry in 2025: the Married Filing
+  Jointly sentence and the closing yes. "A spouse who died is not a decree
+  of separate maintenance" blocks the decree no. ESM-R4's filer is led to
+  yes, then questions 4 and 5. A shared home and no decree is question 4
+  yes, question 5 no, and the credit stops. The question does not promise
+  that result.
+- Married at the end of 2025 and the spouse died in 2026: the body says
+  yes. The closing list also says yes, and says it more broadly (ESM-R5).
+- Interlocutory decree: the Head of Household sentence says still married.
+  The closing yes agrees.
+- Final decree of divorce or of separate maintenance at the end of 2025:
+  the body and the closing no say considered unmarried. Question 3 no.
+  ESM-R5 is the extra 2026 reading on top of that decree.
+- Lived apart and considered unmarried for head of household: Publication
+  596, Rule 3, still treats you as married, and the closing yes repeats
+  that. Question 3 yes.
+- Nonresident-alien spouse, election not made: "You remain married for this
+  question" when you are married, the spouse was a nonresident alien at any
+  time during the year, and the election was not made. The closing yes
+  names that spouse and the missing election. The sentence is about this
+  question. Head of household still calls that filer considered unmarried
+  for filing status.
+- Election made: that sentence does not apply. "Married at the end of 2025"
+  is yes. The no list has no election item.
+
+The added sentences match those Single, Married Filing Jointly, and Head
+of Household bullets, or they are true on their own: a death is not a
+decree of separate maintenance, and the nonresident-alien head-of-household
+facts leave the filer married for question 3. The Rule 3 sentence matches
+Publication 596's community-property paragraph, which still calls the
+person married when they qualify to file as head of household under the
+special rules for married taxpayers living apart. "Yes continues to the
+separated-spouse questions" and "No skips questions 4 and 5 and continues
+to question 6" name routing only. The question does not contain "keep the
+credit."
+
+Citizen checksums of the question and the bundle match registry v101. The
+v103 package checksum matches its instance. The release digest is the
+registry file.
+
+### A shorter question
+
+A shorter text would carry the same rules. The published question is 391
+words and states each rule twice. The second statement is where the 2026
+limiter is dropped. One statement, 223 words:
+
+> You file as head of household and a child is your qualifying child for the earned income credit. Are you a married taxpayer whose filing status is married filing separately or head of household? Answer yes if any of these is true. You were married at the end of 2025, even if you did not live with your spouse. Your spouse died in 2025 and you did not remarry in 2025. You were married at the end of 2025 and your spouse died in 2026 before filing a 2025 return. An interlocutory decree was in effect at the end of 2025, so you are still married. You are married, your spouse was a nonresident alien at any time during 2025, and the election to treat that spouse as a resident was not made. You lived apart and are considered unmarried for head of household; Publication 596, Rule 3, still treats you as married. Yes continues to the separated-spouse questions. Answer no if you were never married, if you were widowed before January 1, 2025, and did not remarry before the end of 2025, or if a final decree of divorce or of separate maintenance at the end of 2025 means you are considered unmarried. A spouse who died is not that decree. No skips questions 4 and 5 and continues to question 6.
+
+### What I ran on the second re-review
+
+- HEAD `6ea305eb44197aed384d2b2aafc65bc189100e38`. The tree was clean before
+  this section.
+- The published question and the bundle title.
+- Single, Married Filing Jointly, and Head of Household in the fetched 2025
+  Form 1040 instructions, and the Publication 596 community-property
+  sentence that points at Rule 3.
+- A direct call of `test_spouse_died_in_2025_answers_yes_and_the_credit_stops`:
+  passed.
+- The same call after both copies of the 2025 year-of-death clause were
+  removed from a question copy, with that citizen checksum and the release
+  digest rewritten: passed. The clause was absent from the copy.
+- Citizen checksums of the question and the bundle against registry v101,
+  the v103 package checksum, and the release digest against the registry
+  file. All three matched.
+- The 775 replay and the full suite were left as the builder left them.
