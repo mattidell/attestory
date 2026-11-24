@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "eic-married-one-path",
-  "status": "Open 2026-11-24. Track 1 next.",
+  "status": "Open 2026-11-24. Track 1 built; fresh review next.",
   "retrospective": null,
   "scope": [
     "the two earned income credit married-taxpayer selection rules published in core v103 carry one path on rule-artifact.v17 instead of a second path keyed on a fact nothing asks",
@@ -71,3 +71,31 @@ milestone's builder nor its reviewers noticed.
 1. The inert fact type stays in its published bundle; nothing reads it
    after v105. Its refusal at assertion stays, so a saved return can never
    carry it.
+
+## Track 1 result
+
+Evidence: `eic-married-one-path-evidence/track1.md` (published core v105,
+registry v103, release v103, from published v104).
+
+- **Published.** Successors of the two married-taxpayer selection rules
+  are new files, 4,296 and 4,360 bytes, under the 5,000 earned-income cap
+  the `rule.eic-*` guard already applies. Each keeps the separated-recorded
+  path and the v1 default on rule-artifact v17. Package v105 replaces only
+  those two pins (v1 on rule-artifact v14 to v2 on v17). The registry adds
+  those citizens and the v105 row. The release differs from v102 in version
+  and the registry digest. Loader v105 carries v104's map and declaration.
+  No schema manifest changed. Published v104 and the v1 rules were not
+  edited. The package is 241,297 bytes, the same size as v104. The registry
+  is 322,194 bytes.
+- **Same plan when the inert path is inactive.** The runner counts active
+  paths, not declared paths. With no separated-spouse fact, v1 and v2 both
+  take the default. With only that fact, both take separated-recorded.
+  Neither v2 file names the inert fact. A stored inert fact is still
+  refused at assertion.
+- **Replay.** All 775 recorded lists pass, v104 against v105. 691 carry
+  the package version and 84 are identical errors. Zero unexpected
+  differences and no number change. The two rule-version expectations are
+  unused because those rules are not pinned on the recorded lists.
+- **Tests.** The package test, the size guard, the covered-flag list, and
+  the 37 live cases passed. The fast lane passed (1,984 passed, 8 skipped,
+  6,001 subtests). mypy reported no issues in 545 source files.
