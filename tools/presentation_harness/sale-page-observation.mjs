@@ -193,6 +193,7 @@ async function observeCase(client, origin, item, timeoutMs, caseIndex) {
             id: wrap.id,
             label: normalize(line.querySelector("h2")),
             disposition: normalize(line.querySelector(".badge")),
+            disposition_raw: line.querySelector(".badge")?.getAttribute("data-disposition") || "",
             value: normalize(line.querySelector(".line-value")),
             explain: normalize(line.querySelector("p.explain")),
             blocked_banner: normalize(line.querySelector(".blocked-banner")),
@@ -206,6 +207,7 @@ async function observeCase(client, origin, item, timeoutMs, caseIndex) {
           id: wrap.id,
           label: normalize(wrap.querySelector("h2")),
           disposition: normalize(wrap.querySelector(".badge")),
+          disposition_raw: wrap.querySelector(".badge")?.getAttribute("data-disposition") || "",
           value: normalize(wrap.querySelector(".line-value")),
           text: normalize(wrap).slice(0, 1500),
         })) : [];

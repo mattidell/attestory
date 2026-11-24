@@ -102,7 +102,7 @@ class SessionTests(unittest.TestCase):
             with _open(root, probes=PreflightProbes(False, False, False), vehicle=vehicle) as session:
                 with urlopen(session.url, timeout=2) as response:
                     body = response.read().decode("utf-8")
-                self.assertIn("Form 1040 — Citation Walk", body)
+                self.assertIn("Form 1040 — Return Summary", body)
                 self.assertIn('"schema":"presentation-model.v3"', body)
                 self.assertIn('"runId":"demo.presentation-live-session"', body)
                 self.assertTrue(session.url.startswith("http://127.0.0.1:"))
@@ -111,7 +111,7 @@ class SessionTests(unittest.TestCase):
                 # visible header carry no provenance claim at all.
                 for marker in live_session._PROVENANCE_CLAIM_MARKERS:
                     self.assertNotIn(marker, body)
-                self.assertIn("<title>Form 1040 — Citation Walk</title>", body)
+                self.assertIn("<title>Form 1040 — Return Summary</title>", body)
                 self.assertNotIn(str(root), body)
                 self.assertNotIn(str(root), repr(session))
                 model_path = root / "L" / "outputs" / "demo.presentation-live-session.presentation.json"

@@ -708,6 +708,22 @@ def _expected_reason_text(reason: dict[str, Any]) -> str:
     return f"{name}: {sentence}" if name else sentence
 
 
+_LINE_BADGE_LABELS: dict[str, str] = {
+    "published_value": "Amount",
+    "computed_zero": "Zero",
+    "closure_backed_zero": "Confirmed none",
+    "published_categorical": "Determined",
+    "blocked": "No result",
+    "guard_inapplicable": "Not applicable",
+}
+_ATTACHMENT_BADGE_LABELS: dict[str, str] = {
+    "published": "Complete",
+    "blocked": "Not ready",
+    "guard_inapplicable": "Not required",
+}
+_BLOCKED_LINE_VALUE_TEXT = "This line has no result."
+
+
 def _compare_model_and_dom(model: dict[str, Any], dom: dict[str, Any]) -> tuple[list[str], list[dict[str, Any]]]:
     differences: list[str] = []
     checks: list[dict[str, Any]] = []
@@ -736,9 +752,13 @@ def _compare_model_and_dom(model: dict[str, Any], dom: dict[str, Any]) -> tuple[
             differences.append(f"{section_id}: no rendered line row")
             continue
 
-        expected_status = disposition.replace("_", " ")
+        expected_badge = _LINE_BADGE_LABELS.get(disposition, disposition.replace("_", " "))
         observed_status = str(row.get("disposition") or "")
-        status_matches = expected_status.casefold() == observed_status.casefold()
+        observed_raw = str(row.get("disposition_raw") or "")
+        # A rendered row with no raw disposition is a disagreement even when
+        # the badge text matches the plain label.
+        raw_matches = bool(observed_raw) and observed_raw == disposition
+        status_matches = raw_matches and expected_badge.casefold() == observed_status.casefold()
         checks.append({"kind": "disposition", "section": section_id, "matches": status_matches})
         if not status_matches:
             differences.append(
@@ -747,7 +767,7 @@ def _compare_model_and_dom(model: dict[str, Any], dom: dict[str, Any]) -> tuple[
 
         expected_value: str | None
         if disposition == "blocked":
-            expected_value = "No value published — cannot compute."
+            expected_value = _BLOCKED_LINE_VALUE_TEXT
         elif disposition == "guard_inapplicable":
             expected_value = "Not applicable."
         elif disposition == "published_categorical":
@@ -811,13 +831,16 @@ def _compare_model_and_dom(model: dict[str, Any], dom: dict[str, Any]) -> tuple[
         if observed is None:
             differences.append(f"{attachment_id}: no rendered attachment row")
             continue
-        expected_status = str(resolved.get("disposition") or "").replace("_", " ")
+        att_disposition = str(resolved.get("disposition") or "")
+        expected_att_badge = _ATTACHMENT_BADGE_LABELS.get(att_disposition, att_disposition.replace("_", " "))
         observed_status = str(observed.get("disposition") or "")
-        matches = expected_status.casefold() == observed_status.casefold()
+        observed_raw = str(observed.get("disposition_raw") or "")
+        raw_matches = bool(observed_raw) and observed_raw == att_disposition
+        matches = raw_matches and expected_att_badge.casefold() == observed_status.casefold()
         checks.append({"kind": "attachment-status", "section": attachment_id, "matches": matches})
         if not matches:
             differences.append(
-                f"{attachment_id}: model attachment {expected_status!r}; DOM badge {observed_status!r}"
+                f"{attachment_id}: model attachment {att_disposition!r}; DOM badge {observed_status!r}"
             )
 
     return differences, checks
