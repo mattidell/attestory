@@ -62,3 +62,55 @@ Content-supplied text (outside Track 1 scope) is tracked separately by `check_pa
   - `tests/test_presentation_live_session.py`, `tests/test_f1098_circumstances_explanation.py`, `tests/test_sale_page_observation_diagnostics.py`, `tests/test_sale_page_observation_temp_paths.py`, `tests/test_explanation_saved_browser.py`, `tests/test_sli_line21_page_reasons.py`, `tests/test_sli_line21_explanation_page.py`, `tests/test_eic_child_answers_walk.py`, `tests/test_eic_child_answers_v101.py`: all passed.
   - `tests/test_line12d_boxes_v90.py`, `tests/test_page_alerts_v92.py`, `tests/test_line6b_reason_v93.py`, `tests/test_presentation_question_groups_v3.py`, `tests/test_closure_questions.py`, `tests/test_sli_track5_worksheet_integration.py`, `tests/test_sli_track2_explanation.py`: **111 passed**.
   - Opt-in `SALE_PAGE_OBSERVATION_BROWSER=1 pytest tests/test_sale_page_observation.py`: all 10 cases rendered in Chrome and passed all badge/value checks; `sale-answer-needs-reconfirmation` hit a pre-existing v3 `questionGroups` mismatch in `tools/sale_page_observation.py:_compare_model_and_dom` (the DOM renders `See the question and affected lines above` for a grouped reason while `_expected_reason_text` expects the raw sentence). Noted for the foreman.
+
+## 5. Repair
+
+Charter: `docs/reviews/page-plain-words/charter-repair.md`. Decision 8 replaces the Decision 6 badge words below. Sections 1–4 above are the Track 1 record and are left as they stood.
+
+### Words now on the page
+
+- Line badges: `published_value` Amount, `computed_zero` Zero, `closure_backed_zero` Confirmed none, `published_categorical` Determined, `blocked` No result, `guard_inapplicable` Not applicable.
+- Blocked line banner: `This line has no result.`
+- Attachment badges: `published` Complete, `blocked` Not ready, `guard_inapplicable` Not required.
+- Support trace: a published node `has a result`; a blocked node `has no result`; the predecessor button reads `Show earlier result`.
+- `REASON_TEXT` stays a closed static table. New keys: `unmapped-blocked-code`, `unrecognized-mortgage-link`. An unknown mortgage-link disposition uses that second key. Known link words: Confirmed, Incomplete, Not applicable, Current, Withdrawn, Unresolved, Denied, Cannot tell.
+
+When a blocked line has no `Why:` reasons, the heading, sentence, and remedy come from the code. When reasons are present, those three stay hidden and the banner still reads `This line has no result.` An empty code list does not say the information is missing. A code this page does not map, or a code mapped only for the other surface, throws before any of that line is shown.
+
+### Codes a current core v101 field, attachment, or rule can carry
+
+Counted by reading published core v101 members and `packages/derivation/runner.py` `RECORD_CODES`. Each mapped code has its own sentence. Line and attachment remedies differ where both surfaces can show the code.
+
+| Code | Where it comes from | Surface |
+| --- | --- | --- |
+| `DEPENDENCY_ABSENT` | Form-field blocked-code lists (385 v101 members) and `RECORD_CODES` | Line and attachment |
+| `DEPENDENCY_INVALID` | Form-field blocked-code lists (214), the runner collapse target, and the schedule-b nominee refusal on the attachment | Line and attachment |
+| `CATEGORICAL_DOMAIN_MISMATCH` | Form-field instructions (35) and `evaluator.py` | Line |
+| `SOURCE_SET_UNCLOSED` | Form-field blocked-code lists (131) and `RECORD_CODES` | Line |
+| `F1098_SCOPE_CONTRADICTION` | `rule.form1040-line12e.v4.json` | Line |
+| `SLI_MFS_INELIGIBLE` | `rule.sli-worksheet.v6.json` | Line |
+| `SLI_SCHEDULE1_PART_II_OUT_OF_SCOPE` | `rule.sli-worksheet.v6.json` | Line |
+| `SLI_UNIVERSAL_COMPONENT_VIOLATION` | `rule.sli-worksheet.v6.json` | Line |
+| `ACCRUED_EXCEEDS_ASSOCIATED_REPORT` | `rule.relationship.accrued-supported.json` | Line |
+| `AGGREGATE_ACCRUED_EXCEEDS_REPORT` | `rule.interest.current-year-adjustment.aggregate-supportability.json` | Line |
+| `NOMINEE_ALLOCATIONS_EXCEED_REPORT` | `rule.interest.derived-nominee-subtotal.v1.json`, `rule.interest.nominee-reduction.json` | Line |
+| `SUPPORTABILITY_NOT_ESTABLISHED` | `rule.basis.item-level-consequence.pairing-scoped.json`, `rule.interest.current-year-adjustment.pairing-scoped.json` | Line |
+| `COMPLETENESS_VALUE_VIOLATION` | Attachment attempt in the runner; survives `RECORD_CODES` | Attachment |
+| `ITEMIZATION_TIE_OUT_VIOLATION` | Attachment attempt in the runner; survives `RECORD_CODES` | Attachment |
+| `EXCLUSIVE_PRESENCE_CONFLICT` | Attachment attempt in the runner. Outside `RECORD_CODES`, so a form-field row collapses it to `DEPENDENCY_INVALID` | Attachment |
+
+Left without a page sentence, so a rendered line that carried one fails closed:
+
+- `OPEN_DEPENDENCY` (12 v101 rules) and `ITEMIZED_TOTAL_WITH_GAMBLING_LOSSES` (`rule.form1040-line12e.v4.json`) collapse to `DEPENDENCY_INVALID` before the page sees them.
+- `FAMILY_VALIDATION_BLOCKED` is a runner block code outside `RECORD_CODES`, so it collapses the same way.
+- `VALUE_INVALID` and `MULTIPLE_F1098_OUT_OF_SCOPE` are in `RECORD_CODES` and are not named by any v101 member.
+- `ASSOCIATION_AMBIGUOUS`, `ASSOCIATION_UNCONFIRMED`, and `ASSOCIATION_MIGRATION_ADOPTION_REQUIRED` are recorded on the association symbol, not on a form-field row.
+- `FINCEN_114_NAMED` is a named obligation on `rule.attachment.schedule-b.v7.json`, not a block code.
+
+### Census, replay, and checks after the repair
+
+`check_page_dom.mjs` now judges `aria-label` and a badge whose text is a disposition enum. Re-ran `track1_census.py` on core v101 (registry v99, release v99): 691 rendered lists, 0 first-read leaks, 0 section errors. Synthetic mortgage-interest, mortgage-borrowing, and line 21 pages stayed at 0 page-owned leaks. The same two recorded lists still carry 96 content-supplied wash-sale sentences, outside this repair. `python3 tools/recorded_replay.py full v101 v101`: 775 identical, 0 failing, 0 unexpected differences, `line21Explanation` reached on 2 lists.
+
+`pytest -m "not live"`: 1952 passed, 8 skipped. The Track 1 live and browser files passed (275 passed, 1 skipped) except `test_node_observer_emits_safe_manifest_stage_without_starting_chrome`, which failed while `FORCE_COLOR` was set because Node prefixed stderr with a warning before the JSON. The same test passed with `FORCE_COLOR` unset. `mypy` reported no issues on the touched Python files. `python3 tools/envelope_scan.py --range github/main..HEAD` exited 0.
+
+Scratch copies of the page, not committed, were checked with `tests/test_page_plain_words_render.py::test_first_read_rejects_a_raw_id`. The unmodified page and a raw id only inside a collapsed `technical-details` body passed. A raw id on the badge caption, in an open details body, in a summary, or only in the badge `aria-label` failed that test.

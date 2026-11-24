@@ -221,3 +221,4 @@ Evidence in `docs/phases/engine-breadth/milestones/page-plain-words-evidence/`
    the disposition enum. The sale page observer treats an empty
    `data-disposition` on a rendered row as a difference. The first-read
    census judges `aria-label` too.
+- **Repair result:** recorded in `page-plain-words-evidence/track1.md` section 5. After that repair, the core v101 census was 691 rendered lists, 0 first-read leaks, and 0 section errors. Synthetic mortgage-interest, mortgage-borrowing, and line 21 pages stayed at 0 page-owned leaks. Full-surface replay v101 against v101 stayed 775 identical, 0 failing, 0 unexpected differences.
