@@ -1,5 +1,9 @@
 # Track 1: worksheet ceilings on core v104
 
+Of the scripts and JSON files this note names, only `trace.py` and `design.py`
+are kept (the tests load them); the others and their raw output were
+working artifacts and are not kept. The numbers below are their record.
+
 Published core v104, registry v102, release v102, from published v103.
 The two successors are the P0 content route. A claimed head of household
 or qualifying surviving spouse that does not meet that status's tests, or
