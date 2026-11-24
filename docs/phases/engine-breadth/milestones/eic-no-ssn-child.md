@@ -42,7 +42,7 @@
 Milestone key: eic-no-ssn-child.
 Branch: milestone/eic-no-ssn-child-2025.
 Phase: Engine Breadth, bounded return. Opening plan: 2026-11-23.
-Starting point: main at `e3a4397f` (core v101, registry v99, release v99).
+Starting point: main at `e3a4397f` (core v101, registry v99, release v99); rebased onto `394db518` after #300.
 Expected target: core v102, registry v100, release v100 if content can do
 it; otherwise a P0 decision for the foreman.
 
@@ -109,3 +109,30 @@ v100; whether single, qualifying surviving spouse, and married filing
 jointly stays on Step 4 when the only qualifying child lacks a valid SSN;
 and whether an unmarried head of household in that position should leave
 Step 4 for the separated-spouse question.
+
+## Decisions
+
+1. Publish the content route (P0 recommendation 1): `rule.eic-child.qualifies`
+   and `rule.eic-qualifying-child-present`, and successors of status class,
+   early stop, questions required and the Step 3/Step 4 answer rules, as
+   core v102, registry v100, release v100. No engine change, no new ADR.
+2. The scope follows the sources for every filing status, not only the
+   married head of household and married filing separately filer (P0
+   decision 2): a filer whose qualifying children all lack a valid SSN is a
+   filer with a qualifying child (Publication 596 chapter 2), skips Step 4,
+   and takes the self-only (`other-0` / `joint-0`) column. Track 1 first
+   searches the 2025 Form 1040 instructions (Steps 1-6, Schedule EIC
+   instructions) and Publication 596 (chapters 2 and 3, and every example
+   that names a child without an SSN) for any sentence that sends such a
+   filer to Step 4 or chapter 3. If one exists, quote it, keep Step 4 for
+   the statuses it covers, and say so in track1.md; otherwise widen as
+   above. Either way, every traced case has a hand credit.
+3. The unmarried head of household whose only qualifying child lacks a
+   valid SSN is handled like a head of household with a counted child
+   today (P0 decision 3): asked the separated-spouse question, whose
+   published "yes" already includes "not married". No new question.
+4. Track 1 keeps the P0's strict full-surface replay with declared
+   expectations, and a test pins every changed or new rule through the
+   live coordinator, including a case that fails if the SSN test is
+   dropped from `rule.eic-child.counts` (the amount column) or added to
+   `rule.eic-child.qualifies`.
