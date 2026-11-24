@@ -23,15 +23,15 @@ from packages.tax.loader import (
 CORE = "tax.us.2025.package.core-calculations"
 
 
-def test_only_cores_v79_through_v102_name_the_covered_flag_refusal() -> None:
+def test_only_cores_v79_through_v103_name_the_covered_flag_refusal() -> None:
     assert named_covered_flag_refusal_maps() == {
         (CORE, version): COVERED_FLAG_REFUSAL_OBJECTS
         for version in (
-            "v79", "v80", "v81", "v82", "v83", "v84", "v85", "v86", "v87", "v88", "v89", "v90", "v91", "v92", "v93", "v94", "v95", "v96", "v97", "v98", "v99", "v100", "v101", "v102"
+            "v79", "v80", "v81", "v82", "v83", "v84", "v85", "v86", "v87", "v88", "v89", "v90", "v91", "v92", "v93", "v94", "v95", "v96", "v97", "v98", "v99", "v100", "v101", "v102", "v103"
         )
     }
     for version in (
-        "v79", "v80", "v81", "v82", "v83", "v84", "v85", "v86", "v87", "v88", "v89", "v90", "v91", "v92", "v93", "v94", "v95", "v96", "v97", "v98", "v99", "v100", "v101", "v102"
+        "v79", "v80", "v81", "v82", "v83", "v84", "v85", "v86", "v87", "v88", "v89", "v90", "v91", "v92", "v93", "v94", "v95", "v96", "v97", "v98", "v99", "v100", "v101", "v102", "v103"
     ):
         assert covered_flag_refusal_map(CORE, version) == COVERED_FLAG_REFUSAL_OBJECTS
 

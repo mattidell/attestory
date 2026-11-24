@@ -1,0 +1,90 @@
+{
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.eic.married-taxpayer-from-separated",
+      "tax.us.2025.eic.married-taxpayer"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.line-27-31",
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.rule.eic-answer.married-taxpayer",
+  "notes": "Step 3 question 3. Publishes the recorded-path value when that value is not 2. When it is 2, reads tax.us.2025.eic.married-taxpayer: no publishes 1 (skip questions 4 and 5) and yes publishes 0 (the separated-spouse question is required). A missing fact blocks with this fact named. A recorded separated yes publishes 0 and this rule does not read the new fact.",
+  "pins": [
+    {
+      "id": "tax.us.2025.eic.married-taxpayer-from-separated",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    }
+  ],
+  "publishes": "tax.us.2025.eic.answer.married-taxpayer",
+  "requires": [
+    "tax.us.2025.eic.married-taxpayer-from-separated"
+  ],
+  "role": "computation",
+  "schema": "rule-artifact.v14",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "value": {
+    "else": {
+      "else": 0,
+      "op": "choose",
+      "then": 1,
+      "when": {
+        "args": [
+          {
+            "condition": true,
+            "members": [
+              {
+                "name": "tax.us.2025.eic.married-taxpayer",
+                "op": "ref"
+              }
+            ],
+            "op": "conditional_dependency_set"
+          },
+          {
+            "cmp": "eq",
+            "left": {
+              "name": "tax.us.2025.eic.married-taxpayer",
+              "op": "ref"
+            },
+            "op": "categorical_compare",
+            "right": {
+              "fact_type": {
+                "id": "tax.us.2025.eic.married-taxpayer",
+                "version": "v1"
+              },
+              "op": "category_literal",
+              "value": "no"
+            }
+          }
+        ],
+        "op": "all"
+      }
+    },
+    "op": "choose",
+    "then": {
+      "name": "tax.us.2025.eic.married-taxpayer-from-separated",
+      "op": "ref"
+    },
+    "when": {
+      "cmp": "ne",
+      "left": {
+        "name": "tax.us.2025.eic.married-taxpayer-from-separated",
+        "op": "ref"
+      },
+      "op": "compare",
+      "right": 2
+    }
+  },
+  "version": "v1",
+  "when": true
+}
