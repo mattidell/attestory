@@ -2,7 +2,6 @@
 
 Track 1 of eic-separated-married. Plan:
 `docs/phases/engine-breadth/milestones/eic-separated-married.md`.
-Charter: `docs/reviews/eic-separated-married/charter-track1.md`.
 Decisions 1 to 7 bind. Published baseline on main is core v102, registry
 v100, release v100. This track publishes core v103, registry v101, and
 release v101. No kernel change and no engine change.
@@ -120,8 +119,7 @@ Zero expectations are unused. Zero lists change outcome, so none newly
 block. Zero recorded numbers change. The declared differences are the
 package pin v102 to v103, the separated-spouse pin v2 to v3, disposition
 rows and nodes for the three new rules, and the separated-spouse missing
-list also naming the new answer symbol. `replay-track1.json` is that
-summary.
+list also naming the new answer symbol.
 
 ## Tests
 

@@ -2,21 +2,18 @@
 
 P0b of eic-separated-married. Plan:
 `docs/phases/engine-breadth/milestones/eic-separated-married.md`.
-Charter: `docs/reviews/eic-separated-married/charter-p0b.md`.
 Decisions 1 to 3 in the plan bind. Published baseline is core v102, registry
 v100, release v100. The scratch successor is core v103, registry v101,
 release v101. Nothing in packages/ or tests/ was edited.
 
+The scratch build, replay and trace output were working artifacts and are
+not kept; the scripts the tests load are.
+
 | File | What it is |
 | --- | --- |
 | `design.py` | The new fact, the input question, and the three successor rules |
-| `build.py` | Writes those into a scratch copy of v102 and validates the package |
-| `build-p0b.json` | Validation result and rule-file sizes |
 | `hand.py` | The 2025 table credit each synthetic case should keep |
 | `probe_p0b.py` | Twenty-seven synthetic demo.* returns through `live_coordinate_run` |
-| `trace-p0b.json` | Those twenty-seven runs on the scratch successor |
-| `replay.py` | Full-surface replay of the 775 recorded lists, with the differences declared |
-| `replay-p0b.json` | What that replay found |
 
 ## Question
 
