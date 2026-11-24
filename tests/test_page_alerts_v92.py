@@ -67,9 +67,9 @@ LOSS = (
 )
 ALERT_CAUSES = ("missing-instruction", "missing-field-citation")
 SAFE_RENDER = (
-    "This line is missing its rendering instruction for the declared disposition.",
-    "This line published a value with no citation attached. No value can be shown safely.",
-    "This section failed to render safely.",
+    "This line is missing display instructions for its status.",
+    "This line has a value with no source reference attached. No value can be shown safely.",
+    "This section could not be displayed safely.",
 )
 CLOSURE_QUESTION = (
     "Have you recorded every Form SSA-1099 you or your spouse received for 2025 "

@@ -1111,6 +1111,20 @@ earned income credit, child tax credit, other-dependent child and
 relative rosters. Before, 9 to 18 lines blocked with no sentence. No
 number changed, and pages on earlier cores are unchanged.
 
+## Bounded return — The Saved Page Writes Its Own Words Plainly (2025)
+
+[Plan](milestones/page-plain-words.md); retrospective:
+`docs/milestone-retrospectives/2026-11-23-page-plain-words.md`.
+
+The saved page's own words are plain: status badges (Amount, Zero,
+Confirmed none, Determined, No result, Not applicable), blocked banners
+whose sentence, heading and remedy are chosen from the block code, plain
+citation buttons and support-trace captions, and plain error texts. Ids,
+enums, codes and pins sit in collapsed technical details and attributes.
+On all 691 rendered recorded lists no engine id or enum is in the text a
+filer reads first. Page and tests only; the model is unchanged on all 775
+lists.
+
 ## Saved-page observation — Mortgage and Sales (2025)
 
 [Plan](milestones/sale-page-observation.md); retrospective:
@@ -1253,12 +1267,15 @@ delivers an item removes it.
 - No presentation line names the tie-breaker step that decided a child.
 - A rule still names only its first cause when it blocks. The page hides
   a blocked line's own text when it shows questions.
-- Page-owned wording on the saved page: support-trace captions print
-  symbol, finding and rule IDs and "Show ..." pin labels; status badges
-  show the disposition enum; the "No value published — cannot compute."
-  and "Missing dependency code(s):" banners are engine words. Sequence
-  after blocked-sale-pages, which owns the same page (plain-line-texts
-  Decision 1).
+- The runner stores every block code outside `RECORD_CODES` as
+  `DEPENDENCY_INVALID` (line 12e's `ITEMIZED_TOTAL_WITH_GAMBLING_LOSSES`,
+  `LOOKUP_MISS`, `FAMILY_VALIDATION_BLOCKED`), so the
+  page can only say a rule could not use the saved information; keeping
+  the specific code on the row is a derivation change (page-plain-words
+  Decision 9).
+- The opt-in Chrome sale-page observer (`SALE_PAGE_OBSERVATION_BROWSER=1`)
+  expects the raw question sentence on `sale-answer-needs-reconfirmation`,
+  where the page shows the question-group link since blocked-sale-pages.
 - Three sale blocked reasons are not plain: "The holding period does
   not match this short-term or long-term family.", the wash-sale reason
   naming `floor_zero(basis - proceeds)` and its block code, and the

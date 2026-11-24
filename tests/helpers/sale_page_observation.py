@@ -13,8 +13,8 @@ from tools.sale_page_observation import main
 
 ROOT = Path(__file__).resolve().parents[2]
 PARKED_ALERTS = {
-    "line-6c": "This line is missing its rendering instruction for the declared disposition.",
-    "line-sch1-top": "This line published a value with no citation attached. No value can be shown safely.",
+    "line-6c": "This line is missing display instructions for its status.",
+    "line-sch1-top": "This line has a value with no source reference attached. No value can be shown safely.",
 }
 QUESTION = "Did you sell any securities whose basis was not reported to the IRS?"
 SCHEDULE_A = "tax.us.2025.rule.attachment.schedule-a"

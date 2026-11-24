@@ -711,6 +711,24 @@ function validateMortgageBorrowingExplanation(block) {
 function renderMortgageBorrowingExplanation(container, block) {
   validateMortgageBorrowingExplanation(block);
   const legacy = block.schema === "mortgage-borrowing-explanation.v1";
+  const linkDispositionLabels = Object.freeze({
+    published: "Confirmed",
+    blocked: "Incomplete",
+    inapplicable: "Not applicable",
+    guard_inapplicable: "Not applicable",
+    current: "Current",
+    withdrawn: "Withdrawn",
+    unresolved: "Unresolved",
+    affirmed: "Confirmed",
+    denied: "Denied",
+    "cannot-tell": "Cannot tell",
+  });
+  const linkDispositionLabel = (disp) => {
+    if (!Object.prototype.hasOwnProperty.call(linkDispositionLabels, disp)) {
+      throw new SectionError("unrecognized-mortgage-link");
+    }
+    return linkDispositionLabels[disp];
+  };
   const root = el("section", { class: "mortgage-explanation", "data-mortgage-borrowing-explanation": "true" }, []);
   root.appendChild(el("h2", null, ["Connected mortgage borrowing"]));
   const disposition = block.line8aDispositions[0] && block.line8aDispositions[0].disposition;
@@ -718,7 +736,7 @@ function renderMortgageBorrowingExplanation(container, block) {
   if (amount !== undefined) {
     root.appendChild(el("p", { class: "line-value" }, ["Schedule A line 8a group amount: " + String(amount)]));
   } else {
-    root.appendChild(el("p", { class: "line-value blocked-value", role: "status" }, ["Schedule A line 8a amount unavailable; the connected result is not published."]));
+    root.appendChild(el("p", { class: "line-value blocked-value", role: "status" }, ["Schedule A line 8a amount unavailable; the combined result could not be calculated."]));
   }
   for (const report of block.reports) {
     const statementLabel = report.statementLabel || { statement: report.statement, lender: report.payer, taxYear: report.taxYear };
@@ -740,10 +758,17 @@ function renderMortgageBorrowingExplanation(container, block) {
         const peer = comparison.peerIdentityStatus === "unavailable" ? "peer report identity unavailable" :
           comparison.peer.statement + " (" + comparison.peer.payer + ", " + comparison.peer["tax-year"] + ")";
         const state = comparison.applicability === "current" ? "currently applicable" : "not currently applicable";
-        const ids = comparison.supportFindingIds.length ? " Current support finding IDs: " + comparison.supportFindingIds.join(", ") + "." : "";
+        const auditRows = [el("p", null, ["Finding ID: " + comparison.findingId])];
+        if (comparison.supportFindingIds.length) {
+          auditRows.push(el("p", null, ["Support finding IDs: " + comparison.supportFindingIds.join(", ")]));
+        }
         return el("li", null, [
           comparison.title + ": " + String(comparison.valueLabel || comparison.value) + " for peer " + peer +
-          " (" + comparison.findingId + "); " + state + ". " + comparison.explanation + ids,
+          "; " + state + ". " + comparison.explanation,
+          el("details", { class: "technical-details" }, [
+            el("summary", null, ["Technical details"]),
+            ...auditRows,
+          ]),
         ]);
       })));
       card.appendChild(details);
@@ -756,9 +781,13 @@ function renderMortgageBorrowingExplanation(container, block) {
         const item = el("li", null, [
           conflict.question + ": " + conflict.local.scope + " says " +
           String(conflict.local.valueLabel || conflict.local.value) +
-          " (" + conflict.local.findingId + "); " + conflict.shared.scope + " says " +
+          "; " + conflict.shared.scope + " says " +
           String(conflict.shared.valueLabel || conflict.shared.value) +
-          " (" + conflict.shared.findingId + "). " + conflict.correctionGuidance,
+          ". " + conflict.correctionGuidance,
+          el("details", { class: "technical-details" }, [
+            el("summary", null, ["Technical details"]),
+            el("p", null, ["Local finding ID: " + conflict.local.findingId + "; shared finding ID: " + conflict.shared.findingId]),
+          ]),
         ]);
         return item;
       })));
@@ -766,18 +795,27 @@ function renderMortgageBorrowingExplanation(container, block) {
     }
     if (report.reasonChain) {
       const pins = (report.reasonChain.pins || []).map((pin) => String(pin.id || pin)).join(", ");
-      card.appendChild(el("p", { class: "reason-chain" }, ["Saved explanation: " + String(report.reasonChain.value) + (pins ? " — pins: " + pins : "")]));
+      card.appendChild(el("p", { class: "reason-chain" }, ["Saved explanation: " + String(report.reasonChain.value)]));
+      if (pins) {
+        card.appendChild(el("details", { class: "technical-details" }, [
+          el("summary", null, ["Technical details"]),
+          el("p", null, ["Pins: " + pins]),
+        ]));
+      }
     }
     if ((report.relationships || []).length) {
       const details = el("details", null, [el("summary", null, ["How this form is linked to the borrowing"])]);
-      details.appendChild(el("ul", null, report.relationships.map((link) => el("li", null, [link.disposition + " — " + link.response]))));
+      details.appendChild(el("ul", null, report.relationships.map((link) =>
+        el("li", { "data-disposition": link.disposition, title: "Recorded status: " + link.disposition }, [
+          linkDispositionLabel(link.disposition) + " — " + link.response,
+        ]))));
       card.appendChild(details);
     }
     if ((report.effectiveAnswers || []).length) {
-      const details = el("details", null, [el("summary", null, ["Effective answers available for this linked report; pins show actual use"])]);
+      const details = el("details", null, [el("summary", null, ["Answers available for this linked form"])]);
       details.appendChild(el("ul", null, report.effectiveAnswers.map((answer) => el("li", null, [
         (answer.title || answer.factType) + ": " + String(answer.valueLabel || answer.value) +
-        " — " + (answer.consumption === "consumed" ? "consumed by published line 8a" : "available, not consumed by published line 8a")
+        " — " + (answer.consumption === "consumed" ? "used in line 8a" : "recorded, not used in line 8a")
       ]))));
       card.appendChild(details);
     }
@@ -790,12 +828,12 @@ function renderMortgageBorrowingExplanation(container, block) {
     const details = el("details", null, [el("summary", null, ["Recorded borrowing-wide answers for " + (group.borrowingLabel || group.borrowing) + " (not all are necessarily active in this result)"])]);
     details.appendChild(el("ul", null, claims.map(([factType, claim]) => el("li", null, [
       (claim.title || factType) + ": " + String(claim.valueLabel || claim.value) +
-      " — " + (consumed.has(claim.findingId) ? "consumed by the published result" : "not shown as consumed")
+      " — " + (consumed.has(claim.findingId) ? "used in this result" : "not shown as used")
     ]))));
     root.appendChild(details);
   }
   if (block.calculationChain && !legacy) {
-    const chain = el("details", null, [el("summary", null, ["Saved calculation evidence: publications, producers, pins, and missing inputs"])]);
+    const chain = el("details", null, [el("summary", null, ["Technical calculation record (for audit)"])]);
     const rows = [];
     for (const finding of block.calculationChain.publications) {
       const pins = (finding.pins || []).map((pin) => String(pin.id || pin)).join(", ");
@@ -823,7 +861,9 @@ function renderMortgageBorrowingExplanation(container, block) {
   if (block.orphanRelationships.length) {
     const details = el("details", null, [el("summary", null, ["Recorded links whose source is no longer a current form"])]);
     details.appendChild(el("ul", null, block.orphanRelationships.map((link) =>
-      el("li", null, [link.statement + " (" + link.taxYear + "): " + link.disposition + " — " + link.response]))));
+      el("li", { "data-disposition": link.disposition, title: "Recorded status: " + link.disposition }, [
+        link.statement + " (" + link.taxYear + "): " + linkDispositionLabel(link.disposition) + " — " + link.response,
+      ]))));
     root.appendChild(details);
   }
   container.appendChild(root);

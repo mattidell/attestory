@@ -36,7 +36,7 @@ MODEL = (ROOT / "packages" / "sample_data" / "f1098e_student_loan_interest_track
          / "universal-violation.presentation-model.v1.json")
 LINE21 = "line-sch1-21"
 OTHER_BLOCKED = "line-10"
-REMEDY = "Remedy:"
+REMEDY = "What to do:"
 SENTENCE = ("You said the student was not enrolled at least half-time in a degree or certificate program "
             "during the schooling this loan paid for. The deduction is worked out here only when they were. "
             "If that answer is wrong, change it.")
@@ -111,7 +111,7 @@ class BlockedLineExplanation(unittest.TestCase):
         dom = self._render(model)
 
         text = _line_text(dom, self._label(LINE21))
-        self.assertIn("No value published — cannot compute.", text)
+        self.assertIn("This line has no result.", text)
         self.assertIn(f"Why: 2025 Form 1098-E from Cedar, Cedar Servicing: {SENTENCE}", text)
         self.assertNotIn(self._explain(LINE21), text)
         self.assertNotIn(REMEDY, text)
@@ -124,7 +124,7 @@ class BlockedLineExplanation(unittest.TestCase):
 
     def test_a_blocked_line_without_reasons_keeps_the_generic_explanation(self) -> None:
         text = _line_text(self._render(self.model), self._label(LINE21))
-        self.assertIn("No value published — cannot compute.", text)
+        self.assertIn("This line has no result.", text)
         self.assertIn(self._explain(LINE21), text)
         self.assertIn(REMEDY, text)
         self.assertNotIn("Why:", text)
