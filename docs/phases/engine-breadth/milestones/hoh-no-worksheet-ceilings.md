@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "hoh-no-worksheet-ceilings",
-  "status": "Open 2026-11-24. P0 done; Track 1 next.",
+  "status": "Open 2026-11-24. P0 and Track 1 done; fresh review next.",
   "retrospective": null,
   "scope": [
     "after a head of household or qualifying surviving spouse 'no' (the filer does not meet that status's tests), the Qualified Dividends and Capital Gain Tax Worksheet lines 6 and 13 do not show that status's ceiling, and every line that uses them gets the answer the 2025 instructions give for that filer",
@@ -118,3 +118,33 @@ core v102).
    the worksheet cap (6,144 bytes); the fast guard's worksheet name set
    gains them.
 4. No engine, schema, projection or page change.
+
+## Track 1 result
+
+Evidence: `hoh-no-worksheet-ceilings-evidence/track1.md` (published core
+v104, registry v102, release v102, from published v103).
+
+- **Published.** Successors of lines 6 and 13 are new files, 4,224 and
+  4,251 bytes, under the 6,144 worksheet cap. The size guard's filename
+  set includes them. Package v104 replaces only those two pins (v1 on
+  rule-artifact v14 to v2 on v17). The registry adds those citizens and
+  the v104 row. The release differs from v101 in version and the registry
+  digest. Loader v104 carries v103's map and declaration. No schema
+  manifest changed. Published v103, v101, and the v1 rules were not edited.
+  The package (241,297 bytes) and registry (321,646 bytes) exceed 200 KB
+  because v103 and v101 already do.
+- **Trace.** Nine demo returns on v104. Yes, single, joint, and separate
+  publish the 2025 ceilings. A head of household "no" or unanswered answer
+  blocks lines 6 and 13 on `hoh.tests-met`. A qualifying surviving spouse
+  does the same on `qss.tests-met`. Lines 7 and 14 stay blocked and name
+  the ceiling. Form 1040 line 16 on those returns stays blocked on taxable
+  income. No traced number changes.
+- **Replay.** All 775 recorded lists pass, v103 against v104. 691 carry
+  the expected version changes and 84 are identical errors. Zero
+  unexpected differences, zero unused expectations, no number change.
+- **Tests.** The package test, the size guard, the covered-flag list, and
+  the nine live cases passed. Three scratch mutants fail those checks: a
+  refused status publishing its ceiling, a fallback to the single ceiling,
+  and a control status blocking. The fast lane passed (1,979 passed, 8
+  skipped, 5,997 subtests). mypy reported no issues in 543 source files.
+
