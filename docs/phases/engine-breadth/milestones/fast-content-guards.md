@@ -3,8 +3,8 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "fast-content-guards",
-  "status": "Open 2026-11-23. Track 1 done; closeout next.",
-  "retrospective": null,
+  "status": "Closed 2026-11-23. Tests only.",
+  "retrospective": "docs/milestone-retrospectives/2026-11-23-fast-content-guards.md",
   "scope": [
     "the rule-file size guards that today run only in live modules also run in the fast lane, so a content builder's fast-lane run catches an oversized rule before CI does",
     "test_node_observer_emits_safe_manifest_stage_without_starting_chrome passes with FORCE_COLOR or NO_COLOR set"
@@ -84,3 +84,13 @@ Growing `rule.ctc-worksheet-a.line-4.json` from 735 bytes to 5,002 bytes made `p
 `test_node_observer_emits_safe_manifest_stage_without_starting_chrome` drops `FORCE_COLOR` and `NO_COLOR` in the child environment. Stdout must still be empty, and stderr must still be exactly the manifest failure record. The test passed with either variable set and with both.
 
 Checks: fast lane 1953 passed, 8 skipped, 5973 subtests passed in 17.42s. The six edited live modules: 139 passed, 195 subtests passed in 69.03s. mypy reported no issues in the 7 touched test files. `envelope_scan.py --range github/main..HEAD` exited 0.
+
+## Closeout
+
+Closed 2026-11-23. Every content rule-file size guard now runs in the fast
+lane from one module, `tests/test_content_file_sizes.py`, with one
+exception table (file, cap, reason); the five live modules no longer repeat
+it. The same files and caps are checked as before, plus the two core v102
+exceptions from #301. Growing a covered file past its cap now fails
+`pytest -m "not live"`. The Chrome observer manifest test passes with
+FORCE_COLOR and NO_COLOR set.
