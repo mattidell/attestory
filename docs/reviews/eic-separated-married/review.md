@@ -228,3 +228,92 @@ expected changes, with 0 unexpected. The other 773 were not.
 - The replay expectation matcher against a synthetic line 27a change, and a
   two-list `replay.py v103 --limit 2` run: 2 expected changes, 0 unexpected.
 - `python3 tools/envelope_scan.py --range github/main..HEAD`.
+
+## Re-review
+
+Re-review at `c02ad8aea2e9e94777fad51a01db35cda7e64307`, after Decision 8.
+
+**Verdict: NOT READY.**
+
+ESM-R1, ESM-R2, and ESM-R3 are repaired on the measured returns. The question
+still does not lead a filer whose spouse died in 2025 to the answer the
+instructions give.
+
+### ESM-R4 (high). A spouse who died in 2025 is not led to yes
+
+- **Where.** `packages/content/tax/2025/input-question.eic-married-taxpayer.v1.json:7`
+  and the same gloss in `eic-married-taxpayer.bundle.json:19`. The yes
+  instruction is "Answer yes if those rules treat you as married." Those
+  rules are the interlocutory decree, the final decree, and Publication 596
+  Rule 3 for living apart. None of them is the year-of-death rule.
+- **What the sources say.** Instructions, Married Filing Jointly: you may
+  file jointly if your spouse died in 2025 and you did not remarry. Single
+  is for a filer widowed before January 1, 2025. Head of household
+  "considered unmarried" does not include that death. Step 3 question 3 yes
+  continues. Question 4 yes and question 5 no stop the credit. Death is not
+  a decree of separate maintenance.
+- **Consequence.** A filer who answers from the gloss, rather than from the
+  year-of-death rule, answers no and keeps the table credit. The sources
+  stop it.
+- **Reproduction.** Head of household, one qualifying child with a valid
+  SSN, spouse died on the last day of 2025, same home all year, no decree,
+  did not remarry. The instructions treat the filer as married. Question 3
+  is yes, question 4 is yes, question 5 is no, and the credit stops. The
+  gloss does not say that death means married, and the no sentence names
+  only a final decree. A no is the measured `q3-no/ssn` path at wages
+  7,000: line 27a is 2,389, the separated-spouse fact is not pinned, and
+  question 6 can pass.
+- **Repair.** State the year-of-death rule in the question: a spouse who
+  died in 2025, if you did not remarry, still means married for question 3.
+  Keep the decree and living-apart sentences.
+
+## What holds on re-review
+
+The interlocutory path and the final-decree path now follow the sources.
+`test_interlocutory_decree_answers_yes_and_the_credit_stops` passes:
+question 3 yes and separated-spouse no, line 27a is 0, and both facts are
+pinned. `test_final_decree_shared_household_answers_no_and_keeps_the_table`
+passes: question 3 no, line 27a is 2,389, and the separated-spouse fact is
+not pinned. A person who was never married is not a married taxpayer, and
+none of the added rules treat them as married, so the question's own no is
+the answer. A head of household who lived apart and is considered unmarried
+is told to answer yes. A final decree is told to answer no. The question
+does not say the credit is kept. Question 3 no and question 6 no publishes
+line 27a as 0.
+
+A return that does not record `eic.married-taxpayer-inert` still publishes
+2,389 on `q3-no/ssn` and on `hoh-unmarried/ssn/apart`, with no two-path
+refusal. Asserting any tried value is refused at admission
+(`FindingModelError`, `'yes' should not be valid under {}`). The schema
+`{"not": {}}` also rejects no, null, an empty string, 0, an object, and a
+list. No input question offers the fact, and no other content citizen
+records it. The selection paths still name it only as the second activity.
+
+Citizen checksums of the question, the bundle, the four rules, and core
+v103 match registry v101. The release digest is the registry file. Loader
+v103 still carries v102's covered-flag map, companion declaration, and the
+three family switches. The four rule files are unchanged and are 4,733,
+4,797, 2,422, and 4,305 bytes.
+
+Each earlier mutant fails a published test. A stored no that publishes 0
+fails `recorded-no/ssn/unmarried`. A stored yes that publishes 2 fails
+`hoh-unmarried/ssn/apart`. A married-taxpayer no that publishes 0 fails the
+final-decree test. A separated-spouse no that publishes 1 fails the
+interlocutory test. Pointing the inert activity at `eic.not-married` fails
+the final-decree test. `tests/test_content_file_sizes.py` and
+`tests/test_eic_separated_married_v103_package.py` passed (6 passed).
+
+## What I ran on re-review
+
+- The repaired question and bundle, the inert `value_schema`, and the
+  filing-status and Step 3 text in the 2025 Form 1040 instructions and
+  Publication 596 already fetched for the first review.
+- The five repair tests and the hand tests for `q3-no/ssn`,
+  `q3-yes-no/ssn`, `mfs/ssn/no`, `recorded-no/ssn/unmarried`, and
+  `hoh-unmarried/ssn/apart`, through `live_coordinate_run`.
+- The same five mutants, in scratch copies, each against the published test
+  that asserts the unmutated credit.
+- `pytest tests/test_content_file_sizes.py tests/test_eic_separated_married_v103_package.py`
+  (6 passed).
+- Checksums, the release digest, and the v103 loader entries against v102.
+- `python3 tools/envelope_scan.py --range 3a7140624..HEAD` exited 0.
