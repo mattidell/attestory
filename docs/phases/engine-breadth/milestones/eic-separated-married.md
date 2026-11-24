@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "eic-separated-married",
-  "status": "Open 2026-11-23. P0 next.",
+  "status": "Open 2026-11-23. P0 stopped on a new question; P0b next.",
   "retrospective": null,
   "scope": [
     "the earned income credit asks the separated-spouse question (Step 3 questions 4 and 5 of the 2025 Form 1040 instructions) only of a married filer whose status is head of household or married filing separately, as the instructions do",
@@ -100,3 +100,25 @@ The smallest new question is Step 3 question 3, asked of a head of household
 who has a qualifying child. Married filing separately is already a married
 taxpayer by filing status. A yes continues to questions 4 and 5. A no skips
 them and keeps the table credit. No engine change and no new ADR.
+
+## Decisions
+
+1. Accept the P0 stop: no fact on a v102 return says whether a head of
+   household with a qualifying child was married at the end of 2025
+   (`eic.not-married` is withheld when a qualifying child is present and
+   counts a decree as "yes"; `hoh.tests-met` "yes" covers both). The route
+   is a new input question taken from Step 3 question 3 of the 2025
+   instructions, asked only of a head of household with a qualifying
+   child, with its own fact type. Married filing separately needs no new
+   fact. No engine change and no ADR.
+2. A return must not newly block on the new question when it already
+   carries an answer that decides the credit the same way: a recorded
+   separated-spouse "yes" passes on v102 and must still pass. P0b designs
+   the successors so the separated-spouse question is asked only after a
+   "married" answer, and so that a recorded separated-spouse "yes" without
+   the new answer still passes if the rule language can express it
+   (selection on which answers are present). If it cannot, P0b measures
+   how many of the 775 recorded lists, and which kinds of filer, would
+   newly block, and stops for a foreman decision.
+3. P0b reports each new or successor rule file's size against the
+   5,000-byte cap, and runs the live size tests.
