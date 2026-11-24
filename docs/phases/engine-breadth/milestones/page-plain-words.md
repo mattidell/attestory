@@ -4,7 +4,7 @@
   "phase": "Engine Breadth",
   "topic": "page-plain-words",
   "status": "Open 2026-11-23. P0 and Track 1 done; Fresh review next.",
-  "retrospective": null,
+  "retrospective": "docs/milestone-retrospectives/2026-11-23-page-plain-words.md",
   "scope": [
     "the words the saved page writes itself (status badges, blocked banners, support-trace captions and their buttons) read as plain language to a filer, not as engine enums, symbols or ids",
     "the ids stay reachable for an auditor where they are the evidence, but are not the caption a filer reads first",
@@ -234,3 +234,18 @@ Evidence in `docs/phases/engine-breadth/milestones/page-plain-words-evidence/`
    parked. The render-boundary test runs Node, so it is an honest live
    test (conftest's rule) and runs in the full suite that gates merge, not
    the fast lane.
+
+## Closeout
+
+Closed 2026-11-23. The saved page now writes its own words plainly. Status
+badges say only what the disposition proves (a published amount may be
+carried from another line, so it reads `Amount`, not `Calculated`). A
+blocked line or attachment chooses its sentence, heading and remedy from
+its code, for the 15 codes a current field, attachment or rule can carry,
+and an unknown code fails closed. Ids, enums, codes and pins an auditor
+follows are in collapsed technical details and attributes. On all 691
+rendered recorded lists on core v101, no engine id or enum is in the text a
+filer reads first (before: every list). The full-surface replay is
+identical on all 775 lists, so the model did not move. Two items are
+parked in the roadmap: the runner's collapse of non-record codes into
+`DEPENDENCY_INVALID`, and the opt-in sale observer's reconfirmation case.
