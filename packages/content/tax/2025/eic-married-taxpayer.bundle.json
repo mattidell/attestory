@@ -1,0 +1,58 @@
+{
+  "fact_types": [
+    {
+      "id": "tax.us.2025.eic.married-taxpayer",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Are you a married taxpayer whose filing status is married filing separately or head of household (2025 Form 1040 instructions, line 27a, Step 3 question 3)? Yes means married at the end of 2025. Publication 596, Rule 3, still treats a head of household who lived apart as married. Yes continues to the separated-spouse questions. No means not married at the end of 2025, so those questions are skipped. Asked of a head of household with a qualifying child, including one who already answered the separated-spouse question no. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.eic.married-taxpayer-inert",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Inactive second path for the Step 3 question 3 selection. Nothing asks this fact and no return records it. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.eic-married-taxpayer.vocabulary",
+  "label": "Earned income credit Step 3 question 3 for a head of household with a qualifying child, tax year 2025",
+  "schema": "bundle.v2",
+  "version": "v1"
+}

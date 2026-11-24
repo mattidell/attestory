@@ -91,13 +91,32 @@ def decide(key: str) -> dict:
 def expect(key: str) -> dict:
     """What the P0b successor should do, and the credit the instructions give.
 
-    The 21 P0 keys still carry a separated-spouse answer and no new answer.
-    A recorded no publishes 0. A recorded yes publishes 1. The new question
-    is not read. ``q3-no`` answers the new question no and records no
-    separated-spouse answer. ``q3-yes`` answers yes and leaves questions 4
-    and 5 unanswered, so the run blocks. ``q3-yes-no`` answers yes and then
-    separated-spouse no.
+    A recorded separated-spouse yes passes without the new answer. A recorded
+    no from a head of household with a qualifying child asks the new question.
+    Unanswered, the run blocks. ``recorded-no/<kids>/unmarried`` answers no
+    and keeps the table credit. ``recorded-no/<kids>/married`` answers yes
+    and the credit is 0. Married filing separately is unchanged.
     """
+    if key.startswith("recorded-no/"):
+        _, kids, which = key.split("/")
+        column = 1 if kids == "ssn" else 0
+        table = lookup(column)
+        base = {
+            "wages": WAGES,
+            "column": column,
+            "table_key": "other-" + str(column),
+            "qualifying_child": True,
+            "ask_not_married": False,
+            "ask_married": True,
+            "blocked": False,
+        }
+        if which == "unmarried":
+            return {**base, "credit": table, "instruction": table, "ask_separated": False,
+                    "path": "recorded separated no, then not married; questions 4 and 5 are skipped"}
+        if which == "married":
+            return {**base, "credit": 0, "instruction": 0, "ask_separated": True,
+                    "path": "recorded separated no, then married; the recorded no stops the credit"}
+        raise KeyError(key)
     if key.startswith("q3-"):
         kind, kids = key.split("/")
         column = 1 if kids == "ssn" else 0
@@ -118,7 +137,7 @@ def expect(key: str) -> dict:
                     "instruction": None,
                     "path": "married head of household; questions 4 and 5 are required and unanswered"}
         if kind == "q3-yes-no":
-            return {**base, "credit": 0, "ask_separated": True, "ask_married": False, "blocked": False,
+            return {**base, "credit": 0, "ask_separated": True, "ask_married": True, "blocked": False,
                     "instruction": 0,
                     "path": "married head of household; a recorded separated-spouse no stops the credit"}
         raise KeyError(key)
@@ -128,9 +147,17 @@ def expect(key: str) -> dict:
     qualifying = kids in ("ssn", "nossn")
     credit = source["credit"]
     path = source["path"]
-    if status == "hoh-unmarried" and qualifying and sep == "no":
-        credit = 0
-        path = "a recorded separated-spouse no still publishes 0; the new question is not read"
+    if status.startswith("hoh-") and qualifying and sep == "no":
+        return {
+            "credit": None,
+            "instruction": source["credit"],
+            "path": "a recorded separated-spouse no asks the new question, and it is unanswered",
+            "wages": WAGES,
+            "ask_separated": False,
+            "ask_married": False,
+            "ask_not_married": source["ask_not_married"],
+            "blocked": True,
+        }
     return {
         "credit": credit,
         "instruction": source["credit"],

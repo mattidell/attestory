@@ -1,4 +1,4 @@
-"""P0b trace: Step 3 question 3 on a scratch successor of published core v102.
+"""Trace: Step 3 question 3 on published core v103.
 
 Re-runs the 21 P0 cases and six more. The 21 still carry a separated-spouse
 answer and no new answer. ``q3-no`` answers the new question no and records
@@ -8,8 +8,7 @@ separated-spouse answer off the return. ``q3-yes-no`` answers yes and then no.
 A question counts as asked when the answer publication pins that fact.
 Supplied answers stay on the return either way.
 
-Run: python3 probe_p0b.py --core-json <core.json> [--only KEY] [--out FILE]
-Nothing in packages/ or tests/ is edited.
+Run: python3 probe_p0b.py --core v103 [--only KEY] [--out FILE]
 """
 from __future__ import annotations
 
@@ -51,16 +50,29 @@ from packages.derivation.live import live_coordinate_run  # noqa: E402
 
 P = h.P
 MARRIED = P + "eic.married-taxpayer"
-EXTRA = ("q3-no/ssn", "q3-no/nossn", "q3-yes/ssn", "q3-yes/nossn", "q3-yes-no/ssn", "q3-yes-no/nossn")
+EXTRA = (
+    "q3-no/ssn", "q3-no/nossn", "q3-yes/ssn", "q3-yes/nossn", "q3-yes-no/ssn", "q3-yes-no/nossn",
+    "recorded-no/ssn/unmarried", "recorded-no/nossn/unmarried",
+    "recorded-no/ssn/married", "recorded-no/nossn/married",
+)
 KEYS = list(p0.KEYS) + list(EXTRA)
 ASK = dict(p0.ASK)
 ASK["married-taxpayer"] = MARRIED
 ANSWER_SYMBOL = dict(p0.ANSWER_SYMBOL)
 ANSWER_SYMBOL["married-taxpayer"] = "eic.answer.married-taxpayer"
-SYMBOLS = p0.SYMBOLS + ("eic.married-taxpayer-recorded", "eic.answer.married-taxpayer")
+SYMBOLS = p0.SYMBOLS + (
+    "eic.married-taxpayer-recorded",
+    "eic.married-taxpayer-from-separated",
+    "eic.answer.married-taxpayer",
+)
 
 
 def build(key: str, content: Path = h.CONTENT) -> h.Acts:
+    if key.startswith("recorded-no/"):
+        _, kids, which = key.split("/")
+        base_key = f"hoh-unmarried/{kids}/no" if which == "unmarried" else f"hoh-married/{kids}/no"
+        value = "no" if which == "unmarried" else "yes"
+        return h.renumber(h.say(p0.build(base_key, content), MARRIED, value, "esm-married", content))
     if key not in EXTRA:
         return p0.build(key, content)
     kind, kids = key.split("/")

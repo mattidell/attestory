@@ -173,3 +173,24 @@ return.
 
 Rule files are 4,923, 2,386, and 4,305 bytes, all under the 5,000-byte cap.
 The live 5kb tests passed. No engine change and no ADR.
+
+## Track 1 result
+
+Evidence: `docs/phases/engine-breadth/milestones/eic-separated-married-evidence/track1.md`.
+
+Published core v103, registry v101, and release v101. A recorded
+separated-spouse no from a head of household with a qualifying child asks
+`eic.married-taxpayer`. No keeps the table credit, 2,389 or 537 at wages of
+7,000. Yes keeps $0. A recorded separated-spouse yes still passes without
+the new answer. Married filing separately is unchanged.
+
+The inert path stays. One path is rejected: `MEMBER_SCHEMA_INVALID`,
+`instance does not conform to rule-artifact.v14: selection/paths:` and the
+single path `is too short`. `selection.paths` has `minItems` 2. The inert
+fact is never an input question.
+
+Thirty-one synthetic returns match the hand credit and the asked flags. The
+775 recorded lists, all single and none with a separated-spouse answer, show
+691 success on both cores and 84 identical errors. None newly block and none
+change a number. Rule files are 4,733, 4,797, 2,422, and 4,305 bytes. No
+engine change and no ADR.

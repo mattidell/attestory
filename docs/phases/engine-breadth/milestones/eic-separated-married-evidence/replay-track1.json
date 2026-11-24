@@ -1,0 +1,21 @@
+{
+  "lists": 775,
+  "cores": ["v102", "v103"],
+  "filing_status": "single",
+  "separated_spouse_fact": 0,
+  "classes_after_declared_expectations": {
+    "expected_changes": 691,
+    "identical": 84,
+    "unexpected": 0
+  },
+  "outcomes": {
+    "success/success": 691,
+    "error/error": 84
+  },
+  "newly_blocked": [],
+  "number_changes": 0,
+  "expectations_declared": 8,
+  "expectations_used": 8,
+  "unused_expectations": [],
+  "identical_errors": "84 lists error on both cores with the same snapshot"
+}

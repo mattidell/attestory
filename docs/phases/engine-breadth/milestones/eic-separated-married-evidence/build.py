@@ -81,6 +81,7 @@ def main() -> None:
     rule_pin = next(m for m in package["members"] if m["id"] == d.RULE_SEPARATED and m["version"] == "v2")
     new_rules = [
         {"id": d.RULE_RECORDED, "version": "v1", "schema": "rule-artifact.v14", "role": "computation"},
+        {"id": d.RULE_FROM, "version": "v1", "schema": "rule-artifact.v14", "role": "computation"},
         {"id": d.RULE_ANSWER, "version": "v1", "schema": "rule-artifact.v14", "role": "computation"},
     ]
     new_vocab = [

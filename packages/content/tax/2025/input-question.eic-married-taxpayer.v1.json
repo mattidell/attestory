@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.eic.married-taxpayer",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.eic-married-taxpayer",
+  "question": "You file as head of household and a child is your qualifying child for the earned income credit. Are you a married taxpayer whose filing status is married filing separately or head of household? Answer yes if you were married at the end of 2025. Publication 596, Rule 3, still treats you as married when you file as head of household under the special rules for married taxpayers living apart. Yes continues to the separated-spouse questions. Answer no if you were not married at the end of 2025. No skips those questions and you keep the credit.",
+  "schema": "input-question.v1",
+  "version": "v1"
+}

@@ -1,13 +1,12 @@
-"""Full-surface replay of the 775 recorded lists: published v102 against the scratch v103.
+"""Full-surface replay of the 775 recorded lists: published v102 against published v103.
 
-Run: python3 replay.py <scratch-core.json> --part <part> --out <summary>
-     python3 replay.py <scratch-core.json> --limit 1 --out <summary>
+Run: python3 replay.py v103 --part <part> --out <summary>
+     python3 replay.py v103 --limit 1 --out <summary>
 
-Declared expectations are the package pin v102 to v103, the two new disposition
+Declared expectations are the package pin v102 to v103, the three new disposition
 rows and their order, the disposition nodes those rules add, the separated-spouse
 rule pin v2 to v3, and that rule's missing list naming the new answer symbol.
 A recorded list that newly blocks, or that changes a number, is not expected.
-Nothing in packages/ or tests/ is edited.
 """
 from __future__ import annotations
 
@@ -30,14 +29,15 @@ P = "tax.us.2025."
 def expectations() -> list[rr.Expectation]:
     """Differences the 775 single filers show. No number change is declared.
 
-    The package pin moves from v102 to v103. The two new rules add a disposition
+    The package pin moves from v102 to v103. The three new rules add a disposition
     row, and on a return that never publishes eic.questions-required those rows
-    are blocked on that absence. Disposition order gains the two rules. The
+    are blocked on that absence. Disposition order gains the three rules. The
     separated-spouse rule's pin moves to v3 where the explanation graph carries
     it, and its missing list also names the new answer symbol. A return that
     changes outcome, or that changes a number, is not expected.
     """
     recorded_rule = P + "rule.eic-married-taxpayer-recorded"
+    from_rule = P + "rule.eic-married-taxpayer-from-separated"
     answer_rule = P + "rule.eic-answer.married-taxpayer"
     separated_rule = P + "rule.eic-answer.separated-spouse"
     answer_symbol = P + "eic.answer.married-taxpayer"
@@ -49,22 +49,22 @@ def expectations() -> list[rr.Expectation]:
         questions,
         P + "eic.status-class",
     )
-    rules = (recorded_rule, answer_rule)
+    rules = (recorded_rule, from_rule, answer_rule)
     return [
-        rr.version_change(P + "package.core-calculations", "v102", "v103", "scratch core is v103"),
+        rr.version_change(P + "package.core-calculations", "v102", "v103", "published core is v103"),
         rr.version_change(separated_rule, "v2", "v3", "separated-spouse rule pin moves to v3"),
         rr.Expectation(("row",), r".+", "|".join(re.escape(rule) for rule in rules), "added",
-                       note="the two new rules publish a disposition"),
+                       note="the three new rules publish a disposition"),
         rr.Expectation(("row",), r"dispositions@order", change="changed",
-                       note="disposition order gains the two new rules"),
+                       note="disposition order gains the three new rules"),
         rr.Expectation(
             ("model",),
-            r"dispositionNodes\.tax\.us\.2025\.eic\.(?:married-taxpayer-recorded|answer\.married-taxpayer)\.(?:children|records@order|symbol)",
+            r"dispositionNodes\.tax\.us\.2025\.eic\.(?:married-taxpayer-recorded|married-taxpayer-from-separated|answer\.married-taxpayer)\.(?:children|records@order|symbol)",
             change="added",
-            note="the two new symbols add a disposition node",
+            note="the three new symbols add a disposition node",
         ),
         rr.Expectation(("model",), r".+", "|".join(re.escape(rule) for rule in rules), "added",
-                       note="fields of the two new disposition records"),
+                       note="fields of the three new disposition records"),
         rr.Expectation(
             ("model",),
             re.escape("dispositionNodes." + separated_symbol + ".children"),
