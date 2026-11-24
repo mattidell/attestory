@@ -68,7 +68,11 @@ from tests.test_form_1099_withholding import _social_security_withholding, _unem
 from tests.test_refund_or_amount_owed_track1 import _act, _attested  # noqa: E402
 
 P = h.P
-STATUS = {"hoh": "head_of_household", "mfs": "married_filing_separately"}
+STATUS = {
+    "hoh": "head_of_household", "mfs": "married_filing_separately",
+    "single": "single", "qss": "qualifying_surviving_spouse", "mfj": "married_filing_jointly",
+    "uhoh": "head_of_household",
+}
 SSN_CHILD = "demo-ens-child-ssn"
 NOSSN_CHILD = "demo-ens-child-nossn"
 EIC_AGE = P + "eic.child.age"
@@ -95,7 +99,7 @@ ANSWER_SYMBOL = {
     "not-qc": "eic.answer.not-qualifying-child-of-another",
 }
 SYMBOLS = (
-    "eic.status-class", "eic.column-count", "eic.qualifying-child-count", "eic.qualifying-child-present",
+    "eic.status-class", "eic.column-count", "eic.table-key", "eic.qualifying-child-count", "eic.qualifying-child-present",
     "eic.early-stop", "eic.questions-required", "eic.answer.separated-spouse", "eic.answer.not-married",
     "eic.answer.age-25-under-65", "eic.answer.main-home-in-us", "eic.answer.not-claimable-as-dependent",
     "eic.answer.not-qualifying-child-of-another", "eic.gate-result", "eic.worksheet-a.line-6",
@@ -184,9 +188,17 @@ def build(key: str, content: Path = h.CONTENT) -> h.Acts:
         for fact in ("spouse-over-65", "spouse-blind", "standard-deduction.spouse-separate-condition"):
             acts = h.say(acts, P + fact, False, "ens-" + fact, content)
         acts = h.say(acts, P + "mfs-lived-apart-all-year", "yes", "ens-mfs-apart", content)
+    if status_key == "mfj":
+        for fact in ("spouse-over-65", "spouse-blind"):
+            acts = h.say(acts, P + fact, False, "ens-" + fact, content)
     if status_key == "hoh":
         acts = h.say(acts, HOH_TESTS, "yes", "ens-hoh-tests", content)
         acts = h.say(acts, NOT_MARRIED, "no", "ens-not-married", content)
+    if status_key == "uhoh":
+        acts = h.say(acts, HOH_TESTS, "yes", "ens-hoh-tests", content)
+        acts = h.say(acts, NOT_MARRIED, "yes", "ens-not-married", content)
+    if status_key == "qss":
+        acts = h.say(acts, P + "qss.tests-met", "yes", "ens-qss-tests", content)
     acts = h.say(acts, SEP, "yes" if sep in ("apart", "writing") else "no", "ens-separated", content)
     return h.renumber(acts)
 
@@ -320,7 +332,7 @@ def main() -> None:
     args = parser.parse_args()
     core = base.core_from(args)
     todo = args.only or list(KEYS)
-    unknown = [key for key in todo if key not in KEYS]
+    unknown = [key for key in todo if key not in KEYS and key.split("/")[0] not in STATUS]
     if unknown:
         raise SystemExit(f"unknown keys: {unknown}")
     started = time.monotonic()

@@ -42,9 +42,12 @@ NEW = (
     "eic-child.qualifies",
     "eic.child.qualifies",
 )
+# --widened is the published v102 route: not-claimable also gains the present count,
+# and age and main home do not read status class. The default is the P0 route.
+WIDENED = "--widened" in sys.argv
 READERS = (
     "status-class|early-stop|questions-required|answer\\.(?:separated-spouse|not-married|"
-    "age-25-under-65|main-home-in-us)"
+    "age-25-under-65|main-home-in-us" + ("|not-claimable-as-dependent" if WIDENED else "") + ")"
 )
 INSERTION_ATTRS = re.compile(
     r"(?:.*@order|dispositionNodes\.tax\.us\.2025\.eic\.(?:" + READERS + r"|qualifying-child-present|child\.qualifies)"
@@ -70,14 +73,22 @@ def expectations() -> list[rr.Expectation]:
         r"eic-answer\.(?:age-25-under-65|main-home-in-us)[^/]*\]/pins\[finding~"
         r"(?:row~tax\.us\.2025\.rule\.eic-status-class|tax\.us\.2025\.eic\.status-class~)"
     )
-    return [
+    found = [
         rr.version_change(d.CLASS_RULE, "v2", "v3", "status class reads whether a qualifying child is present"),
         rr.version_change(d.EARLY_RULE, "v2", "v3", "early stop requires that no qualifying child is present"),
         rr.version_change(d.QUESTIONS_RULE, "v2", "v3", "questions required when a qualifying child is present"),
         rr.version_change(d.SEP_RULE, "v1", "v2", "separated spouse is asked when a qualifying child has no valid SSN"),
         rr.version_change(d.NOT_MARRIED_RULE, "v1", "v2", "step 4 question 1 is skipped when a qualifying child is present"),
-        rr.version_change(d.AGE_RULE, "v3", "v4", "age question skips married filers who have a qualifying child"),
-        rr.version_change(d.HOME_RULE, "v3", "v4", "main-home question skips married filers who have a qualifying child"),
+        rr.version_change(
+            d.AGE_RULE, "v3", "v4",
+            "age question skips every filing status when a qualifying child is present" if WIDENED
+            else "age question skips married filers who have a qualifying child",
+        ),
+        rr.version_change(
+            d.HOME_RULE, "v3", "v4",
+            "main-home question skips every filing status when a qualifying child is present" if WIDENED
+            else "main-home question skips married filers who have a qualifying child",
+        ),
         rr.version_change(P + "package.core-calculations", "v101", "v102"),
         rr.Expectation(("row",), r".*", present_row, "added", note="report row of qualifying-child-present"),
         rr.Expectation(("row",), r".*", qualifies_row, "added", note="report row of child.qualifies"),
@@ -89,31 +100,40 @@ def expectations() -> list[rr.Expectation]:
                        note="disposition node fields of child.qualifies"),
         rr.Expectation(("row", "model"), r"id|origin|role|version", present_pin, "added",
                        note="succeeded rules pin qualifying-child-present"),
-        rr.Expectation(("row", "model"), r"id|origin|role|version", class_pin, "added",
-                       note="age and main home pin status class"),
         rr.Expectation(("graph",), r".*", r"eic\.qualifying-child-present|eic-qualifying-child-present", "added",
                        note="explanation graph of qualifying-child-present"),
         rr.Expectation(("graph",), r".*", r"eic\.child\.qualifies|eic-child\.qualifies", "added",
                        note="explanation graph of child.qualifies"),
-        rr.Expectation(
-            ("model",),
-            r"dispositionNodes\.tax\.us\.2025\.eic\.answer\.age-25-under-65\.children",
-            "", "changed",
-            [P + "eic.answer.not-married", P + "eic.column-count", P + "eic.questions-required"],
-            [P + "eic.answer.not-married", P + "eic.column-count", P + "eic.qualifying-child-present",
-             P + "eic.questions-required", P + "eic.status-class"],
-            note="age question reads qualifying-child-present and status class",
-        ),
-        rr.Expectation(
-            ("model",),
-            r"dispositionNodes\.tax\.us\.2025\.eic\.answer\.main-home-in-us\.children",
-            "", "changed",
-            [P + "eic.answer.not-married", P + "eic.column-count", P + "eic.questions-required"],
-            [P + "eic.answer.not-married", P + "eic.column-count", P + "eic.qualifying-child-present",
-             P + "eic.questions-required", P + "eic.status-class"],
-            note="main-home question reads qualifying-child-present and status class",
-        ),
     ]
+    if WIDENED:
+        found.append(rr.version_change(
+            P + "rule.eic-answer.not-claimable-as-dependent", "v3", "v4",
+            "not-claimable skips when a qualifying child is present",
+        ))
+    else:
+        found.extend((
+            rr.Expectation(("row", "model"), r"id|origin|role|version", class_pin, "added",
+                           note="age and main home pin status class"),
+            rr.Expectation(
+                ("model",),
+                r"dispositionNodes\.tax\.us\.2025\.eic\.answer\.age-25-under-65\.children",
+                "", "changed",
+                [P + "eic.answer.not-married", P + "eic.column-count", P + "eic.questions-required"],
+                [P + "eic.answer.not-married", P + "eic.column-count", P + "eic.qualifying-child-present",
+                 P + "eic.questions-required", P + "eic.status-class"],
+                note="age question reads qualifying-child-present and status class",
+            ),
+            rr.Expectation(
+                ("model",),
+                r"dispositionNodes\.tax\.us\.2025\.eic\.answer\.main-home-in-us\.children",
+                "", "changed",
+                [P + "eic.answer.not-married", P + "eic.column-count", P + "eic.questions-required"],
+                [P + "eic.answer.not-married", P + "eic.column-count", P + "eic.qualifying-child-present",
+                 P + "eic.questions-required", P + "eic.status-class"],
+                note="main-home question reads qualifying-child-present and status class",
+            ),
+        ))
+    return found
 
 
 def _is_new(item: object) -> bool:
@@ -313,6 +333,7 @@ def main() -> None:
     parser.add_argument("--discover", type=int, default=0)
     parser.add_argument("--keys", default="")
     parser.add_argument("--out")
+    parser.add_argument("--widened", action="store_true")
     args = parser.parse_args()
     specs = [] if args.discover else expectations()
     cores = [rr.core_fingerprint("v101"), rr.core_fingerprint(args.core)]
