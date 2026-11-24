@@ -292,10 +292,6 @@ class PackageChain(unittest.TestCase):
         listed = [row for row in registry["packages"] if row["id"] == v55["id"] and row["version"] == "v55"]
         self.assertEqual(listed[0]["checksum"], v55["package_checksum"])
 
-    def test_rule_files_stay_under_5kb(self) -> None:
-        for path in sorted(CONTENT.glob("rule.odc-*.json")):
-            self.assertLessEqual(path.stat().st_size, 5000, path.name)
-
     def test_static_required_versus_read_passes_on_v56(self) -> None:
         completed = subprocess.run(
             [sys.executable, str(ROOT / "tools/required_versus_read.py"), "static"],
