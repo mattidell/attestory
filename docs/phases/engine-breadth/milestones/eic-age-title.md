@@ -3,8 +3,8 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "eic-age-title",
-  "status": "Open 2026-11-24. P0 next.",
-  "retrospective": null,
+  "status": "Closed 2026-11-24 on P0. Parked; no package change.",
+  "retrospective": "docs/milestone-retrospectives/2026-11-24-eic-age-title.md",
   "scope": [
     "the eic.age-25-under-65 fact's title says what its question asks: the birth-date range, and age at death for a filer or spouse who died in 2025",
     "no saved answer loses its meaning or its pin, and every recorded return keeps its numbers"
@@ -69,3 +69,43 @@ successor of a pinned citizen can unpin every saved record that used it.
 2. **Decisions** by the foreman.
 3. **Track 1** if P0 shows a safe route.
 4. **Fresh review**, repair, closeout.
+
+## P0 result
+
+Builder, 2026-11-24. **Park the title.** Evidence in
+`eic-age-title-evidence/p0.md`.
+
+- On core v103 the fact type title lives in `eic-questions.bundle.json`
+  and in the kernel fact type. A synthetic single return (wages 7,000)
+  shows it on none of the saved page, the question groups, the
+  explanation graph, or the report. The unanswered return's question
+  card and blocked line 27a use the input question, which already
+  states age at death. The answered return publishes line 27a as 537.
+- A scratch bundle successor (vocabulary v2, fact type version kept at
+  v1, core v104, registry v102, release v102) validated. Re-adopting it
+  left the saved yes current and line 27a at 537. Replaying the saved
+  v103 log on the successor registry refused
+  `REGISTRY_CHECKSUM_MISMATCH`: the release attestation does not match
+  those registry bytes.
+- The 775-list replay was not run. The charter runs it for a content
+  route. Foreman decides. Track 1 stays closed unless that decision
+  wants a title no current surface shows.
+
+## Decisions
+
+1. Close on P0 and keep the title parked (P0 recommendation). On core v103
+   the `eic.age-25-under-65` fact type's title reaches no filer or auditor
+   surface: the saved page, the question groups, the explanation graph and
+   the report all omit it. The input question a filer sees already states
+   age at death. No Track 1.
+2. If a later surface shows fact-type titles, publish a new bundle version
+   that keeps fact type version v1 with the corrected title: in the P0, a
+   return that re-adopted such a bundle kept its saved "yes" and line 27a
+   at 537. Drafts: `eic-age-title-evidence/wording.json`.
+
+## Closeout
+
+Closed 2026-11-24 on P0. The age fact's title is not shown anywhere a
+filer or auditor reads, so correcting it changes nothing a person sees;
+the item stays parked with the safe route recorded (a bundle successor
+that keeps fact type version v1). No package, rule or test change.
