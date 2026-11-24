@@ -211,13 +211,25 @@ def test_real_chrome_cases_match_supported_model_and_dom_properties(observed: di
         assert audit["blocked_reason_errors"] == [], (case_id, audit["blocked_reason_errors"])
         assert {row["section_id"]: row["alert"] for row in audit["renderer_diagnostics"]} == PARKED_ALERTS
 
+        # A question group replaces the repeated sentence with the link, so the
+        # sentence counter on those reason rows stays absent. The comparison
+        # above still requires that link.
         expected_question_state = (
             "duplicate"
-            if case["spec"]["answered_noncovered_question"] in {"unanswered", "stale-no"}
+            if case["spec"]["answered_noncovered_question"] == "unanswered"
             else "absent"
         )
         question = visible_question_state(case["dom"])
         assert question["state"] == expected_question_state, (case_id, question)
+
+    reconfirm_reasons = [
+        text
+        for row in cases["sale-answer-needs-reconfirmation"]["dom"]["lines"]
+        if isinstance(row, dict)
+        for text in row.get("blocked_reasons", [])
+    ]
+    assert reconfirm_reasons
+    assert set(reconfirm_reasons) == {"See the question and affected lines above"}
 
     mortgage = cases["mortgage-1098"]
     mortgage_line8a = mortgage["model"]["mortgageBorrowingExplanation"]["line8aFindings"]
