@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "fast-content-guards",
-  "status": "Open 2026-11-23. Track 1 next.",
+  "status": "Open 2026-11-23. Track 1 done; closeout next.",
   "retrospective": null,
   "scope": [
     "the rule-file size guards that today run only in live modules also run in the fast lane, so a content builder's fast-lane run catches an oversized rule before CI does",
@@ -64,3 +64,23 @@ JSON it emits (seen on #298 and #300).
    files in scope and the same caps. Make the observer test robust to
    FORCE_COLOR and NO_COLOR without weakening what it checks.
 2. **Fresh review**, repair, closeout.
+
+## Decisions
+
+1. Review FCG-R1 (low) is accepted: the observer test's stderr check
+   accepts one extra trailing newline after the JSON record, as `json.loads`
+   does; extra text and any stdout still fail.
+2. After rebasing onto main with eic-no-ssn-child (#301), the two core v102
+   exceptions it added to the removed live guards
+   (`rule.eic-status-class.v3.json`, `rule.eic-early-stop.v3.json`, 7,000
+   bytes) move into the fast module's table with their reasons.
+
+## Track 1 result
+
+The size guards run in the fast lane from `tests/test_content_file_sizes.py`. That module checks the same 148 rule files at the same caps: 124 files at 5,000 bytes, `rule.eic-gate-result.v3.json` and `rule.eic-answer.no-unsupported-situations.v3.json` at 7,000 bytes with the formatting reason that was written beside the old checks, and the 22 worksheet line files at 6,144 bytes with the same required name set. The five live modules no longer repeat the check. The before and after file-and-cap lists match. After the rebase onto main with #301 (Decision 2), the union is 158 files: 132 at 5,000 bytes, four at 7,000 (the two above and `rule.eic-status-class.v3.json` and `rule.eic-early-stop.v3.json`), and 22 at 6,144; the fast module matches it. Evidence: `docs/phases/engine-breadth/milestones/fast-content-guards-evidence/track1.md`.
+
+Growing `rule.ctc-worksheet-a.line-4.json` from 735 bytes to 5,002 bytes made `pytest -m "not live" tests/test_content_file_sizes.py` fail (`5002 <= 5000`). The original 735 bytes were restored. The module is collected under `-m "not live"` and deselected under `-m live`.
+
+`test_node_observer_emits_safe_manifest_stage_without_starting_chrome` drops `FORCE_COLOR` and `NO_COLOR` in the child environment. Stdout must still be empty, and stderr must still be exactly the manifest failure record. The test passed with either variable set and with both.
+
+Checks: fast lane 1953 passed, 8 skipped, 5973 subtests passed in 17.42s. The six edited live modules: 139 passed, 195 subtests passed in 69.03s. mypy reported no issues in the 7 touched test files. `envelope_scan.py --range github/main..HEAD` exited 0.

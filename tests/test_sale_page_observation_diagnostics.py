@@ -131,6 +131,13 @@ def test_owned_chrome_tmpdir_ignores_long_inherited_tmpdir_and_cleans_up(
 
 
 def test_node_observer_emits_safe_manifest_stage_without_starting_chrome() -> None:
+    # Node writes a warning on stderr when FORCE_COLOR and NO_COLOR are both
+    # set, ahead of the one JSON failure record. The assertions below require
+    # that record to be the whole stderr, so the child does not inherit either
+    # variable. Clearing them leaves the record check unchanged.
+    env = os.environ.copy()
+    env.pop("FORCE_COLOR", None)
+    env.pop("NO_COLOR", None)
     result = subprocess.run(
         [
             "node",
@@ -142,6 +149,7 @@ def test_node_observer_emits_safe_manifest_stage_without_starting_chrome() -> No
         text=True,
         timeout=10,
         check=False,
+        env=env,
     )
 
     assert result.returncode == 2

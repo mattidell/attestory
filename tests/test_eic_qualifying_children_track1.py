@@ -347,26 +347,6 @@ class PackageChain(unittest.TestCase):
             hashlib.sha256(RELEASE_V52.read_bytes()).hexdigest(),
         )
 
-    def test_rule_files_stay_under_5kb(self) -> None:
-        names = [
-            path.name
-            for path in CONTENT.glob("rule.eic-*.json")
-        ]
-        over_5kb_formatting = (
-            "rule.eic-gate-result.v3.json",
-            "rule.eic-answer.no-unsupported-situations.v3.json",
-            "rule.eic-status-class.v3.json",
-            "rule.eic-early-stop.v3.json",
-        )
-        for name in names:
-            size = (CONTENT / name).stat().st_size
-            # Core v99 writes the gate result v3 and the no-unsupported-situations answer v3 with indent=2; v2 of each was
-            # hand-compacted (the gate result v2 re-dumped the same way is 5,944 bytes). The growth is mostly formatting.
-            # Core v102 status class v3 adds the qualifying-child-present condition for head of household
-            # (eic-no-ssn-child); that is content, 2,730 to 3,263 bytes compacted. Early stop v3 is written with
-            # indent=2 (v2 was hand-compacted; v2 re-dumped that way is 6,031 bytes) and adds the same condition.
-            self.assertLessEqual(size, 7000 if name in over_5kb_formatting else 5000, name)
-
 
 class QualifyingChildrenCreditTests(unittest.TestCase):
     def test_children_phase_in_plateau_phase_out(self) -> None:

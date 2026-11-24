@@ -548,13 +548,3 @@ class TaxOnTaxableIncomeTrack1Tests(unittest.TestCase):
                 for producer in producers.get(symbol, []):
                     if producer in members:
                         stack.append(producer)
-
-    def test_worksheet_rules_stay_within_the_size_target(self) -> None:
-        limit = 6 * 1024
-        paths = sorted(CONTENT.glob("rule.qdcg-worksheet.*.json"))
-        self.assertEqual(
-            {path.name for path in paths},
-            {f"rule.qdcg-worksheet.line-{number}.json" for number in _WORKSHEET_LINES},
-        )
-        for path in paths:
-            self.assertLessEqual(path.stat().st_size, limit, path.name)

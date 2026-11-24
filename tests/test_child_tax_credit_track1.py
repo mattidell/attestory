@@ -317,10 +317,6 @@ class PackageChain(unittest.TestCase):
         self.assertEqual(release_v52["package_registry_sha256"],
                          hashlib.sha256(REGISTRY_V52.read_bytes()).hexdigest())
 
-    def test_rule_files_stay_under_5kb(self) -> None:
-        for path in sorted(CONTENT.glob("rule.ctc-*.json")):
-            self.assertLessEqual(path.stat().st_size, 5000, path.name)
-
     def test_static_required_versus_read_passes_on_v55(self) -> None:
         completed = subprocess.run(
             [sys.executable, str(ROOT / "tools/required_versus_read.py"), "static"],
