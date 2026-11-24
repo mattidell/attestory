@@ -697,15 +697,111 @@ def _format_js_number(value: Any) -> str | None:
     return format(value, ".15g")
 
 
-def _expected_reason_text(reason: dict[str, Any]) -> str:
-    label = _safe_dict(reason.get("statementLabel"))
-    name = ", ".join(
-        str(label[key])
-        for key in ("statement", "lender")
-        if isinstance(label.get(key), str) and label.get(key)
-    )
+_QUESTION_GROUP_LINK_TEXT = "See the question and affected lines above"
+
+
+def _js_array_index(value: Any) -> int | None:
+    """Match ``Number.isInteger`` for a reason index. Booleans are not indices."""
+    if isinstance(value, bool):
+        return None
+    if isinstance(value, int):
+        return value if value >= 0 else None
+    if isinstance(value, float) and value.is_integer():
+        index = int(value)
+        if index >= 0 and float(index) == value:
+            return index
+    return None
+
+
+def _labeled_reason_text(reason: dict[str, Any]) -> str:
+    """Bold prefix plus sentence, as ``renderLine`` shows a reason with no question group."""
+    member = reason.get("memberLabel")
+    if isinstance(member, str) and member:
+        name = member
+    else:
+        label = reason.get("statementLabel")
+        parts: list[str] = []
+        if isinstance(label, dict):
+            for key in ("statement", "lender"):
+                part = label.get(key)
+                if isinstance(part, str) and part:
+                    parts.append(part)
+        name = ", ".join(parts)
     sentence = str(reason.get("sentence") or "")
     return f"{name}: {sentence}" if name else sentence
+
+
+def _question_group_link_by_reason(
+    model: dict[str, Any],
+    resolved: dict[str, Any],
+    reasons: list[Any],
+) -> dict[int, str] | None:
+    """Link text per reason index, following ``questionGroupRefsForReasons``.
+
+    ``{}`` means the page renders sentences. ``None`` means that helper
+    throws, so this section does not render reason text. Callers then keep
+    the labeled sentence, and an empty DOM reason list still disagrees.
+    """
+    if model.get("schema") != "presentation-model.v3":
+        return {}
+    if "questionRefs" not in resolved:
+        return {}
+    refs = resolved.get("questionRefs")
+    if resolved.get("disposition") != "blocked" or not isinstance(refs, list):
+        return None
+    raw_groups = model.get("questionGroups")
+    if raw_groups is None:
+        raw_groups = []
+    if not isinstance(raw_groups, list):
+        return None
+    groups_by_id: dict[Any, dict[str, Any]] = {}
+    for group in raw_groups:
+        if not isinstance(group, dict) or "id" not in group:
+            return None
+        groups_by_id[group.get("id")] = group
+    counts: dict[int, int] = {}
+    for ref in refs:
+        if not isinstance(ref, dict):
+            return None
+        group = groups_by_id.get(ref.get("groupId"))
+        indices = ref.get("reasonIndices")
+        scopes = ref.get("scopes")
+        if (
+            not isinstance(group, dict)
+            or not isinstance(indices, list)
+            or not isinstance(scopes, list)
+            or len(scopes) == 0
+        ):
+            return None
+        question = group.get("question")
+        for raw_index in indices:
+            index = _js_array_index(raw_index)
+            if index is None or index >= len(reasons):
+                return None
+            reason = reasons[index]
+            if not isinstance(reason, dict) or reason.get("sentence") != question:
+                return None
+            counts[index] = counts.get(index, 0) + 1
+    return {
+        index: "; ".join((_QUESTION_GROUP_LINK_TEXT,) * count)
+        for index, count in counts.items()
+    }
+
+
+def _expected_blocked_reason_texts(model: dict[str, Any], resolved: dict[str, Any]) -> list[str]:
+    raw_reasons = resolved.get("reasons", [])
+    links = (
+        _question_group_link_by_reason(model, resolved, raw_reasons)
+        if isinstance(raw_reasons, list)
+        else {}
+    )
+    texts: list[str] = []
+    for index, reason in enumerate(raw_reasons):
+        if not isinstance(reason, dict):
+            continue
+        linked = links.get(index) if isinstance(links, dict) else None
+        texts.append(linked if linked is not None else _labeled_reason_text(reason))
+    return texts
 
 
 _LINE_BADGE_LABELS: dict[str, str] = {
@@ -785,11 +881,7 @@ def _compare_model_and_dom(model: dict[str, Any], dom: dict[str, Any]) -> tuple[
         instruction_key = "published_value" if disposition == "published_categorical" else disposition
         instruction = _safe_dict(_safe_dict(field.get("dispositions")).get(instruction_key))
         expected_explain = str(instruction.get("explain") or "")
-        expected_reasons = [
-            _expected_reason_text(reason)
-            for reason in resolved.get("reasons", [])
-            if isinstance(reason, dict)
-        ]
+        expected_reasons = _expected_blocked_reason_texts(model, resolved)
         if disposition == "blocked" and expected_reasons:
             observed_reasons = [str(text) for text in row.get("blocked_reasons", [])]
             explain_matches = expected_reasons == observed_reasons
@@ -1101,11 +1193,7 @@ def _render_report(
             for section, dom_row in blocked_rows:
                 field = _safe_dict(section.get("field"))
                 resolved = _safe_dict(section.get("resolved"))
-                reason_texts = [
-                    _expected_reason_text(reason)
-                    for reason in resolved.get("reasons", [])
-                    if isinstance(reason, dict)
-                ]
+                reason_texts = _expected_blocked_reason_texts(model, resolved)
                 visible_reasons = (dom_row or {}).get("blocked_reasons", [])
                 if reason_texts:
                     reason_summary = "; ".join(f"“{text}”" for text in reason_texts)
