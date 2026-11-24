@@ -94,6 +94,7 @@ def test_actual_saved_graph_browser_reuse_and_contained_refusal() -> None:
     const audit = item && item.querySelector("details.audit-ids");
     const sourceReached = Boolean(
       caption && caption.textContent.includes("Recorded input: 30000") &&
+      !caption.textContent.includes("demo.cgd.t2.finding.wages") &&
       audit && audit.textContent.includes("demo.cgd.t2.finding.wages")
     );
     const bounded = unit.querySelectorAll("[data-explanation-node]").length <= (path || []).length + 1;

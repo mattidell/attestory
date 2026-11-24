@@ -102,6 +102,28 @@ function walkElements(root, fn) {
   }
 }
 
+const BADGE_ENUM_TEXT = new Set([
+  "published_value",
+  "computed_zero",
+  "closure_backed_zero",
+  "published_categorical",
+  "guard_inapplicable",
+  "blocked",
+  "published",
+  "inapplicable",
+  "published value",
+  "computed zero",
+  "closure backed zero",
+  "published categorical",
+  "guard inapplicable",
+]);
+
+function accessibleName(node) {
+  if (!(node instanceof FakeElement)) return [];
+  const label = node.attributes["aria-label"];
+  return label ? [label] : [];
+}
+
 function collectVisibleText(node, opts = {}) {
   const { expandTrace = false } = opts;
   if (node instanceof FakeText) return [node.textContent];
@@ -112,17 +134,18 @@ function collectVisibleText(node, opts = {}) {
       node.classList.contains("technical-details") ||
       node.classList.contains("audit-ids");
     const isTrace = node.classList.contains("shared-explanation");
+    const own = accessibleName(node);
     if (isCollapsedAudit && !node.open) {
-      // Only summary is visible when collapsed.
+      // Only summary is visible when collapsed. Its accessible name is judged.
       const sum = node.children.find((c) => c instanceof FakeElement && c.tagName === "SUMMARY");
-      return sum ? collectVisibleText(sum, opts) : [];
+      return [...own, ...(sum ? collectVisibleText(sum, opts) : [])];
     }
     if (!node.open && !(expandTrace && isTrace)) {
       const sum = node.children.find((c) => c instanceof FakeElement && c.tagName === "SUMMARY");
-      return sum ? collectVisibleText(sum, opts) : [];
+      return [...own, ...(sum ? collectVisibleText(sum, opts) : [])];
     }
   }
-  const out = [];
+  const out = [...accessibleName(node)];
   for (const child of node.children) {
     out.push(...collectVisibleText(child, opts));
   }
@@ -149,7 +172,7 @@ function extractScript(html) {
 const LEAK_RULES = [
   { name: "raw_enum_underscore", re: /\b(?:published_value|computed_zero|closure_backed_zero|published_categorical|guard_inapplicable)\b/ },
   { name: "raw_enum_spaced", re: /\b(?:published value|computed zero|closure backed zero|published categorical|guard inapplicable)\b/i },
-  { name: "raw_blocked_code", re: /\b(?:DEPENDENCY_ABSENT|DEPENDENCY_INVALID|SOURCE_SET_UNCLOSED|ITEMIZATION_TIE_OUT_VIOLATION|COMPLETENESS_VALUE_VIOLATION)\b/ },
+  { name: "raw_blocked_code", re: /\b(?:DEPENDENCY_ABSENT|DEPENDENCY_INVALID|SOURCE_SET_UNCLOSED|ITEMIZATION_TIE_OUT_VIOLATION|COMPLETENESS_VALUE_VIOLATION|CATEGORICAL_DOMAIN_MISMATCH|F1098_SCOPE_CONTRADICTION|SLI_MFS_INELIGIBLE|SLI_SCHEDULE1_PART_II_OUT_OF_SCOPE|SLI_UNIVERSAL_COMPONENT_VIOLATION|ACCRUED_EXCEEDS_ASSOCIATED_REPORT|AGGREGATE_ACCRUED_EXCEEDS_REPORT|NOMINEE_ALLOCATIONS_EXCEED_REPORT|SUPPORTABILITY_NOT_ESTABLISHED|EXCLUSIVE_PRESENCE_CONFLICT)\b/ },
   { name: "raw_tax_id", re: /\btax\.us\.\d{4}\.[A-Za-z0-9._-]+/ },
   { name: "raw_demo_id", re: /\bdemo\.[A-Za-z0-9._-]+/ },
   { name: "raw_pin_version", re: /[A-Za-z0-9._-]+@v\d+\b/ },
@@ -203,7 +226,7 @@ function findLeaks(texts, badgeTexts, contentSupplied) {
   }
   for (const b of badgeTexts) {
     const t = b.replace(/\s+/g, " ").trim().toLowerCase();
-    if (t === "blocked" || t === "published") {
+    if (BADGE_ENUM_TEXT.has(t)) {
       leaks.push({ kind: "raw_badge_enum", match: t, snippet: b.slice(0, 80) });
     }
   }
@@ -279,6 +302,7 @@ function renderAndCheck(pageHtml, modelObj) {
   const contentSupplied = collectContentSupplied(modelObj);
 
   // 1. Initial first-read visible text (collapsed <details> only show summary)
+  //    plus aria-label on those same visible nodes.
   const initialTexts = [...extractShellText(pageHtml), ...collectVisibleText(mainEl, { expandTrace: false })];
   const initialFound = findLeaks(initialTexts, badgeTexts, contentSupplied);
   const initialLeaks = initialFound.leaks;
@@ -338,7 +362,11 @@ function renderAndCheck(pageHtml, modelObj) {
   const panelLeaks = panelFound.leaks;
   contentMatches.push(...panelFound.contentMatches);
 
-  return {
+  const reasonCodes = [];
+  walkElements(mainEl, (el) => {
+    if (el.attributes["data-reason-code"]) reasonCodes.push(el.attributes["data-reason-code"]);
+  });
+  const result = {
     section_errors: sectionErrors,
     initial_leak_count: initialLeaks.length,
     trace_leak_count: traceLeaks.length,
@@ -347,7 +375,14 @@ function renderAndCheck(pageHtml, modelObj) {
     content_supplied_matches: contentMatches.length,
     sample_leaks: [...initialLeaks, ...traceLeaks, ...panelLeaks].slice(0, 10),
     sample_content_matches: contentMatches.slice(0, 5),
+    badge_texts: badgeTexts,
+    reason_codes: reasonCodes,
   };
+  if (process.env.PPW_CHECK_DETAIL === "1") {
+    const firstRead = [...initialTexts, ...traceTexts, ...panelTexts].join("\n");
+    result.first_read_text = firstRead.length > 20000 ? firstRead.slice(0, 20000) : firstRead;
+  }
+  return result;
 }
 
 // CLI mode: node check_page_dom.mjs <page-html-path> < ndjson-of-{key,model}
