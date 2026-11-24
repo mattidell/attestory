@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "eic-separated-married",
-  "status": "Open 2026-11-23. P0 stopped on a new question; P0b next.",
+  "status": "Open 2026-11-23. P0b done; Track 1 next.",
   "retrospective": null,
   "scope": [
     "the earned income credit asks the separated-spouse question (Step 3 questions 4 and 5 of the 2025 Form 1040 instructions) only of a married filer whose status is head of household or married filing separately, as the instructions do",
@@ -43,8 +43,8 @@
 Milestone key: eic-separated-married.
 Branch: milestone/eic-separated-married-2025.
 Phase: Engine Breadth, bounded return. Opening plan: 2026-11-23.
-Starting point: the eic-no-ssn-child branch (core v102, registry v100,
-release v100; PR #301), stacked; rebased onto main once #301 merges.
+Starting point: stacked on the eic-no-ssn-child branch (#301); rebased onto
+main at `974cb1a1` (core v102, registry v100, release v100) after it merged.
 Expected target: core v103, registry v101, release v101 if content can do
 it; otherwise a P0 decision for the foreman.
 
@@ -122,6 +122,28 @@ them and keeps the table credit. No engine change and no new ADR.
    newly block, and stops for a foreman decision.
 3. P0b reports each new or successor rule file's size against the
    5,000-byte cap, and runs the live size tests.
+
+4. Publish the P0b design (new fact `eic.married-taxpayer` and its input
+   question from Step 3 question 3, `rule.eic-married-taxpayer-recorded`,
+   `rule.eic-answer.married-taxpayer`, separated-spouse v3) as core v103,
+   registry v101, release v101, with one change: a recorded separated-spouse
+   "no" from a head of household with a qualifying child does not decide
+   the credit on its own. That filer is asked the new question; "no" (not
+   married) gives the credit the sources give, "yes" keeps $0. A recorded
+   separated-spouse "yes" still passes without the new answer. No recorded
+   list carries a separated-spouse answer, so nothing in the corpus newly
+   blocks; a saved return with a recorded "no" newly asks one question.
+5. The inert path keyed on a fact nothing asks
+   (`eic.married-taxpayer-inert`) is removed if the rule language allows
+   the design without it; if it does not, Track 1 says exactly which
+   validation requires it, and the fact type is never offered as a
+   question.
+6. The question's wording is checked against Step 3 question 3 and
+   Publication 596 Rule 3; it is shortened where it repeats the
+   separated-spouse question that follows.
+7. Track 1 runs `pytest -m "not live" tests/test_content_file_sizes.py`
+   (the size guards now run in the fast lane, #303) and, until #303 merges,
+   the two live size tests.
 
 ## P0b result
 
