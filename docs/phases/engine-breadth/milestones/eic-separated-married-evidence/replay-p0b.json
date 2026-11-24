@@ -1,0 +1,35 @@
+{
+  "lists": 775,
+  "cores": ["v102", "v103"],
+  "filing_status": {"single": 775},
+  "separated_spouse_fact": 0,
+  "classes_after_declared_expectations": {
+    "expected_changes": 691,
+    "identical": 84,
+    "unexpected": 0
+  },
+  "outcomes": {
+    "success/success": 691,
+    "error/error": 84
+  },
+  "newly_blocked": [],
+  "number_changes": 0,
+  "identical_errors": {
+    "count": 84,
+    "same_snapshot": 84,
+    "kind": "both cores error and the snapshots match; the successor does not add these errors"
+  },
+  "local_blocked_nodes": {
+    "count": 370,
+    "kind": "the two new rules block with DEPENDENCY_ABSENT because eic.questions-required is absent; the answer rule then misses eic.married-taxpayer-recorded. The separated-spouse disposition stays the block it already had. Its missing list also names eic.answer.married-taxpayer. The return outcome stays success.",
+    "filer": "single, no separated-spouse answer"
+  },
+  "published_new_rules": {
+    "count": 321,
+    "kind": "321 lists do not add a blocked disposition node. 319 of them match only the package pin, the two new rows, and disposition order. The other two also pin rule.eic-answer.separated-spouse from v2 to v3 in the explanation graph. One examined list, a single filer, publishes both new rules. No number on that list changes."
+  },
+  "rule_pin_v2_to_v3": {
+    "count": 2,
+    "kind": "explanation graph pins rule.eic-answer.separated-spouse from v2 to v3"
+  }
+}

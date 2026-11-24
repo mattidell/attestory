@@ -88,5 +88,60 @@ def decide(key: str) -> dict:
     }
 
 
+def expect(key: str) -> dict:
+    """What the P0b successor should do, and the credit the instructions give.
+
+    The 21 P0 keys still carry a separated-spouse answer and no new answer.
+    A recorded no publishes 0. A recorded yes publishes 1. The new question
+    is not read. ``q3-no`` answers the new question no and records no
+    separated-spouse answer. ``q3-yes`` answers yes and leaves questions 4
+    and 5 unanswered, so the run blocks. ``q3-yes-no`` answers yes and then
+    separated-spouse no.
+    """
+    if key.startswith("q3-"):
+        kind, kids = key.split("/")
+        column = 1 if kids == "ssn" else 0
+        table = lookup(column)
+        base = {
+            "wages": WAGES,
+            "column": column,
+            "table_key": "other-" + str(column),
+            "qualifying_child": True,
+            "ask_not_married": False,
+            "instruction": table,
+        }
+        if kind == "q3-no":
+            return {**base, "credit": table, "ask_separated": False, "ask_married": True, "blocked": False,
+                    "path": "unmarried head of household; Step 3 question 3 is no, so questions 4 and 5 are skipped"}
+        if kind == "q3-yes":
+            return {**base, "credit": None, "ask_separated": False, "ask_married": True, "blocked": True,
+                    "instruction": None,
+                    "path": "married head of household; questions 4 and 5 are required and unanswered"}
+        if kind == "q3-yes-no":
+            return {**base, "credit": 0, "ask_separated": True, "ask_married": False, "blocked": False,
+                    "instruction": 0,
+                    "path": "married head of household; a recorded separated-spouse no stops the credit"}
+        raise KeyError(key)
+    source = decide(key)
+    status, kids, *rest = key.split("/")
+    sep = rest[0] if rest else None
+    qualifying = kids in ("ssn", "nossn")
+    credit = source["credit"]
+    path = source["path"]
+    if status == "hoh-unmarried" and qualifying and sep == "no":
+        credit = 0
+        path = "a recorded separated-spouse no still publishes 0; the new question is not read"
+    return {
+        "credit": credit,
+        "instruction": source["credit"],
+        "path": path,
+        "wages": WAGES,
+        "ask_separated": qualifying,
+        "ask_married": False,
+        "ask_not_married": source["ask_not_married"],
+        "blocked": False,
+    }
+
+
 if __name__ == "__main__":
     print(json.dumps({"other-0": lookup(0), "other-1": lookup(1)}, indent=2))

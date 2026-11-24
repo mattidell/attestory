@@ -1,0 +1,33 @@
+{
+  "from": {
+    "core": "v102",
+    "registry": "v100",
+    "release": "v100"
+  },
+  "to": {
+    "core": "v103",
+    "registry": "v101",
+    "release": "v101"
+  },
+  "sizes": {
+    "rule.eic-married-taxpayer-recorded.v1.json": 4923,
+    "rule.eic-answer.married-taxpayer.v1.json": 2386,
+    "rule.eic-answer.separated-spouse.v3.json": 4305
+  },
+  "cap": 5000,
+  "over_cap": [],
+  "written_sha256": {
+    "eic-married-taxpayer.bundle.json": "30306857cbfc1f2d097428b41164dbde5ba5a0663596a0b4a46ee8647ce5d42b",
+    "input-question.eic-married-taxpayer.v1.json": "64257ad5cffec75d429fa458abcd8fa87c0383266e7a9fa375d190a049d4194f",
+    "rule.eic-married-taxpayer-recorded.v1.json": "eb56855dd7e586c4abba97556498cb880c9261b56335161e6b5545d112ea2c63",
+    "rule.eic-answer.married-taxpayer.v1.json": "05e44a99251134a4ba2c82f768b6a1b63d67f4615b152dc0075376f6a2c3b736",
+    "rule.eic-answer.separated-spouse.v3.json": "7255f1cffc162118e5f0bba500d89cfb354ca0cd752e8929690deef51ffcc045"
+  },
+  "replaced_rule_pinned_by": [],
+  "status": "valid",
+  "validation": "generate_to_directory passed package, registry and release validation",
+  "generation": {
+    "registry_sha256": "e1173aa39f698637846838a77b0ee71c2136ec2852a3fe50dec820158761ea99",
+    "publication_boundary": "Candidate only: successor companion declaration and live release evidence are separate duties under ADR-0082."
+  }
+}

@@ -122,3 +122,32 @@ them and keeps the table credit. No engine change and no new ADR.
    newly block, and stops for a foreman decision.
 3. P0b reports each new or successor rule file's size against the
    5,000-byte cap, and runs the live size tests.
+
+## P0b result
+
+Evidence: `docs/phases/engine-breadth/milestones/eic-separated-married-evidence/p0b.md`.
+
+The new fact is `tax.us.2025.eic.married-taxpayer`. It is Step 3 question 3,
+asked only of a head of household with a qualifying child when no
+separated-spouse answer is already recorded. A recorded separated-spouse yes
+still passes: one `exclusive_presence` path is active when that answer is
+present and does not read the new fact. An inert second path is never
+recorded. The default asks the new question only in that head-of-household
+population; married filing separately never reads the new fact.
+
+Twenty-seven synthetic demo.* returns on the scratch successor match the
+hand credit and the asked flags. An unmarried no keeps 2,389 or 537 and is
+not asked questions 4 and 5. A married yes with those questions unanswered
+blocks on the separated-spouse fact. A recorded yes with no new answer keeps
+the table credit.
+
+The 775 recorded lists are all filing status single, and none carries a
+separated-spouse answer. None changes outcome and none changes a number.
+Eighty-four error on both cores with the same snapshot. Three hundred seventy
+add a blocked disposition on the two new rules because
+`eic.questions-required` is absent; the separated-spouse disposition was
+already blocked on that fact and stays blocked. That is not a newly blocked
+return.
+
+Rule files are 4,923, 2,386, and 4,305 bytes, all under the 5,000-byte cap.
+The live 5kb tests passed. No engine change and no ADR.
