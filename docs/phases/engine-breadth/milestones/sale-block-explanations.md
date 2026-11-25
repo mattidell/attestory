@@ -3,8 +3,8 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "sale-block-explanations",
-  "status": "Open 2026-11-24. ADR 0088 accepted; Track 1 next.",
-  "retrospective": null,
+  "status": "Closed 2026-11-24. Core v106, registry v104, release v104; ADR 0088 accepted.",
+  "retrospective": "docs/milestone-retrospectives/2026-11-24-sale-block-explanations.md",
   "scope": [
     "when a sale family's member-validation check blocks a line (holding-period mismatch, wash-sale floor, code W on a gain or break-even), the saved page shows a plain sentence for the reason and, where the filer can fix it, links the question that fixes it",
     "every recorded return keeps its numbers, and no saved sale record is unpinned"
@@ -30,7 +30,7 @@
       "docs/phases/engine-breadth/milestones/sale-block-explanations.md"
     ],
     "new_milestone": [
-      "docs/phases/engine-breadth/milestones/sale-block-explanations.md",
+      "docs/milestone-retrospectives/2026-11-24-sale-block-explanations.md",
       "docs/phases/engine-breadth/engine-breadth-roadmap.md#Parked work and open questions"
     ]
   }
@@ -130,3 +130,18 @@ Completed on `milestone/sale-block-explanations-2025` (baseline core `v105`, reg
    packages stay valid, and add a regression test in `tests/` requiring every
    `member_constraints` declaration on the current published core (`v106+`) to
    have an adopted `family-block-explanation.v1` citizen.
+
+## Closeout
+
+Closed 2026-11-24. Core v106 (registry v104, release v104) implements accepted
+ADR 0088: publishes `family-block-explanation.v1` and `artifact-package.v44`,
+wires package validation, authorization closure, and `presentation-model.v3`
+projection lookup with transaction-scoped disambiguation, and adopts 30
+IRS-grounded plain explanations plus 6 missing `*.adjustment` input questions.
+No `source-family` version, `packages/kernel/`, or `citation-walk.v1.html`
+changed. Full `pytest` (7,713 passed), `mypy`, content size guard, schema
+registry, and 775-list full-surface replay (`775/775` passing, 0 arithmetic,
+disposition, or code changes) passed, and independent review returned `READY`
+with no findings. `BASIS_NOT_REPORTED_ON_COVERED` keeps its existing
+translation and `IDENTITY_EXCLUSIVITY_COLLISION` remains parked outside
+`family-block-explanation.v1`.

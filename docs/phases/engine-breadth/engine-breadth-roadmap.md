@@ -1209,6 +1209,22 @@ attach a question without editing pinned sale meaning text or blocking a
 valid wash-sale loss; the route is a projection link that needs an owner
 ADR. Parked. No package change.
 
+## Bounded return — A Blocked Sale Says Why in Plain Words and Asks What Fixes It (2025)
+
+[Plan](milestones/sale-block-explanations.md); retrospective:
+`docs/milestone-retrospectives/2026-11-24-sale-block-explanations.md`.
+ADR 0088 accepted.
+
+Core v106 (registry v104, release v104) publishes `family-block-explanation.v1`
+and `artifact-package.v44` so all 30 sale-family member-validation blocks across
+8 families show IRS-grounded plain sentences on `presentation-model.v3` without
+unpinning any `source-family` record. The 16 wash-sale blocks (`CODE_W_ON_GAIN`,
+`ADJUSTMENT_EXCEEDS_LOSS`) link a transaction-scoped `*.adjustment` input
+question (leaving valid wash-sale losses untouched), and 6 newly adopted
+`*.adjustment` input questions also restore missing-row questions on
+`DEPENDENCY_ABSENT`. All 775 recorded lists replay with zero arithmetic,
+disposition, or block-code changes; earlier cores stay unchanged.
+
 ## Saved-page observation — Mortgage and Sales (2025)
 
 [Plan](milestones/sale-page-observation.md); retrospective:
@@ -1306,12 +1322,6 @@ delivers an item removes it.
 - The covered-flag refusal code sits in `missing` as
   `BASIS_NOT_REPORTED_ON_COVERED`; a derivation-record successor would put
   it on the row.
-- A blocked code W gain (box 1g on a gain or break-even row) asks the
-  filer no question; the page shows only the reason (gain-break-even).
-  Content cannot attach one without blocking valid wash losses; the route
-  is a projection link from the family block codes to the box 1g question
-  at `presentation_projection.py:849`, which needs an owner ADR
-  (code-w-gain-question, closed on P0).
 - Additional seller-paid shipping under platform pass-through.
 - A v1 Form 1099-K workspace re-answers its completeness question under the
   successor package; recovery for a log with two current family versions; a
@@ -1355,16 +1365,7 @@ delivers an item removes it.
   page can only say a rule could not use the saved information; keeping
   the specific code on the row is a derivation change (page-plain-words
   Decision 9).
-- Three sale blocked reasons are not plain: "The holding period does
-  not match this short-term or long-term family.", the wash-sale reason
-  naming `floor_zero(basis - proceeds)` and its block code, and the
-  covered-W "code W on a gain" reason. They are the `meaning` text on
-  sale source-family checks, which saved sale records pin by version and
-  which a run copies into a published value, so a content successor
-  breaks every sale workspace (sale-reasons-plain, closed on P0). The
-  route that keeps every number is a projection change with a schema
-  home for the page sentence (an ADR for the owner), after
-  blocked-sale-pages. Drafts: `sale-reasons-plain-evidence/wording.json`.
+- Cross-family sale collisions (`IDENTITY_EXCLUSIVITY_COLLISION`) have no `member_constraints` declaration and still block with empty `reasons: []` (left outside `family-block-explanation.v1` in `sale-block-explanations`, ADR 0088).
 - Undrawn rule descriptions and notes still carry engine terms; plain
   wording covers only text a page draws (plain-line-texts).
 - Two answers the record proves are still asked: line 2a Form 1099-INT
