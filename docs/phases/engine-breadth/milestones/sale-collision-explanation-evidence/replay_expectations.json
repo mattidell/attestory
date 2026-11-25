@@ -1,0 +1,335 @@
+[
+  {
+    "kind": [
+      "page"
+    ],
+    "attribute": "sentence",
+    "identity": "resolved\\.reasons",
+    "change": "added",
+    "before": null,
+    "after": "The same sale was entered as both a long-term Form 1099-B sale with corrected basis (code B) and a long-term covered Form 1099-B sale (no adjustment); keep this sale in only one category and remove the duplicate entry.",
+    "note": "plain collision explanation pair 1"
+  },
+  {
+    "kind": [
+      "page"
+    ],
+    "attribute": "sentence",
+    "identity": "resolved\\.reasons",
+    "change": "added",
+    "before": null,
+    "after": "The same sale was entered as both a long-term Form 1099-B sale with corrected basis (code B) and a long-term covered Form 1099-B wash sale (code W); keep this sale in only one category and remove the duplicate entry.",
+    "note": "plain collision explanation pair 2"
+  },
+  {
+    "kind": [
+      "page"
+    ],
+    "attribute": "sentence",
+    "identity": "resolved\\.reasons",
+    "change": "added",
+    "before": null,
+    "after": "The same sale was entered as both a long-term Form 1099-B sale with corrected basis (code B) and a long-term noncovered Form 1099-B sale (basis not reported to the IRS); keep this sale in only one category and remove the duplicate entry.",
+    "note": "plain collision explanation pair 3"
+  },
+  {
+    "kind": [
+      "page"
+    ],
+    "attribute": "sentence",
+    "identity": "resolved\\.reasons",
+    "change": "added",
+    "before": null,
+    "after": "The same sale was entered as both a long-term Form 1099-B sale with corrected basis (code B) and a short-term covered Form 1099-B sale (no adjustment); keep this sale in only one category and remove the duplicate entry.",
+    "note": "plain collision explanation pair 4"
+  },
+  {
+    "kind": [
+      "page"
+    ],
+    "attribute": "sentence",
+    "identity": "resolved\\.reasons",
+    "change": "added",
+    "before": null,
+    "after": "The same sale was entered as both a long-term Form 1099-B sale with corrected basis (code B) and a short-term covered Form 1099-B wash sale (code W); keep this sale in only one category and remove the duplicate entry.",
+    "note": "plain collision explanation pair 5"
+  },
+  {
+    "kind": [
+      "page"
+    ],
+    "attribute": "sentence",
+    "identity": "resolved\\.reasons",
+    "change": "added",
+    "before": null,
+    "after": "The same sale was entered as both a long-term Form 1099-B sale with corrected basis (code B) and a short-term noncovered Form 1099-B sale (basis not reported to the IRS); keep this sale in only one category and remove the duplicate entry.",
+    "note": "plain collision explanation pair 6"
+  },
+  {
+    "kind": [
+      "page"
+    ],
+    "attribute": "sentence",
+    "identity": "resolved\\.reasons",
+    "change": "added",
+    "before": null,
+    "after": "The same sale was entered as both a long-term covered Form 1099-B sale (no adjustment) and a long-term covered Form 1099-B wash sale (code W); keep this sale in only one category and remove the duplicate entry.",
+    "note": "plain collision explanation pair 7"
+  },
+  {
+    "kind": [
+      "page"
+    ],
+    "attribute": "sentence",
+    "identity": "resolved\\.reasons",
+    "change": "added",
+    "before": null,
+    "after": "The same sale was entered as both a long-term covered Form 1099-B sale (no adjustment) and a long-term noncovered Form 1099-B sale (basis not reported to the IRS); keep this sale in only one category and remove the duplicate entry.",
+    "note": "plain collision explanation pair 8"
+  },
+  {
+    "kind": [
+      "page"
+    ],
+    "attribute": "sentence",
+    "identity": "resolved\\.reasons",
+    "change": "added",
+    "before": null,
+    "after": "The same sale was entered as both a long-term covered Form 1099-B sale (no adjustment) and a short-term Form 1099-B sale with corrected basis (code B); keep this sale in only one category and remove the duplicate entry.",
+    "note": "plain collision explanation pair 9"
+  },
+  {
+    "kind": [
+      "page"
+    ],
+    "attribute": "sentence",
+    "identity": "resolved\\.reasons",
+    "change": "added",
+    "before": null,
+    "after": "The same sale was entered as both a long-term covered Form 1099-B wash sale (code W) and a long-term noncovered Form 1099-B sale (basis not reported to the IRS); keep this sale in only one category and remove the duplicate entry.",
+    "note": "plain collision explanation pair 10"
+  },
+  {
+    "kind": [
+      "page"
+    ],
+    "attribute": "sentence",
+    "identity": "resolved\\.reasons",
+    "change": "added",
+    "before": null,
+    "after": "The same sale was entered as both a long-term covered Form 1099-B wash sale (code W) and a short-term Form 1099-B sale with corrected basis (code B); keep this sale in only one category and remove the duplicate entry.",
+    "note": "plain collision explanation pair 11"
+  },
+  {
+    "kind": [
+      "page"
+    ],
+    "attribute": "sentence",
+    "identity": "resolved\\.reasons",
+    "change": "added",
+    "before": null,
+    "after": "The same sale was entered as both a long-term noncovered Form 1099-B sale (basis not reported to the IRS) and a short-term Form 1099-B sale with corrected basis (code B); keep this sale in only one category and remove the duplicate entry.",
+    "note": "plain collision explanation pair 12"
+  },
+  {
+    "kind": [
+      "page"
+    ],
+    "attribute": "sentence",
+    "identity": "resolved\\.reasons",
+    "change": "added",
+    "before": null,
+    "after": "The same sale was entered as both a short-term Form 1099-B sale with corrected basis (code B) and a short-term covered Form 1099-B sale (no adjustment); keep this sale in only one category and remove the duplicate entry.",
+    "note": "plain collision explanation pair 13"
+  },
+  {
+    "kind": [
+      "page"
+    ],
+    "attribute": "sentence",
+    "identity": "resolved\\.reasons",
+    "change": "added",
+    "before": null,
+    "after": "The same sale was entered as both a short-term Form 1099-B sale with corrected basis (code B) and a short-term covered Form 1099-B wash sale (code W); keep this sale in only one category and remove the duplicate entry.",
+    "note": "plain collision explanation pair 14"
+  },
+  {
+    "kind": [
+      "page"
+    ],
+    "attribute": "sentence",
+    "identity": "resolved\\.reasons",
+    "change": "added",
+    "before": null,
+    "after": "The same sale was entered as both a short-term Form 1099-B sale with corrected basis (code B) and a short-term noncovered Form 1099-B sale (basis not reported to the IRS); keep this sale in only one category and remove the duplicate entry.",
+    "note": "plain collision explanation pair 15"
+  },
+  {
+    "kind": [
+      "page"
+    ],
+    "attribute": "sentence",
+    "identity": "resolved\\.reasons",
+    "change": "added",
+    "before": null,
+    "after": "The same sale was entered as both a short-term covered Form 1099-B sale (no adjustment) and a short-term covered Form 1099-B wash sale (code W); keep this sale in only one category and remove the duplicate entry.",
+    "note": "plain collision explanation pair 16"
+  },
+  {
+    "kind": [
+      "page"
+    ],
+    "attribute": "sentence",
+    "identity": "resolved\\.reasons",
+    "change": "added",
+    "before": null,
+    "after": "The same sale was entered as both a short-term covered Form 1099-B sale (no adjustment) and a short-term noncovered Form 1099-B sale (basis not reported to the IRS); keep this sale in only one category and remove the duplicate entry.",
+    "note": "plain collision explanation pair 17"
+  },
+  {
+    "kind": [
+      "page"
+    ],
+    "attribute": "sentence",
+    "identity": "resolved\\.reasons",
+    "change": "added",
+    "before": null,
+    "after": "The same sale was entered as both a short-term covered Form 1099-B wash sale (code W) and a short-term noncovered Form 1099-B sale (basis not reported to the IRS); keep this sale in only one category and remove the duplicate entry.",
+    "note": "plain collision explanation pair 18"
+  },
+  {
+    "kind": [
+      "page"
+    ],
+    "attribute": "sentence",
+    "identity": "resolved\\.reasons",
+    "change": "added",
+    "before": null,
+    "after": "Were you born before January 2, 1961? A person reaches age 65 on the day before their 65th birthday, so a birthday of January 1, 1961 counts and January 2, 1961 does not. If this return is for someone who died in 2025 before reaching age 65, answer no.",
+    "note": "restored unanswered question sentence (taxpayer-over-65) once collision completes reach_mixed"
+  },
+  {
+    "kind": [
+      "page"
+    ],
+    "attribute": "sentence",
+    "identity": "resolved\\.reasons",
+    "change": "added",
+    "before": null,
+    "after": "Were you totally blind on December 31, 2025, or do you have a statement certified by your eye doctor (ophthalmologist or optometrist) that you can't see better than 20/200 in your better eye with glasses or contact lenses, or that your field of vision is 20 degrees or less? If your eye condition isn't likely to improve beyond the conditions listed above, you can get a statement certified by your eye doctor (ophthalmologist or optometrist) to this effect instead.",
+    "note": "restored unanswered question sentence (taxpayer-blind) once collision completes reach_mixed"
+  },
+  {
+    "kind": [
+      "page"
+    ],
+    "attribute": "sentence",
+    "identity": "resolved\\.reasons",
+    "change": "added",
+    "before": null,
+    "after": "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?",
+    "note": "restored unanswered question sentence (f1099b.statement-box7-loss-not-allowed) once collision completes reach_mixed"
+  },
+  {
+    "kind": [
+      "page"
+    ],
+    "attribute": "sentence",
+    "identity": "resolved\\.reasons",
+    "change": "added",
+    "before": null,
+    "after": "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from, except a statement you said shows no federal income tax withheld in box 4 or whose amount you already entered. If box 4 is blank, enter $0.",
+    "note": "restored unanswered question sentence (f1099b.statement-box4-withholding-reported) once collision completes reach_mixed"
+  },
+  {
+    "kind": [
+      "page"
+    ],
+    "attribute": "sentence",
+    "identity": "resolved\\.reasons",
+    "change": "added",
+    "before": null,
+    "after": "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale.",
+    "note": "restored unanswered question sentence (f1099b.no-sale-box4-present) once collision completes reach_mixed"
+  },
+  {
+    "kind": [
+      "page"
+    ],
+    "attribute": "resolved\\.reasons@order",
+    "identity": "^sections\\[",
+    "change": "added",
+    "before": null,
+    "note": "resolved.reasons populated on collision-blocked lines"
+  },
+  {
+    "kind": [
+      "page"
+    ],
+    "attribute": "resolved\\.questionRefs@order",
+    "identity": "^sections\\[",
+    "change": "added",
+    "before": null,
+    "note": "resolved.questionRefs list added on mixed collision lines"
+  },
+  {
+    "kind": [
+      "page"
+    ],
+    "attribute": "groupId",
+    "identity": "resolved\\.questionRefs",
+    "change": "added",
+    "before": null,
+    "note": "restored questionRef groupId on mixed collision lines"
+  },
+  {
+    "kind": [
+      "page"
+    ],
+    "attribute": "reasonIndices",
+    "identity": "resolved\\.questionRefs",
+    "change": "added",
+    "before": null,
+    "note": "restored questionRef reasonIndices on mixed collision lines"
+  },
+  {
+    "kind": [
+      "page"
+    ],
+    "attribute": "scopes@order",
+    "identity": "resolved\\.questionRefs",
+    "change": "added",
+    "before": null,
+    "note": "restored questionRef scopes@order on mixed collision lines"
+  },
+  {
+    "kind": [
+      "page"
+    ],
+    "attribute": "id",
+    "identity": "resolved\\.questionRefs",
+    "change": "added",
+    "before": null,
+    "note": "restored questionRef scope id on mixed collision lines"
+  },
+  {
+    "kind": [
+      "page"
+    ],
+    "attribute": "kind",
+    "identity": "resolved\\.questionRefs",
+    "change": "added",
+    "before": null,
+    "note": "restored questionRef scope kind on mixed collision lines"
+  },
+  {
+    "kind": [
+      "page"
+    ],
+    "attribute": "status",
+    "identity": "resolved\\.questionRefs",
+    "change": "added",
+    "before": null,
+    "note": "restored questionRef scope status on mixed collision lines"
+  }
+]

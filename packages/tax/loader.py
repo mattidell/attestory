@@ -139,6 +139,36 @@ COVERED_FLAG_REFUSAL_OBJECTS: dict[str, str] = {
     "tax.us.2025.f1099b.covered-w-lt-txn": "tax.us.2025.f1099b.covered-w-lt",
 }
 
+_IDENTITY_EXCLUSIVITY_EXPLANATION_FROM = 106
+IDENTITY_EXCLUSIVITY_COLLISION_CODE = "IDENTITY_EXCLUSIVITY_COLLISION"
+IDENTITY_EXCLUSIVITY_COLLISION_SENTENCE = (
+    "The same sale was entered in more than one sale category; keep this sale in "
+    "only one category and remove the duplicate entry."
+)
+SALE_COLLISION_CATEGORY_LABELS: dict[str, str] = {
+    "tax.us.2025.f1099b.covered-st": "a short-term covered Form 1099-B sale (no adjustment)",
+    "tax.us.2025.f1099b.covered-lt": "a long-term covered Form 1099-B sale (no adjustment)",
+    "tax.us.2025.f1099b.covered-w-st": "a short-term covered Form 1099-B wash sale (code W)",
+    "tax.us.2025.f1099b.covered-w-lt": "a long-term covered Form 1099-B wash sale (code W)",
+    "tax.us.2025.f1099b.noncovered-st": "a short-term noncovered Form 1099-B sale (basis not reported to the IRS)",
+    "tax.us.2025.f1099b.noncovered-lt": "a long-term noncovered Form 1099-B sale (basis not reported to the IRS)",
+    "tax.us.2025.f1099b.code-b-st": "a short-term Form 1099-B sale with corrected basis (code B)",
+    "tax.us.2025.f1099b.code-b-lt": "a long-term Form 1099-B sale with corrected basis (code B)",
+}
+
+
+def explains_identity_exclusivity_collision(package_id: str, version: str) -> bool:
+    """Whether presentation projection explains cross-family identity collisions.
+
+    On from core-calculations v106. Earlier cores keep pre-v106 empty
+    reasons so historical golden fixtures remain unchanged.
+    """
+    if package_id != _CORE_CALCULATIONS:
+        return False
+    if not version.startswith("v") or not version[1:].isdigit():
+        return False
+    return _version_rank(version) >= _IDENTITY_EXCLUSIVITY_EXPLANATION_FROM
+
 
 def noncovered_scalar_presence_pairs() -> dict[str, str]:
     """Each noncovered scalar amount requires its sale object on the same identity.
