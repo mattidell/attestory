@@ -81,12 +81,13 @@ phase's frontier was named for either one.
    (may a closure gate pass while documenting counterexamples to its own
    bar?) was answered no on 2026-11-06; see `PROJECT_PLANNING.md`, "Track 0
    Adversarial Closure Gate".
-2. The **P1 rule-artifact/attachment-rule capability-table consolidation**
+2. **Delivered 2026-11-25 (milestone rule-artifact-capability-table-consolidation, PR #311):**
+   The P1 capability-table consolidation
    (`docs/phases/engine-breadth/milestones/rule-artifact-capability-table-consolidation.md`)
-   remains filed, scoped, deliberately unselected hardening. Seven-to-nine
-   hand-maintained version allowlists broke four consecutive milestones,
-   including one site fixed by review and then re-broken during curation of
-   the same PR.
+   replaced scattered `rule-artifact`, `attachment-rule`, and `artifact-package`
+   version allowlists across `packages/derivation/` with
+   `packages/derivation/schema_capabilities.py` plus dual-manifest completeness
+   and AST anti-scattered-allowlist guards.
 3. The entry and filing gaps remain outside engine breadth: fact entry still
    requires hand-edited JSON, and the product still cannot file a return.
 4. Live breadth candidates remain recorded without being selected: general
@@ -1240,6 +1241,25 @@ or ADR 0088 fixing questions on mixed-blocker lines. Sibling exclusivity errors
 closed, and cores v105 and earlier remain unchanged. All 775 recorded lists
 replay with zero arithmetic, disposition, or block-code changes (746 identical,
 29 expected explanation/question updates).
+
+## Hardening — Derivation Schema Capability Table Consolidation
+
+[Plan](milestones/rule-artifact-capability-table-consolidation.md); retrospective:
+`docs/milestone-retrospectives/2026-11-25-rule-artifact-capability-table-consolidation.md`.
+Hardening only under `packages/derivation/` and `tests/`; no schema, content,
+or core version bump.
+
+Replaces scattered literal `rule-artifact`, `attachment-rule`, and
+`artifact-package` version allowlists across all 7 derivation modules with one
+pure-stdlib capability table (`packages/derivation/schema_capabilities.py`
+covering all 70 published schemas across `derivation/published.json` and
+`tax/published.json`), closes 3 accidental validation omissions
+(`_reader_role_issues` on `v41`–`v43`, exact entrypoint pins on
+`v28`/`v32`–`v34`/`v41`–`v43`, check 10c on `attachment-rule.v8`), preserves
+historical/schema-constrained boundaries, and enforces dual-manifest
+completeness and zero-exemption AST anti-allowlist guards in
+`tests/derivation/test_schema_capabilities.py`. All 775 recorded lists replay
+identically on core v106 (`0` differences).
 
 ## Saved-page observation — Mortgage and Sales (2025)
 

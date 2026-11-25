@@ -1,11 +1,53 @@
+<!-- foreman-context-v1
+{
+  "version": 1,
+  "phase": "Engine Breadth",
+  "topic": "rule-artifact-capability-table-consolidation",
+  "status": "Closed 2026-11-25. Hardening only; schema_capabilities.py + guards landed, 775/775 replay identical.",
+  "retrospective": "docs/milestone-retrospectives/2026-11-25-rule-artifact-capability-table-consolidation.md",
+  "scope": [
+    "replace hand-maintained literal rule-artifact, attachment-rule, and artifact-package version sets across packages/derivation/ with one declared capability table (packages/derivation/schema_capabilities.py)",
+    "enforce structural completeness via a registry test that fails whenever any published rule-artifact, attachment-rule, or artifact-package schema version lacks a capability-table row, and preserve every real capability distinction with zero behavioral or numeric change across all 775 recorded lists"
+  ],
+  "non_goals": [
+    "no new tax coverage, no published schema edits, no core/registry/release version bump, and no ADR",
+    "no flattening of genuinely distinct capability predicates into a single set",
+    "no packages/kernel/ edits"
+  ],
+  "deep_reads": {
+    "planning": [
+      "docs/process/planning-and-development.md",
+      "docs/phases/engine-breadth/engine-breadth-roadmap.md#Parked work and open questions",
+      "docs/phases/engine-breadth/milestones/rule-artifact-capability-table-consolidation.md"
+    ],
+    "implementation": [
+      "docs/process/planning-and-development.md",
+      "docs/phases/engine-breadth/milestones/rule-artifact-capability-table-consolidation.md"
+    ],
+    "review": [
+      "docs/process/planning-and-development.md",
+      "docs/roles/qualitative-review.md",
+      "docs/phases/engine-breadth/milestones/rule-artifact-capability-table-consolidation.md"
+    ],
+    "new_milestone": [
+      "docs/milestone-retrospectives/2026-11-25-rule-artifact-capability-table-consolidation.md",
+      "docs/phases/engine-breadth/engine-breadth-roadmap.md#Parked work and open questions"
+    ]
+  }
+}
+-->
+
 # Milestone Plan: Rule-Artifact/Attachment-Rule Capability Table Consolidation
 
-Audience: Foreman (future), Owner. Status: **scoped, not selected, not
-chartered.** This is hardening, not an engine-breadth tax-coverage slice
-(`docs/phases/engine-breadth/engine-breadth-overview.md`'s non-goals
-explicitly exclude hardening from the breadth roadmap); it is filed here as
-a standalone plan because it is core generic-machinery work spanning the
-same files a breadth milestone will keep touching.
+Milestone key: rule-artifact-capability-table-consolidation.
+Branch: milestone/rule-artifact-capability-table-consolidation-hardening.
+Phase: Engine Breadth (hardening). Selected & refreshed: 2026-11-25.
+Starting point: main at `2b761638f` (core v106, registry v104, release v104;
+`rule-artifact` v1–v17, `attachment-rule` v1–v12, `artifact-package` v1–v44).
+
+Audience: Foreman, Owner, Builder, Reviewer. Hardening milestone spanning core
+derivation machinery (`packages/derivation/`). No tax-coverage change, no
+published schema change, no core version bump, and no ADR.
 
 ## Origin
 
@@ -156,3 +198,96 @@ Open questions a real Track 0 must settle, not this plan:
 - Does not attempt to unify capabilities that are genuinely distinct into
   one flag "for simplicity" — the table must preserve every real
   distinction found above.
+- Does not edit `packages/kernel/` or any published schema/content file.
+
+## 2026-11-25 Refresh and Stages
+
+Since this plan was filed on 2026-08-17 (`rule-artifact.v6`, `attachment-rule.v8`,
+`artifact-package.v22`), schema families have grown to `rule-artifact.v1`–`v17`,
+`attachment-rule.v1`–`v12`, and `artifact-package.v1`–`v44`. In PR #309
+(`sale-block-explanations`), `packages/derivation/package_validation.py` still
+carried per-version `artifact-package.v*` allowlists skipping `v41`–`v43` until
+`v44` was manually appended. Accordingly, this milestone consolidates all three
+derivation schema families (`rule-artifact.*`, `attachment-rule.*`, and
+`artifact-package.*`) across `packages/derivation/` into one typed capability
+table (`packages/derivation/schema_capabilities.py`).
+
+1. **P0 (census & capability-table design, no committed code).** Exhaustively
+   inventory every literal `rule-artifact.v*`, `attachment-rule.v*`, and
+   `artifact-package.v*` version set/tuple/comparison across
+   `packages/derivation/`. Group every call site by its exact semantic
+   capability predicate, identify any pre-existing partial-registration drift
+   (intentional vs. accidental omission), design
+   `packages/derivation/schema_capabilities.py` plus its registry-completeness
+   and drift-prevention tests, and prove exact set-equivalence (or classify
+   every intentional drift fix) before writing production code.
+2. **Decisions** by the foreman (logged in `## Decisions`).
+3. **Track 1** implements `packages/derivation/schema_capabilities.py`, migrates
+   every audited call site in `packages/derivation/`, adds registry-completeness
+   and consumer-equality/anti-literal-set tests, and verifies full `pytest`,
+   `mypy`, `governance_lint.py`, `envelope_scan.py`, and 775-list full-surface
+   replay (`775 / 775` identical, zero diffs).
+4. **Fresh independent review**, repair if needed, curation, closeout, final
+   review, green CI `verify`, merge.
+
+## P0 result
+
+Completed 2026-11-25 against `main` `2b761638f` (evidence in
+`docs/phases/engine-breadth/milestones/rule-artifact-capability-table-consolidation-evidence/p0.md`):
+
+- **Published schema inventory (70 total):** `rule-artifact.v1`–`v17` (17, in
+  `packages/schemas/derivation/published.json`), `artifact-package.v1`–`v26` and
+  `v28`–`v44` (43, `v27` absent, in `packages/schemas/derivation/published.json`),
+  and `attachment-rule.v1`–`v6`, `v8`, `v10`–`v12` (10, `v7` and `v9` absent, in
+  `packages/schemas/tax/published.json` — Track 1 completeness guard must read
+  both manifests).
+- **Exhaustive AST census:** 107 AST sites across `packages/derivation/**/*.py`
+  (58 multi-version capability checks, 29 single-version capability checks, 5
+  family-prefix checks, 12 `_successor_graphs` historical pin tuples, 3
+  historical/synthesized single-schema literals).
+- **Capability table design:** Three frozen dataclasses
+  (`RuleArtifactCapabilities`, `AttachmentRuleCapabilities`,
+  `ArtifactPackageCapabilities`) in `packages/derivation/schema_capabilities.py`
+  preserving every distinct predicate (`84 / 87` capability checks match with
+  exact set equality).
+- **Drift audit:** 3 accidental omissions (`package_validation.py:1262` skipping
+  `artifact-package.v41`–`v43`; `package_validation.py:3047` skipping
+  `artifact-package.v28,v32`–`v34,v41`–`v43`; `package_validation.py:4017`
+  skipping `attachment-rule.v8`) verified safe to fix against all 106
+  committed 2025 packages; 3 preserved historical/schema-constrained boundaries
+  (`rule-artifact.v12`–`v17` outside `compile_validation_graph` /
+  `check_validation_graph`, `artifact-package.v18`–`v44` outside
+  `universe_guard_active`, and `attachment-rule.v10` / `v5` / `v1`–`v5` BFS
+  distinctions); plus 1 test source-grep dependency at
+  `tests/test_later_year_basis_reuse_track0.py:1849` flagged for Foreman
+  decision.
+
+## Decisions
+
+1. **Fix the 3 accidental omissions in Track 1 while preserving all 3 schema-constrained/historical boundaries (foreman decision under owner direction, 2026-11-25).**
+   - Fix `package_validation.py:1262` (`_reader_role_issues`) to include `artifact-package.v41`–`v43` (`PACKAGE_READER_ROLE_SCHEMAS`: `v34`–`v44`).
+   - Fix `package_validation.py:3047` (exact entrypoint pins) to include `artifact-package.v28`, `v32`–`v34`, `v41`–`v43` (`PACKAGE_EXACT_ENTRYPOINT_SCHEMAS`: `v20`–`v44`).
+   - Fix `package_validation.py:4017` (check 10c `subtractive_positive_basis`) to include `attachment-rule.v8` (`ATTACHMENT_ADJUSTMENT_ROWS_EXECUTABLE_SCHEMAS`: `v6`, `v8`, `v11`), matching check 10b at line 3862.
+   - Preserve `validation_graph_participant` (`rule-artifact.v1`–`v11` only), `universe_guard_active` (`artifact-package.v3`–`v17` only), and `bfs_reachability_edges` (`attachment-rule.v6,v8,v11,v12` only) so committed cores `v1`–`v106` and historical digests stay byte-identical.
+2. **Keep `attachment-rule.v10` at `executable_and_validated=False`, `projection_supported=True` (foreman decision, 2026-11-25).**
+   Preserves exact current runtime and validation behavior with zero unintended widening while maintaining projection compatibility (`tests/derivation/test_attachment_rule_v11.py`).
+3. **Update `tests/test_later_year_basis_reuse_track0.py:1844-1858` to inspect `PACKAGE_UNIVERSE_GUARD_SCHEMAS` directly (foreman decision, 2026-11-25).**
+   Replaces the fragile source-text partition of `package_validation.py` with direct inspection of `PACKAGE_UNIVERSE_GUARD_SCHEMAS`, preserving the exact `highest == 17` and `artifact-package.v26 not in allowed` assertions.
+4. **Migrate all 58 multi-version sites, all 29 single-version capability checks, and the 4 `rule-artifact.` prefix checks to `packages/derivation/schema_capabilities.py` (foreman decision, 2026-11-25).**
+   Retain only the explicit non-capability pins (`loader.py:45,47`, `package_validation.py:1683`, `package_validation.py:2926-2958`, and `presentation_projection.py:93`'s intentional fail-closed `startswith("attachment-rule.")` detector). Enforce both the dual-manifest registry completeness guard (`derivation/published.json` + `tax/published.json`) and the zero-exemption AST anti-scattered-allowlist guard in `tests/derivation/test_schema_capabilities.py`.
+
+## Closeout
+
+Closed 2026-11-25. Added pure-stdlib `packages/derivation/schema_capabilities.py`
+covering all 70 published `rule-artifact`, `attachment-rule`, and
+`artifact-package` schemas, migrated all 7 derivation consumer modules, closed
+the 3 accidental omissions in `package_validation.py` (`_reader_role_issues` on
+`v41`–`v43`, exact entrypoint pins on `v28`/`v32`–`v34`/`v41`–`v43`, check 10c
+on `attachment-rule.v8`), preserved the 3 historical/schema-constrained
+boundaries (`validation_graph_participant`, `universe_guard_active`,
+`attachment-rule.v10`), and added dual-manifest completeness and zero-exemption
+AST anti-scattered-allowlist guards in `tests/derivation/test_schema_capabilities.py`.
+No published schema, content, kernel, or HTML file changed. Full `pytest`
+(7,729 passed), `mypy` (551 files clean), and 775-list `v106` replay (`775 / 775`
+identical, `0` differences) passed; independent review returned `READY` with no
+findings.

@@ -34,6 +34,7 @@ from packages.derivation.package_validation import (
     validate_package,
 )
 from packages.derivation.runner import InputFinding, RunContext, SourceFact, run
+from packages.derivation.schema_capabilities import RULE_ARTIFACT_SCHEMAS
 from packages.derivation.source_authority import ClosureFindingRecord
 
 
@@ -91,7 +92,7 @@ def _load_content_fixture(scenario_path: Path, fixture_ref: str) -> dict[str, An
 
     for citizen in validation.resolved_members:
         schema = citizen.get("schema", "")
-        if schema.startswith("rule-artifact."):
+        if schema in RULE_ARTIFACT_SCHEMAS:
             resolved_rules.append(citizen)
         elif schema.startswith("parameter-declaration.") or schema.startswith("quantity-vocabulary.") or schema.startswith("role-canon."):
             resolved_parameters.append(citizen)

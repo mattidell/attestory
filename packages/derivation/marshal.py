@@ -15,6 +15,10 @@ import json
 from dataclasses import dataclass, field
 from typing import TYPE_CHECKING, Any, Iterable, Mapping, Sequence
 
+from packages.derivation.schema_capabilities import (
+    ATTACHMENT_EXECUTABLE_SCHEMAS,
+    RULE_DECLARED_REFS_OUTSIDE_REQUIRES,
+)
 from packages.derivation.source_authority import (
     ClosureFindingRecord,
     SourceAuthorityError,
@@ -90,7 +94,7 @@ def _rule_required_symbols(rule: dict[str, Any]) -> list[str]:
     declaration assertion could never reach a run at all (the same gap Track
     2 closed for attachment-rule.v1's completeness answers).
     """
-    if rule.get("schema") in {"attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11", "attachment-rule.v12"}:
+    if rule.get("schema") in ATTACHMENT_EXECUTABLE_SCHEMAS:
         # ADR-0053 Decision 1: a categorical `family_nonempty` requirement has
         # no `subtotals` list - its own presence is the pinned source family,
         # not a symbol, so it contributes no requirement-side symbol here.
@@ -115,7 +119,7 @@ def _rule_required_symbols(rule: dict[str, Any]) -> list[str]:
     # v11 is v10's grammar plus subject/joined/direction (ADR 0076 Parts 1
     # and 2's admission-only successor); those fields are exact pins and an
     # enum, not `ref` expressions, so the same walk applies unchanged.
-    if rule.get("schema") in {"rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "rule-artifact.v8", "rule-artifact.v9", "rule-artifact.v10", "rule-artifact.v11", "rule-artifact.v12", "rule-artifact.v13", "rule-artifact.v14", "rule-artifact.v15", "rule-artifact.v16", "rule-artifact.v17"}:
+    if rule.get("schema") in RULE_DECLARED_REFS_OUTSIDE_REQUIRES:
         symbols.extend(_iter_ref_names(rule.get("when")))
         symbols.extend(_iter_ref_names(rule.get("value")))
         selection = rule.get("selection")

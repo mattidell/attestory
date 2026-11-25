@@ -39,6 +39,7 @@ from packages.derivation.loader import DerivationSchemas, load_canon, workspace_
 from packages.derivation.marshal import marshal_run_context
 from packages.derivation.package_validation import package_instance_checksum, validate_package
 from packages.derivation.projection import derived_findings_from_acts, workspace_currency
+from packages.derivation.schema_capabilities import PACKAGE_UNIVERSE_GUARD_SCHEMAS
 from packages.derivation.runner import (
     InputFinding,
     RunContext,
@@ -1842,13 +1843,15 @@ class C8bCandidateAgainstCurrentPackageValidation(unittest.TestCase):
         self.assertNotIn(C8B_SOURCE_SET, {family["id"] for family in families})
 
     def test_the_collect_target_guard_allowlist_stops_at_v17(self) -> None:
-        """The gap, read off committed product source. Recorded, not fixed."""
+        """The gap, read off the capability table. Recorded, not fixed."""
         source = (
             ROOT / "packages" / "derivation" / "package_validation.py"
         ).read_text(encoding="utf-8")
-        head, _, tail = source.partition("universe_guard_active = package.get(\"schema\") in {")
-        allowlist_text, _, _ = tail.partition("}")
-        allowed = set(re.findall(r'"(artifact-package\.v\d+)"', allowlist_text))
+        head, sep, _ = source.partition(
+            'universe_guard_active = package.get("schema") in PACKAGE_UNIVERSE_GUARD_SCHEMAS'
+        )
+        self.assertTrue(sep)
+        allowed = set(PACKAGE_UNIVERSE_GUARD_SCHEMAS)
         self.assertTrue(allowed)
         highest = max(int(name.rsplit(".v", 1)[1]) for name in allowed)
         self.assertEqual(highest, 17)
