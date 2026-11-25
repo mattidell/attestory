@@ -3,8 +3,8 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "rule-artifact-capability-table-consolidation",
-  "status": "Open 2026-11-25. Decisions logged; Track 1 next.",
-  "retrospective": null,
+  "status": "Closed 2026-11-25. Hardening only; schema_capabilities.py + guards landed, 775/775 replay identical.",
+  "retrospective": "docs/milestone-retrospectives/2026-11-25-rule-artifact-capability-table-consolidation.md",
   "scope": [
     "replace hand-maintained literal rule-artifact, attachment-rule, and artifact-package version sets across packages/derivation/ with one declared capability table (packages/derivation/schema_capabilities.py)",
     "enforce structural completeness via a registry test that fails whenever any published rule-artifact, attachment-rule, or artifact-package schema version lacks a capability-table row, and preserve every real capability distinction with zero behavioral or numeric change across all 775 recorded lists"
@@ -30,7 +30,7 @@
       "docs/phases/engine-breadth/milestones/rule-artifact-capability-table-consolidation.md"
     ],
     "new_milestone": [
-      "docs/phases/engine-breadth/milestones/rule-artifact-capability-table-consolidation.md",
+      "docs/milestone-retrospectives/2026-11-25-rule-artifact-capability-table-consolidation.md",
       "docs/phases/engine-breadth/engine-breadth-roadmap.md#Parked work and open questions"
     ]
   }
@@ -275,3 +275,19 @@ Completed 2026-11-25 against `main` `2b761638f` (evidence in
    Replaces the fragile source-text partition of `package_validation.py` with direct inspection of `PACKAGE_UNIVERSE_GUARD_SCHEMAS`, preserving the exact `highest == 17` and `artifact-package.v26 not in allowed` assertions.
 4. **Migrate all 58 multi-version sites, all 29 single-version capability checks, and the 4 `rule-artifact.` prefix checks to `packages/derivation/schema_capabilities.py` (foreman decision, 2026-11-25).**
    Retain only the explicit non-capability pins (`loader.py:45,47`, `package_validation.py:1683`, `package_validation.py:2926-2958`, and `presentation_projection.py:93`'s intentional fail-closed `startswith("attachment-rule.")` detector). Enforce both the dual-manifest registry completeness guard (`derivation/published.json` + `tax/published.json`) and the zero-exemption AST anti-scattered-allowlist guard in `tests/derivation/test_schema_capabilities.py`.
+
+## Closeout
+
+Closed 2026-11-25. Added pure-stdlib `packages/derivation/schema_capabilities.py`
+covering all 70 published `rule-artifact`, `attachment-rule`, and
+`artifact-package` schemas, migrated all 7 derivation consumer modules, closed
+the 3 accidental omissions in `package_validation.py` (`_reader_role_issues` on
+`v41`–`v43`, exact entrypoint pins on `v28`/`v32`–`v34`/`v41`–`v43`, check 10c
+on `attachment-rule.v8`), preserved the 3 historical/schema-constrained
+boundaries (`validation_graph_participant`, `universe_guard_active`,
+`attachment-rule.v10`), and added dual-manifest completeness and zero-exemption
+AST anti-scattered-allowlist guards in `tests/derivation/test_schema_capabilities.py`.
+No published schema, content, kernel, or HTML file changed. Full `pytest`
+(7,729 passed), `mypy` (551 files clean), and 775-list `v106` replay (`775 / 775`
+identical, `0` differences) passed; independent review returned `READY` with no
+findings.
