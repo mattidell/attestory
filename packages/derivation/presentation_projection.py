@@ -40,6 +40,14 @@ from typing import Any, Callable, Mapping, Sequence, cast
 
 from packages.derivation.derived_enumeration import derived_activity_present, fact_type_matches_symbol
 from packages.derivation.explanation_graph import GraphBuilder, validate_graph, validate_output_schema
+from packages.derivation.schema_capabilities import (
+    ATTACHMENT_ADJUSTMENT_ROWS_PROJECTION_SCHEMAS,
+    ATTACHMENT_CONDITIONAL_LIMITED_PART_SCHEMAS,
+    ATTACHMENT_EXCLUSIVE_SELECTION_SCHEMAS,
+    ATTACHMENT_PROJECTION_ROW_SETS_SCHEMAS,
+    ATTACHMENT_PROJECTION_SCHEMAS,
+    RULE_V13_SELECTION_SCHEMAS,
+)
 from packages.kernel.facts import fact_id_for, facts_of
 from packages.kernel.findings import FindingState
 from packages.tax.coverage import untranslated_source_findings
@@ -54,9 +62,7 @@ LEGACY_PRESENTATION_MODEL_VERSION = "presentation-model.v1"
 # (SOURCE_SET_UNCLOSED, the code the runner actually emits) and is not a
 # distinct presentation contract. Both are recognized field citizens.
 FIELD_SCHEMAS = frozenset({"form-field.v2", "form-field.v3"})
-ATTACHMENT_SCHEMAS = frozenset(
-    {"attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11", "attachment-rule.v12", "attachment-rule.v10"}
-)
+ATTACHMENT_SCHEMAS = ATTACHMENT_PROJECTION_SCHEMAS
 
 _NUMERIC_DISPOSITIONS = frozenset({"published_value", "computed_zero", "closure_backed_zero"})
 # A field may declare one fixed, non-numeric publication instruction.  This is
@@ -5063,7 +5069,7 @@ def _validate_serialized_adjustment_correspondence(
             raise PresentationModelError(f"serialized adjustment row {index} is not an object")
         serialized_rows.append(row)
 
-    needs_activity = attachment.get("schema") == "attachment-rule.v11"
+    needs_activity = attachment.get("schema") in ATTACHMENT_EXCLUSIVE_SELECTION_SCHEMAS
     if needs_activity:
         from packages.kernel.currency import compute_currency
 
@@ -5177,7 +5183,7 @@ def _validate_serialized_adjustment_correspondence(
             raise PresentationModelError(
                 f"serialized adjustment row {row_index} satisfies multiple declarations"
             )
-        if attachment.get("schema") == "attachment-rule.v11" and not _serialized_adjustment_contributors_match(
+        if attachment.get("schema") in ATTACHMENT_EXCLUSIVE_SELECTION_SCHEMAS and not _serialized_adjustment_contributors_match(
             serialized_rows[row_index],
             specs[0],
             current_finding_ids=current_finding_ids,
@@ -5242,7 +5248,7 @@ def _resolve_attachment(
         raise PresentationModelError(f"attachment cites unrecorded finding {row.get('finding_id')!r}")
     parts: list[dict[str, Any]] = []
     for itemization in attachment["itemizations"]:
-        if attachment.get("schema") == "attachment-rule.v12" and not any(
+        if attachment.get("schema") in ATTACHMENT_CONDITIONAL_LIMITED_PART_SCHEMAS and not any(
             entry.get("part_id") == itemization["part_id"]
             for entry in (attachment_finding.get("value") or {}).get("itemizations", [])
         ):
@@ -5264,7 +5270,7 @@ def _resolve_attachment(
                 (entry for entry in attachment_finding["value"].get("itemizations", []) if entry.get("part_id") == part_id),
                 None,
             )
-        if attachment.get("schema") in ("attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11", "attachment-rule.v10", "attachment-rule.v12"):
+        if attachment.get("schema") in ATTACHMENT_PROJECTION_ROW_SETS_SCHEMAS:
             if value_itemization is None:
                 raise PresentationModelError(f"attachment finding omits itemization value for {part_id!r}")
             assert isinstance(value_itemization, dict)
@@ -5292,7 +5298,7 @@ def _resolve_attachment(
                 pin_labels[leaf_id] = label
             sites.append(_citation_site(f"{part_id}-src-{index}", leaf_id, leaf_version, itemization["label"]))
         tie_out_text = f"Reported subtotal: {value}"
-        if attachment.get("schema") == "attachment-rule.v12" and isinstance(value_itemization, dict) and "limited_to" in value_itemization:
+        if attachment.get("schema") in ATTACHMENT_CONDITIONAL_LIMITED_PART_SCHEMAS and isinstance(value_itemization, dict) and "limited_to" in value_itemization:
             limited = value_itemization["limited_to"]
             def plain(text: Any) -> str:
                 return format(Decimal(str(text)).normalize(), "f")
@@ -5306,7 +5312,7 @@ def _resolve_attachment(
             "citationSites": sites,
             "tieOutText": tie_out_text,
         })
-        if attachment.get("schema") in ("attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11", "attachment-rule.v10"):
+        if attachment.get("schema") in ATTACHMENT_ADJUSTMENT_ROWS_PROJECTION_SCHEMAS:
             assert isinstance(value_itemization, dict)
             selected_adjustments = _validate_serialized_adjustment_correspondence(
                 attachment,
@@ -5325,7 +5331,7 @@ def _resolve_attachment(
                 existing_adjustment_part = next(
                     (
                         part for part in parts
-                        if attachment.get("schema") == "attachment-rule.v11"
+                        if attachment.get("schema") in ATTACHMENT_EXCLUSIVE_SELECTION_SCHEMAS
                         and part.get("heading") == adj_label
                         and part.get("adjustmentKind") == adj_kind
                     ),
@@ -5341,7 +5347,7 @@ def _resolve_attachment(
                     # leaves.  Direct/legacy rows still require a projected
                     # finding, as before.
                     if leaf_id not in state.findings and not (
-                        attachment.get("schema") == "attachment-rule.v11"
+                        attachment.get("schema") in ATTACHMENT_EXCLUSIVE_SELECTION_SCHEMAS
                         and leaf_id in publications_by_id
                         and str(leaf_id).startswith("finding:derived:")
                     ):
@@ -5364,7 +5370,7 @@ def _resolve_attachment(
                     "citationSites": adjustment_sites,
                     "tieOutText": f"Adjustment: -{adjustment_value['row_sum']}",
                 }
-                if attachment.get("schema") == "attachment-rule.v11":
+                if attachment.get("schema") in ATTACHMENT_EXCLUSIVE_SELECTION_SCHEMAS:
                     # Preserve the producer's declared kind beside the
                     # displayed adjustment so standalone payload validation
                     # can check the group relationship without tax-specific
@@ -5653,7 +5659,7 @@ def build_presentation_model(
         selection_attached = False
         row_question_candidates: list[dict[str, Any]] = []
         if (resolved["disposition"] == "blocked" and producer is not None
-                and producer.get("schema") in ("rule-artifact.v13", "rule-artifact.v14", "rule-artifact.v15", "rule-artifact.v16", "rule-artifact.v17") and "selection" in producer):
+                and producer.get("schema") in RULE_V13_SELECTION_SCHEMAS and "selection" in producer):
             reasons = _selection_blocked_reasons(
                 row, producer, resolved_members=resolved_members, rules_by_id=rules_by_id, state=state,
                 publications_by_id=publications_by_id, dispositions=dispositions,

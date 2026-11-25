@@ -46,47 +46,26 @@ from packages.derivation.package_validation import (
     v13_selection_declarations,
 )
 
+from packages.derivation.schema_capabilities import (
+    ATTACHMENT_BFS_SCHEMAS,
+    RULE_ARTIFACT_SCHEMAS,
+    RULE_DECLARED_REFS_OUTSIDE_REQUIRES,
+    RULE_LINE2B_V9_SCHEMAS,
+    RULE_LINK_COUNT_SCHEMAS,
+    RULE_LINK_COVERAGE_SCHEMAS,
+    RULE_REQUIRE_PAIRED_SCHEMAS,
+    RULE_SHARED_KEY_COUNT_SCHEMAS,
+)
+
 Citizen = dict[str, Any]
 Corpus = Mapping[str, Citizen]
 
-_RULE_ARTIFACT_SCHEMAS = frozenset(
-    {
-        "rule-artifact.v1",
-        "rule-artifact.v2",
-        "rule-artifact.v3",
-        "rule-artifact.v4",
-        "rule-artifact.v5",
-        "rule-artifact.v6",
-        "rule-artifact.v7",
-        "rule-artifact.v8",
-        "rule-artifact.v9",
-        "rule-artifact.v10",
-        "rule-artifact.v11",
-        "rule-artifact.v12",
-        "rule-artifact.v13",
-        "rule-artifact.v14", "rule-artifact.v15", "rule-artifact.v16", "rule-artifact.v17",
-    }
-)
-_RULE_DECLARED_REFS_OUTSIDE_REQUIRES = frozenset(
-    {
-        "rule-artifact.v3",
-        "rule-artifact.v4",
-        "rule-artifact.v5",
-        "rule-artifact.v6",
-        "rule-artifact.v7",
-        "rule-artifact.v8",
-        "rule-artifact.v9",
-        "rule-artifact.v10",
-        "rule-artifact.v11",
-        "rule-artifact.v12",
-        "rule-artifact.v13",
-        "rule-artifact.v14", "rule-artifact.v15", "rule-artifact.v16", "rule-artifact.v17",
-    }
-)
+_RULE_ARTIFACT_SCHEMAS = RULE_ARTIFACT_SCHEMAS
+_RULE_DECLARED_REFS_OUTSIDE_REQUIRES = RULE_DECLARED_REFS_OUTSIDE_REQUIRES
 _FORM_FIELD_SCHEMAS = frozenset({"form-field.v1", "form-field.v2", "form-field.v3"})
 _BUNDLE_SCHEMAS = frozenset({"bundle.v1", "bundle.v2"})
 _SOURCE_FAMILY_SCHEMAS = frozenset({"source-family.v1", "source-family.v2"})
-_ATTACHMENT_RULE_BFS_SCHEMAS = frozenset({"attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11", "attachment-rule.v12"})
+_ATTACHMENT_RULE_BFS_SCHEMAS = ATTACHMENT_BFS_SCHEMAS
 
 
 def _closed_v2_surface(package: Mapping[str, Any] | None) -> bool:
@@ -164,7 +143,7 @@ def build_dependency_edges(
                     ref for expression in expressions
                     for ref in _iter_ref_names(expression)
                 )
-                if schema == "rule-artifact.v9":
+                if schema in RULE_LINE2B_V9_SCHEMAS:
                     selection = citizen.get("selection")
                     if isinstance(selection, dict):
                         for path in selection.get("paths", []):
@@ -208,7 +187,7 @@ def build_dependency_edges(
                     cite_ver = citation.get("version")
                     if cite_ver is None or corpus[cite_id].get("version") == cite_ver:
                         edges[cid].add(cite_id)
-            if schema in ("rule-artifact.v10", "rule-artifact.v11", "rule-artifact.v12", "rule-artifact.v13", "rule-artifact.v14", "rule-artifact.v15", "rule-artifact.v16", "rule-artifact.v17"):
+            if schema in RULE_LINK_COVERAGE_SCHEMAS:
                 for node in _iter_link_coverage_nodes(value):
                     links_name = node.get("links")
                     reductions_name = node.get("reductions")
@@ -228,7 +207,7 @@ def build_dependency_edges(
                     parameter = empty.get("parameter") if isinstance(empty, dict) else None
                     if isinstance(parameter, dict) and parameter.get("id") in ids:
                         edges[cid].add(parameter["id"])
-            if schema in ("rule-artifact.v12", "rule-artifact.v13", "rule-artifact.v14", "rule-artifact.v15", "rule-artifact.v16", "rule-artifact.v17"):
+            if schema in RULE_LINK_COUNT_SCHEMAS:
                 for node in _iter_link_count_nodes(value):
                     links_name = node.get("links")
                     if isinstance(links_name, str):
@@ -236,6 +215,7 @@ def build_dependency_edges(
                             if other.get("schema") == "fact-type.v2" and other.get("id") == links_name:
                                 edges[cid].add(other_id)
                         edges[cid].update(bundles_for_fact.get(links_name, set()))
+            if schema in RULE_SHARED_KEY_COUNT_SCHEMAS:
                 for node in _iter_shared_key_count_nodes(value):
                     counted_name = node.get("fact_type")
                     if isinstance(counted_name, str):
@@ -243,7 +223,7 @@ def build_dependency_edges(
                             if other.get("schema") == "fact-type.v2" and other.get("id") == counted_name:
                                 edges[cid].add(other_id)
                         edges[cid].update(bundles_for_fact.get(counted_name, set()))
-            if schema in ("rule-artifact.v15", "rule-artifact.v16", "rule-artifact.v17"):
+            if schema in RULE_REQUIRE_PAIRED_SCHEMAS:
                 for expression in expressions:
                     for node in _iter_require_paired_nodes(expression):
                         for fact_name in _require_paired_names(node):
@@ -270,7 +250,7 @@ def build_dependency_edges(
                         if other.get("schema") == "fact-type.v2" and other.get("id") == activity_fact:
                             edges[cid].add(other_id)
                     edges[cid].update(bundles_for_fact.get(activity_fact, set()))
-            if schema == "rule-artifact.v9":
+            if schema in RULE_LINE2B_V9_SCHEMAS:
                 selection = citizen.get("selection")
                 if isinstance(selection, dict):
                     for path in selection.get("paths", []):

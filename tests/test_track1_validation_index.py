@@ -15,15 +15,18 @@ import pytest
 
 pytestmark = pytest.mark.live
 
-# Digests recorded from the unindexed validator at commit 0763f572 (issue order is
-# not pinned: on that code it follows set iteration and varies with PYTHONHASHSEED,
-# so the sorted multiset of issues is). Each is (issue count, multiset digest,
-# resolved-members digest, output-owners digest).
+# Digests initially recorded from the unindexed validator at commit 0763f572
+# and updated for artifact-package.v43 exact-entrypoint enforcement (v96 uses
+# artifact-package.v43, so the three invalid mutations additionally report +41
+# ENTRYPOINT_DANGLING, +75 ENTRYPOINT_DANGLING, and +2
+# ENTRYPOINT_VERSION_MISMATCH respectively; non-entrypoint issues,
+# resolved_members, and output_owners are identical). Each is (issue count,
+# multiset digest, resolved-members digest, output-owners digest).
 _PRISTINE = {
     "published_v96": (0, "e3b0c44298fc1c14", "a2bdf1bc3f1c1aa4", "d6d653b4820066a5"),
-    "mutation_remove_source_families": (211, "69370db079289115", "c15e47fa7ce18028", "d6d653b4820066a5"),
-    "mutation_drop_every_seventh": (327, "2d273d80cf33d591", "9b1131bb1a7bfabc", "66630d57a868f597"),
-    "mutation_unknown_versions": (3, "5850d0daa0a9b1af", "c6eb61717bd07560", "072f3f4aa0373e7b"),
+    "mutation_remove_source_families": (252, "6801ac05944388ad", "c15e47fa7ce18028", "d6d653b4820066a5"),
+    "mutation_drop_every_seventh": (402, "1d602e1dc5c116b3", "9b1131bb1a7bfabc", "66630d57a868f597"),
+    "mutation_unknown_versions": (5, "22a606d28c2c6076", "c6eb61717bd07560", "072f3f4aa0373e7b"),
     "mutation_tampered_citizens": (9, "6a99c9579ebbc23b", "a218fdb14f5cc57a", "d6d653b4820066a5"),
 }
 

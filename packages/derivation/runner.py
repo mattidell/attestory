@@ -51,6 +51,18 @@ from packages.derivation.records import (
     closing_record,
     start_run,
 )
+from packages.derivation.schema_capabilities import (
+    ATTACHMENT_ADJUSTMENT_ROWS_EXECUTABLE_SCHEMAS,
+    ATTACHMENT_CONDITIONAL_LIMITED_PART_SCHEMAS,
+    ATTACHMENT_EAGER_ADJUSTMENT_REQUIRES_SCHEMAS,
+    ATTACHMENT_EXECUTABLE_SCHEMAS,
+    ATTACHMENT_EXCLUSIVE_SELECTION_SCHEMAS,
+    ATTACHMENT_LEGACY_SINGLE_ROW_SET_SCHEMAS,
+    ATTACHMENT_ROW_SET_SCHEMAS,
+    RULE_LINE2B_V9_SCHEMAS,
+    RULE_V2_RECORD_SCHEMAS,
+    RULE_V13_SELECTION_SCHEMAS,
+)
 from packages.derivation.source_authority import (
     ClosureFindingRecord,
     SourceAuthorityError,
@@ -193,13 +205,8 @@ _LEDGER_EXCLUDED_PIN_ROLES = frozenset(
 # rules carry no `when`/`value` expression tree - they are interpreted
 # directly from their declarative requirement/itemizations/completeness
 # structure by `_Run.attempt_attachment`, not by `evaluate()`.
-ATTACHMENT_SCHEMAS = frozenset(
-    {"attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11", "attachment-rule.v12"}
-)
-# attachment-rule.v8 is v6's exact inherited shape (Track 2: only the
-# additive optional `accounts_for[]` differs) - every v6-specific branch
-# below applies identically to v8.
-_V6_SHAPE_ATTACHMENT_SCHEMAS = frozenset({"attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11"})
+ATTACHMENT_SCHEMAS = ATTACHMENT_EXECUTABLE_SCHEMAS
+_V6_SHAPE_ATTACHMENT_SCHEMAS = ATTACHMENT_ADJUSTMENT_ROWS_EXECUTABLE_SCHEMAS
 ITEMIZATION_TIE_OUT_VIOLATION = "ITEMIZATION_TIE_OUT_VIOLATION"
 EXCLUSIVE_PRESENCE_CONFLICT = "EXCLUSIVE_PRESENCE_CONFLICT"
 # ADR-0055 Decision 2: a required answer present as a current finding but
@@ -244,7 +251,7 @@ SELECTION_PATH_PIN_CONTRACT_INVALID = "selection-path-pin-contract-invalid"
 def is_v13_selection_rule(rule: dict[str, Any]) -> bool:
     """A ``rule-artifact.v13`` (or ``v14``, ADR 0078) rule declaring ``selection``
     (ADR 0077 Part 4). v14 carries the same ``selection`` shape unchanged."""
-    return rule.get("schema") in ("rule-artifact.v13", "rule-artifact.v14", "rule-artifact.v15", "rule-artifact.v16", "rule-artifact.v17") and "selection" in rule
+    return rule.get("schema") in RULE_V13_SELECTION_SCHEMAS and "selection" in rule
 
 
 def _never_ordinary(rule: dict[str, Any]) -> bool:
@@ -462,15 +469,7 @@ class _Run:
         )
 
         self.use_v2 = any(
-            rule.get("schema") in {
-                "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4",
-                "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7",
-                "rule-artifact.v8", "rule-artifact.v9", "rule-artifact.v10",
-                "rule-artifact.v11",
-                "rule-artifact.v12",
-                "rule-artifact.v13",
-                "rule-artifact.v14", "rule-artifact.v15", "rule-artifact.v16", "rule-artifact.v17",
-            }
+            rule.get("schema") in RULE_V2_RECORD_SCHEMAS
             for rule in ctx.rules
         ) or _uses_attachment_machinery(ctx.rules)
         self.symbol_fact_types: dict[str, str] = {}
@@ -816,7 +815,7 @@ class _Run:
             # reads closure/membership state directly and blocks honestly
             # if the pinned family is unclosed.
             symbols = list(requirement.get("subtotals", []))
-            if rule.get("schema") == "attachment-rule.v12":
+            if rule.get("schema") in ATTACHMENT_CONDITIONAL_LIMITED_PART_SCHEMAS:
                 # v12: a part that does not apply contributes nothing; a part whose
                 # condition is not yet readable waits only for the condition.
                 for part in rule["itemizations"]:
@@ -825,11 +824,11 @@ class _Run:
                         symbols.extend(self._v12_part_symbols(part))
                     elif status == "unreadable" and part.get("applies_when") == "line_nonzero":
                         symbols.append(part["tie_out"]["line_symbol"])
-            elif rule.get("schema") in ("attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11", "attachment-rule.v12"):
+            elif rule.get("schema") in ATTACHMENT_ROW_SET_SCHEMAS:
                 for part in rule["itemizations"]:
                     symbols.append(part["tie_out"]["line_symbol"])
                     symbols.extend(row_set["subtotal_symbol"] for row_set in part["row_sets"])
-                    if rule.get("schema") in {"attachment-rule.v6", "attachment-rule.v8"}:
+                    if rule.get("schema") in ATTACHMENT_EAGER_ADJUSTMENT_REQUIRES_SCHEMAS:
                         symbols.extend(
                             row["subtotal_symbol"] for row in part["adjustment_rows"]
                         )
@@ -1412,7 +1411,7 @@ class _Run:
         if is_nominee_reduction_rule(rule):
             return dispatch_nominee_consequences_on_run(self, rule)
 
-        if rule.get("schema") == "rule-artifact.v9" and (
+        if rule.get("schema") in RULE_LINE2B_V9_SCHEMAS and (
             "selection" in rule or "aggregation" in rule
         ):
             if is_line2b_declared_selection_rule(rule):
@@ -2187,7 +2186,7 @@ class _Run:
         parts_to_run: list[dict[str, Any]] = rule["itemizations"]
         omitted_parts: list[dict[str, str]] = []
         tie_out_violations: list[str] = []
-        if rule["schema"] == "attachment-rule.v12":
+        if rule["schema"] in ATTACHMENT_CONDITIONAL_LIMITED_PART_SCHEMAS:
             parts_to_run = []
             for part in rule["itemizations"]:
                 status, detail = self._v12_part_status(part)
@@ -2203,14 +2202,14 @@ class _Run:
                     tie_out_violations.append(f"{part['part_id']}:omitted_but_line_present")
 
         itemization_pins: list[dict[str, Any]] = []
-        if rule["schema"] in ("attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11", "attachment-rule.v12"):
+        if rule["schema"] in ATTACHMENT_ROW_SET_SCHEMAS:
             itemization_symbols = sorted({
                 symbol
                 for part in parts_to_run
                 for symbol in (
                     part["tie_out"]["line_symbol"],
                     *(row_set["subtotal_symbol"] for row_set in part["row_sets"]),
-                    *([part["tie_out"]["limited_to"]["symbol"]] if rule["schema"] == "attachment-rule.v12" and isinstance(part["tie_out"].get("limited_to"), dict) else []),
+                    *([part["tie_out"]["limited_to"]["symbol"]] if rule["schema"] in ATTACHMENT_CONDITIONAL_LIMITED_PART_SCHEMAS and isinstance(part["tie_out"].get("limited_to"), dict) else []),
                 )
             })
             if rule["schema"] in _V6_SHAPE_ATTACHMENT_SCHEMAS:
@@ -2225,7 +2224,7 @@ class _Run:
                             if status == "refuse":
                                 missing = [f"{part['part_id']}:{adjustment['kind']}"]
                                 if (
-                                    rule["schema"] == "attachment-rule.v11"
+                                    rule["schema"] in ATTACHMENT_EXCLUSIVE_SELECTION_SCHEMAS
                                     and adjustment.get("kind") == "nominee_distribution"
                                 ):
                                     # The legacy/new nominee collision has a
@@ -2238,7 +2237,7 @@ class _Run:
                                 block_code = (
                                     "DEPENDENCY_INVALID"
                                     if (
-                                        rule["schema"] == "attachment-rule.v11"
+                                        rule["schema"] in ATTACHMENT_EXCLUSIVE_SELECTION_SCHEMAS
                                         and rule_id == "tax.us.2025.rule.attachment.schedule-b"
                                         and adjustment.get("kind") == "nominee_distribution"
                                     )
@@ -2341,7 +2340,7 @@ class _Run:
         itemizations_value: list[dict[str, Any]] = []
         row_pins: list[dict[str, Any]] = []
         for part in parts_to_run:
-            if rule["schema"] == "attachment-rule.v1":
+            if rule["schema"] in ATTACHMENT_LEGACY_SINGLE_ROW_SET_SCHEMAS:
                 row_sets = [{"rows": part["rows"], "subtotal_symbol": part["tie_out"]["line_symbol"]}]
             else:
                 row_sets = part["row_sets"]
@@ -2394,7 +2393,7 @@ class _Run:
                     if status == "refuse":
                         missing = [f"{part['part_id']}:{adjustment['kind']}"]
                         if (
-                            rule["schema"] == "attachment-rule.v11"
+                            rule["schema"] in ATTACHMENT_EXCLUSIVE_SELECTION_SCHEMAS
                             and rule_id == "tax.us.2025.rule.attachment.schedule-b"
                             and adjustment.get("kind") == "nominee_distribution"
                         ):
@@ -2403,7 +2402,7 @@ class _Run:
                         block_code = (
                             "DEPENDENCY_INVALID"
                             if (
-                                rule["schema"] == "attachment-rule.v11"
+                                rule["schema"] in ATTACHMENT_EXCLUSIVE_SELECTION_SCHEMAS
                                 and rule_id == "tax.us.2025.rule.attachment.schedule-b"
                                 and adjustment.get("kind") == "nominee_distribution"
                             )
@@ -2451,7 +2450,7 @@ class _Run:
                     row_pins.extend(extra_pins)
             tie_symbol = part["tie_out"]["line_symbol"]
             line_value = Decimal(str(self.symbols[tie_symbol]))
-            if rule["schema"] == "attachment-rule.v1":
+            if rule["schema"] in ATTACHMENT_LEGACY_SINGLE_ROW_SET_SCHEMAS:
                 legacy = row_sets_value[0]
                 itemizations_value.append({
                     "part_id": part["part_id"],
@@ -2475,12 +2474,12 @@ class _Run:
                             },
                             "not_counted": _value_str(part_sum - line_value),
                         }
-                        if rule["schema"] == "attachment-rule.v12" and isinstance(part["tie_out"].get("limited_to"), dict)
+                        if rule["schema"] in ATTACHMENT_CONDITIONAL_LIMITED_PART_SCHEMAS and isinstance(part["tie_out"].get("limited_to"), dict)
                         else {}
                     ),
                 })
             expected_line = part_sum
-            if rule["schema"] == "attachment-rule.v12" and isinstance(part["tie_out"].get("limited_to"), dict):
+            if rule["schema"] in ATTACHMENT_CONDITIONAL_LIMITED_PART_SCHEMAS and isinstance(part["tie_out"].get("limited_to"), dict):
                 expected_line = min(part_sum, Decimal(str(self.symbols[part["tie_out"]["limited_to"]["symbol"]])))
             if expected_line != line_value:
                 tie_out_violations.append(f"{part['part_id']}:{tie_symbol}")
@@ -2488,7 +2487,7 @@ class _Run:
         if tie_out_violations:
             self._attachment_block(
                 rule_id, ITEMIZATION_TIE_OUT_VIOLATION, sorted(set(tie_out_violations)),
-                base_pins + itemization_pins + answer_pins + (row_pins if rule["schema"] in ("attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11", "attachment-rule.v12") else []),
+                base_pins + itemization_pins + answer_pins + (row_pins if rule["schema"] in ATTACHMENT_ROW_SET_SCHEMAS else []),
             )
             return "blocked"
 
@@ -2498,7 +2497,7 @@ class _Run:
             "itemizations": itemizations_value,
             "answers": answers_value,
             "named_obligations": named_obligations,
-            **({"omitted_parts": omitted_parts} if rule["schema"] == "attachment-rule.v12" else {}),
+            **({"omitted_parts": omitted_parts} if rule["schema"] in ATTACHMENT_CONDITIONAL_LIMITED_PART_SCHEMAS else {}),
         }
         symbol = rule["publishes"]
         pins = _sorted_pins(base_pins + itemization_pins + answer_pins + row_pins)
@@ -2992,7 +2991,7 @@ class _Run:
                 self.attempt_attachment(rule)
                 continue
 
-            if rule.get("schema") == "rule-artifact.v9" and (
+            if rule.get("schema") in RULE_LINE2B_V9_SCHEMAS and (
                 "selection" in rule or "aggregation" in rule
             ):
                 # Selection and aggregation declarations own their fallback
@@ -3275,15 +3274,7 @@ def run_and_record(
     published/blocked surface and per-rule dispositions.
     """
     use_v2 = any(
-        rule.get("schema") in {
-            "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4",
-            "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7",
-            "rule-artifact.v8", "rule-artifact.v9", "rule-artifact.v10",
-            "rule-artifact.v11",
-            "rule-artifact.v12",
-            "rule-artifact.v13",
-            "rule-artifact.v14", "rule-artifact.v15", "rule-artifact.v16", "rule-artifact.v17",
-        }
+        rule.get("schema") in RULE_V2_RECORD_SCHEMAS
         for rule in ctx.rules
     ) or _uses_attachment_machinery(ctx.rules)
     start_run(
