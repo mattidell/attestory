@@ -1,0 +1,10 @@
+{
+  "schema": "input-question.v1",
+  "id": "tax.us.2025.input-question.f1099b-noncovered-st-adjustment",
+  "version": "v1",
+  "fact_type": {
+    "id": "tax.us.2025.f1099b.noncovered-st-txn.adjustment",
+    "version": "v1"
+  },
+  "question": "What is the nondeductible wash-sale loss in column (g) (or 0 if none) for this short-term sale whose basis was not reported to the IRS?"
+}

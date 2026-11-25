@@ -29,6 +29,7 @@ from typing import Any, Mapping
 
 from packages.derivation.package_validation import (
     CLOSURE_MAPPING_SCHEMAS,
+    FAMILY_BLOCK_EXPLANATION_SCHEMAS,
     INPUT_QUESTION_SCHEMAS,
     _iter_bound_source_names,
     _iter_collect_source_sets,
@@ -337,6 +338,18 @@ def build_dependency_edges(
                 elif closed and isinstance(fact_id, str):
                     edges[cid].update(bundles_for_fact.get(fact_id, set()))
 
+        elif schema in FAMILY_BLOCK_EXPLANATION_SCHEMAS:
+            fam_id = citizen.get("family_id")
+            if isinstance(fam_id, str) and fam_id in ids:
+                edges[cid].add(fam_id)
+            fact_pin = citizen.get("fact_type")
+            if isinstance(fact_pin, dict):
+                fact_id = fact_pin.get("id")
+                if fact_id in ids:
+                    edges[cid].add(fact_id)
+                elif closed and isinstance(fact_id, str):
+                    edges[cid].update(bundles_for_fact.get(fact_id, set()))
+
         elif schema == "taxable-interest-composition.v1":
             for constituent in citizen.get("constituents", []):
                 if not isinstance(constituent, dict):
@@ -346,6 +359,9 @@ def build_dependency_edges(
                     edges[cid].add(family_pin["id"])
 
         elif schema in _SOURCE_FAMILY_SCHEMAS:
+            for other_id, other in corpus.items():
+                if other.get("schema") in FAMILY_BLOCK_EXPLANATION_SCHEMAS and other.get("family_id") == cid:
+                    edges[cid].add(other_id)
             fact_type = citizen.get("member_predicate", {}).get("fact_type")
             if isinstance(fact_type, str):
                 edges[cid].update(bundles_for_fact.get(fact_type, set()))

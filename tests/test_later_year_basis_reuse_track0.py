@@ -1898,6 +1898,8 @@ class C8bCandidateAgainstCurrentPackageValidation(unittest.TestCase):
                 "artifact-package.v42.schema.json",
                 # v43 is v42 plus rule-artifact.v17 only (declared block names).
                 "artifact-package.v43.schema.json",
+                # v44 (ADR 0088) is v43 plus family-block-explanation.v1 only.
+                "artifact-package.v44.schema.json",
             ],
         )
 

@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "derivation/family-block-explanation.v1",
+  "title": "Declared plain explanation and optional fixing fact type for one source-family member-validation block code",
+  "description": "Maps one (source-family id, block_code) pair to a filer-facing plain explanation sentence and an optional fixing fact type pin whose adopted input-question citizen asks what fixes it. Does not pin or alter the source-family version.",
+  "type": "object",
+  "properties": {
+    "schema": {
+      "const": "family-block-explanation.v1"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^v[0-9]+$"
+    },
+    "family_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "block_code": {
+      "type": "string",
+      "minLength": 1
+    },
+    "explanation": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S"
+    },
+    "fact_type": {
+      "$ref": "#/$defs/pin"
+    }
+  },
+  "required": [
+    "schema",
+    "id",
+    "version",
+    "family_id",
+    "block_code",
+    "explanation"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "pin": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^v[0-9]+$"
+        }
+      },
+      "required": [
+        "id",
+        "version"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

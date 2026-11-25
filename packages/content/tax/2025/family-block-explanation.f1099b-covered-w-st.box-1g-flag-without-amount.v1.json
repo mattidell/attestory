@@ -1,0 +1,8 @@
+{
+  "schema": "family-block-explanation.v1",
+  "id": "tax.us.2025.family-block-explanation.f1099b-covered-w-st.box-1g-flag-without-amount",
+  "version": "v1",
+  "family_id": "tax.us.2025.f1099b.covered-w-st",
+  "block_code": "BOX_1G_FLAG_WITHOUT_AMOUNT",
+  "explanation": "This Form 1099-B sale is marked as having a box 1g wash-sale loss disallowed, but no disallowed amount was entered; enter the wash-sale loss disallowed from box 1g (or 0 if none), or unmark the box 1g wash-sale indicator."
+}
