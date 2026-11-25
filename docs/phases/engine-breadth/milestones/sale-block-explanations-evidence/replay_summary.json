@@ -1,0 +1,316 @@
+{
+  "format": "full-surface-replay.v1",
+  "cores": [
+    {
+      "version": "v105",
+      "registry": "v103",
+      "release_version": "v103",
+      "loader_from": null,
+      "presence_pairs": [],
+      "package_sha256": "fbe38b6b14f62e8e82fa7c2faede2baaac32618305854159786f9c9112df48f4",
+      "release_sha256": "9b8f188993711e97bd9148b1191f95e3fb1ef827352a8211cc3efc911e135c5b"
+    },
+    {
+      "version": "v106",
+      "registry": "v104",
+      "release_version": "v104",
+      "loader_from": null,
+      "presence_pairs": [],
+      "package_sha256": "d029df225649971933a310d613adcf4126c64edcaf5f52b70aee83f64fcb8ff8",
+      "release_sha256": "271a3bdd62c17d40e3dda908b73e8754ce03a9e7589cb5ee3fd4f7863181d385"
+    }
+  ],
+  "lists": 775,
+  "classes": {
+    "expected_changes": 691,
+    "identical": 84
+  },
+  "passing": 775,
+  "failing": 0,
+  "unexpected_differences": 0,
+  "expectations_declared": 31,
+  "expectations_used": 26,
+  "unused_expectations": [
+    {
+      "note": "plain explanation for BOX_1G_AMOUNT_WITHOUT_FLAG",
+      "kind": [
+        "page"
+      ],
+      "attribute": "sentence",
+      "identity": "resolved\\.reasons",
+      "change": "changed",
+      "before": "A disallowed amount is contributed without an affirmative wash-sale adjustment flag. Independently blockable. Existing block code: tax.us.2025.block.f8949.box-1g-amount-without-flag.",
+      "after": "A box 1g wash-sale disallowed amount was entered on this Form 1099-B sale without marking that box 1g applies; confirm whether box 1g shows a wash-sale loss disallowed, or remove the disallowed amount."
+    },
+    {
+      "note": "plain explanation for BOX_1G_FLAG_WITHOUT_AMOUNT",
+      "kind": [
+        "page"
+      ],
+      "attribute": "sentence",
+      "identity": "resolved\\.reasons",
+      "change": "changed",
+      "before": "The wash-sale adjustment flag is affirmative but no disallowed amount is contributed. The two fields are independently contributable (ADR-0061 Decision 1), so this state is representable and must be independently blockable. Existing block code: tax.us.2025.block.f8949.box-1g-flag-without-amount.",
+      "after": "This Form 1099-B sale is marked as having a box 1g wash-sale loss disallowed, but no disallowed amount was entered; enter the wash-sale loss disallowed from box 1g (or 0 if none), or unmark the box 1g wash-sale indicator."
+    },
+    {
+      "note": "plain explanation for BASIS_WAS_REPORTED",
+      "kind": [
+        "page"
+      ],
+      "attribute": "sentence",
+      "identity": "resolved\\.reasons",
+      "change": "changed",
+      "before": "A sale whose basis was reported to the IRS is not a member of this family.",
+      "after": "This sale's Form 1099-B shows that its cost or other basis was reported to the IRS, so it belongs with covered sales (Schedule D line 1a or 8a, or Form 8949 box A or D if adjusted), not with sales whose basis was not reported to the IRS."
+    },
+    {
+      "note": "fixing question reason tax.us.2025.input-question.f1099b-covered-w-lt-adjustment",
+      "kind": [
+        "page"
+      ],
+      "attribute": "sentence",
+      "identity": "resolved\\.reasons",
+      "change": "added",
+      "before": "ANY",
+      "after": "What is the nondeductible wash-sale loss in box 1g of Form 1099-B (or the correct disallowed wash-sale loss, or 0 if none) for this long-term sale?"
+    },
+    {
+      "note": "fixing question reason tax.us.2025.input-question.f8949-no1099b-lt-adjustment",
+      "kind": [
+        "page"
+      ],
+      "attribute": "sentence",
+      "identity": "resolved\\.reasons",
+      "change": "added",
+      "before": "ANY",
+      "after": "What is the nondeductible wash-sale loss in column (g) (or 0 if none) for this long-term sale recorded without a Form 1099-B?"
+    }
+  ],
+  "optional_blocks_reached": {
+    "line21Explanation": 2
+  },
+  "outcomes": {
+    "error/error": 84,
+    "success/success": 691
+  },
+  "expected_by_note": {
+    "added fixing questionGroup for sale block": 328,
+    "added or shifted page questionRefs entries for fixing question": 8688,
+    "added or shifted resolved.questionRefs@order for fixing question": 544,
+    "core version bump v105 -> v106": 358053,
+    "existing question reason tax.us.2025.input-question.f1099b-no-sale-box4-present restored in closure on missing adjustment row": 4,
+    "existing question reason tax.us.2025.input-question.taxpayer-blind restored in closure on missing adjustment row": 18,
+    "existing question reason tax.us.2025.input-question.taxpayer-over-65 restored in closure on missing adjustment row": 19,
+    "first resolved.reasons@order when missing adjustment previously had no question": 32,
+    "fixing question reason tax.us.2025.input-question.f1099b-code-b-lt-adjustment": 64,
+    "fixing question reason tax.us.2025.input-question.f1099b-code-b-st-adjustment": 192,
+    "fixing question reason tax.us.2025.input-question.f1099b-covered-w-st-adjustment": 96,
+    "fixing question reason tax.us.2025.input-question.f1099b-noncovered-lt-adjustment": 64,
+    "fixing question reason tax.us.2025.input-question.f1099b-noncovered-st-adjustment": 64,
+    "fixing question reason tax.us.2025.input-question.f8949-no1099b-st-adjustment": 64,
+    "plain explanation for ADJUSTMENT_EXCEEDS_LOSS": 512,
+    "plain explanation for CODE_B_WITHOUT_CORRECTION": 128,
+    "plain explanation for CODE_W_ON_GAIN": 288,
+    "plain explanation for HOLDING_PERIOD_MISMATCH": 192,
+    "questionGroups order with added fixing question group": 17,
+    "resolved.reasons order with appended fixing question": 512
+  },
+  "non_version_changed_lists_count": 27,
+  "non_version_changed_lists": {
+    "v81/case/a_holding_mismatch": {
+      "plain explanation for HOLDING_PERIOD_MISMATCH": 32
+    },
+    "v81/case/a_no_correction": {
+      "plain explanation for CODE_B_WITHOUT_CORRECTION": 32
+    },
+    "v81/case/a_w_exceeds_corrected_loss": {
+      "questionGroups order with added fixing question group": 1,
+      "resolved.reasons order with appended fixing question": 32,
+      "plain explanation for ADJUSTMENT_EXCEEDS_LOSS": 32,
+      "added or shifted resolved.questionRefs@order for fixing question": 32,
+      "added or shifted page questionRefs entries for fixing question": 363,
+      "added fixing questionGroup for sale block": 20,
+      "fixing question reason tax.us.2025.input-question.f1099b-code-b-st-adjustment": 32
+    },
+    "v81/case/a_w_on_gain_after_correction": {
+      "questionGroups order with added fixing question group": 1,
+      "resolved.reasons order with appended fixing question": 32,
+      "plain explanation for CODE_W_ON_GAIN": 32,
+      "plain explanation for ADJUSTMENT_EXCEEDS_LOSS": 32,
+      "added or shifted resolved.questionRefs@order for fixing question": 32,
+      "added or shifted page questionRefs entries for fixing question": 525,
+      "added fixing questionGroup for sale block": 20,
+      "fixing question reason tax.us.2025.input-question.f1099b-code-b-st-adjustment": 32
+    },
+    "v81/case/x_bw_w_exceeds_correct_loss_within_shown": {
+      "questionGroups order with added fixing question group": 1,
+      "resolved.reasons order with appended fixing question": 32,
+      "plain explanation for ADJUSTMENT_EXCEEDS_LOSS": 32,
+      "added or shifted resolved.questionRefs@order for fixing question": 32,
+      "added or shifted page questionRefs entries for fixing question": 525,
+      "added fixing questionGroup for sale block": 20,
+      "fixing question reason tax.us.2025.input-question.f1099b-code-b-st-adjustment": 32
+    },
+    "v81/case/x_d_bw_w_exceeds_correct_loss": {
+      "questionGroups order with added fixing question group": 1,
+      "resolved.reasons order with appended fixing question": 32,
+      "plain explanation for ADJUSTMENT_EXCEEDS_LOSS": 32,
+      "added or shifted resolved.questionRefs@order for fixing question": 32,
+      "added or shifted page questionRefs entries for fixing question": 363,
+      "added fixing questionGroup for sale block": 20,
+      "fixing question reason tax.us.2025.input-question.f1099b-code-b-lt-adjustment": 32
+    },
+    "v81/case/x_d_holding_mismatch": {
+      "plain explanation for HOLDING_PERIOD_MISMATCH": 32
+    },
+    "v81/case/x_no_correction_with_w": {
+      "plain explanation for CODE_B_WITHOUT_CORRECTION": 32
+    },
+    "v81/v80/carried_code_w_on_gain": {
+      "questionGroups order with added fixing question group": 1,
+      "resolved.reasons order with appended fixing question": 32,
+      "plain explanation for CODE_W_ON_GAIN": 32,
+      "plain explanation for ADJUSTMENT_EXCEEDS_LOSS": 32,
+      "added or shifted resolved.questionRefs@order for fixing question": 32,
+      "added or shifted page questionRefs entries for fixing question": 363,
+      "added fixing questionGroup for sale block": 20,
+      "fixing question reason tax.us.2025.input-question.f1099b-noncovered-lt-adjustment": 32
+    },
+    "v81/v80/v80_c_code_w_on_gain": {
+      "questionGroups order with added fixing question group": 1,
+      "resolved.reasons order with appended fixing question": 32,
+      "plain explanation for CODE_W_ON_GAIN": 32,
+      "plain explanation for ADJUSTMENT_EXCEEDS_LOSS": 32,
+      "added or shifted resolved.questionRefs@order for fixing question": 32,
+      "added or shifted page questionRefs entries for fixing question": 525,
+      "added fixing questionGroup for sale block": 14,
+      "fixing question reason tax.us.2025.input-question.f8949-no1099b-st-adjustment": 32
+    },
+    "v81/v80/v80_d3_b_code_w_on_gain": {
+      "questionGroups order with added fixing question group": 1,
+      "resolved.reasons order with appended fixing question": 32,
+      "plain explanation for CODE_W_ON_GAIN": 32,
+      "plain explanation for ADJUSTMENT_EXCEEDS_LOSS": 32,
+      "added or shifted resolved.questionRefs@order for fixing question": 32,
+      "added fixing questionGroup for sale block": 20,
+      "added or shifted page questionRefs entries for fixing question": 192,
+      "fixing question reason tax.us.2025.input-question.f1099b-noncovered-st-adjustment": 32
+    },
+    "v81/v80/v80_f_holding_mismatch": {
+      "plain explanation for HOLDING_PERIOD_MISMATCH": 32
+    },
+    "v82/n_w_adjustment_row_missing/honest": {
+      "questionGroups order with added fixing question group": 1,
+      "added fixing questionGroup for sale block": 20,
+      "added or shifted resolved.questionRefs@order for fixing question": 32,
+      "added or shifted page questionRefs entries for fixing question": 414,
+      "first resolved.reasons@order when missing adjustment previously had no question": 32,
+      "fixing question reason tax.us.2025.input-question.f1099b-covered-w-st-adjustment": 32,
+      "existing question reason tax.us.2025.input-question.taxpayer-over-65 restored in closure on missing adjustment row": 19,
+      "existing question reason tax.us.2025.input-question.taxpayer-blind restored in closure on missing adjustment row": 18,
+      "existing question reason tax.us.2025.input-question.f1099b-no-sale-box4-present restored in closure on missing adjustment row": 4
+    },
+    "v83/returns/case/a_holding_mismatch/recorded": {
+      "plain explanation for HOLDING_PERIOD_MISMATCH": 32
+    },
+    "v83/returns/case/a_no_correction/recorded": {
+      "plain explanation for CODE_B_WITHOUT_CORRECTION": 32
+    },
+    "v83/returns/case/a_w_exceeds_corrected_loss/recorded": {
+      "questionGroups order with added fixing question group": 1,
+      "resolved.reasons order with appended fixing question": 32,
+      "plain explanation for ADJUSTMENT_EXCEEDS_LOSS": 32,
+      "added or shifted resolved.questionRefs@order for fixing question": 32,
+      "added or shifted page questionRefs entries for fixing question": 363,
+      "added fixing questionGroup for sale block": 20,
+      "fixing question reason tax.us.2025.input-question.f1099b-code-b-st-adjustment": 32
+    },
+    "v83/returns/case/a_w_on_gain_after_correction/recorded": {
+      "questionGroups order with added fixing question group": 1,
+      "resolved.reasons order with appended fixing question": 32,
+      "plain explanation for CODE_W_ON_GAIN": 32,
+      "plain explanation for ADJUSTMENT_EXCEEDS_LOSS": 32,
+      "added or shifted resolved.questionRefs@order for fixing question": 32,
+      "added or shifted page questionRefs entries for fixing question": 525,
+      "added fixing questionGroup for sale block": 20,
+      "fixing question reason tax.us.2025.input-question.f1099b-code-b-st-adjustment": 32
+    },
+    "v83/returns/case/x_bw_w_exceeds_correct_loss_within_shown/recorded": {
+      "questionGroups order with added fixing question group": 1,
+      "resolved.reasons order with appended fixing question": 32,
+      "plain explanation for ADJUSTMENT_EXCEEDS_LOSS": 32,
+      "added or shifted resolved.questionRefs@order for fixing question": 32,
+      "added or shifted page questionRefs entries for fixing question": 525,
+      "added fixing questionGroup for sale block": 20,
+      "fixing question reason tax.us.2025.input-question.f1099b-code-b-st-adjustment": 32
+    },
+    "v83/returns/case/x_d_bw_w_exceeds_correct_loss/recorded": {
+      "questionGroups order with added fixing question group": 1,
+      "resolved.reasons order with appended fixing question": 32,
+      "plain explanation for ADJUSTMENT_EXCEEDS_LOSS": 32,
+      "added or shifted resolved.questionRefs@order for fixing question": 32,
+      "added or shifted page questionRefs entries for fixing question": 363,
+      "added fixing questionGroup for sale block": 20,
+      "fixing question reason tax.us.2025.input-question.f1099b-code-b-lt-adjustment": 32
+    },
+    "v83/returns/case/x_d_holding_mismatch/recorded": {
+      "plain explanation for HOLDING_PERIOD_MISMATCH": 32
+    },
+    "v83/returns/case/x_no_correction_with_w/recorded": {
+      "plain explanation for CODE_B_WITHOUT_CORRECTION": 32
+    },
+    "v83/returns/v80/carried_code_w_on_gain/recorded": {
+      "questionGroups order with added fixing question group": 1,
+      "resolved.reasons order with appended fixing question": 32,
+      "plain explanation for CODE_W_ON_GAIN": 32,
+      "plain explanation for ADJUSTMENT_EXCEEDS_LOSS": 32,
+      "added or shifted resolved.questionRefs@order for fixing question": 32,
+      "added or shifted page questionRefs entries for fixing question": 363,
+      "added fixing questionGroup for sale block": 20,
+      "fixing question reason tax.us.2025.input-question.f1099b-noncovered-lt-adjustment": 32
+    },
+    "v83/returns/v80/probe_a_bw_on_w_broker/recorded": {
+      "questionGroups order with added fixing question group": 1,
+      "added or shifted resolved.questionRefs@order for fixing question": 32,
+      "added or shifted page questionRefs entries for fixing question": 921,
+      "resolved.reasons order with appended fixing question": 32,
+      "plain explanation for ADJUSTMENT_EXCEEDS_LOSS": 32,
+      "added fixing questionGroup for sale block": 20,
+      "fixing question reason tax.us.2025.input-question.f1099b-covered-w-st-adjustment": 32
+    },
+    "v83/returns/v80/probe_a_high_on_w_broker/recorded": {
+      "questionGroups order with added fixing question group": 1,
+      "added or shifted resolved.questionRefs@order for fixing question": 32,
+      "added or shifted page questionRefs entries for fixing question": 1641,
+      "resolved.reasons order with appended fixing question": 32,
+      "plain explanation for CODE_W_ON_GAIN": 32,
+      "plain explanation for ADJUSTMENT_EXCEEDS_LOSS": 32,
+      "added fixing questionGroup for sale block": 20,
+      "fixing question reason tax.us.2025.input-question.f1099b-covered-w-st-adjustment": 32
+    },
+    "v83/returns/v80/v80_c_code_w_on_gain/recorded": {
+      "questionGroups order with added fixing question group": 1,
+      "resolved.reasons order with appended fixing question": 32,
+      "plain explanation for CODE_W_ON_GAIN": 32,
+      "plain explanation for ADJUSTMENT_EXCEEDS_LOSS": 32,
+      "added or shifted resolved.questionRefs@order for fixing question": 32,
+      "added or shifted page questionRefs entries for fixing question": 525,
+      "added fixing questionGroup for sale block": 14,
+      "fixing question reason tax.us.2025.input-question.f8949-no1099b-st-adjustment": 32
+    },
+    "v83/returns/v80/v80_d3_b_code_w_on_gain/recorded": {
+      "questionGroups order with added fixing question group": 1,
+      "resolved.reasons order with appended fixing question": 32,
+      "plain explanation for CODE_W_ON_GAIN": 32,
+      "plain explanation for ADJUSTMENT_EXCEEDS_LOSS": 32,
+      "added or shifted resolved.questionRefs@order for fixing question": 32,
+      "added fixing questionGroup for sale block": 20,
+      "added or shifted page questionRefs entries for fixing question": 192,
+      "fixing question reason tax.us.2025.input-question.f1099b-noncovered-st-adjustment": 32
+    },
+    "v83/returns/v80/v80_f_holding_mismatch/recorded": {
+      "plain explanation for HOLDING_PERIOD_MISMATCH": 32
+    }
+  }
+}

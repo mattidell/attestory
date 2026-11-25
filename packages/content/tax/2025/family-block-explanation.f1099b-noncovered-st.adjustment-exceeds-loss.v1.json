@@ -1,0 +1,12 @@
+{
+  "schema": "family-block-explanation.v1",
+  "id": "tax.us.2025.family-block-explanation.f1099b-noncovered-st.adjustment-exceeds-loss",
+  "version": "v1",
+  "family_id": "tax.us.2025.f1099b.noncovered-st",
+  "block_code": "ADJUSTMENT_EXCEEDS_LOSS",
+  "explanation": "The wash-sale loss disallowed is more than this sale's own loss (its basis minus its proceeds, or zero if it is not a loss); check the disallowed wash-sale amount against the proceeds and the cost or other basis.",
+  "fact_type": {
+    "id": "tax.us.2025.f1099b.noncovered-st-txn.adjustment",
+    "version": "v1"
+  }
+}

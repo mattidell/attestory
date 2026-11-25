@@ -1,0 +1,8 @@
+{
+  "schema": "family-block-explanation.v1",
+  "id": "tax.us.2025.family-block-explanation.f1099b-covered-w-lt.box-1g-amount-without-flag",
+  "version": "v1",
+  "family_id": "tax.us.2025.f1099b.covered-w-lt",
+  "block_code": "BOX_1G_AMOUNT_WITHOUT_FLAG",
+  "explanation": "A box 1g wash-sale disallowed amount was entered on this Form 1099-B sale without marking that box 1g applies; confirm whether box 1g shows a wash-sale loss disallowed, or remove the disallowed amount."
+}

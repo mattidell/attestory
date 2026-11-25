@@ -1,0 +1,12 @@
+{
+  "schema": "family-block-explanation.v1",
+  "id": "tax.us.2025.family-block-explanation.f1099b-covered-w-lt.adjustment-exceeds-loss",
+  "version": "v1",
+  "family_id": "tax.us.2025.f1099b.covered-w-lt",
+  "block_code": "ADJUSTMENT_EXCEEDS_LOSS",
+  "explanation": "The wash-sale loss disallowed in box 1g of this Form 1099-B is more than this sale's loss (its basis minus its proceeds, or zero if it is not a loss); check the box 1g amount against the proceeds in box 1d and the cost or other basis in box 1e.",
+  "fact_type": {
+    "id": "tax.us.2025.f1099b.covered-w-lt-txn.adjustment",
+    "version": "v1"
+  }
+}

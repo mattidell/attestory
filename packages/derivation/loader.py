@@ -73,6 +73,7 @@ ROLE_VOCABULARY = frozenset(
         "source-family",
         "source-closure-mapping",
         "input-question",
+        "family-block-explanation",
         "fact-type",
         "fact-type-bundle",
         "dividend-universe",

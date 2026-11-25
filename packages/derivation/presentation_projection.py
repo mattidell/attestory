@@ -641,6 +641,7 @@ def _closure_question_reasons(
     partial_leaf: str | None = None,
     partial_explanation: str | None = None,
     roster_members: _RosterMembers | None = None,
+    member_violation_targets: Mapping[tuple[str, str], set[str]] | None = None,
 ) -> list[dict[str, Any]]:
     """The declared question for every cause a blocked line waits on and a filer can answer.
 
@@ -688,6 +689,7 @@ def _closure_question_reasons(
     """
     questions: dict[str, str] = {}
     input_questions: dict[str, str] = {}
+    family_block_explanations: dict[tuple[str, str], Mapping[str, Any]] = {}
     for member in resolved_members:
         schema = str(member.get("schema", ""))
         question = member.get("closure_question")
@@ -707,6 +709,11 @@ def _closure_question_reasons(
         if (schema.startswith("input-question.")
                 and isinstance(asked, str) and asked.strip() and isinstance(fact_type, Mapping)):
             input_questions[str(fact_type.get("id"))] = asked
+        if (schema.startswith("family-block-explanation.")
+                and isinstance(member.get("family_id"), str)
+                and isinstance(member.get("block_code"), str)
+                and isinstance(member.get("explanation"), str)):
+            family_block_explanations[(member["family_id"], member["block_code"])] = member
 
     families: set[str] = set()
     facts: set[str] = set()
@@ -817,6 +824,26 @@ def _closure_question_reasons(
         return run
 
     def explain(current: Mapping[str, Any], key: str) -> bool:
+        artifact = str(current.get("artifact_id") or "")
+        marker = ".member-validation.synthesized"
+        if artifact.endswith(marker):
+            family_id = artifact[: -len(marker)]
+            declared = family_block_explanations.get((family_id, key))
+            if declared is not None:
+                frames[-1].extras.add(str(declared["explanation"]))
+                fix_ft = declared.get("fact_type")
+                if isinstance(fix_ft, Mapping) and isinstance(fix_ft.get("id"), str):
+                    fix_ft_id = str(fix_ft["id"])
+                    matched_target = False
+                    for member_fact_id in sorted((member_violation_targets or {}).get((family_id, key), ())):
+                        if "|" in member_fact_id:
+                            candidate_id = f"{fix_ft_id}|{member_fact_id.partition('|')[2]}"
+                            if candidate_id in question_target_ids.get(fix_ft_id, set()):
+                                record_input_fact(candidate_id, fix_ft_id)
+                                matched_target = True
+                    if not matched_target:
+                        record_input_fact(fix_ft_id, fix_ft_id)
+                return True
         sentence = meaning_for(current, key)
         if sentence:
             frames[-1].extras.add(sentence)
@@ -5467,6 +5494,22 @@ def build_presentation_model(
         authoritative_acts=authoritative_acts,
     )
     roster_members = _RosterMembers(rules_by_id, state)
+    member_violation_targets: dict[tuple[str, str], set[str]] = {}
+    for pub in publications_by_id.values():
+        sym = str(pub.get("symbol") or "")
+        marker = ".member-validation.synthesized."
+        if marker not in sym:
+            continue
+        fam_id = sym.split(marker, 1)[0]
+        val = pub.get("value")
+        if not isinstance(val, Mapping):
+            continue
+        mfid = val.get("member_fact_id")
+        if not isinstance(mfid, str) or not mfid:
+            continue
+        for viol in val.get("violations") or ():
+            if isinstance(viol, Mapping) and isinstance(viol.get("block_code"), str):
+                member_violation_targets.setdefault((fam_id, viol["block_code"]), set()).add(mfid)
 
     pin_labels: dict[str, str] = {}
     sections: list[dict[str, Any]] = []
@@ -5523,6 +5566,7 @@ def build_presentation_model(
             "refusal_token": refusal_token,
             "constraint_meanings": constraint_meanings,
             "roster_members": roster_members,
+            "member_violation_targets": member_violation_targets,
         }
         mixed_blocker = _line9_mixed_blocker_explanation(
             field, row, by_symbol, adopted_package,

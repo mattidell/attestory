@@ -1,0 +1,12 @@
+{
+  "schema": "family-block-explanation.v1",
+  "id": "tax.us.2025.family-block-explanation.f1099b-noncovered-st.code-w-on-gain",
+  "version": "v1",
+  "family_id": "tax.us.2025.f1099b.noncovered-st",
+  "block_code": "CODE_W_ON_GAIN",
+  "explanation": "A wash-sale loss disallowed was entered on a sale that is not a loss (proceeds are at least basis); a wash sale only disallows a loss, so enter 0 if no part of the loss is a nondeductible wash sale, or check proceeds and basis.",
+  "fact_type": {
+    "id": "tax.us.2025.f1099b.noncovered-st-txn.adjustment",
+    "version": "v1"
+  }
+}

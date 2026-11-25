@@ -1,0 +1,8 @@
+{
+  "schema": "family-block-explanation.v1",
+  "id": "tax.us.2025.family-block-explanation.f1099b-code-b-lt.code-b-without-correction",
+  "version": "v1",
+  "family_id": "tax.us.2025.f1099b.code-b-lt",
+  "block_code": "CODE_B_WITHOUT_CORRECTION",
+  "explanation": "The corrected basis equals the basis shown on Form 1099-B, so no code B basis correction applies; record the sale without a basis correction (or with code W only if it has a wash-sale loss disallowed)."
+}

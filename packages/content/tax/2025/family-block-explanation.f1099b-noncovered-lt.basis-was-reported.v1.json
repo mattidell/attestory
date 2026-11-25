@@ -1,0 +1,8 @@
+{
+  "schema": "family-block-explanation.v1",
+  "id": "tax.us.2025.family-block-explanation.f1099b-noncovered-lt.basis-was-reported",
+  "version": "v1",
+  "family_id": "tax.us.2025.f1099b.noncovered-lt",
+  "block_code": "BASIS_WAS_REPORTED",
+  "explanation": "This sale's Form 1099-B shows that its cost or other basis was reported to the IRS, so it belongs with covered sales (Schedule D line 1a or 8a, or Form 8949 box A or D if adjusted), not with sales whose basis was not reported to the IRS."
+}

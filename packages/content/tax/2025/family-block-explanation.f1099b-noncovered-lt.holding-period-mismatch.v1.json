@@ -1,0 +1,8 @@
+{
+  "schema": "family-block-explanation.v1",
+  "id": "tax.us.2025.family-block-explanation.f1099b-noncovered-lt.holding-period-mismatch",
+  "version": "v1",
+  "family_id": "tax.us.2025.f1099b.noncovered-lt",
+  "block_code": "HOLDING_PERIOD_MISMATCH",
+  "explanation": "This sale is marked long-term but was entered with short-term sales, or marked short-term but entered with long-term sales; check the dates you acquired and sold it (more than 1 year is long-term) and, if you have a Form 1099-B, whether its box 2 shows short-term or long-term."
+}

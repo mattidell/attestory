@@ -312,6 +312,8 @@ CLOSURE_MAPPING_SCHEMAS = frozenset({
 # The declared question for one missing filer-supplied fact (artifact-package.v39).
 # Every admission point reads this one set (never a literal).
 INPUT_QUESTION_SCHEMAS = frozenset({"input-question.v1"})
+# ADR 0088: plain explanations and optional fixing fact types per (family_id, block_code).
+FAMILY_BLOCK_EXPLANATION_SCHEMAS = frozenset({"family-block-explanation.v1"})
 
 # ADR-0066 Decision 7: closed supported-semantic-schema set. A registry-valid
 # member whose schema is absent here is rejected with MEMBER_SCHEMA_UNSUPPORTED
@@ -343,6 +345,7 @@ _SUPPORTED_SEMANTIC_SCHEMAS = frozenset({
     "form-field.v3",
     "migration-artifact.v1",
     *sorted(INPUT_QUESTION_SCHEMAS),
+    *sorted(FAMILY_BLOCK_EXPLANATION_SCHEMAS),
     "operation-semantics.v1",
     "operation-semantics.v2",
     "parameter-declaration.v1",
@@ -1256,7 +1259,7 @@ def _reader_role_issues(
     resolved: list[tuple[dict[str, Any], dict[str, Any]]],
 ) -> list[MemberIssue]:
     """Validate the closed roles and their declared rule dependencies in v34."""
-    if package.get("schema") not in ("artifact-package.v34", "artifact-package.v35", "artifact-package.v36", "artifact-package.v37", "artifact-package.v38", "artifact-package.v39", "artifact-package.v40"):
+    if package.get("schema") not in ("artifact-package.v34", "artifact-package.v35", "artifact-package.v36", "artifact-package.v37", "artifact-package.v38", "artifact-package.v39", "artifact-package.v40", "artifact-package.v44"):
         return []
     issues: list[MemberIssue] = []
     role_rules = [
@@ -2086,6 +2089,10 @@ def validate_package(
             if pin_role != "input-question":
                 issues.append(MemberIssue(pin["id"], pin["version"], "ROLE_MISMATCH",
                                            f"input-question declared as role {pin_role!r}"))
+        elif citizen["schema"] in FAMILY_BLOCK_EXPLANATION_SCHEMAS:
+            if pin_role != "family-block-explanation":
+                issues.append(MemberIssue(pin["id"], pin["version"], "ROLE_MISMATCH",
+                                           f"family-block-explanation declared as role {pin_role!r}"))
         elif citizen["schema"] == "taxable-interest-composition.v1":
             if pin_role != "composition":
                 issues.append(MemberIssue(pin["id"], pin["version"], "ROLE_MISMATCH",
@@ -2179,6 +2186,11 @@ def validate_package(
             if ft_pin and (ft_pin["id"], ft_pin["version"]) not in fact_surface:
                 issues.append(MemberIssue(pin["id"], pin["version"], "INPUT_QUESTION_FACT_TYPE_NOT_ADMITTED",
                                           f"input question fact_type {(ft_pin['id'], ft_pin['version'])} not in package fact surface"))
+        if citizen["schema"] in FAMILY_BLOCK_EXPLANATION_SCHEMAS:
+            ft_pin = citizen.get("fact_type")
+            if ft_pin and (ft_pin["id"], ft_pin["version"]) not in fact_surface:
+                issues.append(MemberIssue(pin["id"], pin["version"], "FAMILY_BLOCK_EXPLANATION_FACT_TYPE_NOT_ADMITTED",
+                                          f"family-block-explanation fact_type {(ft_pin['id'], ft_pin['version'])} not in package fact surface"))
 
         # Form-field binds symbol & citation validation
         if citizen["schema"] in {"form-field.v1", "form-field.v2", "form-field.v3"}:
@@ -2194,6 +2206,49 @@ def validate_package(
     resolved_by_key = {
         (pin["id"], pin["version"]): citizen for pin, citizen in resolved
     }
+    fam_members = {
+        c["id"]: c for _, c in resolved if c["schema"] in {"source-family.v1", "source-family.v2"}
+    }
+    iq_fact_types = {
+        (c["fact_type"]["id"], c["fact_type"]["version"])
+        for _, c in resolved
+        if c["schema"] in INPUT_QUESTION_SCHEMAS and isinstance(c.get("fact_type"), dict)
+    }
+    seen_fbe: set[tuple[str, str]] = set()
+    for fbe_pin, fbe_cit in resolved:
+        if fbe_cit["schema"] not in FAMILY_BLOCK_EXPLANATION_SCHEMAS:
+            continue
+        fid = fbe_cit["family_id"]
+        bcode = fbe_cit["block_code"]
+        fam = fam_members.get(fid)
+        if fam is None:
+            issues.append(MemberIssue(
+                fbe_pin["id"], fbe_pin["version"], "FAMILY_BLOCK_EXPLANATION_FAMILY_ABSENT",
+                f"family_id {fid!r} is not an adopted source-family",
+            ))
+        else:
+            codes = {
+                c.get("block_code")
+                for c in fam.get("member_constraints", [])
+                if isinstance(c, dict)
+            }
+            if bcode not in codes:
+                issues.append(MemberIssue(
+                    fbe_pin["id"], fbe_pin["version"], "FAMILY_BLOCK_EXPLANATION_CODE_ABSENT",
+                    f"block_code {bcode!r} is not declared on family {fid!r}",
+                ))
+        if (fid, bcode) in seen_fbe:
+            issues.append(MemberIssue(
+                fbe_pin["id"], fbe_pin["version"], "FAMILY_BLOCK_EXPLANATION_DUPLICATE",
+                f"duplicate explanation for ({fid!r}, {bcode!r})",
+            ))
+        seen_fbe.add((fid, bcode))
+        ft_pin = fbe_cit.get("fact_type")
+        if isinstance(ft_pin, dict) and (ft_pin["id"], ft_pin["version"]) not in iq_fact_types:
+            issues.append(MemberIssue(
+                fbe_pin["id"], fbe_pin["version"], "FAMILY_BLOCK_EXPLANATION_QUESTION_ABSENT",
+                f"no input-question citizen for fact_type {(ft_pin['id'], ft_pin['version'])!r}",
+            ))
     declared_line2b = resolved_by_key.get((_DECLARED_LINE2B_ID, _DECLARED_LINE2B_VERSION))
     aggregate_key = (_NOMINEE_AGGREGATE_ID, _NOMINEE_AGGREGATE_VERSION)
     aggregate_member = resolved_by_key.get(aggregate_key)
@@ -2993,7 +3048,7 @@ def validate_package(
             "artifact-package.v20", "artifact-package.v21", "artifact-package.v22",
             "artifact-package.v23", "artifact-package.v24", "artifact-package.v25",
             "artifact-package.v26", "artifact-package.v29", "artifact-package.v30",
-            "artifact-package.v31", "artifact-package.v35", "artifact-package.v36", "artifact-package.v37", "artifact-package.v38", "artifact-package.v39", "artifact-package.v40",
+            "artifact-package.v31", "artifact-package.v35", "artifact-package.v36", "artifact-package.v37", "artifact-package.v38", "artifact-package.v39", "artifact-package.v40", "artifact-package.v44",
         }:
             members_by_key = {
                 (pin["id"], pin["version"]): pin for pin in package["members"]
@@ -3055,7 +3110,10 @@ def validate_package(
         bundle_fact_type_ids: dict[str, set[str]] = {}
         closure_ids_by_fact_type: dict[Any, list[str]] = {}
         closure_v4_ids_by_fact_type: dict[Any, list[str]] = {}
+        fbe_ids_by_family: dict[str, list[str]] = {}
         for _p2, c2 in resolved:
+            if c2["schema"] in FAMILY_BLOCK_EXPLANATION_SCHEMAS and isinstance(c2.get("family_id"), str):
+                fbe_ids_by_family.setdefault(c2["family_id"], []).append(c2["id"])
             if c2["schema"] in {"bundle.v1", "bundle.v2"}:
                 bundle_fact_type_ids.setdefault(c2["id"], set()).update(
                     ft["id"] for ft in c2.get("fact_types", [])
@@ -3294,6 +3352,14 @@ def validate_package(
                     adj[m_id].add(ft_pin["id"])
                 elif ft_pin and closed_v2_surface:
                     adj[m_id].update(bundles_for_fact.get(ft_pin["id"], set()))
+            elif citizen["schema"] in FAMILY_BLOCK_EXPLANATION_SCHEMAS:
+                if citizen["family_id"] in member_ids:
+                    adj[m_id].add(citizen["family_id"])
+                ft_pin = citizen.get("fact_type")
+                if ft_pin and ft_pin["id"] in member_ids:
+                    adj[m_id].add(ft_pin["id"])
+                elif ft_pin and closed_v2_surface:
+                    adj[m_id].update(bundles_for_fact.get(ft_pin["id"], set()))
             elif citizen["schema"] == "taxable-interest-composition.v1":
                 for c in citizen.get("constituents", []):
                     sf_id = c["source_family"]["id"]
@@ -3307,10 +3373,12 @@ def validate_package(
                 # ALSO depend on source-closure-mapping for this family
                 for closure_id in closure_ids_by_fact_type.get(ft_id, ()):
                     adj[m_id].add(closure_id)
+                adj[m_id].update(fbe_ids_by_family.get(citizen["id"], ()))
             elif citizen["schema"] == "source-family.v2":
                 ft_id = citizen["member_predicate"]["fact_type"]
                 for closure_id in closure_v4_ids_by_fact_type.get(ft_id, ()):
                     adj[m_id].add(closure_id)
+                adj[m_id].update(fbe_ids_by_family.get(citizen["id"], ()))
             elif citizen["schema"] in {"attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11", "attachment-rule.v12"}:
                 for part in citizen.get("itemizations", []):
                     authority = part.get("authority", {})
