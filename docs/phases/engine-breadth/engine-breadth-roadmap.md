@@ -1225,6 +1225,22 @@ question (leaving valid wash-sale losses untouched), and 6 newly adopted
 `DEPENDENCY_ABSENT`. All 775 recorded lists replay with zero arithmetic,
 disposition, or block-code changes; earlier cores stay unchanged.
 
+## Bounded return — A Sale Entered in Two Families Says Why It Blocked (2025)
+
+[Plan](milestones/sale-collision-explanation.md); retrospective:
+`docs/milestone-retrospectives/2026-11-25-sale-collision-explanation.md`.
+Projection and loader only (`core-calculations >= v106`); no core or schema bump.
+
+When the same Form 1099-B sale is entered in two incompatible sale categories
+(`IDENTITY_EXCLUSIVITY_COLLISION`), saved pages on core v106+ now show a plain
+pair-specific sentence naming both categories (with sorted-pair deduplication
+and a generic fallback for unmapped families) and restore adjacent unanswered
+or ADR 0088 fixing questions on mixed-blocker lines. Sibling exclusivity errors
+(`IDENTITY_COMPONENT_MISSING`, `IDENTITY_EXCLUSIVITY_FAMILY_ABSENT`) stay fail
+closed, and cores v105 and earlier remain unchanged. All 775 recorded lists
+replay with zero arithmetic, disposition, or block-code changes (746 identical,
+29 expected explanation/question updates).
+
 ## Saved-page observation — Mortgage and Sales (2025)
 
 [Plan](milestones/sale-page-observation.md); retrospective:
@@ -1365,7 +1381,6 @@ delivers an item removes it.
   page can only say a rule could not use the saved information; keeping
   the specific code on the row is a derivation change (page-plain-words
   Decision 9).
-- Cross-family sale collisions (`IDENTITY_EXCLUSIVITY_COLLISION`) have no `member_constraints` declaration and still block with empty `reasons: []` (left outside `family-block-explanation.v1` in `sale-block-explanations`, ADR 0088).
 - Undrawn rule descriptions and notes still carry engine terms; plain
   wording covers only text a page draws (plain-line-texts).
 - Two answers the record proves are still asked: line 2a Form 1099-INT

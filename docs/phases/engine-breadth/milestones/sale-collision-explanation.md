@@ -3,8 +3,8 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "sale-collision-explanation",
-  "status": "Open 2026-11-25. Decisions logged; Track 1 next.",
-  "retrospective": null,
+  "status": "Closed 2026-11-25. Projection and loader only (core v106+); no core or schema bump.",
+  "retrospective": "docs/milestone-retrospectives/2026-11-25-sale-collision-explanation.md",
   "scope": [
     "when the same sale is recorded in two incompatible sale families and triggers IDENTITY_EXCLUSIVITY_COLLISION, the saved page shows a plain filer-facing sentence explaining why the line is blocked and what to check instead of empty reasons",
     "every recorded return keeps its numbers, dispositions, refusal codes, and question groups, and no saved sale record is unpinned"
@@ -30,7 +30,7 @@
       "docs/phases/engine-breadth/milestones/sale-collision-explanation.md"
     ],
     "new_milestone": [
-      "docs/phases/engine-breadth/milestones/sale-collision-explanation.md",
+      "docs/milestone-retrospectives/2026-11-25-sale-collision-explanation.md",
       "docs/phases/engine-breadth/engine-breadth-roadmap.md#Parked work and open questions"
     ]
   }
@@ -106,3 +106,18 @@ Completed on `milestone/sale-collision-explanation-2025` (baseline core `v106`, 
 3. **Fail-closed guard on `IDENTITY_EXCLUSIVITY_COLLISION` presence (foreman decision, 2026-11-25).**
    `explain()` treats `identity_exclusivity:<excl_id>` as a collision ONLY when `artifact_id.endswith(".member-validation.synthesized")` AND `"IDENTITY_EXCLUSIVITY_COLLISION"` is present in `current["missing"]`, leaving `IDENTITY_COMPONENT_MISSING` and `IDENTITY_EXCLUSIVITY_FAMILY_ABSENT` strictly failing closed.
 4. **Track 1 verification contract:** Unit tests (symmetric deduplication, `IDENTITY_COMPONENT_MISSING` non-interference, `IDENTITY_EXCLUSIVITY_FAMILY_ABSENT` non-interference, unmapped fallback, `v105` gate off, `v106` gate on), live integration tests (`live_coordinate_run` loading `collision_probe.py` via `tests/evidence_loader.py` across all 18 pairs + 3-way + mixed `taxpayer-over-65` + mixed `CODE_W_ON_GAIN` + distinct control), `check_page_dom.mjs` rendered HTML verification (`0` `section_errors`, `0` `total_first_read_leaks`), full `pytest`, `mypy`, `governance_lint.py`, `envelope_scan.py`, and 775-list full-surface replay.
+
+## Closeout
+
+Closed 2026-11-25. Added `explains_identity_exclusivity_collision`
+(`core-calculations >= v106`), `SALE_COLLISION_CATEGORY_LABELS`, and
+`IDENTITY_EXCLUSIVITY_COLLISION_SENTENCE` in `packages/tax/loader.py`, wired
+into domain-neutral `_closure_question_reasons` in
+`packages/derivation/presentation_projection.py` with fail-closed guards on
+`IDENTITY_COMPONENT_MISSING` / `IDENTITY_EXCLUSIVITY_FAMILY_ABSENT` and
+sorted-pair deduplication. No schema, core, content, `packages/kernel/`,
+`runner.py`, or `citation-walk.v1.html` file changed. Full `pytest` (7,723
+passed), `mypy`, rendered DOM checks (`0` section errors, `0` first-read
+leaks), and the 775-list full-surface replay (`746` identical, `29` expected
+changes, `0` unexpected diffs) passed, and independent review returned `READY`
+with no findings.
