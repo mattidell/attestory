@@ -642,6 +642,8 @@ def _closure_question_reasons(
     partial_explanation: str | None = None,
     roster_members: _RosterMembers | None = None,
     member_violation_targets: Mapping[tuple[str, str], set[str]] | None = None,
+    collision_sentence: str | None = None,
+    collision_category_labels: Mapping[str, str] | None = None,
 ) -> list[dict[str, Any]]:
     """The declared question for every cause a blocked line waits on and a filer can answer.
 
@@ -823,11 +825,57 @@ def _closure_question_reasons(
             return result
         return run
 
+    def exclusivity_pair_sentence(family_id: str, excl_id: str) -> str | None:
+        """Return a plain pair-specific collision sentence when both families carry labels."""
+        if not collision_category_labels or family_id not in collision_category_labels:
+            return None
+        for member in members_by_id.get(family_id, ()):
+            for excl in member.get("identity_exclusivity") or ():
+                if isinstance(excl, Mapping) and excl.get("id") == excl_id:
+                    incomp = excl.get("incompatible_family")
+                    counterpart_id = str(incomp.get("id")) if isinstance(incomp, Mapping) else ""
+                    if counterpart_id in collision_category_labels:
+                        first, second = sorted((
+                            collision_category_labels[family_id],
+                            collision_category_labels[counterpart_id],
+                        ))
+                        return (
+                            f"The same sale was entered as both {first} and {second}; "
+                            "keep this sale in only one category and remove the duplicate entry."
+                        )
+        return None
+
+    def explain_exclusivity(current: Mapping[str, Any], family_id: str, key: str) -> bool:
+        """Explain collision tokens only when IDENTITY_EXCLUSIVITY_COLLISION is present."""
+        missing_tokens = current.get("missing") or ()
+        if not collision_sentence or "IDENTITY_EXCLUSIVITY_COLLISION" not in missing_tokens:
+            return False
+        if key == "IDENTITY_EXCLUSIVITY_COLLISION":
+            excl_keys = [
+                str(item).removeprefix("identity_exclusivity:")
+                for item in missing_tokens
+                if str(item).startswith("identity_exclusivity:")
+            ]
+            if not excl_keys or any(
+                exclusivity_pair_sentence(family_id, eid) is None for eid in excl_keys
+            ):
+                frames[-1].extras.add(collision_sentence)
+            return True
+        if key.startswith("identity_exclusivity:"):
+            pair_sentence = exclusivity_pair_sentence(
+                family_id, key.removeprefix("identity_exclusivity:")
+            )
+            frames[-1].extras.add(pair_sentence if pair_sentence is not None else collision_sentence)
+            return True
+        return False
+
     def explain(current: Mapping[str, Any], key: str) -> bool:
         artifact = str(current.get("artifact_id") or "")
         marker = ".member-validation.synthesized"
         if artifact.endswith(marker):
             family_id = artifact[: -len(marker)]
+            if explain_exclusivity(current, family_id, key):
+                return True
             declared = family_block_explanations.get((family_id, key))
             if declared is not None:
                 frames[-1].extras.add(str(declared["explanation"]))
@@ -5448,7 +5496,10 @@ def build_presentation_model(
     from packages.tax.loader import (
         COVERED_FLAG_REFUSAL_CODE,
         COVERED_FLAG_REFUSAL_SENTENCE,
+        IDENTITY_EXCLUSIVITY_COLLISION_SENTENCE,
+        SALE_COLLISION_CATEGORY_LABELS,
         covered_flag_refusal_map,
+        explains_identity_exclusivity_collision,
         later_any_arm_refs_while_count_blocked,
         unconfirmed_family_names_closure_question,
     )
@@ -5465,8 +5516,14 @@ def build_presentation_model(
         adopted_package is not None
         and covered_flag_refusal_map(adopted_package[0], adopted_package[1]) is not None
     )
+    explains_collision = (
+        adopted_package is not None
+        and explains_identity_exclusivity_collision(adopted_package[0], adopted_package[1])
+    )
     refusal_sentence = COVERED_FLAG_REFUSAL_SENTENCE if names_covered_flag_refusal else None
     refusal_token = COVERED_FLAG_REFUSAL_CODE if names_covered_flag_refusal else None
+    collision_sentence = IDENTITY_EXCLUSIVITY_COLLISION_SENTENCE if explains_collision else None
+    collision_category_labels = SALE_COLLISION_CATEGORY_LABELS if explains_collision else None
     constraint_meanings = _constraint_meanings(resolved_members) if names_covered_flag_refusal else None
     _reject_unsupported_presentation_schemas(resolved_members)
     fields = [m for m in resolved_members if m.get("schema") in FIELD_SCHEMAS]
@@ -5567,6 +5624,8 @@ def build_presentation_model(
             "constraint_meanings": constraint_meanings,
             "roster_members": roster_members,
             "member_violation_targets": member_violation_targets,
+            "collision_sentence": collision_sentence,
+            "collision_category_labels": collision_category_labels,
         }
         mixed_blocker = _line9_mixed_blocker_explanation(
             field, row, by_symbol, adopted_package,
