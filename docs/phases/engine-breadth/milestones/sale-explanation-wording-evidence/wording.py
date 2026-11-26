@@ -86,8 +86,7 @@ def explanation(kind: str, code: str) -> tuple[str, str]:
                 f"disallowed); {S8949}, Column (g), code W.")
     if code == "BOX_1G_AMOUNT_WITHOUT_FLAG":
         return ("You entered a box 1g wash-sale amount for this sale but did not say that box 1g of your Form 1099-B "
-                "shows one. If box 1g shows an amount, say that it does, or if box 1g is blank, change your answer "
-                "that box 1g shows one and remove the amount."), (
+                "shows one. If box 1g shows an amount, say that it does, or if it is blank, remove the amount."), (
                 f"{SCHD}, General Instructions, Wash Sales (box 1g of Form 1099-B shows the wash sale loss "
                 f"disallowed); {S8949}, Column (g), code W.")
     if code == "CODE_B_WITHOUT_CORRECTION":

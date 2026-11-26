@@ -125,7 +125,9 @@ change.
   or lost less, "with the correct basis you entered".
 - **R2** (blank box 1g). Applied Decision 1. The covered wash-sale question
   now says that if box 1g is blank, change your answer that it shows one.
-  Both box 1g explanations give that same instruction for a blank box 1g.
+  The flag-without-amount explanation gives the same instruction. The
+  amount-without-flag explanation says to remove the amount, as amended in
+  Decision 1.
   The question bar is restated above.
 - **R3** (box 12). The sentence starts from the filer's answer ("You said
   your broker reported this sale's basis to the IRS") and gives both ways
@@ -157,8 +159,14 @@ passing, 0 unexpected, no number, disposition or block-code change.
    The covered wash-sale question is: "What is the wash-sale loss
    disallowed in box 1g of your Form 1099-B for this short-term or
    long-term sale? If box 1g is wrong, enter the correct amount. If box 1g
-   is blank, change your answer that it shows one." The two box 1g
-   explanations give the same instruction for a blank box 1g. Bar: a
+   is blank, change your answer that it shows one." The blank-box-1g
+   instruction ("change your answer that box 1g shows one") applies to
+   this question and to the flag-without-amount explanation only. In the
+   amount-without-flag case the filer never said box 1g shows an amount,
+   so that explanation reads: "You entered a box 1g wash-sale amount for
+   this sale but did not say that box 1g of your Form 1099-B shows one. If
+   box 1g shows an amount, say that it does, or if it is blank, remove the
+   amount." (Amended by the foreman after Repair 1.) Bar: a
    question says what to do when there is no number, and that is 0 only
    where 0 is valid.
 2. **SEW-R5 (foreman).** All three Form 1099-B groups use: "Check box 2 of

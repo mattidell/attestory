@@ -165,7 +165,7 @@
         "explanation"
       ],
       "rewritten_pins": 0,
-      "successor_sha256": "611cf97c62c24e7a57d32c5e9bed48e58f9d3d874e9b2d122cb8f254e9f5b75e",
+      "successor_sha256": "3f039693b2b853a8e6e69fbf4f7e0b8598c03b4819ea7cbd2e4078cc326f557c",
       "byte_undo_proof": true
     },
     {
@@ -225,7 +225,7 @@
         "explanation"
       ],
       "rewritten_pins": 0,
-      "successor_sha256": "23b7e4794bfd96768c1908320eff9d98a27bf2d87a9ac570c2b7c52ad389a28b",
+      "successor_sha256": "2f22834aa42924b5c96e4a38c49a22953b34525cd8862bf20510bcb7882dee50",
       "byte_undo_proof": true
     },
     {
@@ -592,7 +592,7 @@
   "status": "valid",
   "validation": "generate_to_directory passed package, registry and release validation",
   "generation": {
-    "registry_sha256": "65cf6037cb2800faa10c6e9e31ca3e6a405e7c7390796fbe513d4bdc79bedccc",
+    "registry_sha256": "69c438f0bdd9fed63ff0bed19a94784c9ac83ac60ddf82cbfb6c4d5f4459c917",
     "publication_boundary": "Candidate only: successor companion declaration and live release evidence are separate duties under ADR-0082."
   }
 }

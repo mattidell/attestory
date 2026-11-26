@@ -182,12 +182,16 @@ def test_each_sentence_meets_the_mechanical_wording_bar(row: dict[str, Any]) -> 
 
 
 def test_a_blank_box_1g_gets_one_instruction_and_never_0_for_a_covered_wash_sale() -> None:
-    """Decision 1: a covered wash-sale group sale is there only because box 1g is marked."""
+    """Decision 1: the blank-box-1g instruction applies to the question and to flag-without-amount only."""
     blank = "change your answer that box 1g shows one"
     rows = _wording()
     for row in rows:
-        if row.get("block_code") in {"BOX_1G_FLAG_WITHOUT_AMOUNT", "BOX_1G_AMOUNT_WITHOUT_FLAG"}:
+        if row.get("block_code") == "BOX_1G_FLAG_WITHOUT_AMOUNT":
             assert "if box 1g is blank, " + blank in row["new"], row["new"]
+        if row.get("block_code") == "BOX_1G_AMOUNT_WITHOUT_FLAG":
+            # The filer never said box 1g shows an amount, so the way out is to remove the amount.
+            assert "change your answer" not in row["new"], row["new"]
+            assert row["new"].endswith("or if it is blank, remove the amount."), row["new"]
         if "covered-w" in row["id"] and row["property"] == "question":
             assert "enter 0" not in row["new"] and "If box 1g is blank, change your answer that it shows one." in row["new"]
 
