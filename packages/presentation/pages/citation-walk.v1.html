@@ -158,6 +158,8 @@ const MODEL = Object.freeze(__MODEL_JSON__);
 const KNOWN_DISPOSITIONS = Object.freeze(["published_value", "computed_zero", "closure_backed_zero", "published_categorical"]);
 const NUMERIC_DISPOSITIONS = new Set(["published_value", "computed_zero", "closure_backed_zero"]);
 const PRESENTED_DISPOSITIONS = new Set(KNOWN_DISPOSITIONS);
+// Words for a member's place among members who share a recorded label (ADR 0090).
+const ORDINAL_WORDS = Object.freeze(["first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth", "ninth", "tenth"]);
 
 /* Safe DOM construction only — no innerHTML anywhere on this page
    (ADR-0046 foreclosure 5). */
@@ -1458,8 +1460,11 @@ function renderLine(container, section) {
       }
       const label = reason.statementLabel || {};
       // A roster member's question names that member by the label the filer recorded (ADR 0087).
+      // Members who share a recorded label are told apart by the order they were added (ADR 0090).
+      const ordinal = Number.isInteger(reason.memberOrdinal) && reason.memberOrdinal > 0 ? reason.memberOrdinal : null;
+      const which = ordinal ? " (the " + (ORDINAL_WORDS[ordinal - 1] || "number " + ordinal) + " one you added with this name)" : "";
       const name = typeof reason.memberLabel === "string" && reason.memberLabel
-        ? reason.memberLabel
+        ? reason.memberLabel + which
         : [label.statement, label.lender].filter((part) => typeof part === "string" && part).join(", ");
       return [el("li", { id: isLine21 ? "line21-reason-" + index : undefined }, name ? [el("strong", null, [name + ": "]), reason.sentence] : [reason.sentence])];
     });

@@ -608,17 +608,39 @@ class _RosterMembers:
         """The subject fact types of the per-subject rules that publish ``symbol``."""
         return list(self._subjects_by_symbol.get(symbol, ()))
 
-    def label(self, keys: str) -> str | None:
-        """The recorded label of the one current entity named in a subject's keys."""
-        labels: list[str] = []
+    def _member(self, keys: str) -> tuple[str, Mapping[str, Any]] | None:
+        """The one current, labelled entity named in a subject's keys, with its id."""
+        found: list[tuple[str, Mapping[str, Any]]] = []
         for part in keys.split(","):
             _, sep, value = part.partition("=")
             lifecycle = self._state.fact_state.entities.get(value) if sep else None
             if lifecycle is not None and lifecycle.status == "current":
                 recorded = lifecycle.entity.get("label")
                 if isinstance(recorded, str) and recorded:
-                    labels.append(recorded)
-        return labels[0] if len(labels) == 1 else None
+                    found.append((value, lifecycle.entity))
+        return found[0] if len(found) == 1 else None
+
+    def label(self, keys: str) -> str | None:
+        """The recorded label of the one current entity named in a subject's keys."""
+        member = self._member(keys)
+        return str(member[1]["label"]) if member is not None else None
+
+    def ordinal(self, keys: str) -> int | None:
+        """The member's 1-based place among current same-kind entities sharing its label (ADR 0090).
+
+        Entry order is the order the workspace introduced the entities; a
+        member replaced by a successor entity is introduced again, at the end.
+        None when no other current entity of the member's kind has its label.
+        """
+        member = self._member(keys)
+        if member is None:
+            return None
+        entity_id, entity = member
+        peers = [eid for eid, lifecycle in self._state.fact_state.entities.items()
+                 if lifecycle.status == "current"
+                 and lifecycle.entity.get("label") == entity.get("label")
+                 and lifecycle.entity.get("kind") == entity.get("kind")]
+        return peers.index(entity_id) + 1 if len(peers) > 1 else None
 
     def keyed_on_member(self, fact_type: str, keys: str) -> bool:
         """Whether ``fact_type`` is individuated on an entity named in the member's keys."""
@@ -692,8 +714,10 @@ def _closure_question_reasons(
     for, published by a per-subject rule, is that rule's subject fact, which
     the member has not supplied. A fact individuated on the member is asked
     with the member's recorded label as ``memberLabel``, one reason per
-    member and question. A member key with no blocked rows, or no single
-    recorded label, leaves the line without a sentence, as before.
+    member and question; a label shared within the member's kind adds
+    ``memberOrdinal``, its place in entry order (ADR 0090). A member key
+    with no blocked rows, or no single recorded label, leaves the line
+    without a sentence, as before.
     """
     questions: dict[str, str] = {}
     input_questions: dict[str, str] = {}
@@ -1061,16 +1085,22 @@ def _closure_question_reasons(
         reasons = [{"sentence": sentence} for sentence in sorted(sentences)]
         # One reason per member and question (ADR 0087), keyed by the member's
         # subject keys, never by its label: two members may carry the same
-        # recorded label, and each is missing its own answer.
-        member_reasons: set[tuple[str, str, str]] = set()
+        # recorded label, and each is missing its own answer. A shared label
+        # within the member's kind carries the member's place in entry order
+        # (ADR 0090). Sorted by label, then that place, then sentence, so one
+        # person's questions sit together.
+        member_reasons: set[tuple[str, int, str, str]] = set()
         for fact, keys in member_facts:
-            label = roster_members.label(keys) if roster_members is not None else None
+            if roster_members is None:
+                continue
+            label = roster_members.label(keys)
             if label is not None:
-                member_reasons.add((label, input_questions[fact], keys))
-        reasons.extend(
-            {"sentence": sentence, "memberLabel": label}
-            for label, sentence, _keys in sorted(member_reasons)
-        )
+                member_reasons.add((label, roster_members.ordinal(keys) or 0, input_questions[fact], keys))
+        for label, ordinal, sentence, _keys in sorted(member_reasons):
+            member_reason: dict[str, Any] = {"sentence": sentence, "memberLabel": label}
+            if ordinal:
+                member_reason["memberOrdinal"] = ordinal
+            reasons.append(member_reason)
     elif (
         partial_family is not None
         and partial_family in questions
@@ -1094,7 +1124,8 @@ def _closure_question_reasons(
         refusal_sentence
         and refusal_token
         and _missing_mentions(row, by_symbol, refusal_token)
-        and not any(reason.get("sentence") == refusal_sentence for reason in reasons)
+        and not any(reason.get("sentence") == refusal_sentence and "memberLabel" not in reason
+                    for reason in reasons)
     ):
         reasons = [{"sentence": refusal_sentence}, *reasons]
     if question_refs_out is not None and reasons:
@@ -1409,6 +1440,9 @@ def _finalize_question_references(
                     and not isinstance(index, bool)
                     and 0 <= index < len(reasons)
                     and reasons[index].get("sentence") == question
+                    # A member's question links no group (ADR 0087), even when
+                    # its sentence is the linked question's.
+                    and "memberLabel" not in reasons[index]
                 ):
                     target["reasonIndices"].add(index)
     result: list[dict[str, Any]] = []
@@ -1466,20 +1500,26 @@ def _reasons_beside(
 
     A closure sentence the selection already states is not repeated. Each
     selection reason keeps its fact id and statement label. The list is
-    ordered by sentence, the same order the closure walk uses.
+    ordered by sentence, the same order the closure walk uses. A member's
+    question (ADR 0087) is about that member, so it is never matched to
+    another reason by sentence: it is always kept, follows the other
+    reasons in the closure walk's member order, and is never indexed for a
+    question link.
     """
+    members = [dict(reason) for reason in closure if "memberLabel" in reason]
+    plain = [reason for reason in closure if "memberLabel" not in reason]
     present = {str(reason.get("sentence")) for reason in selection}
-    added = [dict(reason) for reason in closure if str(reason.get("sentence")) not in present]
+    added = [dict(reason) for reason in plain if str(reason.get("sentence")) not in present]
     combined = [dict(reason) for reason in selection] + added
-    ordered = sorted(combined, key=lambda reason: str(reason.get("sentence")))
+    ordered = sorted(combined, key=lambda reason: str(reason.get("sentence"))) + members
     closure_indices = {
         str(reason["sentence"]): (
             [] if str(reason.get("sentence")) in present else [
                 index for index, candidate in enumerate(ordered)
-                if candidate.get("sentence") == reason.get("sentence")
+                if candidate.get("sentence") == reason.get("sentence") and "memberLabel" not in candidate
             ]
         )
-        for reason in closure
+        for reason in plain
         if isinstance(reason.get("sentence"), str)
     }
     return ordered, closure_indices
@@ -5922,11 +5962,16 @@ def _validate_resolved(resolved: Mapping[str, Any], path: str) -> None:
                 raise PresentationModelError(f"{path}.reasons: expected a non-empty list")
             for index, reason in enumerate(reasons):
                 rp = f"{path}.reasons[{index}]"
-                _require_keys(reason, frozenset({"sentence"}), frozenset({"factId", "statementLabel", "memberLabel"}), rp)
+                _require_keys(reason, frozenset({"sentence"}), frozenset({"factId", "statementLabel", "memberLabel", "memberOrdinal"}), rp)
                 if not isinstance(reason["sentence"], str) or not reason["sentence"]:
                     raise PresentationModelError(f"{rp}.sentence: expected non-empty string")
                 if "memberLabel" in reason and (not isinstance(reason["memberLabel"], str) or not reason["memberLabel"]):
                     raise PresentationModelError(f"{rp}.memberLabel: expected non-empty string")
+                if "memberOrdinal" in reason and ("memberLabel" not in reason
+                                                  or not isinstance(reason["memberOrdinal"], int)
+                                                  or isinstance(reason["memberOrdinal"], bool)
+                                                  or reason["memberOrdinal"] < 1):
+                    raise PresentationModelError(f"{rp}.memberOrdinal: expected a positive integer beside memberLabel")
                 if "factId" in reason and (not isinstance(reason["factId"], str) or not reason["factId"]):
                     raise PresentationModelError(f"{rp}.factId: expected non-empty string")
                 label = reason.get("statementLabel", {})
