@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "same-label-members",
-  "status": "Open 2026-11-25. P0 next.",
+  "status": "Open 2026-11-25. P0 complete; Track 1 (one question per member, under ADR 0087) next; proposed ADR 0090 (entry-order ordinal) awaits the owner before Track 2.",
   "retrospective": null,
   "scope": [
     "when two roster members (children or relatives) have the same recorded label and each is missing an answer, the saved page asks the question once per member and the filer can tell them apart",
@@ -107,4 +107,15 @@ Track 1 scope if accepted: `p0.md` section 7.
 
 ## Decisions
 
-(None yet.)
+1. **Split (foreman).** ADR 0087 already requires one question per member,
+   so keying the walk's member questions by the member, not its label, is a
+   defect fix under ADR 0087 and needs no new ADR. Track 1 builds only
+   that: two members named "Sam" who each miss an answer get two
+   questions, both labelled "Sam".
+2. **Telling them apart waits on the owner (ADR 0090, proposed).** The
+   `memberOrdinal` field and its page wording are Track 2, built only if
+   the owner accepts ADR 0090. The owner also decides whether entry order
+   is an acceptable basis (a corrected member moves to the end).
+3. **No question-group link is in scope.** Member questions link no group
+   before or after (ADR 0087 made them explanation only); the plan's
+   "links its question group" is struck.
