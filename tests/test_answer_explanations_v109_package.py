@@ -4,7 +4,7 @@ Core v109 adds four answer-explanation.v1 citizens, one for each Exception 1
 question answered no, under the new artifact-package.v45. answer-explanation.v1
 and artifact-package.v45 are new schema files; v45 is v44 plus that one
 schema and role. Nothing else in the package moves. The live checks (full
-package validation, the validation controls and the drawn reasons) are in
+package validation and the drawn reasons) are in
 test_answer_explanations_v109_live.py.
 """
 
@@ -19,13 +19,18 @@ from typing import Any
 
 import pytest
 
-from packages.derivation.loader import ROLE_VOCABULARY
+from packages.derivation.authorization_closure import build_dependency_edges
+from packages.derivation.loader import DerivationSchemas, ROLE_VOCABULARY
 from packages.derivation.package_validation import (
     ANSWER_EXPLANATION_SCHEMAS,
     citizen_checksum,
     package_instance_checksum,
+    validate_package,
 )
 from packages.derivation.schema_capabilities import artifact_package_caps
+from packages.derivation.presentation_projection import _answer_explanation_sentences
+from packages.kernel.facts import KernelState
+from packages.kernel.findings import FindingState
 from packages.tax.loader import (
     covered_flag_refusal_map,
     domain_package_companion_declarations,
@@ -176,3 +181,91 @@ def test_v109_loader_entries_carry_v108() -> None:
         explains_identity_exclusivity_collision,
     ):
         assert switch(CORE, "v109") == switch(CORE, "v108") is True
+
+
+@pytest.mark.parametrize(("case", "codes"), [
+    ("bundle", set()),
+    ("standalone", set()),
+    ("outside-domain", {"ANSWER_EXPLANATION_VALUE_OUTSIDE_DOMAIN"}),
+    ("missing-question", {"ANSWER_EXPLANATION_QUESTION_ABSENT"}),
+    ("outside-surface", {"ANSWER_EXPLANATION_FACT_TYPE_NOT_ADMITTED",
+                         "ANSWER_EXPLANATION_QUESTION_ABSENT",
+                         "ANSWER_EXPLANATION_VALUE_OUTSIDE_DOMAIN"}),
+    ("duplicate", {"ANSWER_EXPLANATION_DUPLICATE"}),
+    ("wrong-role", {"ROLE_MISMATCH"}),
+    ("old-schema", {"PACKAGE_SCHEMA_INVALID"}),
+])
+def test_answer_explanation_package_validation_controls(case: str, codes: set[str]) -> None:
+    role_canon = _read(next(CONTENT.glob("*role-canon*.json")))
+    fact_type: dict[str, Any] = {
+        "schema": "fact-type.v2", "id": "demo.fact.answer", "version": "v1",
+        "title": "Demo answer", "nature": "determinable",
+        "identity_keys": [{"name": "tax-year", "kind": "literal", "values": ["2025"]}],
+        "supersession": {"policy": "free"}, "value_schema": {"type": "string", "enum": ["yes", "no"]},
+    }
+    fact_pin = {"id": "demo.fact.answer", "version": "v1"}
+    bundle = {"schema": "bundle.v2", "id": "demo.bundle.answers", "version": "v1",
+              "label": "Demo answers", "fact_types": [fact_type]}
+    question = {"schema": "input-question.v1", "id": "demo.input-question.answer", "version": "v1",
+                "fact_type": fact_pin, "question": "Was the demo item recorded?"}
+    answer = {
+        "schema": "answer-explanation.v1", "id": "demo.answer-explanation.answer-no", "version": "v1",
+        "fact_type": {**fact_pin, "version": "v2"} if case == "outside-surface" else fact_pin,
+        "value": "maybe" if case == "outside-domain" else "no",
+        "explanation": "You said the demo item has yet to be recorded. Record it to proceed.",
+    }
+    docs: list[tuple[dict[str, Any], str]] = [
+        (role_canon, "parameter"), (answer, "input-question" if case == "wrong-role" else "answer-explanation"),
+    ]
+    docs.append((fact_type, "fact-type") if case == "standalone" else (bundle, "fact-type-bundle"))
+    if case != "missing-question":
+        docs.append((question, "input-question"))
+    if case == "duplicate":
+        docs.append(({**answer, "id": "demo.answer-explanation.duplicate"}, "answer-explanation"))
+    members = [{"id": body["id"], "version": body["version"], "schema": body["schema"], "role": role}
+               for body, role in docs]
+    package: dict[str, Any] = {
+        "schema": "artifact-package.v44" if case == "old-schema" else "artifact-package.v45",
+        "id": "demo.package.answers", "version": "v2",
+        "scope": {"tax_year": 2025, "jurisdiction": "US-federal", "family": "demo"},
+        "admitted_schemas": sorted({member["schema"] for member in members}),
+        "members": members, "input_bindings": [], "composition_obligations": [],
+        # The answer and question each root the reachability walk to the adopted fact.
+        "entrypoints": [{"id": member["id"], "version": member["version"]} for member in members
+                        if member["role"] not in {"fact-type", "fact-type-bundle"}],
+    }
+    package["package_checksum"] = package_instance_checksum(package)
+    corpus = {(body["id"], body["version"]): body for body, _ in docs}
+    outcome = validate_package(package, corpus, DerivationSchemas())
+    assert outcome.ok is (not codes), outcome.issues
+    assert {issue.code for issue in outcome.issues} == codes
+    if case in {"bundle", "standalone"}:
+        edges = build_dependency_edges({body["id"]: body for body, _ in docs}, package=package)
+        target = bundle if case == "bundle" else fact_type
+        assert edges[str(answer["id"])] == {str(target["id"]), role_canon["id"]}
+
+
+def test_answer_explanations_require_a_single_current_finding_per_fact() -> None:
+    fact_type = "demo.fact.answer"
+    first = fact_type + "|item=demo.a"
+    second = fact_type + "|item=demo.b"
+    state = FindingState(
+        fact_state=KernelState(fact_types={fact_type: {
+            "id": fact_type, "version": "v1", "nature": "determinable",
+            "identity_keys": [{"name": "item", "kind": "literal", "values": ["demo.a", "demo.b"]}],
+        }}),
+        findings={
+            "demo.first": {"fact_id": first, "value": "no"},
+            "demo.first-again": {"fact_id": first, "value": "no"},
+            "demo.second": {"fact_id": second, "value": "no"},
+        },
+    )
+    explanation = "Record the demo item."
+    members = [{"schema": "answer-explanation.v1", "fact_type": {"id": fact_type, "version": "v1"},
+                "value": "no", "explanation": explanation}]
+    assert _answer_explanation_sentences(
+        members, state, current_finding_ids=frozenset(state.findings),
+    ) == {second: explanation, fact_type: explanation}
+    assert _answer_explanation_sentences(
+        members, state, current_finding_ids=frozenset({"demo.first", "demo.second"}),
+    ) == {first: explanation, second: explanation}
