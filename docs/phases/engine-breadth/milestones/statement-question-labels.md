@@ -113,3 +113,17 @@ Foreman dispositions 2026-11-25 (P0 recommendation in brackets; all taken, ADR 0
    label as `lender` [accept, and park the broker label].
 6. Question wording: keep it, or publish per-statement wording [keep it;
    park the rewording].
+
+## Track 1 result
+
+The projection uses the evaluator's shared pairing test and the published
+per-sale box 4 need to name the statement on the saved page. Each missing
+answer gets its recorded statement label, including when two statements
+share a label. The original sentence remains when attribution is ambiguous.
+
+The v108 replay passed all 775 recorded lists and 18 P0 cases with zero
+unexpected differences. The same 141 recorded lists gained labels as on
+v106. The saved reports matched. The four saved-page DOM tests passed.
+The full-suite batches are still running.
+
+Evidence: `statement-question-labels-evidence/track1.md`.
