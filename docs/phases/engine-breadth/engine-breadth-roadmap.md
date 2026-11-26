@@ -1267,6 +1267,17 @@ question. It now records it by the member, as ADR 0087 already required,
 so each gets their own. All 775 recorded lists replay identical. Telling
 same-named members apart is parked for the owner.
 
+## Bounded return — The Code B Wash-Sale Explanations Name the Correct Basis (2025)
+
+[Plan](milestones/code-b-basis-sentence.md); retrospective:
+`docs/milestone-retrospectives/2026-11-26-code-b-basis-sentence.md`.
+Content only: core v108, registry v106, release v106.
+
+On a sale whose Form 1099-B shows the wrong basis, the two wash-sale
+explanations now tell the filer to check the correct basis they entered
+against their own records, as well as box 1d and box 1g. All 775 recorded
+lists replay with only the sentence and version changes.
+
 ## Hardening — Derivation Schema Capability Table Consolidation
 
 [Plan](milestones/rule-artifact-capability-table-consolidation.md); retrospective:
@@ -1519,10 +1530,13 @@ delivers an item removes it.
 - Kernel reverse presence check: removing a sale checks only one of its
   amount rows (`packages/kernel/findings.py`), so a leftover row is
   refused by the run, not at entry. Nothing publishes.
-- The code B wash-sale explanations (sale-explanation-wording SEW-F2,
-  core v107) tell the filer to check box 1d and box 1g but not the
-  correct basis they entered, which the block also reads. A content
-  successor can add it.
+- A code B sale's box 1g may be wrong too (code-b-basis-sentence CBB-R1).
+  When box 1e is wrong, the broker may have figured box 1g from that wrong
+  basis, so the wash-sale loss can exceed the loss with the correct basis
+  while every amount matches its box. The explanation ("fix whichever
+  amount is wrong") and the column (g) question both treat box 1g as
+  right. Open question: should the engine ask for a corrected wash-sale
+  amount when box 1e is wrong?
 - Family block explanations, contract gaps (sale-block-explanations,
   ADR 0088 review 2026-11-25). `family-block-explanation.v1` names its
   family by id only, so an explanation written for one family version
