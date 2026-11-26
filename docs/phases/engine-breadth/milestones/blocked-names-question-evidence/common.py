@@ -7,7 +7,8 @@ Every run is one ``live_coordinate_run`` of synthetic ``demo.*`` acts on a
 core named by an audit-harness ``Core``: published core v87, or a scratch
 core that prototype.py builds outside the repository. The summary records,
 for each blocked line the page shows, its disposition row (code and
-``missing``), the reason sentences on the page, the questions among them,
+``missing``), the reason sentences on the page, the questions among them
+(the reasons the saved model links to a question; question_links.py),
 and the root rows the line waits on (a blocked row none of whose ``missing``
 names has a blocked row of its own). Nothing here edits packages/ or tests/.
 """
@@ -52,6 +53,11 @@ def module(name: str, path: Path) -> Any:
 
 def harness() -> Any:
     return module("bnq_harness", HARNESS)
+
+
+def question_links() -> Any:
+    """The shared question rule (question-filter Decision 1)."""
+    return module("bnq_question_links", HERE / "question_links.py")
 
 
 def v87() -> Any:
@@ -170,7 +176,7 @@ def summarize(core: Any, outcome: Any) -> dict[str, Any]:
             continue
         sentences = [scrub(str(r.get("sentence") or "").strip()) for r in resolved.get("reasons") or []
                      if isinstance(r, dict) and str(r.get("sentence") or "").strip()]
-        asked = [s for s in sentences if "?" in s]
+        asked = question_links().asked(resolved, model.get("schema"), scrub)
         questions.update(asked)
         symbol = str(field.get("binds_symbol"))
         own = [r for r in by_symbol.get(symbol, []) if r.get("disposition") == "blocked"]

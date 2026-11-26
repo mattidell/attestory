@@ -151,8 +151,10 @@ def core_v90() -> Any:
     return common.harness().Core("v90", "v88", "v88")
 
 
-def _questions(sentences: list[str]) -> list[str]:
-    return [sentence for sentence in sentences if "?" in sentence]
+def _questions(resolved: dict[str, Any], schema: Any) -> list[str]:
+    """The reasons the saved model links to a question (question-filter Decision 1)."""
+    links = evidence_loader.load(BNQ / "question_links.py", "question_links")
+    return list(links.asked(resolved, schema, scrub))
 
 
 def _inapplicable_along(row: dict[str, Any], by_symbol: dict[str, list[dict[str, Any]]]) -> list[dict[str, Any]]:
@@ -214,10 +216,7 @@ def summarize(core: Any, outcome: Any) -> dict[str, Any]:
             value = resolved.get("value")
             shown[field_id] = disposition if value is None else str(value)
             continue
-        sentences = [scrub(str(reason.get("sentence") or "").strip())
-                     for reason in resolved.get("reasons") or []
-                     if isinstance(reason, dict) and str(reason.get("sentence") or "").strip()]
-        asked = _questions(sentences)
+        asked = _questions(resolved, model.get("schema"))
         page_questions.update(asked)
         symbol = str(field.get("binds_symbol") or "")
         own = [row for row in by_symbol.get(symbol, []) if row.get("disposition") == "blocked"]
