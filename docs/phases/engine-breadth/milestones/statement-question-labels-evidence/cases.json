@@ -1,0 +1,1008 @@
+{
+ "core": "v106",
+ "results": {
+  "three.box7.all": {
+   "design": {
+    "box7": {
+     "groups": 0,
+     "groups_labelled": 0,
+     "lines_with_question": 30,
+     "max_reasons_per_line": 3,
+     "reasons": 90,
+     "reasons_labelled": 90,
+     "reasons_linked": 0,
+     "row_shapes": [
+      "f1099b.code-b-lt-txn.box7-loss-check|DEPENDENCY_ABSENT|type",
+      "f1099b.code-b-lt-txn.box7-verdict|DEPENDENCY_ABSENT|type",
+      "f1099b.code-b-st-txn.box7-loss-check|DEPENDENCY_ABSENT|type",
+      "f1099b.code-b-st-txn.box7-verdict|DEPENDENCY_ABSENT|type",
+      "f1099b.covered-st-txn.box7-loss-check|DEPENDENCY_ABSENT|type",
+      "f1099b.covered-st-txn.box7-verdict|DEPENDENCY_ABSENT|type"
+     ]
+    },
+    "outcome": "success",
+    "statements": 5
+   },
+   "design_as_expected": true,
+   "expected_design_labels": {
+    "box7": [
+     "demo statement 1",
+     "demo statement 2",
+     "demo statement 3"
+    ]
+   },
+   "labels": {
+    "design": {
+     "box7": [
+      "demo statement 1",
+      "demo statement 2",
+      "demo statement 3"
+     ]
+    },
+    "published": {
+     "box7": [
+      "-"
+     ]
+    }
+   },
+   "published": {
+    "box7": {
+     "groups": 0,
+     "groups_labelled": 0,
+     "lines_with_question": 30,
+     "max_reasons_per_line": 1,
+     "reasons": 30,
+     "reasons_labelled": 0,
+     "reasons_linked": 0,
+     "row_shapes": [
+      "f1099b.code-b-lt-txn.box7-loss-check|DEPENDENCY_ABSENT|type",
+      "f1099b.code-b-lt-txn.box7-verdict|DEPENDENCY_ABSENT|type",
+      "f1099b.code-b-st-txn.box7-loss-check|DEPENDENCY_ABSENT|type",
+      "f1099b.code-b-st-txn.box7-verdict|DEPENDENCY_ABSENT|type",
+      "f1099b.covered-st-txn.box7-loss-check|DEPENDENCY_ABSENT|type",
+      "f1099b.covered-st-txn.box7-verdict|DEPENDENCY_ABSENT|type"
+     ]
+    },
+    "outcome": "success",
+    "statements": 5
+   }
+  },
+  "three.box7.s3": {
+   "design": {
+    "box7": {
+     "groups": 0,
+     "groups_labelled": 0,
+     "lines_with_question": 30,
+     "max_reasons_per_line": 1,
+     "reasons": 30,
+     "reasons_labelled": 30,
+     "reasons_linked": 0,
+     "row_shapes": [
+      "f1099b.covered-st-txn.box7-loss-check|DEPENDENCY_ABSENT|type",
+      "f1099b.covered-st-txn.box7-verdict|DEPENDENCY_ABSENT|type"
+     ]
+    },
+    "outcome": "success",
+    "statements": 5
+   },
+   "design_as_expected": true,
+   "expected_design_labels": {
+    "box7": [
+     "demo statement 3"
+    ]
+   },
+   "labels": {
+    "design": {
+     "box7": [
+      "demo statement 3"
+     ]
+    },
+    "published": {
+     "box7": [
+      "-"
+     ]
+    }
+   },
+   "published": {
+    "box7": {
+     "groups": 0,
+     "groups_labelled": 0,
+     "lines_with_question": 30,
+     "max_reasons_per_line": 1,
+     "reasons": 30,
+     "reasons_labelled": 0,
+     "reasons_linked": 0,
+     "row_shapes": [
+      "f1099b.covered-st-txn.box7-loss-check|DEPENDENCY_ABSENT|type",
+      "f1099b.covered-st-txn.box7-verdict|DEPENDENCY_ABSENT|type"
+     ]
+    },
+    "outcome": "success",
+    "statements": 5
+   }
+  },
+  "three.control": {
+   "design": {
+    "outcome": "success",
+    "statements": 5
+   },
+   "design_as_expected": true,
+   "expected_design_labels": {},
+   "labels": {
+    "design": {},
+    "published": {}
+   },
+   "published": {
+    "outcome": "success",
+    "statements": 5
+   }
+  },
+  "three.other-block.box7.all": {
+   "design": {
+    "box7": {
+     "groups": 0,
+     "groups_labelled": 0,
+     "lines_with_question": 0,
+     "max_reasons_per_line": 0,
+     "reasons": 0,
+     "reasons_labelled": 0,
+     "reasons_linked": 0,
+     "row_shapes": [
+      "f1099b.covered-lt-txn.box7-loss-check|DEPENDENCY_ABSENT|type",
+      "f1099b.covered-lt-txn.box7-verdict|DEPENDENCY_ABSENT|type",
+      "f1099b.covered-st-txn.box7-loss-check|DEPENDENCY_ABSENT|type",
+      "f1099b.covered-st-txn.box7-verdict|DEPENDENCY_ABSENT|type",
+      "f1099b.covered-w-st-txn.box7-loss-check|DEPENDENCY_ABSENT|type",
+      "f1099b.covered-w-st-txn.box7-verdict|DEPENDENCY_ABSENT|type"
+     ]
+    },
+    "outcome": "success",
+    "statements": 3
+   },
+   "design_as_expected": true,
+   "expected_design_labels": {},
+   "labels": {
+    "design": {},
+    "published": {}
+   },
+   "published": {
+    "box7": {
+     "groups": 0,
+     "groups_labelled": 0,
+     "lines_with_question": 0,
+     "max_reasons_per_line": 0,
+     "reasons": 0,
+     "reasons_labelled": 0,
+     "reasons_linked": 0,
+     "row_shapes": [
+      "f1099b.covered-lt-txn.box7-loss-check|DEPENDENCY_ABSENT|type",
+      "f1099b.covered-lt-txn.box7-verdict|DEPENDENCY_ABSENT|type",
+      "f1099b.covered-st-txn.box7-loss-check|DEPENDENCY_ABSENT|type",
+      "f1099b.covered-st-txn.box7-verdict|DEPENDENCY_ABSENT|type",
+      "f1099b.covered-w-st-txn.box7-loss-check|DEPENDENCY_ABSENT|type",
+      "f1099b.covered-w-st-txn.box7-verdict|DEPENDENCY_ABSENT|type"
+     ]
+    },
+    "outcome": "success",
+    "statements": 3
+   }
+  },
+  "three.other-block.reported.s2": {
+   "design": {
+    "box4-amount": {
+     "groups": 0,
+     "groups_labelled": 0,
+     "lines_with_question": 2,
+     "max_reasons_per_line": 1,
+     "reasons": 2,
+     "reasons_labelled": 2,
+     "reasons_linked": 0,
+     "row_shapes": [
+      "form1040-line25b|DEPENDENCY_ABSENT|type"
+     ]
+    },
+    "outcome": "success",
+    "statements": 3
+   },
+   "design_as_expected": true,
+   "expected_design_labels": {
+    "box4-amount": [
+     "demo statement 2"
+    ]
+   },
+   "labels": {
+    "design": {
+     "box4-amount": [
+      "demo statement 2"
+     ]
+    },
+    "published": {
+     "box4-amount": [
+      "-"
+     ]
+    }
+   },
+   "published": {
+    "box4-amount": {
+     "groups": 0,
+     "groups_labelled": 0,
+     "lines_with_question": 2,
+     "max_reasons_per_line": 1,
+     "reasons": 2,
+     "reasons_labelled": 0,
+     "reasons_linked": 0,
+     "row_shapes": [
+      "form1040-line25b|DEPENDENCY_ABSENT|type"
+     ]
+    },
+    "outcome": "success",
+    "statements": 3
+   }
+  },
+  "three.reported-s1.box7-s2-s3": {
+   "design": {
+    "box4-amount": {
+     "groups": 0,
+     "groups_labelled": 0,
+     "lines_with_question": 6,
+     "max_reasons_per_line": 1,
+     "reasons": 6,
+     "reasons_labelled": 6,
+     "reasons_linked": 0,
+     "row_shapes": [
+      "form1040-line25b|DEPENDENCY_ABSENT|type"
+     ]
+    },
+    "box7": {
+     "groups": 0,
+     "groups_labelled": 0,
+     "lines_with_question": 30,
+     "max_reasons_per_line": 2,
+     "reasons": 60,
+     "reasons_labelled": 60,
+     "reasons_linked": 0,
+     "row_shapes": [
+      "f1099b.code-b-lt-txn.box7-loss-check|DEPENDENCY_ABSENT|type",
+      "f1099b.code-b-lt-txn.box7-verdict|DEPENDENCY_ABSENT|type",
+      "f1099b.covered-st-txn.box7-loss-check|DEPENDENCY_ABSENT|type",
+      "f1099b.covered-st-txn.box7-verdict|DEPENDENCY_ABSENT|type"
+     ]
+    },
+    "outcome": "success",
+    "statements": 5
+   },
+   "design_as_expected": true,
+   "expected_design_labels": {
+    "box4-amount": [
+     "demo statement 1"
+    ],
+    "box7": [
+     "demo statement 2",
+     "demo statement 3"
+    ]
+   },
+   "labels": {
+    "design": {
+     "box4-amount": [
+      "demo statement 1"
+     ],
+     "box7": [
+      "demo statement 2",
+      "demo statement 3"
+     ]
+    },
+    "published": {
+     "box4-amount": [
+      "-"
+     ],
+     "box7": [
+      "-"
+     ]
+    }
+   },
+   "published": {
+    "box4-amount": {
+     "groups": 0,
+     "groups_labelled": 0,
+     "lines_with_question": 6,
+     "max_reasons_per_line": 1,
+     "reasons": 6,
+     "reasons_labelled": 0,
+     "reasons_linked": 0,
+     "row_shapes": [
+      "form1040-line25b|DEPENDENCY_ABSENT|type"
+     ]
+    },
+    "box7": {
+     "groups": 0,
+     "groups_labelled": 0,
+     "lines_with_question": 30,
+     "max_reasons_per_line": 1,
+     "reasons": 30,
+     "reasons_labelled": 0,
+     "reasons_linked": 0,
+     "row_shapes": [
+      "f1099b.code-b-lt-txn.box7-loss-check|DEPENDENCY_ABSENT|type",
+      "f1099b.code-b-lt-txn.box7-verdict|DEPENDENCY_ABSENT|type",
+      "f1099b.covered-st-txn.box7-loss-check|DEPENDENCY_ABSENT|type",
+      "f1099b.covered-st-txn.box7-verdict|DEPENDENCY_ABSENT|type"
+     ]
+    },
+    "outcome": "success",
+    "statements": 5
+   }
+  },
+  "three.reported.all": {
+   "design": {
+    "box4-amount": {
+     "groups": 0,
+     "groups_labelled": 0,
+     "lines_with_question": 6,
+     "max_reasons_per_line": 3,
+     "reasons": 18,
+     "reasons_labelled": 18,
+     "reasons_linked": 0,
+     "row_shapes": [
+      "form1040-line25b|DEPENDENCY_ABSENT|type"
+     ]
+    },
+    "outcome": "success",
+    "statements": 5
+   },
+   "design_as_expected": true,
+   "expected_design_labels": {
+    "box4-amount": [
+     "demo statement 1",
+     "demo statement 2",
+     "demo statement 3"
+    ]
+   },
+   "labels": {
+    "design": {
+     "box4-amount": [
+      "demo statement 1",
+      "demo statement 2",
+      "demo statement 3"
+     ]
+    },
+    "published": {
+     "box4-amount": [
+      "-"
+     ]
+    }
+   },
+   "published": {
+    "box4-amount": {
+     "groups": 0,
+     "groups_labelled": 0,
+     "lines_with_question": 6,
+     "max_reasons_per_line": 1,
+     "reasons": 6,
+     "reasons_labelled": 0,
+     "reasons_linked": 0,
+     "row_shapes": [
+      "form1040-line25b|DEPENDENCY_ABSENT|type"
+     ]
+    },
+    "outcome": "success",
+    "statements": 5
+   }
+  },
+  "three.reported.s2": {
+   "design": {
+    "box4-amount": {
+     "groups": 0,
+     "groups_labelled": 0,
+     "lines_with_question": 6,
+     "max_reasons_per_line": 1,
+     "reasons": 6,
+     "reasons_labelled": 6,
+     "reasons_linked": 0,
+     "row_shapes": [
+      "form1040-line25b|DEPENDENCY_ABSENT|type"
+     ]
+    },
+    "outcome": "success",
+    "statements": 5
+   },
+   "design_as_expected": true,
+   "expected_design_labels": {
+    "box4-amount": [
+     "demo statement 2"
+    ]
+   },
+   "labels": {
+    "design": {
+     "box4-amount": [
+      "demo statement 2"
+     ]
+    },
+    "published": {
+     "box4-amount": [
+      "-"
+     ]
+    }
+   },
+   "published": {
+    "box4-amount": {
+     "groups": 0,
+     "groups_labelled": 0,
+     "lines_with_question": 6,
+     "max_reasons_per_line": 1,
+     "reasons": 6,
+     "reasons_labelled": 0,
+     "reasons_linked": 0,
+     "row_shapes": [
+      "form1040-line25b|DEPENDENCY_ABSENT|type"
+     ]
+    },
+    "outcome": "success",
+    "statements": 5
+   }
+  },
+  "two.amount-and-box7.s2": {
+   "design": {
+    "box4-amount": {
+     "groups": 0,
+     "groups_labelled": 0,
+     "lines_with_question": 6,
+     "max_reasons_per_line": 1,
+     "reasons": 6,
+     "reasons_labelled": 6,
+     "reasons_linked": 0,
+     "row_shapes": [
+      "form1040-line25b|DEPENDENCY_ABSENT|type"
+     ]
+    },
+    "box7": {
+     "groups": 0,
+     "groups_labelled": 0,
+     "lines_with_question": 30,
+     "max_reasons_per_line": 1,
+     "reasons": 30,
+     "reasons_labelled": 30,
+     "reasons_linked": 0,
+     "row_shapes": [
+      "f1099b.covered-st-txn.box7-loss-check|DEPENDENCY_ABSENT|type",
+      "f1099b.covered-st-txn.box7-verdict|DEPENDENCY_ABSENT|type"
+     ]
+    },
+    "outcome": "success",
+    "statements": 2
+   },
+   "design_as_expected": true,
+   "expected_design_labels": {
+    "box4-amount": [
+     "demo statement 2"
+    ],
+    "box7": [
+     "demo statement 2"
+    ]
+   },
+   "labels": {
+    "design": {
+     "box4-amount": [
+      "demo statement 2"
+     ],
+     "box7": [
+      "demo statement 2"
+     ]
+    },
+    "published": {
+     "box4-amount": [
+      "-"
+     ],
+     "box7": [
+      "-"
+     ]
+    }
+   },
+   "published": {
+    "box4-amount": {
+     "groups": 0,
+     "groups_labelled": 0,
+     "lines_with_question": 6,
+     "max_reasons_per_line": 1,
+     "reasons": 6,
+     "reasons_labelled": 0,
+     "reasons_linked": 0,
+     "row_shapes": [
+      "form1040-line25b|DEPENDENCY_ABSENT|type"
+     ]
+    },
+    "box7": {
+     "groups": 0,
+     "groups_labelled": 0,
+     "lines_with_question": 30,
+     "max_reasons_per_line": 1,
+     "reasons": 30,
+     "reasons_labelled": 0,
+     "reasons_linked": 0,
+     "row_shapes": [
+      "f1099b.covered-st-txn.box7-loss-check|DEPENDENCY_ABSENT|type",
+      "f1099b.covered-st-txn.box7-verdict|DEPENDENCY_ABSENT|type"
+     ]
+    },
+    "outcome": "success",
+    "statements": 2
+   }
+  },
+  "two.amount.both": {
+   "design": {
+    "box4-amount": {
+     "groups": 0,
+     "groups_labelled": 0,
+     "lines_with_question": 6,
+     "max_reasons_per_line": 2,
+     "reasons": 12,
+     "reasons_labelled": 12,
+     "reasons_linked": 0,
+     "row_shapes": [
+      "form1040-line25b|DEPENDENCY_ABSENT|type"
+     ]
+    },
+    "outcome": "success",
+    "statements": 2
+   },
+   "design_as_expected": true,
+   "expected_design_labels": {
+    "box4-amount": [
+     "demo statement 1",
+     "demo statement 2"
+    ]
+   },
+   "labels": {
+    "design": {
+     "box4-amount": [
+      "demo statement 1",
+      "demo statement 2"
+     ]
+    },
+    "published": {
+     "box4-amount": [
+      "-"
+     ]
+    }
+   },
+   "published": {
+    "box4-amount": {
+     "groups": 0,
+     "groups_labelled": 0,
+     "lines_with_question": 6,
+     "max_reasons_per_line": 1,
+     "reasons": 6,
+     "reasons_labelled": 0,
+     "reasons_linked": 0,
+     "row_shapes": [
+      "form1040-line25b|DEPENDENCY_ABSENT|type"
+     ]
+    },
+    "outcome": "success",
+    "statements": 2
+   }
+  },
+  "two.amount.both.same-label": {
+   "design": {
+    "box4-amount": {
+     "groups": 0,
+     "groups_labelled": 0,
+     "lines_with_question": 6,
+     "max_reasons_per_line": 2,
+     "reasons": 12,
+     "reasons_labelled": 12,
+     "reasons_linked": 0,
+     "row_shapes": [
+      "form1040-line25b|DEPENDENCY_ABSENT|type"
+     ]
+    },
+    "outcome": "success",
+    "statements": 2
+   },
+   "design_as_expected": true,
+   "expected_design_labels": {
+    "box4-amount": [
+     "demo statement",
+     "demo statement"
+    ]
+   },
+   "labels": {
+    "design": {
+     "box4-amount": [
+      "demo statement",
+      "demo statement"
+     ]
+    },
+    "published": {
+     "box4-amount": [
+      "-"
+     ]
+    }
+   },
+   "published": {
+    "box4-amount": {
+     "groups": 0,
+     "groups_labelled": 0,
+     "lines_with_question": 6,
+     "max_reasons_per_line": 1,
+     "reasons": 6,
+     "reasons_labelled": 0,
+     "reasons_linked": 0,
+     "row_shapes": [
+      "form1040-line25b|DEPENDENCY_ABSENT|type"
+     ]
+    },
+    "outcome": "success",
+    "statements": 2
+   }
+  },
+  "two.amount.s2": {
+   "design": {
+    "box4-amount": {
+     "groups": 0,
+     "groups_labelled": 0,
+     "lines_with_question": 6,
+     "max_reasons_per_line": 1,
+     "reasons": 6,
+     "reasons_labelled": 6,
+     "reasons_linked": 0,
+     "row_shapes": [
+      "form1040-line25b|DEPENDENCY_ABSENT|type"
+     ]
+    },
+    "outcome": "success",
+    "statements": 2
+   },
+   "design_as_expected": true,
+   "expected_design_labels": {
+    "box4-amount": [
+     "demo statement 2"
+    ]
+   },
+   "labels": {
+    "design": {
+     "box4-amount": [
+      "demo statement 2"
+     ]
+    },
+    "published": {
+     "box4-amount": [
+      "-"
+     ]
+    }
+   },
+   "published": {
+    "box4-amount": {
+     "groups": 0,
+     "groups_labelled": 0,
+     "lines_with_question": 6,
+     "max_reasons_per_line": 1,
+     "reasons": 6,
+     "reasons_labelled": 0,
+     "reasons_linked": 0,
+     "row_shapes": [
+      "form1040-line25b|DEPENDENCY_ABSENT|type"
+     ]
+    },
+    "outcome": "success",
+    "statements": 2
+   }
+  },
+  "two.box4-no-beside-yes": {
+   "design": {
+    "box4-amount": {
+     "groups": 0,
+     "groups_labelled": 0,
+     "lines_with_question": 6,
+     "max_reasons_per_line": 1,
+     "reasons": 6,
+     "reasons_labelled": 6,
+     "reasons_linked": 0,
+     "row_shapes": [
+      "form1040-line25b|DEPENDENCY_ABSENT|type"
+     ]
+    },
+    "outcome": "success",
+    "statements": 2
+   },
+   "design_as_expected": true,
+   "expected_design_labels": {
+    "box4-amount": [
+     "demo statement 2"
+    ]
+   },
+   "labels": {
+    "design": {
+     "box4-amount": [
+      "demo statement 2"
+     ]
+    },
+    "published": {
+     "box4-amount": [
+      "-"
+     ]
+    }
+   },
+   "published": {
+    "box4-amount": {
+     "groups": 0,
+     "groups_labelled": 0,
+     "lines_with_question": 6,
+     "max_reasons_per_line": 1,
+     "reasons": 6,
+     "reasons_labelled": 0,
+     "reasons_linked": 0,
+     "row_shapes": [
+      "form1040-line25b|DEPENDENCY_ABSENT|type"
+     ]
+    },
+    "outcome": "success",
+    "statements": 2
+   }
+  },
+  "two.box4-reported.s2-missing": {
+   "design": {
+    "box4-amount": {
+     "groups": 0,
+     "groups_labelled": 0,
+     "lines_with_question": 6,
+     "max_reasons_per_line": 1,
+     "reasons": 6,
+     "reasons_labelled": 6,
+     "reasons_linked": 0,
+     "row_shapes": [
+      "form1040-line25b|DEPENDENCY_ABSENT|type"
+     ]
+    },
+    "outcome": "success",
+    "statements": 2
+   },
+   "design_as_expected": true,
+   "expected_design_labels": {
+    "box4-amount": [
+     "demo statement 2"
+    ]
+   },
+   "labels": {
+    "design": {
+     "box4-amount": [
+      "demo statement 2"
+     ]
+    },
+    "published": {
+     "box4-amount": [
+      "-"
+     ]
+    }
+   },
+   "published": {
+    "box4-amount": {
+     "groups": 0,
+     "groups_labelled": 0,
+     "lines_with_question": 6,
+     "max_reasons_per_line": 1,
+     "reasons": 6,
+     "reasons_labelled": 0,
+     "reasons_linked": 0,
+     "row_shapes": [
+      "form1040-line25b|DEPENDENCY_ABSENT|type"
+     ]
+    },
+    "outcome": "success",
+    "statements": 2
+   }
+  },
+  "two.box7.both": {
+   "design": {
+    "box7": {
+     "groups": 0,
+     "groups_labelled": 0,
+     "lines_with_question": 30,
+     "max_reasons_per_line": 2,
+     "reasons": 60,
+     "reasons_labelled": 60,
+     "reasons_linked": 0,
+     "row_shapes": [
+      "f1099b.covered-st-txn.box7-loss-check|DEPENDENCY_ABSENT|type",
+      "f1099b.covered-st-txn.box7-verdict|DEPENDENCY_ABSENT|type"
+     ]
+    },
+    "outcome": "success",
+    "statements": 2
+   },
+   "design_as_expected": true,
+   "expected_design_labels": {
+    "box7": [
+     "demo statement 1",
+     "demo statement 2"
+    ]
+   },
+   "labels": {
+    "design": {
+     "box7": [
+      "demo statement 1",
+      "demo statement 2"
+     ]
+    },
+    "published": {
+     "box7": [
+      "-"
+     ]
+    }
+   },
+   "published": {
+    "box7": {
+     "groups": 0,
+     "groups_labelled": 0,
+     "lines_with_question": 30,
+     "max_reasons_per_line": 1,
+     "reasons": 30,
+     "reasons_labelled": 0,
+     "reasons_linked": 0,
+     "row_shapes": [
+      "f1099b.covered-st-txn.box7-loss-check|DEPENDENCY_ABSENT|type",
+      "f1099b.covered-st-txn.box7-verdict|DEPENDENCY_ABSENT|type"
+     ]
+    },
+    "outcome": "success",
+    "statements": 2
+   }
+  },
+  "two.box7.s1": {
+   "design": {
+    "box7": {
+     "groups": 0,
+     "groups_labelled": 0,
+     "lines_with_question": 30,
+     "max_reasons_per_line": 1,
+     "reasons": 30,
+     "reasons_labelled": 30,
+     "reasons_linked": 0,
+     "row_shapes": [
+      "f1099b.covered-st-txn.box7-loss-check|DEPENDENCY_ABSENT|type",
+      "f1099b.covered-st-txn.box7-verdict|DEPENDENCY_ABSENT|type"
+     ]
+    },
+    "outcome": "success",
+    "statements": 2
+   },
+   "design_as_expected": true,
+   "expected_design_labels": {
+    "box7": [
+     "demo statement 1"
+    ]
+   },
+   "labels": {
+    "design": {
+     "box7": [
+      "demo statement 1"
+     ]
+    },
+    "published": {
+     "box7": [
+      "-"
+     ]
+    }
+   },
+   "published": {
+    "box7": {
+     "groups": 0,
+     "groups_labelled": 0,
+     "lines_with_question": 30,
+     "max_reasons_per_line": 1,
+     "reasons": 30,
+     "reasons_labelled": 0,
+     "reasons_linked": 0,
+     "row_shapes": [
+      "f1099b.covered-st-txn.box7-loss-check|DEPENDENCY_ABSENT|type",
+      "f1099b.covered-st-txn.box7-verdict|DEPENDENCY_ABSENT|type"
+     ]
+    },
+    "outcome": "success",
+    "statements": 2
+   }
+  },
+  "two.control": {
+   "design": {
+    "outcome": "success",
+    "statements": 2
+   },
+   "design_as_expected": true,
+   "expected_design_labels": {},
+   "labels": {
+    "design": {},
+    "published": {}
+   },
+   "published": {
+    "outcome": "success",
+    "statements": 2
+   }
+  },
+  "two.late-statement": {
+   "design": {
+    "box4-amount": {
+     "groups": 0,
+     "groups_labelled": 0,
+     "lines_with_question": 6,
+     "max_reasons_per_line": 1,
+     "reasons": 6,
+     "reasons_labelled": 6,
+     "reasons_linked": 0,
+     "row_shapes": [
+      "form1040-line25b|DEPENDENCY_ABSENT|type"
+     ]
+    },
+    "box7": {
+     "groups": 0,
+     "groups_labelled": 0,
+     "lines_with_question": 30,
+     "max_reasons_per_line": 1,
+     "reasons": 30,
+     "reasons_labelled": 30,
+     "reasons_linked": 0,
+     "row_shapes": [
+      "f1099b.covered-st-txn.box7-loss-check|DEPENDENCY_ABSENT|type",
+      "f1099b.covered-st-txn.box7-verdict|DEPENDENCY_ABSENT|type"
+     ]
+    },
+    "outcome": "success",
+    "statements": 2
+   },
+   "design_as_expected": true,
+   "expected_design_labels": {
+    "box4-amount": [
+     "demo statement 2"
+    ],
+    "box7": [
+     "demo statement 2"
+    ]
+   },
+   "labels": {
+    "design": {
+     "box4-amount": [
+      "demo statement 2"
+     ],
+     "box7": [
+      "demo statement 2"
+     ]
+    },
+    "published": {
+     "box4-amount": [
+      "-"
+     ],
+     "box7": [
+      "-"
+     ]
+    }
+   },
+   "published": {
+    "box4-amount": {
+     "groups": 0,
+     "groups_labelled": 0,
+     "lines_with_question": 6,
+     "max_reasons_per_line": 1,
+     "reasons": 6,
+     "reasons_labelled": 0,
+     "reasons_linked": 0,
+     "row_shapes": [
+      "form1040-line25b|DEPENDENCY_ABSENT|type"
+     ]
+    },
+    "box7": {
+     "groups": 0,
+     "groups_labelled": 0,
+     "lines_with_question": 30,
+     "max_reasons_per_line": 1,
+     "reasons": 30,
+     "reasons_labelled": 0,
+     "reasons_linked": 0,
+     "row_shapes": [
+      "f1099b.covered-st-txn.box7-loss-check|DEPENDENCY_ABSENT|type",
+      "f1099b.covered-st-txn.box7-verdict|DEPENDENCY_ABSENT|type"
+     ]
+    },
+    "outcome": "success",
+    "statements": 2
+   }
+  }
+ }
+}
