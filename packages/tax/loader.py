@@ -192,9 +192,9 @@ STATEMENT_QUESTION_NEEDS: dict[str, frozenset[str]] = {
 def labels_statement_questions(package_id: str, version: str) -> bool:
     """Whether a per-statement Form 1099-B question names its statement (ADR 0089).
 
-    On from core-calculations v106, the first core that publishes every
-    per-sale ``box4-amount-needed`` result the need table names. Earlier
-    cores keep the one unlabelled sentence.
+    Core-calculations v105 already has all eight per-sale
+    ``box4-amount-needed`` rules. ADR 0089 deliberately enables statement
+    labels from v106, leaving earlier cores with the unlabelled sentence.
     """
     if package_id != _CORE_CALCULATIONS:
         return False
