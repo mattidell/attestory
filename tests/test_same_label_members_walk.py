@@ -109,6 +109,26 @@ class SameLabelMembers(unittest.TestCase):
         third = _missing_age(KIDS[2])
         self.assertEqual(_reasons(_line(third, KIDS[2]), third, state=_labels(SAM, ALEX, SAM)), [_sam(2)])
 
+    def test_members_with_the_same_ordinal_in_different_kinds_stay_grouped(self) -> None:
+        relatives = ("demo-relative-1", "demo-relative-2")
+        people = (*KIDS[:2], *relatives)
+        state = _state(dict.fromkeys(people, SAM))
+        for relative in relatives:
+            entity = state.fact_state.entities[relative].entity
+            state.fact_state.entities[relative] = EntityLifecycle({**entity, "kind": "demo.relative"}, "current")
+        by_symbol: dict[str, list[dict[str, Any]]] = {}
+        for person in people:
+            by_symbol.update(_missing_parent(person))
+            by_symbol[f"{COUNTS}|{_key(person)}"] = [
+                _member_row(person, COUNTS, "demo.rule.counts", "demo.child.age-met", CLEAR)
+            ]
+        self.assertEqual(_reasons(_line(by_symbol, *people), by_symbol, state=state), [
+            _sam(ordinal, sentence)
+            for _kind in ("child", "relative")
+            for ordinal in (1, 2)
+            for sentence in (AGE_Q, PARENT_Q)
+        ])
+
     def test_distinct_labels_carry_no_ordinal(self) -> None:
         by_symbol = _all_missing_age(*KIDS[:2])
         row = _line(by_symbol, *KIDS[:2])
@@ -183,6 +203,14 @@ class MemberReasonsAreNotMatchedBySentence(unittest.TestCase):
         closure = [{"sentence": "demo b"}, {"sentence": "demo a"}]
         ordered, _ = _reasons_beside([{"sentence": "demo c"}], closure)
         self.assertEqual([r["sentence"] for r in ordered], ["demo a", "demo b", "demo c"])
+
+    def test_unique_member_label_keeps_the_previous_sentence_order(self) -> None:
+        member = {"sentence": "demo b", "memberLabel": ALEX}
+        selection = {"sentence": "demo c", "factId": "demo.fact.one"}
+        closure = {"sentence": "demo d"}
+        ordered, indices = _reasons_beside([selection], [member, closure])
+        self.assertEqual(ordered, [member, selection, closure])
+        self.assertEqual(indices, {"demo d": [2]})
 
     def test_a_question_reference_drops_a_member_reason_index(self) -> None:
         reasons = [{"sentence": AGE_Q}, _sam(1)]
