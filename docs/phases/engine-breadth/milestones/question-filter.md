@@ -74,3 +74,23 @@ P0: the change is two filter functions and the tests that load them.
    question counts produced by these probes, the builder regenerates or
    re-pins only what the new rule changes, and lists each change with the
    sentence that was newly counted (or no longer counted) and why.
+
+## Track 1 result
+
+Built. Both probes now use one helper,
+`blocked-names-question-evidence/question_links.py`. On
+presentation-model.v3 it counts a reason as a question when
+`resolved.questionRefs[].reasonIndices` points at it. The "?" test is used
+only for models older than v3.
+
+On all 2976 blocked-line reason lists the six probe tests reach (all v3),
+the new rule gives exactly the old lists. No count or committed output
+changes, and nothing was re-pinned.
+
+Finding for review: the box 4 withholding prompt ("Enter the federal
+income tax withheld in box 4 of each Form 1099-B ...") appears unlinked.
+On v89 lines 25b and 25d it is the only reason, so the probe counts those
+lines as asking nothing, under either rule. Linking it would be an engine
+change, outside this milestone.
+
+Evidence: `question-filter-evidence/track1.md`.
