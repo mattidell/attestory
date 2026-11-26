@@ -1286,10 +1286,10 @@ Evidence tooling only.
 
 The blocked-names-question and preferential-base-reason probes now count
 a blocked line's reason as a question when the saved model links it to a
-question, not when it has a question mark. On every case the tests reach
-the lists are identical, so nothing was re-pinned. The per-statement box 4
-prompt appears unlinked on 72 reason lists; statement-question-labels
-(ADR 0089) addresses that question.
+question, not when it has a question mark. A one-off comparison by the
+builder found the lists identical on every case the tests reach, so
+nothing was re-pinned. Some asking reasons carry no link by design; see
+the parked item on unlinked questions.
 
 ## Hardening — Derivation Schema Capability Table Consolidation
 
@@ -1539,6 +1539,14 @@ delivers an item removes it.
   has a question mark (for example `f8949-code-b-evidence/codeb_probe.py`,
   `cf-loss-limit-evidence/cases.py`). Reuse the question-filter helper
   (`blocked-names-question-evidence/question_links.py`) before reusing them.
+- Some reasons ask for an answer but carry no question link, so a probe
+  that reads links does not count them (question-filter QF-R1, QF-R2): a
+  roster member's question (ADR 0087), a question whose answer target is
+  not unique, and a question about a fact not yet recorded. The
+  per-statement Form 1099-B box 4 prompt is one: on v89 it is the only
+  reason on some line 25b and 25d pages, with no link. Whether the page
+  should link such a question is a projection question; ADR 0089 labels
+  the statement but does not add a link.
 - The unasked boundary answers (lines 18-19, QOF). Since core v89 Path B
   and "no Form 8949" are asked.
 - Kernel reverse presence check: removing a sale checks only one of its

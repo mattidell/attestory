@@ -83,8 +83,9 @@ presentation-model.v3 it counts a reason as a question when
 `resolved.questionRefs[].reasonIndices` points at it. The "?" test is used
 only for models older than v3.
 
-On all 2976 blocked-line reason lists the six probe tests reach (all v3),
-the new rule gives exactly the old lists. No count or committed output
+In a one-off comparison the builder ran with temporary logging (not
+committed), on all 2976 blocked-line reason lists the six probe tests
+reach (all v3), the new rule gave exactly the old lists. No count or committed output
 changes, and nothing was re-pinned.
 
 Finding for review: the box 4 withholding prompt ("Enter the federal
@@ -102,3 +103,7 @@ Closed 2026-11-26. Retrospective:
 track changed no output, one independent review after curation stood for
 both the fresh and the final review (foreman). The roadmap item is
 replaced by a narrower one for the probes that still use "?".
+The combined review (NOT READY) found the roadmap overstated ADR 0089 and
+that unlinked asking reasons are a class, not one prompt (QF-R1, QF-R2);
+the foreman fixed the roadmap, parked the class, widened the helper to v3
+onward (QF-R3) and marked the comparison as builder-measured (QF-R4).

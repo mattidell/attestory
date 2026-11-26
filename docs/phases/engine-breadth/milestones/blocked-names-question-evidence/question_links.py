@@ -15,19 +15,28 @@ question here when an index points at it, whatever its punctuation.
 
 Models older than v3 carry no question links. For those, and only those, a
 reason counts as a question when its sentence contains a question mark.
+
+A link marks only the questions the projection can tie to one answer
+target. Some reasons ask for an answer by design without a link: a roster
+member's question (ADR 0087, beside ``memberLabel``), a question whose
+answer target is not unique, and a question about a fact not yet recorded
+(for example the per-statement Form 1099-B box 4 prompt). This rule does not
+count them; a caller that needs them must read them separately.
 """
 
 from __future__ import annotations
 
+import re
 from collections.abc import Callable, Mapping
 from typing import Any
 
-LINKED_SCHEMAS = frozenset({"presentation-model.v3"})
+FIRST_LINKED_VERSION = 3
 
 
 def links_questions(schema: Any) -> bool:
-    """True when a model of this schema marks its questions by link."""
-    return str(schema) in LINKED_SCHEMAS
+    """True when a model of this schema marks its questions by link (v3 onward)."""
+    match = re.fullmatch(r"presentation-model\.v(\d+)", str(schema))
+    return match is not None and int(match.group(1)) >= FIRST_LINKED_VERSION
 
 
 def asked(resolved: Mapping[str, Any], schema: Any,

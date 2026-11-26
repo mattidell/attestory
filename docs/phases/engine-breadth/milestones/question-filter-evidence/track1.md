@@ -78,7 +78,10 @@ Decision 1 makes the saved model's link the authority, so the probe now
 reports what the model says. Whether the projection should link this
 prompt is an engine question outside this milestone (no packages/
 change). A later milestone that reuses these probes to judge whether a
-line "asks" should know about this gap.
+line "asks" should know about this gap. The review (QF-R2) found it is a
+class, not one prompt: roster member questions, questions whose answer
+target is not unique, and questions about facts not yet recorded are also
+left unlinked; the helper's docstring and the roadmap say so.
 
 ## Other probes not changed
 
