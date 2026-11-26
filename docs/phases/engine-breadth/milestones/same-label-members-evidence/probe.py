@@ -258,6 +258,34 @@ def dom_check(page: Path, model: dict[str, Any]) -> dict[str, Any]:
     return dict(json.loads(proc.stdout)["case"])
 
 
+def dom_member_items(page: Path, model: dict[str, Any]) -> dict[str, int]:
+    """Per blocked line with a member reason, how many member reason items the page draws for it.
+
+    Each such line is rendered alone (the saved model with only that section), so
+    the checker's first-read text, which it truncates, holds the whole line.
+    """
+    lines = []
+    for section in model.get("sections") or []:
+        resolved = section.get("resolved") or {}
+        if any(isinstance(r, dict) and r.get("memberLabel") for r in resolved.get("reasons") or []):
+            lines.append(json.dumps({"key": p0.short((section.get("field") or {}).get("id")),
+                                     "model": {**model, "sections": [section]}}))
+    if not lines:
+        return {}
+    env = os.environ.copy()
+    env["PPW_CHECK_DETAIL"] = "1"
+    proc = subprocess.run(["node", str(CHECKER), str(page)], input="\n".join(lines) + "\n",
+                          text=True, capture_output=True, timeout=300, check=True, env=env)
+    counts: dict[str, int] = {}
+    for key, result in json.loads(proc.stdout).items():
+        assert not result.get("section_errors"), (key, result.get("section_errors"))
+        text = str(result.get("first_read_text") or "")
+        counts[key] = sum(1 for line in text.split("\n")
+                          if any(line.strip().startswith(label + ":") or line.strip().startswith(label + " (")
+                                 for label in LABELS.values()))
+    return counts
+
+
 def observe(core: Any, case: str, scratch: Path | None = None, page: Path | None = None) -> dict[str, Any]:
     acts = build(case, core.content)
     run_id = "demo.slm.p0." + case.replace("/", ".").replace("@", "-at-").replace("+", "-and-")
@@ -325,7 +353,10 @@ def observe(core: Any, case: str, scratch: Path | None = None, page: Path | None
             # Each distinct member reason item the page draws ("<name>: <sentence>"), first 60 characters.
             "member_items": sorted({line.strip()[:60] for line in first.split("\n")
                                     if any(line.strip().startswith(label) for label in LABELS.values())}),
+            # Every member reason item the page draws, counted per line (not deduplicated).
+            "member_item_counts": dom_member_items(page, saved),
         }
+        found["member_reason_count"] = sum(1 for said in reasons.values() for r in said if r[0])
     return found
 
 
