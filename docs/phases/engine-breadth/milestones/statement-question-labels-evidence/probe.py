@@ -18,7 +18,8 @@ statements can be told apart by their recorded label. The recorded corpus
 labels every statement ``Synthetic``.
 
 Every run goes through ``live_coordinate_run`` (``recorded_replay.saved_output``).
-Output is written beside this file with no local path. Synthetic ``demo.*`` ids
+Output is written under the ignored ``temp/statement-question-labels/`` directory.
+Synthetic ``demo.*`` ids
 only. ``observe`` and ``relabel`` are importable for tests.
 """
 
@@ -246,15 +247,21 @@ def summarize(observed: dict[str, Any], statements: int) -> dict[str, Any]:
 class Inventory:
     """Picklable per-list callable for ``recorded_replay.replay``.
 
-    With ``both`` the list also runs under the scratch design
-    (``design.install()``), and the result holds both observations.
+    With ``both`` the list also runs under the scratch design, and the result
+    holds both observations.
     """
 
     def __init__(self, both: bool = False) -> None:
         self.both = both
 
-    def _one(self, key: str, acts: list[dict[str, Any]], core: Any, statements: int) -> dict[str, Any]:
-        saved = rr.saved_output(core, acts, "demo.sql." + hashlib.sha256(key.encode()).hexdigest()[:20])
+    def _one(self, key: str, acts: list[dict[str, Any]], core: Any, statements: int,
+             *, scratch: bool = False) -> dict[str, Any]:
+        if str(HERE) not in sys.path:
+            sys.path.insert(0, str(HERE))
+        from replay import save_pre_build
+
+        run_id = "demo.sql." + hashlib.sha256(key.encode()).hexdigest()[:20]
+        saved = save_pre_build(core, acts, run_id, scratch=scratch)
         if saved["outcome"] != "success":
             return {"outcome": saved["outcome"], "statements": statements}
         observed = observe(saved["model"], saved["report"])
@@ -266,15 +273,7 @@ class Inventory:
         published = self._one(key, acts, core, statements)
         if not self.both:
             return published
-        if str(HERE) not in sys.path:
-            sys.path.insert(0, str(HERE))
-        import design
-
-        design.install()
-        try:
-            return {"published": published, "design": self._one(key, acts, core, statements)}
-        finally:
-            design.uninstall()
+        return {"published": published, "design": self._one(key, acts, core, statements, scratch=True)}
 
 
 def _multi(lists: list[tuple[str, Any]]) -> list[tuple[str, Any]]:
@@ -283,6 +282,7 @@ def _multi(lists: list[tuple[str, Any]]) -> list[tuple[str, Any]]:
 
 def main(argv: list[str]) -> None:
     mode = argv[1] if len(argv) > 1 else "inventory-all"
+    output_dir = REPO / "temp" / "statement-question-labels"
     core = rr.resolve_core(CORE)
     lists = rr.recorded_lists()
     if mode == "inventory-all":
@@ -290,7 +290,7 @@ def main(argv: list[str]) -> None:
         results = rr.replay(chosen, (core,), Inventory(), workers=9)
         for row in results.values():
             row.pop("observed", None)
-        out = HERE / "inventory-all.json"
+        out = output_dir / "inventory-all.json"
     elif mode == "cases":
         results = rr.replay(case_lists(), (core,), Inventory(both=True), workers=8)
         expected = {case["id"]: case["expect"] for case in CASES}
@@ -303,11 +303,12 @@ def main(argv: list[str]) -> None:
             for side in ("published", "design"):
                 row[side].pop("observed", None)
         print("design as expected:", sum(row["design_as_expected"] for row in results.values()), "of", len(results))
-        out = HERE / "cases.json"
+        out = output_dir / "cases.json"
     else:
         raise SystemExit(f"unknown mode {mode!r}")
     text = json.dumps({"core": CORE, "results": results}, indent=1, sort_keys=True) + "\n"
     rr._check_no_local_paths(text, out.name)
+    out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(text, encoding="utf-8")
     print(out.name, len(results))
 

@@ -36,8 +36,11 @@ What the wrapper does, after the unchanged walk has produced its reasons:
 
 from __future__ import annotations
 
+import sys
 from decimal import Decimal, InvalidOperation
+from types import ModuleType
 from typing import Any, Callable, Mapping, Sequence
+from unittest.mock import patch
 
 from packages.derivation import presentation_projection as pp
 
@@ -267,6 +270,16 @@ def _build(**kwargs: Any) -> dict[str, Any]:
         return _ORIGINAL_BUILD(**kwargs)
     finally:
         _VALUES.clear()
+
+
+def project_with_design(projection: ModuleType, **kwargs: Any) -> dict[str, Any]:
+    """Apply the scratch design to the supplied pre-build projection."""
+    with (
+        patch.object(sys.modules[__name__], "_ORIGINAL", projection._closure_question_reasons),
+        patch.object(sys.modules[__name__], "_ORIGINAL_BUILD", projection.build_presentation_model),
+        patch.object(projection, "_closure_question_reasons", _wrapped),
+    ):
+        return _build(**kwargs)
 
 
 def install() -> None:

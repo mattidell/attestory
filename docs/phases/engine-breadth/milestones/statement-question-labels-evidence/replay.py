@@ -7,7 +7,7 @@ Run from the repository root:
 
 Each list runs twice in one worker process on published core v106 through the
 real ``live_coordinate_run`` (``recorded_replay.snapshot_run``): first with the
-projection as published, then with ``design.install()``. The two saved outputs
+pre-build projection, then with the P0 design applied to it. The two saved outputs
 are compared by ``recorded_replay.classify_full`` (strict; any difference no
 expectation names fails), with the expectations in ``replay_expectations.json``.
 
@@ -26,6 +26,7 @@ import sys
 from collections import Counter
 from pathlib import Path
 from typing import Any
+from unittest.mock import patch
 
 HERE = Path(__file__).resolve().parent
 REPO = HERE.parents[4]
@@ -34,8 +35,25 @@ for path in (str(REPO), str(HERE)):
         sys.path.insert(0, path)
 
 from tools import recorded_replay as rr  # noqa: E402
+from packages.derivation import evaluator, live  # noqa: E402
+from replay_baseline import baseline  # noqa: E402
 
 EXPECT = HERE / "replay_expectations.json"
+
+
+def save_pre_build(core: Any, acts: rr.Acts, run_id: str, *, scratch: bool = False) -> dict[str, Any]:
+    from design import project_with_design
+
+    projection = baseline("presentation_projection")
+    def scratch_build(**kwargs: Any) -> dict[str, Any]:
+        return project_with_design(projection, **kwargs)
+
+    build = scratch_build if scratch else projection.build_presentation_model
+    with (
+        patch.object(live, "build_presentation_model", build),
+        patch.object(evaluator, "_require_paired", baseline("evaluator")._require_paired),
+    ):
+        return rr.saved_output(core, acts, run_id)
 
 
 class DesignCompare:
@@ -46,17 +64,10 @@ class DesignCompare:
         self.max_unexpected = max_unexpected
 
     def __call__(self, key: str, acts: list[dict[str, Any]], cores: Any) -> dict[str, Any]:
-        import design
-
         core = cores[0] if isinstance(cores, (list, tuple)) else cores
         run_id = "demo.sql." + hashlib.sha256(key.encode()).hexdigest()[:20]
-        design.uninstall()
-        saved_a = rr.saved_output(core, acts, run_id)
-        design.install()
-        try:
-            saved_b = rr.saved_output(core, acts, run_id)
-        finally:
-            design.uninstall()
+        saved_a = save_pre_build(core, acts, run_id)
+        saved_b = save_pre_build(core, acts, run_id, scratch=True)
         snap_a, snap_b = (rr.snapshot(saved["model"], saved["report"]) if saved["outcome"] == "success"
                           else rr.failure_snapshot(saved["outcome"], saved["error"], saved["message"])
                           for saved in (saved_a, saved_b))
@@ -247,7 +258,6 @@ def main() -> None:
     parser.add_argument("--controls", action="store_true", help="run the semantic-check mutation controls")
     args = parser.parse_args()
     if args.controls:
-        import design
         import probe
 
         cases = dict(probe.case_lists())
@@ -261,12 +271,8 @@ def main() -> None:
         core = rr.resolve_core("v106")
         controls: dict[str, Any] = {}
         for name, acts in chosen.items():
-            saved_a = rr.saved_output(core, acts, "demo.sql.controls")
-            design.install()
-            try:
-                saved_b = rr.saved_output(core, acts, "demo.sql.controls")
-            finally:
-                design.uninstall()
+            saved_a = save_pre_build(core, acts, "demo.sql.controls")
+            saved_b = save_pre_build(core, acts, "demo.sql.controls", scratch=True)
             controls[name] = semantic_controls(saved_a, saved_b)
         text = json.dumps(controls, indent=1) + "\n"
         rr._check_no_local_paths(text, "controls")
