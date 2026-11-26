@@ -119,3 +119,18 @@ Track 1 scope if accepted: `p0.md` section 7.
 3. **No question-group link is in scope.** Member questions link no group
    before or after (ADR 0087 made them explanation only); the plan's
    "links its question group" is struck.
+
+## Track 1 result
+
+Evidence: `same-label-members-evidence/track1.md`. Built 2026-11-25 on core
+v107 (Decision 1): `_closure_question_reasons` records each member's
+missing question by the member's subject keys, so two or three members
+recorded with the same label who each miss an answer now get one reason
+each, all labelled with that label. No `memberOrdinal`, no page change
+(Decision 2), no question-group link (Decision 3). Tests:
+`tests/test_same_label_members_walk.py` (unit) and
+`tests/test_same_label_members_live.py` (live, with the page DOM checker).
+Full-surface replay against the pre-Track-1 projection: 775 of 775 recorded
+lists identical; 9 of 23 probe returns differ, only by the added member
+reasons. Full suite: 7,850 passed, 25 skipped, 0 failed. Next: fresh
+review; Track 2 waits on the owner's decision on ADR 0090.

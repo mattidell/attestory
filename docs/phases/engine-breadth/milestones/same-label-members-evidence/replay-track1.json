@@ -1,0 +1,459 @@
+{
+ "comparison": "repository presentation_projection vs scratch copy, same core, strict, no expectations",
+ "core": {
+  "loader_from": null,
+  "package_sha256": "ff4701e17f984886eecd041343f55743fb9e4b3ae28da67e8a65dc4ab498ff9e",
+  "presence_pairs": [],
+  "registry": "v105",
+  "release_sha256": "7a8ac0b91c1499874daa58724f94cfba86f52d1034df5385ac658cd98eee231e",
+  "release_version": "v105",
+  "version": "v107"
+ },
+ "format": "same-label-members-p0-replay.v1",
+ "probe": {
+  "classes": {
+   "identical": 14,
+   "unexpected": 9
+  },
+  "differences": 323,
+  "differences_by_kind_change_attribute": {
+   "page|changed|resolved.reasons@order": 101,
+   "page|removed|memberLabel": 111,
+   "page|removed|sentence": 111
+  },
+  "differing": 9,
+  "differing_lists": {
+   "probe:mfj/kid2/AA/age@1+age@2": 27,
+   "probe:single/kid2/AA/age@1+age@2": 27,
+   "probe:single/kid2/AA/dtb-another@1+dtb-another@2": 48,
+   "probe:single/kid2/AA/res@1+res@2": 27,
+   "probe:single/kid2/AA/u17@1+u17@2": 36,
+   "probe:single/kid3/AAA/age@1+age@2+age@3": 50,
+   "probe:single/kid3/AAB/age@1+age@2+age@3": 30,
+   "probe:single/odckid2/AA/odc-tin@1+odc-tin@2": 39,
+   "probe:single/parent2/AA/rel-tin@p1+rel-tin@p2": 39
+  },
+  "identical": 14,
+  "lists": 23,
+  "outcomes": {
+   "success/success": 23
+  }
+ },
+ "probe_samples": {
+  "probe:mfj/kid2/AA/age@1+age@2": [
+   {
+    "after": [
+     "[0]"
+    ],
+    "attribute": "resolved.reasons@order",
+    "before": [
+     "[0]",
+     "[1]"
+    ],
+    "change": "changed",
+    "identity": "sections[line-eic-a-2]",
+    "kind": "page"
+   },
+   {
+    "after": null,
+    "attribute": "memberLabel",
+    "before": "Demo Sam",
+    "change": "removed",
+    "identity": "sections[line-eic-a-2]/resolved.reasons[[1]]",
+    "kind": "page"
+   },
+   {
+    "after": null,
+    "attribute": "sentence",
+    "before": "Does this child meet the age test for the earned income credit? Answer yes if, at the end of 2025, the child was under age 19 and younger than you (or your spouse if you file a joint return); or was under age 24, a full-time student, and younger than you (or your spouse if you file a joint return); or was any age and permanently and totally disabled. A full-time student is a child who during any part of 5 calendar months of 2025 was enrolled as a full-time student at a school or took a full-time, on-farm training course given by a school or a state, county, or local government agency. A school includes a technical, trade, or mechanical school. It doesn't include an on-the-job training course, correspondence school, or school offering courses only through the Internet. A person is permanently and totally disabled if, at any time in 2025, the person couldn't engage in any substantial gainful activity because of a physical or mental condition and a doctor has determined that this condition has lasted or can be expected to last continuously for at least a year, or can be expected to lead to death. Answer no if none of these applies.",
+    "change": "removed",
+    "identity": "sections[line-eic-a-2]/resolved.reasons[[1]]",
+    "kind": "page"
+   },
+   {
+    "after": [
+     "[0]"
+    ],
+    "attribute": "resolved.reasons@order",
+    "before": [
+     "[0]",
+     "[1]"
+    ],
+    "change": "changed",
+    "identity": "sections[line-eic-a-5]",
+    "kind": "page"
+   }
+  ],
+  "probe:single/kid2/AA/age@1+age@2": [
+   {
+    "after": [
+     "[0]"
+    ],
+    "attribute": "resolved.reasons@order",
+    "before": [
+     "[0]",
+     "[1]"
+    ],
+    "change": "changed",
+    "identity": "sections[line-eic-a-2]",
+    "kind": "page"
+   },
+   {
+    "after": null,
+    "attribute": "memberLabel",
+    "before": "Demo Sam",
+    "change": "removed",
+    "identity": "sections[line-eic-a-2]/resolved.reasons[[1]]",
+    "kind": "page"
+   },
+   {
+    "after": null,
+    "attribute": "sentence",
+    "before": "Does this child meet the age test for the earned income credit? Answer yes if, at the end of 2025, the child was under age 19 and younger than you (or your spouse if you file a joint return); or was under age 24, a full-time student, and younger than you (or your spouse if you file a joint return); or was any age and permanently and totally disabled. A full-time student is a child who during any part of 5 calendar months of 2025 was enrolled as a full-time student at a school or took a full-time, on-farm training course given by a school or a state, county, or local government agency. A school includes a technical, trade, or mechanical school. It doesn't include an on-the-job training course, correspondence school, or school offering courses only through the Internet. A person is permanently and totally disabled if, at any time in 2025, the person couldn't engage in any substantial gainful activity because of a physical or mental condition and a doctor has determined that this condition has lasted or can be expected to last continuously for at least a year, or can be expected to lead to death. Answer no if none of these applies.",
+    "change": "removed",
+    "identity": "sections[line-eic-a-2]/resolved.reasons[[1]]",
+    "kind": "page"
+   },
+   {
+    "after": [
+     "[0]"
+    ],
+    "attribute": "resolved.reasons@order",
+    "before": [
+     "[0]",
+     "[1]"
+    ],
+    "change": "changed",
+    "identity": "sections[line-eic-a-5]",
+    "kind": "page"
+   }
+  ],
+  "probe:single/kid2/AA/dtb-another@1+dtb-another@2": [
+   {
+    "after": [
+     "[0]"
+    ],
+    "attribute": "resolved.reasons@order",
+    "before": [
+     "[0]",
+     "[1]"
+    ],
+    "change": "changed",
+    "identity": "sections[line-eic-a-2]",
+    "kind": "page"
+   },
+   {
+    "after": null,
+    "attribute": "memberLabel",
+    "before": "Demo Sam",
+    "change": "removed",
+    "identity": "sections[line-eic-a-2]/resolved.reasons[[1]]",
+    "kind": "page"
+   },
+   {
+    "after": null,
+    "attribute": "sentence",
+    "before": "Does this child also meet the conditions to be a qualifying child of any other person for 2025, other than your spouse if you file a joint return? Answer yes if another person could also claim the child as a qualifying child. Answer no if no other person could.",
+    "change": "removed",
+    "identity": "sections[line-eic-a-2]/resolved.reasons[[1]]",
+    "kind": "page"
+   },
+   {
+    "after": [
+     "[0]"
+    ],
+    "attribute": "resolved.reasons@order",
+    "before": [
+     "[0]",
+     "[1]"
+    ],
+    "change": "changed",
+    "identity": "sections[line-eic-a-5]",
+    "kind": "page"
+   }
+  ],
+  "probe:single/kid2/AA/res@1+res@2": [
+   {
+    "after": [
+     "[0]"
+    ],
+    "attribute": "resolved.reasons@order",
+    "before": [
+     "[0]",
+     "[1]"
+    ],
+    "change": "changed",
+    "identity": "sections[line-eic-a-2]",
+    "kind": "page"
+   },
+   {
+    "after": null,
+    "attribute": "memberLabel",
+    "before": "Demo Sam",
+    "change": "removed",
+    "identity": "sections[line-eic-a-2]/resolved.reasons[[1]]",
+    "kind": "page"
+   },
+   {
+    "after": null,
+    "attribute": "sentence",
+    "before": "Did this child live with you in the United States for more than half of 2025? Count temporary absences for special circumstances, such as school, vacation, business, medical care, military service, or detention in a juvenile facility, as time the child lived with you. A child who was born or died in 2025 lived with you for more than half of 2025 if your home was the child's home for more than half the time the child was alive in 2025. A child you adopted in 2025, who was lawfully placed with you for legal adoption in 2025, or who was an eligible foster child placed with you during 2025, lived with you for more than half of 2025 if your main home was the child's main home for more than half the time since the adoption or placement. A kidnapped child is treated as living with you for more than half of the year if the child lived with you for more than half the part of the year before the date of the kidnapping or following the date of the child's return. The child must be presumed by law enforcement authorities to have been kidnapped by someone who isn't a member of your family or the child's family. This treatment applies for all years until the child is returned, but the last year it can apply is the earlier of the year there is a determination that the child is dead or the year the child would have reached age 18. If you were on extended active military duty outside the United States (duty ordered for an indefinite period or for more than 90 days), your main home is considered to be in the United States during that duty. Once you begin serving extended active duty, you are considered to be on extended active duty even if you don't serve more than 90 days. The United States means the 50 states and the District of Columbia, not Puerto Rico or a U.S. territory. Answer yes if the child lived with you in the United States for more than half of 2025. Answer no if not, even if you paid most of the child's living expenses.",
+    "change": "removed",
+    "identity": "sections[line-eic-a-2]/resolved.reasons[[1]]",
+    "kind": "page"
+   },
+   {
+    "after": [
+     "[0]"
+    ],
+    "attribute": "resolved.reasons@order",
+    "before": [
+     "[0]",
+     "[1]"
+    ],
+    "change": "changed",
+    "identity": "sections[line-eic-a-5]",
+    "kind": "page"
+   }
+  ],
+  "probe:single/kid2/AA/u17@1+u17@2": [
+   {
+    "after": [
+     "[0]"
+    ],
+    "attribute": "resolved.reasons@order",
+    "before": [
+     "[0]",
+     "[1]"
+    ],
+    "change": "changed",
+    "identity": "sections[line-8812-14]",
+    "kind": "page"
+   },
+   {
+    "after": null,
+    "attribute": "memberLabel",
+    "before": "Demo Sam",
+    "change": "removed",
+    "identity": "sections[line-8812-14]/resolved.reasons[[1]]",
+    "kind": "page"
+   },
+   {
+    "after": null,
+    "attribute": "sentence",
+    "before": "Was this child under age 17 at the end of 2025? Answer yes if so. Answer no if the child was age 17 or older at the end of 2025.",
+    "change": "removed",
+    "identity": "sections[line-8812-14]/resolved.reasons[[1]]",
+    "kind": "page"
+   },
+   {
+    "after": [
+     "[0]"
+    ],
+    "attribute": "resolved.reasons@order",
+    "before": [
+     "[0]",
+     "[1]"
+    ],
+    "change": "changed",
+    "identity": "sections[line-8812-17]",
+    "kind": "page"
+   }
+  ],
+  "probe:single/kid3/AAA/age@1+age@2+age@3": [
+   {
+    "after": [
+     "[0]"
+    ],
+    "attribute": "resolved.reasons@order",
+    "before": [
+     "[0]",
+     "[1]",
+     "[2]"
+    ],
+    "change": "changed",
+    "identity": "sections[line-eic-a-2]",
+    "kind": "page"
+   },
+   {
+    "after": null,
+    "attribute": "memberLabel",
+    "before": "Demo Sam",
+    "change": "removed",
+    "identity": "sections[line-eic-a-2]/resolved.reasons[[1]]",
+    "kind": "page"
+   },
+   {
+    "after": null,
+    "attribute": "sentence",
+    "before": "Does this child meet the age test for the earned income credit? Answer yes if, at the end of 2025, the child was under age 19 and younger than you (or your spouse if you file a joint return); or was under age 24, a full-time student, and younger than you (or your spouse if you file a joint return); or was any age and permanently and totally disabled. A full-time student is a child who during any part of 5 calendar months of 2025 was enrolled as a full-time student at a school or took a full-time, on-farm training course given by a school or a state, county, or local government agency. A school includes a technical, trade, or mechanical school. It doesn't include an on-the-job training course, correspondence school, or school offering courses only through the Internet. A person is permanently and totally disabled if, at any time in 2025, the person couldn't engage in any substantial gainful activity because of a physical or mental condition and a doctor has determined that this condition has lasted or can be expected to last continuously for at least a year, or can be expected to lead to death. Answer no if none of these applies.",
+    "change": "removed",
+    "identity": "sections[line-eic-a-2]/resolved.reasons[[1]]",
+    "kind": "page"
+   },
+   {
+    "after": null,
+    "attribute": "memberLabel",
+    "before": "Demo Sam",
+    "change": "removed",
+    "identity": "sections[line-eic-a-2]/resolved.reasons[[2]]",
+    "kind": "page"
+   }
+  ],
+  "probe:single/kid3/AAB/age@1+age@2+age@3": [
+   {
+    "after": [
+     "[0]",
+     "[1]"
+    ],
+    "attribute": "resolved.reasons@order",
+    "before": [
+     "[0]",
+     "[1]",
+     "[2]"
+    ],
+    "change": "changed",
+    "identity": "sections[line-eic-a-2]",
+    "kind": "page"
+   },
+   {
+    "after": null,
+    "attribute": "memberLabel",
+    "before": "Demo Sam",
+    "change": "removed",
+    "identity": "sections[line-eic-a-2]/resolved.reasons[[2]]",
+    "kind": "page"
+   },
+   {
+    "after": null,
+    "attribute": "sentence",
+    "before": "Does this child meet the age test for the earned income credit? Answer yes if, at the end of 2025, the child was under age 19 and younger than you (or your spouse if you file a joint return); or was under age 24, a full-time student, and younger than you (or your spouse if you file a joint return); or was any age and permanently and totally disabled. A full-time student is a child who during any part of 5 calendar months of 2025 was enrolled as a full-time student at a school or took a full-time, on-farm training course given by a school or a state, county, or local government agency. A school includes a technical, trade, or mechanical school. It doesn't include an on-the-job training course, correspondence school, or school offering courses only through the Internet. A person is permanently and totally disabled if, at any time in 2025, the person couldn't engage in any substantial gainful activity because of a physical or mental condition and a doctor has determined that this condition has lasted or can be expected to last continuously for at least a year, or can be expected to lead to death. Answer no if none of these applies.",
+    "change": "removed",
+    "identity": "sections[line-eic-a-2]/resolved.reasons[[2]]",
+    "kind": "page"
+   },
+   {
+    "after": [
+     "[0]",
+     "[1]"
+    ],
+    "attribute": "resolved.reasons@order",
+    "before": [
+     "[0]",
+     "[1]",
+     "[2]"
+    ],
+    "change": "changed",
+    "identity": "sections[line-eic-a-5]",
+    "kind": "page"
+   }
+  ],
+  "probe:single/odckid2/AA/odc-tin@1+odc-tin@2": [
+   {
+    "after": [
+     "[0]"
+    ],
+    "attribute": "resolved.reasons@order",
+    "before": [
+     "[0]",
+     "[1]"
+    ],
+    "change": "changed",
+    "identity": "sections[line-8812-14]",
+    "kind": "page"
+   },
+   {
+    "after": null,
+    "attribute": "memberLabel",
+    "before": "Demo Sam",
+    "change": "removed",
+    "identity": "sections[line-8812-14]/resolved.reasons[[1]]",
+    "kind": "page"
+   },
+   {
+    "after": null,
+    "attribute": "sentence",
+    "before": "Does this child have a social security number (SSN), individual taxpayer identification number (ITIN), or adoption taxpayer identification number (ATIN) issued on or before the due date of your 2025 return (including extensions)? Answer yes if the child has one, or if you apply for an ITIN or ATIN for the child on or before that date. Answer no if the child has none of these numbers.",
+    "change": "removed",
+    "identity": "sections[line-8812-14]/resolved.reasons[[1]]",
+    "kind": "page"
+   },
+   {
+    "after": [
+     "[0]"
+    ],
+    "attribute": "resolved.reasons@order",
+    "before": [
+     "[0]",
+     "[1]"
+    ],
+    "change": "changed",
+    "identity": "sections[line-8812-17]",
+    "kind": "page"
+   }
+  ],
+  "probe:single/parent2/AA/rel-tin@p1+rel-tin@p2": [
+   {
+    "after": [
+     "[0]"
+    ],
+    "attribute": "resolved.reasons@order",
+    "before": [
+     "[0]",
+     "[1]"
+    ],
+    "change": "changed",
+    "identity": "sections[line-8812-14]",
+    "kind": "page"
+   },
+   {
+    "after": null,
+    "attribute": "memberLabel",
+    "before": "Demo Sam",
+    "change": "removed",
+    "identity": "sections[line-8812-14]/resolved.reasons[[1]]",
+    "kind": "page"
+   },
+   {
+    "after": null,
+    "attribute": "sentence",
+    "before": "Does this person have a social security number (SSN), individual taxpayer identification number (ITIN), or adoption taxpayer identification number (ATIN) issued on or before the due date of your 2025 return (including extensions)? Answer yes if they have one, or if you apply for an ITIN or ATIN for them on or before that date. Answer no if they have none of these numbers.",
+    "change": "removed",
+    "identity": "sections[line-8812-14]/resolved.reasons[[1]]",
+    "kind": "page"
+   },
+   {
+    "after": [
+     "[0]"
+    ],
+    "attribute": "resolved.reasons@order",
+    "before": [
+     "[0]",
+     "[1]"
+    ],
+    "change": "changed",
+    "identity": "sections[line-8812-17]",
+    "kind": "page"
+   }
+  ]
+ },
+ "recorded": {
+  "classes": {
+   "identical": 775
+  },
+  "differences": 0,
+  "differences_by_kind_change_attribute": {},
+  "differing": 0,
+  "differing_lists": {},
+  "identical": 775,
+  "lists": 775,
+  "outcomes": {
+   "error/error": 84,
+   "success/success": 691
+  }
+ },
+ "swapped": [
+  "_closure_question_reasons"
+ ],
+ "wall_time_s": 409.8
+}
