@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "derivation/answer-explanation.v1",
+  "title": "Declared plain explanation for one recorded answer that holds up a line",
+  "description": "Maps one (fact type, value) pair to a filer-facing sentence. The projection shows it beside the declared question when a blocked line's question walk names that fact and the fact's current answer has that value: it says what the answer means for the line and what to do next. The fact type's adopted input-question citizen stays the question. Does not change the fact type, the question, any rule or any value.",
+  "type": "object",
+  "properties": {
+    "schema": {
+      "const": "answer-explanation.v1"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^v[0-9]+$"
+    },
+    "fact_type": {
+      "$ref": "#/$defs/pin"
+    },
+    "value": {
+      "type": "string",
+      "minLength": 1
+    },
+    "explanation": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S"
+    }
+  },
+  "required": [
+    "schema",
+    "id",
+    "version",
+    "fact_type",
+    "value",
+    "explanation"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "pin": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^v[0-9]+$"
+        }
+      },
+      "required": [
+        "id",
+        "version"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

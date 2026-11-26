@@ -29,6 +29,7 @@ from typing import Any, Mapping
 
 from packages.derivation.package_validation import (
     CLOSURE_MAPPING_SCHEMAS,
+    ANSWER_EXPLANATION_SCHEMAS,
     FAMILY_BLOCK_EXPLANATION_SCHEMAS,
     INPUT_QUESTION_SCHEMAS,
     _iter_bound_source_names,
@@ -309,7 +310,7 @@ def build_dependency_edges(
                 elif closed and isinstance(fact_id, str):
                     edges[cid].update(bundles_for_fact.get(fact_id, set()))
 
-        elif schema in INPUT_QUESTION_SCHEMAS:
+        elif schema in INPUT_QUESTION_SCHEMAS or schema in ANSWER_EXPLANATION_SCHEMAS:
             fact_pin = citizen.get("fact_type")
             if isinstance(fact_pin, dict):
                 fact_id = fact_pin.get("id")
