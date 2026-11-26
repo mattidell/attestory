@@ -73,6 +73,38 @@ member and let the filer tell them apart without inventing a name.
 2. **Track 1 (build)**, fresh review, repair, closeout, final review,
    merge.
 
+## P0 result
+
+Evidence: `same-label-members-evidence/p0.md`; ADR draft:
+`same-label-members-evidence/adr-draft.md` (proposed). On core v107, members
+of one roster with the same recorded label collapse: two children "Sam" both
+missing an answer get one reason, and when they miss different answers, or
+only one misses it, the reasons say "Sam" without saying which. The walk
+records a member's question by `(fact type, label)`; keying it by the
+member's subject keys gives one reason per member, as ADR 0087 already says.
+Telling them apart needs a new optional reason field, `memberOrdinal` (the
+member's place among same-kind, same-label members in the order they were
+added, present only when the label is shared), shown as "Sam (the second one
+you added with this name)". No other recorded attribute can do it (an entity
+has only id, kind and label; labels are never empty). Member questions link
+no question group, before and after (ADR 0087 Decision 3). Scratch proof: all
+23 probe returns ask once per member and tell them apart, controls
+unchanged; full-surface replay 775 of 775 recorded lists identical, probe
+differences on page reason entries only. The new field is a contract ADR 0087
+did not decide, so P0 stops for the owner.
+
+Decisions needed (owner unless noted):
+
+1. Accept the proposed ADR (key by member plus `memberOrdinal`), or direct
+   that it fits within ADR 0087.
+2. The ordinal basis: entry order among current same-kind members, a
+   replaced member moving to the end.
+3. The page words for the ordinal (owner or foreman).
+4. If the ADR is declined: Track 1 is the keying fix alone (no ADR, but two
+   identical-looking lines).
+
+Track 1 scope if accepted: `p0.md` section 7.
+
 ## Decisions
 
 (None yet.)
