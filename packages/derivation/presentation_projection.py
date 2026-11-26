@@ -662,7 +662,9 @@ def _answer_explanation_sentences(
     values: dict[str, set[Any]] = {}
     for finding_id in current_ids:
         finding = state.findings.get(finding_id)
-        fact_id = finding.get("fact_id") if isinstance(finding, Mapping) else None
+        if not isinstance(finding, Mapping):
+            continue
+        fact_id = finding.get("fact_id")
         if isinstance(fact_id, str) and fact_id in fact_map:
             values.setdefault(fact_id, set()).add(json.dumps(finding.get("value"), sort_keys=True))
     found: dict[str, str] = {}
