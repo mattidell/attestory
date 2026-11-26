@@ -29,28 +29,28 @@ KIND = {
 }
 
 CHECK = {
-    "covered_w": "Check the proceeds in box 1d, the basis in box 1e and the amount in box 1g of your Form 1099-B, and fix whichever amount is wrong.",
-    "noncovered": "Check the proceeds in box 1d of your Form 1099-B, the basis in column (e) and the wash-sale loss in column (g) of Form 8949, and fix whichever amount is wrong.",
-    "code_b": "Check the proceeds in box 1d and the wash-sale loss in box 1g of your Form 1099-B and the correct basis you entered, and fix whichever amount is wrong.",
-    "no1099b": "Check the net proceeds in column (d), the basis in column (e) and the wash-sale loss in column (g) of Form 8949, and fix whichever amount is wrong.",
+    "covered_w": "Check what you entered against the proceeds in box 1d, the basis in box 1e and the amount in box 1g of your Form 1099-B, and fix whichever amount you entered differently.",
+    "noncovered": "Check what you entered against the proceeds in box 1d and any amount in box 1g of your Form 1099-B, and the basis you entered for column (e) of Form 8949, then fix whichever of your entries is wrong.",
+    "code_b": "Check what you entered against the proceeds in box 1d and the amount in box 1g of your Form 1099-B, and fix whichever amount you entered differently.",
+    "no1099b": "Check the net proceeds, basis and wash-sale loss you entered for columns (d), (e) and (g) of Form 8949, and fix whichever of your entries is wrong.",
 }
 
 WASH_ON_GAIN = {
     "covered_w": "You entered a wash-sale loss for box 1g, but this sale has no loss, so there is nothing to disallow.",
     "noncovered": "You entered a wash-sale loss for column (g), but this sale has no loss, so there is nothing to disallow.",
-    "code_b": "You entered a wash-sale loss, but this sale has no loss, so there is nothing to disallow.",
+    "code_b": "You entered a wash-sale loss, but with the correct basis you entered this sale has no loss, so there is nothing to disallow.",
     "no1099b": "You entered a wash-sale loss for column (g), but this sale has no loss, so there is nothing to disallow.",
 }
 
 WASH_TOO_BIG = {
     "covered_w": "The wash-sale loss you entered for box 1g is more than this sale lost.",
     "noncovered": "The wash-sale loss you entered for column (g) is more than this sale lost.",
-    "code_b": "The wash-sale loss you entered is more than this sale lost.",
+    "code_b": "The wash-sale loss you entered is more than this sale lost with the correct basis you entered.",
     "no1099b": "The wash-sale loss you entered for column (g) is more than this sale lost.",
 }
 
 HOLDING = "You marked this sale long-term but entered it with your short-term sales, or the other way around."
-HOLDING_1099B = "Check the dates you acquired and sold it, since a sale held more than 1 year is long-term, and box 2 of your Form 1099-B."
+HOLDING_1099B = "Check box 2 of your Form 1099-B, if it is filled in, and the dates you acquired and sold it, since a sale held more than 1 year is long-term."
 HOLDING_NO1099B = "Check the dates you acquired and sold it in columns (b) and (c) of Form 8949, since a sale held more than 1 year is long-term."
 
 WASH_SOURCE = (f"{SCHD}, General Instructions, Wash Sales; {S8949}, Column (g), code W "
@@ -73,18 +73,21 @@ def explanation(kind: str, code: str) -> tuple[str, str]:
         return HOLDING + " " + rest, (f"{S8949}, General Instructions, Short-Term or Long-Term (held more than 1 year "
                                       "is long-term); Part I and Part II; box 2 of Form 1099-B.")
     if code == "BASIS_WAS_REPORTED":
-        return ("Box 12 of your Form 1099-B is checked for this sale, so your broker reported its basis to the IRS. "
-                "Enter it with your sales that have box 12 checked, not with sales where box 12 is blank."), (
+        return ("You said your broker reported this sale's basis to the IRS, but you entered it with sales whose "
+                "broker did not report it. If box 12 of your Form 1099-B is checked, enter it with your sales that "
+                "have box 12 checked, and if box 12 is blank, change your answer that it was reported."), (
                 f"{S8949}, Part I and Part II, box A or D versus box B or E (Form 1099-B showing basis was "
                 f"reported to the IRS); {SCHD}, Lines 1a and 8a.")
     if code == "BOX_1G_FLAG_WITHOUT_AMOUNT":
         return ("You said box 1g of your Form 1099-B shows a wash-sale loss disallowed for this sale, but you did not "
-                "enter the amount. Enter the amount from box 1g, or change your answer if box 1g is blank."), (
+                "enter the amount. Enter the amount from box 1g, or if box 1g is blank, change your answer that box 1g "
+                "shows one."), (
                 f"{SCHD}, General Instructions, Wash Sales (box 1g of Form 1099-B shows the wash sale loss "
                 f"disallowed); {S8949}, Column (g), code W.")
     if code == "BOX_1G_AMOUNT_WITHOUT_FLAG":
         return ("You entered a box 1g wash-sale amount for this sale but did not say that box 1g of your Form 1099-B "
-                "shows one. Say that it does, or remove the amount if box 1g is blank."), (
+                "shows one. If box 1g shows an amount, say that it does, or if box 1g is blank, change your answer "
+                "that box 1g shows one and remove the amount."), (
                 f"{SCHD}, General Instructions, Wash Sales (box 1g of Form 1099-B shows the wash sale loss "
                 f"disallowed); {S8949}, Column (g), code W.")
     if code == "CODE_B_WITHOUT_CORRECTION":
@@ -99,11 +102,11 @@ def explanation(kind: str, code: str) -> tuple[str, str]:
 def question(kind: str, term: str) -> tuple[str, str]:
     if kind == "covered_w":
         return (f"What is the wash-sale loss disallowed in box 1g of your Form 1099-B for this {term} sale? "
-                "If box 1g is wrong, enter the correct amount, and if it is blank, enter 0."), (
+                "If box 1g is wrong, enter the correct amount. If box 1g is blank, change your answer that it shows one."), (
                 f"{SCHD}, General Instructions, Wash Sales (box 1g of Form 1099-B); {S8949}, Column (g), code W.")
     if kind == "noncovered":
-        return (f"What wash-sale loss disallowed do you enter in column (g) of Form 8949 for this {term} sale "
-                "whose basis was not reported to the IRS? If there is none, enter 0."), (
+        return ("How much of this sale's loss does a wash sale disallow? Use box 1g of your Form 1099-B if it "
+                "shows an amount. If there is none, enter 0."), (
                 f"{SCHD}, General Instructions, Wash Sales; {S8949}, Column (g), code W.")
     if kind == "no1099b":
         return (f"What wash-sale loss disallowed do you enter in column (g) of Form 8949 for this {term} sale with "

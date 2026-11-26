@@ -6,5 +6,5 @@
     "id": "tax.us.2025.f1099b.noncovered-st-txn.adjustment",
     "version": "v1"
   },
-  "question": "What wash-sale loss disallowed do you enter in column (g) of Form 8949 for this short-term sale whose basis was not reported to the IRS? If there is none, enter 0."
+  "question": "How much of this sale's loss does a wash sale disallow? Use box 1g of your Form 1099-B if it shows an amount. If there is none, enter 0."
 }

@@ -4,5 +4,5 @@
   "version": "v2",
   "family_id": "tax.us.2025.f1099b.noncovered-st",
   "block_code": "BASIS_WAS_REPORTED",
-  "explanation": "Box 12 of your Form 1099-B is checked for this sale, so your broker reported its basis to the IRS. Enter it with your sales that have box 12 checked, not with sales where box 12 is blank."
+  "explanation": "You said your broker reported this sale's basis to the IRS, but you entered it with sales whose broker did not report it. If box 12 of your Form 1099-B is checked, enter it with your sales that have box 12 checked, and if box 12 is blank, change your answer that it was reported."
 }

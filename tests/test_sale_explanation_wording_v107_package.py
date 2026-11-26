@@ -166,14 +166,30 @@ def test_each_sentence_meets_the_mechanical_wording_bar(row: dict[str, Any]) -> 
     assert not re.search(r"[A-Z]{2,}_[A-Z_]+", text), text
     assert ";" not in text, text
     assert "(" not in COLUMN_LABEL.sub("", text) and ")" not in COLUMN_LABEL.sub("", text), text
-    assert len(_sentences(text)) <= 2, text
     assert "1099-B" in text or "8949" in text, text
+    for match in re.finditer(r"basis|proceeds", lowered):
+        window = lowered[max(0, match.start() - 60): match.end() + 60]
+        assert re.search(r"\bbox \w+|\bcolumns? \(|you entered|you said", window), (match.group(), text)
     if row["property"] == "explanation":
+        assert len(_sentences(text)) <= 2, text
         assert lowered.count("proceeds") <= 1 and lowered.count("basis") <= 1, text
-        assert text.startswith(("You ", "This ", "The ", "Box ")), text
+        assert text.startswith(("You ", "This ", "The ")), text
     else:
+        # Decision 1: the covered wash-sale question says what to do for a blank box 1g in its own sentence.
+        assert len(_sentences(text)) <= 3, text
         assert _sentences(text)[0].endswith("?"), text
-        assert "enter 0" in lowered or "if there is one" in lowered, text
+        assert "enter 0" in lowered or "if there is one" in lowered or "change your answer" in lowered, text
+
+
+def test_a_blank_box_1g_gets_one_instruction_and_never_0_for_a_covered_wash_sale() -> None:
+    """Decision 1: a covered wash-sale group sale is there only because box 1g is marked."""
+    blank = "change your answer that box 1g shows one"
+    rows = _wording()
+    for row in rows:
+        if row.get("block_code") in {"BOX_1G_FLAG_WITHOUT_AMOUNT", "BOX_1G_AMOUNT_WITHOUT_FLAG"}:
+            assert "if box 1g is blank, " + blank in row["new"], row["new"]
+        if "covered-w" in row["id"] and row["property"] == "question":
+            assert "enter 0" not in row["new"] and "If box 1g is blank, change your answer that it shows one." in row["new"]
 
 
 def test_short_and_long_term_read_the_same_where_the_rule_is_the_same() -> None:

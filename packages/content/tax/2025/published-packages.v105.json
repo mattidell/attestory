@@ -8643,7 +8643,7 @@
     {
       "id": "tax.us.2025.family-block-explanation.f1099b-code-b-lt.adjustment-exceeds-loss",
       "version": "v2",
-      "checksum": "0ffc4a85721310e145d7f1ccd9ecfaff7f6c3ccb3e8f35a0d3ded452a23d5a5d"
+      "checksum": "f13e19766393b1b86c2030ff0b7b9422178216893fc6c51565cb8a2c54d06619"
     },
     {
       "id": "tax.us.2025.family-block-explanation.f1099b-code-b-lt.code-b-without-correction",
@@ -8653,17 +8653,17 @@
     {
       "id": "tax.us.2025.family-block-explanation.f1099b-code-b-lt.code-w-on-gain",
       "version": "v2",
-      "checksum": "b0f3109337c941075b1052a919b859657fabc18f8645191badb4bd65218638e9"
+      "checksum": "40b22a2570c7955f626517c982aec6209626be38717a9a6299ce273cf2bc17b8"
     },
     {
       "id": "tax.us.2025.family-block-explanation.f1099b-code-b-lt.holding-period-mismatch",
       "version": "v2",
-      "checksum": "c31b78878843a043eb280dd4daf5ca84dfabac039999cca6b4d6497f0dcacfb0"
+      "checksum": "99cef485b1fb00c36d91fda2967cbfc0ca5c439835a07ee724ecdb22005ee6ba"
     },
     {
       "id": "tax.us.2025.family-block-explanation.f1099b-code-b-st.adjustment-exceeds-loss",
       "version": "v2",
-      "checksum": "7049525ffa45712ee918da9a53c1a2f53c8181e3da6bd1d760f665803a7547d8"
+      "checksum": "c0d4dcf65b509be883854bd167181563eb4a8ba8d00df6b35a232aaac779618f"
     },
     {
       "id": "tax.us.2025.family-block-explanation.f1099b-code-b-st.code-b-without-correction",
@@ -8673,102 +8673,102 @@
     {
       "id": "tax.us.2025.family-block-explanation.f1099b-code-b-st.code-w-on-gain",
       "version": "v2",
-      "checksum": "ce3d9f25a9d0e062bbafb19339c2b9117a5bfe34bf46ada75b25298eddedf84a"
+      "checksum": "2cabfb9f5d512b660f5c7ac79ba8b1c952a9353164d9ebe4d5595f325efecfe7"
     },
     {
       "id": "tax.us.2025.family-block-explanation.f1099b-code-b-st.holding-period-mismatch",
       "version": "v2",
-      "checksum": "a1babea2746e382d02021af7ea19db798874722693e43c898de887148a2c6594"
+      "checksum": "e063dc52a1bc67e77fe36c52053ccd93176481e4286aec334a4b38638c21b50d"
     },
     {
       "id": "tax.us.2025.family-block-explanation.f1099b-covered-w-lt.adjustment-exceeds-loss",
       "version": "v2",
-      "checksum": "efa1140216049238d9cb50162f84b4257bf39b93b6abfb243bd06b3dbd25a1ce"
+      "checksum": "bdd394b7b47033839e41acc1162563741841ee1770bfcfe44da75b54d6a898b0"
     },
     {
       "id": "tax.us.2025.family-block-explanation.f1099b-covered-w-lt.box-1g-amount-without-flag",
       "version": "v2",
-      "checksum": "5dcfd5120dfa9dbeb1c12c30d4baf4bb69b409f245ac40e03d4341b7370ac3d8"
+      "checksum": "d1c3f03ae410eb9487b8b3722b5d9f03571fc7bdfd68e52a185e886fdf19382a"
     },
     {
       "id": "tax.us.2025.family-block-explanation.f1099b-covered-w-lt.box-1g-flag-without-amount",
       "version": "v2",
-      "checksum": "313b7432e794ed8e22cce2cf6dcae334703832f186385eb9ee1603442841eca5"
+      "checksum": "4fbb7cb990f94ca4292d3a151c3ec702f82c6082390be11555d876f436cc28b7"
     },
     {
       "id": "tax.us.2025.family-block-explanation.f1099b-covered-w-lt.code-w-on-gain",
       "version": "v2",
-      "checksum": "0448a76fb6f4d638850ec94485464fb0f2465b111e8ccf0de9a1fa0eeaa11280"
+      "checksum": "4aeb3b813d4630b5eb23b823d8db2b89b4163d46849096030dc53a6603cbc6ab"
     },
     {
       "id": "tax.us.2025.family-block-explanation.f1099b-covered-w-st.adjustment-exceeds-loss",
       "version": "v2",
-      "checksum": "5ec15d4e25d5dcaed7de62bd1524c1164f754e6fad2b3c7b128eaefeea6a4d4b"
+      "checksum": "69caf4130276d9d7eaafc2336b2021e705d246772b443a4fad53f93f83886a5d"
     },
     {
       "id": "tax.us.2025.family-block-explanation.f1099b-covered-w-st.box-1g-amount-without-flag",
       "version": "v2",
-      "checksum": "90d232e0a359893252bbc7d15830b598def8ff7a4f4cf08f469f2f4534584618"
+      "checksum": "7c40cb535537ca3289aa4b7ce0f32d0ca8c7d1c5c284940438b4a88f8095f25b"
     },
     {
       "id": "tax.us.2025.family-block-explanation.f1099b-covered-w-st.box-1g-flag-without-amount",
       "version": "v2",
-      "checksum": "acaf89d22c80bcc9424734354e83bb9185432e7e859a681ee3fd8aa0a9b17403"
+      "checksum": "649511f3335723becf579649be89d8e05db6665c96726de977895d769535a5bb"
     },
     {
       "id": "tax.us.2025.family-block-explanation.f1099b-covered-w-st.code-w-on-gain",
       "version": "v2",
-      "checksum": "fb732e4c5343a8a636865c04ae39325e50aee0f5de3c39969a2ee4845498fda3"
+      "checksum": "46235824769949749eed272edf573763e414f257aedb4642469cfa4b320080f0"
     },
     {
       "id": "tax.us.2025.family-block-explanation.f1099b-noncovered-lt.adjustment-exceeds-loss",
       "version": "v2",
-      "checksum": "febdf0390404c5fef6294738e1ff530f34b53832bbf5bbe2a5e2396c7a86f50c"
+      "checksum": "e036fac6b52e67f0906aa49a8259c7b1ae932ce8f98728159eac3c75bca61adf"
     },
     {
       "id": "tax.us.2025.family-block-explanation.f1099b-noncovered-lt.basis-was-reported",
       "version": "v2",
-      "checksum": "973f6e4815364664dfff3ffc36ff21699bc62f0789ca6c16031beea33c26f978"
+      "checksum": "d7f49a9f0fb66cafeae927a4871c82257f9a3e31147c83f1ca372816e584b277"
     },
     {
       "id": "tax.us.2025.family-block-explanation.f1099b-noncovered-lt.code-w-on-gain",
       "version": "v2",
-      "checksum": "b2ebaa0861af179c0b81a1657c0c03320f0b6d18a27010c7325d1ee359ab94eb"
+      "checksum": "b8731234615836cd660dc3514f82e22d30d2fe60135cd28e94b148cf570fbc3f"
     },
     {
       "id": "tax.us.2025.family-block-explanation.f1099b-noncovered-lt.holding-period-mismatch",
       "version": "v2",
-      "checksum": "7bdaa3cb99e4ccfd9b3584b79fe2ffbaf18459464535e126622765fa2ec1348f"
+      "checksum": "a0bcde9904c3daed57088446ecb24267091b18472764c6a9f5d8749723ce9f55"
     },
     {
       "id": "tax.us.2025.family-block-explanation.f1099b-noncovered-st.adjustment-exceeds-loss",
       "version": "v2",
-      "checksum": "b83cf00001d24a0148fb488d828fd8d2ac5810208c88e07b49c5c52393f594b5"
+      "checksum": "9090583063344f61b757e840fb060830bbc9be8765ddc9c80b7a2eaba7dd3298"
     },
     {
       "id": "tax.us.2025.family-block-explanation.f1099b-noncovered-st.basis-was-reported",
       "version": "v2",
-      "checksum": "1ecca4742fad3c678767eb4e2633705427c612dc25a24b5b6c7d51ddfd937c99"
+      "checksum": "96a8863c382e0a3b51c1c051f6192a708dfd013afd12555e7525cc72f2227861"
     },
     {
       "id": "tax.us.2025.family-block-explanation.f1099b-noncovered-st.code-w-on-gain",
       "version": "v2",
-      "checksum": "c0f639bd1bca34a4864aa5694a65a1ab5f20dc393d998ea37a17854d5d97a371"
+      "checksum": "4aca595f338ae09a344142f4b729ba3807751aa3df735541411179a50c218324"
     },
     {
       "id": "tax.us.2025.family-block-explanation.f1099b-noncovered-st.holding-period-mismatch",
       "version": "v2",
-      "checksum": "a1d0b9142d1ff5083fc13110daa17269bf19a849bd88c0922a7987e15ddd0315"
+      "checksum": "707553ad30212fcb7def7af4a2d75293841011e5623c0b94af63d0eaacf963e7"
     },
     {
       "id": "tax.us.2025.family-block-explanation.f8949-no1099b-lt.adjustment-exceeds-loss",
       "version": "v2",
-      "checksum": "d4a6d3b51741f0a084792c5806007192b47954241535060a6a1b1e950e7645d1"
+      "checksum": "7cfc076de22611d3a31efc7bbc849b6ebbd42a0a9834c0ab2a97ef83a0cc9b5e"
     },
     {
       "id": "tax.us.2025.family-block-explanation.f8949-no1099b-lt.code-w-on-gain",
       "version": "v2",
-      "checksum": "16b193468cd372b2a371a5d7f6763e6fd48520dd49653c71d615ab5b0d5662e3"
+      "checksum": "433b7bff4563d9c8137bef2371730fe108e392912a88cec388f27a43a214fa1d"
     },
     {
       "id": "tax.us.2025.family-block-explanation.f8949-no1099b-lt.holding-period-mismatch",
@@ -8778,12 +8778,12 @@
     {
       "id": "tax.us.2025.family-block-explanation.f8949-no1099b-st.adjustment-exceeds-loss",
       "version": "v2",
-      "checksum": "e1d800236fcaae93a4a17a2604d26e3f9549adbfa09a8240a0d878ce44146b81"
+      "checksum": "d5d77b9f1cd1b9396bc5110b553426928c73190ea962f9211f1351a256642d7a"
     },
     {
       "id": "tax.us.2025.family-block-explanation.f8949-no1099b-st.code-w-on-gain",
       "version": "v2",
-      "checksum": "7af578b051800ca0880fce653da57cdf20b8dfdc2987c4ca2350ed124d645a23"
+      "checksum": "70522b3db23ded7e9bde8324c357d65bba14b2c77f65348a8bf4545078adb4e4"
     },
     {
       "id": "tax.us.2025.family-block-explanation.f8949-no1099b-st.holding-period-mismatch",
@@ -8803,22 +8803,22 @@
     {
       "id": "tax.us.2025.input-question.f1099b-covered-w-lt-adjustment",
       "version": "v2",
-      "checksum": "f15eff5f549227e7dd5916d570a9b493e410f926f0fbc3fbb7b89ff67319b9d5"
+      "checksum": "5e58c772039b776fc291545e9a1fa7e97f97855e0e03bf2cdd329a7600db5f26"
     },
     {
       "id": "tax.us.2025.input-question.f1099b-covered-w-st-adjustment",
       "version": "v2",
-      "checksum": "b5377d85e95eeeae9e7e9a01550097fad0e0acd2a31075a6a662ab3967f4e202"
+      "checksum": "dcf8dae18414b3f2898b7dde8eb97fa00a703bd47b6f522579e4a27ad3df8378"
     },
     {
       "id": "tax.us.2025.input-question.f1099b-noncovered-lt-adjustment",
       "version": "v2",
-      "checksum": "b03037454333721e9b8d987ae37c797b3ad515023fb6d3d3bfd23220416668a8"
+      "checksum": "fbb985c554e9bf6aed9a4cab79f016a85ab35d34b6677cd053aa6b86205f166a"
     },
     {
       "id": "tax.us.2025.input-question.f1099b-noncovered-st-adjustment",
       "version": "v2",
-      "checksum": "8c094f119ab2599dab94dd05613e4e222a2444ce576432688b75d0d747d5873e"
+      "checksum": "2811a21282e09f2b8d0a6fc65f90da0a59b0ecde780750b59d6a7b52bd5aa9ad"
     },
     {
       "id": "tax.us.2025.input-question.f8949-no1099b-lt-adjustment",

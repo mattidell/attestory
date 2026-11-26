@@ -6,5 +6,5 @@
     "id": "tax.us.2025.f1099b.covered-w-lt-txn.adjustment",
     "version": "v1"
   },
-  "question": "What is the wash-sale loss disallowed in box 1g of your Form 1099-B for this long-term sale? If box 1g is wrong, enter the correct amount, and if it is blank, enter 0."
+  "question": "What is the wash-sale loss disallowed in box 1g of your Form 1099-B for this long-term sale? If box 1g is wrong, enter the correct amount. If box 1g is blank, change your answer that it shows one."
 }
