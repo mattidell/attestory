@@ -3,8 +3,8 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "statement-question-labels",
-  "status": "Open. ADR 0089 accepted by the owner 2026-11-26; Track 1 chartered.",
-  "retrospective": null,
+  "status": "Closed 2026-11-26. Projection only (ADR 0089); no package version.",
+  "retrospective": "docs/milestone-retrospectives/2026-11-26-statement-question-labels.md",
   "scope": [
     "when a return has more than one Form 1099-B statement, each per-statement box 4 amount question and box 7 question on the saved page says which statement it asks about, by the label the filer recorded",
     "every recorded return keeps its numbers, dispositions and block codes"
@@ -136,3 +136,21 @@ remaining 2,721 tests to the required CI `verify` check.
 See `statement-question-labels-evidence/track1.md` for the evidence and
 `statement-question-labels-evidence/replay_track1_summary.json` for the
 aggregate replay results.
+
+## Closeout
+
+Closed 2026-11-26. Retrospective:
+`docs/milestone-retrospectives/2026-11-26-statement-question-labels.md`.
+The fresh review (NOT READY) found that the replay could pass with no
+label or with two labels swapped (SQL-R1), that its resume cache could
+reuse results from older code (SQL-R2), and a wrong loader docstring
+(SQL-R3). Repair 1 fixed all three and re-ran the replay cleanly. The
+roadmap item is retired; the other statement forms, the broker label and
+per-statement wording are parked (Decisions 2, 5 and 6), and so is naming
+the sale on questions for sales with no Form 1099-B (ADR 0089, Parked).
+The final review after curation (NOT READY) found that the replays
+resolved their baseline from a commit curation removed (SQL-F1, F3), an
+incomplete shard fingerprint (SQL-F4), probe output written into the
+evidence directory (SQL-F5), roadmap wording (SQL-F6) and a stale PR
+description (SQL-F7). Repair 2 fixed all of them; the baseline is now the
+parent of the build commit.
