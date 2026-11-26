@@ -630,6 +630,160 @@ class _RosterMembers:
         return bool(entity_keys) and all(name in names for name in entity_keys)
 
 
+class _StatementQuestions:
+    """Which statements a per-statement question asks about (ADR 0089).
+
+    A Form 1099-B box 4 amount or box 7 question reaches a blocked line
+    through a ``require_paired`` block that names only the bare fact type.
+    The statements it asks about are recovered by running the evaluator's
+    own pairing test (``evaluator.paired_coverage``) over the rows that
+    block read, which it pins as inputs. A declared need narrows a gated
+    pairing (``STATEMENT_QUESTION_NEEDS``). Every method answers ``None``
+    when it cannot say, and the caller then keeps the unlabelled sentence.
+    It adds nothing to the record.
+    """
+
+    def __init__(
+        self,
+        *,
+        rules_by_id: Mapping[str, Mapping[str, Any]],
+        state: FindingState,
+        resolved_members: Sequence[Mapping[str, Any]],
+        publications_by_id: Mapping[str, Mapping[str, Any]],
+        by_symbol: Mapping[str, Sequence[Mapping[str, Any]]],
+        entity_kinds: frozenset[str],
+        needs: Mapping[str, frozenset[str]],
+    ) -> None:
+        self._rules = rules_by_id
+        self._state = state
+        self._publications = publications_by_id
+        self._by_symbol = by_symbol
+        self._needs = needs
+        self._fact_map: dict[str, Any] | None = None
+        self._identity: dict[str, list[str]] = {}
+        declared: dict[str, Mapping[str, Any]] = {}
+        for member in resolved_members:
+            if str(member.get("schema", "")).startswith("bundle."):
+                for fact_type in member.get("fact_types") or []:
+                    if isinstance(fact_type, Mapping) and isinstance(fact_type.get("id"), str):
+                        declared.setdefault(fact_type["id"], fact_type)
+        for fact_type_id, declaration in {**declared, **state.fact_state.fact_types}.items():
+            identity = declaration.get("identity_keys") if isinstance(declaration, Mapping) else None
+            if not isinstance(identity, list) or not all(isinstance(key, Mapping) for key in identity):
+                continue
+            entity = [key for key in identity if key.get("kind") == "entity"]
+            if (len(entity) == 1 and entity[0].get("name") == "statement"
+                    and entity[0].get("entity_kind") in entity_kinds
+                    and all(key.get("kind") in {"entity", "literal"} for key in identity)):
+                self._identity[fact_type_id] = [str(key.get("name")) for key in identity]
+
+    def applies(self, fact_type: str) -> bool:
+        """Whether ``fact_type`` is a per-statement fact this decision labels."""
+        return fact_type in self._identity
+
+    def _facts(self) -> dict[str, Any]:
+        if self._fact_map is None:
+            self._fact_map = dict(facts_of(self._state.fact_state))
+        return self._fact_map
+
+    @staticmethod
+    def _paired_nodes(node: Any, withholding: str) -> list[Mapping[str, Any]]:
+        found: list[Mapping[str, Any]] = []
+        if isinstance(node, Mapping):
+            if node.get("op") == "require_paired" and node.get("withholding") == withholding:
+                found.append(node)
+            for value in node.values():
+                found.extend(_StatementQuestions._paired_nodes(value, withholding))
+        elif isinstance(node, list):
+            for item in node:
+                found.extend(_StatementQuestions._paired_nodes(item, withholding))
+        return found
+
+    def _needed(self, need_symbols: frozenset[str]) -> set[str]:
+        """Statement entity ids of every sale whose published need is above zero."""
+        needed: set[str] = set()
+        facts = self._facts()
+        for symbol, rows in self._by_symbol.items():
+            base, sep, subject = symbol.partition("|")
+            if not sep or base not in need_symbols:
+                continue
+            for row in rows:
+                if row.get("disposition") != "published":
+                    continue
+                finding = self._publications.get(str(row.get("finding_id")))
+                value = finding.get("value") if isinstance(finding, Mapping) else None
+                if isinstance(value, bool):
+                    continue
+                try:
+                    if Decimal(str(value)) <= 0:
+                        continue
+                except (InvalidOperation, ValueError):
+                    continue
+                fact = facts.get(subject)
+                statement = dict(fact.keys).get("statement") if fact is not None else None
+                if statement:
+                    needed.add(statement)
+        return needed
+
+    def targets(self, row: Mapping[str, Any], fact_type: str) -> list[tuple[str, dict[str, str]]] | None:
+        """``(fact id, identity keys)`` of each answer the blocked row waits on, or None when it cannot say."""
+        from packages.derivation.evaluator import PairedSourceRow, paired_coverage
+
+        names = self._identity.get(fact_type)
+        rule = self._rules.get(str(row.get("artifact_id")))
+        nodes = self._paired_nodes(rule, fact_type) if names is not None and rule is not None else []
+        if not nodes or any(node.get("key") != "statement" for node in nodes):
+            return None
+        facts = self._facts()
+        # The rows the block read: its input pins, as the evaluator saw them.
+        rows_by_name: dict[str, list[PairedSourceRow]] = {}
+        keys_by_finding: dict[str, dict[str, str]] = {}
+        for pin in row.get("pins") or []:
+            if not isinstance(pin, Mapping) or pin.get("role") != "input":
+                continue
+            finding = self._state.findings.get(str(pin.get("id")))
+            fact = facts.get(str(finding.get("fact_id"))) if isinstance(finding, Mapping) else None
+            if fact is None:
+                continue
+            rows_by_name.setdefault(fact.fact_type_id, []).append(
+                PairedSourceRow(finding_id=str(pin["id"]), keys=tuple(fact.keys)))
+            keys_by_finding[str(pin["id"])] = dict(fact.keys)
+        uncovered: dict[str, dict[str, str]] = {}
+        for node in nodes:
+            coverage = paired_coverage(node, rows_by_name)
+            if coverage.bad:
+                return None
+            for value in coverage.uncovered:
+                income = next((keys for name in node.get("income") or []
+                               for source in rows_by_name.get(str(name), ())
+                               if (keys := keys_by_finding.get(source.finding_id)) is not None
+                               and keys.get("statement") == value), None)
+                if income is None:
+                    return None
+                uncovered.setdefault(value, income)
+        need = self._needs.get(fact_type)
+        if need is not None:
+            needed = self._needed(need)
+            uncovered = {value: keys for value, keys in uncovered.items() if value in needed}
+        if not uncovered or names is None:
+            return None
+        found: list[tuple[str, dict[str, str]]] = []
+        for keys in uncovered.values():
+            if not all(name in keys for name in names):
+                return None
+            identity = {name: keys[name] for name in names}
+            found.append((fact_id_for(fact_type, tuple(identity.items())), identity))
+        return found
+
+    def label(self, entity_id: str) -> str | None:
+        """The statement's recorded label, if it is current and not empty."""
+        lifecycle = self._state.fact_state.entities.get(entity_id)
+        if lifecycle is None or lifecycle.status != "current":
+            return None
+        recorded = lifecycle.entity.get("label")
+        return recorded if isinstance(recorded, str) and recorded else None
+
+
 def _closure_question_reasons(
     row: Mapping[str, Any],
     *,
@@ -650,6 +804,7 @@ def _closure_question_reasons(
     member_violation_targets: Mapping[tuple[str, str], set[str]] | None = None,
     collision_sentence: str | None = None,
     collision_category_labels: Mapping[str, str] | None = None,
+    statement_questions: _StatementQuestions | None = None,
 ) -> list[dict[str, Any]]:
     """The declared question for every cause a blocked line waits on and a filer can answer.
 
@@ -694,6 +849,13 @@ def _closure_question_reasons(
     with the member's recorded label as ``memberLabel``, one reason per
     member and question. A member key with no blocked rows, or no single
     recorded label, leaves the line without a sentence, as before.
+
+    ``statement_questions`` (ADR 0089) names the statements a per-statement
+    Form 1099-B question asks about. Each blocked row that named the
+    question's fact type bare is kept; the one sentence becomes one reason
+    per statement with ``statementLabel``. If any such row cannot say which
+    statements, or a statement has no recorded label, the sentence stays
+    unlabelled, as before.
     """
     questions: dict[str, str] = {}
     input_questions: dict[str, str] = {}
@@ -750,10 +912,19 @@ def _closure_question_reasons(
         for fact_type, references in (question_refs_by_fact_type or {}).items()
     }
 
-    def record_input_fact(key: str, bound: str) -> bool:
+    # Blocked rows by id that named a per-statement fact type bare (ADR 0089).
+    paired_rows: dict[int, Mapping[str, Any]] = {}
+
+    def record_input_fact(key: str, bound: str, current: Mapping[str, Any] | None = None) -> bool:
         """Record a declared question while retaining any exact answer target."""
         if bound in input_questions:
             frames[-1].facts.add(bound)
+            if statement_questions is not None and statement_questions.applies(bound):
+                if current is not None and key == bound:
+                    paired_rows[id(current)] = current
+                    frames[-1].paired.add((bound, id(current)))
+                else:
+                    frames[-1].unattributed.add(bound)
             if key in question_target_ids.get(bound, set()):
                 frames[-1].fact_targets.add((bound, key))
             elif key == bound or not key.startswith(bound + "|"):
@@ -767,6 +938,8 @@ def _closure_question_reasons(
         for fact_type in sorted(input_questions, key=len, reverse=True):
             if key.startswith(fact_type + "|"):
                 frames[-1].facts.add(fact_type)
+                if statement_questions is not None and statement_questions.applies(fact_type):
+                    frames[-1].unattributed.add(fact_type)
                 if key in question_target_ids.get(fact_type, set()):
                     frames[-1].fact_targets.add((fact_type, key))
                 return True
@@ -939,7 +1112,7 @@ def _closure_question_reasons(
                         all_explained = False
                 continue
             bound = (symbol_fact_types or {}).get(key, key)
-            if record_input_fact(key, bound):
+            if record_input_fact(key, bound, current):
                 continue
             if current.get("code") != "SOURCE_SET_UNCLOSED" and follow_member(current, key, seen):
                 continue
@@ -976,7 +1149,7 @@ def _closure_question_reasons(
             blocked = [r for r in by_symbol.get(key, []) if r.get("disposition") == "blocked"]
             if not blocked:
                 bound = (symbol_fact_types or {}).get(key, key)
-                if current.get("code") == "DEPENDENCY_ABSENT" and record_input_fact(key, bound):
+                if current.get("code") == "DEPENDENCY_ABSENT" and record_input_fact(key, bound, current):
                     continue
                 if current.get("code") != "SOURCE_SET_UNCLOSED" and follow_member(current, key, seen):
                     continue
@@ -1039,6 +1212,8 @@ def _closure_question_reasons(
                 frame.member_facts.add((key, keys))
             else:
                 frame.facts.add(key)
+                if statement_questions is not None and statement_questions.applies(key):
+                    frame.unattributed.add(key)
         return True
 
     walk_mixed = memoized("mixed", reach_mixed)
@@ -1058,7 +1233,13 @@ def _closure_question_reasons(
             | {input_questions[fact] for fact in facts}
             | extras
         )
-        reasons = [{"sentence": sentence} for sentence in sorted(sentences)]
+        labelled = _statement_reasons(
+            root, paired_rows, statement_questions, input_questions,
+            other_sentences={questions[family] for family in families} | extras,
+        )
+        reasons = []
+        for text in sorted(sentences):
+            reasons.extend(labelled.get(text) or [{"sentence": text}])
         # One reason per member and question (ADR 0087), keyed by the member's
         # subject keys, never by its label: two members may carry the same
         # recorded label, and each is missing its own answer.
@@ -1155,6 +1336,57 @@ def _closure_question_reasons(
                         "scope": reference["scope"],
                     })
     return reasons
+
+
+def _statement_reasons(
+    root: "_WalkFrame",
+    paired_rows: Mapping[int, Mapping[str, Any]],
+    statement_questions: _StatementQuestions | None,
+    input_questions: Mapping[str, str],
+    *,
+    other_sentences: set[str],
+) -> dict[str, list[dict[str, Any]]]:
+    """ADR 0089: one reason per statement for each per-statement question the walk reached.
+
+    A question is labelled only when every blocked row that named it bare
+    says which statements it waits on, it was reached no other way, its
+    sentence is not also another cause's, and every statement has a current
+    recorded label. Identity is the fact id; two statements with one label
+    give two reasons. Sorted by label, then fact id.
+    """
+    out: dict[str, list[dict[str, Any]]] = {}
+    if statement_questions is None:
+        return out
+    rows_by_type: dict[str, list[Mapping[str, Any]]] = {}
+    for fact_type, row_id in sorted(root.paired):
+        rows_by_type.setdefault(fact_type, []).append(paired_rows[row_id])
+    for fact_type, rows in sorted(rows_by_type.items()):
+        sentence = input_questions.get(fact_type)
+        if (sentence is None or fact_type in root.unattributed or fact_type not in root.facts
+                or sentence in other_sentences
+                or sum(1 for other, text in input_questions.items()
+                       if text == sentence and other in root.facts) != 1):
+            continue
+        targets: dict[str, dict[str, str]] = {}
+        for row in rows:
+            found = statement_questions.targets(row, fact_type)
+            if not found:
+                targets = {}
+                break
+            targets.update(found)
+        entries: list[tuple[str, str, dict[str, Any]]] = []
+        for fact_id, identity in targets.items():
+            label = statement_questions.label(identity["statement"])
+            if label is None:
+                entries = []
+                break
+            statement_label = {"statement": label}
+            if identity.get("tax-year"):
+                statement_label["taxYear"] = identity["tax-year"]
+            entries.append((label, fact_id, {"sentence": sentence, "statementLabel": statement_label}))
+        if entries:
+            out[sentence] = [entry for _label, _fact_id, entry in sorted(entries, key=lambda item: (item[0], item[1]))]
+    return out
 
 
 def _question_group_id(fact_type_id: str, fact_type_version: str, keys: Sequence[Mapping[str, str]]) -> str:
@@ -1426,7 +1658,7 @@ class _WalkFrame:
 
     __slots__ = (
         "families", "facts", "fact_targets", "unbound_fact_types",
-        "extras", "member_facts", "examined", "hits",
+        "extras", "member_facts", "paired", "unattributed", "examined", "hits",
     )
 
     def __init__(
@@ -1444,6 +1676,10 @@ class _WalkFrame:
         self.unbound_fact_types = set() if unbound_fact_types is None else unbound_fact_types
         self.extras: set[str] = set() if extras is None else extras
         self.member_facts: set[tuple[str, str]] = set() if member_facts is None else member_facts
+        # ADR 0089: (fact type, id of a blocked row that named it bare), and
+        # fact types also reached some other way, which stay unlabelled.
+        self.paired: set[tuple[str, int]] = set()
+        self.unattributed: set[str] = set()
         self.examined: set[str] = set()
         self.hits: set[str] = set()
 
@@ -1454,6 +1690,8 @@ class _WalkFrame:
         self.unbound_fact_types |= other.unbound_fact_types
         self.extras |= other.extras
         self.member_facts |= other.member_facts
+        self.paired |= other.paired
+        self.unattributed |= other.unattributed
         self.examined |= other.examined
         self.hits |= other.hits
 
@@ -5513,8 +5751,11 @@ def build_presentation_model(
         COVERED_FLAG_REFUSAL_SENTENCE,
         IDENTITY_EXCLUSIVITY_COLLISION_SENTENCE,
         SALE_COLLISION_CATEGORY_LABELS,
+        STATEMENT_QUESTION_ENTITY_KINDS,
+        STATEMENT_QUESTION_NEEDS,
         covered_flag_refusal_map,
         explains_identity_exclusivity_collision,
+        labels_statement_questions,
         later_any_arm_refs_while_count_blocked,
         unconfirmed_family_names_closure_question,
     )
@@ -5566,6 +5807,15 @@ def build_presentation_model(
         authoritative_acts=authoritative_acts,
     )
     roster_members = _RosterMembers(rules_by_id, state)
+    statement_questions = (
+        _StatementQuestions(
+            rules_by_id=rules_by_id, state=state, resolved_members=resolved_members,
+            publications_by_id=publications_by_id, by_symbol=by_symbol,
+            entity_kinds=STATEMENT_QUESTION_ENTITY_KINDS, needs=STATEMENT_QUESTION_NEEDS,
+        )
+        if adopted_package is not None and labels_statement_questions(adopted_package[0], adopted_package[1])
+        else None
+    )
     member_violation_targets: dict[tuple[str, str], set[str]] = {}
     for pub in publications_by_id.values():
         sym = str(pub.get("symbol") or "")
@@ -5641,6 +5891,7 @@ def build_presentation_model(
             "member_violation_targets": member_violation_targets,
             "collision_sentence": collision_sentence,
             "collision_category_labels": collision_category_labels,
+            "statement_questions": statement_questions,
         }
         mixed_blocker = _line9_mixed_blocker_explanation(
             field, row, by_symbol, adopted_package,

@@ -850,13 +850,43 @@ def _require_paired(expr: dict[str, Any], env: Environment, access: AccessLog) -
     ``DEPENDENCY_ABSENT`` and names the withholding fact type. An
     uninstalled slot blocks ``link-coverage-scope-unbound``.
     """
-    key = str(expr["key"])
     withholding = str(expr["withholding"])
-    income_names = [str(name) for name in expr["income"]]
     rows_by_name = env.paired_sources
     if rows_by_name is None:
         raise EvalBlocked(BLOCK_INVALID, [LINK_COVERAGE_SCOPE_UNBOUND])
-    installed = rows_by_name
+    coverage = paired_coverage(expr, rows_by_name)
+    if coverage.bad:
+        access.require_paired_findings.update(coverage.bad)
+        raise EvalBlocked(BLOCK_INVALID, sorted(set(coverage.bad)))
+    access.require_paired_findings.update(coverage.examined)
+    if coverage.uncovered:
+        raise EvalBlocked(BLOCK_ABSENT, [withholding])
+    return True
+
+
+@dataclass(frozen=True)
+class PairedCoverage:
+    """What one ``require_paired`` node finds in the rows it reads.
+
+    ``bad`` are rows with no structured keys or without the node's key;
+    ``examined`` the rows read; ``uncovered`` the income key values, in the
+    order first read and without repeats, that no withholding row covers.
+    """
+
+    bad: tuple[str, ...]
+    examined: tuple[str, ...]
+    uncovered: tuple[str, ...]
+
+
+def paired_coverage(expr: Mapping[str, Any], rows_by_name: Mapping[str, Any]) -> PairedCoverage:
+    """The ``require_paired`` test, shared by the evaluator and the presentation projection (ADR 0089).
+
+    Reads keys only. ``rows_by_name`` maps a fact type id to its rows
+    (``PairedSourceRow`` or anything with ``finding_id`` and ``keys``).
+    """
+    key = str(expr["key"])
+    withholding = str(expr["withholding"])
+    income_names = [str(name) for name in expr["income"]]
 
     bad: list[str] = []
     examined: list[str] = []
@@ -864,7 +894,7 @@ def _require_paired(expr: dict[str, Any], env: Environment, access: AccessLog) -
     covered: set[str] = set()
 
     def take(name: str, *, covers: bool) -> None:
-        for row in installed.get(name, ()):
+        for row in rows_by_name.get(name, ()):
             row_map = _coverage_key_map(row)
             if row_map is None or key not in row_map:
                 bad.append(str(row.finding_id))
@@ -878,13 +908,8 @@ def _require_paired(expr: dict[str, Any], env: Environment, access: AccessLog) -
     for name in income_names:
         take(name, covers=False)
     take(withholding, covers=True)
-    if bad:
-        access.require_paired_findings.update(bad)
-        raise EvalBlocked(BLOCK_INVALID, sorted(set(bad)))
-    access.require_paired_findings.update(examined)
-    if any(value not in covered for value in income_keys):
-        raise EvalBlocked(BLOCK_ABSENT, [withholding])
-    return True
+    uncovered = tuple(dict.fromkeys(value for value in income_keys if value not in covered))
+    return PairedCoverage(bad=tuple(bad), examined=tuple(examined), uncovered=uncovered)
 
 
 def evaluate_args(args: list[Any], env: Environment, access: AccessLog) -> list[Any]:

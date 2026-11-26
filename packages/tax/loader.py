@@ -170,6 +170,39 @@ def explains_identity_exclusivity_collision(package_id: str, version: str) -> bo
     return _version_rank(version) >= _IDENTITY_EXCLUSIVITY_EXPLANATION_FROM
 
 
+_STATEMENT_QUESTION_LABELS_FROM = 106
+# ADR 0089 Decision 5: the per-statement questions that name their statement
+# are those individuated on one Form 1099-B statement.
+STATEMENT_QUESTION_ENTITY_KINDS: frozenset[str] = frozenset({"tax.us.f1099b-statement"})
+_F1099B_SALE_KINDS = (
+    "covered-st", "covered-lt", "covered-w-st", "covered-w-lt",
+    "noncovered-st", "noncovered-lt", "code-b-st", "code-b-lt",
+)
+# ADR 0089 Decision 2: line 25b runs its box 4 pairing only while some sale
+# still needs an amount, and then over every statement. The per-sale
+# ``box4-amount-needed`` results (above zero = needed) are the need, so a
+# statement whose box 4 the filer said shows nothing is not named.
+STATEMENT_QUESTION_NEEDS: dict[str, frozenset[str]] = {
+    "tax.us.2025.f1099b.statement-box4-withholding": frozenset(
+        f"tax.us.2025.f1099b.{kind}-txn.box4-amount-needed" for kind in _F1099B_SALE_KINDS
+    ),
+}
+
+
+def labels_statement_questions(package_id: str, version: str) -> bool:
+    """Whether a per-statement Form 1099-B question names its statement (ADR 0089).
+
+    On from core-calculations v106, the first core that publishes every
+    per-sale ``box4-amount-needed`` result the need table names. Earlier
+    cores keep the one unlabelled sentence.
+    """
+    if package_id != _CORE_CALCULATIONS:
+        return False
+    if not version.startswith("v") or not version[1:].isdigit():
+        return False
+    return _version_rank(version) >= _STATEMENT_QUESTION_LABELS_FROM
+
+
 def noncovered_scalar_presence_pairs() -> dict[str, str]:
     """Each noncovered scalar amount requires its sale object on the same identity.
 
