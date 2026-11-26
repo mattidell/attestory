@@ -1,0 +1,93 @@
+{
+  "from": {
+    "core": "v107",
+    "registry": "v105",
+    "release": "v105"
+  },
+  "to": {
+    "core": "v108",
+    "registry": "v106",
+    "release": "v106"
+  },
+  "wording_citizens": 4,
+  "cascade_levels": [
+    4
+  ],
+  "citizens": 4,
+  "member_replacements": 4,
+  "entrypoint_replacements": 4,
+  "successors": [
+    {
+      "id": "tax.us.2025.family-block-explanation.f1099b-code-b-st.adjustment-exceeds-loss",
+      "schema": "family-block-explanation.v1",
+      "old_version": "v2",
+      "new_version": "v3",
+      "predecessor": "packages/content/tax/2025/family-block-explanation.f1099b-code-b-st.adjustment-exceeds-loss.v2.json",
+      "successor_filename": "family-block-explanation.f1099b-code-b-st.adjustment-exceeds-loss.v3.json",
+      "changed_properties": [
+        "explanation"
+      ],
+      "successor_sha256": "87944745de93769bc08cc74f60e91bd0267f157d1666fab1b72dbadb2e9f9039",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.family-block-explanation.f1099b-code-b-st.code-w-on-gain",
+      "schema": "family-block-explanation.v1",
+      "old_version": "v2",
+      "new_version": "v3",
+      "predecessor": "packages/content/tax/2025/family-block-explanation.f1099b-code-b-st.code-w-on-gain.v2.json",
+      "successor_filename": "family-block-explanation.f1099b-code-b-st.code-w-on-gain.v3.json",
+      "changed_properties": [
+        "explanation"
+      ],
+      "successor_sha256": "b2bbc1800a02430301a08b21642318dedba7c7f74b3ae6afac5732ca42e8c976",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.family-block-explanation.f1099b-code-b-lt.adjustment-exceeds-loss",
+      "schema": "family-block-explanation.v1",
+      "old_version": "v2",
+      "new_version": "v3",
+      "predecessor": "packages/content/tax/2025/family-block-explanation.f1099b-code-b-lt.adjustment-exceeds-loss.v2.json",
+      "successor_filename": "family-block-explanation.f1099b-code-b-lt.adjustment-exceeds-loss.v3.json",
+      "changed_properties": [
+        "explanation"
+      ],
+      "successor_sha256": "60401f1e1a3ef861f16eeb3d591000391245b3622c62863a04662717e495bdb2",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.family-block-explanation.f1099b-code-b-lt.code-w-on-gain",
+      "schema": "family-block-explanation.v1",
+      "old_version": "v2",
+      "new_version": "v3",
+      "predecessor": "packages/content/tax/2025/family-block-explanation.f1099b-code-b-lt.code-w-on-gain.v2.json",
+      "successor_filename": "family-block-explanation.f1099b-code-b-lt.code-w-on-gain.v3.json",
+      "changed_properties": [
+        "explanation"
+      ],
+      "successor_sha256": "c48f6ae70e6e8588bfb9753ab774228c6381679ed0d42a9707918d45690dc1b7",
+      "byte_undo_proof": true
+    }
+  ],
+  "status": "valid",
+  "validation": "generate_to_directory passed package, registry and release validation",
+  "generated_sha256": {
+    "package.core-calculations.v108.json": "6d35ecf5969a926b1530217316c368504cdcdd4f6eb28b62fcdc782c36a387e9",
+    "published-packages.v106.json": "3ce014fe1d5d23275befee653c48bc89a77e7657fc5d5dfc048c5aed74c8cbdb",
+    "demo.release.sli-worksheet-integration.2025.v106.json": "78328ab3d745784df1d45072e07cbd72de6ac47fc2967d7b7953a5a7bdca9dfc"
+  },
+  "generation": {
+    "registry_sha256": "3ce014fe1d5d23275befee653c48bc89a77e7657fc5d5dfc048c5aed74c8cbdb",
+    "publication_boundary": "Candidate only: successor companion declaration and live release evidence are separate duties under ADR-0082."
+  },
+  "published": [
+    "family-block-explanation.f1099b-code-b-lt.adjustment-exceeds-loss.v3.json",
+    "family-block-explanation.f1099b-code-b-lt.code-w-on-gain.v3.json",
+    "family-block-explanation.f1099b-code-b-st.adjustment-exceeds-loss.v3.json",
+    "family-block-explanation.f1099b-code-b-st.code-w-on-gain.v3.json",
+    "demo.release.sli-worksheet-integration.2025.v106.json",
+    "package.core-calculations.v108.json",
+    "published-packages.v106.json"
+  ]
+}

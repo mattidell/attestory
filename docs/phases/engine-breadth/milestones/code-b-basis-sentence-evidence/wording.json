@@ -1,0 +1,53 @@
+{
+ "basis": "Decision 1 of docs/phases/engine-breadth/milestones/code-b-basis-sentence.md; first sentence kept, second sentence replaced",
+ "replacements": [
+  {
+   "file": "packages/content/tax/2025/family-block-explanation.f1099b-code-b-st.adjustment-exceeds-loss.v2.json",
+   "id": "tax.us.2025.family-block-explanation.f1099b-code-b-st.adjustment-exceeds-loss",
+   "version": "v2",
+   "schema": "family-block-explanation.v1",
+   "family_id": "tax.us.2025.f1099b.code-b-st",
+   "block_code": "ADJUSTMENT_EXCEEDS_LOSS",
+   "property": "explanation",
+   "old": "The wash-sale loss you entered is more than this sale lost with the correct basis you entered. Check what you entered against the proceeds in box 1d and the amount in box 1g of your Form 1099-B, and fix whichever amount you entered differently.",
+   "new": "The wash-sale loss you entered is more than this sale lost with the correct basis you entered. Check the proceeds and wash-sale loss you entered against box 1d and box 1g of your Form 1099-B, and the correct basis you entered against your own records, then fix whichever amount is wrong.",
+   "irs_source_2025": "2025 Instructions for Schedule D, General Instructions, Wash Sales; 2025 Instructions for Form 8949, Column (g), code W (a wash sale disallows only a loss on a sale at a loss). 2025 Instructions for Form 8949, Column (f), code B (basis shown in box 1e is incorrect; the correct basis comes from the filer's own records); Column (g)."
+  },
+  {
+   "file": "packages/content/tax/2025/family-block-explanation.f1099b-code-b-st.code-w-on-gain.v2.json",
+   "id": "tax.us.2025.family-block-explanation.f1099b-code-b-st.code-w-on-gain",
+   "version": "v2",
+   "schema": "family-block-explanation.v1",
+   "family_id": "tax.us.2025.f1099b.code-b-st",
+   "block_code": "CODE_W_ON_GAIN",
+   "property": "explanation",
+   "old": "You entered a wash-sale loss, but with the correct basis you entered this sale has no loss, so there is nothing to disallow. Check what you entered against the proceeds in box 1d and the amount in box 1g of your Form 1099-B, and fix whichever amount you entered differently.",
+   "new": "You entered a wash-sale loss, but with the correct basis you entered this sale has no loss, so there is nothing to disallow. Check the proceeds and wash-sale loss you entered against box 1d and box 1g of your Form 1099-B, and the correct basis you entered against your own records, then fix whichever amount is wrong.",
+   "irs_source_2025": "2025 Instructions for Schedule D, General Instructions, Wash Sales; 2025 Instructions for Form 8949, Column (g), code W (a wash sale disallows only a loss on a sale at a loss). 2025 Instructions for Form 8949, Column (f), code B (basis shown in box 1e is incorrect; the correct basis comes from the filer's own records); Column (g)."
+  },
+  {
+   "file": "packages/content/tax/2025/family-block-explanation.f1099b-code-b-lt.adjustment-exceeds-loss.v2.json",
+   "id": "tax.us.2025.family-block-explanation.f1099b-code-b-lt.adjustment-exceeds-loss",
+   "version": "v2",
+   "schema": "family-block-explanation.v1",
+   "family_id": "tax.us.2025.f1099b.code-b-lt",
+   "block_code": "ADJUSTMENT_EXCEEDS_LOSS",
+   "property": "explanation",
+   "old": "The wash-sale loss you entered is more than this sale lost with the correct basis you entered. Check what you entered against the proceeds in box 1d and the amount in box 1g of your Form 1099-B, and fix whichever amount you entered differently.",
+   "new": "The wash-sale loss you entered is more than this sale lost with the correct basis you entered. Check the proceeds and wash-sale loss you entered against box 1d and box 1g of your Form 1099-B, and the correct basis you entered against your own records, then fix whichever amount is wrong.",
+   "irs_source_2025": "2025 Instructions for Schedule D, General Instructions, Wash Sales; 2025 Instructions for Form 8949, Column (g), code W (a wash sale disallows only a loss on a sale at a loss). 2025 Instructions for Form 8949, Column (f), code B (basis shown in box 1e is incorrect; the correct basis comes from the filer's own records); Column (g)."
+  },
+  {
+   "file": "packages/content/tax/2025/family-block-explanation.f1099b-code-b-lt.code-w-on-gain.v2.json",
+   "id": "tax.us.2025.family-block-explanation.f1099b-code-b-lt.code-w-on-gain",
+   "version": "v2",
+   "schema": "family-block-explanation.v1",
+   "family_id": "tax.us.2025.f1099b.code-b-lt",
+   "block_code": "CODE_W_ON_GAIN",
+   "property": "explanation",
+   "old": "You entered a wash-sale loss, but with the correct basis you entered this sale has no loss, so there is nothing to disallow. Check what you entered against the proceeds in box 1d and the amount in box 1g of your Form 1099-B, and fix whichever amount you entered differently.",
+   "new": "You entered a wash-sale loss, but with the correct basis you entered this sale has no loss, so there is nothing to disallow. Check the proceeds and wash-sale loss you entered against box 1d and box 1g of your Form 1099-B, and the correct basis you entered against your own records, then fix whichever amount is wrong.",
+   "irs_source_2025": "2025 Instructions for Schedule D, General Instructions, Wash Sales; 2025 Instructions for Form 8949, Column (g), code W (a wash sale disallows only a loss on a sale at a loss). 2025 Instructions for Form 8949, Column (f), code B (basis shown in box 1e is incorrect; the correct basis comes from the filer's own records); Column (g)."
+  }
+ ]
+}

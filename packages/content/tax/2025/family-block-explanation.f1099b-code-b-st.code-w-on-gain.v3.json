@@ -1,0 +1,12 @@
+{
+  "schema": "family-block-explanation.v1",
+  "id": "tax.us.2025.family-block-explanation.f1099b-code-b-st.code-w-on-gain",
+  "version": "v3",
+  "family_id": "tax.us.2025.f1099b.code-b-st",
+  "block_code": "CODE_W_ON_GAIN",
+  "explanation": "You entered a wash-sale loss, but with the correct basis you entered this sale has no loss, so there is nothing to disallow. Check the proceeds and wash-sale loss you entered against box 1d and box 1g of your Form 1099-B, and the correct basis you entered against your own records, then fix whichever amount is wrong.",
+  "fact_type": {
+    "id": "tax.us.2025.f1099b.code-b-st-txn.adjustment",
+    "version": "v1"
+  }
+}
