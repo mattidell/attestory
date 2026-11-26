@@ -1278,6 +1278,19 @@ explanations now tell the filer to check the correct basis they entered
 against their own records, as well as box 1d and box 1g. All 775 recorded
 lists replay with only the sentence and version changes.
 
+## Hardening — Evidence Probes Find Questions by Structure (2025)
+
+[Plan](milestones/question-filter.md); retrospective:
+`docs/milestone-retrospectives/2026-11-26-question-filter.md`.
+Evidence tooling only.
+
+The blocked-names-question and preferential-base-reason probes now count
+a blocked line's reason as a question when the saved model links it to a
+question, not when it has a question mark. A one-off comparison by the
+builder found the lists identical on every case the tests reach, so
+nothing was re-pinned. Some asking reasons carry no link by design; see
+the parked item on unlinked questions.
+
 ## Hardening — Derivation Schema Capability Table Consolidation
 
 [Plan](milestones/rule-artifact-capability-table-consolidation.md); retrospective:
@@ -1522,9 +1535,18 @@ delivers an item removes it.
 - An amount entered after a per-statement Form 1099-B box 4 "no"
   leaves the earlier zero payment findings current until a run; the
   engine's currency on additions (box4-no-prompt Decision 8).
-- The blocked-names-question and preferential-base-reason evidence probes
-  count a sentence as a question only if it has a question mark, so an
-  imperative prompt is missed. Replace the filter before reusing them.
+- Other evidence probes still count a sentence as a question only if it
+  has a question mark (for example `f8949-code-b-evidence/codeb_probe.py`,
+  `cf-loss-limit-evidence/cases.py`). Reuse the question-filter helper
+  (`blocked-names-question-evidence/question_links.py`) before reusing them.
+- Some reasons ask for an answer but carry no question link, so a probe
+  that reads links does not count them (question-filter QF-R1, QF-R2): a
+  roster member's question (ADR 0087), a question whose answer target is
+  not unique, and a question about a fact not yet recorded. The
+  per-statement Form 1099-B box 4 prompt is one: on v89 it is the only
+  reason on some line 25b and 25d pages, with no link. Whether the page
+  should link such a question is a projection question; ADR 0089 labels
+  the statement but does not add a link.
 - The unasked boundary answers (lines 18-19, QOF). Since core v89 Path B
   and "no Form 8949" are asked.
 - Kernel reverse presence check: removing a sale checks only one of its
