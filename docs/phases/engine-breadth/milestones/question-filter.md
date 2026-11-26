@@ -3,8 +3,8 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "question-filter",
-  "status": "Open 2026-11-26. Track 1 (evidence tooling) chartered.",
-  "retrospective": null,
+  "status": "Closed 2026-11-26. Evidence tooling only.",
+  "retrospective": "docs/milestone-retrospectives/2026-11-26-question-filter.md",
   "scope": [
     "the blocked-names-question and preferential-base-reason evidence probes identify a question by the saved model's question structure, not by a question mark in the sentence",
     "every test that loads these probes still checks what it checked, and any count it pins changes only where an imperative question was missed"
@@ -94,3 +94,11 @@ lines as asking nothing, under either rule. Linking it would be an engine
 change, outside this milestone.
 
 Evidence: `question-filter-evidence/track1.md`.
+
+## Closeout
+
+Closed 2026-11-26. Retrospective:
+`docs/milestone-retrospectives/2026-11-26-question-filter.md`. Because the
+track changed no output, one independent review after curation stood for
+both the fresh and the final review (foreman). The roadmap item is
+replaced by a narrower one for the probes that still use "?".
