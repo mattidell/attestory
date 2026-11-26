@@ -48,7 +48,7 @@ from packages.derivation.schema_capabilities import (
     ATTACHMENT_PROJECTION_SCHEMAS,
     RULE_V13_SELECTION_SCHEMAS,
 )
-from packages.kernel.facts import fact_id_for, facts_of
+from packages.kernel.facts import Fact, fact_id_for, facts_of
 from packages.kernel.findings import FindingState
 from packages.tax.coverage import untranslated_source_findings
 
@@ -659,7 +659,7 @@ class _StatementQuestions:
         self._publications = publications_by_id
         self._by_symbol = by_symbol
         self._needs = needs
-        self._fact_map: dict[str, Any] | None = None
+        self._fact_map: dict[str, Fact] | None = None
         self._identity: dict[str, list[str]] = {}
         declared: dict[str, Mapping[str, Any]] = {}
         for member in resolved_members:
@@ -681,9 +681,9 @@ class _StatementQuestions:
         """Whether ``fact_type`` is a per-statement fact this decision labels."""
         return fact_type in self._identity
 
-    def _facts(self) -> dict[str, Any]:
+    def _facts(self) -> dict[str, Fact]:
         if self._fact_map is None:
-            self._fact_map = dict(facts_of(self._state.fact_state))
+            self._fact_map = facts_of(self._state.fact_state)
         return self._fact_map
 
     @staticmethod
@@ -715,7 +715,8 @@ class _StatementQuestions:
                 if isinstance(value, bool):
                     continue
                 try:
-                    if Decimal(str(value)) <= 0:
+                    amount = Decimal(str(value))
+                    if not amount.is_finite() or amount <= 0:
                         continue
                 except (InvalidOperation, ValueError):
                     continue
@@ -732,12 +733,14 @@ class _StatementQuestions:
         names = self._identity.get(fact_type)
         rule = self._rules.get(str(row.get("artifact_id")))
         nodes = self._paired_nodes(rule, fact_type) if names is not None and rule is not None else []
-        if not nodes or any(node.get("key") != "statement" for node in nodes):
+        if row.get("code") != "DEPENDENCY_ABSENT" or names is None or len(nodes) != 1:
+            return None
+        node = nodes[0]
+        if node.get("key") != "statement":
             return None
         facts = self._facts()
         # The rows the block read: its input pins, as the evaluator saw them.
         rows_by_name: dict[str, list[PairedSourceRow]] = {}
-        keys_by_finding: dict[str, dict[str, str]] = {}
         for pin in row.get("pins") or []:
             if not isinstance(pin, Mapping) or pin.get("role") != "input":
                 continue
@@ -747,41 +750,32 @@ class _StatementQuestions:
                 continue
             rows_by_name.setdefault(fact.fact_type_id, []).append(
                 PairedSourceRow(finding_id=str(pin["id"]), keys=tuple(fact.keys)))
-            keys_by_finding[str(pin["id"])] = dict(fact.keys)
-        uncovered: dict[str, dict[str, str]] = {}
-        for node in nodes:
-            coverage = paired_coverage(node, rows_by_name)
-            if coverage.bad:
-                return None
-            for value in coverage.uncovered:
-                income = next((keys for name in node.get("income") or []
-                               for source in rows_by_name.get(str(name), ())
-                               if (keys := keys_by_finding.get(source.finding_id)) is not None
-                               and keys.get("statement") == value), None)
-                if income is None:
-                    return None
-                uncovered.setdefault(value, income)
+        coverage = paired_coverage(node, rows_by_name)
+        if coverage.bad:
+            return None
+        uncovered = set(coverage.uncovered)
         need = self._needs.get(fact_type)
-        if need is not None:
-            needed = self._needed(need)
-            uncovered = {value: keys for value, keys in uncovered.items() if value in needed}
-        if not uncovered or names is None:
+        if need is not None and uncovered:
+            uncovered &= self._needed(need)
+        if not uncovered:
             return None
-        found: list[tuple[str, dict[str, str]]] = []
-        for keys in uncovered.values():
-            if not all(name in keys for name in names):
-                return None
-            identity = {name: keys[name] for name in names}
-            found.append((fact_id_for(fact_type, tuple(identity.items())), identity))
-        return found
+        identities: dict[str, set[tuple[tuple[str, str], ...]]] = {value: set() for value in uncovered}
+        for name in node["income"]:
+            for source in rows_by_name.get(name, ()):
+                keys = dict(source.keys or ())
+                statement = keys.get("statement", "")
+                if statement not in identities:
+                    continue
+                if not all(key in keys for key in names):
+                    return None
+                identities[statement].add(tuple((key, keys[key]) for key in names))
+        if any(len(matches) != 1 for matches in identities.values()):
+            return None
+        return [(fact_id_for(fact_type, identity), dict(identity))
+                for matches in identities.values() for identity in matches]
 
-    def label(self, entity_id: str) -> str | None:
-        """The statement's recorded label, if it is current and not empty."""
-        lifecycle = self._state.fact_state.entities.get(entity_id)
-        if lifecycle is None or lifecycle.status != "current":
-            return None
-        recorded = lifecycle.entity.get("label")
-        return recorded if isinstance(recorded, str) and recorded else None
+    def label(self, identity: Mapping[str, str]) -> dict[str, str]:
+        return _statement_label(identity, self._state)
 
 
 def _closure_question_reasons(
@@ -1376,13 +1370,11 @@ def _statement_reasons(
             targets.update(found)
         entries: list[tuple[str, str, dict[str, Any]]] = []
         for fact_id, identity in targets.items():
-            label = statement_questions.label(identity["statement"])
+            statement_label = statement_questions.label(identity)
+            label = statement_label.get("statement")
             if label is None:
                 entries = []
                 break
-            statement_label = {"statement": label}
-            if identity.get("tax-year"):
-                statement_label["taxYear"] = identity["tax-year"]
             entries.append((label, fact_id, {"sentence": sentence, "statementLabel": statement_label}))
         if entries:
             out[sentence] = [entry for _label, _fact_id, entry in sorted(entries, key=lambda item: (item[0], item[1]))]

@@ -16,7 +16,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from decimal import Decimal, ROUND_DOWN, ROUND_HALF_EVEN, ROUND_HALF_UP, ROUND_UP
-from typing import Any, Mapping
+from typing import Any, Mapping, Sequence
 
 from packages.derivation.authorization import AuthorizationResolution
 
@@ -878,11 +878,12 @@ class PairedCoverage:
     uncovered: tuple[str, ...]
 
 
-def paired_coverage(expr: Mapping[str, Any], rows_by_name: Mapping[str, Any]) -> PairedCoverage:
+def paired_coverage(
+    expr: Mapping[str, Any], rows_by_name: Mapping[str, Sequence[PairedSourceRow]],
+) -> PairedCoverage:
     """The ``require_paired`` test, shared by the evaluator and the presentation projection (ADR 0089).
 
-    Reads keys only. ``rows_by_name`` maps a fact type id to its rows
-    (``PairedSourceRow`` or anything with ``finding_id`` and ``keys``).
+    Reads keys only. ``rows_by_name`` maps a fact type id to its rows.
     """
     key = str(expr["key"])
     withholding = str(expr["withholding"])
