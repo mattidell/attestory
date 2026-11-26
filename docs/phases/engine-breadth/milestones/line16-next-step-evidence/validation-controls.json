@@ -1,0 +1,37 @@
+{
+ "format": "line16-next-step-validation-controls.v1",
+ "package": "scratch v109",
+ "issue_codes": {
+  "as_built": [],
+  "value_outside_domain": [
+   "ANSWER_EXPLANATION_VALUE_OUTSIDE_DOMAIN"
+  ],
+  "question_absent": [
+   "ANSWER_EXPLANATION_QUESTION_ABSENT"
+  ],
+  "fact_type_outside_surface": [
+   "ANSWER_EXPLANATION_FACT_TYPE_NOT_ADMITTED",
+   "ANSWER_EXPLANATION_QUESTION_ABSENT",
+   "ANSWER_EXPLANATION_VALUE_OUTSIDE_DOMAIN"
+  ],
+  "duplicate": [
+   "ANSWER_EXPLANATION_DUPLICATE"
+  ],
+  "role_mismatch": [
+   "ROLE_MISMATCH"
+  ],
+  "on_artifact_package_v44": [
+   "PACKAGE_SCHEMA_INVALID"
+  ]
+ },
+ "verdicts": {
+  "as_built": "PASS",
+  "value_outside_domain": "PASS",
+  "question_absent": "PASS",
+  "fact_type_outside_surface": "PASS",
+  "duplicate": "PASS",
+  "role_mismatch": "PASS",
+  "on_artifact_package_v44": "PASS"
+ },
+ "all_pass": true
+}
