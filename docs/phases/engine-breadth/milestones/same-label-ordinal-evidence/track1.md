@@ -71,3 +71,32 @@ timed-out tests in 54.79 seconds.
 The foreman directed the builder to keep the tested commit as the basis for
 this result and skip the remaining three local shards. The local full suite
 is incomplete. CI `verify` is the gate of record.
+
+## Repair 1
+
+- **SLM-O1.** ADR 0090 counts same-label entries within the same kind.
+  Kind sorts before ordinal so questions for the first child and first
+  relative stay in separate groups. The sort uses the kind internally and
+  the page continues to use the recorded label and ordinal in the heading.
+  The regression uses two children and two relatives with one shared label
+  and two questions per member.
+- **SLM-O2.** Saved-model validation rejects a fact question link redirected
+  to a member reason with the same sentence. The regression first validates
+  the same model with the link on the original reason.
+- **SLM-O3.** The [comparator](replay.py) replayed `6de14b732` against
+  `b9d529f7d` on core v108 in an eight-worker pool. The [per-case summary](repair1-replay.json)
+  lists 775 identical recorded cases and every probe verdict. The six
+  unchanged probes matched exactly. The 17 changed probes added 327
+  ordinals and reordered member reasons on 19 lines. Reversing those
+  edits gave identical full snapshots. The synthetic report-value control
+  was rejected even though it also included an allowed ordinal edit.
+- **SLM-O4.** ADR 0090 requires member ordering for shared labels. For a
+  merged selection and closure line with no ordinal, the repair retains
+  the original sentence order across all reasons. Member reasons remain
+  visible and outside the question link even when a sentence is shared.
+
+The ordering and validator regressions failed on the reviewed projection.
+The comparator controls also failed before the repository had a comparator.
+On the repair, the targeted run passed 75 tests and 10 subtests. Mypy,
+governance lint, and the envelope scan passed. CI `verify` remains the
+full-suite gate.

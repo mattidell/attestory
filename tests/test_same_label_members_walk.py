@@ -6,7 +6,7 @@ recorded label (same-label-members), so two members both recorded as
 entity of the member's kind has the same label, each of its reasons carries
 ``memberOrdinal``, the member's 1-based place in the order the workspace
 introduced them (same-label-ordinal, ADR 0090). Member reasons sort by label,
-then ordinal, then sentence, so one person's questions sit together. A
+kind, ordinal, and sentence, so one person's questions sit together. A
 member's question is never matched to another reason by sentence alone
 (SLM-R3). Synthetic demo.* graphs from ``test_eic_child_answers_walk``.
 """
@@ -88,7 +88,7 @@ class SameLabelMembers(unittest.TestCase):
                          [_sam(1, PARENT_Q), _sam(2, AGE_Q)])
 
     def test_each_persons_questions_sit_together(self) -> None:
-        # SLM-R4: sorted by label, then ordinal, then sentence.
+        # SLM-R4: within a kind, the ordinal comes before the sentence.
         by_symbol: dict[str, list[dict[str, Any]]] = {}
         for kid in KIDS[:2]:
             by_symbol[f"{COUNTS}|{_key(kid)}"] = [_member_row(kid, COUNTS, "demo.rule.counts", "demo.child.age-met",
