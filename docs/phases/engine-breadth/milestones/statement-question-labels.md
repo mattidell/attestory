@@ -121,11 +121,18 @@ per-sale box 4 need to name the statement on the saved page. Each missing
 answer gets its recorded statement label, including when two statements
 share a label. The original sentence remains when attribution is ambiguous.
 
-The v108 replay passed all 775 recorded lists and 18 P0 cases with zero
-unexpected differences. The same 141 recorded lists gained labels as on
-v106. The saved reports matched. The four saved-page DOM tests passed.
+The repaired v108 replay passed all 775 recorded lists and 18 P0 cases in
+two fresh shards with zero unexpected differences. It checked each ordered
+statement label against the P0 design and confirmed the same 141 recorded
+lists gained labels as on v106. The controls rejected original sentences
+alone and swapped labels. The saved reports matched.
+
+Core v105 already has all eight box 4 need rules. ADR 0089 starts the
+presentation change at v106. The four saved-page DOM tests passed.
 Local verification covered 5,226 tests, with 5,213 passes and 13 skips
 after the browser timeout passed on retry. The foreman deferred the
 remaining 2,721 tests to the required CI `verify` check.
 
-See `statement-question-labels-evidence/track1.md` for the replay and test evidence.
+See `statement-question-labels-evidence/track1.md` for the evidence and
+`statement-question-labels-evidence/replay_track1_summary.json` for the
+aggregate replay results.

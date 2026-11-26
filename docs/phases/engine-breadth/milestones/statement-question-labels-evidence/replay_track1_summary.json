@@ -1,0 +1,47 @@
+{
+  "format": "statement-question-labels-track1-replay.v108",
+  "identity": {
+    "core": {
+      "version": "v108",
+      "registry": "v106",
+      "release_version": "v106",
+      "loader_from": null,
+      "presence_pairs": [],
+      "package_sha256": "6d35ecf5969a926b1530217316c368504cdcdd4f6eb28b62fcdc782c36a387e9",
+      "release_sha256": "78328ab3d745784df1d45072e07cbd72de6ac47fc2967d7b7953a5a7bdca9dfc"
+    },
+    "source_sha256": "6a17ba86a1436be21e39ee77fc7a0a3f1379886fc88b2b581fe7b247f009e243"
+  },
+  "shards": 2,
+  "sets": {
+    "recorded": {
+      "lists": 775,
+      "passing": 775,
+      "lists_gaining_labels": 141,
+      "lines_labelled": 3484,
+      "labelled_reasons": 4188,
+      "unexpected_differences": 0,
+      "semantic_failures": 0,
+      "outcomes": {
+        "error/error": 84,
+        "success/success": 691
+      }
+    },
+    "cases": {
+      "lists": 18,
+      "passing": 18,
+      "lists_gaining_labels": 15,
+      "lines_labelled": 260,
+      "labelled_reasons": 416,
+      "unexpected_differences": 0,
+      "semantic_failures": 0,
+      "outcomes": {
+        "success/success": 18
+      }
+    }
+  },
+  "controls": {
+    "original_sentences_rejected": true,
+    "swapped_labels_rejected": true
+  }
+}

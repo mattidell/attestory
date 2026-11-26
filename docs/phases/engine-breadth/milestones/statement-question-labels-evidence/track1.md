@@ -29,16 +29,26 @@ CI `verify` check and kept this branch on its current base for closeout.
 
 ## Full-surface replay
 
-`replay_track1.py` runs the 775 recorded lists and all 18 P0 cases in one
-worker pool on core v108. Each worker runs the same act list twice through
+`replay_track1.py` divides the 775 recorded lists and 18 P0 cases between
+two fresh v108 shards. Each worker runs the same act list twice through
 the live coordinator, using the evaluator pairing and projection from
-`9d3c2e2fa` first and the built code second. The strict surface diff checks
-the saved model and report. The semantic check folds the labelled reasons
-back to their original sentences and verifies that the question references
-still name the same sentences. Saved reports are also compared directly.
-The replay resumed from its checkpoint after the first bounded command
-expired at 270 comparisons. The production code and the v108 input set
-were the same on resume.
+`9d3c2e2fa` first and the built code second. A strict surface diff checks
+the saved model and report. The comparison also checks the saved reports
+directly and verifies that question references still name the same sentences.
+
+On each affected line, the replay compares the ordered reasons and complete
+`statementLabel` objects against the P0 design, which reconstructs labels
+from current facts using the pre-track question walk. The 18 P0 cases also
+check their hand-written expectations. Each recorded list must agree with
+the v106 set on whether it gains labels, and merging the shards requires
+exactly 141 such lists. The exact comparison rejected both negative controls,
+one with the original sentences alone and one with two statement labels
+swapped on the same question.
+
+Both shards ran from scratch with five workers apiece. The merge required
+matching core and source fingerprints. The committed
+`replay_track1_summary.json` holds the aggregate counts and both control
+results. The run retained only compact shard summaries.
 
 | Set | Passed | Changed | Labelled lines | Labelled reasons | Unexpected differences | Semantic failures |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
@@ -50,3 +60,6 @@ line and reason totals also match P0 on both sets. The recorded outcomes
 were 691 success/success and 84 matching error/error. All P0 cases saved
 successfully on both sides. Every saved report matched, including values,
 dispositions, block codes and pins.
+
+Core v105 contains all eight box 4 need rules. ADR 0089 deliberately
+starts the presentation change at v106.
