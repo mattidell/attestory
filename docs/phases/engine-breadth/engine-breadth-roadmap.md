@@ -1265,7 +1265,7 @@ The question walk recorded a roster member's missing answer by its label,
 so two children both entered as "Sam" who each missed an answer got one
 question. It now records it by the member, as ADR 0087 already required,
 so each gets their own. All 775 recorded lists replay identical. Telling
-same-named members apart is parked for the owner.
+same-named members apart followed in same-label-ordinal.
 
 ## Bounded return — The Code B Wash-Sale Explanations Name the Correct Basis (2025)
 
@@ -1303,6 +1303,19 @@ now carries the statement label the filer recorded, from core
 v106 on, using the evaluator's own pairing test; when attribution is
 ambiguous the original sentence stays. All 775 recorded lists replay with
 no number, disposition or code change; 141 gain labels.
+
+## Bounded return — Same-Named Members Are Told Apart by Entry Order (2025)
+
+[Plan](milestones/same-label-ordinal.md); retrospective:
+`docs/milestone-retrospectives/2026-11-26-same-label-ordinal.md`.
+A projection and page change (ADR 0090); no package version or schema change.
+
+Two members of one kind with the same recorded label now carry their place
+in entry order, shown as "Demo Sam (the second one you added with this
+name)". Member questions on a line are grouped by label, kind and ordinal,
+so each person's questions sit together. A member reason with the same
+sentence as a selection or fact question stays visible and is not linked
+to that question. All 775 recorded lists replay identical.
 
 ## Hardening — Derivation Schema Capability Table Consolidation
 
@@ -1592,17 +1605,6 @@ delivers an item removes it.
   constraint of each family it adopts, under an ADR amending ADR 0088.
   The fixing-question fallback was checked and is safe: a bare fact type
   links a question group only when that type has one answer target.
-- Same-named roster members, telling them apart (same-label-members
-  Track 2). Two members recorded with the same label now each get their
-  question, but both read the same label, so the filer cannot tell which
-  member a question is about. The P0 design adds an optional reason field,
-  `memberOrdinal` (the member's place in entry order among same-kind
-  members with that label), shown as "Sam (the second one you added with
-  this name)"; a corrected member moves to the end of the order. Draft:
-  `milestones/same-label-members-evidence/adr-draft.md`, not filed;
-  trigger: the owner accepts it. Track 2 also takes SLM-R3 (member reasons
-  matched to selection reasons by sentence only) and SLM-R4 (one member's
-  several answers cannot be grouped by person).
 
 ## Why line 7a comes before Schedule D
 

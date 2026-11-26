@@ -3,8 +3,8 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "same-label-ordinal",
-  "status": "Open 2026-11-26. ADR 0090 accepted by the owner; Track 1 chartered.",
-  "retrospective": null,
+  "status": "Closed 2026-11-26. Projection and page change (ADR 0090); no package version.",
+  "retrospective": "docs/milestone-retrospectives/2026-11-26-same-label-ordinal.md",
   "scope": [
     "when two roster members of one kind share a recorded label, each member question says which one it means by entry order",
     "member questions on a line are grouped by member, so a filer can pair each answer with a person",
@@ -100,3 +100,20 @@ sentence order when a merged line carries no ordinal. The candidate replay
 again matched all 775 recorded lists and classified the 17 changed probes
 as ordinal and order changes. The report-value control failed as expected.
 See the [per-case summary](same-label-ordinal-evidence/repair1-replay.json).
+
+## Closeout
+
+Closed 2026-11-26. Retrospective:
+`docs/milestone-retrospectives/2026-11-26-same-label-ordinal.md`.
+The fresh review (NOT READY) found that ordinals restart for each kind,
+so one member's questions could be split (SLM-O1); that the validator
+accepted a fact question linked to a member reason (SLM-O2); that the
+replay claim had no committed comparator (SLM-O3); and that lines with no
+shared label were reordered (SLM-O4). Repair 1 fixed all four. The
+foreman then rebased onto main after statement-question-labels (ADR 0089)
+merged, resolved the shared `_closure_question_reasons` docstring and
+the ADR index, and ran the walk and live tests of both milestones
+together. Commit ids above and in the evidence note are from before
+curation; they are kept under
+`refs/snapshot/2026-11-26-same-label-ordinal-pre-pr-curation`. The replay
+baseline `b9d529f7d` is a merge on main. The roadmap item is retired.
