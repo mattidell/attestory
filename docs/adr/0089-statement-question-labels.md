@@ -1,6 +1,6 @@
 # ADR 0089 — A per-statement question names the statement it asks about
 
-- Status: **proposed** (owner disposition required before Track 1)
+- Status: **accepted** (owner, 2026-11-26, before Track 1)
 - Tier: 2. A presentation-projection contract that later content is
   written against (sibling of ADR 0087).
 - Date: 2026-11-25
