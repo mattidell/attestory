@@ -1291,6 +1291,19 @@ builder found the lists identical on every case the tests reach, so
 nothing was re-pinned. Some asking reasons carry no link by design; see
 the parked item on unlinked questions.
 
+## Bounded return — Each Form 1099-B Statement Question Names Its Statement (2025)
+
+[Plan](milestones/statement-question-labels.md); retrospective:
+`docs/milestone-retrospectives/2026-11-26-statement-question-labels.md`.
+A projection change (ADR 0089); no package version, schema or page change.
+
+With two Form 1099-B statements the page asked the box 4 amount and box 7
+questions twice, with nothing to say which statement each meant. Each
+question now carries the statement label the filer recorded, from core
+v106 on, using the evaluator's own pairing test; when attribution is
+ambiguous the original sentence stays. All 775 recorded lists replay with
+no number, disposition or code change; 141 gain labels.
+
 ## Hardening — Derivation Schema Capability Table Consolidation
 
 [Plan](milestones/rule-artifact-capability-table-consolidation.md); retrospective:
@@ -1520,8 +1533,13 @@ delivers an item removes it.
   every cause that can block the line, and the generic remedy. A reason
   naming only the loss needs a value rule to carry a selection reason or a
   check to carry a subject; both are derivation changes.
-- The per-statement box 4 amount and box 7 questions do not name the
-  statement.
+- Statement labels beyond Form 1099-B (statement-question-labels
+  Decision 2): per-statement questions on Forms 1099-INT, 1099-DIV,
+  1099-R, 1099-G and SSA-1099 do not name the statement. Probe first.
+- Two Form 1099-B statements with one label get two identical questions
+  (Decision 5). Adding the broker's name would tell them apart.
+- The per-statement box 4 and box 7 questions keep their general wording
+  and only gain the label (Decision 6).
 - When the failing Exception 1 answers on a required-Schedule-D return
   with no sale are right, the page names the criteria but gives no
   explicit next step (record the sale or unsupported work) and does not
