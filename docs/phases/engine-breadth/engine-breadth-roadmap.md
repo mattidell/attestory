@@ -1278,6 +1278,19 @@ explanations now tell the filer to check the correct basis they entered
 against their own records, as well as box 1d and box 1g. All 775 recorded
 lists replay with only the sentence and version changes.
 
+## Hardening — Evidence Probes Find Questions by Structure (2025)
+
+[Plan](milestones/question-filter.md); retrospective:
+`docs/milestone-retrospectives/2026-11-26-question-filter.md`.
+Evidence tooling only.
+
+The blocked-names-question and preferential-base-reason probes now count
+a blocked line's reason as a question when the saved model links it to a
+question, not when it has a question mark. On every case the tests reach
+the lists are identical, so nothing was re-pinned. The per-statement box 4
+prompt appears unlinked on 72 reason lists; statement-question-labels
+(ADR 0089) addresses that question.
+
 ## Hardening — Derivation Schema Capability Table Consolidation
 
 [Plan](milestones/rule-artifact-capability-table-consolidation.md); retrospective:
@@ -1522,9 +1535,10 @@ delivers an item removes it.
 - An amount entered after a per-statement Form 1099-B box 4 "no"
   leaves the earlier zero payment findings current until a run; the
   engine's currency on additions (box4-no-prompt Decision 8).
-- The blocked-names-question and preferential-base-reason evidence probes
-  count a sentence as a question only if it has a question mark, so an
-  imperative prompt is missed. Replace the filter before reusing them.
+- Other evidence probes still count a sentence as a question only if it
+  has a question mark (for example `f8949-code-b-evidence/codeb_probe.py`,
+  `cf-loss-limit-evidence/cases.py`). Reuse the question-filter helper
+  (`blocked-names-question-evidence/question_links.py`) before reusing them.
 - The unasked boundary answers (lines 18-19, QOF). Since core v89 Path B
   and "no Form 8949" are asked.
 - Kernel reverse presence check: removing a sale checks only one of its

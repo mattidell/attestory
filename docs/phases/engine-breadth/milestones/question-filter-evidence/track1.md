@@ -1,6 +1,6 @@
 # Question filter, Track 1 evidence
 
-Charter: `docs/reviews/question-filter/charter-track1.md`. Plan:
+Charter: `docs/reviews/question-filter/charter-track1.md` (not kept after curation). Plan:
 `docs/phases/engine-breadth/milestones/question-filter.md`.
 
 ## The field used and why
