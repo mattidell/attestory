@@ -1,0 +1,16 @@
+--- a/packages/presentation/pages/citation-walk.v1.html	2026-11-25 19:20:01
++++ b/packages/presentation/pages/citation-walk.v1.html	2026-11-25 19:20:22
+@@ -1458,8 +1458,12 @@
+       }
+       const label = reason.statementLabel || {};
+       // A roster member's question names that member by the label the filer recorded (ADR 0087).
++      // Two members may share a recorded label; the projection then says which one, in the order they were added.
++      const ordinal = Number.isInteger(reason.memberOrdinal) && reason.memberOrdinal > 0 ? reason.memberOrdinal : null;
++      const ordinalWords = ["first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth", "ninth", "tenth"];
++      const which = ordinal ? " (the " + (ordinalWords[ordinal - 1] || "number " + ordinal) + " one you added with this name)" : "";
+       const name = typeof reason.memberLabel === "string" && reason.memberLabel
+-        ? reason.memberLabel
++        ? reason.memberLabel + which
+         : [label.statement, label.lender].filter((part) => typeof part === "string" && part).join(", ");
+       return [el("li", { id: isLine21 ? "line21-reason-" + index : undefined }, name ? [el("strong", null, [name + ": "]), reason.sentence] : [reason.sentence])];
+     });

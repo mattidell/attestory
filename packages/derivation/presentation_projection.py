@@ -730,6 +730,7 @@ def _closure_question_reasons(
     extras: set[str] = set()
     unexplained_leaves: set[str] = set()
     unexplained_shapes: set[str] = set()
+    # (missing fact type, member subject keys): one entry per member, not per label.
     member_facts: set[tuple[str, str]] = set()
     meanings = constraint_meanings or {}
 
@@ -1025,7 +1026,7 @@ def _closure_question_reasons(
                         or subjects[0] not in input_questions
                         or not roster_members.keyed_on_member(subjects[0], keys)):
                     return False
-                frame.member_facts.add((subjects[0], label))
+                frame.member_facts.add((subjects[0], keys))
                 continue
             blocked = [r for r in by_symbol.get(key, []) if r.get("disposition") == "blocked"]
             if blocked:
@@ -1035,7 +1036,7 @@ def _closure_question_reasons(
             if current.get("code") != "DEPENDENCY_ABSENT" or key not in input_questions:
                 return False
             if roster_members.keyed_on_member(key, keys):
-                frame.member_facts.add((key, label))
+                frame.member_facts.add((key, keys))
             else:
                 frame.facts.add(key)
         return True
@@ -1058,9 +1059,17 @@ def _closure_question_reasons(
             | extras
         )
         reasons = [{"sentence": sentence} for sentence in sorted(sentences)]
+        # One reason per member and question (ADR 0087), keyed by the member's
+        # subject keys, never by its label: two members may carry the same
+        # recorded label, and each is missing its own answer.
+        member_reasons: set[tuple[str, str, str]] = set()
+        for fact, keys in member_facts:
+            label = roster_members.label(keys) if roster_members is not None else None
+            if label is not None:
+                member_reasons.add((label, input_questions[fact], keys))
         reasons.extend(
             {"sentence": sentence, "memberLabel": label}
-            for label, sentence in sorted({(label, input_questions[fact]) for fact, label in member_facts})
+            for label, sentence, _keys in sorted(member_reasons)
         )
     elif (
         partial_family is not None
