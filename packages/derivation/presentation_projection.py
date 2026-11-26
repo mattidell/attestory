@@ -1271,8 +1271,8 @@ def _closure_question_reasons(
             label = roster_members.label(keys)
             if label is not None:
                 member_reasons.add((label, roster_members.ordinal(keys) or 0, input_questions[fact], keys))
-        for label, ordinal, sentence, _keys in sorted(member_reasons):
-            member_reason: dict[str, Any] = {"sentence": sentence, "memberLabel": label}
+        for member_label, ordinal, member_sentence, _keys in sorted(member_reasons):
+            member_reason: dict[str, Any] = {"sentence": member_sentence, "memberLabel": member_label}
             if ordinal:
                 member_reason["memberOrdinal"] = ordinal
             reasons.append(member_reason)
