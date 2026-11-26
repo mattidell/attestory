@@ -1,0 +1,103 @@
+{
+ "format": "plain-words-controls.v1",
+ "cores": [
+  {
+   "version": "v106",
+   "registry": "v104",
+   "release_version": "v104",
+   "loader_from": null,
+   "presence_pairs": [],
+   "package_sha256": "d029df225649971933a310d613adcf4126c64edcaf5f52b70aee83f64fcb8ff8",
+   "release_sha256": "271a3bdd62c17d40e3dda908b73e8754ce03a9e7589cb5ee3fd4f7863181d385"
+  },
+  {
+   "version": "v107",
+   "registry": "v105",
+   "release_version": "v105",
+   "loader_from": null,
+   "presence_pairs": [],
+   "package_sha256": "ff4701e17f984886eecd041343f55743fb9e4b3ae28da67e8a65dc4ab498ff9e",
+   "release_sha256": "d77026c7f958d77e723f489eb3bc62ad69f7d917e622276ebaa922dcb758aeea"
+  }
+ ],
+ "variant": "all",
+ "lists": [
+  {
+   "list": "v83/returns/case/a_w_on_gain_after_correction/recorded",
+   "real": {
+    "class": "expected_changes",
+    "unexpected": 0,
+    "sentences_replaced": 97
+   },
+   "wrong_sentence": {
+    "class": "unexpected",
+    "unexpected": 97,
+    "sentences_replaced": 97
+   },
+   "no_substitution": {
+    "class": "unexpected",
+    "unexpected": 207,
+    "sentences_replaced": 0
+   },
+   "controls_fail": true
+  },
+  {
+   "list": "v83/returns/v80/probe_a_high_on_w_broker/recorded",
+   "real": {
+    "class": "expected_changes",
+    "unexpected": 0,
+    "sentences_replaced": 97
+   },
+   "wrong_sentence": {
+    "class": "unexpected",
+    "unexpected": 97,
+    "sentences_replaced": 97
+   },
+   "no_substitution": {
+    "class": "unexpected",
+    "unexpected": 455,
+    "sentences_replaced": 0
+   },
+   "controls_fail": true
+  },
+  {
+   "list": "v83/returns/case/a_holding_mismatch/recorded",
+   "real": {
+    "class": "expected_changes",
+    "unexpected": 0,
+    "sentences_replaced": 32
+   },
+   "wrong_sentence": {
+    "class": "unexpected",
+    "unexpected": 106,
+    "sentences_replaced": 0
+   },
+   "no_substitution": {
+    "class": "unexpected",
+    "unexpected": 106,
+    "sentences_replaced": 0
+   },
+   "controls_fail": true
+  },
+  {
+   "list": "v83/returns/case/a_no_correction/recorded",
+   "real": {
+    "class": "expected_changes",
+    "unexpected": 0,
+    "sentences_replaced": 32
+   },
+   "wrong_sentence": {
+    "class": "unexpected",
+    "unexpected": 32,
+    "sentences_replaced": 32
+   },
+   "no_substitution": {
+    "class": "unexpected",
+    "unexpected": 32,
+    "sentences_replaced": 0
+   },
+   "controls_fail": true
+  }
+ ],
+ "all_controls_fail": true
+}

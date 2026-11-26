@@ -45,9 +45,11 @@ filer can look at:
   basis the filer entered.
 
 Short-term and long-term families share one sentence. The two questions in
-each pair differ only in the words "short-term" and "long-term". The
-holding-period sentence names box 2 of Form 1099-B, except for sales with
-no Form 1099-B, where it names columns (b) and (c) of Form 8949.
+each pair differ at most in the words "short-term" and "long-term". The
+holding-period sentence names box 2 of Form 1099-B for every Form 1099-B
+group, and columns (b) and (c) of Form 8949 for sales with no Form 1099-B.
+Repair 1 (plan, Decisions 1 to 3) revised the sentences. The text above
+describes the current wording.json.
 
 ## 3. Publication
 
@@ -80,13 +82,20 @@ the other reasons on that line and the `reasonIndices` that point at them.
 v106 output it replaces each declared old sentence with its new sentence
 (whole strings only), re-sorts each reasons list the projection had sorted,
 and remaps every `reasonIndices` under that line. The result must equal
-v107 except for the declared version moves. In this run, 2,405 sentence
-replacements in 46 lists reached 17 of the 22 distinct new sentences, and
-402 lines had their reasons reordered. The other 5 sentences are not
-reached by the recorded corpus: `BASIS_WAS_REPORTED`, the two box 1g flag
-sentences and two long-term questions. The live test reaches all of them.
-Two controls run on one list: a wrong new sentence fails with 32
-unexpected differences, and no substitution fails with 455. Seven of the 39
+v107 except for the declared version moves. In the Repair 1 run, 2,405
+sentence replacements in 46 lists reached 16 of the 21 distinct new
+sentences, and 402 lines had their reasons reordered. The other 5 sentences
+are not reached by the recorded corpus: `BASIS_WAS_REPORTED`, the two box 1g
+flag sentences and two long-term questions. The live test reaches all of
+them.
+
+Controls (`controls-v107.json`, `replay.py v107 --controls`) run four lists
+that reach code W, code B, holding-period and wash-sale sentences. On every
+list the real comparison passes. It fails when every new sentence has " X"
+appended (32 to 106 unexpected) and when nothing is substituted (32 to 455
+unexpected). On the holding-period list, the " X" sentence is never shown,
+so the ambiguous old sentence is left in place, and that also fails. Seven
+of the 39
 version expectations were used: the package and six questions. Explanation
 citizen versions are not saved in any output.
 
@@ -99,10 +108,13 @@ citizen versions are not saved in any output.
   the loader carries v106. Every v107 member constraint has its adopted
   plain explanation. The mechanical wording bar holds for every sentence:
   no engine words, no block-code names, no semicolon, no parentheses other
-  than Form 8949 column labels, at most two sentences, a form named,
-  "basis" and "proceeds" at most once per explanation, and each question
-  ending its first sentence with "?" and saying what to enter when there is
-  none. Short-term and long-term sentences are equal for all 19 pairs, and
+  than Form 8949 column labels, and a form named. Each explanation has at
+  most two sentences and uses "basis" and "proceeds" at most once. Each
+  mention of "basis" or "proceeds" sits next to a box, a column, "you
+  entered" or "you said". Each question has at most three sentences, ends
+  its first sentence with "?", and says what to do when there is no number.
+  It says 0 only where 0 is valid. A blank box 1g on a covered wash-sale
+  sale gets one instruction (Decision 1). Short-term and long-term sentences are equal for all 19 pairs, and
   sentences differ across sale kinds only by form and box.
 - `tests/test_sale_explanation_wording_v107_live.py` (live). v107 passes
   full `validate_package`. All 38 synthetic cases run on v106 and v107
@@ -115,8 +127,9 @@ citizen versions are not saved in any output.
   explanation, the new question and the link line, with 0 section errors
   and 0 first-read leaks.
 
-Results: the fast lane passed (2,086 passed, 8 skipped). The new live tests
-passed (3), and so did the existing family-block-explanation and
-sale-collision live tests (9) and the latest-core tests (89). mypy found no
+Results after Repair 1: the fast lane passed (2,087 passed, 8 skipped). The
+new live tests passed (3), and so did the existing family-block-explanation
+live tests (6). Before the repair, the sale-collision live tests (3) and the
+latest-core tests (89) also passed. mypy found no
 issues in the touched modules. governance_lint reports the tree conformant,
 and envelope_scan over `origin/main..HEAD` is clean.

@@ -2,6 +2,7 @@
 
 Run: python3 replay.py <core-b> --variant all|one --part <part-file-outside-repo> [--workers N] [--out summary.json]
      python3 replay.py --census --out census.json
+     python3 replay.py v107 --controls --keys <list,...> --out controls-v107.json
 
 <core-b> is a scratch core.json written by build.py, or `v107` once published.
 All recorded lists run in one shared run_full call whose process pool holds
@@ -217,6 +218,38 @@ def census() -> dict:
             "acts_naming_an_explanation_or_input_question": dict(sorted(named.items()))}
 
 
+def controls(core: str, variant: str, keys: list[str]) -> dict:
+    """Show the comparison can fail: one wrong new sentence, and no substitution at all.
+
+    Each listed key runs three ways against the same two cores: the real
+    comparison (must pass), a comparison whose table maps every declared old
+    sentence to its new sentence plus " X" (must fail), and a comparison with
+    an empty table (must fail).
+    """
+    lists = dict(rr.recorded_lists())
+    cores = (rr.resolve_core("v106"), rr.resolve_core(core))
+    rows = []
+    for key in keys:
+        acts = lists[key]
+        real = PlainWordsCompare(variant)
+        wrong = PlainWordsCompare(variant)
+        wrong.choices = {old: [new + " X" for new in news] for old, news in wrong.choices.items()}
+        wrong.table = {old: news[0] for old, news in wrong.choices.items()}
+        empty = PlainWordsCompare(variant)
+        empty.choices, empty.table = {}, {}
+        result = {"list": key}
+        for name, compare in (("real", real), ("wrong_sentence", wrong), ("no_substitution", empty)):
+            verdict = compare(key, acts, cores)
+            result[name] = {"class": verdict["class"], "unexpected": verdict["unexpected_total"],
+                            "sentences_replaced": sum(verdict["sentences_replaced"].values())}
+        result["controls_fail"] = (result["real"]["class"] != "unexpected"
+                                   and result["wrong_sentence"]["class"] == "unexpected"
+                                   and result["no_substitution"]["class"] == "unexpected")
+        rows.append(result)
+    return {"format": "plain-words-controls.v1", "cores": [rr.core_fingerprint(c) for c in cores],
+            "variant": variant, "lists": rows, "all_controls_fail": all(r["controls_fail"] for r in rows)}
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("core", nargs="?")
@@ -226,7 +259,16 @@ def main() -> None:
     parser.add_argument("--census", action="store_true")
     parser.add_argument("--keys", default="")
     parser.add_argument("--out")
+    parser.add_argument("--controls", action="store_true",
+                        help="run the comparison and two broken comparisons on the --keys lists, in process")
     args = parser.parse_args()
+    if args.controls:
+        body = controls(args.core, args.variant, args.keys.split(","))
+        text = json.dumps(body, indent=1) + "\n"
+        rr._check_no_local_paths(text, "controls")
+        Path(args.out).write_text(text, encoding="utf-8")
+        print(text)
+        return
     if args.census:
         body = census()
         Path(args.out).write_text(json.dumps(body, indent=1) + "\n", encoding="utf-8")

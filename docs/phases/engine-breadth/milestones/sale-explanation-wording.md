@@ -76,7 +76,8 @@ Each explanation:
   sales without a Form 1099-B).
 
 Each question asks one thing, names where the number is, and says what to
-enter when there is none.
+do when there is no number. It says 0 only where 0 is a valid answer
+(Decision 1).
 
 ## Stages
 
@@ -112,6 +113,59 @@ and [wording.json](sale-explanation-wording-evidence/wording.json).
 - **Tests.** A fast package and wording-bar test and a live test cover all
   38 synthetic cases and a rendered page.
 
+## Repair 1
+
+The fresh review found SEW-R1 to SEW-R7. The foreman's Decisions 1 to 3
+below govern R2, R5 and the accepted reviewer text. Core v107 had not
+merged, so its v2 citizens, registry v105 and release v105 were regenerated
+in place by `build.py`, with no v3. The package's member pins did not
+change.
+
+- **R1** (code B condition). Both code B pairs now say the sale has no loss,
+  or lost less, "with the correct basis you entered".
+- **R2** (blank box 1g). Applied Decision 1. The covered wash-sale question
+  now says that if box 1g is blank, change your answer that it shows one.
+  Both box 1g explanations give that same instruction for a blank box 1g.
+  The question bar is restated above.
+- **R3** (box 12). The sentence starts from the filer's answer ("You said
+  your broker reported this sale's basis to the IRS") and gives both ways
+  out: box 12 checked, or change the answer.
+- **R4** (noncovered question). Uses the reviewer's text: "How much of this
+  sale's loss does a wash sale disallow? Use box 1g of your Form 1099-B if
+  it shows an amount. If there is none, enter 0." The short-term and
+  long-term questions are now identical.
+- **R5** (holding period). Applied Decision 2 to all three Form 1099-B
+  groups.
+- **R6** (who fixes what). The check sentence compares "what you entered"
+  with the form boxes and ends "fix whichever amount you entered
+  differently". Where the filer supplies the amount with no form box, it
+  ends "fix whichever of your entries is wrong".
+- **R7** (controls). `replay.py --controls` now writes
+  `controls-v107.json`. On four lists the real comparison passes, and both
+  the wrong-sentence and the no-substitution controls fail.
+
+The fast wording test also requires each "basis" or "proceeds" to sit next
+to a box, a column, "you entered" or "you said". It allows up to three
+sentences in a question (Decision 1's text has three) and pins Decision 1.
+The replay was re-run on v106 against the regenerated v107: 775 of 775
+passing, 0 unexpected, no number, disposition or block-code change.
+
 ## Decisions
 
-(None yet.)
+1. **SEW-R2 (foreman).** A covered sale is in the wash-sale group only when
+   box 1g is marked, so a blank box 1g means the answer is wrong, not 0.
+   The covered wash-sale question is: "What is the wash-sale loss
+   disallowed in box 1g of your Form 1099-B for this short-term or
+   long-term sale? If box 1g is wrong, enter the correct amount. If box 1g
+   is blank, change your answer that it shows one." The two box 1g
+   explanations give the same instruction for a blank box 1g. Bar: a
+   question says what to do when there is no number, and that is 0 only
+   where 0 is valid.
+2. **SEW-R5 (foreman).** All three Form 1099-B groups use: "Check box 2 of
+   your Form 1099-B, if it is filled in, and the dates you acquired and
+   sold it, since a sale held more than 1 year is long-term."
+3. **Reviewer text accepted (foreman).** R1 (the correct-basis condition in
+   both code B pairs), R3 (box 12 starts "You said your broker
+   reported..." and adds the way out), R4 (the noncovered question text)
+   and R6 ("fix whichever amount you entered differently", reworded so the
+   filer fixes their own entry).
