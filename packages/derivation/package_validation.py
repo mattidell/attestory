@@ -2264,12 +2264,6 @@ def validate_package(
                 fbe_pin["id"], fbe_pin["version"], "FAMILY_BLOCK_EXPLANATION_QUESTION_ABSENT",
                 f"no input-question citizen for fact_type {(ft_pin['id'], ft_pin['version'])!r}",
             ))
-    fact_type_bodies: dict[tuple[str, str], Mapping[str, Any]] = {}
-    for _, c in resolved:
-        if c["schema"] in {"bundle.v1", "bundle.v2"}:
-            for ft in c.get("fact_types", []):
-                if isinstance(ft, dict) and isinstance(ft.get("id"), str) and isinstance(ft.get("version"), str):
-                    fact_type_bodies[(ft["id"], ft["version"])] = ft
     seen_ae: set[tuple[str, str, str]] = set()
     for ae_pin, ae_cit in resolved:
         if ae_cit["schema"] not in ANSWER_EXPLANATION_SCHEMAS:
@@ -2280,7 +2274,7 @@ def validate_package(
                 ae_pin["id"], ae_pin["version"], "ANSWER_EXPLANATION_QUESTION_ABSENT",
                 f"no input-question citizen for fact_type {ft_key!r}",
             ))
-        body = fact_type_bodies.get(ft_key)
+        body = fact_types_by_key.get(ft_key)
         domain = ((body or {}).get("value_schema") or {}).get("enum")
         if not isinstance(domain, list) or ae_cit["value"] not in domain:
             issues.append(MemberIssue(
@@ -3385,13 +3379,7 @@ def validate_package(
                         adj[m_id].add(ft_pin["id"])
                     elif ft_pin and closed_v2_surface:
                         adj[m_id].update(bundles_for_fact.get(ft_pin["id"], set()))
-            elif citizen["schema"] in INPUT_QUESTION_SCHEMAS:
-                ft_pin = citizen.get("fact_type")
-                if ft_pin and ft_pin["id"] in member_ids:
-                    adj[m_id].add(ft_pin["id"])
-                elif ft_pin and closed_v2_surface:
-                    adj[m_id].update(bundles_for_fact.get(ft_pin["id"], set()))
-            elif citizen["schema"] in ANSWER_EXPLANATION_SCHEMAS:
+            elif citizen["schema"] in INPUT_QUESTION_SCHEMAS or citizen["schema"] in ANSWER_EXPLANATION_SCHEMAS:
                 ft_pin = citizen.get("fact_type")
                 if ft_pin and ft_pin["id"] in member_ids:
                     adj[m_id].add(ft_pin["id"])

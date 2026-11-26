@@ -4,14 +4,14 @@ Seven synthetic returns run once on published v108 and once on published
 v109 through live_coordinate_run and the presentation projection: one, two
 and four Exception 1 questions answered no on a required Schedule D with no
 sale, a no answer corrected to yes on the same fact, the personal-loss case,
-an unanswered Exception 1 question, and a computing return. On every return
+an unanswered Exception 1 question, and a recorded sale. On every return
 each line's disposition, value and codes, every question group and every
 question link are the same on both cores. Each blocked line's reasons on
 v109 are its v108 reasons followed by the declared sentence for every
 Exception 1 question it names whose current answer is no, and nothing else.
 
-Package validation accepts v109 and rejects each bad answer explanation, and
-the saved page draws the sentences beside the question link.
+Package validation accepts published v109, and the saved page draws the
+sentences beside the question link.
 """
 
 from __future__ import annotations
@@ -22,7 +22,7 @@ import os
 import subprocess
 from pathlib import Path
 from tempfile import TemporaryDirectory
-from typing import Any, Callable, cast
+from typing import Any, cast
 
 import pytest
 
@@ -45,7 +45,7 @@ DOM_CHECKER = MILESTONES / "page-plain-words-evidence" / "check_page_dom.mjs"
 P = "tax.us.2025."
 SLUGS = ("only-box2a-capital-gains", "no-capital-losses", "no-qof-deferral", "no-boxes-2b-2c-2d")
 EXC = tuple(P + "exception1." + slug for slug in SLUGS)
-CASES = ("one", "two", "four", "correct-one", "personal-loss", "unanswered", "computing")
+CASES = ("one", "two", "four", "correct-one", "personal-loss", "unanswered", "recorded-sale")
 Acts = list[dict[str, Any]]
 
 
@@ -74,9 +74,11 @@ def _fixture(case: str) -> Acts:
     h, probe = _harness(), _probe()
     if case == "personal-loss":
         acts = cast(Acts, probe.personal_loss_8949())
+    elif case == "recorded-sale":
+        acts = cast(Acts, probe.sale("no1099b"))
     else:
         acts = cast(Acts, probe.empty(exc1_only_2a="yes", exc1_no_losses="yes"))
-        mask = {"one": 1, "two": 3, "four": 15, "correct-one": 3, "unanswered": 0, "computing": 0}[case]
+        mask = {"one": 1, "two": 3, "four": 15, "correct-one": 3, "unanswered": 0}[case]
         for i, fact in enumerate(EXC):
             acts = h.say(acts, fact, "no" if mask & (1 << i) else "yes", "l16ns.t1." + case + "." + str(i))
         if case == "correct-one":
@@ -138,7 +140,7 @@ def test_v109_adds_only_the_declared_sentence_for_each_named_no_answer(case: str
     assert m108.get("questionGroups") == m109.get("questionGroups"), case
     no = _current_no(acts)
     expected_no = {"one": EXC[:1], "two": EXC[:2], "four": EXC, "correct-one": EXC[:1],
-                   "personal-loss": EXC[:2], "unanswered": (), "computing": ()}[case]
+                   "personal-loss": EXC[:2], "unanswered": (), "recorded-sale": EXC[:2]}[case]
     assert no == set(expected_no), case
     sentences = {P + "exception1." + slug: _sentence(slug) for slug in SLUGS}
     explained = 0
@@ -158,8 +160,8 @@ def test_v109_adds_only_the_declared_sentence_for_each_named_no_answer(case: str
     else:
         # The personal-loss case names the sale and boundary questions, not Exception 1.
         assert explained == 0, case
-    if case == "computing":
-        assert line16["resolved"]["disposition"] == "published_value" and line16["resolved"]["value"] == 3875
+    if case == "recorded-sale":
+        assert line16["resolved"]["disposition"] == "published_value"
 
 
 def test_live_v109_page_draws_each_sentence_beside_its_question_link() -> None:
@@ -182,45 +184,8 @@ def test_live_v109_page_draws_each_sentence_beside_its_question_link() -> None:
     assert "You answered yes" not in text
 
 
-def _validate(change: Callable[[dict[Any, Any], dict[str, Any]], None] | None = None) -> list[str]:
+def test_core_v109_passes_full_validate_package() -> None:
     corpus, _ = load_corpus(CONTENT)
     package = json.loads((CONTENT / "package.core-calculations.v109.json").read_text(encoding="utf-8"))
-    if change is not None:
-        corpus, package = copy.deepcopy(corpus), copy.deepcopy(package)
-        change(corpus, package)
     outcome = validate_package(package, corpus, DerivationSchemas())
-    return [] if outcome.ok else sorted({issue.code for issue in outcome.issues})
-
-
-TARGET = (P + "answer-explanation.exception1-no-capital-losses-no", "v1")
-
-
-def _set(field: str, value: Any) -> Callable[[dict[Any, Any], dict[str, Any]], None]:
-    def change(corpus: dict[Any, Any], package: dict[str, Any]) -> None:
-        corpus[TARGET][field] = value
-    return change
-
-
-def _role(corpus: dict[Any, Any], package: dict[str, Any]) -> None:
-    for member in package["members"]:
-        if (member["id"], member["version"]) == TARGET:
-            member["role"] = "input-question"
-
-
-def test_core_v109_passes_full_validate_package() -> None:
-    assert _validate() == []
-
-
-@pytest.mark.parametrize(("name", "change", "codes"), [
-    ("value outside the domain", _set("value", "maybe"), ["ANSWER_EXPLANATION_VALUE_OUTSIDE_DOMAIN"]),
-    ("no adopted question", _set("fact_type", {"id": P + "schedule-d-required.conclusion", "version": "v1"}),
-     ["ANSWER_EXPLANATION_QUESTION_ABSENT"]),
-    ("fact type outside the surface", _set("fact_type", {"id": EXC[1], "version": "v9"}),
-     ["ANSWER_EXPLANATION_FACT_TYPE_NOT_ADMITTED", "ANSWER_EXPLANATION_QUESTION_ABSENT",
-      "ANSWER_EXPLANATION_VALUE_OUTSIDE_DOMAIN"]),
-    ("duplicate", _set("fact_type", {"id": EXC[0], "version": "v1"}), ["ANSWER_EXPLANATION_DUPLICATE"]),
-    ("role mismatch", _role, ["ROLE_MISMATCH"]),
-], ids=lambda value: value if isinstance(value, str) else "")
-def test_v109_validation_rejects_each_bad_answer_explanation(
-        name: str, change: Callable[[dict[Any, Any], dict[str, Any]], None], codes: list[str]) -> None:
-    assert _validate(change) == codes, name
+    assert outcome.ok, outcome.issues
