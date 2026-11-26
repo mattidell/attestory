@@ -630,6 +630,60 @@ class _RosterMembers:
         return bool(entity_keys) and all(name in names for name in entity_keys)
 
 
+def _answer_explanation_sentences(
+    resolved_members: Sequence[Mapping[str, Any]],
+    state: FindingState,
+    *,
+    current_finding_ids: frozenset[str] | None,
+) -> dict[str, str]:
+    """Declared sentences for current answers (ADR 0091, answer-explanation.v1).
+
+    Keys are exact fact ids, plus a fact type id when exactly one fact of that
+    type has a current answer with a declared sentence. A fact with more than
+    one current finding, or whose type version is not the pinned one, gets
+    none. Nothing is composed: the sentence is the citizen's ``explanation``.
+    """
+    declared: dict[tuple[str, str, str], str] = {}
+    for member in resolved_members:
+        if not str(member.get("schema", "")).startswith("answer-explanation."):
+            continue
+        pin = member.get("fact_type")
+        if (isinstance(pin, Mapping) and isinstance(pin.get("id"), str) and isinstance(pin.get("version"), str)
+                and isinstance(member.get("value"), str) and isinstance(member.get("explanation"), str)):
+            declared[(pin["id"], pin["version"], member["value"])] = member["explanation"]
+    if not declared:
+        return {}
+    current_ids = current_finding_ids
+    if current_ids is None:
+        from packages.kernel.currency import compute_currency
+
+        current_ids = compute_currency(state).current_finding_ids
+    fact_map = facts_of(state.fact_state)
+    values: dict[str, set[Any]] = {}
+    for finding_id in current_ids:
+        finding = state.findings.get(finding_id)
+        fact_id = finding.get("fact_id") if isinstance(finding, Mapping) else None
+        if isinstance(fact_id, str) and fact_id in fact_map:
+            values.setdefault(fact_id, set()).add(json.dumps(finding.get("value"), sort_keys=True))
+    found: dict[str, str] = {}
+    by_type: dict[str, list[str]] = {}
+    for fact_id, encoded in values.items():
+        if len(encoded) != 1:
+            continue
+        value = json.loads(next(iter(encoded)))
+        fact = fact_map[fact_id]
+        body = state.fact_state.fact_types.get(fact.fact_type_id)
+        version = body.get("version") if isinstance(body, Mapping) else None
+        sentence = declared.get((fact.fact_type_id, str(version), value)) if isinstance(value, str) else None
+        if sentence:
+            found[fact_id] = sentence
+            by_type.setdefault(fact.fact_type_id, []).append(fact_id)
+    for fact_type_id, fact_ids in by_type.items():
+        if len(fact_ids) == 1:
+            found[fact_type_id] = found[fact_ids[0]]
+    return found
+
+
 def _closure_question_reasons(
     row: Mapping[str, Any],
     *,
@@ -650,6 +704,7 @@ def _closure_question_reasons(
     member_violation_targets: Mapping[tuple[str, str], set[str]] | None = None,
     collision_sentence: str | None = None,
     collision_category_labels: Mapping[str, str] | None = None,
+    answer_explanations: Mapping[str, str] | None = None,
 ) -> list[dict[str, Any]]:
     """The declared question for every cause a blocked line waits on and a filer can answer.
 
@@ -750,9 +805,18 @@ def _closure_question_reasons(
         for fact_type, references in (question_refs_by_fact_type or {}).items()
     }
 
+    def add_answer_explanation(key: str, fact_type: str) -> None:
+        # ADR 0091: a current answer with a declared sentence is explained
+        # beside its question. An exact fact id is used as given; a bare type
+        # only when one fact of it has such an answer.
+        sentence = (answer_explanations or {}).get(key if "|" in key else fact_type)
+        if sentence:
+            frames[-1].extras.add(sentence)
+
     def record_input_fact(key: str, bound: str) -> bool:
         """Record a declared question while retaining any exact answer target."""
         if bound in input_questions:
+            add_answer_explanation(key, bound)
             frames[-1].facts.add(bound)
             if key in question_target_ids.get(bound, set()):
                 frames[-1].fact_targets.add((bound, key))
@@ -766,6 +830,7 @@ def _closure_question_reasons(
         # exact known type prefix, then keep the complete fact id for linking.
         for fact_type in sorted(input_questions, key=len, reverse=True):
             if key.startswith(fact_type + "|"):
+                add_answer_explanation(key, fact_type)
                 frames[-1].facts.add(fact_type)
                 if key in question_target_ids.get(fact_type, set()):
                     frames[-1].fact_targets.add((fact_type, key))
@@ -5566,6 +5631,9 @@ def build_presentation_model(
         authoritative_acts=authoritative_acts,
     )
     roster_members = _RosterMembers(rules_by_id, state)
+    answer_explanations = _answer_explanation_sentences(
+        resolved_members, state, current_finding_ids=current_finding_ids,
+    )
     member_violation_targets: dict[tuple[str, str], set[str]] = {}
     for pub in publications_by_id.values():
         sym = str(pub.get("symbol") or "")
@@ -5641,6 +5709,7 @@ def build_presentation_model(
             "member_violation_targets": member_violation_targets,
             "collision_sentence": collision_sentence,
             "collision_category_labels": collision_category_labels,
+            "answer_explanations": answer_explanations,
         }
         mixed_blocker = _line9_mixed_blocker_explanation(
             field, row, by_symbol, adopted_package,

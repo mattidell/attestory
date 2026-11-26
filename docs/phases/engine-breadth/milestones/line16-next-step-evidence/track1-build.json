@@ -1,0 +1,114 @@
+{
+  "from": {
+    "core": "v108",
+    "registry": "v106",
+    "release": "v106"
+  },
+  "to": {
+    "core": "v109",
+    "registry": "v107",
+    "release": "v107"
+  },
+  "changes": {
+    "package_version": "v109",
+    "release_version": "v107",
+    "schema": "artifact-package.v45",
+    "members": [
+      {
+        "op": "add",
+        "new": {
+          "id": "tax.us.2025.answer-explanation.exception1-only-box2a-capital-gains-no",
+          "version": "v1",
+          "schema": "answer-explanation.v1",
+          "role": "answer-explanation"
+        }
+      },
+      {
+        "op": "add",
+        "new": {
+          "id": "tax.us.2025.answer-explanation.exception1-no-capital-losses-no",
+          "version": "v1",
+          "schema": "answer-explanation.v1",
+          "role": "answer-explanation"
+        }
+      },
+      {
+        "op": "add",
+        "new": {
+          "id": "tax.us.2025.answer-explanation.exception1-no-qof-deferral-no",
+          "version": "v1",
+          "schema": "answer-explanation.v1",
+          "role": "answer-explanation"
+        }
+      },
+      {
+        "op": "add",
+        "new": {
+          "id": "tax.us.2025.answer-explanation.exception1-no-boxes-2b-2c-2d-no",
+          "version": "v1",
+          "schema": "answer-explanation.v1",
+          "role": "answer-explanation"
+        }
+      }
+    ],
+    "entrypoints": [
+      {
+        "op": "add",
+        "value": {
+          "id": "tax.us.2025.answer-explanation.exception1-only-box2a-capital-gains-no",
+          "version": "v1"
+        }
+      },
+      {
+        "op": "add",
+        "value": {
+          "id": "tax.us.2025.answer-explanation.exception1-no-capital-losses-no",
+          "version": "v1"
+        }
+      },
+      {
+        "op": "add",
+        "value": {
+          "id": "tax.us.2025.answer-explanation.exception1-no-qof-deferral-no",
+          "version": "v1"
+        }
+      },
+      {
+        "op": "add",
+        "value": {
+          "id": "tax.us.2025.answer-explanation.exception1-no-boxes-2b-2c-2d-no",
+          "version": "v1"
+        }
+      }
+    ],
+    "admitted_schemas": [
+      {
+        "op": "add",
+        "value": "answer-explanation.v1"
+      }
+    ]
+  },
+  "status": "valid",
+  "validation": "tools.package_successor.generate_to_directory validated package, registry and release",
+  "generated_sha256": {
+    "package.core-calculations.v109.json": "3ee18cb70c5b88d2f95218ff7761ba9f7f074c645f000ad0940ef8191ba705e6",
+    "published-packages.v107.json": "60c2ecde013f11f86186f1f179f054db89836e03821326c885567fdcdb7a1735",
+    "demo.release.sli-worksheet-integration.2025.v107.json": "ba1d8146a610dbcecf085aa018c7eeceb5920073e8a15b979fb1d5928b84435b"
+  },
+  "same_as_p0_scratch": true,
+  "citizen_sha256": {
+    "answer-explanation.exception1-only-box2a-capital-gains-no.v1.json": "cde3642d1e44c2c7743ee96ae69c2e359c571fd5fc48ba68f4799720af46dcf7",
+    "answer-explanation.exception1-no-capital-losses-no.v1.json": "8d59c7066d83e660e391b8a145cd9d52d9ab121811a0223c4b4a4f78845c4fcc",
+    "answer-explanation.exception1-no-qof-deferral-no.v1.json": "98352661a22bd38c5265b563a4084dce6de1a08353a59234d87d6b0bd95493f7",
+    "answer-explanation.exception1-no-boxes-2b-2c-2d-no.v1.json": "b12dbd6a17743989964497c5da68445e557c98d91d6e95ce86f472a229ace471"
+  },
+  "generation": {
+    "registry_sha256": "60c2ecde013f11f86186f1f179f054db89836e03821326c885567fdcdb7a1735",
+    "publication_boundary": "Candidate only: successor companion declaration and live release evidence are separate duties under ADR-0082."
+  },
+  "published": [
+    "demo.release.sli-worksheet-integration.2025.v107.json",
+    "package.core-calculations.v109.json",
+    "published-packages.v107.json"
+  ]
+}

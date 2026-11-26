@@ -314,6 +314,8 @@ def named_covered_flag_refusal_maps() -> dict[tuple[str, str], dict[str, str]]:
         ("tax.us.2025.package.core-calculations", "v107"): dict(COVERED_FLAG_REFUSAL_OBJECTS),
         # Core v108 rewords the 4 code B wash-sale explanations only and carries v107's map.
         ("tax.us.2025.package.core-calculations", "v108"): dict(COVERED_FLAG_REFUSAL_OBJECTS),
+        # Core v109 adds four answer-explanation.v1 citizens (ADR 0091) and carries v108's map.
+        ("tax.us.2025.package.core-calculations", "v109"): dict(COVERED_FLAG_REFUSAL_OBJECTS),
     }
 
 
@@ -933,6 +935,17 @@ def domain_package_companion_declarations() -> dict[tuple[str, str], dict[str, A
         },
         # Core v108 rewords the 4 code B wash-sale explanations only and carries v107's declaration.
         ("tax.us.2025.package.core-calculations", "v108"): {
+            "presence_pairs": {
+                **gambling["presence_pairs"],
+                **noncovered_scalar_presence_pairs(),
+                **no1099b_scalar_presence_pairs(),
+                **code_b_scalar_presence_pairs(),
+                **covered_scalar_presence_pairs(),
+            },
+            "value_domains": dict(gambling["value_domains"]),
+        },
+        # Core v109 adds four answer-explanation.v1 citizens (ADR 0091) and carries v108's declaration.
+        ("tax.us.2025.package.core-calculations", "v109"): {
             "presence_pairs": {
                 **gambling["presence_pairs"],
                 **noncovered_scalar_presence_pairs(),
