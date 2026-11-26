@@ -1255,6 +1255,18 @@ a covered wash-sale sale asks the filer to change their answer rather than
 enter 0. All 775 recorded lists replay with only the sentence changes, and
 no number, disposition, block code or question link moves.
 
+## Bounded return — Two Members With the Same Name Each Get Their Question (2025)
+
+[Plan](milestones/same-label-members.md); retrospective:
+`docs/milestone-retrospectives/2026-11-26-same-label-members.md`.
+Projection only; no package, schema or page change.
+
+The question walk recorded a roster member's missing answer by its label,
+so two children both entered as "Sam" who each missed an answer got one
+question. It now records it by the member, as ADR 0087 already required,
+so each gets their own. All 775 recorded lists replay identical. Telling
+same-named members apart is parked for the owner.
+
 ## Hardening — Derivation Schema Capability Table Consolidation
 
 [Plan](milestones/rule-artifact-capability-table-consolidation.md); retrospective:
@@ -1357,8 +1369,7 @@ delivers an item removes it.
 - Per-member questions that tell the filer to answer no where the fact is
   narrower than the instructions (a sheltered workshop's gross income, a
   multiple support agreement) compute a smaller credit instead of
-  blocking (eic-child-answers ECA-R3). Two members with the same recorded
-  label share one reason (ECA-R7). A question's yes/no polarity is
+  blocking (eic-child-answers ECA-R3). A question's yes/no polarity is
   recorded only in evidence and tests, not in published content (ECA-R9).
 - The earned income credit "not claimable as a dependent" answer could be
   derived from the line 12a "someone can claim you" answer (Publication
@@ -1525,6 +1536,17 @@ delivers an item removes it.
   constraint of each family it adopts, under an ADR amending ADR 0088.
   The fixing-question fallback was checked and is safe: a bare fact type
   links a question group only when that type has one answer target.
+- Same-named roster members, telling them apart (same-label-members
+  Track 2). Two members recorded with the same label now each get their
+  question, but both read the same label, so the filer cannot tell which
+  member a question is about. The P0 design adds an optional reason field,
+  `memberOrdinal` (the member's place in entry order among same-kind
+  members with that label), shown as "Sam (the second one you added with
+  this name)"; a corrected member moves to the end of the order. Draft:
+  `milestones/same-label-members-evidence/adr-draft.md`, not filed;
+  trigger: the owner accepts it. Track 2 also takes SLM-R3 (member reasons
+  matched to selection reasons by sentence only) and SLM-R4 (one member's
+  several answers cannot be grouped by person).
 
 ## Why line 7a comes before Schedule D
 

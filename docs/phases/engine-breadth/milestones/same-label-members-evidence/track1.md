@@ -13,12 +13,12 @@ question as `(fact type, member subject keys)` instead of
 `(label, sentence, member)`, sorted by label, then sentence (the member's
 keys only break ties and are never shown). Each reason is still
 `{"sentence", "memberLabel"}`. No `memberOrdinal` and no page change: telling
-same-named members apart is Track 2 under ADR 0090 (proposed).
+same-named members apart is Track 2, under the draft ADR (`adr-draft.md`).
 `tools/sale_page_observation.py` did not need to change: it prefixes each
 reason it is given and deduplicates none.
 
-Effect, from `probe-v107-track1.json` (the 23 P0 probe returns, on the built
-code, rendered with the repository page):
+Effect on the 23 P0 probe returns, run on the built code and rendered with
+the repository page (the probe output was not kept):
 
 | Case | Before | After |
 | --- | --- | --- |

@@ -3,8 +3,8 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "same-label-members",
-  "status": "Open 2026-11-25. P0 complete; Track 1 (one question per member, under ADR 0087) next; proposed ADR 0090 (entry-order ordinal) awaits the owner before Track 2.",
-  "retrospective": null,
+  "status": "Closed 2026-11-26. Track 1 merged (one question per member, under ADR 0087); telling same-named members apart is parked on the roadmap for the owner.",
+  "retrospective": "docs/milestone-retrospectives/2026-11-26-same-label-members.md",
   "scope": [
     "when two roster members (children or relatives) have the same recorded label and each is missing an answer, the saved page asks the question once per member and the filer can tell them apart",
     "every recorded return keeps its numbers, dispositions and block codes"
@@ -112,9 +112,10 @@ Track 1 scope if accepted: `p0.md` section 7.
    defect fix under ADR 0087 and needs no new ADR. Track 1 builds only
    that: two members named "Sam" who each miss an answer get two
    questions, both labelled "Sam".
-2. **Telling them apart waits on the owner (ADR 0090, proposed).** The
-   `memberOrdinal` field and its page wording are Track 2, built only if
-   the owner accepts ADR 0090. The owner also decides whether entry order
+2. **Telling them apart waits on the owner.** The `memberOrdinal` field
+   and its page wording are Track 2, built only if the owner accepts the
+   draft ADR (`same-label-members-evidence/adr-draft.md`), filed when
+   accepted. The owner also decides whether entry order
    is an acceptable basis (a corrected member moves to the end).
 3. **No question-group link is in scope.** Member questions link no group
    before or after (ADR 0087 made them explanation only); the plan's
@@ -133,7 +134,16 @@ each, all labelled with that label. No `memberOrdinal`, no page change
 Full-surface replay against the pre-Track-1 projection: 775 of 775 recorded
 lists identical; 9 of 23 probe returns differ, only by the added member
 reasons. Full suite: 7,850 passed, 25 skipped, 0 failed. Next: fresh
-review; Track 2 waits on the owner's decision on ADR 0090.
+review; Track 2 waits on the owner's decision on the draft ADR.
 Fresh review READY; SLM-R1 and SLM-R2 repaired. SLM-R3 (member reasons
 matched to selection reasons by sentence only) and SLM-R4 (one member's
 answers cannot be paired by label) carry to Track 2.
+
+## Closeout
+
+Closed 2026-11-26 after Track 1. Retrospective:
+`docs/milestone-retrospectives/2026-11-26-same-label-members.md`. Track 2
+(`memberOrdinal`, SLM-R3, SLM-R4) is parked on the roadmap ("Same-named
+roster members, telling them apart") until the owner accepts the draft ADR.
+The P0 and Track 1 probe outputs (`probe-v107*.json`) were not kept; the
+replay summaries and the scratch diffs are.
