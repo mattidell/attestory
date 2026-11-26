@@ -89,6 +89,29 @@ enter when there is none.
 2. **Fresh review** against the wording bar and the IRS instructions,
    repair, closeout, final review, merge.
 
+## Track 1 result
+
+Built on `milestone/sale-explanation-wording-2025`. See
+[sale-explanation-wording-evidence/track1.md](sale-explanation-wording-evidence/track1.md)
+and [wording.json](sale-explanation-wording-evidence/wording.json).
+
+- **Safety check passed.** No recorded act names an explanation or
+  input-question citizen. Saved records pin bundles, fact types and
+  families, and none of those move. A scratch v107 that adopts v2 of one of
+  each replays all 775 recorded lists against v106: 775 passing, 0
+  unexpected, outcomes unchanged.
+- **Published core v107, registry v105, release v105.** 30
+  `family-block-explanation` and 8 sale adjustment `input-question` v2
+  successors carry the new sentences, and nothing else moves. Loader
+  entries carry v106's.
+- **Only words moved.** The full-surface replay of v106 against published
+  v107 passes 775 of 775 lists with 0 unexpected differences. It finds no
+  number, disposition, block-code or question-target change. Sentence
+  replacements (2,405 in 46 lists) and the reason order that follows from
+  them are checked by substitution, not blessed by position.
+- **Tests.** A fast package and wording-bar test and a live test cover all
+  38 synthetic cases and a rendered page.
+
 ## Decisions
 
 (None yet.)
