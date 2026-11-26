@@ -80,3 +80,71 @@ cannot tell whether to change an answer or do something else.
    Track 1 scope into the plan.
 2. **Track 1 (build)**, fresh review, repair, closeout, final review,
    merge.
+
+## P0 result
+
+**Stopped for the owner.** The smallest design that meets both parts of the
+scope needs a new content schema and a projection contract that no accepted
+ADR covers. Evidence: [p0.md](line16-next-step-evidence/p0.md). Proposed ADR,
+not filed: [adr-draft.md](line16-next-step-evidence/adr-draft.md).
+
+**Today (core v108, 26 synthetic lists).** On each of the 21 target states,
+every one of the 28 blocked fields draws "This line has no result." and one
+"See the question and affected lines above" link per failing criterion. The
+question card draws the question and "An answer is recorded here." The answer
+given is not drawn anywhere, and there is no next step.
+
+- The question comes from the `input-question` citizens.
+- Which questions appear comes from the line 16 v9 and preferential-base v12
+  declaring blocks.
+- The status text and links come from the page.
+- The page hides the code remedy whenever reasons exist.
+- The personal-loss case names only Decision 2's four sale and boundary
+  questions, so no Exception 1 question appears there.
+
+**Design (scratch-proven).** A new citizen, `answer-explanation.v1`, admitted
+by `artifact-package.v45`, declares one sentence per (fact type, answer
+value). When a blocked field's question walk names a fact whose single
+current answer has a declared sentence, the projection adds that sentence as
+an unlinked reason beside the linked question. This keeps
+`presentation-model.v3`, with no page change. Core v109 would adopt four
+sentences, one per Exception 1 criterion answered no. Each says "You answered
+no…", what that means (Schedule D, or Form 8949 and Schedule D for a QOF
+deferral), and the next step:
+
+- a wrong answer: change it;
+- a right answer under C1 or C2: record each sale, and with no sale to record,
+  the return is not covered;
+- a right answer under C3 or C4: the return is not covered.
+
+Every clause is checked against the 2025 Form 1040 line 7a, Schedule D and
+Form 8949 instructions.
+
+**Scratch evidence.**
+
+- **Probe:** all 26 lists PASS. Each target field draws exactly its v108 text
+  plus the sentences for its no answers. Values, rows and cards are
+  identical, and the controls and the personal-loss case are unchanged.
+  Scratch code on v108 is byte-identical to published.
+- **Validation controls:** all pass.
+- **Full-surface replay:** one shared pool, 9 workers, 497.4 s, over 775
+  recorded and 26 probe lists: **801 passing, 0 unexpected**. 717 lists had
+  expected changes; 25 of them gained sentences (the four recorded targets
+  and 21 probe lists) and the rest only moved the package version. 84 lists
+  were identical errors. No value, disposition, code, question link or row
+  changed.
+
+**Owner decisions:**
+
+1. Accept the contract.
+2. Where the answer shows. A: each blocked line's "Why:" list, the smallest.
+   B: once in the question card, which needs `presentation-model.v4` and a
+   page change.
+3. The four sentences.
+
+If the contract is accepted as drafted (A), the Track 1 scope is p0.md §6:
+
+- publish the two schemas, the validation and projection wiring in
+  `scratch.diff`, and core v109, registry v107 and release v107;
+- add fast package tests and live tests;
+- run the full suite and the same replay.
