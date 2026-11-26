@@ -113,8 +113,10 @@ citizen versions are not saved in any output.
   mention of "basis" or "proceeds" sits next to a box, a column, "you
   entered" or "you said". Each question has at most three sentences, ends
   its first sentence with "?", and says what to do when there is no number.
-  It says 0 only where 0 is valid. A blank box 1g on a covered wash-sale
-  sale gets one instruction (Decision 1). Short-term and long-term sentences are equal for all 19 pairs, and
+  It says 0 only where 0 is valid. For a blank box 1g on a covered
+  wash-sale sale, the question and the flag-without-amount explanation
+  both say to change the answer. The amount-without-flag explanation says to
+  remove the amount (Decision 1 as amended). Short-term and long-term sentences are equal for all 19 pairs, and
   sentences differ across sale kinds only by form and box.
 - `tests/test_sale_explanation_wording_v107_live.py` (live). v107 passes
   full `validate_package`. All 38 synthetic cases run on v106 and v107
