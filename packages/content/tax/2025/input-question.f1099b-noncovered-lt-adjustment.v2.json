@@ -1,0 +1,10 @@
+{
+  "schema": "input-question.v1",
+  "id": "tax.us.2025.input-question.f1099b-noncovered-lt-adjustment",
+  "version": "v2",
+  "fact_type": {
+    "id": "tax.us.2025.f1099b.noncovered-lt-txn.adjustment",
+    "version": "v1"
+  },
+  "question": "How much of this sale's loss does a wash sale disallow? Use box 1g of your Form 1099-B if it shows an amount. If there is none, enter 0."
+}

@@ -1,0 +1,8 @@
+{
+  "schema": "family-block-explanation.v1",
+  "id": "tax.us.2025.family-block-explanation.f1099b-covered-w-st.box-1g-amount-without-flag",
+  "version": "v2",
+  "family_id": "tax.us.2025.f1099b.covered-w-st",
+  "block_code": "BOX_1G_AMOUNT_WITHOUT_FLAG",
+  "explanation": "You entered a box 1g wash-sale amount for this sale but did not say that box 1g of your Form 1099-B shows one. If box 1g shows an amount, say that it does, or if it is blank, remove the amount."
+}

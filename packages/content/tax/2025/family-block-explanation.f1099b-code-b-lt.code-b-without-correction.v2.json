@@ -1,0 +1,8 @@
+{
+  "schema": "family-block-explanation.v1",
+  "id": "tax.us.2025.family-block-explanation.f1099b-code-b-lt.code-b-without-correction",
+  "version": "v2",
+  "family_id": "tax.us.2025.f1099b.code-b-lt",
+  "block_code": "CODE_B_WITHOUT_CORRECTION",
+  "explanation": "The correct basis you entered for this sale matches box 1e of your Form 1099-B, so there is nothing to correct. Enter it with your sales whose box 1e is right instead, and include any wash-sale loss from box 1g."
+}

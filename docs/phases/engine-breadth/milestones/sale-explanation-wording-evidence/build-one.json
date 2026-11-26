@@ -1,0 +1,58 @@
+{
+  "variant": "one",
+  "from": {
+    "core": "v106",
+    "registry": "v104",
+    "release": "v104"
+  },
+  "to": {
+    "core": "v107",
+    "registry": "v105",
+    "release": "v105"
+  },
+  "wording_citizens": 2,
+  "cascade_levels": [
+    2
+  ],
+  "citizens": 2,
+  "member_replacements": 2,
+  "entrypoint_replacements": 2,
+  "successors": [
+    {
+      "id": "tax.us.2025.family-block-explanation.f1099b-covered-w-st.code-w-on-gain",
+      "schema": "family-block-explanation.v1",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/family-block-explanation.f1099b-covered-w-st.code-w-on-gain.v1.json",
+      "successor_filename": "family-block-explanation.f1099b-covered-w-st.code-w-on-gain.v2.json",
+      "reason": "wording",
+      "changed_properties": [
+        "explanation"
+      ],
+      "rewritten_pins": 0,
+      "successor_sha256": "a2eb757b5f2d0637062194518cd6015d83b290cc1b1f9febcc2144cfcc55d572",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.input-question.f1099b-covered-w-st-adjustment",
+      "schema": "input-question.v1",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/input-question.f1099b-covered-w-st-adjustment.v1.json",
+      "successor_filename": "input-question.f1099b-covered-w-st-adjustment.v2.json",
+      "reason": "wording",
+      "changed_properties": [
+        "question"
+      ],
+      "rewritten_pins": 0,
+      "successor_sha256": "b45cf9a6d5e67bc65038cd1972461d11289ba3571af11219cbb829bad21fd360",
+      "byte_undo_proof": true
+    }
+  ],
+  "status": "valid",
+  "validation": "generate_to_directory passed package, registry and release validation",
+  "generation": {
+    "registry_sha256": "3317c4f16bdc28afeb5dbaf722374cb210d1702126becdbbd71f218a86f711c2",
+    "publication_boundary": "Candidate only: successor companion declaration and live release evidence are separate duties under ADR-0082."
+  }
+}

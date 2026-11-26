@@ -1,0 +1,8 @@
+{
+  "schema": "family-block-explanation.v1",
+  "id": "tax.us.2025.family-block-explanation.f1099b-covered-w-st.box-1g-flag-without-amount",
+  "version": "v2",
+  "family_id": "tax.us.2025.f1099b.covered-w-st",
+  "block_code": "BOX_1G_FLAG_WITHOUT_AMOUNT",
+  "explanation": "You said box 1g of your Form 1099-B shows a wash-sale loss disallowed for this sale, but you did not enter the amount. Enter the amount from box 1g, or if box 1g is blank, change your answer that box 1g shows one."
+}
