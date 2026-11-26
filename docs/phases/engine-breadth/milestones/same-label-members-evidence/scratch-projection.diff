@@ -1,0 +1,109 @@
+--- a/packages/derivation/presentation_projection.py	2026-11-25 19:20:01
++++ b/packages/derivation/presentation_projection.py	2026-11-25 19:20:15
+@@ -608,17 +608,38 @@
+         """The subject fact types of the per-subject rules that publish ``symbol``."""
+         return list(self._subjects_by_symbol.get(symbol, ()))
+ 
+-    def label(self, keys: str) -> str | None:
+-        """The recorded label of the one current entity named in a subject's keys."""
+-        labels: list[str] = []
++    def _member(self, keys: str) -> tuple[str, Mapping[str, Any]] | None:
++        """The one current, labelled entity named in a subject's keys, with its id."""
++        found: list[tuple[str, Mapping[str, Any]]] = []
+         for part in keys.split(","):
+             _, sep, value = part.partition("=")
+             lifecycle = self._state.fact_state.entities.get(value) if sep else None
+             if lifecycle is not None and lifecycle.status == "current":
+                 recorded = lifecycle.entity.get("label")
+                 if isinstance(recorded, str) and recorded:
+-                    labels.append(recorded)
+-        return labels[0] if len(labels) == 1 else None
++                    found.append((value, lifecycle.entity))
++        return found[0] if len(found) == 1 else None
++
++    def label(self, keys: str) -> str | None:
++        """The recorded label of the one current entity named in a subject's keys."""
++        member = self._member(keys)
++        return str(member[1]["label"]) if member is not None else None
++
++    def ordinal(self, keys: str) -> int | None:
++        """Which of the current same-kind entities sharing this member's label it is, in entry order.
++
++        None when no other current entity of the member's kind has its label.
++        Entry order is the order the workspace introduced the entities.
++        """
++        member = self._member(keys)
++        if member is None:
++            return None
++        entity_id, entity = member
++        peers = [eid for eid, lifecycle in self._state.fact_state.entities.items()
++                 if lifecycle.status == "current"
++                 and lifecycle.entity.get("label") == entity.get("label")
++                 and lifecycle.entity.get("kind") == entity.get("kind")]
++        return peers.index(entity_id) + 1 if len(peers) > 1 else None
+ 
+     def keyed_on_member(self, fact_type: str, keys: str) -> bool:
+         """Whether ``fact_type`` is individuated on an entity named in the member's keys."""
+@@ -1025,7 +1046,7 @@
+                         or subjects[0] not in input_questions
+                         or not roster_members.keyed_on_member(subjects[0], keys)):
+                     return False
+-                frame.member_facts.add((subjects[0], label))
++                frame.member_facts.add((subjects[0], keys))
+                 continue
+             blocked = [r for r in by_symbol.get(key, []) if r.get("disposition") == "blocked"]
+             if blocked:
+@@ -1035,7 +1056,7 @@
+             if current.get("code") != "DEPENDENCY_ABSENT" or key not in input_questions:
+                 return False
+             if roster_members.keyed_on_member(key, keys):
+-                frame.member_facts.add((key, label))
++                frame.member_facts.add((key, keys))
+             else:
+                 frame.facts.add(key)
+         return True
+@@ -1058,10 +1079,22 @@
+             | extras
+         )
+         reasons = [{"sentence": sentence} for sentence in sorted(sentences)]
+-        reasons.extend(
+-            {"sentence": sentence, "memberLabel": label}
+-            for label, sentence in sorted({(label, input_questions[fact]) for fact, label in member_facts})
+-        )
++        # One reason per member and question, keyed by the member's subject
++        # keys, never by its label: two members may carry the same recorded
++        # label. A member that shares its label with another current member of
++        # its kind also carries its place among them in entry order.
++        assert roster_members is not None or not member_facts
++        member_reasons: set[tuple[str, int, str]] = set()
++        for fact, keys in member_facts:
++            assert roster_members is not None
++            label = roster_members.label(keys)
++            assert label is not None
++            member_reasons.add((label, roster_members.ordinal(keys) or 0, input_questions[fact]))
++        for label, ordinal, sentence in sorted(member_reasons):
++            entry: dict[str, Any] = {"sentence": sentence, "memberLabel": label}
++            if ordinal:
++                entry["memberOrdinal"] = ordinal
++            reasons.append(entry)
+     elif (
+         partial_family is not None
+         and partial_family in questions
+@@ -5913,11 +5946,16 @@
+                 raise PresentationModelError(f"{path}.reasons: expected a non-empty list")
+             for index, reason in enumerate(reasons):
+                 rp = f"{path}.reasons[{index}]"
+-                _require_keys(reason, frozenset({"sentence"}), frozenset({"factId", "statementLabel", "memberLabel"}), rp)
++                _require_keys(reason, frozenset({"sentence"}), frozenset({"factId", "statementLabel", "memberLabel", "memberOrdinal"}), rp)
+                 if not isinstance(reason["sentence"], str) or not reason["sentence"]:
+                     raise PresentationModelError(f"{rp}.sentence: expected non-empty string")
+                 if "memberLabel" in reason and (not isinstance(reason["memberLabel"], str) or not reason["memberLabel"]):
+                     raise PresentationModelError(f"{rp}.memberLabel: expected non-empty string")
++                if "memberOrdinal" in reason and ("memberLabel" not in reason
++                                                  or not isinstance(reason["memberOrdinal"], int)
++                                                  or isinstance(reason["memberOrdinal"], bool)
++                                                  or reason["memberOrdinal"] < 1):
++                    raise PresentationModelError(f"{rp}.memberOrdinal: expected a positive integer beside memberLabel")
+                 if "factId" in reason and (not isinstance(reason["factId"], str) or not reason["factId"]):
+                     raise PresentationModelError(f"{rp}.factId: expected non-empty string")
+                 label = reason.get("statementLabel", {})

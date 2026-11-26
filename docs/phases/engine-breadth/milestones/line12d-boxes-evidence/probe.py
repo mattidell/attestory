@@ -27,7 +27,21 @@ REPO = HERE.parents[4]
 if str(REPO) not in sys.path:
     sys.path.insert(0, str(REPO))
 
-import prototype as proto  # noqa: E402
+
+def _sibling(name: str, file: str) -> Any:
+    """A sibling evidence module, loaded by path under a name no other milestone uses."""
+    if name in sys.modules:
+        return sys.modules[name]
+    import importlib.util
+    spec = importlib.util.spec_from_file_location(name, HERE / file)
+    assert spec is not None and spec.loader is not None
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[name] = module
+    spec.loader.exec_module(module)
+    return module
+
+
+proto = _sibling("l12d_evidence_prototype", "prototype.py")
 
 QW = REPO / "docs/phases/engine-breadth/milestones/question-wording-evidence"
 P = "tax.us.2025."

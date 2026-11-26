@@ -46,8 +46,22 @@ for entry in (str(REPO), str(HERE)):
     if entry not in sys.path:
         sys.path.insert(0, entry)
 
-import probe as pr  # noqa: E402
-import prototype as proto  # noqa: E402
+
+def _sibling(name: str, file: str) -> Any:
+    """A sibling evidence module, loaded by path under a name no other milestone uses."""
+    if name in sys.modules:
+        return sys.modules[name]
+    import importlib.util
+    spec = importlib.util.spec_from_file_location(name, HERE / file)
+    assert spec is not None and spec.loader is not None
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[name] = module
+    spec.loader.exec_module(module)
+    return module
+
+
+pr = _sibling("l12d_evidence_probe", "probe.py")
+proto = _sibling("l12d_evidence_prototype", "prototype.py")
 
 P = "tax.us.2025."
 AGE, BLIND, S_AGE, S_BLIND = pr.AGE, pr.BLIND, pr.S_AGE, pr.S_BLIND
