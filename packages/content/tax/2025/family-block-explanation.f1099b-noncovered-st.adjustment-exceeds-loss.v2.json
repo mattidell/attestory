@@ -1,0 +1,12 @@
+{
+  "schema": "family-block-explanation.v1",
+  "id": "tax.us.2025.family-block-explanation.f1099b-noncovered-st.adjustment-exceeds-loss",
+  "version": "v2",
+  "family_id": "tax.us.2025.f1099b.noncovered-st",
+  "block_code": "ADJUSTMENT_EXCEEDS_LOSS",
+  "explanation": "The wash-sale loss you entered for column (g) is more than this sale lost. Check the proceeds in box 1d of your Form 1099-B, the basis in column (e) and the wash-sale loss in column (g) of Form 8949, and fix whichever amount is wrong.",
+  "fact_type": {
+    "id": "tax.us.2025.f1099b.noncovered-st-txn.adjustment",
+    "version": "v1"
+  }
+}

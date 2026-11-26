@@ -1,0 +1,10 @@
+{
+  "schema": "input-question.v1",
+  "id": "tax.us.2025.input-question.f1099b-covered-w-st-adjustment",
+  "version": "v2",
+  "fact_type": {
+    "id": "tax.us.2025.f1099b.covered-w-st-txn.adjustment",
+    "version": "v1"
+  },
+  "question": "What is the wash-sale loss disallowed in box 1g of your Form 1099-B for this short-term sale? If box 1g is wrong, enter the correct amount, and if it is blank, enter 0."
+}

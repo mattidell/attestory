@@ -1,0 +1,598 @@
+{
+  "variant": "all",
+  "from": {
+    "core": "v106",
+    "registry": "v104",
+    "release": "v104"
+  },
+  "to": {
+    "core": "v107",
+    "registry": "v105",
+    "release": "v105"
+  },
+  "wording_citizens": 38,
+  "cascade_levels": [
+    38
+  ],
+  "citizens": 38,
+  "member_replacements": 38,
+  "entrypoint_replacements": 38,
+  "successors": [
+    {
+      "id": "tax.us.2025.family-block-explanation.f1099b-code-b-lt.adjustment-exceeds-loss",
+      "schema": "family-block-explanation.v1",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/family-block-explanation.f1099b-code-b-lt.adjustment-exceeds-loss.v1.json",
+      "successor_filename": "family-block-explanation.f1099b-code-b-lt.adjustment-exceeds-loss.v2.json",
+      "reason": "wording",
+      "changed_properties": [
+        "explanation"
+      ],
+      "rewritten_pins": 0,
+      "successor_sha256": "32fc35ca052947423846ee174fd9f1f1c870e6814c40076799226ae25a693b1a",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.family-block-explanation.f1099b-code-b-lt.code-b-without-correction",
+      "schema": "family-block-explanation.v1",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/family-block-explanation.f1099b-code-b-lt.code-b-without-correction.v1.json",
+      "successor_filename": "family-block-explanation.f1099b-code-b-lt.code-b-without-correction.v2.json",
+      "reason": "wording",
+      "changed_properties": [
+        "explanation"
+      ],
+      "rewritten_pins": 0,
+      "successor_sha256": "bae8a2ad382f9e7bc92230a1ec922b393e49a4ab0a5534133dc80fea7bc38385",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.family-block-explanation.f1099b-code-b-lt.code-w-on-gain",
+      "schema": "family-block-explanation.v1",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/family-block-explanation.f1099b-code-b-lt.code-w-on-gain.v1.json",
+      "successor_filename": "family-block-explanation.f1099b-code-b-lt.code-w-on-gain.v2.json",
+      "reason": "wording",
+      "changed_properties": [
+        "explanation"
+      ],
+      "rewritten_pins": 0,
+      "successor_sha256": "30c46c69c12b1258b02cffe1199de15f08dde013525469aabfb5eb05f8581cd0",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.family-block-explanation.f1099b-code-b-lt.holding-period-mismatch",
+      "schema": "family-block-explanation.v1",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/family-block-explanation.f1099b-code-b-lt.holding-period-mismatch.v1.json",
+      "successor_filename": "family-block-explanation.f1099b-code-b-lt.holding-period-mismatch.v2.json",
+      "reason": "wording",
+      "changed_properties": [
+        "explanation"
+      ],
+      "rewritten_pins": 0,
+      "successor_sha256": "e8793a6777c7d9cd3dc10edcff4dbb44f2f753c047c3cca02cbb7854d1d5b0d8",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.family-block-explanation.f1099b-code-b-st.adjustment-exceeds-loss",
+      "schema": "family-block-explanation.v1",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/family-block-explanation.f1099b-code-b-st.adjustment-exceeds-loss.v1.json",
+      "successor_filename": "family-block-explanation.f1099b-code-b-st.adjustment-exceeds-loss.v2.json",
+      "reason": "wording",
+      "changed_properties": [
+        "explanation"
+      ],
+      "rewritten_pins": 0,
+      "successor_sha256": "276b999af6554f1ea36c1cba8ae87d424a24c0b644110e76a44bc4544b2448af",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.family-block-explanation.f1099b-code-b-st.code-b-without-correction",
+      "schema": "family-block-explanation.v1",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/family-block-explanation.f1099b-code-b-st.code-b-without-correction.v1.json",
+      "successor_filename": "family-block-explanation.f1099b-code-b-st.code-b-without-correction.v2.json",
+      "reason": "wording",
+      "changed_properties": [
+        "explanation"
+      ],
+      "rewritten_pins": 0,
+      "successor_sha256": "ef2b5860b5a6a8b41547e6b80f865fef79bea79cebeda1da71dc5bb5b7c0bb56",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.family-block-explanation.f1099b-code-b-st.code-w-on-gain",
+      "schema": "family-block-explanation.v1",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/family-block-explanation.f1099b-code-b-st.code-w-on-gain.v1.json",
+      "successor_filename": "family-block-explanation.f1099b-code-b-st.code-w-on-gain.v2.json",
+      "reason": "wording",
+      "changed_properties": [
+        "explanation"
+      ],
+      "rewritten_pins": 0,
+      "successor_sha256": "7385ea03fc5295fc2fa6978c69bb2c399d35c835ff4b5739c6c4885eebe5931e",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.family-block-explanation.f1099b-code-b-st.holding-period-mismatch",
+      "schema": "family-block-explanation.v1",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/family-block-explanation.f1099b-code-b-st.holding-period-mismatch.v1.json",
+      "successor_filename": "family-block-explanation.f1099b-code-b-st.holding-period-mismatch.v2.json",
+      "reason": "wording",
+      "changed_properties": [
+        "explanation"
+      ],
+      "rewritten_pins": 0,
+      "successor_sha256": "98b3ef21186e2ed559c2860814610e96acd4d513aa3c526e192fe7ad712f4ed0",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.family-block-explanation.f1099b-covered-w-lt.adjustment-exceeds-loss",
+      "schema": "family-block-explanation.v1",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/family-block-explanation.f1099b-covered-w-lt.adjustment-exceeds-loss.v1.json",
+      "successor_filename": "family-block-explanation.f1099b-covered-w-lt.adjustment-exceeds-loss.v2.json",
+      "reason": "wording",
+      "changed_properties": [
+        "explanation"
+      ],
+      "rewritten_pins": 0,
+      "successor_sha256": "b7b2f0f5ca112210c4215566bc197fe1f6b2d429516c99bc8ccef65556937825",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.family-block-explanation.f1099b-covered-w-lt.box-1g-amount-without-flag",
+      "schema": "family-block-explanation.v1",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/family-block-explanation.f1099b-covered-w-lt.box-1g-amount-without-flag.v1.json",
+      "successor_filename": "family-block-explanation.f1099b-covered-w-lt.box-1g-amount-without-flag.v2.json",
+      "reason": "wording",
+      "changed_properties": [
+        "explanation"
+      ],
+      "rewritten_pins": 0,
+      "successor_sha256": "baaad0ca64dd34ba5b317285c2a1d7613c14322d1f63309c68db8bc1d2cd11f5",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.family-block-explanation.f1099b-covered-w-lt.box-1g-flag-without-amount",
+      "schema": "family-block-explanation.v1",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/family-block-explanation.f1099b-covered-w-lt.box-1g-flag-without-amount.v1.json",
+      "successor_filename": "family-block-explanation.f1099b-covered-w-lt.box-1g-flag-without-amount.v2.json",
+      "reason": "wording",
+      "changed_properties": [
+        "explanation"
+      ],
+      "rewritten_pins": 0,
+      "successor_sha256": "e449c60fa0d3cb5db5e47286d6f27b25aa9cd533917fd3195bb75dd9ac2fdedc",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.family-block-explanation.f1099b-covered-w-lt.code-w-on-gain",
+      "schema": "family-block-explanation.v1",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/family-block-explanation.f1099b-covered-w-lt.code-w-on-gain.v1.json",
+      "successor_filename": "family-block-explanation.f1099b-covered-w-lt.code-w-on-gain.v2.json",
+      "reason": "wording",
+      "changed_properties": [
+        "explanation"
+      ],
+      "rewritten_pins": 0,
+      "successor_sha256": "88aa10a696c7f92ab1c9795b006fdd73c4759e178232e479f3d620e4963e0ef9",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.family-block-explanation.f1099b-covered-w-st.adjustment-exceeds-loss",
+      "schema": "family-block-explanation.v1",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/family-block-explanation.f1099b-covered-w-st.adjustment-exceeds-loss.v1.json",
+      "successor_filename": "family-block-explanation.f1099b-covered-w-st.adjustment-exceeds-loss.v2.json",
+      "reason": "wording",
+      "changed_properties": [
+        "explanation"
+      ],
+      "rewritten_pins": 0,
+      "successor_sha256": "6826c68f1a3d0519ff077dea383800322a00667bf29ceb8273e2e27b6ad98d69",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.family-block-explanation.f1099b-covered-w-st.box-1g-amount-without-flag",
+      "schema": "family-block-explanation.v1",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/family-block-explanation.f1099b-covered-w-st.box-1g-amount-without-flag.v1.json",
+      "successor_filename": "family-block-explanation.f1099b-covered-w-st.box-1g-amount-without-flag.v2.json",
+      "reason": "wording",
+      "changed_properties": [
+        "explanation"
+      ],
+      "rewritten_pins": 0,
+      "successor_sha256": "cac9ca1e0082882fecb1584268de9e90fe13eb1bbbf619620928a9fdb1f7f968",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.family-block-explanation.f1099b-covered-w-st.box-1g-flag-without-amount",
+      "schema": "family-block-explanation.v1",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/family-block-explanation.f1099b-covered-w-st.box-1g-flag-without-amount.v1.json",
+      "successor_filename": "family-block-explanation.f1099b-covered-w-st.box-1g-flag-without-amount.v2.json",
+      "reason": "wording",
+      "changed_properties": [
+        "explanation"
+      ],
+      "rewritten_pins": 0,
+      "successor_sha256": "1bb4bf9ddb51439c5d0bb3d7fd83068195effb29e013f06630836b4719650751",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.family-block-explanation.f1099b-covered-w-st.code-w-on-gain",
+      "schema": "family-block-explanation.v1",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/family-block-explanation.f1099b-covered-w-st.code-w-on-gain.v1.json",
+      "successor_filename": "family-block-explanation.f1099b-covered-w-st.code-w-on-gain.v2.json",
+      "reason": "wording",
+      "changed_properties": [
+        "explanation"
+      ],
+      "rewritten_pins": 0,
+      "successor_sha256": "5273ec92b2693af427150e3604bf6ebe8d05900315ef78af15fe19682a277ef5",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.family-block-explanation.f1099b-noncovered-lt.adjustment-exceeds-loss",
+      "schema": "family-block-explanation.v1",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/family-block-explanation.f1099b-noncovered-lt.adjustment-exceeds-loss.v1.json",
+      "successor_filename": "family-block-explanation.f1099b-noncovered-lt.adjustment-exceeds-loss.v2.json",
+      "reason": "wording",
+      "changed_properties": [
+        "explanation"
+      ],
+      "rewritten_pins": 0,
+      "successor_sha256": "014ffc6f6f2926f9a6fcbbbe118e370342741141dffa2c0e14cec44287ad7925",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.family-block-explanation.f1099b-noncovered-lt.basis-was-reported",
+      "schema": "family-block-explanation.v1",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/family-block-explanation.f1099b-noncovered-lt.basis-was-reported.v1.json",
+      "successor_filename": "family-block-explanation.f1099b-noncovered-lt.basis-was-reported.v2.json",
+      "reason": "wording",
+      "changed_properties": [
+        "explanation"
+      ],
+      "rewritten_pins": 0,
+      "successor_sha256": "135196f44203548e72fffba2a774067eadc000d395d8678323a6f10623ce1a70",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.family-block-explanation.f1099b-noncovered-lt.code-w-on-gain",
+      "schema": "family-block-explanation.v1",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/family-block-explanation.f1099b-noncovered-lt.code-w-on-gain.v1.json",
+      "successor_filename": "family-block-explanation.f1099b-noncovered-lt.code-w-on-gain.v2.json",
+      "reason": "wording",
+      "changed_properties": [
+        "explanation"
+      ],
+      "rewritten_pins": 0,
+      "successor_sha256": "c670e484bc6b821a9f99119e707fc38be403d47f7978835a6e277346b1caabf1",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.family-block-explanation.f1099b-noncovered-lt.holding-period-mismatch",
+      "schema": "family-block-explanation.v1",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/family-block-explanation.f1099b-noncovered-lt.holding-period-mismatch.v1.json",
+      "successor_filename": "family-block-explanation.f1099b-noncovered-lt.holding-period-mismatch.v2.json",
+      "reason": "wording",
+      "changed_properties": [
+        "explanation"
+      ],
+      "rewritten_pins": 0,
+      "successor_sha256": "7e110141266e635412a1c0011e987b8be5722ea870b24e0f989cec196ef737ba",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.family-block-explanation.f1099b-noncovered-st.adjustment-exceeds-loss",
+      "schema": "family-block-explanation.v1",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/family-block-explanation.f1099b-noncovered-st.adjustment-exceeds-loss.v1.json",
+      "successor_filename": "family-block-explanation.f1099b-noncovered-st.adjustment-exceeds-loss.v2.json",
+      "reason": "wording",
+      "changed_properties": [
+        "explanation"
+      ],
+      "rewritten_pins": 0,
+      "successor_sha256": "726abf7d0b7a3c9be620e0c79b4682d9eed2bb5f03bc224bd8fb2c0b2d8bf27c",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.family-block-explanation.f1099b-noncovered-st.basis-was-reported",
+      "schema": "family-block-explanation.v1",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/family-block-explanation.f1099b-noncovered-st.basis-was-reported.v1.json",
+      "successor_filename": "family-block-explanation.f1099b-noncovered-st.basis-was-reported.v2.json",
+      "reason": "wording",
+      "changed_properties": [
+        "explanation"
+      ],
+      "rewritten_pins": 0,
+      "successor_sha256": "704366b66a4dbf47cba3e56bbe08e0188e9228c19d8b4a7642ed52dc7d488b05",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.family-block-explanation.f1099b-noncovered-st.code-w-on-gain",
+      "schema": "family-block-explanation.v1",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/family-block-explanation.f1099b-noncovered-st.code-w-on-gain.v1.json",
+      "successor_filename": "family-block-explanation.f1099b-noncovered-st.code-w-on-gain.v2.json",
+      "reason": "wording",
+      "changed_properties": [
+        "explanation"
+      ],
+      "rewritten_pins": 0,
+      "successor_sha256": "1831c4590b29eb8b17571d8d7951b1305a5df195344f999369636faa053eaae3",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.family-block-explanation.f1099b-noncovered-st.holding-period-mismatch",
+      "schema": "family-block-explanation.v1",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/family-block-explanation.f1099b-noncovered-st.holding-period-mismatch.v1.json",
+      "successor_filename": "family-block-explanation.f1099b-noncovered-st.holding-period-mismatch.v2.json",
+      "reason": "wording",
+      "changed_properties": [
+        "explanation"
+      ],
+      "rewritten_pins": 0,
+      "successor_sha256": "ce0352757e59310a7ca978876685854d39895ba12f6469bb68003b402d63686e",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.family-block-explanation.f8949-no1099b-lt.adjustment-exceeds-loss",
+      "schema": "family-block-explanation.v1",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/family-block-explanation.f8949-no1099b-lt.adjustment-exceeds-loss.v1.json",
+      "successor_filename": "family-block-explanation.f8949-no1099b-lt.adjustment-exceeds-loss.v2.json",
+      "reason": "wording",
+      "changed_properties": [
+        "explanation"
+      ],
+      "rewritten_pins": 0,
+      "successor_sha256": "986a1a7b889fdf4823072e561907e9114bea089f986eff142231f075c363ada6",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.family-block-explanation.f8949-no1099b-lt.code-w-on-gain",
+      "schema": "family-block-explanation.v1",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/family-block-explanation.f8949-no1099b-lt.code-w-on-gain.v1.json",
+      "successor_filename": "family-block-explanation.f8949-no1099b-lt.code-w-on-gain.v2.json",
+      "reason": "wording",
+      "changed_properties": [
+        "explanation"
+      ],
+      "rewritten_pins": 0,
+      "successor_sha256": "8cda6885107c23651b1b0425d0b427557fc532a440feb2f6707104c8d21f1b11",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.family-block-explanation.f8949-no1099b-lt.holding-period-mismatch",
+      "schema": "family-block-explanation.v1",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/family-block-explanation.f8949-no1099b-lt.holding-period-mismatch.v1.json",
+      "successor_filename": "family-block-explanation.f8949-no1099b-lt.holding-period-mismatch.v2.json",
+      "reason": "wording",
+      "changed_properties": [
+        "explanation"
+      ],
+      "rewritten_pins": 0,
+      "successor_sha256": "046a12c9a5fb7f306c583f2befaf5f90d6c7753c26d6d9697e6eb4f176856a25",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.family-block-explanation.f8949-no1099b-st.adjustment-exceeds-loss",
+      "schema": "family-block-explanation.v1",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/family-block-explanation.f8949-no1099b-st.adjustment-exceeds-loss.v1.json",
+      "successor_filename": "family-block-explanation.f8949-no1099b-st.adjustment-exceeds-loss.v2.json",
+      "reason": "wording",
+      "changed_properties": [
+        "explanation"
+      ],
+      "rewritten_pins": 0,
+      "successor_sha256": "a22f3945bdd6ba336cdc70214801966bd385976901759b79185c966e03bc505b",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.family-block-explanation.f8949-no1099b-st.code-w-on-gain",
+      "schema": "family-block-explanation.v1",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/family-block-explanation.f8949-no1099b-st.code-w-on-gain.v1.json",
+      "successor_filename": "family-block-explanation.f8949-no1099b-st.code-w-on-gain.v2.json",
+      "reason": "wording",
+      "changed_properties": [
+        "explanation"
+      ],
+      "rewritten_pins": 0,
+      "successor_sha256": "882235c338590c8558e66e664e43577ec3243933fdf9caed21f21413a744c187",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.family-block-explanation.f8949-no1099b-st.holding-period-mismatch",
+      "schema": "family-block-explanation.v1",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/family-block-explanation.f8949-no1099b-st.holding-period-mismatch.v1.json",
+      "successor_filename": "family-block-explanation.f8949-no1099b-st.holding-period-mismatch.v2.json",
+      "reason": "wording",
+      "changed_properties": [
+        "explanation"
+      ],
+      "rewritten_pins": 0,
+      "successor_sha256": "78dce0e9aed2f65b24eb5700a9cd8c8c6869a0e4d1324251cd53e5ff0d25b648",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.input-question.f1099b-code-b-lt-adjustment",
+      "schema": "input-question.v1",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/input-question.f1099b-code-b-lt-adjustment.json",
+      "successor_filename": "input-question.f1099b-code-b-lt-adjustment.v2.json",
+      "reason": "wording",
+      "changed_properties": [
+        "question"
+      ],
+      "rewritten_pins": 0,
+      "successor_sha256": "54dd575171ee2d3f37bf2214b413cdc27cee24621cba1f510ba86ee0c77636dd",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.input-question.f1099b-code-b-st-adjustment",
+      "schema": "input-question.v1",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/input-question.f1099b-code-b-st-adjustment.json",
+      "successor_filename": "input-question.f1099b-code-b-st-adjustment.v2.json",
+      "reason": "wording",
+      "changed_properties": [
+        "question"
+      ],
+      "rewritten_pins": 0,
+      "successor_sha256": "67338a15028bbff72cc958ceb1da057071b689652018ea52595a873b1ce64bf3",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.input-question.f1099b-covered-w-lt-adjustment",
+      "schema": "input-question.v1",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/input-question.f1099b-covered-w-lt-adjustment.v1.json",
+      "successor_filename": "input-question.f1099b-covered-w-lt-adjustment.v2.json",
+      "reason": "wording",
+      "changed_properties": [
+        "question"
+      ],
+      "rewritten_pins": 0,
+      "successor_sha256": "592a440efbf12ce958f1b9de4e2bf412d8f360afeb3c5de1dff178bc13e83241",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.input-question.f1099b-covered-w-st-adjustment",
+      "schema": "input-question.v1",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/input-question.f1099b-covered-w-st-adjustment.v1.json",
+      "successor_filename": "input-question.f1099b-covered-w-st-adjustment.v2.json",
+      "reason": "wording",
+      "changed_properties": [
+        "question"
+      ],
+      "rewritten_pins": 0,
+      "successor_sha256": "b45cf9a6d5e67bc65038cd1972461d11289ba3571af11219cbb829bad21fd360",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.input-question.f1099b-noncovered-lt-adjustment",
+      "schema": "input-question.v1",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/input-question.f1099b-noncovered-lt-adjustment.v1.json",
+      "successor_filename": "input-question.f1099b-noncovered-lt-adjustment.v2.json",
+      "reason": "wording",
+      "changed_properties": [
+        "question"
+      ],
+      "rewritten_pins": 0,
+      "successor_sha256": "57797c3df494987836bc6f219294858bbeab4b5d6e67583b43209563fcf52b2a",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.input-question.f1099b-noncovered-st-adjustment",
+      "schema": "input-question.v1",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/input-question.f1099b-noncovered-st-adjustment.v1.json",
+      "successor_filename": "input-question.f1099b-noncovered-st-adjustment.v2.json",
+      "reason": "wording",
+      "changed_properties": [
+        "question"
+      ],
+      "rewritten_pins": 0,
+      "successor_sha256": "d66bd30f24674444a0a824a5eb09c29c8d5e284661dd6056122a7c11b99cd284",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.input-question.f8949-no1099b-lt-adjustment",
+      "schema": "input-question.v1",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/input-question.f8949-no1099b-lt-adjustment.v1.json",
+      "successor_filename": "input-question.f8949-no1099b-lt-adjustment.v2.json",
+      "reason": "wording",
+      "changed_properties": [
+        "question"
+      ],
+      "rewritten_pins": 0,
+      "successor_sha256": "09b680b7910ba1fb85db53b1c95e5b32d4c13f5b5dba85b95136d32f05309f23",
+      "byte_undo_proof": true
+    },
+    {
+      "id": "tax.us.2025.input-question.f8949-no1099b-st-adjustment",
+      "schema": "input-question.v1",
+      "old_version": "v1",
+      "new_version": "v2",
+      "predecessor": "packages/content/tax/2025/input-question.f8949-no1099b-st-adjustment.v1.json",
+      "successor_filename": "input-question.f8949-no1099b-st-adjustment.v2.json",
+      "reason": "wording",
+      "changed_properties": [
+        "question"
+      ],
+      "rewritten_pins": 0,
+      "successor_sha256": "3b9a4a9f4eda15eb87e04e1a4dcd2559b8b49e04cd693b286c34ae36fe42ae54",
+      "byte_undo_proof": true
+    }
+  ],
+  "status": "valid",
+  "validation": "generate_to_directory passed package, registry and release validation",
+  "generation": {
+    "registry_sha256": "e88ed5a00facb010f29369b7b6d96e6b01e6191661289c2b8c4e6c03d36b1be0",
+    "publication_boundary": "Candidate only: successor companion declaration and live release evidence are separate duties under ADR-0082."
+  }
+}

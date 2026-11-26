@@ -29,10 +29,10 @@ KIND = {
 }
 
 CHECK = {
-    "covered_w": "Check the proceeds in box 1d, the basis in box 1e and the amount in box 1g of your Form 1099-B, and fix whichever you entered wrong.",
-    "noncovered": "Check the proceeds in box 1d of your Form 1099-B, the basis in column (e) and the wash-sale loss in column (g) of Form 8949, and fix whichever you entered wrong.",
-    "code_b": "Check the proceeds in box 1d of your Form 1099-B, the correct basis you entered and the wash-sale loss, and fix whichever you entered wrong.",
-    "no1099b": "Check the net proceeds in column (d), the basis in column (e) and the wash-sale loss in column (g) of Form 8949, and fix whichever you entered wrong.",
+    "covered_w": "Check the proceeds in box 1d, the basis in box 1e and the amount in box 1g of your Form 1099-B, and fix whichever amount is wrong.",
+    "noncovered": "Check the proceeds in box 1d of your Form 1099-B, the basis in column (e) and the wash-sale loss in column (g) of Form 8949, and fix whichever amount is wrong.",
+    "code_b": "Check the proceeds in box 1d and the wash-sale loss in box 1g of your Form 1099-B and the correct basis you entered, and fix whichever amount is wrong.",
+    "no1099b": "Check the net proceeds in column (d), the basis in column (e) and the wash-sale loss in column (g) of Form 8949, and fix whichever amount is wrong.",
 }
 
 WASH_ON_GAIN = {
@@ -51,7 +51,7 @@ WASH_TOO_BIG = {
 
 HOLDING = "You marked this sale long-term but entered it with your short-term sales, or the other way around."
 HOLDING_1099B = "Check the dates you acquired and sold it, since a sale held more than 1 year is long-term, and box 2 of your Form 1099-B."
-HOLDING_NO1099B = "Check the dates you acquired and sold it, since a sale held more than 1 year is long-term."
+HOLDING_NO1099B = "Check the dates you acquired and sold it in columns (b) and (c) of Form 8949, since a sale held more than 1 year is long-term."
 
 WASH_SOURCE = (f"{SCHD}, General Instructions, Wash Sales; {S8949}, Column (g), code W "
                "(a wash sale disallows only a loss on a sale at a loss).")
@@ -89,8 +89,8 @@ def explanation(kind: str, code: str) -> tuple[str, str]:
                 f"disallowed); {S8949}, Column (g), code W.")
     if code == "CODE_B_WITHOUT_CORRECTION":
         return ("The correct basis you entered for this sale matches box 1e of your Form 1099-B, so there is nothing "
-                "to correct. Enter it as a sale whose box 1e is right instead, which still lets you enter a "
-                "wash-sale loss from box 1g."), (
+                "to correct. Enter it with your sales whose box 1e is right instead, and include any wash-sale loss "
+                "from box 1g."), (
                 f"{S8949}, Column (f), code B (use only when the basis shown in box 1e is incorrect); "
                 f"{SCHD}, Exception 1 and Wash Sales.")
     raise KeyError(code)
@@ -102,12 +102,12 @@ def question(kind: str, term: str) -> tuple[str, str]:
                 "If box 1g is wrong, enter the correct amount, and if it is blank, enter 0."), (
                 f"{SCHD}, General Instructions, Wash Sales (box 1g of Form 1099-B); {S8949}, Column (g), code W.")
     if kind == "noncovered":
-        return (f"What wash-sale loss disallowed goes in column (g) of Form 8949 for this {term} sale whose basis "
-                "was not reported to the IRS? If there is none, enter 0."), (
+        return (f"What wash-sale loss disallowed do you enter in column (g) of Form 8949 for this {term} sale "
+                "whose basis was not reported to the IRS? If there is none, enter 0."), (
                 f"{SCHD}, General Instructions, Wash Sales; {S8949}, Column (g), code W.")
     if kind == "no1099b":
-        return (f"What wash-sale loss disallowed goes in column (g) of Form 8949 for this {term} sale with no "
-                "Form 1099-B? If there is none, enter 0."), (
+        return (f"What wash-sale loss disallowed do you enter in column (g) of Form 8949 for this {term} sale with "
+                "no Form 1099-B? If there is none, enter 0."), (
                 f"{SCHD}, General Instructions, Wash Sales; {S8949}, Column (g), code W.")
     if kind == "code_b":
         return (f"What amount goes in column (g) of Form 8949 for this {term} sale whose Form 1099-B shows the "

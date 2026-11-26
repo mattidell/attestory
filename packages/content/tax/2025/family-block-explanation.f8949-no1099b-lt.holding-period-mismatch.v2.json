@@ -1,0 +1,8 @@
+{
+  "schema": "family-block-explanation.v1",
+  "id": "tax.us.2025.family-block-explanation.f8949-no1099b-lt.holding-period-mismatch",
+  "version": "v2",
+  "family_id": "tax.us.2025.f8949.no1099b-lt",
+  "block_code": "HOLDING_PERIOD_MISMATCH",
+  "explanation": "You marked this sale long-term but entered it with your short-term sales, or the other way around. Check the dates you acquired and sold it in columns (b) and (c) of Form 8949, since a sale held more than 1 year is long-term."
+}

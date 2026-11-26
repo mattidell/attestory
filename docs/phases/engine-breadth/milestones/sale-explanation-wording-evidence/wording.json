@@ -12,7 +12,7 @@
    "block_code": "ADJUSTMENT_EXCEEDS_LOSS",
    "property": "explanation",
    "old": "The wash-sale loss disallowed is more than this sale's own loss once its basis is corrected (the corrected basis minus its proceeds, or zero if it is not a loss); check the wash-sale amount against the proceeds, the corrected basis, and column (g).",
-   "new": "The wash-sale loss you entered is more than this sale lost. Check the proceeds in box 1d of your Form 1099-B, the correct basis you entered and the wash-sale loss, and fix whichever you entered wrong.",
+   "new": "The wash-sale loss you entered is more than this sale lost. Check the proceeds in box 1d and the wash-sale loss in box 1g of your Form 1099-B and the correct basis you entered, and fix whichever amount is wrong.",
    "irs_source_2025": "2025 Instructions for Schedule D, General Instructions, Wash Sales; 2025 Instructions for Form 8949, Column (g), code W (a wash sale disallows only a loss on a sale at a loss). 2025 Instructions for Form 8949, Column (f), code B (basis shown in box 1e is incorrect); Column (g)."
   },
   {
@@ -24,7 +24,7 @@
    "block_code": "CODE_B_WITHOUT_CORRECTION",
    "property": "explanation",
    "old": "The corrected basis equals the basis shown on Form 1099-B, so no code B basis correction applies; record the sale without a basis correction (or with code W only if it has a wash-sale loss disallowed).",
-   "new": "The correct basis you entered for this sale matches box 1e of your Form 1099-B, so there is nothing to correct. Enter it as a sale whose box 1e is right instead, which still lets you enter a wash-sale loss from box 1g.",
+   "new": "The correct basis you entered for this sale matches box 1e of your Form 1099-B, so there is nothing to correct. Enter it with your sales whose box 1e is right instead, and include any wash-sale loss from box 1g.",
    "irs_source_2025": "2025 Instructions for Form 8949, Column (f), code B (use only when the basis shown in box 1e is incorrect); 2025 Instructions for Schedule D, Exception 1 and Wash Sales."
   },
   {
@@ -36,7 +36,7 @@
    "block_code": "CODE_W_ON_GAIN",
    "property": "explanation",
    "old": "A wash-sale loss disallowed was entered on a sale that is not a loss once its basis is corrected (proceeds are at least corrected basis); a wash sale only disallows a loss, so check the wash-sale amount and the corrected basis.",
-   "new": "You entered a wash-sale loss, but this sale has no loss, so there is nothing to disallow. Check the proceeds in box 1d of your Form 1099-B, the correct basis you entered and the wash-sale loss, and fix whichever you entered wrong.",
+   "new": "You entered a wash-sale loss, but this sale has no loss, so there is nothing to disallow. Check the proceeds in box 1d and the wash-sale loss in box 1g of your Form 1099-B and the correct basis you entered, and fix whichever amount is wrong.",
    "irs_source_2025": "2025 Instructions for Schedule D, General Instructions, Wash Sales; 2025 Instructions for Form 8949, Column (g), code W (a wash sale disallows only a loss on a sale at a loss). 2025 Instructions for Form 8949, Column (f), code B (basis shown in box 1e is incorrect); Column (g)."
   },
   {
@@ -60,7 +60,7 @@
    "block_code": "ADJUSTMENT_EXCEEDS_LOSS",
    "property": "explanation",
    "old": "The wash-sale loss disallowed is more than this sale's own loss once its basis is corrected (the corrected basis minus its proceeds, or zero if it is not a loss); check the wash-sale amount against the proceeds, the corrected basis, and column (g).",
-   "new": "The wash-sale loss you entered is more than this sale lost. Check the proceeds in box 1d of your Form 1099-B, the correct basis you entered and the wash-sale loss, and fix whichever you entered wrong.",
+   "new": "The wash-sale loss you entered is more than this sale lost. Check the proceeds in box 1d and the wash-sale loss in box 1g of your Form 1099-B and the correct basis you entered, and fix whichever amount is wrong.",
    "irs_source_2025": "2025 Instructions for Schedule D, General Instructions, Wash Sales; 2025 Instructions for Form 8949, Column (g), code W (a wash sale disallows only a loss on a sale at a loss). 2025 Instructions for Form 8949, Column (f), code B (basis shown in box 1e is incorrect); Column (g)."
   },
   {
@@ -72,7 +72,7 @@
    "block_code": "CODE_B_WITHOUT_CORRECTION",
    "property": "explanation",
    "old": "The corrected basis equals the basis shown on Form 1099-B, so no code B basis correction applies; record the sale without a basis correction (or with code W only if it has a wash-sale loss disallowed).",
-   "new": "The correct basis you entered for this sale matches box 1e of your Form 1099-B, so there is nothing to correct. Enter it as a sale whose box 1e is right instead, which still lets you enter a wash-sale loss from box 1g.",
+   "new": "The correct basis you entered for this sale matches box 1e of your Form 1099-B, so there is nothing to correct. Enter it with your sales whose box 1e is right instead, and include any wash-sale loss from box 1g.",
    "irs_source_2025": "2025 Instructions for Form 8949, Column (f), code B (use only when the basis shown in box 1e is incorrect); 2025 Instructions for Schedule D, Exception 1 and Wash Sales."
   },
   {
@@ -84,7 +84,7 @@
    "block_code": "CODE_W_ON_GAIN",
    "property": "explanation",
    "old": "A wash-sale loss disallowed was entered on a sale that is not a loss once its basis is corrected (proceeds are at least corrected basis); a wash sale only disallows a loss, so check the wash-sale amount and the corrected basis.",
-   "new": "You entered a wash-sale loss, but this sale has no loss, so there is nothing to disallow. Check the proceeds in box 1d of your Form 1099-B, the correct basis you entered and the wash-sale loss, and fix whichever you entered wrong.",
+   "new": "You entered a wash-sale loss, but this sale has no loss, so there is nothing to disallow. Check the proceeds in box 1d and the wash-sale loss in box 1g of your Form 1099-B and the correct basis you entered, and fix whichever amount is wrong.",
    "irs_source_2025": "2025 Instructions for Schedule D, General Instructions, Wash Sales; 2025 Instructions for Form 8949, Column (g), code W (a wash sale disallows only a loss on a sale at a loss). 2025 Instructions for Form 8949, Column (f), code B (basis shown in box 1e is incorrect); Column (g)."
   },
   {
@@ -108,7 +108,7 @@
    "block_code": "ADJUSTMENT_EXCEEDS_LOSS",
    "property": "explanation",
    "old": "The wash-sale loss disallowed in box 1g of this Form 1099-B is more than this sale's loss (its basis minus its proceeds, or zero if it is not a loss); check the box 1g amount against the proceeds in box 1d and the cost or other basis in box 1e.",
-   "new": "The wash-sale loss you entered for box 1g is more than this sale lost. Check the proceeds in box 1d, the basis in box 1e and the amount in box 1g of your Form 1099-B, and fix whichever you entered wrong.",
+   "new": "The wash-sale loss you entered for box 1g is more than this sale lost. Check the proceeds in box 1d, the basis in box 1e and the amount in box 1g of your Form 1099-B, and fix whichever amount is wrong.",
    "irs_source_2025": "2025 Instructions for Schedule D, General Instructions, Wash Sales; 2025 Instructions for Form 8949, Column (g), code W (a wash sale disallows only a loss on a sale at a loss). 2025 Instructions for Form 8949, Columns (d) and (e), Form 1099-B boxes 1d and 1e; 2025 Instructions for Schedule D, Wash Sales, box 1g of Form 1099-B."
   },
   {
@@ -144,7 +144,7 @@
    "block_code": "CODE_W_ON_GAIN",
    "property": "explanation",
    "old": "A wash-sale loss disallowed in box 1g of this Form 1099-B was entered on a sale that is not a loss (proceeds are at least basis); a wash sale only disallows a loss, so enter 0 in column (g) if no part of the loss is a nondeductible wash sale, or check box 1d and box 1e.",
-   "new": "You entered a wash-sale loss for box 1g, but this sale has no loss, so there is nothing to disallow. Check the proceeds in box 1d, the basis in box 1e and the amount in box 1g of your Form 1099-B, and fix whichever you entered wrong.",
+   "new": "You entered a wash-sale loss for box 1g, but this sale has no loss, so there is nothing to disallow. Check the proceeds in box 1d, the basis in box 1e and the amount in box 1g of your Form 1099-B, and fix whichever amount is wrong.",
    "irs_source_2025": "2025 Instructions for Schedule D, General Instructions, Wash Sales; 2025 Instructions for Form 8949, Column (g), code W (a wash sale disallows only a loss on a sale at a loss). 2025 Instructions for Form 8949, Columns (d) and (e), Form 1099-B boxes 1d and 1e; 2025 Instructions for Schedule D, Wash Sales, box 1g of Form 1099-B."
   },
   {
@@ -156,7 +156,7 @@
    "block_code": "ADJUSTMENT_EXCEEDS_LOSS",
    "property": "explanation",
    "old": "The wash-sale loss disallowed in box 1g of this Form 1099-B is more than this sale's loss (its basis minus its proceeds, or zero if it is not a loss); check the box 1g amount against the proceeds in box 1d and the cost or other basis in box 1e.",
-   "new": "The wash-sale loss you entered for box 1g is more than this sale lost. Check the proceeds in box 1d, the basis in box 1e and the amount in box 1g of your Form 1099-B, and fix whichever you entered wrong.",
+   "new": "The wash-sale loss you entered for box 1g is more than this sale lost. Check the proceeds in box 1d, the basis in box 1e and the amount in box 1g of your Form 1099-B, and fix whichever amount is wrong.",
    "irs_source_2025": "2025 Instructions for Schedule D, General Instructions, Wash Sales; 2025 Instructions for Form 8949, Column (g), code W (a wash sale disallows only a loss on a sale at a loss). 2025 Instructions for Form 8949, Columns (d) and (e), Form 1099-B boxes 1d and 1e; 2025 Instructions for Schedule D, Wash Sales, box 1g of Form 1099-B."
   },
   {
@@ -192,7 +192,7 @@
    "block_code": "CODE_W_ON_GAIN",
    "property": "explanation",
    "old": "A wash-sale loss disallowed in box 1g of this Form 1099-B was entered on a sale that is not a loss (proceeds are at least basis); a wash sale only disallows a loss, so enter 0 in column (g) if no part of the loss is a nondeductible wash sale, or check box 1d and box 1e.",
-   "new": "You entered a wash-sale loss for box 1g, but this sale has no loss, so there is nothing to disallow. Check the proceeds in box 1d, the basis in box 1e and the amount in box 1g of your Form 1099-B, and fix whichever you entered wrong.",
+   "new": "You entered a wash-sale loss for box 1g, but this sale has no loss, so there is nothing to disallow. Check the proceeds in box 1d, the basis in box 1e and the amount in box 1g of your Form 1099-B, and fix whichever amount is wrong.",
    "irs_source_2025": "2025 Instructions for Schedule D, General Instructions, Wash Sales; 2025 Instructions for Form 8949, Column (g), code W (a wash sale disallows only a loss on a sale at a loss). 2025 Instructions for Form 8949, Columns (d) and (e), Form 1099-B boxes 1d and 1e; 2025 Instructions for Schedule D, Wash Sales, box 1g of Form 1099-B."
   },
   {
@@ -204,7 +204,7 @@
    "block_code": "ADJUSTMENT_EXCEEDS_LOSS",
    "property": "explanation",
    "old": "The wash-sale loss disallowed is more than this sale's own loss (its basis minus its proceeds, or zero if it is not a loss); check the disallowed wash-sale amount against the proceeds and the cost or other basis.",
-   "new": "The wash-sale loss you entered for column (g) is more than this sale lost. Check the proceeds in box 1d of your Form 1099-B, the basis in column (e) and the wash-sale loss in column (g) of Form 8949, and fix whichever you entered wrong.",
+   "new": "The wash-sale loss you entered for column (g) is more than this sale lost. Check the proceeds in box 1d of your Form 1099-B, the basis in column (e) and the wash-sale loss in column (g) of Form 8949, and fix whichever amount is wrong.",
    "irs_source_2025": "2025 Instructions for Schedule D, General Instructions, Wash Sales; 2025 Instructions for Form 8949, Column (g), code W (a wash sale disallows only a loss on a sale at a loss). 2025 Instructions for Form 8949, Column (d), box 1d of Form 1099-B; Column (e), basis not reported to the IRS."
   },
   {
@@ -228,7 +228,7 @@
    "block_code": "CODE_W_ON_GAIN",
    "property": "explanation",
    "old": "A wash-sale loss disallowed was entered on a sale that is not a loss (proceeds are at least basis); a wash sale only disallows a loss, so enter 0 if no part of the loss is a nondeductible wash sale, or check proceeds and basis.",
-   "new": "You entered a wash-sale loss for column (g), but this sale has no loss, so there is nothing to disallow. Check the proceeds in box 1d of your Form 1099-B, the basis in column (e) and the wash-sale loss in column (g) of Form 8949, and fix whichever you entered wrong.",
+   "new": "You entered a wash-sale loss for column (g), but this sale has no loss, so there is nothing to disallow. Check the proceeds in box 1d of your Form 1099-B, the basis in column (e) and the wash-sale loss in column (g) of Form 8949, and fix whichever amount is wrong.",
    "irs_source_2025": "2025 Instructions for Schedule D, General Instructions, Wash Sales; 2025 Instructions for Form 8949, Column (g), code W (a wash sale disallows only a loss on a sale at a loss). 2025 Instructions for Form 8949, Column (d), box 1d of Form 1099-B; Column (e), basis not reported to the IRS."
   },
   {
@@ -252,7 +252,7 @@
    "block_code": "ADJUSTMENT_EXCEEDS_LOSS",
    "property": "explanation",
    "old": "The wash-sale loss disallowed is more than this sale's own loss (its basis minus its proceeds, or zero if it is not a loss); check the disallowed wash-sale amount against the proceeds and the cost or other basis.",
-   "new": "The wash-sale loss you entered for column (g) is more than this sale lost. Check the proceeds in box 1d of your Form 1099-B, the basis in column (e) and the wash-sale loss in column (g) of Form 8949, and fix whichever you entered wrong.",
+   "new": "The wash-sale loss you entered for column (g) is more than this sale lost. Check the proceeds in box 1d of your Form 1099-B, the basis in column (e) and the wash-sale loss in column (g) of Form 8949, and fix whichever amount is wrong.",
    "irs_source_2025": "2025 Instructions for Schedule D, General Instructions, Wash Sales; 2025 Instructions for Form 8949, Column (g), code W (a wash sale disallows only a loss on a sale at a loss). 2025 Instructions for Form 8949, Column (d), box 1d of Form 1099-B; Column (e), basis not reported to the IRS."
   },
   {
@@ -276,7 +276,7 @@
    "block_code": "CODE_W_ON_GAIN",
    "property": "explanation",
    "old": "A wash-sale loss disallowed was entered on a sale that is not a loss (proceeds are at least basis); a wash sale only disallows a loss, so enter 0 if no part of the loss is a nondeductible wash sale, or check proceeds and basis.",
-   "new": "You entered a wash-sale loss for column (g), but this sale has no loss, so there is nothing to disallow. Check the proceeds in box 1d of your Form 1099-B, the basis in column (e) and the wash-sale loss in column (g) of Form 8949, and fix whichever you entered wrong.",
+   "new": "You entered a wash-sale loss for column (g), but this sale has no loss, so there is nothing to disallow. Check the proceeds in box 1d of your Form 1099-B, the basis in column (e) and the wash-sale loss in column (g) of Form 8949, and fix whichever amount is wrong.",
    "irs_source_2025": "2025 Instructions for Schedule D, General Instructions, Wash Sales; 2025 Instructions for Form 8949, Column (g), code W (a wash sale disallows only a loss on a sale at a loss). 2025 Instructions for Form 8949, Column (d), box 1d of Form 1099-B; Column (e), basis not reported to the IRS."
   },
   {
@@ -300,7 +300,7 @@
    "block_code": "ADJUSTMENT_EXCEEDS_LOSS",
    "property": "explanation",
    "old": "The wash-sale loss disallowed is more than this sale's own loss (its basis minus its net proceeds, or zero if it is not a loss); check the disallowed wash-sale amount against the net proceeds and the cost or other basis.",
-   "new": "The wash-sale loss you entered for column (g) is more than this sale lost. Check the net proceeds in column (d), the basis in column (e) and the wash-sale loss in column (g) of Form 8949, and fix whichever you entered wrong.",
+   "new": "The wash-sale loss you entered for column (g) is more than this sale lost. Check the net proceeds in column (d), the basis in column (e) and the wash-sale loss in column (g) of Form 8949, and fix whichever amount is wrong.",
    "irs_source_2025": "2025 Instructions for Schedule D, General Instructions, Wash Sales; 2025 Instructions for Form 8949, Column (g), code W (a wash sale disallows only a loss on a sale at a loss). 2025 Instructions for Form 8949, Column (d), net proceeds when no Form 1099-B was received; Column (e)."
   },
   {
@@ -312,7 +312,7 @@
    "block_code": "CODE_W_ON_GAIN",
    "property": "explanation",
    "old": "A wash-sale loss disallowed was entered on a sale that is not a loss (net proceeds are at least basis); a wash sale only disallows a loss, so enter 0 if no part of the loss is a nondeductible wash sale, or check net proceeds and basis.",
-   "new": "You entered a wash-sale loss for column (g), but this sale has no loss, so there is nothing to disallow. Check the net proceeds in column (d), the basis in column (e) and the wash-sale loss in column (g) of Form 8949, and fix whichever you entered wrong.",
+   "new": "You entered a wash-sale loss for column (g), but this sale has no loss, so there is nothing to disallow. Check the net proceeds in column (d), the basis in column (e) and the wash-sale loss in column (g) of Form 8949, and fix whichever amount is wrong.",
    "irs_source_2025": "2025 Instructions for Schedule D, General Instructions, Wash Sales; 2025 Instructions for Form 8949, Column (g), code W (a wash sale disallows only a loss on a sale at a loss). 2025 Instructions for Form 8949, Column (d), net proceeds when no Form 1099-B was received; Column (e)."
   },
   {
@@ -324,7 +324,7 @@
    "block_code": "HOLDING_PERIOD_MISMATCH",
    "property": "explanation",
    "old": "This sale is marked long-term but was entered with short-term sales, or marked short-term but entered with long-term sales; check the dates you acquired and sold it (more than 1 year is long-term) and, if you have a Form 1099-B, whether its box 2 shows short-term or long-term.",
-   "new": "You marked this sale long-term but entered it with your short-term sales, or the other way around. Check the dates you acquired and sold it, since a sale held more than 1 year is long-term.",
+   "new": "You marked this sale long-term but entered it with your short-term sales, or the other way around. Check the dates you acquired and sold it in columns (b) and (c) of Form 8949, since a sale held more than 1 year is long-term.",
    "irs_source_2025": "2025 Instructions for Form 8949, General Instructions, Short-Term or Long-Term (held more than 1 year is long-term); Part I and Part II; box 2 of Form 1099-B."
   },
   {
@@ -336,7 +336,7 @@
    "block_code": "ADJUSTMENT_EXCEEDS_LOSS",
    "property": "explanation",
    "old": "The wash-sale loss disallowed is more than this sale's own loss (its basis minus its net proceeds, or zero if it is not a loss); check the disallowed wash-sale amount against the net proceeds and the cost or other basis.",
-   "new": "The wash-sale loss you entered for column (g) is more than this sale lost. Check the net proceeds in column (d), the basis in column (e) and the wash-sale loss in column (g) of Form 8949, and fix whichever you entered wrong.",
+   "new": "The wash-sale loss you entered for column (g) is more than this sale lost. Check the net proceeds in column (d), the basis in column (e) and the wash-sale loss in column (g) of Form 8949, and fix whichever amount is wrong.",
    "irs_source_2025": "2025 Instructions for Schedule D, General Instructions, Wash Sales; 2025 Instructions for Form 8949, Column (g), code W (a wash sale disallows only a loss on a sale at a loss). 2025 Instructions for Form 8949, Column (d), net proceeds when no Form 1099-B was received; Column (e)."
   },
   {
@@ -348,7 +348,7 @@
    "block_code": "CODE_W_ON_GAIN",
    "property": "explanation",
    "old": "A wash-sale loss disallowed was entered on a sale that is not a loss (net proceeds are at least basis); a wash sale only disallows a loss, so enter 0 if no part of the loss is a nondeductible wash sale, or check net proceeds and basis.",
-   "new": "You entered a wash-sale loss for column (g), but this sale has no loss, so there is nothing to disallow. Check the net proceeds in column (d), the basis in column (e) and the wash-sale loss in column (g) of Form 8949, and fix whichever you entered wrong.",
+   "new": "You entered a wash-sale loss for column (g), but this sale has no loss, so there is nothing to disallow. Check the net proceeds in column (d), the basis in column (e) and the wash-sale loss in column (g) of Form 8949, and fix whichever amount is wrong.",
    "irs_source_2025": "2025 Instructions for Schedule D, General Instructions, Wash Sales; 2025 Instructions for Form 8949, Column (g), code W (a wash sale disallows only a loss on a sale at a loss). 2025 Instructions for Form 8949, Column (d), net proceeds when no Form 1099-B was received; Column (e)."
   },
   {
@@ -360,7 +360,7 @@
    "block_code": "HOLDING_PERIOD_MISMATCH",
    "property": "explanation",
    "old": "This sale is marked long-term but was entered with short-term sales, or marked short-term but entered with long-term sales; check the dates you acquired and sold it (more than 1 year is long-term) and, if you have a Form 1099-B, whether its box 2 shows short-term or long-term.",
-   "new": "You marked this sale long-term but entered it with your short-term sales, or the other way around. Check the dates you acquired and sold it, since a sale held more than 1 year is long-term.",
+   "new": "You marked this sale long-term but entered it with your short-term sales, or the other way around. Check the dates you acquired and sold it in columns (b) and (c) of Form 8949, since a sale held more than 1 year is long-term.",
    "irs_source_2025": "2025 Instructions for Form 8949, General Instructions, Short-Term or Long-Term (held more than 1 year is long-term); Part I and Part II; box 2 of Form 1099-B."
   },
   {
@@ -393,7 +393,7 @@
    "fact_type": "tax.us.2025.f1099b.noncovered-st-txn.adjustment",
    "property": "question",
    "old": "What is the nondeductible wash-sale loss in column (g) (or 0 if none) for this short-term sale whose basis was not reported to the IRS?",
-   "new": "What wash-sale loss disallowed goes in column (g) of Form 8949 for this short-term sale whose basis was not reported to the IRS? If there is none, enter 0.",
+   "new": "What wash-sale loss disallowed do you enter in column (g) of Form 8949 for this short-term sale whose basis was not reported to the IRS? If there is none, enter 0.",
    "irs_source_2025": "2025 Instructions for Schedule D, General Instructions, Wash Sales; 2025 Instructions for Form 8949, Column (g), code W."
   },
   {
@@ -404,7 +404,7 @@
    "fact_type": "tax.us.2025.f1099b.noncovered-lt-txn.adjustment",
    "property": "question",
    "old": "What is the nondeductible wash-sale loss in column (g) (or 0 if none) for this long-term sale whose basis was not reported to the IRS?",
-   "new": "What wash-sale loss disallowed goes in column (g) of Form 8949 for this long-term sale whose basis was not reported to the IRS? If there is none, enter 0.",
+   "new": "What wash-sale loss disallowed do you enter in column (g) of Form 8949 for this long-term sale whose basis was not reported to the IRS? If there is none, enter 0.",
    "irs_source_2025": "2025 Instructions for Schedule D, General Instructions, Wash Sales; 2025 Instructions for Form 8949, Column (g), code W."
   },
   {
@@ -415,7 +415,7 @@
    "fact_type": "tax.us.2025.f8949.no1099b-st-txn.adjustment",
    "property": "question",
    "old": "What is the nondeductible wash-sale loss in column (g) (or 0 if none) for this short-term sale recorded without a Form 1099-B?",
-   "new": "What wash-sale loss disallowed goes in column (g) of Form 8949 for this short-term sale with no Form 1099-B? If there is none, enter 0.",
+   "new": "What wash-sale loss disallowed do you enter in column (g) of Form 8949 for this short-term sale with no Form 1099-B? If there is none, enter 0.",
    "irs_source_2025": "2025 Instructions for Schedule D, General Instructions, Wash Sales; 2025 Instructions for Form 8949, Column (g), code W."
   },
   {
@@ -426,7 +426,7 @@
    "fact_type": "tax.us.2025.f8949.no1099b-lt-txn.adjustment",
    "property": "question",
    "old": "What is the nondeductible wash-sale loss in column (g) (or 0 if none) for this long-term sale recorded without a Form 1099-B?",
-   "new": "What wash-sale loss disallowed goes in column (g) of Form 8949 for this long-term sale with no Form 1099-B? If there is none, enter 0.",
+   "new": "What wash-sale loss disallowed do you enter in column (g) of Form 8949 for this long-term sale with no Form 1099-B? If there is none, enter 0.",
    "irs_source_2025": "2025 Instructions for Schedule D, General Instructions, Wash Sales; 2025 Instructions for Form 8949, Column (g), code W."
   },
   {
