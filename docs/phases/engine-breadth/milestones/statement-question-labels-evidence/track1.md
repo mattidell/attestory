@@ -20,10 +20,12 @@ groups referenced by each isolated line and check the full page separately.
 Mypy passed on the touched product and test modules and on the replay
 script. Governance lint and the envelope scan passed.
 
-The first full-suite segment recorded 2,531 passes and 12 skips with no
-failures. It was interrupted before its command deadline to save a JUnit
-report. The remaining tests are running in file batches, deselecting the
-2,543 node IDs already reported.
+Local suite coverage reached 5,226 of 7,947 collected tests. The first
+segment and two file batches recorded 5,212 passes, 13 skips and one
+headless Chromium timeout. The timed-out closure-question page test passed
+when retried by node ID. The final local tally is 5,213 passed and 13 skipped.
+The foreman deferred the two remaining batches (2,721 tests) to the required
+CI `verify` check and kept this branch on its current base for closeout.
 
 ## Full-surface replay
 

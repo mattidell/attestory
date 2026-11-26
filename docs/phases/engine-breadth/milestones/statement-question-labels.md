@@ -124,6 +124,8 @@ share a label. The original sentence remains when attribution is ambiguous.
 The v108 replay passed all 775 recorded lists and 18 P0 cases with zero
 unexpected differences. The same 141 recorded lists gained labels as on
 v106. The saved reports matched. The four saved-page DOM tests passed.
-The full-suite batches are still running.
+Local verification covered 5,226 tests, with 5,213 passes and 13 skips
+after the browser timeout passed on retry. The foreman deferred the
+remaining 2,721 tests to the required CI `verify` check.
 
-Evidence: `statement-question-labels-evidence/track1.md`.
+See `statement-question-labels-evidence/track1.md` for the replay and test evidence.
