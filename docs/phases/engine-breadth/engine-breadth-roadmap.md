@@ -1495,6 +1495,19 @@ delivers an item removes it.
 - Kernel reverse presence check: removing a sale checks only one of its
   amount rows (`packages/kernel/findings.py`), so a leftover row is
   refused by the run, not at entry. Nothing publishes.
+- Family block explanations, contract gaps (sale-block-explanations,
+  ADR 0088 review 2026-11-25). `family-block-explanation.v1` names its
+  family by id only, so an explanation written for one family version
+  would also show on a later version whose block code means something
+  else; package validation catches only a removed code. Package
+  validation also does not require every constraint of an adopted family
+  to have an explanation; a test checks the current core only. Trigger:
+  the next successor of any sale `source-family`. That work adds
+  `family-block-explanation.v2` with a `{id, version}` family pin and a
+  package rule that a package adopting any explanation covers every
+  constraint of each family it adopts, under an ADR amending ADR 0088.
+  The fixing-question fallback was checked and is safe: a bare fact type
+  links a question group only when that type has one answer target.
 
 ## Why line 7a comes before Schedule D
 
