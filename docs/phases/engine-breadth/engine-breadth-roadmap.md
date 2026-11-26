@@ -1242,6 +1242,19 @@ closed, and cores v105 and earlier remain unchanged. All 775 recorded lists
 replay with zero arithmetic, disposition, or block-code changes (746 identical,
 29 expected explanation/question updates).
 
+## Bounded return — The Sale Block Explanations Read Plainly (2025)
+
+[Plan](milestones/sale-explanation-wording.md); retrospective:
+`docs/milestone-retrospectives/2026-11-25-sale-explanation-wording.md`.
+Content only: core v107, registry v105, release v105.
+
+The 30 ADR 0088 sale block explanations and the 8 sale adjustment questions
+now speak to the filer: what is wrong with this sale, then what to do,
+naming the Form 1099-B box or Form 8949 column to check. A blank box 1g on
+a covered wash-sale sale asks the filer to change their answer rather than
+enter 0. All 775 recorded lists replay with only the sentence changes, and
+no number, disposition, block code or question link moves.
+
 ## Hardening — Derivation Schema Capability Table Consolidation
 
 [Plan](milestones/rule-artifact-capability-table-consolidation.md); retrospective:
@@ -1495,6 +1508,10 @@ delivers an item removes it.
 - Kernel reverse presence check: removing a sale checks only one of its
   amount rows (`packages/kernel/findings.py`), so a leftover row is
   refused by the run, not at entry. Nothing publishes.
+- The code B wash-sale explanations (sale-explanation-wording SEW-F2,
+  core v107) tell the filer to check box 1d and box 1g but not the
+  correct basis they entered, which the block also reads. A content
+  successor can add it.
 - Family block explanations, contract gaps (sale-block-explanations,
   ADR 0088 review 2026-11-25). `family-block-explanation.v1` names its
   family by id only, so an explanation written for one family version
