@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "line16-next-step",
-  "status": "Open 2026-11-26. P0 chartered.",
+  "status": "Open. ADR 0091 accepted by the owner 2026-11-26 (placement A); Track 1 chartered.",
   "retrospective": null,
   "scope": [
     "on a return where Schedule D is required, no sale is recorded and the Exception 1 answers are right, the saved page tells the filer the next step (record the sale, or that the return needs work the engine does not support)",
@@ -148,3 +148,18 @@ If the contract is accepted as drafted (A), the Track 1 scope is p0.md §6:
   `scratch.diff`, and core v109, registry v107 and release v107;
 - add fast package tests and live tests;
 - run the full suite and the same replay.
+
+## Decisions
+
+Owner, 2026-11-26, with the foreman's recommendations:
+
+1. **The contract is accepted** as ADR 0091
+   (`docs/adr/0091-answer-explanations.md`), filed from
+   `line16-next-step-evidence/adr-draft.md`.
+2. **Placement A.** The sentence goes in each blocked line's "Why:" list on
+   `presentation-model.v3`; no page or presentation schema change.
+3. **The four sentences** stand as written in `p0.md` §2-3, three short
+   sentences each, an exception to the two-sentence bar of
+   sale-explanation-wording.
+
+Track 1 scope: `p0.md` §6.
