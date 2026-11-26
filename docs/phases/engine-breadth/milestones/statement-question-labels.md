@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "statement-question-labels",
-  "status": "Open 2026-11-25. P0 next.",
+  "status": "Open 2026-11-25. P0 complete; proposed ADR 0089 awaits owner acceptance before Track 1.",
   "retrospective": null,
   "scope": [
     "when a return has more than one Form 1099-B statement, each per-statement box 4 amount question and box 7 question on the saved page says which statement it asks about, by the label the filer recorded",
@@ -98,7 +98,7 @@ Evidence: `statement-question-labels-evidence/p0.md`. Proposed ADR draft:
 
 ## Decisions
 
-Needed from the foreman or owner (P0 recommendation in brackets):
+Foreman dispositions 2026-11-25 (P0 recommendation in brackets; all taken, ADR 0089 Decision 4 added: the projection uses the evaluator's own pairing function, not a copy). Decision 1 waits on the owner's acceptance of ADR 0089.
 
 1. Accept the projection route and take the proposed ADR to the owner
    [yes; the owner accepts the ADR before Track 1].
