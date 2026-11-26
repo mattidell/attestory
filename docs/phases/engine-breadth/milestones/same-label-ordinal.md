@@ -75,3 +75,18 @@ P0: same-label-members P0 designed and proved this on a scratch build
    reason; Track 1 makes the match account for the member, with a test,
    or shows on the code that no member reason can reach those paths and
    says why.
+
+## Track 1 result
+
+`0d688c2fc`, `3a4c2ac02`, and `66149e088` implement and test the shared-label
+ordinal. Member reasons are ordered by label, ordinal, and sentence. A
+selection or fact question with the same sentence leaves the member reason
+visible and outside the question link's reason indices.
+
+All 775 recorded lists matched the starting main projection. Of 23
+synthetic probes, six matched exactly and 17 differed only in member
+ordinals and order. All three browser tests that timed out in the first
+local suite shard passed on retry. The foreman directed the builder to
+finish on the tested commit and defer the remaining local suite shards to
+CI `verify`. See [Track 1 evidence](same-label-ordinal-evidence/track1.md)
+for the replay and test results.
