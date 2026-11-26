@@ -71,6 +71,45 @@ question reason, and the reason schema already admits a `statementLabel`.
 2. **Track 1 (build)**, fresh review, repair, closeout, final review,
    merge.
 
+## P0 result
+
+Evidence: `statement-question-labels-evidence/p0.md`. Proposed ADR draft:
+`statement-question-labels-evidence/adr-draft.md`.
+
+- Three Form 1099-B questions are per statement on v106: the box 4 amount,
+  the box 4 yes/no, and box 7. The yes/no is never shown as a reason on
+  v106. The other two show one unlabelled sentence per blocked line. Both
+  block through `require_paired`, which records only the bare fact type,
+  so the statement must be recovered.
+- Route: projection, with the existing `statementLabel` reason field and no
+  schema, content or core change. Recompute the row's `require_paired` from
+  the current facts. For box 4, narrow by the published per-sale
+  `box4-amount-needed` results, because line 25b's pairing is gated and
+  covers every statement. Emit one labelled reason per statement, and fail
+  closed to today's sentence.
+- Scratch proof: 18 of 18 synthetic two- and three-statement cases show
+  exactly the expected labels. The recorded replay passes 775 of 775: 141
+  lists change, only in question reasons, with 3,484 lines labelled, 0
+  unexpected differences and 0 semantic failures. No number, disposition,
+  code or report change.
+- The route adds a presentation contract (how a question is attributed to a
+  statement), the same tier as ADR 0087. P0 stops for the owner on the ADR
+  before Track 1.
+
 ## Decisions
 
-(None yet.)
+Needed from the foreman or owner (P0 recommendation in brackets):
+
+1. Accept the projection route and take the proposed ADR to the owner
+   [yes; the owner accepts the ADR before Track 1].
+2. Scope of the rule: every `statement` pairing (Forms 1099-INT, -DIV, -R,
+   -G, SSA-1099 too) or Form 1099-B only [Form 1099-B only in Track 1;
+   park the others with a probe].
+3. Where box 4's need lives: a `packages/tax` table gated to core v106 or
+   later, or content declared (schema successor) [the table].
+4. Label a single statement, or only when there are two or more [always,
+   as ADR 0087 labels a single child].
+5. Duplicate labels: two reasons with the same text, or add the broker
+   label as `lender` [accept, and park the broker label].
+6. Question wording: keep it, or publish per-statement wording [keep it;
+   park the rewording].
