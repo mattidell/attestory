@@ -1,7 +1,7 @@
-# ADR 0089 (draft) — Members who share a recorded label are told apart by entry order
+# Draft ADR — Members who share a recorded label are told apart by entry order
 
-- Status: **proposed** (P0 draft; number provisional, next free on main at
-  `9f4b7116`)
+- Status: **proposed** (P0 draft; not filed; it gets the next free number when
+  the owner accepts it)
 - Tier: 2. A presentation-projection contract that later content is
   written against.
 - Date: 2026-11-25

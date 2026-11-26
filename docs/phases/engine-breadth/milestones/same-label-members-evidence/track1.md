@@ -56,7 +56,7 @@ leaks. No line has a question group link, before or after (Decision 3).
 
 `replay-track1.json` (`replay.py`, one shared run, 8 pool workers, about 7
 minutes). Each list is taken with the built projection (A) and with the
-pre-Track-1 projection at `9f6b57c75` (B, swapped in as the "scratch" copy;
+pre-Track-1 projection at `9f4b7116` (B, swapped in as the "scratch" copy;
 the only differing definition is `_closure_question_reasons`), strict, no
 expectations.
 

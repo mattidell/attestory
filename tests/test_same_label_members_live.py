@@ -5,7 +5,7 @@ go through live_coordinate_run, the real presentation projection and the saved
 page. Members share one recorded label ("Demo Sam") by case; each case leaves
 answers out of named members' records. Every blocked line that shows a member
 reason must show one per missing answer, each labelled with the recorded label
-and no ordinal (that is ADR 0090, proposed), and the page (rendered by the
+and no ordinal (that is the draft ADR in same-label-members-evidence), and the page (rendered by the
 page-plain-words DOM checker) must draw every one of them.
 
 Measured reason for the live marker: each live_coordinate_run with page

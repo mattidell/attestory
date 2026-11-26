@@ -133,8 +133,7 @@ each, all labelled with that label. No `memberOrdinal`, no page change
 `tests/test_same_label_members_live.py` (live, with the page DOM checker).
 Full-surface replay against the pre-Track-1 projection: 775 of 775 recorded
 lists identical; 9 of 23 probe returns differ, only by the added member
-reasons. Full suite: 7,850 passed, 25 skipped, 0 failed. Next: fresh
-review; Track 2 waits on the owner's decision on the draft ADR.
+reasons. Full suite: 7,850 passed, 25 skipped, 0 failed.
 Fresh review READY; SLM-R1 and SLM-R2 repaired. SLM-R3 (member reasons
 matched to selection reasons by sentence only) and SLM-R4 (one member's
 answers cannot be paired by label) carry to Track 2.
