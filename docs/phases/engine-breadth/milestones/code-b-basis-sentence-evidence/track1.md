@@ -89,4 +89,6 @@ nothing is substituted (64 and 32 unexpected).
   first-read leaks.
 
 Results: the fast lane passed (2,144 passed, 8 skipped). The new live tests
-passed (3). mypy found no issues in the touched modules.
+passed (3). mypy found no issues in the touched modules. governance_lint
+reports the tree conformant, and envelope_scan over `github/main..HEAD` is
+clean.
