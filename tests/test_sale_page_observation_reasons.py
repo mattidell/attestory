@@ -198,6 +198,24 @@ def test_raw_sentence_page_disagrees_when_the_model_names_no_group() -> None:
     assert matches is False and differences
 
 
+def test_member_ordinal_names_which_same_label_member() -> None:
+    """ADR 0090: the observer's prefix matches the page's wording for a shared label."""
+    model = _model([
+        {"sentence": SENTENCE, "memberLabel": "Demo Sam", "memberOrdinal": 2},
+        {"sentence": SENTENCE, "memberLabel": "Demo Sam", "memberOrdinal": 11},
+        {"sentence": SENTENCE, "memberLabel": "Demo Alex"},
+    ], include_refs=False)
+    expected = [
+        f"Demo Sam (the second one you added with this name): {SENTENCE}",
+        f"Demo Sam (the number 11 one you added with this name): {SENTENCE}",
+        f"Demo Alex: {SENTENCE}",
+    ]
+    assert _expected_blocked_reason_texts(model, model["sections"][0]["resolved"]) == expected
+    assert _reason_outcome(model, expected) == (True, [])
+    matches, differences = _reason_outcome(model, [f"Demo Sam: {SENTENCE}", *expected[1:]])
+    assert matches is False and differences
+
+
 def test_older_schema_keeps_the_sentence_when_refs_are_present() -> None:
     model = _model(
         [{"sentence": SENTENCE, "memberLabel": "Demo member"}],
