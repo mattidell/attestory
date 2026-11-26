@@ -1,0 +1,7 @@
+[
+ {"kind": ["page"], "attribute": "sentence", "identity": "resolved\\.reasons", "note": "a reason sentence added or moved one place by a per-statement split"},
+ {"kind": ["page"], "attribute": "statementLabel\\.(?:statement|taxYear|lender)", "identity": "resolved\\.reasons", "note": "a statement label on a reason, added or moved by a per-statement split"},
+ {"kind": ["page"], "attribute": "(?:factId|memberLabel)", "identity": "resolved\\.reasons", "note": "a reason field moved one place by a per-statement split"},
+ {"kind": ["page"], "attribute": "resolved\\.reasons@order", "change": "changed", "note": "a reasons list grown by a per-statement split"},
+ {"kind": ["page"], "attribute": "reasonIndices", "identity": "resolved\\.questionRefs", "change": "changed", "note": "a question reference index moved by a per-statement split"}
+]

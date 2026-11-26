@@ -1,0 +1,23 @@
+{
+ "two.late-statement": {
+  "unchanged_accepted": true,
+  "drop_reason_rejected": true,
+  "label_other_reason_rejected": true,
+  "change_sentence_rejected": true,
+  "move_reference_rejected": true
+ },
+ "three.reported-s1.box7-s2-s3": {
+  "unchanged_accepted": true,
+  "drop_reason_rejected": true,
+  "label_other_reason_rejected": true,
+  "change_sentence_rejected": true,
+  "move_reference_rejected": true
+ },
+ "relabelled v83/track0/s0/b4_two_statements_one_unanswered": {
+  "unchanged_accepted": true,
+  "drop_reason_rejected": true,
+  "label_other_reason_rejected": true,
+  "change_sentence_rejected": true,
+  "move_reference_rejected": true
+ }
+}

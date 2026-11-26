@@ -1,0 +1,56 @@
+{
+ "format": "statement-question-labels-replay.v1",
+ "core": {
+  "version": "v106",
+  "registry": "v104",
+  "release_version": "v104",
+  "loader_from": null,
+  "presence_pairs": [],
+  "package_sha256": "d029df225649971933a310d613adcf4126c64edcaf5f52b70aee83f64fcb8ff8",
+  "release_sha256": "271a3bdd62c17d40e3dda908b73e8754ce03a9e7589cb5ee3fd4f7863181d385"
+ },
+ "lists": 18,
+ "classes": {
+  "expected_changes": 15,
+  "identical": 3
+ },
+ "passing": 18,
+ "failing": 0,
+ "unexpected_differences": 0,
+ "unexpected_by_kind_attribute": {},
+ "expectations_declared": 5,
+ "expectations_used": 4,
+ "unused_expectations": [
+  "a reason field moved one place by a per-statement split"
+ ],
+ "expected_by_note": {
+  "a question reference index moved by a per-statement split": 135,
+  "a reason sentence added or moved one place by a per-statement split": 279,
+  "a reasons list grown by a per-statement split": 108,
+  "a statement label on a reason, added or moved by a per-statement split": 832
+ },
+ "outcomes": {
+  "success/success": 18
+ },
+ "semantic_failures": [],
+ "lines_labelled": 260,
+ "labelled_reasons": 416,
+ "changed_lists": [
+  "three.box7.all",
+  "three.box7.s3",
+  "three.other-block.reported.s2",
+  "three.reported-s1.box7-s2-s3",
+  "three.reported.all",
+  "three.reported.s2",
+  "two.amount-and-box7.s2",
+  "two.amount.both",
+  "two.amount.both.same-label",
+  "two.amount.s2",
+  "two.box4-no-beside-yes",
+  "two.box4-reported.s2-missing",
+  "two.box7.both",
+  "two.box7.s1",
+  "two.late-statement"
+ ],
+ "failing_lists": {}
+}
