@@ -1,0 +1,12 @@
+{
+  "schema": "family-block-explanation.v1",
+  "id": "tax.us.2025.family-block-explanation.f1099b-code-b-lt.adjustment-exceeds-loss",
+  "version": "v2",
+  "family_id": "tax.us.2025.f1099b.code-b-lt",
+  "block_code": "ADJUSTMENT_EXCEEDS_LOSS",
+  "explanation": "The wash-sale loss you entered is more than this sale lost with the correct basis you entered. Check what you entered against the proceeds in box 1d and the amount in box 1g of your Form 1099-B, and fix whichever amount you entered differently.",
+  "fact_type": {
+    "id": "tax.us.2025.f1099b.code-b-lt-txn.adjustment",
+    "version": "v1"
+  }
+}

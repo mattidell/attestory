@@ -1,0 +1,10 @@
+{
+  "schema": "input-question.v1",
+  "id": "tax.us.2025.input-question.f1099b-code-b-st-adjustment",
+  "version": "v2",
+  "fact_type": {
+    "id": "tax.us.2025.f1099b.code-b-st-txn.adjustment",
+    "version": "v1"
+  },
+  "question": "What amount goes in column (g) of Form 8949 for this short-term sale whose Form 1099-B shows the wrong basis in box 1e? Enter the amount in box 1e minus the correct basis, plus the wash-sale loss in box 1g if there is one."
+}

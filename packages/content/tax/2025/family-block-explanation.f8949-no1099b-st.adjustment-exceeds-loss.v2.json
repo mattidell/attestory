@@ -1,0 +1,12 @@
+{
+  "schema": "family-block-explanation.v1",
+  "id": "tax.us.2025.family-block-explanation.f8949-no1099b-st.adjustment-exceeds-loss",
+  "version": "v2",
+  "family_id": "tax.us.2025.f8949.no1099b-st",
+  "block_code": "ADJUSTMENT_EXCEEDS_LOSS",
+  "explanation": "The wash-sale loss you entered for column (g) is more than this sale lost. Check the net proceeds, basis and wash-sale loss you entered for columns (d), (e) and (g) of Form 8949, and fix whichever of your entries is wrong.",
+  "fact_type": {
+    "id": "tax.us.2025.f8949.no1099b-st-txn.adjustment",
+    "version": "v1"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "schema": "family-block-explanation.v1",
+  "id": "tax.us.2025.family-block-explanation.f1099b-noncovered-lt.code-w-on-gain",
+  "version": "v2",
+  "family_id": "tax.us.2025.f1099b.noncovered-lt",
+  "block_code": "CODE_W_ON_GAIN",
+  "explanation": "You entered a wash-sale loss for column (g), but this sale has no loss, so there is nothing to disallow. Check what you entered against the proceeds in box 1d and any amount in box 1g of your Form 1099-B, and the basis you entered for column (e) of Form 8949, then fix whichever of your entries is wrong.",
+  "fact_type": {
+    "id": "tax.us.2025.f1099b.noncovered-lt-txn.adjustment",
+    "version": "v1"
+  }
+}

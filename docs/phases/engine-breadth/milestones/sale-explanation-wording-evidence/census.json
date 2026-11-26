@@ -1,0 +1,11 @@
+{
+ "lists": 775,
+ "act_kinds": {
+  "assertion": 140670,
+  "bundle-adoption": 54863,
+  "entity-introduced": 8739,
+  "horizon-genesis": 56571,
+  "member-transition": 3961
+ },
+ "acts_naming_an_explanation_or_input_question": {}
+}
