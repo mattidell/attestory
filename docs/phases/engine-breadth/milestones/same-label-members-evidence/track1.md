@@ -42,9 +42,9 @@ leaks. No line has a question group link, before or after (Decision 3).
   (either one); two missing different answers; two each missing two answers
   (four reasons); two of three sharing a label; distinct-label control; a
   same-label member of another kind; one member reached twice is asked once;
-  reasons carry only `sentence` and `memberLabel`. Six of them fail on the
-  pre-Track-1 projection.
-- `tests/test_same_label_members_live.py` (live, 25 tests): 11 same-label
+  reasons carry only `sentence` and `memberLabel`. 5 tests (6 cases with
+  subtests) fail on the pre-Track-1 projection.
+- `tests/test_same_label_members_live.py` (live, 31 tests): 14 same-label
   and 2 distinct-label probe returns through `live_coordinate_run` on
   published v107. On every line with member reasons: one reason per
   left-out answer with the expected labels, the expected number of distinct
