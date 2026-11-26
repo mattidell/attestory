@@ -3,8 +3,8 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "sale-explanation-wording",
-  "status": "Open 2026-11-25. Track 1 next.",
-  "retrospective": null,
+  "status": "Closed 2026-11-25. Core v107, registry v105, release v105.",
+  "retrospective": "docs/milestone-retrospectives/2026-11-25-sale-explanation-wording.md",
   "scope": [
     "the 30 sale-family block explanations (ADR 0088) read plainly on first read: what is wrong with this sale, then what to do, in the filer's words",
     "the 8 sale wash-sale adjustment questions read plainly and ask one thing",
