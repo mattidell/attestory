@@ -1,0 +1,470 @@
+{
+  "baseline": "c1d060d738cc83ab59adc0981092c0358bfcea50",
+  "core": {
+    "version": "v109",
+    "registry": "v107",
+    "release_version": "v107",
+    "loader_from": null,
+    "presence_pairs": [],
+    "package_sha256": "3ee18cb70c5b88d2f95218ff7761ba9f7f074c645f000ad0940ef8191ba705e6",
+    "release_sha256": "ba1d8146a610dbcecf085aa018c7eeceb5920073e8a15b979fb1d5928b84435b"
+  },
+  "baseline_projection_sha256": "c4996392e426c70cc7dee1620b1a36f62ebe4fe8fb4507efdec96cbb1992836e",
+  "scratch_projection_sha256": "f03119669aebc3b67312033099f4ef866bdb4aaedb6eb8ffc7dc6eae0b3bc589",
+  "shards": 18,
+  "workers": 9,
+  "recorded": {
+    "lists": 775,
+    "passed": 775,
+    "unexpected_differences": 0,
+    "outcomes": {
+      "error": 84,
+      "success": 691
+    },
+    "lists_gaining_labels": 2,
+    "forms": {
+      "int": {
+        "introduced_statement_counts": {
+          "0": 768,
+          "1": 7
+        },
+        "successful_introduced_statement_counts": {
+          "0": 684,
+          "1": 7
+        },
+        "lists_with_question": 0,
+        "plain_reasons": 0,
+        "labelled_reasons_before": 0,
+        "linked_reasons_before": 0,
+        "question_groups_before": 0,
+        "question_lines": {},
+        "missing_rows": {},
+        "lists_gaining_labels": 0,
+        "labelled_reasons_added": 0
+      },
+      "div": {
+        "introduced_statement_counts": {
+          "1": 760,
+          "2": 15
+        },
+        "successful_introduced_statement_counts": {
+          "1": 676,
+          "2": 15
+        },
+        "lists_with_question": 2,
+        "plain_reasons": 8,
+        "labelled_reasons_before": 0,
+        "linked_reasons_before": 0,
+        "question_groups_before": 0,
+        "question_lines": {
+          "line-25b": 2,
+          "line-25d": 2,
+          "line-33": 1,
+          "line-34": 1,
+          "line-35a": 1,
+          "line-37": 1
+        },
+        "missing_rows": {
+          "tax.us.2025.rule.form1040-line25b / DEPENDENCY_ABSENT / bare": 2
+        },
+        "lists_gaining_labels": 2,
+        "labelled_reasons_added": 8
+      },
+      "ira": {
+        "introduced_statement_counts": {
+          "0": 769,
+          "1": 6
+        },
+        "successful_introduced_statement_counts": {
+          "0": 685,
+          "1": 6
+        },
+        "lists_with_question": 0,
+        "plain_reasons": 0,
+        "labelled_reasons_before": 0,
+        "linked_reasons_before": 0,
+        "question_groups_before": 0,
+        "question_lines": {},
+        "missing_rows": {},
+        "lists_gaining_labels": 0,
+        "labelled_reasons_added": 0
+      },
+      "g": {
+        "introduced_statement_counts": {
+          "1": 769,
+          "2": 6
+        },
+        "successful_introduced_statement_counts": {
+          "1": 685,
+          "2": 6
+        },
+        "lists_with_question": 0,
+        "plain_reasons": 0,
+        "labelled_reasons_before": 0,
+        "linked_reasons_before": 0,
+        "question_groups_before": 0,
+        "question_lines": {},
+        "missing_rows": {},
+        "lists_gaining_labels": 0,
+        "labelled_reasons_added": 0
+      },
+      "ssa": {
+        "introduced_statement_counts": {
+          "0": 769,
+          "1": 6
+        },
+        "successful_introduced_statement_counts": {
+          "0": 685,
+          "1": 6
+        },
+        "lists_with_question": 0,
+        "plain_reasons": 0,
+        "labelled_reasons_before": 0,
+        "linked_reasons_before": 0,
+        "question_groups_before": 0,
+        "question_lines": {},
+        "missing_rows": {},
+        "lists_gaining_labels": 0,
+        "labelled_reasons_added": 0
+      }
+    }
+  },
+  "synthetic": {
+    "lists": 23,
+    "passed": 23,
+    "unexpected_differences": 0,
+    "outcomes": {
+      "success": 23
+    },
+    "lists_gaining_labels": 17,
+    "forms": {
+      "int": {
+        "introduced_statement_counts": {
+          "0": 16,
+          "1": 1,
+          "2": 3,
+          "3": 3
+        },
+        "successful_introduced_statement_counts": {
+          "0": 16,
+          "1": 1,
+          "2": 3,
+          "3": 3
+        },
+        "lists_with_question": 5,
+        "plain_reasons": 30,
+        "labelled_reasons_before": 0,
+        "linked_reasons_before": 6,
+        "question_groups_before": 1,
+        "question_lines": {
+          "line-25b": 5,
+          "line-25d": 5,
+          "line-33": 5,
+          "line-34": 5,
+          "line-35a": 5,
+          "line-37": 5
+        },
+        "missing_rows": {
+          "tax.us.2025.rule.form1040-line25b / DEPENDENCY_ABSENT / bare": 5
+        },
+        "lists_gaining_labels": 5,
+        "labelled_reasons_added": 48
+      },
+      "div": {
+        "introduced_statement_counts": {
+          "0": 18,
+          "1": 2,
+          "2": 1,
+          "3": 2
+        },
+        "successful_introduced_statement_counts": {
+          "0": 18,
+          "1": 2,
+          "2": 1,
+          "3": 2
+        },
+        "lists_with_question": 3,
+        "plain_reasons": 18,
+        "labelled_reasons_before": 0,
+        "linked_reasons_before": 0,
+        "question_groups_before": 0,
+        "question_lines": {
+          "line-25b": 3,
+          "line-25d": 3,
+          "line-33": 3,
+          "line-34": 3,
+          "line-35a": 3,
+          "line-37": 3
+        },
+        "missing_rows": {
+          "tax.us.2025.rule.form1040-line25b / DEPENDENCY_ABSENT / bare": 3
+        },
+        "lists_gaining_labels": 3,
+        "labelled_reasons_added": 30
+      },
+      "ira": {
+        "introduced_statement_counts": {
+          "0": 19,
+          "1": 1,
+          "2": 1,
+          "3": 2
+        },
+        "successful_introduced_statement_counts": {
+          "0": 19,
+          "1": 1,
+          "2": 1,
+          "3": 2
+        },
+        "lists_with_question": 3,
+        "plain_reasons": 18,
+        "labelled_reasons_before": 0,
+        "linked_reasons_before": 0,
+        "question_groups_before": 0,
+        "question_lines": {
+          "line-25b": 3,
+          "line-25d": 3,
+          "line-33": 3,
+          "line-34": 3,
+          "line-35a": 3,
+          "line-37": 3
+        },
+        "missing_rows": {
+          "tax.us.2025.rule.form1040-line25b / DEPENDENCY_ABSENT / bare": 3
+        },
+        "lists_gaining_labels": 3,
+        "labelled_reasons_added": 30
+      },
+      "g": {
+        "introduced_statement_counts": {
+          "0": 18,
+          "1": 2,
+          "2": 1,
+          "3": 2
+        },
+        "successful_introduced_statement_counts": {
+          "0": 18,
+          "1": 2,
+          "2": 1,
+          "3": 2
+        },
+        "lists_with_question": 3,
+        "plain_reasons": 18,
+        "labelled_reasons_before": 0,
+        "linked_reasons_before": 0,
+        "question_groups_before": 0,
+        "question_lines": {
+          "line-25b": 3,
+          "line-25d": 3,
+          "line-33": 3,
+          "line-34": 3,
+          "line-35a": 3,
+          "line-37": 3
+        },
+        "missing_rows": {
+          "tax.us.2025.rule.form1040-line25b / DEPENDENCY_ABSENT / bare": 3
+        },
+        "lists_gaining_labels": 3,
+        "labelled_reasons_added": 30
+      },
+      "ssa": {
+        "introduced_statement_counts": {
+          "0": 19,
+          "1": 1,
+          "2": 1,
+          "3": 2
+        },
+        "successful_introduced_statement_counts": {
+          "0": 19,
+          "1": 1,
+          "2": 1,
+          "3": 2
+        },
+        "lists_with_question": 3,
+        "plain_reasons": 18,
+        "labelled_reasons_before": 0,
+        "linked_reasons_before": 6,
+        "question_groups_before": 1,
+        "question_lines": {
+          "line-25b": 3,
+          "line-25d": 3,
+          "line-33": 3,
+          "line-34": 3,
+          "line-35a": 3,
+          "line-37": 3
+        },
+        "missing_rows": {
+          "tax.us.2025.rule.form1040-line25b / DEPENDENCY_ABSENT / bare": 3
+        },
+        "lists_gaining_labels": 3,
+        "labelled_reasons_added": 30
+      }
+    }
+  },
+  "case_labels_on_line_25b": {
+    "demo.int.single": [
+      {
+        "statement": "demo Zulu",
+        "taxYear": "2025"
+      }
+    ],
+    "demo.int.two-missing": [
+      {
+        "statement": "demo Alpha",
+        "taxYear": "2025"
+      },
+      {
+        "statement": "demo Zulu",
+        "taxYear": "2025"
+      }
+    ],
+    "demo.int.three-one-zero": [
+      {
+        "statement": "demo Mike",
+        "taxYear": "2025"
+      },
+      {
+        "statement": "demo Zulu",
+        "taxYear": "2025"
+      }
+    ],
+    "demo.int.three-answered": [],
+    "demo.div.single": [
+      {
+        "statement": "demo Zulu",
+        "taxYear": "2025"
+      }
+    ],
+    "demo.div.two-missing": [
+      {
+        "statement": "demo Alpha",
+        "taxYear": "2025"
+      },
+      {
+        "statement": "demo Zulu",
+        "taxYear": "2025"
+      }
+    ],
+    "demo.div.three-one-zero": [
+      {
+        "statement": "demo Mike",
+        "taxYear": "2025"
+      },
+      {
+        "statement": "demo Zulu",
+        "taxYear": "2025"
+      }
+    ],
+    "demo.div.three-answered": [],
+    "demo.ira.single": [
+      {
+        "statement": "demo Zulu",
+        "taxYear": "2025"
+      }
+    ],
+    "demo.ira.two-missing": [
+      {
+        "statement": "demo Alpha",
+        "taxYear": "2025"
+      },
+      {
+        "statement": "demo Zulu",
+        "taxYear": "2025"
+      }
+    ],
+    "demo.ira.three-one-zero": [
+      {
+        "statement": "demo Mike",
+        "taxYear": "2025"
+      },
+      {
+        "statement": "demo Zulu",
+        "taxYear": "2025"
+      }
+    ],
+    "demo.ira.three-answered": [],
+    "demo.g.single": [
+      {
+        "statement": "demo Zulu",
+        "taxYear": "2025"
+      }
+    ],
+    "demo.g.two-missing": [
+      {
+        "statement": "demo Alpha",
+        "taxYear": "2025"
+      },
+      {
+        "statement": "demo Zulu",
+        "taxYear": "2025"
+      }
+    ],
+    "demo.g.three-one-zero": [
+      {
+        "statement": "demo Mike",
+        "taxYear": "2025"
+      },
+      {
+        "statement": "demo Zulu",
+        "taxYear": "2025"
+      }
+    ],
+    "demo.g.three-answered": [],
+    "demo.ssa.single": [
+      {
+        "statement": "demo Zulu",
+        "taxYear": "2025"
+      }
+    ],
+    "demo.ssa.two-missing": [
+      {
+        "statement": "demo Alpha",
+        "taxYear": "2025"
+      },
+      {
+        "statement": "demo Zulu",
+        "taxYear": "2025"
+      }
+    ],
+    "demo.ssa.three-one-zero": [
+      {
+        "statement": "demo Mike",
+        "taxYear": "2025"
+      },
+      {
+        "statement": "demo Zulu",
+        "taxYear": "2025"
+      }
+    ],
+    "demo.ssa.three-answered": [],
+    "demo.int.same-label": [
+      {
+        "statement": "demo shared",
+        "taxYear": "2025"
+      },
+      {
+        "statement": "demo shared",
+        "taxYear": "2025"
+      }
+    ],
+    "demo.int.withholding-only-offset": [
+      {
+        "statement": "demo Alpha",
+        "taxYear": "2025"
+      }
+    ],
+    "demo.int.unclosed": []
+  },
+  "saved_page_dom_checks": [
+    "demo.int.two-missing",
+    "demo.int.three-one-zero",
+    "demo.div.two-missing",
+    "demo.ira.two-missing",
+    "demo.g.two-missing",
+    "demo.ssa.two-missing"
+  ],
+  "controls": {
+    "missing_label": "rejected",
+    "swapped_labels": "rejected",
+    "spurious_label_on_closure_block": "rejected"
+  }
+}
