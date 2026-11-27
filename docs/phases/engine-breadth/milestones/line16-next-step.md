@@ -177,5 +177,5 @@ The replay preserved values, dispositions, block codes and question links.
 
 Focused verification passed, including all seven browser tests on retry.
 Six local suite batches accounted for 6,106 of 7,958 collected tests. The
-owner deferred the remaining local batches to CI `verify`.
+foreman deferred the remaining local batches to CI `verify`.
 [Track 1 evidence](line16-next-step-evidence/track1.md)
