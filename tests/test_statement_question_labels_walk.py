@@ -171,6 +171,10 @@ def test_withholding_expansion_preserves_existing_link_targets() -> None:
     "labelled", "no paired row", "extra unpaired cause", "ambiguous pairing",
     "wrong join key", "missing identity key", "ambiguous identity", "incompatible declaration",
     "all covered", "missing label", "displaced statement", "stale finding", "older core",
+    pytest.param("unresolved pin", id="T1-01-unresolved-pin"),
+    pytest.param("retracted without currency", id="T1-02-retracted-without-currency"),
+    pytest.param("wrong payer kind", id="T1-03-wrong-payer-kind"),
+    pytest.param("year outside declaration", id="T1-03-year-outside-declaration"),
 ])
 def test_line25b_withholding_attribution_fails_closed(case: str) -> None:
     answer = "tax.us.2025.f1099int.box4-withholding"
@@ -185,13 +189,19 @@ def test_line25b_withholding_attribution_fails_closed(case: str) -> None:
     year_key = {"kind": "literal", "name": "tax-year", "values": ["2025"]}
     answer_keys = [*entity_keys, year_key]
     income_keys = answer_keys
+    income_payer_kind = payer_kind
     if case == "missing identity key":
         income_keys = [entity_keys[1], year_key]
     if case == "incompatible declaration":
         answer_keys = [year_key, *entity_keys, year_key]
+    if case == "wrong payer kind":
+        income_payer_kind = "demo.other-payer"
+        income_keys = [{**entity_keys[0], "entity_kind": income_payer_kind}, entity_keys[1], year_key]
+    if case == "year outside declaration":
+        answer_keys = [*entity_keys, {**year_key, "values": ["2026"]}]
     state = FindingState(fact_state=KernelState(
         entities={
-            "demo.payer-a": EntityLifecycle({"kind": payer_kind, "label": "demo payer A"}, "current"),
+            "demo.payer-a": EntityLifecycle({"kind": income_payer_kind, "label": "demo payer A"}, "current"),
             "demo.payer-b": EntityLifecycle({"kind": payer_kind, "label": "demo payer B"}, "current"),
             "demo.statement-a": EntityLifecycle({"kind": statement_kind, "label": "demo Alpha"}, "current"),
             "demo.statement-b": EntityLifecycle(
@@ -203,7 +213,7 @@ def test_line25b_withholding_attribution_fails_closed(case: str) -> None:
             name: {"id": name, "version": "v1", "nature": "ordinary", "identity_keys": keys}
             for name, keys in ((SALE, income_keys), (answer, answer_keys))
         },
-    ))
+    ), retracted_finding_ids=frozenset({"demo.finding-0"}) if case == "retracted without currency" else frozenset())
     pins: list[dict[str, str]] = []
     current: set[str] = set()
 
@@ -218,6 +228,8 @@ def test_line25b_withholding_attribution_fails_closed(case: str) -> None:
 
     pin(SALE, "demo.statement-b")
     pin(SALE, "demo.statement-a")
+    if case == "unresolved pin":
+        del state.findings["demo.finding-0"]
     if case == "ambiguous identity":
         pin(SALE, "demo.statement-b", "demo.payer-b")
     if case == "all covered":
@@ -234,13 +246,14 @@ def test_line25b_withholding_attribution_fails_closed(case: str) -> None:
     line = {"disposition": "blocked", "code": "DEPENDENCY_ABSENT",
             "missing": ["demo.pair", answer] if case == "extra unpaired cause" else ["demo.pair"]}
     members = [{"schema": "input-question.v1", "fact_type": {"id": answer}, "question": SENTENCE}]
+    version = "v108" if case == "older core" else "v109"
+    if case in {"wrong payer kind", "year outside declaration"}:
+        version = "v110"
     questions = _StatementQuestions(
         rules_by_id=rules, state=state, resolved_members=members, publications_by_id={},
         by_symbol=by_symbol, entity_kinds=frozenset(), needs={},
-        withholding_entities=withholding_statement_question_entities(
-            package, "v108" if case == "older core" else "v109",
-        ),
-        current_finding_ids=frozenset(current),
+        withholding_entities=withholding_statement_question_entities(package, version),
+        current_finding_ids=None if case == "retracted without currency" else frozenset(current),
     )
     expansions: dict[str, list[dict[str, Any]]] = {}
     assert _closure_question_reasons(

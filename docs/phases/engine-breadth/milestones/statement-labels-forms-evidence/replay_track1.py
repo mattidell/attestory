@@ -117,6 +117,7 @@ def main() -> None:
     if args.workers < 1:
         parser.error("--workers must be positive")
     build, parent = build_and_parent()
+    projection_hash = hashlib.sha256((probe.REPO / p0.PROJECTION).read_bytes()).hexdigest()
     baseline_projection(parent)  # Fail up front if the baseline cannot be loaded.
     recorded = [(key, acts, None) for key, acts in rr.recorded_lists()]
     synthetic = [(key, case.acts, case) for key, case in probe.cases().items()]
@@ -154,6 +155,7 @@ def main() -> None:
         }
     summary = {
         "build": build, "baseline": parent, "core": probe.CORE,
+        "candidate_projection_sha256": projection_hash,
         "shards": len(shards), "workers": args.workers, **totals, "unexpected_differences": 0,
         "dom_checks": sorted(key for key, row in results.items() if row["dom_checked"]),
         "controls": controls,

@@ -688,6 +688,7 @@ class _StatementQuestions:
         self._current_finding_ids = current_finding_ids
         self._fact_map: dict[str, Fact] | None = None
         self._identity: dict[str, list[str]] = {}
+        self._withholding_years: dict[str, frozenset[str]] = {}
         declared: dict[str, Mapping[str, Any]] = {}
         for member in resolved_members:
             if str(member.get("schema", "")).startswith("bundle."):
@@ -695,11 +696,13 @@ class _StatementQuestions:
                     if isinstance(fact_type, Mapping) and isinstance(fact_type.get("id"), str):
                         declared.setdefault(fact_type["id"], fact_type)
         for fact_type_id, declaration in {**declared, **state.fact_state.fact_types}.items():
+            withholding_keys = self._withholding_entities.get(fact_type_id)
+            if withholding_keys is not None:
+                declaration = declared.get(fact_type_id, declaration)
             identity = declaration.get("identity_keys") if isinstance(declaration, Mapping) else None
             if not isinstance(identity, list) or not all(isinstance(key, Mapping) for key in identity):
                 continue
             entity = [key for key in identity if key.get("kind") == "entity"]
-            withholding_keys = self._withholding_entities.get(fact_type_id)
             if withholding_keys is not None:
                 shape = {
                     (key.get("name"), key.get("kind"), key.get("entity_kind"))
@@ -709,7 +712,10 @@ class _StatementQuestions:
                     (name, "entity", kind) for name, kind in withholding_keys.items()
                 } | {("tax-year", "literal", None)}
                 if len(identity) == len(expected) and shape == expected:
-                    self._identity[fact_type_id] = [str(key["name"]) for key in identity]
+                    years = next(key.get("values") for key in identity if key["name"] == "tax-year")
+                    if isinstance(years, list) and all(isinstance(year, str) for year in years):
+                        self._identity[fact_type_id] = [str(key["name"]) for key in identity]
+                        self._withholding_years[fact_type_id] = frozenset(years)
                 continue
             if (len(entity) == 1 and entity[0].get("name") == "statement"
                     and entity[0].get("entity_kind") in entity_kinds
@@ -727,6 +733,22 @@ class _StatementQuestions:
         if self._fact_map is None:
             self._fact_map = facts_of(self._state.fact_state)
         return self._fact_map
+
+    def _current_ids(self) -> frozenset[str]:
+        if self._current_finding_ids is None:
+            from packages.kernel.currency import compute_currency
+
+            self._current_finding_ids = compute_currency(self._state).current_finding_ids
+        return self._current_finding_ids
+
+    def _valid_withholding_identity(self, fact_type: str, keys: Mapping[str, str]) -> bool:
+        if keys["tax-year"] not in self._withholding_years[fact_type]:
+            return False
+        for name, kind in self._withholding_entities[fact_type].items():
+            entity = self._state.fact_state.entities.get(keys[name])
+            if entity is None or entity.status != "current" or entity.entity.get("kind") != kind:
+                return False
+        return True
 
     @staticmethod
     def _paired_nodes(node: Any, withholding: str) -> list[Mapping[str, Any]]:
@@ -790,17 +812,19 @@ class _StatementQuestions:
         for pin in row.get("pins") or []:
             if not isinstance(pin, Mapping) or pin.get("role") != "input":
                 continue
-            finding = self._state.findings.get(str(pin.get("id")))
-            fact_id = str(finding.get("fact_id")) if isinstance(finding, Mapping) else ""
-            fact = facts.get(fact_id)
-            if (withholding and fact_id.partition("|")[0] in paired_types
-                    and (fact is None or (self._current_finding_ids is not None
-                                         and pin["id"] not in self._current_finding_ids))):
-                return None
+            pin_id = str(pin.get("id"))
+            finding = self._state.findings.get(pin_id)
+            fact_id = finding.get("fact_id") if isinstance(finding, Mapping) else None
+            fact = facts.get(fact_id) if isinstance(fact_id, str) else None
             if fact is None:
+                # A resolved derived publication cannot be a source row in the pairing.
+                if withholding and not (pin.get("origin") == "derived" and pin_id in self._publications):
+                    return None
                 continue
+            if withholding and fact.fact_type_id in paired_types and pin_id not in self._current_ids():
+                return None
             rows_by_name.setdefault(fact.fact_type_id, []).append(
-                PairedSourceRow(finding_id=str(pin["id"]), keys=tuple(fact.keys)))
+                PairedSourceRow(finding_id=pin_id, keys=tuple(fact.keys)))
         coverage = paired_coverage(node, rows_by_name)
         if coverage.bad:
             return None
@@ -818,6 +842,8 @@ class _StatementQuestions:
                 if statement not in identities:
                     continue
                 if not all(keys.get(key) for key in names):
+                    return None
+                if withholding and not self._valid_withholding_identity(fact_type, keys):
                     return None
                 identities[statement].add(tuple((key, keys[key]) for key in names))
         if any(len(matches) != 1 for matches in identities.values()):
@@ -1526,7 +1552,7 @@ def _statement_reasons(
             if withholding:
                 statement_label.pop("lender", None)
             label = statement_label.get("statement")
-            if label is None:
+            if label is None or (withholding and not label.strip()):
                 entries = []
                 break
             entries.append((label, fact_id, {"sentence": sentence, "statementLabel": statement_label}))

@@ -106,3 +106,15 @@ def test_line25b_names_unanswered_withholding_statements(name: str) -> None:
         assert indices == list(range(indices[0], indices[0] + len(indices)))
     else:
         assert refs == []
+
+
+def test_t1_04_blank_statement_label_keeps_the_generic_question() -> None:
+    probe = evidence_loader.load(WITHHOLDING_PROBE, "withholding_statement_labels_live_probe")
+    acts = probe.return_with_amounts("int", (None, None))
+    probe.label_statements(acts, "int", ("demo Alpha", "   "))
+    saved = rr.saved_output(rr.resolve_core(probe.CORE), probe.close_sale_scope(acts), "demo.blank-label")
+    assert saved["outcome"] == "success", saved
+    sentence = probe.questions()[probe.FORMS["int"].withholding][1]
+    line = next(section["resolved"] for section in saved["model"]["sections"]
+                if section["id"].endswith("line-25b"))
+    assert [reason for reason in line["reasons"] if reason["sentence"] == sentence] == [{"sentence": sentence}]

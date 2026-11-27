@@ -16,13 +16,27 @@ reason and target, with display-only reasons immediately after it. The
 projection keeps the generic reason when it cannot establish the paired
 row, a complete unique identity, or a current label for each target.
 
+## Repair 1
+
+Each regression failed on the Track 1 build and passed with the repair.
+In all five cases the saved reason falls back to the original sentence
+for the whole question.
+
+| Finding | Repair | Regression |
+| --- | --- | --- |
+| T1-01 | Require a reconstructible input read set before recomputing coverage. | Remove one of two pinned income findings and keep the generic reason. |
+| T1-02 | Compute currency from the supplied finding state when the caller omits current finding IDs. | Omit the IDs while the row still pins a retracted finding and keep the generic reason. |
+| T1-03 | Check each recovered entity against its declared kind and current standing, and check the year against the answer declaration. | On synthetic core v110, test a payer of the wrong kind and a year outside the declaration separately. |
+| T1-04 | Treat a whitespace-only statement label as missing. | Save a live core v109 return with one named statement and one three-space label and check the generic line 25b reason. |
+
 ## Replay
 
 [The replay](replay_track1.py) resolves the parent of the
 `build(statement-labels-forms)` commit from Git history at run time. One
 invocation sends the recorded and synthetic lists through parallel
 shards. For each list, both projections use the same input acts, core,
-and run id through the live coordinator.
+and run id through the live coordinator. The summary includes a SHA-256
+digest of the candidate projection used for the repair replay.
 
 The P0 comparator independently builds an expected model from the
 baseline question reasons, the blocked row's current inputs, and the
@@ -43,7 +57,7 @@ python3 docs/phases/engine-breadth/milestones/statement-labels-forms-evidence/re
 
 ## Results
 
-The [summary](replay_track1_summary.json) records 798 comparisons in
+The [repair replay summary](replay_track1_summary.json) records 798 comparisons in
 18 shards with nine workers and zero unexpected differences.
 
 | Corpus | Lists | Matching saves | Matching errors | Lists gaining labels | Labelled reasons added |
