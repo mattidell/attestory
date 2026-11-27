@@ -16,6 +16,7 @@ and no form-identifier-aware scheduling (E11.3 posture).
 from __future__ import annotations
 
 import json
+from collections.abc import Mapping
 from pathlib import Path
 from typing import Any, cast
 
@@ -187,6 +188,33 @@ STATEMENT_QUESTION_NEEDS: dict[str, frozenset[str]] = {
         f"tax.us.2025.f1099b.{kind}-txn.box4-amount-needed" for kind in _F1099B_SALE_KINDS
     ),
 }
+
+# ADR 0089 amendment. The line 25b withholding answers use these exact
+# entity keys and a literal tax-year. SSA-1099 has no payer in its identity.
+_WITHHOLDING_STATEMENT_QUESTION_ENTITIES: dict[str, dict[str, str]] = {
+    "tax.us.2025.f1099int.box4-withholding": {
+        "payer": "tax.us.interest-payer", "statement": "tax.us.1099int-statement",
+    },
+    "tax.us.2025.f1099div.box4-withholding": {
+        "payer": "tax.us.dividend-payer", "statement": "tax.us.1099div-statement",
+    },
+    "tax.us.2025.f1099r.ira-box4-withholding": {
+        "payer": "tax.us.ira-payer", "statement": "tax.us.1099r-statement",
+    },
+    "tax.us.2025.f1099g.box4-withholding": {
+        "payer": "tax.us.unemployment-payer", "statement": "tax.us.1099g-statement",
+    },
+    "tax.us.2025.ssa1099.box6-voluntary-withholding": {
+        "statement": "tax.us.ssa1099-statement",
+    },
+}
+
+
+def withholding_statement_question_entities(package_id: str, version: str) -> Mapping[str, Mapping[str, str]]:
+    """Return the line 25b answer identity shapes admitted from core v109."""
+    if labels_statement_questions(package_id, version) and _version_rank(version) >= 109:
+        return _WITHHOLDING_STATEMENT_QUESTION_ENTITIES
+    return {}
 
 
 def labels_statement_questions(package_id: str, version: str) -> bool:

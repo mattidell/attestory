@@ -10,10 +10,11 @@ from packages.derivation.presentation_projection import (
     _StatementQuestions,
     _answer_explanation_sentences,
     _closure_question_reasons,
+    _expand_withholding_reasons,
 )
 from packages.kernel.facts import EntityLifecycle, KernelState, fact_id_for
 from packages.kernel.findings import FindingState
-from packages.tax.loader import labels_statement_questions
+from packages.tax.loader import labels_statement_questions, withholding_statement_question_entities
 
 KIND = "demo.statement"
 SALE = "demo.sale"
@@ -151,3 +152,112 @@ def test_unattributed_question_keeps_the_original_sentence(kwargs: dict[str, Any
 
 def test_missing_label_keeps_the_original_sentence() -> None:
     assert _walk(("demo A", "")) == PLAIN
+
+
+def test_withholding_expansion_preserves_existing_link_targets() -> None:
+    linked = {"sentence": "Enter the linked demo statement answer."}
+    later = {"sentence": "Enter another demo answer."}
+    refs = [{"groupId": "demo.linked", "reasonIndices": [1], "scopes": []},
+            {"groupId": "demo.later", "reasonIndices": [2], "scopes": []}]
+    linked_label = {**_labelled("demo C")[0], **linked}
+    assert _expand_withholding_reasons(
+        [*PLAIN, linked, later], refs, {SENTENCE: _labelled("demo A", "demo B"), linked["sentence"]: [linked_label]},
+    ) == [*_labelled("demo A", "demo B"), linked, linked_label, later]
+    assert refs == [{"groupId": "demo.linked", "reasonIndices": [2], "scopes": []},
+                    {"groupId": "demo.later", "reasonIndices": [4], "scopes": []}]
+
+
+@pytest.mark.parametrize("case", [
+    "labelled", "no paired row", "extra unpaired cause", "ambiguous pairing",
+    "wrong join key", "missing identity key", "ambiguous identity", "incompatible declaration",
+    "all covered", "missing label", "displaced statement", "stale finding", "older core",
+    pytest.param("unresolved pin", id="T1-01-unresolved-pin"),
+    pytest.param("retracted without currency", id="T1-02-retracted-without-currency"),
+    pytest.param("wrong payer kind", id="T1-03-wrong-payer-kind"),
+    pytest.param("year outside declaration", id="T1-03-year-outside-declaration"),
+])
+def test_line25b_withholding_attribution_fails_closed(case: str) -> None:
+    answer = "tax.us.2025.f1099int.box4-withholding"
+    package = "tax.us.2025.package.core-calculations"
+    rule = "tax.us.2025.rule.form1040-line25b"
+    payer_kind = "tax.us.interest-payer"
+    statement_kind = "tax.us.1099int-statement"
+    entity_keys = [
+        {"kind": "entity", "name": "payer", "entity_kind": payer_kind},
+        {"kind": "entity", "name": "statement", "entity_kind": statement_kind},
+    ]
+    year_key = {"kind": "literal", "name": "tax-year", "values": ["2025"]}
+    answer_keys = [*entity_keys, year_key]
+    income_keys = answer_keys
+    income_payer_kind = payer_kind
+    if case == "missing identity key":
+        income_keys = [entity_keys[1], year_key]
+    if case == "incompatible declaration":
+        answer_keys = [year_key, *entity_keys, year_key]
+    if case == "wrong payer kind":
+        income_payer_kind = "demo.other-payer"
+        income_keys = [{**entity_keys[0], "entity_kind": income_payer_kind}, entity_keys[1], year_key]
+    if case == "year outside declaration":
+        answer_keys = [*entity_keys, {**year_key, "values": ["2026"]}]
+    state = FindingState(fact_state=KernelState(
+        entities={
+            "demo.payer-a": EntityLifecycle({"kind": income_payer_kind, "label": "demo payer A"}, "current"),
+            "demo.payer-b": EntityLifecycle({"kind": payer_kind, "label": "demo payer B"}, "current"),
+            "demo.statement-a": EntityLifecycle({"kind": statement_kind, "label": "demo Alpha"}, "current"),
+            "demo.statement-b": EntityLifecycle(
+                {"kind": statement_kind, "label": "" if case == "missing label" else "demo Bravo"},
+                "displaced" if case == "displaced statement" else "current",
+            ),
+        },
+        fact_types={
+            name: {"id": name, "version": "v1", "nature": "ordinary", "identity_keys": keys}
+            for name, keys in ((SALE, income_keys), (answer, answer_keys))
+        },
+    ), retracted_finding_ids=frozenset({"demo.finding-0"}) if case == "retracted without currency" else frozenset())
+    pins: list[dict[str, str]] = []
+    current: set[str] = set()
+
+    def pin(fact_type: str, statement: str, payer: str = "demo.payer-a") -> None:
+        keys = {"payer": payer, "statement": statement, "tax-year": "2025"}
+        declaration = state.fact_state.fact_types[fact_type]
+        identity = tuple((key["name"], keys[key["name"]]) for key in declaration["identity_keys"])
+        finding = f"demo.finding-{len(pins)}"
+        state.findings[finding] = {"fact_id": fact_id_for(fact_type, identity), "value": 0}
+        pins.append({"role": "input", "id": finding})
+        current.add(finding)
+
+    pin(SALE, "demo.statement-b")
+    pin(SALE, "demo.statement-a")
+    if case == "unresolved pin":
+        del state.findings["demo.finding-0"]
+    if case == "ambiguous identity":
+        pin(SALE, "demo.statement-b", "demo.payer-b")
+    if case == "all covered":
+        pin(answer, "demo.statement-a")
+        pin(answer, "demo.statement-b")
+    if case == "stale finding":
+        current.remove("demo.finding-0")
+    node = {"op": "require_paired", "key": "payer" if case == "wrong join key" else "statement",
+            "income": [SALE], "withholding": answer}
+    rules = {rule: {"value": [node, node] if case == "ambiguous pairing" else node}}
+    pair_row = {"disposition": "blocked", "code": "DEPENDENCY_ABSENT", "pins": pins,
+                "artifact_id": "demo.unpaired" if case == "no paired row" else rule, "missing": [answer]}
+    by_symbol = {"demo.pair": [pair_row]}
+    line = {"disposition": "blocked", "code": "DEPENDENCY_ABSENT",
+            "missing": ["demo.pair", answer] if case == "extra unpaired cause" else ["demo.pair"]}
+    members = [{"schema": "input-question.v1", "fact_type": {"id": answer}, "question": SENTENCE}]
+    version = "v108" if case == "older core" else "v109"
+    if case in {"wrong payer kind", "year outside declaration"}:
+        version = "v110"
+    questions = _StatementQuestions(
+        rules_by_id=rules, state=state, resolved_members=members, publications_by_id={},
+        by_symbol=by_symbol, entity_kinds=frozenset(), needs={},
+        withholding_entities=withholding_statement_question_entities(package, version),
+        current_finding_ids=None if case == "retracted without currency" else frozenset(current),
+    )
+    expansions: dict[str, list[dict[str, Any]]] = {}
+    assert _closure_question_reasons(
+        line, resolved_members=members, by_symbol=by_symbol, later_any_arm_refs=True,
+        statement_questions=questions, withholding_reasons_out=expansions,
+    ) == PLAIN
+    assert expansions == ({SENTENCE: _labelled("demo Alpha", "demo Bravo")} if case == "labelled" else {})

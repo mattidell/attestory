@@ -20,6 +20,7 @@ MILESTONES = REPO / "docs/phases/engine-breadth/milestones"
 PROBE = MILESTONES / "statement-question-labels-evidence/probe.py"
 CHECKER = MILESTONES / "page-plain-words-evidence/check_page_dom.mjs"
 PAGE = REPO / "packages/presentation/pages/citation-walk.v1.html"
+WITHHOLDING_PROBE = MILESTONES / "statement-labels-forms-evidence/probe.py"
 
 
 @pytest.mark.parametrize("case", [
@@ -73,3 +74,47 @@ def test_the_saved_page_names_each_unanswered_statement(case: str) -> None:
         names = Counter(text.strip() for text in result["first_read_text"].splitlines()
                         if text.strip().startswith("demo statement") and text.strip().endswith(":"))
         assert names == expected_by_line[line]
+
+
+@pytest.mark.parametrize("name", [
+    *(f"demo.{form}.{shape}" for form in ("int", "div", "ira", "g", "ssa")
+      for shape in ("single", "two-missing", "three-one-zero")),
+    "demo.int.same-label",
+    "demo.int.withholding-only-offset",
+    "demo.int.unclosed",
+])
+def test_line25b_names_unanswered_withholding_statements(name: str) -> None:
+    probe = evidence_loader.load(WITHHOLDING_PROBE, "withholding_statement_labels_live_probe")
+    case = probe.cases()[name]
+    saved = rr.saved_output(rr.resolve_core(probe.CORE), case.acts, name)
+    assert saved["outcome"] == "success", saved
+    fact_type = probe.FORMS[case.form].withholding
+    sentence = probe.questions()[fact_type][1]
+    line = next(section["resolved"] for section in saved["model"]["sections"]
+                if section["id"].endswith("line-25b"))
+    reasons = line.get("reasons", [])
+    indices = [index for index, reason in enumerate(reasons) if reason["sentence"] == sentence]
+    labels = [{"sentence": sentence, "statementLabel": {"statement": label, "taxYear": "2025"}}
+              for label in case.labels]
+    linked = name in {"demo.int.single", "demo.ssa.single"}
+    assert [reasons[index] for index in indices] == ([{"sentence": sentence}] if linked else []) + labels
+    group_ids = {group["id"] for group in saved["model"]["questionGroups"]
+                 if group["answerTarget"]["factTypeId"] == fact_type}
+    refs = [ref for ref in line.get("questionRefs", []) if ref["groupId"] in group_ids]
+    if linked:
+        assert [ref["reasonIndices"] for ref in refs] == [[indices[0]]]
+        assert indices == list(range(indices[0], indices[0] + len(indices)))
+    else:
+        assert refs == []
+
+
+def test_t1_04_blank_statement_label_keeps_the_generic_question() -> None:
+    probe = evidence_loader.load(WITHHOLDING_PROBE, "withholding_statement_labels_live_probe")
+    acts = probe.return_with_amounts("int", (None, None))
+    probe.label_statements(acts, "int", ("demo Alpha", "   "))
+    saved = rr.saved_output(rr.resolve_core(probe.CORE), probe.close_sale_scope(acts), "demo.blank-label")
+    assert saved["outcome"] == "success", saved
+    sentence = probe.questions()[probe.FORMS["int"].withholding][1]
+    line = next(section["resolved"] for section in saved["model"]["sections"]
+                if section["id"].endswith("line-25b"))
+    assert [reason for reason in line["reasons"] if reason["sentence"] == sentence] == [{"sentence": sentence}]

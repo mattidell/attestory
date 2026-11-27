@@ -1,0 +1,41 @@
+{
+  "baseline": "2d9140754787e3afac953ba85ef8dfa6e14aa6c4",
+  "build": "e2be198413bd6cd7c4767911e451e6233fefe3e7",
+  "candidate_projection_sha256": "b1a842982c6735ae81e33924068e5afd56255c8be71cbf9f867bb365e4841b76",
+  "controls": {
+    "missing_label": "rejected",
+    "spurious_label_on_closure_block": "rejected",
+    "swapped_labels": "rejected"
+  },
+  "core": "v109",
+  "dom_checks": [
+    "demo.div.two-missing",
+    "demo.g.two-missing",
+    "demo.int.single",
+    "demo.int.three-one-zero",
+    "demo.int.two-missing",
+    "demo.ira.two-missing",
+    "demo.ssa.single",
+    "demo.ssa.two-missing"
+  ],
+  "recorded": {
+    "labelled_reasons": 8,
+    "lists": 775,
+    "lists_gaining_labels": 2,
+    "outcomes": {
+      "error": 84,
+      "success": 691
+    }
+  },
+  "shards": 18,
+  "synthetic": {
+    "labelled_reasons": 168,
+    "lists": 23,
+    "lists_gaining_labels": 17,
+    "outcomes": {
+      "success": 23
+    }
+  },
+  "unexpected_differences": 0,
+  "workers": 9
+}
