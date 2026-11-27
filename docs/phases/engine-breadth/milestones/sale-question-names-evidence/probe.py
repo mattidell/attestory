@@ -44,6 +44,11 @@ def cases() -> dict[str, tuple[Sale, ...]]:
         "demo.mixed-terms": (Sale(ZULU, condition="gain"), Sale(ALPHA, "lt", "exceeds")),
         "demo.missing-adjustment": (Sale(ZULU, condition="missing-adjustment"), Sale(PEER)),
         "demo.missing-basis": (Sale(ZULU, condition="missing-basis"), Sale(PEER)),
+        "demo.long-missing-basis": (Sale(ZULU, "lt", "missing-basis"), Sale(PEER, "lt")),
+        "demo.long-missing-proceeds": (
+            Sale(ZULU, "lt", "missing-proceeds"), Sale(ALPHA, "lt", "missing-proceeds"), Sale(PEER, "lt"),
+        ),
+        "demo.long-amounts-disagree": (Sale(ZULU, "lt", "wrong-basis"), Sale(PEER, "lt")),
         "demo.missing-proceeds": (Sale(ZULU, condition="missing-proceeds"), Sale(PEER)),
         "demo.amounts-disagree": (
             Sale(ZULU, condition="wrong-proceeds"), Sale(ALPHA, condition="wrong-basis"), Sale(PEER),
@@ -51,6 +56,8 @@ def cases() -> dict[str, tuple[Sale, ...]]:
         "demo.holding-period": (Sale(ZULU, condition="wrong-term"), Sale(PEER)),
         "demo.blank-label": (Sale(" ", condition="gain"), Sale(ALPHA, condition="exceeds")),
         "demo.repeated-label": (Sale(ALPHA, condition="gain"), Sale(ALPHA, condition="exceeds")),
+        "demo.near-labels": (Sale(ALPHA, condition="gain"), Sale("  demo alpha  shares", condition="exceeds")),
+        "demo.id-label": (Sale("demo.sfa.demo.sale-names.0.sale", condition="gain"), Sale(PEER)),
         "demo.repeated-with-peer": (Sale(ALPHA, condition="gain"), Sale(ALPHA)),
         "demo.all-valid": (Sale(ZULU), Sale(ALPHA)),
         "demo.single-sale": (Sale(ZULU, condition="gain"),),
@@ -122,12 +129,15 @@ def observe(acts: rr.Acts, key: str, core: str = CORE) -> dict:
         census["questions"] = found
         census["rows"] = [
             row for row in kwargs["dispositions"]
-            if "no1099b" in row["artifact_id"]
-            and (row["disposition"] == "blocked" or "amounts-agree" in row["artifact_id"])
+            if ("no1099b" in row["artifact_id"]
+                and (row["disposition"] == "blocked" or "amounts-agree" in row["artifact_id"]))
+            or any(item in by_type for item in row.get("missing", ()))
         ]
-        census["validation_publications"] = [
+        census["sale_publications"] = [
             pub.finding for pub in kwargs["publications"]
-            if "no1099b" in pub.finding["symbol"] and ".member-validation.synthesized." in pub.finding["symbol"]
+            if "no1099b" in pub.finding["symbol"] and any(
+                marker in pub.finding["symbol"] for marker in (".member-validation.synthesized.", ".amounts-agree")
+            )
         ]
         return model
 
