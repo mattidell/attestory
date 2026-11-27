@@ -28,7 +28,7 @@ from tools import recorded_replay as rr
 BASE = "c1d060d738cc83ab59adc0981092c0358bfcea50"
 PROJECTION = "packages/derivation/presentation_projection.py"
 RECORDED_TOTAL = 775
-SYNTHETIC_GAIN = 17
+EXPECTED_GAIN = {"recorded": 2, "synthetic": 17}
 
 
 @cache
@@ -411,6 +411,15 @@ def summarize(results: dict) -> dict:
     }
 
 
+def require_gain_totals(summaries: dict[str, dict], *, cases_only: bool = False) -> None:
+    for name, expected in EXPECTED_GAIN.items():
+        if cases_only and name == "recorded":
+            continue
+        observed = summaries[name]["lists_gaining_labels"]
+        if observed != expected:
+            raise ValueError(f"{name}: expected {expected} lists gaining labels, got {observed}")
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--cases-only", action="store_true")
@@ -446,15 +455,14 @@ def main() -> None:
         raise ValueError(f"missing failing controls: {controls_run}")
     case_results = {key: results[key] for key, _, _ in cases}
     corpus_results = {key: results[key] for key, _, _ in recorded}
-    synthetic = summarize(case_results)
-    if synthetic["lists_gaining_labels"] != SYNTHETIC_GAIN:
-        raise ValueError("synthetic lists gaining labels differ from the hand-written matrix")
+    summaries = {"recorded": summarize(corpus_results), "synthetic": summarize(case_results)}
+    require_gain_totals(summaries, cases_only=args.cases_only)
     out = {
         "baseline": BASE, "core": rr.core_fingerprint(core),
         "baseline_projection_sha256": hashlib.sha256(baseline_source().encode()).hexdigest(),
         "scratch_projection_sha256": hashlib.sha256(scratch_source().encode()).hexdigest(),
         "shards": shards, "workers": args.workers,
-        "recorded": summarize(corpus_results), "synthetic": synthetic,
+        **summaries,
         "case_labels_on_line_25b": {key: row["expected_labels"] for key, row in case_results.items()},
         "saved_page_dom_checks": [key for key, row in case_results.items() if row["dom_checked"]],
         "controls": controls_run,
