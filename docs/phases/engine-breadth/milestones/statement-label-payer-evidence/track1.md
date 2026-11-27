@@ -1,0 +1,91 @@
+# Track 1 — Payer and broker names on repeated statement labels
+
+The saved page appends a recorded payer or broker name to an attributed
+statement question when the exact statement label is shared by current
+statements of the same form and tax year. Each statement in the group
+must have one current party of the expected kind, and the names must
+distinguish all the statements after case folding and whitespace
+collapse. An answered statement still counts. The page preserves the
+recorded spelling and spacing in the prefix.
+
+Forms 1099-INT, 1099-DIV, IRA-family 1099-R and 1099-G use the payer in
+the attributed answer identity. Form 1099-B box 4 and box 7 use the
+broker from the sale findings read by the originating pairing. A
+current 1099-B statement anchor can establish a peer. SSA-1099 remains
+statement-only.
+
+## Inputs and controls
+
+The focused tests in `tests/test_statement_payer_labels.py` exercise
+each supported question with repeated labels, an answered peer, and
+statement labels differing only in case or spacing. They also exercise
+SSA-1099, compatible successor eligibility and the earlier-core gate.
+The following controls remove or corrupt inputs used to display a name.
+
+| Input | Control |
+| --- | --- |
+| Exact answer identity and adopted question version | Remove the question version or pin a successor with an extra key. Remove the target statement, year or payer key, or supply an out-of-contract year. |
+| Originating paired block | Move the pairing to an inactive arm and produce the same missing type from a separate block. |
+| Originating adoption pin matches the run's core (T1-01) | Change the Box 7 row's pin from v109 to v108, use another package, remove the pin, or add a conflicting pin. Each case keeps the original statement reasons. |
+| Adopted sale types for the originating broker rule (T1-02) | On a compatible v110 fixture, remove an unused sale type from the eight-type Box 4 and Box 7 pairings. Both preserve the statement reasons and omit the broker names. A separate positive control exercises the adopted one-family Box 7 rule. |
+| Compatible declared identities for every source (R1) | On v110, change the payer or broker key from entity to literal while retaining the same key values. Exercise the adopted and workspace declarations separately, including paired income, an unused sale type, and a statement anchor. Each case keeps the statement reasons. |
+| Core version eligible for party names (R3) | Match the v108 walker with a v108 row pin. The v109 fixture has the same evidence and displays names. |
+| Current findings and exact paired input pins | Retract a peer while omitting the precomputed currency argument. Make a paired pin stale, remove it, point it to a missing finding, or corrupt its version or origin. |
+| Current same-form, same-year statement identity and plain label text | Blank a statement label, substitute another statement kind or move the peer's finding to another year. Distinct case and spacing stay distinct. |
+| One party per statement, with agreement across contributing records | Give one statement contradictory parties or remove its broker key. Add another sale of the same statement and remove its pin or change its broker. |
+| Current party of the expected kind and usable recorded name | Displace the party, change its kind, remove or blank its label, repeat the party identity, or supply equal or near-equal names. |
+| Display-only saved reason | Remove or blank the statement or year, use a blank or non-string name, add an answer fact or member label, or reference the payer-labelled reason from a question group. |
+
+The browser test in `tests/test_presentation_question_groups_v3.py`
+asserts the complete visible question with a payer name containing
+repeated spaces and an ampersand. It checks the absence of a question
+group link.
+
+The six fallback cases for T1-01 and T1-02 failed before the repair.
+All six passed in the 180-test targeted run after the repair.
+The eight source-identity cases for R1 failed before Repair 2 and
+passed after it. Opening the version gate during a separate R3 control
+made the v108 assertion fail with the matching row pin still in place.
+
+## Full-surface replay
+
+Run from the repository root.
+
+```sh
+python3 docs/phases/engine-breadth/milestones/statement-label-payer-evidence/replay_track1.py \
+  --workers 9 \
+  --out docs/phases/engine-breadth/milestones/statement-label-payer-evidence/replay_track1_summary.json
+```
+
+The script resolves the parent of the unique commit beginning
+`build(statement-label-payer)` from `HEAD` history. It prints the
+resolved commit IDs and records the build subject and lookup method
+in the summary. Both projections use the live coordinator with the
+same act list, run identity, core
+v109, registry v107 and release v107. The shared run uses 38 shards.
+The comparator checks the exact expected name at each reason index,
+the order of the names, and each corpus's count of changed lists. It
+compares the entire saved model and report after applying only the
+expected insertions to the baseline. Successful saves use structural
+equality, including the order of pin and report-row lists and the exact
+generated finding IDs (T1-03).
+
+| Corpus | Lists | Successful saves | Matching errors | Lists gaining names | Names added |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Recorded | 775 | 691 | 84 | 0 | 0 |
+| Synthetic | 21 | 21 | 0 | 10 | 174 |
+
+Five controls remove one name, swap two names, add a name where
+statement labels differ, reorder two derived pins in a report row, or
+replace a derived finding ID throughout the model and report. The exact
+comparison rejects all five. The page script renders the expected
+prefixes beside the original question
+in the 20 synthetic cases with a labelled question. The all-answered
+case has no labelled question. The text observer agrees at each expected
+name position. The replay records zero other differences across the
+saved model and report. [Replay summary](replay_track1_summary.json)
+
+Repair 2 also checked startup in a full-history single-branch clone
+with no `origin/main`. The Track 1 resolver found the curated build and
+parent, and the P0 probe passed all 46 controls after checking its
+baseline against `HEAD`.

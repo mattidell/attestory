@@ -82,6 +82,7 @@
 
   .diagnostic { margin-top:.6rem; padding:.5rem .75rem; background:var(--diag-bg); border-radius:6px; font-size:.9rem; }
   .diagnostic.suppressed { opacity:.85; font-style:italic; }
+  .statement-payer-label { white-space:pre-wrap; }
 
   section.line.blocked-line { border:3px solid var(--blocked-bg); background: var(--error-bg); }
   .blocked-banner { display:flex; align-items:flex-start; gap:.6rem; }
@@ -1465,8 +1466,9 @@ function renderLine(container, section) {
       const which = ordinal ? " (the " + (ORDINAL_WORDS[ordinal - 1] || "number " + ordinal) + " one you added with this name)" : "";
       const name = typeof reason.memberLabel === "string" && reason.memberLabel
         ? reason.memberLabel + which
-        : [label.statement, label.lender].filter((part) => typeof part === "string" && part).join(", ");
-      return [el("li", { id: isLine21 ? "line21-reason-" + index : undefined }, name ? [el("strong", null, [name + ": "]), reason.sentence] : [reason.sentence])];
+        : [label.statement, reason.statementPayerLabel || label.lender].filter((part) => typeof part === "string" && part).join(", ");
+      const prefixAttrs = reason.statementPayerLabel ? { class: "statement-payer-label" } : null;
+      return [el("li", { id: isLine21 ? "line21-reason-" + index : undefined }, name ? [el("strong", prefixAttrs, [name + ": "]), reason.sentence] : [reason.sentence])];
     });
     // When the line says why it is blocked, that is its explanation: the
     // field's blocked sentence and the code's heading and remedy would

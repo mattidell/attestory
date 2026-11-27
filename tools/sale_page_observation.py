@@ -727,13 +727,10 @@ def _labeled_reason_text(reason: dict[str, Any]) -> str:
             name = f"{member} (the {word} one you added with this name)"
     else:
         label = reason.get("statementLabel")
-        parts: list[str] = []
-        if isinstance(label, dict):
-            for key in ("statement", "lender"):
-                part = label.get(key)
-                if isinstance(part, str) and part:
-                    parts.append(part)
-        name = ", ".join(parts)
+        if not isinstance(label, dict):
+            label = {}
+        parts = (label.get("statement"), reason.get("statementPayerLabel") or label.get("lender"))
+        name = ", ".join(part for part in parts if isinstance(part, str) and part)
     sentence = str(reason.get("sentence") or "")
     return f"{name}: {sentence}" if name else sentence
 
