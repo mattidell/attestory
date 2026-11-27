@@ -1317,6 +1317,21 @@ so each person's questions sit together. A member reason with the same
 sentence as a selection or fact question stays visible and is not linked
 to that question. All 775 recorded lists replay identical.
 
+## Bounded return — A Required Schedule D With No Sale Says What To Do Next (2025)
+
+[Plan](milestones/line16-next-step.md); retrospective:
+`docs/milestone-retrospectives/2026-11-26-line16-next-step.md`.
+Content and projection (ADR 0091): core v109, registry v107, release v107;
+new `answer-explanation.v1`, admitted by `artifact-package.v45`.
+
+On a return where Schedule D is required and no sale is recorded, a "no"
+answer to an Exception 1 question now adds a sentence to the blocked
+line's "Why:" list. The sentence says what the filer answered, to change
+the answer if it is wrong, and otherwise to record the sale or that this
+calculation does not cover the return. Existing question links are unchanged. 801 recorded and
+synthetic lists replay with no number, disposition or code change; 25
+gain an explanation.
+
 ## Hardening — Derivation Schema Capability Table Consolidation
 
 [Plan](milestones/rule-artifact-capability-table-consolidation.md); retrospective:
@@ -1555,10 +1570,8 @@ delivers an item removes it.
   and only gain the label (Decision 6).
 - Questions about a sale with no Form 1099-B do not name the sale
   (ADR 0089, Parked).
-- When the failing Exception 1 answers on a required-Schedule-D return
-  with no sale are right, the page names the criteria but gives no
-  explicit next step (record the sale or unsupported work) and does not
-  show the current answer (line16-names L16-R2; page guidance).
+- Other questions could declare answer explanations (ADR 0091, which
+  adopts only the four Exception 1 "no" sentences).
 - Recorded lists produce only one of the six optional model blocks
   (`line21Explanation`); the mortgage, Form 1099-K and provenance
   blocks are reached only by synthetic cases, so a full-surface replay

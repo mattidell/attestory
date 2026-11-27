@@ -1903,6 +1903,8 @@ class C8bCandidateAgainstCurrentPackageValidation(unittest.TestCase):
                 "artifact-package.v43.schema.json",
                 # v44 (ADR 0088) is v43 plus family-block-explanation.v1 only.
                 "artifact-package.v44.schema.json",
+                # v45 (ADR 0091) is v44 plus answer-explanation.v1 only.
+                "artifact-package.v45.schema.json",
             ],
         )
 

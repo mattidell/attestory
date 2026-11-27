@@ -1,0 +1,11 @@
+{
+  "schema": "answer-explanation.v1",
+  "id": "tax.us.2025.answer-explanation.exception1-no-qof-deferral-no",
+  "version": "v1",
+  "fact_type": {
+    "id": "tax.us.2025.exception1.no-qof-deferral",
+    "version": "v1"
+  },
+  "value": "no",
+  "explanation": "You answered no to the question about deferring a gain in a qualified opportunity fund, so you must file Form 8949 and Schedule D. If that is wrong, change your answer. If it is right, this calculation does not cover your return."
+}

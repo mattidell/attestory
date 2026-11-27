@@ -1,0 +1,1972 @@
+diff --git a/packages/content/tax/2025/answer-explanation.exception1-no-boxes-2b-2c-2d-no.v1.json b/packages/content/tax/2025/answer-explanation.exception1-no-boxes-2b-2c-2d-no.v1.json
+new file mode 100644
+index 0000000..02dfab4
+--- /dev/null
++++ b/packages/content/tax/2025/answer-explanation.exception1-no-boxes-2b-2c-2d-no.v1.json
+@@ -0,0 +1,11 @@
++{
++  "schema": "answer-explanation.v1",
++  "id": "tax.us.2025.answer-explanation.exception1-no-boxes-2b-2c-2d-no",
++  "version": "v1",
++  "fact_type": {
++    "id": "tax.us.2025.exception1.no-boxes-2b-2c-2d",
++    "version": "v1"
++  },
++  "value": "no",
++  "explanation": "You answered no to the question about boxes 2b, 2c and 2d of Form 1099-DIV, so you must file Schedule D. If that is wrong, change your answer. If it is right, this calculation does not cover your return."
++}
+diff --git a/packages/content/tax/2025/answer-explanation.exception1-no-capital-losses-no.v1.json b/packages/content/tax/2025/answer-explanation.exception1-no-capital-losses-no.v1.json
+new file mode 100644
+index 0000000..15c97de
+--- /dev/null
++++ b/packages/content/tax/2025/answer-explanation.exception1-no-capital-losses-no.v1.json
+@@ -0,0 +1,11 @@
++{
++  "schema": "answer-explanation.v1",
++  "id": "tax.us.2025.answer-explanation.exception1-no-capital-losses-no",
++  "version": "v1",
++  "fact_type": {
++    "id": "tax.us.2025.exception1.no-capital-losses",
++    "version": "v1"
++  },
++  "value": "no",
++  "explanation": "You answered no to the question about capital losses, so you must file Schedule D. If that is wrong, change your answer. If it is right, record each sale you must report; if you have no sale to record, this calculation does not cover your return."
++}
+diff --git a/packages/content/tax/2025/answer-explanation.exception1-no-qof-deferral-no.v1.json b/packages/content/tax/2025/answer-explanation.exception1-no-qof-deferral-no.v1.json
+new file mode 100644
+index 0000000..fd48e87
+--- /dev/null
++++ b/packages/content/tax/2025/answer-explanation.exception1-no-qof-deferral-no.v1.json
+@@ -0,0 +1,11 @@
++{
++  "schema": "answer-explanation.v1",
++  "id": "tax.us.2025.answer-explanation.exception1-no-qof-deferral-no",
++  "version": "v1",
++  "fact_type": {
++    "id": "tax.us.2025.exception1.no-qof-deferral",
++    "version": "v1"
++  },
++  "value": "no",
++  "explanation": "You answered no to the question about deferring a gain in a qualified opportunity fund, so you must file Form 8949 and Schedule D. If that is wrong, change your answer. If it is right, this calculation does not cover your return."
++}
+diff --git a/packages/content/tax/2025/answer-explanation.exception1-only-box2a-capital-gains-no.v1.json b/packages/content/tax/2025/answer-explanation.exception1-only-box2a-capital-gains-no.v1.json
+new file mode 100644
+index 0000000..f827f38
+--- /dev/null
++++ b/packages/content/tax/2025/answer-explanation.exception1-only-box2a-capital-gains-no.v1.json
+@@ -0,0 +1,11 @@
++{
++  "schema": "answer-explanation.v1",
++  "id": "tax.us.2025.answer-explanation.exception1-only-box2a-capital-gains-no",
++  "version": "v1",
++  "fact_type": {
++    "id": "tax.us.2025.exception1.only-box2a-capital-gains",
++    "version": "v1"
++  },
++  "value": "no",
++  "explanation": "You answered no to the question about capital gains and sales other than box 2a of Form 1099-DIV, so you must file Schedule D. If that is wrong, change your answer. If it is right, record each sale you must report; if you have no sale to record, this calculation does not cover your return."
++}
+diff --git a/packages/derivation/authorization_closure.py b/packages/derivation/authorization_closure.py
+index d2731d9..efd77fe 100644
+--- a/packages/derivation/authorization_closure.py
++++ b/packages/derivation/authorization_closure.py
+@@ -29,6 +29,7 @@ from typing import Any, Mapping
+ 
+ from packages.derivation.package_validation import (
+     CLOSURE_MAPPING_SCHEMAS,
++    ANSWER_EXPLANATION_SCHEMAS,
+     FAMILY_BLOCK_EXPLANATION_SCHEMAS,
+     INPUT_QUESTION_SCHEMAS,
+     _iter_bound_source_names,
+@@ -309,7 +310,7 @@ def build_dependency_edges(
+                 elif closed and isinstance(fact_id, str):
+                     edges[cid].update(bundles_for_fact.get(fact_id, set()))
+ 
+-        elif schema in INPUT_QUESTION_SCHEMAS:
++        elif schema in INPUT_QUESTION_SCHEMAS or schema in ANSWER_EXPLANATION_SCHEMAS:
+             fact_pin = citizen.get("fact_type")
+             if isinstance(fact_pin, dict):
+                 fact_id = fact_pin.get("id")
+diff --git a/packages/derivation/loader.py b/packages/derivation/loader.py
+index 3770e65..3b389a0 100644
+--- a/packages/derivation/loader.py
++++ b/packages/derivation/loader.py
+@@ -74,6 +74,7 @@ ROLE_VOCABULARY = frozenset(
+         "source-closure-mapping",
+         "input-question",
+         "family-block-explanation",
++        "answer-explanation",
+         "fact-type",
+         "fact-type-bundle",
+         "dividend-universe",
+diff --git a/packages/derivation/package_validation.py b/packages/derivation/package_validation.py
+index 16bbb6b..aa688ef 100644
+--- a/packages/derivation/package_validation.py
++++ b/packages/derivation/package_validation.py
+@@ -337,6 +337,9 @@ CLOSURE_MAPPING_SCHEMAS = frozenset({
+ INPUT_QUESTION_SCHEMAS = frozenset({"input-question.v1"})
+ # ADR 0088: plain explanations and optional fixing fact types per (family_id, block_code).
+ FAMILY_BLOCK_EXPLANATION_SCHEMAS = frozenset({"family-block-explanation.v1"})
++# Proposed (line16-next-step P0 scratch): a plain explanation for one recorded
++# answer value of one fact type whose declared question holds up a line.
++ANSWER_EXPLANATION_SCHEMAS = frozenset({"answer-explanation.v1"})
+ 
+ # ADR-0066 Decision 7: closed supported-semantic-schema set. A registry-valid
+ # member whose schema is absent here is rejected with MEMBER_SCHEMA_UNSUPPORTED
+@@ -362,6 +365,7 @@ _SUPPORTED_SEMANTIC_SCHEMAS = frozenset({
+     "migration-artifact.v1",
+     *sorted(INPUT_QUESTION_SCHEMAS),
+     *sorted(FAMILY_BLOCK_EXPLANATION_SCHEMAS),
++    *sorted(ANSWER_EXPLANATION_SCHEMAS),
+     "operation-semantics.v1",
+     "operation-semantics.v2",
+     "parameter-declaration.v1",
+@@ -2095,6 +2099,10 @@ def validate_package(
+             if pin_role != "family-block-explanation":
+                 issues.append(MemberIssue(pin["id"], pin["version"], "ROLE_MISMATCH",
+                                            f"family-block-explanation declared as role {pin_role!r}"))
++        elif citizen["schema"] in ANSWER_EXPLANATION_SCHEMAS:
++            if pin_role != "answer-explanation":
++                issues.append(MemberIssue(pin["id"], pin["version"], "ROLE_MISMATCH",
++                                           f"answer-explanation declared as role {pin_role!r}"))
+         elif citizen["schema"] == "taxable-interest-composition.v1":
+             if pin_role != "composition":
+                 issues.append(MemberIssue(pin["id"], pin["version"], "ROLE_MISMATCH",
+@@ -2193,6 +2201,11 @@ def validate_package(
+             if ft_pin and (ft_pin["id"], ft_pin["version"]) not in fact_surface:
+                 issues.append(MemberIssue(pin["id"], pin["version"], "FAMILY_BLOCK_EXPLANATION_FACT_TYPE_NOT_ADMITTED",
+                                           f"family-block-explanation fact_type {(ft_pin['id'], ft_pin['version'])} not in package fact surface"))
++        if citizen["schema"] in ANSWER_EXPLANATION_SCHEMAS:
++            ft_pin = citizen.get("fact_type")
++            if ft_pin and (ft_pin["id"], ft_pin["version"]) not in fact_surface:
++                issues.append(MemberIssue(pin["id"], pin["version"], "ANSWER_EXPLANATION_FACT_TYPE_NOT_ADMITTED",
++                                          f"answer-explanation fact_type {(ft_pin['id'], ft_pin['version'])} not in package fact surface"))
+ 
+         # Form-field binds symbol & citation validation
+         if citizen["schema"] in {"form-field.v1", "form-field.v2", "form-field.v3"}:
+@@ -2251,6 +2264,35 @@ def validate_package(
+                 fbe_pin["id"], fbe_pin["version"], "FAMILY_BLOCK_EXPLANATION_QUESTION_ABSENT",
+                 f"no input-question citizen for fact_type {(ft_pin['id'], ft_pin['version'])!r}",
+             ))
++    fact_type_bodies: dict[tuple[str, str], Mapping[str, Any]] = {}
++    for _, c in resolved:
++        if c["schema"] in {"bundle.v1", "bundle.v2"}:
++            for ft in c.get("fact_types", []):
++                if isinstance(ft, dict) and isinstance(ft.get("id"), str) and isinstance(ft.get("version"), str):
++                    fact_type_bodies[(ft["id"], ft["version"])] = ft
++    seen_ae: set[tuple[str, str, str]] = set()
++    for ae_pin, ae_cit in resolved:
++        if ae_cit["schema"] not in ANSWER_EXPLANATION_SCHEMAS:
++            continue
++        ft_key = (ae_cit["fact_type"]["id"], ae_cit["fact_type"]["version"])
++        if ft_key not in iq_fact_types:
++            issues.append(MemberIssue(
++                ae_pin["id"], ae_pin["version"], "ANSWER_EXPLANATION_QUESTION_ABSENT",
++                f"no input-question citizen for fact_type {ft_key!r}",
++            ))
++        body = fact_type_bodies.get(ft_key)
++        domain = ((body or {}).get("value_schema") or {}).get("enum")
++        if not isinstance(domain, list) or ae_cit["value"] not in domain:
++            issues.append(MemberIssue(
++                ae_pin["id"], ae_pin["version"], "ANSWER_EXPLANATION_VALUE_OUTSIDE_DOMAIN",
++                f"value {ae_cit['value']!r} is not in the declared answer domain of {ft_key!r}",
++            ))
++        if (*ft_key, ae_cit["value"]) in seen_ae:
++            issues.append(MemberIssue(
++                ae_pin["id"], ae_pin["version"], "ANSWER_EXPLANATION_DUPLICATE",
++                f"duplicate explanation for ({ft_key!r}, {ae_cit['value']!r})",
++            ))
++        seen_ae.add((*ft_key, ae_cit["value"]))
+     declared_line2b = resolved_by_key.get((_DECLARED_LINE2B_ID, _DECLARED_LINE2B_VERSION))
+     aggregate_key = (_NOMINEE_AGGREGATE_ID, _NOMINEE_AGGREGATE_VERSION)
+     aggregate_member = resolved_by_key.get(aggregate_key)
+@@ -3349,6 +3391,12 @@ def validate_package(
+                     adj[m_id].add(ft_pin["id"])
+                 elif ft_pin and closed_v2_surface:
+                     adj[m_id].update(bundles_for_fact.get(ft_pin["id"], set()))
++            elif citizen["schema"] in ANSWER_EXPLANATION_SCHEMAS:
++                ft_pin = citizen.get("fact_type")
++                if ft_pin and ft_pin["id"] in member_ids:
++                    adj[m_id].add(ft_pin["id"])
++                elif ft_pin and closed_v2_surface:
++                    adj[m_id].update(bundles_for_fact.get(ft_pin["id"], set()))
+             elif citizen["schema"] in FAMILY_BLOCK_EXPLANATION_SCHEMAS:
+                 if citizen["family_id"] in member_ids:
+                     adj[m_id].add(citizen["family_id"])
+diff --git a/packages/derivation/presentation_projection.py b/packages/derivation/presentation_projection.py
+index e365cc4..2f53489 100644
+--- a/packages/derivation/presentation_projection.py
++++ b/packages/derivation/presentation_projection.py
+@@ -630,6 +630,60 @@ class _RosterMembers:
+         return bool(entity_keys) and all(name in names for name in entity_keys)
+ 
+ 
++def _answer_explanation_sentences(
++    resolved_members: Sequence[Mapping[str, Any]],
++    state: FindingState,
++    *,
++    current_finding_ids: frozenset[str] | None,
++) -> dict[str, str]:
++    """Declared sentences for current answers (proposed answer-explanation.v1).
++
++    Keys are exact fact ids, plus a fact type id when exactly one fact of that
++    type has a current answer with a declared sentence. A fact with more than
++    one current finding, or whose type version is not the pinned one, gets
++    none. Nothing is composed: the sentence is the citizen's ``explanation``.
++    """
++    declared: dict[tuple[str, str, str], str] = {}
++    for member in resolved_members:
++        if not str(member.get("schema", "")).startswith("answer-explanation."):
++            continue
++        pin = member.get("fact_type")
++        if (isinstance(pin, Mapping) and isinstance(pin.get("id"), str) and isinstance(pin.get("version"), str)
++                and isinstance(member.get("value"), str) and isinstance(member.get("explanation"), str)):
++            declared[(pin["id"], pin["version"], member["value"])] = member["explanation"]
++    if not declared:
++        return {}
++    current_ids = current_finding_ids
++    if current_ids is None:
++        from packages.kernel.currency import compute_currency
++
++        current_ids = compute_currency(state).current_finding_ids
++    fact_map = facts_of(state.fact_state)
++    values: dict[str, set[Any]] = {}
++    for finding_id in current_ids:
++        finding = state.findings.get(finding_id)
++        fact_id = finding.get("fact_id") if isinstance(finding, Mapping) else None
++        if isinstance(fact_id, str) and fact_id in fact_map:
++            values.setdefault(fact_id, set()).add(json.dumps(finding.get("value"), sort_keys=True))
++    found: dict[str, str] = {}
++    by_type: dict[str, list[str]] = {}
++    for fact_id, encoded in values.items():
++        if len(encoded) != 1:
++            continue
++        value = json.loads(next(iter(encoded)))
++        fact = fact_map[fact_id]
++        body = state.fact_state.fact_types.get(fact.fact_type_id)
++        version = body.get("version") if isinstance(body, Mapping) else None
++        sentence = declared.get((fact.fact_type_id, str(version), value)) if isinstance(value, str) else None
++        if sentence:
++            found[fact_id] = sentence
++            by_type.setdefault(fact.fact_type_id, []).append(fact_id)
++    for fact_type_id, fact_ids in by_type.items():
++        if len(fact_ids) == 1:
++            found[fact_type_id] = found[fact_ids[0]]
++    return found
++
++
+ def _closure_question_reasons(
+     row: Mapping[str, Any],
+     *,
+@@ -650,6 +704,7 @@ def _closure_question_reasons(
+     member_violation_targets: Mapping[tuple[str, str], set[str]] | None = None,
+     collision_sentence: str | None = None,
+     collision_category_labels: Mapping[str, str] | None = None,
++    answer_explanations: Mapping[str, str] | None = None,
+ ) -> list[dict[str, Any]]:
+     """The declared question for every cause a blocked line waits on and a filer can answer.
+ 
+@@ -750,9 +805,18 @@ def _closure_question_reasons(
+         for fact_type, references in (question_refs_by_fact_type or {}).items()
+     }
+ 
++    def add_answer_explanation(key: str, fact_type: str) -> None:
++        # Proposed answer-explanation.v1: a current answer with a declared
++        # sentence is explained beside its question. An exact fact id is used
++        # as given; a bare type only when one fact of it has such an answer.
++        sentence = (answer_explanations or {}).get(key if "|" in key else fact_type)
++        if sentence:
++            frames[-1].extras.add(sentence)
++
+     def record_input_fact(key: str, bound: str) -> bool:
+         """Record a declared question while retaining any exact answer target."""
+         if bound in input_questions:
++            add_answer_explanation(key, bound)
+             frames[-1].facts.add(bound)
+             if key in question_target_ids.get(bound, set()):
+                 frames[-1].fact_targets.add((bound, key))
+@@ -766,6 +830,7 @@ def _closure_question_reasons(
+         # exact known type prefix, then keep the complete fact id for linking.
+         for fact_type in sorted(input_questions, key=len, reverse=True):
+             if key.startswith(fact_type + "|"):
++                add_answer_explanation(key, fact_type)
+                 frames[-1].facts.add(fact_type)
+                 if key in question_target_ids.get(fact_type, set()):
+                     frames[-1].fact_targets.add((fact_type, key))
+@@ -5566,6 +5631,9 @@ def build_presentation_model(
+         authoritative_acts=authoritative_acts,
+     )
+     roster_members = _RosterMembers(rules_by_id, state)
++    answer_explanations = _answer_explanation_sentences(
++        resolved_members, state, current_finding_ids=current_finding_ids,
++    )
+     member_violation_targets: dict[tuple[str, str], set[str]] = {}
+     for pub in publications_by_id.values():
+         sym = str(pub.get("symbol") or "")
+@@ -5641,6 +5709,7 @@ def build_presentation_model(
+             "member_violation_targets": member_violation_targets,
+             "collision_sentence": collision_sentence,
+             "collision_category_labels": collision_category_labels,
++            "answer_explanations": answer_explanations,
+         }
+         mixed_blocker = _line9_mixed_blocker_explanation(
+             field, row, by_symbol, adopted_package,
+diff --git a/packages/derivation/schema_capabilities.py b/packages/derivation/schema_capabilities.py
+index c0f4e65..158fce7 100644
+--- a/packages/derivation/schema_capabilities.py
++++ b/packages/derivation/schema_capabilities.py
+@@ -252,7 +252,7 @@ ARTIFACT_PACKAGE_CAPABILITIES: dict[str, ArtifactPackageCapabilities] = {
+         universe_guard_active=(3 <= v <= 17),
+         enforces_reader_role=(v >= 34),
+     )
+-    for v in range(1, 45)
++    for v in range(1, 46)
+     if v != 27
+ }
+ 
+diff --git a/packages/schemas/derivation/answer-explanation.v1.schema.json b/packages/schemas/derivation/answer-explanation.v1.schema.json
+new file mode 100644
+index 0000000..b11f21b
+--- /dev/null
++++ b/packages/schemas/derivation/answer-explanation.v1.schema.json
+@@ -0,0 +1,61 @@
++{
++  "$schema": "https://json-schema.org/draft/2020-12/schema",
++  "$id": "derivation/answer-explanation.v1",
++  "title": "Declared plain explanation for one recorded answer that holds up a line",
++  "description": "Maps one (fact type, value) pair to a filer-facing sentence. The projection shows it beside the declared question when a blocked line's question walk names that fact and the fact's current answer has that value: it says what the answer means for the line and what to do next. The fact type's adopted input-question citizen stays the question. Does not change the fact type, the question, any rule or any value.",
++  "type": "object",
++  "properties": {
++    "schema": {
++      "const": "answer-explanation.v1"
++    },
++    "id": {
++      "type": "string",
++      "minLength": 1
++    },
++    "version": {
++      "type": "string",
++      "pattern": "^v[0-9]+$"
++    },
++    "fact_type": {
++      "$ref": "#/$defs/pin"
++    },
++    "value": {
++      "type": "string",
++      "minLength": 1
++    },
++    "explanation": {
++      "type": "string",
++      "minLength": 1,
++      "pattern": "\\S"
++    }
++  },
++  "required": [
++    "schema",
++    "id",
++    "version",
++    "fact_type",
++    "value",
++    "explanation"
++  ],
++  "additionalProperties": false,
++  "$defs": {
++    "pin": {
++      "type": "object",
++      "properties": {
++        "id": {
++          "type": "string",
++          "minLength": 1
++        },
++        "version": {
++          "type": "string",
++          "pattern": "^v[0-9]+$"
++        }
++      },
++      "required": [
++        "id",
++        "version"
++      ],
++      "additionalProperties": false
++    }
++  }
++}
+diff --git a/packages/schemas/derivation/artifact-package.v45.schema.json b/packages/schemas/derivation/artifact-package.v45.schema.json
+new file mode 100644
+index 0000000..1c6415a
+--- /dev/null
++++ b/packages/schemas/derivation/artifact-package.v45.schema.json
+@@ -0,0 +1,1522 @@
++{
++    "$defs": {
++        "exact_pin": {
++            "additionalProperties": false,
++            "properties": {
++                "id": {
++                    "minLength": 1,
++                    "type": "string"
++                },
++                "version": {
++                    "pattern": "^v[0-9]+$",
++                    "type": "string"
++                }
++            },
++            "required": [
++                "id",
++                "version"
++            ],
++            "type": "object"
++        },
++        "member": {
++            "additionalProperties": false,
++            "properties": {
++                "id": {
++                    "minLength": 1,
++                    "type": "string"
++                },
++                "role": {
++                    "enum": [
++                        "parameter",
++                        "computation",
++                        "applicability",
++                        "field-mapping",
++                        "cross-form-bridge",
++                        "form-field",
++                        "source-family",
++                        "source-closure-mapping",
++                        "input-question",
++                        "composition",
++                        "fact-type",
++                        "fact-type-bundle",
++                        "citation",
++                        "operation-semantics",
++                        "dividend-universe",
++                        "attachment-rule",
++                        "checked-conclusion-binding",
++                        "migration-artifact",
++                        "family-block-explanation",
++                        "answer-explanation"
++                    ]
++                },
++                "schema": {
++                    "enum": [
++                        "attachment-rule.v1",
++                        "attachment-rule.v2",
++                        "attachment-rule.v3",
++                        "attachment-rule.v4",
++                        "attachment-rule.v5",
++                        "attachment-rule.v6",
++                        "attachment-rule.v8",
++                        "attachment-rule.v11",
++                        "attachment-rule.v12",
++                        "bundle.v2",
++                        "checked-conclusion-binding.v1",
++                        "citation.v1",
++                        "dividend-universe.v1",
++                        "dividend-universe.v2",
++                        "dividend-universe.v3",
++                        "dividend-universe.v4",
++                        "fact-type.v2",
++                        "form-field.v2",
++                        "form-field.v3",
++                        "input-question.v1",
++                        "migration-artifact.v1",
++                        "operation-semantics.v2",
++                        "parameter-declaration.v1",
++                        "quantity-vocabulary.v1",
++                        "quantity-vocabulary.v10",
++                        "quantity-vocabulary.v11",
++                        "quantity-vocabulary.v12",
++                        "quantity-vocabulary.v2",
++                        "quantity-vocabulary.v3",
++                        "quantity-vocabulary.v4",
++                        "quantity-vocabulary.v5",
++                        "quantity-vocabulary.v6",
++                        "quantity-vocabulary.v7",
++                        "quantity-vocabulary.v8",
++                        "quantity-vocabulary.v9",
++                        "role-canon.v1",
++                        "rule-artifact.v2",
++                        "rule-artifact.v3",
++                        "rule-artifact.v4",
++                        "rule-artifact.v5",
++                        "rule-artifact.v6",
++                        "rule-artifact.v7",
++                        "rule-artifact.v8",
++                        "rule-artifact.v9",
++                        "rule-artifact.v10",
++                        "source-closure-mapping.v2",
++                        "source-closure-mapping.v3",
++                        "source-closure-mapping.v4",
++                        "source-family.v1",
++                        "source-family.v2",
++                        "taxable-interest-composition.v1",
++                        "rule-artifact.v11",
++                        "rule-artifact.v12",
++                        "rule-artifact.v13",
++                        "rule-artifact.v14",
++                        "rule-artifact.v15",
++                        "rule-artifact.v16",
++                        "rule-artifact.v17",
++                        "family-block-explanation.v1",
++                        "answer-explanation.v1"
++                    ]
++                },
++                "version": {
++                    "pattern": "^v[0-9]+$",
++                    "type": "string"
++                }
++            },
++            "required": [
++                "role",
++                "schema",
++                "id",
++                "version"
++            ],
++            "type": "object"
++        },
++        "member_ref": {
++            "additionalProperties": false,
++            "properties": {
++                "id": {
++                    "minLength": 1,
++                    "type": "string"
++                },
++                "version": {
++                    "pattern": "^v[0-9]+$",
++                    "type": "string"
++                }
++            },
++            "required": [
++                "id",
++                "version"
++            ],
++            "type": "object"
++        },
++        "scope": {
++            "additionalProperties": false,
++            "properties": {
++                "family": {
++                    "minLength": 1,
++                    "type": "string"
++                },
++                "jurisdiction": {
++                    "minLength": 1,
++                    "type": "string"
++                },
++                "tax_year": {
++                    "type": "integer"
++                }
++            },
++            "required": [
++                "family",
++                "jurisdiction",
++                "tax_year"
++            ],
++            "type": "object"
++        }
++    },
++    "$id": "derivation/artifact-package.v45",
++    "$schema": "https://json-schema.org/draft/2020-12/schema",
++    "allOf": [
++        {
++            "if": {
++                "properties": {
++                    "members": {
++                        "contains": {
++                            "properties": {
++                                "schema": {
++                                    "const": "rule-artifact.v2"
++                                }
++                            },
++                            "required": [
++                                "schema"
++                            ]
++                        }
++                    }
++                },
++                "required": [
++                    "members"
++                ]
++            },
++            "then": {
++                "properties": {
++                    "admitted_schemas": {
++                        "contains": {
++                            "const": "rule-artifact.v2"
++                        }
++                    }
++                }
++            }
++        },
++        {
++            "if": {
++                "properties": {
++                    "members": {
++                        "contains": {
++                            "properties": {
++                                "schema": {
++                                    "const": "rule-artifact.v9"
++                                }
++                            },
++                            "required": [
++                                "schema"
++                            ]
++                        }
++                    }
++                },
++                "required": [
++                    "members"
++                ]
++            },
++            "then": {
++                "properties": {
++                    "admitted_schemas": {
++                        "contains": {
++                            "const": "rule-artifact.v9"
++                        }
++                    }
++                }
++            }
++        },
++        {
++            "if": {
++                "properties": {
++                    "members": {
++                        "contains": {
++                            "properties": {
++                                "schema": {
++                                    "const": "rule-artifact.v10"
++                                }
++                            },
++                            "required": [
++                                "schema"
++                            ]
++                        }
++                    }
++                },
++                "required": [
++                    "members"
++                ]
++            },
++            "then": {
++                "properties": {
++                    "admitted_schemas": {
++                        "contains": {
++                            "const": "rule-artifact.v10"
++                        }
++                    }
++                }
++            }
++        },
++        {
++            "if": {
++                "properties": {
++                    "members": {
++                        "contains": {
++                            "properties": {
++                                "schema": {
++                                    "const": "rule-artifact.v3"
++                                }
++                            },
++                            "required": [
++                                "schema"
++                            ]
++                        }
++                    }
++                },
++                "required": [
++                    "members"
++                ]
++            },
++            "then": {
++                "properties": {
++                    "admitted_schemas": {
++                        "contains": {
++                            "const": "rule-artifact.v3"
++                        }
++                    }
++                }
++            }
++        },
++        {
++            "if": {
++                "properties": {
++                    "members": {
++                        "contains": {
++                            "properties": {
++                                "schema": {
++                                    "const": "rule-artifact.v4"
++                                }
++                            },
++                            "required": [
++                                "schema"
++                            ]
++                        }
++                    }
++                },
++                "required": [
++                    "members"
++                ]
++            },
++            "then": {
++                "properties": {
++                    "admitted_schemas": {
++                        "contains": {
++                            "const": "rule-artifact.v4"
++                        }
++                    }
++                }
++            }
++        },
++        {
++            "if": {
++                "properties": {
++                    "members": {
++                        "contains": {
++                            "properties": {
++                                "schema": {
++                                    "const": "attachment-rule.v2"
++                                }
++                            },
++                            "required": [
++                                "schema"
++                            ]
++                        }
++                    }
++                },
++                "required": [
++                    "members"
++                ]
++            },
++            "then": {
++                "properties": {
++                    "admitted_schemas": {
++                        "contains": {
++                            "const": "attachment-rule.v2"
++                        }
++                    }
++                }
++            }
++        },
++        {
++            "if": {
++                "properties": {
++                    "members": {
++                        "contains": {
++                            "properties": {
++                                "schema": {
++                                    "const": "attachment-rule.v2"
++                                }
++                            },
++                            "required": [
++                                "schema"
++                            ]
++                        }
++                    }
++                },
++                "required": [
++                    "members"
++                ]
++            },
++            "then": {
++                "properties": {
++                    "members": {
++                        "contains": {
++                            "properties": {
++                                "role": {
++                                    "const": "attachment-rule"
++                                },
++                                "schema": {
++                                    "const": "attachment-rule.v2"
++                                }
++                            },
++                            "required": [
++                                "role",
++                                "schema"
++                            ]
++                        }
++                    }
++                }
++            }
++        },
++        {
++            "if": {
++                "properties": {
++                    "members": {
++                        "contains": {
++                            "properties": {
++                                "schema": {
++                                    "const": "attachment-rule.v3"
++                                }
++                            },
++                            "required": [
++                                "schema"
++                            ]
++                        }
++                    }
++                },
++                "required": [
++                    "members"
++                ]
++            },
++            "then": {
++                "properties": {
++                    "admitted_schemas": {
++                        "contains": {
++                            "const": "attachment-rule.v3"
++                        }
++                    }
++                }
++            }
++        },
++        {
++            "if": {
++                "properties": {
++                    "members": {
++                        "contains": {
++                            "properties": {
++                                "schema": {
++                                    "const": "attachment-rule.v3"
++                                }
++                            },
++                            "required": [
++                                "schema"
++                            ]
++                        }
++                    }
++                },
++                "required": [
++                    "members"
++                ]
++            },
++            "then": {
++                "properties": {
++                    "members": {
++                        "contains": {
++                            "properties": {
++                                "role": {
++                                    "const": "attachment-rule"
++                                },
++                                "schema": {
++                                    "const": "attachment-rule.v3"
++                                }
++                            },
++                            "required": [
++                                "role",
++                                "schema"
++                            ]
++                        }
++                    }
++                }
++            }
++        },
++        {
++            "if": {
++                "properties": {
++                    "members": {
++                        "contains": {
++                            "properties": {
++                                "schema": {
++                                    "const": "attachment-rule.v4"
++                                }
++                            },
++                            "required": [
++                                "schema"
++                            ]
++                        }
++                    }
++                },
++                "required": [
++                    "members"
++                ]
++            },
++            "then": {
++                "properties": {
++                    "admitted_schemas": {
++                        "contains": {
++                            "const": "attachment-rule.v4"
++                        }
++                    }
++                }
++            }
++        },
++        {
++            "if": {
++                "properties": {
++                    "members": {
++                        "contains": {
++                            "properties": {
++                                "schema": {
++                                    "const": "attachment-rule.v4"
++                                }
++                            },
++                            "required": [
++                                "schema"
++                            ]
++                        }
++                    }
++                },
++                "required": [
++                    "members"
++                ]
++            },
++            "then": {
++                "properties": {
++                    "members": {
++                        "contains": {
++                            "properties": {
++                                "role": {
++                                    "const": "attachment-rule"
++                                },
++                                "schema": {
++                                    "const": "attachment-rule.v4"
++                                }
++                            },
++                            "required": [
++                                "role",
++                                "schema"
++                            ]
++                        }
++                    }
++                }
++            }
++        },
++        {
++            "if": {
++                "properties": {
++                    "members": {
++                        "contains": {
++                            "properties": {
++                                "schema": {
++                                    "const": "attachment-rule.v5"
++                                }
++                            },
++                            "required": [
++                                "schema"
++                            ]
++                        }
++                    }
++                },
++                "required": [
++                    "members"
++                ]
++            },
++            "then": {
++                "properties": {
++                    "admitted_schemas": {
++                        "contains": {
++                            "const": "attachment-rule.v5"
++                        }
++                    }
++                }
++            }
++        },
++        {
++            "if": {
++                "properties": {
++                    "members": {
++                        "contains": {
++                            "properties": {
++                                "schema": {
++                                    "const": "attachment-rule.v5"
++                                }
++                            },
++                            "required": [
++                                "schema"
++                            ]
++                        }
++                    }
++                },
++                "required": [
++                    "members"
++                ]
++            },
++            "then": {
++                "properties": {
++                    "members": {
++                        "contains": {
++                            "properties": {
++                                "role": {
++                                    "const": "attachment-rule"
++                                },
++                                "schema": {
++                                    "const": "attachment-rule.v5"
++                                }
++                            },
++                            "required": [
++                                "role",
++                                "schema"
++                            ]
++                        }
++                    }
++                }
++            }
++        },
++        {
++            "if": {
++                "properties": {
++                    "members": {
++                        "contains": {
++                            "properties": {
++                                "schema": {
++                                    "const": "attachment-rule.v6"
++                                }
++                            },
++                            "required": [
++                                "schema"
++                            ]
++                        }
++                    }
++                },
++                "required": [
++                    "members"
++                ]
++            },
++            "then": {
++                "properties": {
++                    "admitted_schemas": {
++                        "contains": {
++                            "const": "attachment-rule.v6"
++                        }
++                    }
++                }
++            }
++        },
++        {
++            "if": {
++                "properties": {
++                    "members": {
++                        "contains": {
++                            "properties": {
++                                "schema": {
++                                    "const": "attachment-rule.v6"
++                                }
++                            },
++                            "required": [
++                                "schema"
++                            ]
++                        }
++                    }
++                },
++                "required": [
++                    "members"
++                ]
++            },
++            "then": {
++                "properties": {
++                    "members": {
++                        "contains": {
++                            "properties": {
++                                "role": {
++                                    "const": "attachment-rule"
++                                },
++                                "schema": {
++                                    "const": "attachment-rule.v6"
++                                }
++                            },
++                            "required": [
++                                "role",
++                                "schema"
++                            ]
++                        }
++                    }
++                }
++            }
++        },
++        {
++            "if": {
++                "properties": {
++                    "members": {
++                        "contains": {
++                            "properties": {
++                                "schema": {
++                                    "const": "migration-artifact.v1"
++                                }
++                            },
++                            "required": [
++                                "schema"
++                            ]
++                        }
++                    }
++                },
++                "required": [
++                    "members"
++                ]
++            },
++            "then": {
++                "properties": {
++                    "admitted_schemas": {
++                        "contains": {
++                            "const": "migration-artifact.v1"
++                        }
++                    }
++                }
++            }
++        },
++        {
++            "if": {
++                "properties": {
++                    "members": {
++                        "contains": {
++                            "properties": {
++                                "schema": {
++                                    "const": "source-family.v2"
++                                }
++                            },
++                            "required": [
++                                "schema"
++                            ]
++                        }
++                    }
++                },
++                "required": [
++                    "members"
++                ]
++            },
++            "then": {
++                "properties": {
++                    "admitted_schemas": {
++                        "contains": {
++                            "const": "source-family.v2"
++                        }
++                    }
++                }
++            }
++        },
++        {
++            "if": {
++                "properties": {
++                    "members": {
++                        "contains": {
++                            "properties": {
++                                "schema": {
++                                    "const": "source-family.v2"
++                                }
++                            },
++                            "required": [
++                                "schema"
++                            ]
++                        }
++                    }
++                },
++                "required": [
++                    "members"
++                ]
++            },
++            "then": {
++                "properties": {
++                    "members": {
++                        "contains": {
++                            "properties": {
++                                "role": {
++                                    "const": "source-family"
++                                },
++                                "schema": {
++                                    "const": "source-family.v2"
++                                }
++                            },
++                            "required": [
++                                "role",
++                                "schema"
++                            ]
++                        }
++                    }
++                }
++            }
++        },
++        {
++            "if": {
++                "properties": {
++                    "members": {
++                        "contains": {
++                            "properties": {
++                                "schema": {
++                                    "const": "rule-artifact.v5"
++                                }
++                            },
++                            "required": [
++                                "schema"
++                            ]
++                        }
++                    }
++                },
++                "required": [
++                    "members"
++                ]
++            },
++            "then": {
++                "properties": {
++                    "admitted_schemas": {
++                        "contains": {
++                            "const": "rule-artifact.v5"
++                        }
++                    }
++                }
++            }
++        },
++        {
++            "if": {
++                "properties": {
++                    "members": {
++                        "contains": {
++                            "properties": {
++                                "schema": {
++                                    "const": "rule-artifact.v5"
++                                }
++                            },
++                            "required": [
++                                "schema"
++                            ]
++                        }
++                    }
++                },
++                "required": [
++                    "members"
++                ]
++            },
++            "then": {
++                "properties": {
++                    "admitted_schemas": {
++                        "contains": {
++                            "const": "rule-artifact.v5"
++                        }
++                    }
++                }
++            }
++        },
++        {
++            "if": {
++                "properties": {
++                    "members": {
++                        "contains": {
++                            "properties": {
++                                "schema": {
++                                    "const": "attachment-rule.v8"
++                                }
++                            },
++                            "required": [
++                                "schema"
++                            ]
++                        }
++                    }
++                },
++                "required": [
++                    "members"
++                ]
++            },
++            "then": {
++                "properties": {
++                    "admitted_schemas": {
++                        "contains": {
++                            "const": "attachment-rule.v8"
++                        }
++                    }
++                }
++            }
++        },
++        {
++            "if": {
++                "properties": {
++                    "members": {
++                        "contains": {
++                            "properties": {
++                                "schema": {
++                                    "const": "attachment-rule.v8"
++                                }
++                            },
++                            "required": [
++                                "schema"
++                            ]
++                        }
++                    }
++                },
++                "required": [
++                    "members"
++                ]
++            },
++            "then": {
++                "properties": {
++                    "members": {
++                        "contains": {
++                            "properties": {
++                                "role": {
++                                    "const": "attachment-rule"
++                                },
++                                "schema": {
++                                    "const": "attachment-rule.v8"
++                                }
++                            },
++                            "required": [
++                                "role",
++                                "schema"
++                            ]
++                        }
++                    }
++                }
++            }
++        },
++        {
++            "if": {
++                "properties": {
++                    "members": {
++                        "contains": {
++                            "properties": {
++                                "schema": {
++                                    "const": "rule-artifact.v6"
++                                }
++                            },
++                            "required": [
++                                "schema"
++                            ]
++                        }
++                    }
++                },
++                "required": [
++                    "members"
++                ]
++            },
++            "then": {
++                "properties": {
++                    "admitted_schemas": {
++                        "contains": {
++                            "const": "rule-artifact.v6"
++                        }
++                    }
++                }
++            }
++        },
++        {
++            "if": {
++                "properties": {
++                    "members": {
++                        "contains": {
++                            "properties": {
++                                "schema": {
++                                    "const": "rule-artifact.v7"
++                                }
++                            },
++                            "required": [
++                                "schema"
++                            ]
++                        }
++                    }
++                },
++                "required": [
++                    "members"
++                ]
++            },
++            "then": {
++                "properties": {
++                    "admitted_schemas": {
++                        "contains": {
++                            "const": "rule-artifact.v7"
++                        }
++                    }
++                }
++            }
++        },
++        {
++            "if": {
++                "properties": {
++                    "members": {
++                        "contains": {
++                            "properties": {
++                                "schema": {
++                                    "const": "rule-artifact.v8"
++                                }
++                            },
++                            "required": [
++                                "schema"
++                            ]
++                        }
++                    }
++                },
++                "required": [
++                    "members"
++                ]
++            },
++            "then": {
++                "properties": {
++                    "admitted_schemas": {
++                        "contains": {
++                            "const": "rule-artifact.v8"
++                        }
++                    }
++                }
++            }
++        },
++        {
++            "if": {
++                "properties": {
++                    "members": {
++                        "contains": {
++                            "properties": {
++                                "schema": {
++                                    "const": "attachment-rule.v11"
++                                }
++                            },
++                            "required": [
++                                "schema"
++                            ]
++                        }
++                    }
++                },
++                "required": [
++                    "members"
++                ]
++            },
++            "then": {
++                "properties": {
++                    "admitted_schemas": {
++                        "contains": {
++                            "const": "attachment-rule.v11"
++                        }
++                    },
++                    "members": {
++                        "contains": {
++                            "properties": {
++                                "role": {
++                                    "const": "attachment-rule"
++                                },
++                                "schema": {
++                                    "const": "attachment-rule.v11"
++                                }
++                            },
++                            "required": [
++                                "role",
++                                "schema"
++                            ]
++                        }
++                    }
++                }
++            }
++        },
++        {
++            "if": {
++                "properties": {
++                    "members": {
++                        "contains": {
++                            "properties": {
++                                "schema": {
++                                    "const": "rule-artifact.v11"
++                                }
++                            },
++                            "required": [
++                                "schema"
++                            ]
++                        }
++                    }
++                },
++                "required": [
++                    "members"
++                ]
++            },
++            "then": {
++                "properties": {
++                    "admitted_schemas": {
++                        "contains": {
++                            "const": "rule-artifact.v11"
++                        }
++                    }
++                }
++            }
++        },
++        {
++            "if": {
++                "properties": {
++                    "members": {
++                        "contains": {
++                            "properties": {
++                                "schema": {
++                                    "const": "rule-artifact.v12"
++                                }
++                            },
++                            "required": [
++                                "schema"
++                            ]
++                        }
++                    }
++                },
++                "required": [
++                    "members"
++                ]
++            },
++            "then": {
++                "properties": {
++                    "admitted_schemas": {
++                        "contains": {
++                            "const": "rule-artifact.v12"
++                        }
++                    }
++                }
++            }
++        },
++        {
++            "if": {
++                "properties": {
++                    "members": {
++                        "contains": {
++                            "properties": {
++                                "schema": {
++                                    "const": "rule-artifact.v13"
++                                }
++                            },
++                            "required": [
++                                "schema"
++                            ]
++                        }
++                    }
++                },
++                "required": [
++                    "members"
++                ]
++            },
++            "then": {
++                "properties": {
++                    "admitted_schemas": {
++                        "contains": {
++                            "const": "rule-artifact.v13"
++                        }
++                    }
++                }
++            }
++        },
++        {
++            "if": {
++                "properties": {
++                    "members": {
++                        "contains": {
++                            "properties": {
++                                "schema": {
++                                    "const": "rule-artifact.v14"
++                                }
++                            },
++                            "required": [
++                                "schema"
++                            ]
++                        }
++                    }
++                },
++                "required": [
++                    "members"
++                ]
++            },
++            "then": {
++                "properties": {
++                    "admitted_schemas": {
++                        "contains": {
++                            "const": "rule-artifact.v14"
++                        }
++                    }
++                }
++            }
++        },
++        {
++            "if": {
++                "properties": {
++                    "members": {
++                        "contains": {
++                            "properties": {
++                                "schema": {
++                                    "const": "rule-artifact.v15"
++                                }
++                            },
++                            "required": [
++                                "schema"
++                            ]
++                        }
++                    }
++                },
++                "required": [
++                    "members"
++                ]
++            },
++            "then": {
++                "properties": {
++                    "admitted_schemas": {
++                        "contains": {
++                            "const": "rule-artifact.v15"
++                        }
++                    }
++                }
++            }
++        },
++        {
++            "if": {
++                "properties": {
++                    "members": {
++                        "contains": {
++                            "properties": {
++                                "schema": {
++                                    "const": "rule-artifact.v16"
++                                }
++                            },
++                            "required": [
++                                "schema"
++                            ]
++                        }
++                    }
++                },
++                "required": [
++                    "members"
++                ]
++            },
++            "then": {
++                "properties": {
++                    "admitted_schemas": {
++                        "contains": {
++                            "const": "rule-artifact.v16"
++                        }
++                    }
++                }
++            }
++        },
++        {
++            "if": {
++                "properties": {
++                    "members": {
++                        "contains": {
++                            "properties": {
++                                "schema": {
++                                    "const": "rule-artifact.v17"
++                                }
++                            },
++                            "required": [
++                                "schema"
++                            ]
++                        }
++                    }
++                },
++                "required": [
++                    "members"
++                ]
++            },
++            "then": {
++                "properties": {
++                    "admitted_schemas": {
++                        "contains": {
++                            "const": "rule-artifact.v17"
++                        }
++                    }
++                }
++            }
++        },
++        {
++            "if": {
++                "properties": {
++                    "members": {
++                        "contains": {
++                            "properties": {
++                                "schema": {
++                                    "const": "source-closure-mapping.v4"
++                                }
++                            },
++                            "required": [
++                                "schema"
++                            ]
++                        }
++                    }
++                },
++                "required": [
++                    "members"
++                ]
++            },
++            "then": {
++                "properties": {
++                    "admitted_schemas": {
++                        "contains": {
++                            "const": "source-closure-mapping.v4"
++                        }
++                    }
++                }
++            }
++        },
++        {
++            "if": {
++                "properties": {
++                    "members": {
++                        "contains": {
++                            "properties": {
++                                "schema": {
++                                    "const": "family-block-explanation.v1"
++                                }
++                            },
++                            "required": [
++                                "schema"
++                            ]
++                        }
++                    }
++                },
++                "required": [
++                    "members"
++                ]
++            },
++            "then": {
++                "properties": {
++                    "admitted_schemas": {
++                        "contains": {
++                            "const": "family-block-explanation.v1"
++                        }
++                    }
++                }
++            }
++        },
++        {
++            "if": {
++                "properties": {
++                    "members": {
++                        "contains": {
++                            "properties": {
++                                "schema": {
++                                    "const": "answer-explanation.v1"
++                                }
++                            },
++                            "required": [
++                                "schema"
++                            ]
++                        }
++                    }
++                },
++                "required": [
++                    "members"
++                ]
++            },
++            "then": {
++                "properties": {
++                    "admitted_schemas": {
++                        "contains": {
++                            "const": "answer-explanation.v1"
++                        }
++                    }
++                }
++            }
++        }
++    ],
++    "description": "Artifact package v45: additive successor to v44, admitting answer-explanation.v1 in both closed member and admitted-schema sets. v44 remains immutable history.",
++    "properties": {
++        "admitted_schemas": {
++            "items": {
++                "enum": [
++                    "attachment-rule.v1",
++                    "attachment-rule.v2",
++                    "attachment-rule.v3",
++                    "attachment-rule.v4",
++                    "attachment-rule.v5",
++                    "attachment-rule.v6",
++                    "attachment-rule.v8",
++                    "attachment-rule.v11",
++                    "attachment-rule.v12",
++                    "bundle.v2",
++                    "checked-conclusion-binding.v1",
++                    "citation.v1",
++                    "dividend-universe.v1",
++                    "dividend-universe.v2",
++                    "dividend-universe.v3",
++                    "dividend-universe.v4",
++                    "fact-type.v2",
++                    "form-field.v2",
++                    "form-field.v3",
++                    "input-question.v1",
++                    "migration-artifact.v1",
++                    "operation-semantics.v2",
++                    "parameter-declaration.v1",
++                    "quantity-vocabulary.v1",
++                    "quantity-vocabulary.v10",
++                    "quantity-vocabulary.v11",
++                    "quantity-vocabulary.v12",
++                    "quantity-vocabulary.v2",
++                    "quantity-vocabulary.v3",
++                    "quantity-vocabulary.v4",
++                    "quantity-vocabulary.v5",
++                    "quantity-vocabulary.v6",
++                    "quantity-vocabulary.v7",
++                    "quantity-vocabulary.v8",
++                    "quantity-vocabulary.v9",
++                    "role-canon.v1",
++                    "rule-artifact.v2",
++                    "rule-artifact.v3",
++                    "rule-artifact.v4",
++                    "rule-artifact.v5",
++                    "rule-artifact.v6",
++                    "rule-artifact.v7",
++                    "rule-artifact.v8",
++                    "rule-artifact.v9",
++                    "rule-artifact.v10",
++                    "source-closure-mapping.v2",
++                    "source-closure-mapping.v3",
++                    "source-closure-mapping.v4",
++                    "source-family.v1",
++                    "source-family.v2",
++                    "taxable-interest-composition.v1",
++                    "rule-artifact.v11",
++                    "rule-artifact.v12",
++                    "rule-artifact.v13",
++                    "rule-artifact.v14",
++                    "rule-artifact.v15",
++                    "rule-artifact.v16",
++                    "rule-artifact.v17",
++                    "family-block-explanation.v1",
++                    "answer-explanation.v1"
++                ]
++            },
++            "minItems": 1,
++            "type": "array",
++            "uniqueItems": true
++        },
++        "composition_obligations": {
++            "items": {
++                "minLength": 1,
++                "type": "string"
++            },
++            "type": "array",
++            "uniqueItems": true
++        },
++        "conflict_semantics": {
++            "items": {
++                "additionalProperties": false,
++                "properties": {
++                    "selected_producer": {
++                        "$ref": "#/$defs/member_ref"
++                    },
++                    "symbol": {
++                        "minLength": 1,
++                        "type": "string"
++                    }
++                },
++                "required": [
++                    "symbol",
++                    "selected_producer"
++                ],
++                "type": "object"
++            },
++            "type": "array"
++        },
++        "entrypoints": {
++            "items": {
++                "$ref": "#/$defs/member_ref"
++            },
++            "minItems": 1,
++            "type": "array",
++            "uniqueItems": true
++        },
++        "id": {
++            "minLength": 1,
++            "type": "string"
++        },
++        "input_bindings": {
++            "items": {
++                "additionalProperties": false,
++                "properties": {
++                    "fact_type": {
++                        "$ref": "#/$defs/exact_pin"
++                    },
++                    "mode": {
++                        "enum": [
++                            "required",
++                            "optional_default"
++                        ]
++                    },
++                    "symbol": {
++                        "minLength": 1,
++                        "type": "string"
++                    }
++                },
++                "required": [
++                    "symbol",
++                    "fact_type",
++                    "mode"
++                ],
++                "type": "object"
++            },
++            "type": "array",
++            "uniqueItems": true
++        },
++        "members": {
++            "items": {
++                "$ref": "#/$defs/member"
++            },
++            "minItems": 1,
++            "type": "array"
++        },
++        "package_checksum": {
++            "pattern": "^[a-f0-9]{64}$",
++            "type": "string"
++        },
++        "schema": {
++            "const": "artifact-package.v45"
++        },
++        "scope": {
++            "$ref": "#/$defs/scope"
++        },
++        "version": {
++            "pattern": "^v[0-9]+$",
++            "type": "string"
++        }
++    },
++    "required": [
++        "schema",
++        "id",
++        "version",
++        "scope",
++        "admitted_schemas",
++        "members",
++        "input_bindings",
++        "entrypoints",
++        "composition_obligations",
++        "package_checksum"
++    ],
++    "title": "Closed package admitting answer-explanation.v1",
++    "type": "object"
++}
+diff --git a/packages/schemas/derivation/published.json b/packages/schemas/derivation/published.json
+index 3eec722..0778399 100644
+--- a/packages/schemas/derivation/published.json
++++ b/packages/schemas/derivation/published.json
+@@ -3,6 +3,7 @@
+   "act-calculation-authorization.v1.schema.json": "8e6532a3008b64254a139561070ce8b14eeb9189d4d33539c83298012b2f6e93",
+   "act-calculation-scope-declaration.v1.schema.json": "b7928abf7bcc85bd8aac5f7b245a3aca7a972772d3627cc2306e2b72ae856696",
+   "act-derived-publication.v1.schema.json": "d77a1fd9af946e963f10da3306f165607741906cce8fbc2d9f43a7238ca08dca",
++  "answer-explanation.v1.schema.json": "88efda73a277299783f6033ab1a135e81de3c8a6fbc713e01287fdf90ae5f0ee",
+   "artifact-package.v1.schema.json": "5663562271cdb31db6739d5d7b7bc870a120cd178b39cd5bb4c35e72add7bd01",
+   "artifact-package.v10.schema.json": "8c8f7a58af51e4620014512833c66242e751a408c49d7cbafbab4569438a5655",
+   "artifact-package.v11.schema.json": "ba707f6f925bcdc664d020d079c40ba1fed2910e6e501040c3c1aa466d6d7541",
+@@ -41,6 +42,7 @@
+   "artifact-package.v42.schema.json": "5e363ed678d17d0abefb3d5498a7a27017910479004fb9c8e4479bb1176020a3",
+   "artifact-package.v43.schema.json": "eb088782d71284cb7a75da8669c38dbd0bac9031973736e5c1f12c1e3787a350",
+   "artifact-package.v44.schema.json": "56c930e53877a157c2734fce7400d013be09002f022148b55602c9869b4e7ff3",
++  "artifact-package.v45.schema.json": "db1e379f59e0c2e58e6e5a3ce5fd85b0007fc13837ec95d3f27f5345334ad26b",
+   "artifact-package.v5.schema.json": "1e857d177f73d0b9614c4bee2c1856e1a7069d54efa2fc8666e4b0f4e9756698",
+   "artifact-package.v6.schema.json": "1012e48f9800d224b05d6f7dbef81a95beb79bc64f68695b20cd3bee097e7d4a",
+   "artifact-package.v7.schema.json": "6d140ef0293ef604abc5008bcf0bc92b44bb1791795e814b6d4a7b7ab0f6f43f",
+diff --git a/packages/tax/loader.py b/packages/tax/loader.py
+index 95b2995..579154d 100644
+--- a/packages/tax/loader.py
++++ b/packages/tax/loader.py
+@@ -314,6 +314,8 @@ def named_covered_flag_refusal_maps() -> dict[tuple[str, str], dict[str, str]]:
+         ("tax.us.2025.package.core-calculations", "v107"): dict(COVERED_FLAG_REFUSAL_OBJECTS),
+         # Core v108 rewords the 4 code B wash-sale explanations only and carries v107's map.
+         ("tax.us.2025.package.core-calculations", "v108"): dict(COVERED_FLAG_REFUSAL_OBJECTS),
++        # Scratch core v109 (line16-next-step P0) adds four answer-explanation.v1 citizens and carries v108's map.
++        ("tax.us.2025.package.core-calculations", "v109"): dict(COVERED_FLAG_REFUSAL_OBJECTS),
+     }
+ 
+ 
+@@ -942,6 +944,17 @@ def domain_package_companion_declarations() -> dict[tuple[str, str], dict[str, A
+             },
+             "value_domains": dict(gambling["value_domains"]),
+         },
++        # Scratch core v109 (line16-next-step P0) adds four answer-explanation.v1 citizens and carries v108's declaration.
++        ("tax.us.2025.package.core-calculations", "v109"): {
++            "presence_pairs": {
++                **gambling["presence_pairs"],
++                **noncovered_scalar_presence_pairs(),
++                **no1099b_scalar_presence_pairs(),
++                **code_b_scalar_presence_pairs(),
++                **covered_scalar_presence_pairs(),
++            },
++            "value_domains": dict(gambling["value_domains"]),
++        },
+     }
+ 
+ 
