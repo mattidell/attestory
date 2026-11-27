@@ -55,8 +55,8 @@ I interrupted the initial full-suite invocation near its 45-minute limit
 with 2,536 passed, 13 skipped and two Chromium timeouts. Six subsequent file batches
 accounted for 6,106 of the 7,958 collected tests, with 6,075 passed,
 25 skipped and six Chromium timeouts. Batch seven ended partway through.
-The owner directed us to skip the remaining local batches and use CI
-`verify` as the full-suite gate of record.
+The foreman deferred the remaining local batches to CI `verify`, the
+full-suite gate of record.
 
 All seven unique browser tests that timed out across those runs passed when
 retried by node ID on `8af3c673f`. The six batch-five tests also passed in
@@ -69,6 +69,6 @@ batch six on the Track 1 commit.
 The replay and test evidence are for the milestone branch at `8af3c673f`.
 Main remained at core v108 after PRs #318 and #314. PR #314 also touches the
 presentation projection. The foreman will reconcile the shared projection
-at closeout and use CI `verify` for the integrated candidate. The schema
-intent ledger still needs the two entries for `answer-explanation.v1` and
-`artifact-package.v45` before formal handoff.
+at closeout and use CI `verify` for the integrated candidate. The foreman
+recorded both schema-intent proposals, `answer-explanation.v1` and
+`artifact-package.v45`, on `milestone-schema-ledger` in `34aab8c4d`.
