@@ -1332,6 +1332,20 @@ calculation does not cover the return. Existing question links are unchanged. 80
 synthetic lists replay with no number, disposition or code change; 25
 gain an explanation.
 
+## Bounded return — Every Statement Question Names Its Statement (2025)
+
+[Plan](milestones/statement-labels-forms.md); retrospective:
+`docs/milestone-retrospectives/2026-11-27-statement-labels-forms.md`.
+Projection only (ADR 0089 amendment 2026-11-27); core v109 unchanged.
+
+The line 25b withholding questions for Forms 1099-INT, 1099-DIV,
+IRA-family 1099-R and 1099-G (box 4) and SSA-1099 (box 6) now name each
+unanswered statement by the label the filer recorded, one reason per
+statement, including a single statement. A question link stays, with the
+labelled reasons after it. When the statement cannot be identified for
+certain, the page keeps the generic sentence. 798 lists replay with no
+number, disposition or code change; 19 gain 176 labelled reasons.
+
 ## Hardening — Derivation Schema Capability Table Consolidation
 
 [Plan](milestones/rule-artifact-capability-table-consolidation.md); retrospective:
@@ -1529,8 +1543,6 @@ delivers an item removes it.
 - Four source sets reach an attachment without a guard of their own; each
   is held by a guarded rule downstream, confirmed live on core v66. Listed in
   `tests/test_collect_closure_regression.py`.
-- A blocked line names the kind of statement short of its withholding
-  answer, not the statement itself (keyed join).
 - The core-v75 closure-question and core-v76 later-arm switches are keyed
   by package id and version in `packages/tax/loader.py`, which the runner
   imports; passing them into the run, or declaring them in package content,
@@ -1561,9 +1573,6 @@ delivers an item removes it.
   every cause that can block the line, and the generic remedy. A reason
   naming only the loss needs a value rule to carry a selection reason or a
   check to carry a subject; both are derivation changes.
-- Statement labels beyond Form 1099-B (statement-question-labels
-  Decision 2): per-statement questions on Forms 1099-INT, 1099-DIV,
-  1099-R, 1099-G and SSA-1099 do not name the statement. Probe first.
 - Two Form 1099-B statements with one label get two identical questions
   (Decision 5). Adding the broker's name would tell them apart.
 - The per-statement box 4 and box 7 questions keep their general wording
