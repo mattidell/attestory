@@ -3,8 +3,8 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "statement-labels-forms",
-  "status": "Open 2026-11-26. P0 evidence complete. Owner decision pending.",
-  "retrospective": null,
+  "status": "Closed 2026-11-27. Projection (ADR 0089 amendment 2026-11-27); core v109 unchanged.",
+  "retrospective": "docs/milestone-retrospectives/2026-11-27-statement-labels-forms.md",
   "scope": [
     "when a return has more than one statement of a form other than Form 1099-B (Forms 1099-INT, 1099-DIV, 1099-R, 1099-G, SSA-1099), each per-statement question on the saved page says which statement it asks about, by the label the filer recorded",
     "every recorded return keeps its numbers, dispositions and block codes"
@@ -32,7 +32,7 @@
       "docs/phases/engine-breadth/milestones/statement-labels-forms.md"
     ],
     "new_milestone": [
-      "docs/milestone-retrospectives/2026-11-26-statement-question-labels.md",
+      "docs/milestone-retrospectives/2026-11-27-statement-labels-forms.md",
       "docs/phases/engine-breadth/engine-breadth-roadmap.md#Parked work and open questions"
     ]
   }
@@ -110,3 +110,37 @@ shards, with zero unexpected differences. Two recorded 1099-DIV lists
 and 17 synthetic lists gained labels, for 176 labelled reasons. The
 removed, swapped and spurious-label controls all failed the comparator.
 See the [replay summary](statement-labels-forms-evidence/replay-summary.json).
+
+## Closeout
+
+Closed 2026-11-27. Retrospective: `docs/milestone-retrospectives/2026-11-27-statement-labels-forms.md`.
+The owner accepted the ADR 0089 amendment on 2026-11-27. Track 1
+([evidence](statement-labels-forms-evidence/track1.md)) changed only the
+presentation projection and its tax eligibility table. The fresh review
+(NOT READY) found four ways the walk could name the wrong statement or a
+blank one instead of keeping the generic reason: an unresolved input pin
+was skipped (T1-01), omitting current finding ids disabled the currency
+check (T1-02), a successor core could label an identity its answer
+declaration cannot hold (T1-03), and a whitespace-only label counted as a
+label (T1-04). Repair 1 fixed all four with regressions that fail on the
+build, and re-ran the replay: 798 lists, 0 unexpected differences; 2
+recorded and 17 synthetic lists gain 176 labelled reasons. The two roadmap
+items (statement labels beyond Form 1099-B; the line 25b keyed join) are
+retired.
+
+The original Track 1 evidence cited pre-curation commits, kept at
+`refs/snapshot/2026-11-27-statement-labels-forms-pre-pr-curation`. The ids the Repair 2 replay
+records are kept at `refs/snapshot/2026-11-27-statement-labels-forms-pre-final-curation`.
+
+Repair 2 addressed FR-01, FR-02, FR-04 and FR-05. The two focused
+regressions failed on the curated build and passed with the repair. An
+inactive pairing or an unsupported identity under the question's pinned
+fact-type version now keeps the generic reason. The evidence describes
+what the renderer shows and what the saved model stores. The milestone
+range passes the whitespace check.
+
+The replay resolved the curated build's parent and compared 798 lists
+across 18 shards. Two recorded and 17 synthetic lists gained 176
+labelled reasons with zero unexpected differences. All three mutation
+controls were rejected, and eight DOM checks passed. See the
+[Track 1 evidence](statement-labels-forms-evidence/track1.md).
