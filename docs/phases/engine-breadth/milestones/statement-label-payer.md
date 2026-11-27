@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "statement-label-payer",
-  "status": "Open 2026-11-27. P0 complete. Owner decision pending.",
+  "status": "Open 2026-11-27. ADR 0089 amendment accepted; Track 1 chartered.",
   "retrospective": null,
   "scope": [
     "when two or more statements of one form on a return carry the same recorded label, each per-statement question on the saved page also names the payer or broker the filer recorded, so the questions can be told apart",
@@ -103,10 +103,10 @@ records the inventory and totals.
 
 ## Decisions
 
-- **Owner** — Accept or reject the [proposed ADR 0089 amendment](statement-label-payer-evidence/adr-draft.md)
-  before Track 1. Decide whether to use the entity label for 1099-B and
-  the exact statement-label match, including when spacing differences
-  are hard to see. Confirm the statement-only fallback for SSA-1099 and
-  for duplicate groups with missing or indistinguishable party names.
+- **Owner** — Accepted the
+  [ADR 0089 amendment](../../../adr/0089-statement-question-labels.md)
+  on 2026-11-27, before Track 1, including the broker entity label for
+  Form 1099-B, exact statement-label matching and the statement-only
+  fallback.
 - **Foreman, after acceptance** — Charter the projection, validator and
   page changes and their regression coverage within the accepted bounds.
