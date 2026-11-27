@@ -3,8 +3,8 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "statement-label-payer",
-  "status": "Open 2026-11-27. ADR 0089 amendment accepted; Track 1 chartered.",
-  "retrospective": null,
+  "status": "Closed 2026-11-27. Projection and page (ADR 0089 second amendment 2026-11-27); core v109 unchanged.",
+  "retrospective": "docs/milestone-retrospectives/2026-11-27-statement-label-payer.md",
   "scope": [
     "when two or more statements of one form on a return carry the same recorded label, each per-statement question on the saved page also names the payer or broker the filer recorded, so the questions can be told apart",
     "every recorded return keeps its numbers, dispositions and block codes"
@@ -33,7 +33,7 @@
       "docs/phases/engine-breadth/milestones/statement-label-payer.md"
     ],
     "new_milestone": [
-      "docs/milestone-retrospectives/2026-11-27-statement-labels-forms.md",
+      "docs/milestone-retrospectives/2026-11-27-statement-label-payer.md",
       "docs/phases/engine-breadth/engine-breadth-roadmap.md#Parked work and open questions"
     ]
   }
@@ -110,3 +110,31 @@ records the inventory and totals.
   fallback.
 - **Foreman, after acceptance** — Charter the projection, validator and
   page changes and their regression coverage within the accepted bounds.
+
+## Closeout
+
+Closed 2026-11-27. Retrospective: `docs/milestone-retrospectives/2026-11-27-statement-label-payer.md`.
+The owner accepted the second ADR 0089 amendment on 2026-11-27. Track 1
+([evidence](statement-label-payer-evidence/track1.md)) changed the
+projection, its validator, the page renderer and its text observer. The
+fresh review (NOT READY) found that the party lookup ignored the
+originating row's core pin (T1-01), that a successor pairing reading fewer
+sale types still produced broker names (T1-02), and that the replay's
+snapshot fallback accepted reordered pins and replaced finding ids
+(T1-03). Repair 1 fixed all three with regressions and controls and re-ran
+the replay: 775 recorded lists match; 10 of 21 synthetic lists gain 174
+names; zero unexpected differences. The roadmap item (two Form 1099-B
+statements with one label) is retired.
+Pre-curation history is available at
+`refs/snapshot/2026-11-27-statement-label-payer-pre-pr-curation`.
+
+Repair 2 addressed the final review. Party names require compatible
+adopted and workspace source identities. The v108 regression uses a
+matching adoption pin, and P0 startup checks baseline ancestry from
+`HEAD`. The Track 1 replay resolves the curated build and its parent
+at run time and records the build subject. The curated replay matched
+all 775 recorded lists and added 174 ordered names on 10 of 21
+synthetic lists. All five controls were rejected and 20 rendered
+prefix checks passed. The redundant draft was removed, and the ADR
+digest and roadmap now state the case and whitespace comparison.
+[Repair 2 evidence](statement-label-payer-evidence/track1.md)
