@@ -1,7 +1,7 @@
 {
-  "baseline": "2d9140754787e3afac953ba85ef8dfa6e14aa6c4",
-  "build": "e2be198413bd6cd7c4767911e451e6233fefe3e7",
-  "candidate_projection_sha256": "b1a842982c6735ae81e33924068e5afd56255c8be71cbf9f867bb365e4841b76",
+  "baseline": "86ca4baab12d2ea74d4b43748c0ee926b6e8a278",
+  "build": "6c8e7c748434f83c41b19bbc16b91c85b1de9e70",
+  "candidate_projection_sha256": "8a9e38c3895bffb05f5521c7351724224bea1b5711d5bc53bc7b65ecada24509",
   "controls": {
     "missing_label": "rejected",
     "spurious_label_on_closure_block": "rejected",

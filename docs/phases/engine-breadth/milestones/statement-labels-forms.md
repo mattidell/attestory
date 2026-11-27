@@ -127,6 +127,19 @@ build, and re-ran the replay: 798 lists, 0 unexpected differences; 2
 recorded and 17 synthetic lists gain 176 labelled reasons. The two roadmap
 items (statement labels beyond Form 1099-B; the line 25b keyed join) are
 retired.
-Commit ids cited in the Track 1 evidence predate curation and are kept at
+
+The original Track 1 evidence cited pre-curation commits, kept at
 `refs/snapshot/2026-11-27-statement-labels-forms-pre-pr-curation`.
 
+Repair 2 addressed FR-01, FR-02, FR-04 and FR-05. The two focused
+regressions failed on the curated build and passed with the repair. An
+inactive pairing or an unsupported identity under the question's pinned
+fact-type version now keeps the generic reason. The evidence describes
+what the renderer shows and what the saved model stores. The milestone
+range passes the whitespace check.
+
+The replay resolved the curated build's parent and compared 798 lists
+across 18 shards. Two recorded and 17 synthetic lists gained 176
+labelled reasons with zero unexpected differences. All three mutation
+controls were rejected, and eight DOM checks passed. See the
+[Track 1 evidence](statement-labels-forms-evidence/track1.md).

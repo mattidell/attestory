@@ -6,6 +6,7 @@ from typing import Any
 
 import pytest
 
+from packages.derivation.evaluator import AccessLog, Environment, EvalBlocked, evaluate
 from packages.derivation.presentation_projection import (
     _StatementQuestions,
     _answer_explanation_sentences,
@@ -175,6 +176,8 @@ def test_withholding_expansion_preserves_existing_link_targets() -> None:
     pytest.param("retracted without currency", id="T1-02-retracted-without-currency"),
     pytest.param("wrong payer kind", id="T1-03-wrong-payer-kind"),
     pytest.param("year outside declaration", id="T1-03-year-outside-declaration"),
+    pytest.param("inactive pairing", id="FR-01-inactive-pairing"),
+    pytest.param("question pins successor", id="FR-02-exact-version-pin"),
 ])
 def test_line25b_withholding_attribution_fails_closed(case: str) -> None:
     answer = "tax.us.2025.f1099int.box4-withholding"
@@ -239,15 +242,41 @@ def test_line25b_withholding_attribution_fails_closed(case: str) -> None:
         current.remove("demo.finding-0")
     node = {"op": "require_paired", "key": "payer" if case == "wrong join key" else "statement",
             "income": [SALE], "withholding": answer}
-    rules = {rule: {"value": [node, node] if case == "ambiguous pairing" else node}}
+    value: Any = [node, node] if case == "ambiguous pairing" else node
+    if case == "inactive pairing":
+        value = {
+            "op": "choose",
+            "when": {"op": "compare", "cmp": "eq",
+                     "left": {"op": "add", "args": [{"op": "collect", "name": SALE}]}, "right": 0},
+            "then": {"op": "block", "code": "DEPENDENCY_ABSENT", "missing": [answer]},
+            "else": node,
+        }
+        access = AccessLog()
+        with pytest.raises(EvalBlocked) as blocked:
+            evaluate(value, Environment({}, {SALE: ["0", "0"]}, frozenset(), {}, {}), access)
+        assert (blocked.value.category, blocked.value.missing) == ("DEPENDENCY_ABSENT", [answer])
+        assert access.collects == {SALE}
+        assert not access.require_paired_findings
+    rules = {rule: {"value": value}}
     pair_row = {"disposition": "blocked", "code": "DEPENDENCY_ABSENT", "pins": pins,
                 "artifact_id": "demo.unpaired" if case == "no paired row" else rule, "missing": [answer]}
     by_symbol = {"demo.pair": [pair_row]}
     line = {"disposition": "blocked", "code": "DEPENDENCY_ABSENT",
             "missing": ["demo.pair", answer] if case == "extra unpaired cause" else ["demo.pair"]}
-    members = [{"schema": "input-question.v1", "fact_type": {"id": answer}, "question": SENTENCE}]
+    answer_declaration = state.fact_state.fact_types[answer]
+    members: list[dict[str, Any]] = [
+        {"schema": "bundle.v1", "fact_types": [answer_declaration]},
+        {"schema": "input-question.v1", "fact_type": {
+            "id": answer, "version": "v2" if case == "question pins successor" else "v1",
+        }, "question": SENTENCE},
+    ]
+    if case == "question pins successor":
+        successor = {**answer_declaration, "version": "v2", "identity_keys": [
+            *answer_keys, {"kind": "literal", "name": "demo-extra-key", "values": ["demo.extra"]},
+        ]}
+        members.append({"schema": "bundle.v1", "fact_types": [successor]})
     version = "v108" if case == "older core" else "v109"
-    if case in {"wrong payer kind", "year outside declaration"}:
+    if case in {"wrong payer kind", "year outside declaration", "inactive pairing", "question pins successor"}:
         version = "v110"
     questions = _StatementQuestions(
         rules_by_id=rules, state=state, resolved_members=members, publications_by_id={},

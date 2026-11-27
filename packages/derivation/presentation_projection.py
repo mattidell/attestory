@@ -35,8 +35,9 @@ import json
 import re
 import inspect
 import math
+from collections.abc import Mapping
 from decimal import Decimal, InvalidOperation
-from typing import Any, Callable, Mapping, Sequence, cast
+from typing import Any, Callable, Sequence, cast
 
 from packages.derivation.derived_enumeration import derived_activity_present, fact_type_matches_symbol
 from packages.derivation.explanation_graph import GraphBuilder, validate_graph, validate_output_schema
@@ -690,15 +691,42 @@ class _StatementQuestions:
         self._identity: dict[str, list[str]] = {}
         self._withholding_years: dict[str, frozenset[str]] = {}
         declared: dict[str, Mapping[str, Any]] = {}
+        withholding_declarations: dict[tuple[str, str], Mapping[str, Any] | None] = {}
+        question_versions: dict[str, set[str | None]] = {}
         for member in resolved_members:
-            if str(member.get("schema", "")).startswith("bundle."):
+            schema = str(member.get("schema", ""))
+            if schema.startswith("bundle."):
                 for fact_type in member.get("fact_types") or []:
                     if isinstance(fact_type, Mapping) and isinstance(fact_type.get("id"), str):
-                        declared.setdefault(fact_type["id"], fact_type)
+                        fact_type_id = fact_type["id"]
+                        declared.setdefault(fact_type_id, fact_type)
+                        version = fact_type.get("version")
+                        if fact_type_id in self._withholding_entities and isinstance(version, str):
+                            key = (fact_type_id, version)
+                            previous = withholding_declarations.setdefault(key, fact_type)
+                            if previous != fact_type:
+                                withholding_declarations[key] = None
+            if schema.startswith("input-question."):
+                pin = member.get("fact_type")
+                question = member.get("question")
+                if isinstance(pin, Mapping) and isinstance(question, str) and question.strip():
+                    fact_type_id = str(pin.get("id"))
+                    if fact_type_id in self._withholding_entities:
+                        version = pin.get("version")
+                        question_versions.setdefault(fact_type_id, set()).add(
+                            version if isinstance(version, str) else None,
+                        )
         for fact_type_id, declaration in {**declared, **state.fact_state.fact_types}.items():
             withholding_keys = self._withholding_entities.get(fact_type_id)
             if withholding_keys is not None:
-                declaration = declared.get(fact_type_id, declaration)
+                versions = question_versions.get(fact_type_id, set())
+                if len(versions) != 1:
+                    continue
+                version = next(iter(versions))
+                pinned = withholding_declarations.get((fact_type_id, version)) if version is not None else None
+                if pinned is None:
+                    continue
+                declaration = pinned
             identity = declaration.get("identity_keys") if isinstance(declaration, Mapping) else None
             if not isinstance(identity, list) or not all(isinstance(key, Mapping) for key in identity):
                 continue
@@ -763,6 +791,28 @@ class _StatementQuestions:
                 found.extend(_StatementQuestions._paired_nodes(item, withholding))
         return found
 
+    @staticmethod
+    def _mentions_outside_pair(node: Any, pairing: Mapping[str, Any], fact_type: str) -> bool:
+        """Look for another route that could put this fact type in missing."""
+        if node is pairing:
+            return False
+        match node:
+            case {"op": "any", "args": [
+                {"op": "all", "args": [{"op": "require_closed", "source_set": str(source_set)}, check]},
+                {"op": "ref", "name": name},
+            ]} if check is pairing and name == fact_type and source_set != fact_type:
+                # Both first-arm checks return true or block. The second arm
+                # therefore cannot be the source of this DEPENDENCY_ABSENT.
+                return False
+            case Mapping():
+                return any(_StatementQuestions._mentions_outside_pair(value, pairing, fact_type)
+                           for value in node.values())
+            case list():
+                return any(_StatementQuestions._mentions_outside_pair(value, pairing, fact_type)
+                           for value in node)
+            case _:
+                return isinstance(node, str) and node == fact_type
+
     def _needed(self, need_symbols: frozenset[str]) -> set[str]:
         """Statement entity ids of every sale whose published need is above zero."""
         needed: set[str] = set()
@@ -796,14 +846,20 @@ class _StatementQuestions:
 
         names = self._identity.get(fact_type)
         rule = self._rules.get(str(row.get("artifact_id")))
-        nodes = self._paired_nodes(rule, fact_type) if names is not None and rule is not None else []
-        if row.get("code") != "DEPENDENCY_ABSENT" or names is None or len(nodes) != 1:
+        if row.get("code") != "DEPENDENCY_ABSENT" or names is None or rule is None:
+            return None
+        nodes = self._paired_nodes(rule, fact_type)
+        if len(nodes) != 1:
             return None
         node = nodes[0]
         if node.get("key") != "statement":
             return None
         withholding = self.is_line25b_withholding(fact_type)
-        if withholding and row.get("artifact_id") != "tax.us.2025.rule.form1040-line25b":
+        if withholding and (
+            row.get("artifact_id") != "tax.us.2025.rule.form1040-line25b"
+            or row.get("missing") != [fact_type]
+            or self._mentions_outside_pair(rule, node, fact_type)
+        ):
             return None
         facts = self._facts()
         # The rows the block read: its input pins, as the evaluator saw them.

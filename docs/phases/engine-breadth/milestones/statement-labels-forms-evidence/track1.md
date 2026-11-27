@@ -9,8 +9,9 @@ unanswered SSA-1099 box 6 statement.
 The projection uses the evaluator's `paired_coverage` on the blocked
 row's current input findings. Matching uses the statement key. Identity
 uses all declared answer keys, including payer for the four Forms 1099.
-The page shows the recorded statement label and tax year. It orders
-reasons by label and then by answer fact id, so statements with identical
+An unlinked reason shows the recorded statement label beside the question.
+The saved model also stores the tax year. Reasons are ordered by label
+and then by answer fact id, so statements with identical
 labels each get their own reason. A linked question keeps its original
 reason and target, with display-only reasons immediately after it. The
 projection keeps the generic reason when it cannot establish the paired
@@ -29,6 +30,17 @@ for the whole question.
 | T1-03 | Check each recovered entity against its declared kind and current standing, and check the year against the answer declaration. | On synthetic core v110, test a payer of the wrong kind and a year outside the declaration separately. |
 | T1-04 | Treat a whitespace-only statement label as missing. | Save a live core v109 return with one named statement and one three-space label and check the generic line 25b reason. |
 
+## Repair 2
+
+Two synthetic core v110 regressions reproduced the final review's
+attribution findings on the curated build. Both keep the generic reason
+with the repair.
+
+| Finding | Repair | Regression |
+| --- | --- | --- |
+| FR-01 | Require the pairing to be the sole source of the bare missing fact type. The core v109 closure-and-pairing arm either succeeds or blocks before its fallback reference can run. | An earlier collect reads the income rows, then an explicit block names Box 4 while the pairing branch stays inactive. |
+| FR-02 | Resolve the input question's exact fact-type version among the adopted bundles before checking identity. | Adopt versions v1 and v2, with v1 listed first and an extra identity key on v2. The question pins v2. |
+
 ## Replay
 
 [The replay](replay_track1.py) resolves the parent of the
@@ -36,7 +48,7 @@ for the whole question.
 invocation sends the recorded and synthetic lists through parallel
 shards. For each list, both projections use the same input acts, core,
 and run id through the live coordinator. The summary includes a SHA-256
-digest of the candidate projection used for the repair replay.
+digest of the candidate projection used for the replay.
 
 The P0 comparator independently builds an expected model from the
 baseline question reasons, the blocked row's current inputs, and the
@@ -57,7 +69,7 @@ python3 docs/phases/engine-breadth/milestones/statement-labels-forms-evidence/re
 
 ## Results
 
-The [repair replay summary](replay_track1_summary.json) records 798 comparisons in
+The [Repair 2 replay summary](replay_track1_summary.json) records 798 comparisons in
 18 shards with nine workers and zero unexpected differences.
 
 | Corpus | Lists | Matching saves | Matching errors | Lists gaining labels | Labelled reasons added |
