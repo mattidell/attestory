@@ -29,6 +29,7 @@ from tools import recorded_replay as rr
 
 CORE = "v109"
 FIELD = "statementPayerLabel"
+STRUCTURAL_MISMATCH = "successful save differs structurally from the expected model or report"
 STMT = "demo Statement"
 ZULU = "demo Zulu Bank"
 ALPHA = "demo Alpha Bank"
@@ -183,7 +184,7 @@ def check_model(before, after, expected):
             name = expected.get((section["id"], index))
             if name is not None:
                 reason[FIELD] = name
-    # Assert display order directly before the snapshot aliases generated IDs.
+    # Check the exact names at their expected reason positions.
     actual = {(section["id"], index): reason[FIELD]
               for section in after["sections"]
               for index, reason in enumerate(reasons(section)) if FIELD in reason}
@@ -195,16 +196,14 @@ def check_model(before, after, expected):
 def compare(before, after, expected):
     if before["outcome"] != after["outcome"]:
         raise ValueError(f"outcomes differ: {before['outcome']} versus {after['outcome']}")
-    if before["outcome"] != "success":
-        left, right = (rr.failure_snapshot(s["outcome"], s["error"], s["message"]) for s in (before, after))
-    else:
+    if before["outcome"] == "success":
         want = check_model(before["model"], after["model"], expected)
-        if want == after["model"] and before["report"] == after["report"]:
-            return
-        left = rr.snapshot(want, before["report"])
-        right = rr.snapshot(after["model"], after["report"])
-    if differences := rr.diff_snapshots(left, right):
-        raise ValueError(f"{len(differences)} unexpected full-surface differences")
+        if not rr._same(want, after["model"]) or not rr._same(before["report"], after["report"]):
+            raise ValueError(STRUCTURAL_MISMATCH)
+        return
+    left, right = (rr.failure_snapshot(s["outcome"], s["error"], s["message"]) for s in (before, after))
+    if left != right:
+        raise ValueError("failure class or message differs")
 
 
 def check_controls(key, before, after, expected, case):

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 from concurrent.futures import ProcessPoolExecutor, as_completed
+from copy import deepcopy
 from functools import cache
 import hashlib
 import json
@@ -22,7 +23,10 @@ from tools.sale_page_observation import _labeled_reason_text
 
 PROJECTION = "packages/derivation/presentation_projection.py"
 PAGE = "packages/presentation/pages/citation-walk.v1.html"
-EXPECTED_CONTROLS = ["added_name_to_distinct_statement", "removed_name", "swapped_names"]
+EXPECTED_CONTROLS = [
+    "added_name_to_distinct_statement", "removed_name", "reordered_derived_report_pins",
+    "replaced_derived_finding_id", "swapped_names",
+]
 EXPECTED_RECORDED = 775
 EXPECTED_SYNTHETIC = 21
 EXPECTED_SYNTHETIC_NAMES = 174
@@ -66,6 +70,46 @@ def check_observer(model, expected):
                 raise ValueError("observed prefix differs from the expected text")
 
 
+def check_structural_controls(before, after, expected):
+    reordered = deepcopy(after)
+    for row in reordered["report"]["dispositions"]:
+        pins = row["pins"]
+        indices = [i for i, pin in enumerate(pins) if pin["id"].startswith("finding:derived:")]
+        if len(indices) >= 2:
+            first, second = indices[:2]
+            pins[first], pins[second] = pins[second], pins[first]
+            break
+    else:
+        raise ValueError("replay control requires two derived pins in one report row")
+
+    model_json = json.dumps(after["model"])
+    fid = next((row["finding_id"] for row in after["report"]["dispositions"]
+                if row.get("finding_id", "").startswith("finding:derived:") and row["finding_id"] in model_json), None)
+    if fid is None:
+        raise ValueError("replay control requires a derived finding shared by the model and report")
+    suffix = hashlib.sha256(f"demo.replacement.{fid}".encode()).hexdigest()[:24]
+    replacement = f"finding:derived:{suffix}"
+    saved_json = json.dumps(after)
+    if replacement in saved_json:
+        raise ValueError("replay control replacement is already present")
+    replaced = json.loads(saved_json.replace(fid, replacement))
+
+    detected = []
+    for name, changed in (
+        ("reordered_derived_report_pins", reordered),
+        ("replaced_derived_finding_id", replaced),
+    ):
+        try:
+            p0.compare(before, changed, expected)
+        except ValueError as exc:
+            if str(exc) != p0.STRUCTURAL_MISMATCH:
+                raise
+            detected.append(name)
+        else:
+            raise ValueError(f"replay accepted mutation {name}")
+    return detected
+
+
 def run_list(key, acts, case, core, parent):
     baseline = baseline_projection(parent)
     introduced = p0.introduced_duplicates(acts)
@@ -86,6 +130,8 @@ def run_list(key, acts, case, core, parent):
         expected = p0.expected_additions(before["model"], case) if before["outcome"] == "success" else {}
         p0.compare(before, after, expected)
         controls = p0.check_controls(key, before, after, expected, case)
+        if key == "demo.int.duplicate":
+            controls.extend(check_structural_controls(before, after, expected))
         if case is not None:
             p0.check_dom(p0.REPO / PAGE, after, case, expected)
             check_observer(after["model"], expected)
@@ -147,6 +193,7 @@ def main():
         "workers": args.workers, "shards": len(shards), "recorded": p0.summarize(recorded, results, 0),
         "synthetic": synthetic, "controls_rejected": controls, "synthetic_dom_checks": dom_checks,
         "synthetic_names_by_case": {key: results[key]["names"] for key in cases},
+        "successful_comparison": "exact model and report after expected name additions",
         "unexpected_differences": 0,
     }
     encoded = json.dumps(summary, indent=2, sort_keys=True) + "\n"

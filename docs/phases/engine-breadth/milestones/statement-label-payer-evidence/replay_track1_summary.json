@@ -4,6 +4,8 @@
   "controls_rejected": [
     "added_name_to_distinct_statement",
     "removed_name",
+    "reordered_derived_report_pins",
+    "replaced_derived_finding_id",
     "swapped_names"
   ],
   "core": "v109",
@@ -25,6 +27,7 @@
   "registry": "v107",
   "release": "v107",
   "shards": 38,
+  "successful_comparison": "exact model and report after expected name additions",
   "synthetic": {
     "changed_lists": 10,
     "lists": 21,

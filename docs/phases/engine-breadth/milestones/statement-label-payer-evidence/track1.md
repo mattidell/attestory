@@ -26,6 +26,8 @@ The following controls remove or corrupt inputs used to display a name.
 | --- | --- |
 | Exact answer identity and adopted question version | Remove the question version or pin a successor with an extra key. Remove the target statement, year or payer key, or supply an out-of-contract year. |
 | Originating paired block | Move the pairing to an inactive arm and produce the same missing type from a separate block. |
+| Originating adoption pin matches the run's core (T1-01) | Change the Box 7 row's pin from v109 to v108, use another package, remove the pin, or add a conflicting pin. Each case keeps the original statement reasons. |
+| Adopted sale types for the originating broker rule (T1-02) | On a compatible v110 fixture, remove an unused sale type from the eight-type Box 4 and Box 7 pairings. Both preserve the statement reasons and omit the broker names. A separate positive control exercises the adopted one-family Box 7 rule. |
 | Current findings and exact paired input pins | Retract a peer while omitting the precomputed currency argument. Make a paired pin stale, remove it, point it to a missing finding, or corrupt its version or origin. |
 | Current same-form, same-year statement identity and plain label text | Blank a statement label, substitute another statement kind or move the peer's finding to another year. Distinct case and spacing stay distinct. |
 | One party per statement, with agreement across contributing records | Give one statement contradictory parties or remove its broker key. Add another sale of the same statement and remove its pin or change its broker. |
@@ -36,6 +38,9 @@ The browser test in `tests/test_presentation_question_groups_v3.py`
 asserts the complete visible question with a payer name containing
 repeated spaces and an ampersand. It checks the absence of a question
 group link.
+
+The six fallback cases for T1-01 and T1-02 failed before the repair.
+All six passed in the 180-test targeted run after the repair.
 
 ## Full-surface replay
 
@@ -54,17 +59,20 @@ v109, registry v107 and release v107. The shared run uses 38 shards.
 The comparator checks the exact expected name at each reason index,
 the order of the names, and each corpus's count of changed lists. It
 compares the entire saved model and report after applying only the
-expected insertions to the baseline. The shared full-surface snapshot
-can alias generated identities when needed.
+expected insertions to the baseline. Successful saves use structural
+equality, including the order of pin and report-row lists and the exact
+generated finding IDs (T1-03).
 
 | Corpus | Lists | Successful saves | Matching errors | Lists gaining names | Names added |
 | --- | ---: | ---: | ---: | ---: | ---: |
 | Recorded | 775 | 691 | 84 | 0 | 0 |
 | Synthetic | 21 | 21 | 0 | 10 | 174 |
 
-The three controls remove one name, swap two names or add a name where
-statement labels differ. The exact comparison rejects all three. The
-page script renders the expected prefixes beside the original question
+Five controls remove one name, swap two names, add a name where
+statement labels differ, reorder two derived pins in a report row, or
+replace a derived finding ID throughout the model and report. The exact
+comparison rejects all five. The page script renders the expected
+prefixes beside the original question
 in the 20 synthetic cases with a labelled question. The all-answered
 case has no labelled question. The text observer agrees at each expected
 name position. The replay records zero other differences across the

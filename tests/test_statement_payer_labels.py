@@ -39,9 +39,12 @@ FORMS = {
     TAX + "f1099r.ira-box4-withholding": ("f1099r", ("ira-box1-taxable-distribution",)),
     TAX + "f1099g.box4-withholding": ("f1099g", ("box1-unemployment",)),
     SSA: ("ssa1099", ("box5-net-benefits",)),
-    BOX4: ("f1099b", ("covered-st-txn",)),
-    BOX7: ("f1099b", ("covered-st-txn",)),
 }
+SALE_BOXES = (
+    "covered-st-txn", "covered-lt-txn", "covered-w-st-txn", "covered-w-lt-txn",
+    "noncovered-st-txn", "noncovered-lt-txn", "code-b-st-txn", "code-b-lt-txn",
+)
+FORMS.update({answer: ("f1099b", SALE_BOXES) for answer in (BOX4, BOX7)})
 
 
 class WalkCase:
@@ -71,9 +74,11 @@ class WalkCase:
         self.state = FindingState(fact_state=KernelState(entities=entities, fact_types=self.declarations))
         self.node = {"op": "require_paired", "key": "statement", "income": self.income, "withholding": answer}
         self.rule: dict[str, Any] = {"value": self.node}
+        rule_id = TAX + "rule.schedule-d-line16" if answer == BOX7 else LINE
+        self.adoption = {"role": "adoption", "id": CORE, "version": "v109"}
         self.row: dict[str, Any] = {
-            "disposition": "blocked", "code": "DEPENDENCY_ABSENT", "artifact_id": LINE,
-            "missing": [answer], "pins": [],
+            "disposition": "blocked", "code": "DEPENDENCY_ABSENT", "artifact_id": rule_id,
+            "missing": [answer], "pins": [self.adoption],
         }
         self.by_symbol = {"demo.pair": [self.row]}
         self.current: set[str] = set()
@@ -108,10 +113,12 @@ class WalkCase:
 
     def walker(self, *, version: str = "v109", currency: bool = True) -> _StatementQuestions:
         return _StatementQuestions(
-            rules_by_id={LINE: self.rule}, state=self.state, resolved_members=self.members, publications_by_id={},
+            rules_by_id={self.row["artifact_id"]: self.rule}, state=self.state, resolved_members=self.members,
+            publications_by_id={},
             by_symbol=self.by_symbol, needs={}, entity_kinds=frozenset({"tax.us.f1099b-statement"}),
             withholding_entities=withholding_statement_question_entities(CORE, version),
             current_finding_ids=frozenset(self.current) if currency else None,
+            adopted_package=(CORE, version),
         )
 
     def reasons(self, walker: _StatementQuestions | None = None) -> list[dict[str, Any]]:
@@ -151,6 +158,7 @@ def test_only_exact_current_statement_peers_need_party_names(answer: str, peer: 
 ])
 def test_party_names_fail_closed(answer: str, fault: str) -> None:
     case = WalkCase(answer)
+    case.adoption["version"] = "v110"
     walker = case.walker(version="v110")
     identity = case.keys(0, answer)
     assert walker.party_label(answer, identity, [case.row]) == NAMES[0]
@@ -240,15 +248,49 @@ def test_broker_peer_can_be_recorded_only_by_a_current_statement_anchor() -> Non
 
 def test_all_sale_findings_contribute_to_broker_agreement_and_must_be_pinned() -> None:
     case = WalkCase(BOX7)
-    case.income.append(TAX + "f1099b.covered-lt-txn")
-    sale = case.income[-1]
-    case.state.fact_state.fact_types[sale] = case.declaration(sale, case.entities)
+    sale = case.income[1]
     case.add(sale, 0)
     identity = case.keys(0, BOX7)
     assert case.walker().party_label(BOX7, identity, [case.row]) == NAMES[0]
     assert case.walker().party_label(BOX7, identity, [{**case.row, "pins": case.row["pins"][:-1]}]) is None
     case.add(sale, 0, keys={"broker": case.actors[1]})
     assert case.walker().party_label(BOX7, identity, [case.row]) is None
+
+
+@pytest.mark.parametrize("fault", ["older-version", "wrong-package", "missing", "ambiguous"])
+def test_broker_name_requires_exact_originating_adoption_pin(fault: str) -> None:
+    case = WalkCase(BOX7)
+    named = case.reasons()
+    assert [r[FIELD] for r in named] == list(NAMES)
+    if fault == "older-version":
+        case.adoption["version"] = "v108"
+    elif fault == "wrong-package":
+        case.adoption["id"] = "demo.package.other"
+    elif fault == "missing":
+        case.row["pins"].remove(case.adoption)
+    else:
+        case.row["pins"].append({**case.adoption, "version": "v108"})
+    assert case.reasons() == [{key: value for key, value in reason.items() if key != FIELD} for reason in named]
+
+
+@pytest.mark.parametrize("answer", [BOX4, BOX7])
+def test_successor_broker_pairing_requires_every_adopted_sale_type(answer: str) -> None:
+    case = WalkCase(answer)
+    case.adoption["version"] = "v110"
+    named = case.reasons(case.walker(version="v110"))
+    assert [r[FIELD] for r in named] == list(NAMES)
+    # There is no current row of this type, so the statement attribution survives.
+    case.income.pop()
+    assert case.reasons(case.walker(version="v110")) == [
+        {key: value for key, value in reason.items() if key != FIELD} for reason in named
+    ]
+
+
+def test_box7_family_pairing_keeps_its_adopted_single_sale_type() -> None:
+    case = WalkCase(BOX7)
+    case.row["artifact_id"] = TAX + "rule.f1099b.covered-st-txn.box7-loss-check"
+    case.income[:] = case.income[:1]
+    assert [r[FIELD] for r in case.reasons()] == list(NAMES)
 
 
 @pytest.mark.parametrize("overrides", [

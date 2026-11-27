@@ -55,7 +55,7 @@ from packages.tax.coverage import untranslated_source_findings
 from packages.tax.loader import (
     STATEMENT_BROKER_ANCHOR,
     STATEMENT_BROKER_ENTITIES,
-    STATEMENT_BROKER_QUESTIONS,
+    STATEMENT_BROKER_PAIRINGS,
     STATEMENT_BROKER_SALES,
     STATEMENT_PAYER_INCOME,
 )
@@ -686,6 +686,7 @@ class _StatementQuestions:
         needs: Mapping[str, frozenset[str]],
         withholding_entities: Mapping[str, Mapping[str, str]] | None = None,
         current_finding_ids: frozenset[str] | None = None,
+        adopted_package: tuple[str, str] | None = None,
     ) -> None:
         self._rules = rules_by_id
         self._state = state
@@ -694,6 +695,7 @@ class _StatementQuestions:
         self._needs = needs
         self._withholding_entities = withholding_entities or {}
         self._current_finding_ids = current_finding_ids
+        self._adopted_package = adopted_package
         self._fact_map: dict[str, Fact] | None = None
         self._identity: dict[str, list[str]] = {}
         self._withholding_years: dict[str, frozenset[str]] = {}
@@ -703,7 +705,7 @@ class _StatementQuestions:
         self._cohorts: dict[str, dict[tuple[str, str], dict[str, tuple[str, str]]]] = {}
         pinned_identities = set(self._withholding_entities)
         if self._withholding_entities:  # The second amendment has the same core v109 floor.
-            pinned_identities.update(STATEMENT_BROKER_QUESTIONS)
+            pinned_identities.update(STATEMENT_BROKER_PAIRINGS)
         declared: dict[str, Mapping[str, Any]] = {}
         pinned_declarations: dict[tuple[str, str], Mapping[str, Any] | None] = {}
         question_versions: dict[str, set[str | None]] = {}
@@ -996,13 +998,13 @@ class _StatementQuestions:
             names[statement] = (party, name)
         return names
 
-    def _party_inputs(
-        self, row: Mapping[str, Any], fact_type: str, income: frozenset[str], *, broker: bool,
-    ) -> list[Fact] | None:
+    def _party_inputs(self, row: Mapping[str, Any], fact_type: str) -> list[Fact] | None:
         """Establish the pairing's current, versioned source inputs before naming a party."""
         rule_id = row.get("artifact_id")
-        rule = self._rules.get(rule_id) if isinstance(rule_id, str) else None
-        if rule is None or row.get("code") != "DEPENDENCY_ABSENT" or row.get("missing") != [fact_type]:
+        if not isinstance(rule_id, str) or row.get("code") != "DEPENDENCY_ABSENT" or row.get("missing") != [fact_type]:
+            return None
+        rule = self._rules.get(rule_id)
+        if rule is None:
             return None
         nodes = self._paired_nodes(rule, fact_type)
         if len(nodes) != 1:
@@ -1010,21 +1012,24 @@ class _StatementQuestions:
         node = nodes[0]
         if node.get("key") != "statement" or self._mentions_outside_pair(rule, node, fact_type):
             return None
+        pairings = STATEMENT_BROKER_PAIRINGS.get(fact_type)
+        income = pairings.get(rule_id) if pairings is not None else STATEMENT_PAYER_INCOME.get(fact_type)
         source_types = node.get("income")
-        if not isinstance(source_types, list) or not source_types or not all(
-            isinstance(source, str) and source in income for source in source_types
-        ):
+        if not income or not isinstance(source_types, list) or len(source_types) != len(income) or not all(
+            isinstance(source, str) for source in source_types
+        ) or set(source_types) != income:
             return None
-        if len(set(source_types)) != len(source_types) or (not broker and set(source_types) != income):
+        pins = row.get("pins")
+        if self._adopted_package is None or not isinstance(pins, list) or [
+            (pin.get("id"), pin.get("version"))
+            for pin in pins if isinstance(pin, Mapping) and pin.get("role") == "adoption"
+        ] != [self._adopted_package]:
             return None
         expected = {fid: fact for source in source_types for fid, fact in
                     self._current_sources_by_type().get(source, {}).items()}
         covered = self._current_sources_by_type().get(fact_type, {})
         paired_types = {*source_types, fact_type}
         if paired_types & self._unresolved_source_types:
-            return None
-        pins = row.get("pins")
-        if not isinstance(pins, list):
             return None
         seen: set[str] = set()
         for pin in pins:
@@ -1060,21 +1065,20 @@ class _StatementQuestions:
         self, fact_type: str, identity: Mapping[str, str], rows: Sequence[Mapping[str, Any]],
     ) -> str | None:
         """Find a distinguishing recorded name within a same-form, same-year cohort."""
-        broker = fact_type in STATEMENT_BROKER_QUESTIONS
+        broker = fact_type in STATEMENT_BROKER_PAIRINGS
         if broker:
-            income = STATEMENT_BROKER_SALES
-            sources = income | {STATEMENT_BROKER_ANCHOR}
+            sources = STATEMENT_BROKER_SALES | {STATEMENT_BROKER_ANCHOR}
             entities = STATEMENT_BROKER_ENTITIES
             party_key = "broker"
             years = self._broker_years.get(fact_type, frozenset())
         else:
-            income = sources = STATEMENT_PAYER_INCOME.get(fact_type, frozenset())
+            sources = STATEMENT_PAYER_INCOME.get(fact_type, frozenset())
             entities = self._withholding_entities.get(fact_type, {})
             party_key = "payer"
             years = self._withholding_years.get(fact_type, frozenset())
         statement, year = identity.get("statement", ""), identity.get("tax-year", "")
         expected_keys = ({"statement"} if broker else set(entities)) | {"tax-year"}
-        if not income or set(identity) != expected_keys or year not in years or not rows:
+        if not sources or set(identity) != expected_keys or year not in years or not rows:
             return None
         label = self._current_label(statement, entities["statement"])
         if label is None:
@@ -1089,7 +1093,7 @@ class _StatementQuestions:
         if not broker and identity.get(party_key) != party_id:
             return None
         for row in rows:
-            inputs = self._party_inputs(row, fact_type, income, broker=broker)
+            inputs = self._party_inputs(row, fact_type)
             if inputs is None:
                 return None
             matches = [keys for fact in inputs if (keys := dict(fact.keys)).get("statement") == statement]
@@ -6275,6 +6279,7 @@ def build_presentation_model(
             entity_kinds=STATEMENT_QUESTION_ENTITY_KINDS, needs=STATEMENT_QUESTION_NEEDS,
             withholding_entities=withholding_statement_question_entities(*adopted_package),
             current_finding_ids=current_finding_ids,
+            adopted_package=adopted_package,
         )
         if adopted_package is not None and labels_statement_questions(adopted_package[0], adopted_package[1])
         else None
