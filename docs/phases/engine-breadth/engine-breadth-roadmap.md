@@ -1356,8 +1356,9 @@ unchanged.
 When two or more statements of one form and year carry the same recorded
 label, each statement question on the saved page also names the payer
 (Forms 1099-INT, 1099-DIV, IRA-family 1099-R and 1099-G) or the broker
-(Form 1099-B), provided every name is present and they differ. Otherwise,
-and for SSA-1099, the page keeps the statement labels. No recorded list
+(Form 1099-B), provided every name is present and the names differ after
+ignoring case and collapsing whitespace. Otherwise, and for SSA-1099,
+the page keeps the statement labels. No recorded list
 changes; 10 synthetic lists gain 174 names.
 
 ## Hardening — Derivation Schema Capability Table Consolidation

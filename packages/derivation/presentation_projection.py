@@ -56,6 +56,7 @@ from packages.tax.loader import (
     STATEMENT_BROKER_ANCHOR,
     STATEMENT_BROKER_ENTITIES,
     STATEMENT_BROKER_PAIRINGS,
+    STATEMENT_BROKER_SALE_ENTITIES,
     STATEMENT_BROKER_SALES,
     STATEMENT_PAYER_INCOME,
 )
@@ -704,8 +705,15 @@ class _StatementQuestions:
         self._unresolved_source_types: set[str] = set()
         self._cohorts: dict[str, dict[tuple[str, str], dict[str, tuple[str, str]]]] = {}
         pinned_identities = set(self._withholding_entities)
+        source_entities = {
+            source: self._withholding_entities[answer]
+            for answer, sources in STATEMENT_PAYER_INCOME.items() if answer in self._withholding_entities
+            for source in sources
+        }
         if self._withholding_entities:  # The second amendment has the same core v109 floor.
             pinned_identities.update(STATEMENT_BROKER_PAIRINGS)
+            source_entities[STATEMENT_BROKER_ANCHOR] = STATEMENT_BROKER_ENTITIES
+            source_entities.update(dict.fromkeys(STATEMENT_BROKER_SALES, STATEMENT_BROKER_SALE_ENTITIES))
         declared: dict[str, Mapping[str, Any]] = {}
         pinned_declarations: dict[tuple[str, str], Mapping[str, Any] | None] = {}
         question_versions: dict[str, set[str | None]] = {}
@@ -717,7 +725,7 @@ class _StatementQuestions:
                         fact_type_id = fact_type["id"]
                         declared.setdefault(fact_type_id, fact_type)
                         version = fact_type.get("version")
-                        if fact_type_id in pinned_identities and isinstance(version, str):
+                        if (fact_type_id in pinned_identities or fact_type_id in source_entities) and isinstance(version, str):
                             key = (fact_type_id, version)
                             previous = pinned_declarations.setdefault(key, fact_type)
                             if previous != fact_type:
@@ -732,6 +740,10 @@ class _StatementQuestions:
                         question_versions.setdefault(fact_type_id, set()).add(
                             version if isinstance(version, str) else None,
                         )
+        self._source_years = {
+            source: self._declared_source_years(source, entities, pinned_declarations)
+            for source, entities in source_entities.items()
+        }
         for fact_type_id, declaration in {**declared, **state.fact_state.fact_types}.items():
             withholding_keys = self._withholding_entities.get(fact_type_id)
             if fact_type_id in pinned_identities:
@@ -763,13 +775,29 @@ class _StatementQuestions:
         identity = declaration.get("identity_keys") if declaration is not None else None
         if not isinstance(identity, list) or not all(isinstance(key, Mapping) for key in identity):
             return frozenset()
-        expected = {(name, "entity", kind) for name, kind in entities.items()} | {("tax-year", "literal", None)}
+        expected = [*((name, "entity", kind) for name, kind in entities.items()), ("tax-year", "literal", None)]
         if len(identity) != len(expected) or not all(
             (key.get("name"), key.get("kind"), key.get("entity_kind")) in expected for key in identity
         ) or len({key["name"] for key in identity}) != len(expected):
             return frozenset()
         years = next(key.get("values") for key in identity if key["name"] == "tax-year")
         return frozenset(years) if isinstance(years, list) and all(isinstance(year, str) for year in years) else frozenset()
+
+    def _declared_source_years(
+        self, source: str, entities: Mapping[str, str],
+        declarations: Mapping[tuple[str, str], Mapping[str, Any] | None],
+    ) -> frozenset[str]:
+        adopted = {version: body for (type_id, version), body in declarations.items() if type_id == source}
+        if not adopted:
+            return frozenset()
+        years = frozenset.intersection(*(self._identity_years(body, entities) for body in adopted.values()))
+        workspace = self._state.fact_state.fact_types.get(source)
+        if workspace is None:
+            return years  # The package can declare sources absent from this workspace.
+        version = workspace.get("version")
+        if not isinstance(version, str) or version not in adopted:
+            return frozenset()
+        return years & self._identity_years(workspace, entities)
 
     def applies(self, fact_type: str) -> bool:
         """Whether ``fact_type`` is a per-statement fact this decision labels."""
@@ -1079,6 +1107,8 @@ class _StatementQuestions:
         statement, year = identity.get("statement", ""), identity.get("tax-year", "")
         expected_keys = ({"statement"} if broker else set(entities)) | {"tax-year"}
         if not sources or set(identity) != expected_keys or year not in years or not rows:
+            return None
+        if any(year not in self._source_years.get(source, ()) for source in sources):
             return None
         label = self._current_label(statement, entities["statement"])
         if label is None:

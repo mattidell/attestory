@@ -1,6 +1,6 @@
 {
-  "baseline": "c477299bb1a0e1f9e409fb92412e341e225fbeab",
-  "build": "48bacad2e75c537bc07d02c612be06be1b0a863a",
+  "baseline": "Parent of the build commit. Both commit IDs resolve from HEAD at run time.",
+  "build_subject": "build(statement-label-payer): name parties on repeated statement labels",
   "controls_rejected": [
     "added_name_to_distinct_statement",
     "removed_name",

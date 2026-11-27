@@ -28,6 +28,8 @@ The following controls remove or corrupt inputs used to display a name.
 | Originating paired block | Move the pairing to an inactive arm and produce the same missing type from a separate block. |
 | Originating adoption pin matches the run's core (T1-01) | Change the Box 7 row's pin from v109 to v108, use another package, remove the pin, or add a conflicting pin. Each case keeps the original statement reasons. |
 | Adopted sale types for the originating broker rule (T1-02) | On a compatible v110 fixture, remove an unused sale type from the eight-type Box 4 and Box 7 pairings. Both preserve the statement reasons and omit the broker names. A separate positive control exercises the adopted one-family Box 7 rule. |
+| Compatible declared identities for every source (R1) | On v110, change the payer or broker key from entity to literal while retaining the same key values. Exercise the adopted and workspace declarations separately, including paired income, an unused sale type, and a statement anchor. Each case keeps the statement reasons. |
+| Core version eligible for party names (R3) | Match the v108 walker with a v108 row pin. The v109 fixture has the same evidence and displays names. |
 | Current findings and exact paired input pins | Retract a peer while omitting the precomputed currency argument. Make a paired pin stale, remove it, point it to a missing finding, or corrupt its version or origin. |
 | Current same-form, same-year statement identity and plain label text | Blank a statement label, substitute another statement kind or move the peer's finding to another year. Distinct case and spacing stay distinct. |
 | One party per statement, with agreement across contributing records | Give one statement contradictory parties or remove its broker key. Add another sale of the same statement and remove its pin or change its broker. |
@@ -41,6 +43,9 @@ group link.
 
 The six fallback cases for T1-01 and T1-02 failed before the repair.
 All six passed in the 180-test targeted run after the repair.
+The eight source-identity cases for R1 failed before Repair 2 and
+passed after it. Opening the version gate during a separate R3 control
+made the v108 assertion fail with the matching row pin still in place.
 
 ## Full-surface replay
 
@@ -53,8 +58,10 @@ python3 docs/phases/engine-breadth/milestones/statement-label-payer-evidence/rep
 ```
 
 The script resolves the parent of the unique commit beginning
-`build(statement-label-payer)` from `HEAD` history. Both projections
-use the live coordinator with the same act list, run identity, core
+`build(statement-label-payer)` from `HEAD` history. It prints the
+resolved commit IDs and records the build subject and lookup method
+in the summary. Both projections use the live coordinator with the
+same act list, run identity, core
 v109, registry v107 and release v107. The shared run uses 38 shards.
 The comparator checks the exact expected name at each reason index,
 the order of the names, and each corpus's count of changed lists. It
@@ -77,3 +84,8 @@ in the 20 synthetic cases with a labelled question. The all-answered
 case has no labelled question. The text observer agrees at each expected
 name position. The replay records zero other differences across the
 saved model and report. [Replay summary](replay_track1_summary.json)
+
+Repair 2 also checked startup in a full-history single-branch clone
+with no `origin/main`. The Track 1 resolver found the curated build and
+parent, and the P0 probe passed all 46 controls after checking its
+baseline against `HEAD`.

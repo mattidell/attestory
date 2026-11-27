@@ -125,5 +125,16 @@ snapshot fallback accepted reordered pins and replaced finding ids
 the replay: 775 recorded lists match; 10 of 21 synthetic lists gain 174
 names; zero unexpected differences. The roadmap item (two Form 1099-B
 statements with one label) is retired.
-Commit ids cited in the evidence predate curation and are kept at
+Pre-curation history is available at
 `refs/snapshot/2026-11-27-statement-label-payer-pre-pr-curation`.
+
+Repair 2 addressed the final review. Party names require compatible
+adopted and workspace source identities. The v108 regression uses a
+matching adoption pin, and P0 startup checks baseline ancestry from
+`HEAD`. The Track 1 replay resolves the curated build and its parent
+at run time and records the build subject. The curated replay matched
+all 775 recorded lists and added 174 ordered names on 10 of 21
+synthetic lists. All five controls were rejected and 20 rendered
+prefix checks passed. The redundant draft was removed, and the ADR
+digest and roadmap now state the case and whitespace comparison.
+[Repair 2 evidence](statement-label-payer-evidence/track1.md)

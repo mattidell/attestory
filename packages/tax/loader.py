@@ -232,6 +232,9 @@ STATEMENT_BROKER_ANCHOR = "tax.us.2025.f1099b.statement-anchor"
 STATEMENT_BROKER_ENTITIES: Mapping[str, str] = {
     "statement": "tax.us.f1099b-statement", "broker": "tax.us.f1099b-broker",
 }
+STATEMENT_BROKER_SALE_ENTITIES: Mapping[str, str] = {
+    **STATEMENT_BROKER_ENTITIES, "transaction": "tax.us.f1099b-transaction",
+}
 STATEMENT_PAYER_INCOME: Mapping[str, frozenset[str]] = {
     "tax.us.2025.f1099int.box4-withholding": frozenset({
         "tax.us.2025.f1099int.box1-interest", "tax.us.2025.f1099int.box3-interest",

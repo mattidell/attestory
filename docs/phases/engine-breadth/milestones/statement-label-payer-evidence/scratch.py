@@ -50,8 +50,7 @@ def git(*args):
 
 
 def check_baseline():
-    for ref in ("origin/main", "HEAD"):
-        git("merge-base", "--is-ancestor", BASE, ref)
+    git("merge-base", "--is-ancestor", BASE, "HEAD")
 
 
 def replace_once(source, anchor, replacement):

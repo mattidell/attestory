@@ -58,8 +58,11 @@ class WalkCase:
                          else withholding_statement_question_entities(CORE, "v109")[answer])
         self.actors = ("demo.party-a", "demo.party-b")
         self.statements = ("demo.statement-a", "demo.statement-b")
+        self.transactions = ("demo.sale-a", "demo.sale-b")
         self.answer_keys = {key: kind for key, kind in self.entities.items() if key != "broker"}
-        self.declarations = {name: self.declaration(name, self.entities) for name in self.income}
+        transaction_kind = "tax.us.f1099b-transaction"
+        source_entities = {**self.entities, "transaction": transaction_kind} if broker else self.entities
+        self.declarations = {name: self.declaration(name, source_entities) for name in self.income}
         self.declarations[answer] = self.declaration(answer, self.answer_keys)
         self.declarations[ANCHOR] = self.declaration(ANCHOR, self.entities)
         self.members: list[dict[str, Any]] = [
@@ -71,6 +74,9 @@ class WalkCase:
         if self.party_key in self.entities:
             entities.update({party: EntityLifecycle({"kind": self.entities[self.party_key], "label": name}, "current")
                              for party, name in zip(self.actors, NAMES, strict=True)})
+        if broker:
+            entities.update({transaction: EntityLifecycle({"kind": transaction_kind}, "current")
+                             for transaction in self.transactions})
         self.state = FindingState(fact_state=KernelState(entities=entities, fact_types=self.declarations))
         self.node = {"op": "require_paired", "key": "statement", "income": self.income, "withholding": answer}
         self.rule: dict[str, Any] = {"value": self.node}
@@ -92,7 +98,8 @@ class WalkCase:
         ]}
 
     def keys(self, index: int, fact_type: str, **changes: str) -> dict[str, str]:
-        keys = {"statement": self.statements[index], self.party_key: self.actors[index], "tax-year": "2025"}
+        keys = {"statement": self.statements[index], self.party_key: self.actors[index],
+                "transaction": self.transactions[index], "tax-year": "2025"}
         return {key["name"]: changes.get(key["name"], keys[key["name"]])
                 for key in self.declarations[fact_type]["identity_keys"]}
 
@@ -243,7 +250,16 @@ def test_broker_peer_can_be_recorded_only_by_a_current_statement_anchor() -> Non
     case.current.remove(case.source_ids[1])
     case.add(ANCHOR, 1, pinned=False)
     assert [r[FIELD] for r in case.reasons()] == [NAMES[0]]
-    assert [r.get(FIELD) for r in case.reasons(case.walker(version="v108"))] == [None]
+
+
+def test_form_1099b_on_core_v108_keeps_statement_only_label() -> None:
+    case = WalkCase(BOX7)
+    named = case.reasons()
+    assert [r[FIELD] for r in named] == list(NAMES)
+    case.adoption["version"] = "v108"
+    assert case.reasons(case.walker(version="v108")) == [
+        {key: value for key, value in reason.items() if key != FIELD} for reason in named
+    ]
 
 
 def test_all_sale_findings_contribute_to_broker_agreement_and_must_be_pinned() -> None:
@@ -291,6 +307,37 @@ def test_box7_family_pairing_keeps_its_adopted_single_sale_type() -> None:
     case.row["artifact_id"] = TAX + "rule.f1099b.covered-st-txn.box7-loss-check"
     case.income[:] = case.income[:1]
     assert [r[FIELD] for r in case.reasons()] == list(NAMES)
+
+
+@pytest.mark.parametrize("answer,source", [(INT, "paired"), (BOX4, "paired"), (BOX7, "unused"), (BOX7, "anchor")])
+@pytest.mark.parametrize("declaration", ["adopted", "workspace"])
+def test_successor_party_names_require_compatible_source_identity(
+    answer: str, source: str, declaration: str,
+) -> None:
+    case = WalkCase(answer)
+    case.adoption["version"] = "v110"
+    if source == "anchor":
+        case.row["pins"].pop()
+        case.current.remove(case.source_ids[1])
+        case.add(ANCHOR, 1, pinned=False)
+    named = case.reasons(case.walker(version="v110"))
+    assert [r[FIELD] for r in named] == list(NAMES[:len(named)])
+
+    source_id = {"paired": case.income[0], "unused": case.income[-1], "anchor": ANCHOR}[source]
+    original = case.declarations[source_id]
+    changed = {**original, "identity_keys": [
+        {"name": case.party_key, "kind": "literal", "values": list(case.actors)}
+        if key["name"] == case.party_key else key for key in original["identity_keys"]
+    ]}
+    if declaration == "adopted":
+        case.members[0]["fact_types"] = [
+            changed if item["id"] == source_id else item for item in case.members[0]["fact_types"]
+        ]
+    else:
+        case.declarations[source_id] = changed
+    assert case.reasons(case.walker(version="v110")) == [
+        {key: value for key, value in reason.items() if key != FIELD} for reason in named
+    ]
 
 
 @pytest.mark.parametrize("overrides", [

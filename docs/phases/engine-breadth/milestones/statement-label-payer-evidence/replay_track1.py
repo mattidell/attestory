@@ -37,15 +37,15 @@ def git(*args: str) -> str:
     return subprocess.check_output(["git", *args], cwd=p0.REPO, text=True, timeout=20).strip()
 
 
-def build_and_parent() -> tuple[str, str]:
+def build_and_parent() -> tuple[str, str, str]:
     prefix = "build(statement-label-payer)"
     history = git("log", "--format=%H%x09%s", f"--grep=^{prefix}", "HEAD")
-    builds = [commit for line in history.splitlines()
+    builds = [(commit, subject) for line in history.splitlines()
               for commit, _, subject in [line.partition("\t")] if subject.startswith(prefix)]
     if len(builds) != 1:
         raise ValueError(f"expected one {prefix} commit in HEAD history, found {len(builds)}")
-    build = builds[0]
-    return build, git("rev-parse", "--verify", f"{build}^")
+    build, subject = builds[0]
+    return build, git("rev-parse", "--verify", f"{build}^"), subject
 
 
 @cache
@@ -154,7 +154,8 @@ def main():
     args = parser.parse_args()
     if args.workers < 1:
         parser.error("--workers must be positive")
-    build, parent = build_and_parent()
+    build, parent, subject = build_and_parent()
+    print(f"Build {build} ({subject}), baseline {parent}", file=sys.stderr, flush=True)
     baseline_projection(parent)
     all_recorded = dict(rr.recorded_lists())
     cases = p0.synthetic(all_recorded)
@@ -188,7 +189,9 @@ def main():
     if synthetic["names_added"] != EXPECTED_SYNTHETIC_NAMES or dom_checks != EXPECTED_DOM_CHECKS:
         raise ValueError("synthetic additions or DOM checks differ from the expected totals")
     summary = {
-        "build": build, "baseline": parent, "core": p0.CORE,
+        "build_subject": subject,
+        "baseline": "Parent of the build commit. Both commit IDs resolve from HEAD at run time.",
+        "core": p0.CORE,
         "registry": core.registry, "release": core.release_version,
         "workers": args.workers, "shards": len(shards), "recorded": p0.summarize(recorded, results, 0),
         "synthetic": synthetic, "controls_rejected": controls, "synthetic_dom_checks": dom_checks,
