@@ -3,8 +3,8 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "line16-next-step",
-  "status": "Open. ADR 0091 accepted by the owner 2026-11-26 (placement A); Track 1 chartered.",
-  "retrospective": null,
+  "status": "Closed 2026-11-26. Content and projection (ADR 0091): core v109, registry v107, release v107.",
+  "retrospective": "docs/milestone-retrospectives/2026-11-26-line16-next-step.md",
   "scope": [
     "on a return where Schedule D is required, no sale is recorded and the Exception 1 answers are right, the saved page tells the filer the next step (record the sale, or that the return needs work the engine does not support)",
     "where the page asks an Exception 1 question, the filer can see the answer they gave",
@@ -31,7 +31,7 @@
       "docs/phases/engine-breadth/milestones/line16-next-step.md"
     ],
     "new_milestone": [
-      "docs/milestone-retrospectives/2026-11-17-line16-names.md",
+      "docs/milestone-retrospectives/2026-11-26-line16-next-step.md",
       "docs/phases/engine-breadth/engine-breadth-roadmap.md#Parked work and open questions"
     ]
   }
@@ -180,3 +180,20 @@ Focused verification passed, including all seven browser tests on retry.
 Six local suite batches accounted for 6,106 of 7,958 collected tests. The
 foreman deferred the remaining local batches to CI `verify`.
 [Track 1 evidence](line16-next-step-evidence/track1.md)
+
+## Closeout
+
+Closed 2026-11-26. Retrospective:
+`docs/milestone-retrospectives/2026-11-26-line16-next-step.md`.
+The fresh review (NOT READY) found that the replay accepted an approved
+sentence without checking that its line was blocked and its answer
+matched (L16-T1), that the committed replay results were P0's and its
+checkpoint was keyed to content only (L16-T2), and a stale handoff note
+(L16-T3). Repair 1 fixed all three and re-ran the replay cleanly. The
+foreman recorded the two schema intents on `milestone-schema-ledger`.
+statement-question-labels (ADR 0089) and same-label-ordinal (ADR 0090)
+merged first and change the same projection function; the builder
+rebased onto them, ran the three milestones' tests together, and re-ran
+the replay on the new base (801 lists, 0 unexpected). The roadmap item
+(L16-R2) is retired. The probe's raw outputs `probe-v108.json` and
+`probe-v109.json` are not kept.
