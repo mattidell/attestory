@@ -21,21 +21,27 @@ recorded sale.
 
 ## Published replay
 
-[replay.py](replay.py) compared published core v108 (registry and release
-v106) with published core v109 (registry and release v107) using nine workers
-and the six P0 expectations. The initial command reached its time limit at
-218 lists. The second command resumed the same checkpoint and ran the
-remaining 583 lists.
+[replay.py](replay.py) ran 18 fresh shards across nine workers. The v108
+run used the projection from the parent of the `build(line16-next-step)`
+commit. The v109 run used the current production projection. The comparator
+checked the saved model and report and admitted each added explanation only
+when the line was blocked and its linked question had exactly one current
+finding with the declared fact type, version and value. The run used no
+checkpoint inputs.
 
-- 775 recorded and 26 probe lists. **801 passed, 0 failed, 0 unexpected
-  differences.**
-- 717 lists had expected changes, including 25 with added explanations.
-  The other 84 returned identical errors on both cores.
+- **801 passed, 0 failed and 0 unexpected differences** across 775 recorded
+  and 26 probe lists. Of these, 717 had expected changes and 84 returned
+  identical errors on both cores.
 - The same 25 lists as P0 gained explanations. The replay counted 448 C1,
-  280 C2, 224 C3 and 224 C4 additions across 700 field reason lists.
-- All six expectations were used. Core fingerprints, per-list classifications
-  and difference counts matched P0. Values, dispositions, block codes,
-  question links and recorded rows stayed unchanged across the comparison.
+  280 C2, 224 C3 and 224 C4 additions across 700 field reason lists. Values,
+  dispositions, block codes, question links and recorded rows matched.
+- The failing control appended the approved C1 “no” explanation to blocked
+  line 16 on the unanswered C1 probe. The comparator rejected both the
+  added sentence and the corresponding change to the reason list order.
+
+The [Track 1 replay summary](track1-replay.json) records the affected lists,
+code and content hashes, and control result. The [P0 replay](replay.json)
+records the earlier scratch run.
 
 ## Verification
 
@@ -66,7 +72,7 @@ batch six on the Track 1 commit.
 
 ## Closeout
 
-The replay and test evidence are for the milestone branch at `8af3c673f`.
+The focused and batched tests ran on the milestone branch at `8af3c673f`.
 Main remained at core v108 after PRs #318 and #314. PR #314 also touches the
 presentation projection. The foreman will reconcile the shared projection
 at closeout and use CI `verify` for the integrated candidate. The foreman

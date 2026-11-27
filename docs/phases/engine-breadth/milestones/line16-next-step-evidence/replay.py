@@ -43,7 +43,7 @@ REPLAY_FILES = (PROJECTION, "packages/tax/loader.py", "packages/derivation/loade
 @cache
 def baseline_ref() -> str:
     history = subprocess.check_output(
-        ["git", "log", "--first-parent", "--format=%H%x09%s", "HEAD"], cwd=REPO, text=True, timeout=30,
+        ["git", "log", "--format=%H%x09%s", "HEAD"], cwd=REPO, text=True, timeout=30,
     )
     for row in history.splitlines():
         ref, _, subject = row.partition("\t")
