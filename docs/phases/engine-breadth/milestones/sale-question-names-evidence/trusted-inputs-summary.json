@@ -100,5 +100,8 @@
       "missing-violation-codes",
       "lost-validation-sale-pin"
     ]
-  }
+  },
+  "core": "v109",
+  "registry": "v107",
+  "release": "v107"
 }

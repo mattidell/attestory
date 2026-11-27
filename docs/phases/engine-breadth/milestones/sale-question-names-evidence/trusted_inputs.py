@@ -8,12 +8,15 @@ from copy import deepcopy
 from dataclasses import replace
 import json
 from pathlib import Path
+from shutil import copytree
+from tempfile import TemporaryDirectory
 from unittest.mock import patch
 
 from probe import ALPHA, CORE, ZULU, build_sales, cases
 import scratch
 from packages.derivation import live
 from tools import recorded_replay as rr
+from tools.package_successor import build_successor, load_corpus
 
 
 def amended_pin(row, fid, **changes):
@@ -34,7 +37,7 @@ def replace_member(members, original, **changes):
     return [({**member, **changes} if member is original else member) for member in members]
 
 
-def check_inputs(walker, traces, questions, other, route):
+def check_inputs(walker, traces, questions, other, route, version):
     original = walker.reasons(traces, questions, other)
     wanted = [ZULU] if route == "pairing" else [ALPHA, ZULU]
     if len(original) != 1 or [entry["saleLabel"] for entry in next(iter(original.values()))] != wanted:
@@ -50,7 +53,7 @@ def check_inputs(walker, traces, questions, other, route):
     fact_id = walker.state.findings[finding_id]["fact_id"]
     entity_id = dict(walker.facts[fact_id].keys)["sale"]
     stock = {
-        "package": (scratch.PACKAGE, CORE), "state": walker.state, "current_ids": walker.current_ids,
+        "package": (scratch.PACKAGE, version), "state": walker.state, "current_ids": walker.current_ids,
         "members": walker.members, "publications": walker.publications, "by_symbol": walker.by_symbol,
     }
     checked = []
@@ -186,7 +189,8 @@ def check_inputs(walker, traces, questions, other, route):
     return checked
 
 
-def run(route, key):
+def run(route, key, core=CORE):
+    core = rr.resolve_core(core)
     seen = []
     method = scratch.SaleQuestions.reasons
 
@@ -196,31 +200,61 @@ def run(route, key):
             # Use the live walk's first reached sale-question leaf set. Calling
             # the original method on altered copies exercises only attribution.
             with patch.object(scratch.SaleQuestions, "reasons", method):
-                seen.extend(check_inputs(walker, traces, questions, other, route))
+                seen.extend(check_inputs(walker, traces, questions, other, route, core.version))
         return method(walker, traces, questions, other)
 
     _, candidate = scratch.projectors()
     with patch.object(scratch.SaleQuestions, "reasons", observe), patch.object(
         live, "build_presentation_model", candidate.build_presentation_model,
     ):
-        result = rr.saved_output(CORE, build_sales(cases()[key]), key)
+        result = rr.saved_output(core, build_sales(cases()[key]), key)
     if not seen or result["outcome"] != "success":
         raise ValueError(f"{route}: controls did not complete: {result.get('message')}")
     return seen
 
 
+def successor(directory):
+    """Create a live scratch v110 with every v109 member pin retained."""
+    base = rr.resolve_core(CORE)
+    content = directory / "content"
+    releases = directory / "releases"
+    copytree(base.content, content)
+    copytree(base.releases, releases)
+    core = rr.ReplayCore("v110", "v108", "v108", content, releases, loader_from=CORE)
+    corpus, _ = load_corpus(base.content)
+    predecessor = json.loads(base.package_path.read_bytes())
+    candidate = build_successor(
+        predecessor, (base.content / f"published-packages.{base.registry}.json").read_bytes(),
+        json.loads(base.release_path.read_bytes()), corpus,
+        {"package_version": core.version, "release_version": core.release_version},
+    )
+    if json.loads(candidate.package)["members"] != predecessor["members"]:
+        raise ValueError("control requires identical adopted member pins")
+    core.package_path.write_bytes(candidate.package)
+    (content / f"published-packages.{core.registry}.json").write_bytes(candidate.registry)
+    core.release_path.write_bytes(candidate.release)
+    return core
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--out", type=Path, required=True)
+    parser.add_argument("--successor", action="store_true")
     args = parser.parse_args()
     tests = {
         "pairing": "demo.missing-basis",
         "amounts-check": "demo.amounts-disagree",
         "validation-fix": "demo.two-fixes",
     }
-    with ProcessPoolExecutor(max_workers=len(tests)) as pool:
-        results = dict(zip(tests, pool.map(run, tests, tests.values()), strict=True))
-    summary = {"checked": sum(map(len, results.values())), "controls_by_route": results}
+    with TemporaryDirectory() as directory:
+        core = successor(Path(directory)) if args.successor else rr.resolve_core(CORE)
+        with ProcessPoolExecutor(max_workers=len(tests)) as pool:
+            futures = {route: pool.submit(run, route, key, core) for route, key in tests.items()}
+            results = {route: future.result() for route, future in futures.items()}
+    summary = {
+        "core": core.version, "registry": core.registry, "release": core.release_version,
+        "checked": sum(map(len, results.values())), "controls_by_route": results,
+    }
     args.out.write_text(json.dumps(summary, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
 

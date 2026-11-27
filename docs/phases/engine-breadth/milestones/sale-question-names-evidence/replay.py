@@ -339,7 +339,11 @@ def main():
                 try:
                     results.update(future.result())
                 except BaseException:
-                    pool.terminate_workers()
+                    if hasattr(pool, "terminate_workers"):
+                        pool.terminate_workers()
+                    else:
+                        for pending in futures:
+                            pending.cancel()
                     raise
                 print(f"{len(results)}/{len(recorded) + len(synthetic)}", flush=True)
     if results.keys() != {key for key, _, _ in synthetic + recorded}:
