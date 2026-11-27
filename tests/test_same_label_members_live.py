@@ -1,12 +1,16 @@
-"""Two members with the same recorded label each get their question, on published core v107 (ADR 0087).
+"""Members with the same recorded label each get their question, told apart by entry order (ADR 0087, 0090).
 
-same-label-members Track 1. The P0 probe returns (``same-label-members-evidence/probe.py``)
-go through live_coordinate_run, the real presentation projection and the saved
-page. Members share one recorded label ("Demo Sam") by case; each case leaves
-answers out of named members' records. Every blocked line that shows a member
-reason must show one per missing answer, each labelled with the recorded label
-and no ordinal (that is the draft ADR in same-label-members-evidence), and the page (rendered by the
-page-plain-words DOM checker) must draw every one of them.
+same-label-members Track 1 and same-label-ordinal Track 1. The P0 probe returns
+(``same-label-members-evidence/probe.py``, observed through
+``same-label-ordinal-evidence/probe.py``) go through live_coordinate_run, the
+real presentation projection and the saved page, on published core v108.
+Members share one recorded label ("Demo Sam") by case; each case leaves answers
+out of named members' records. Every blocked line that shows a member reason
+must show one per missing answer, each labelled with the recorded label. A label
+shared within the member's kind carries the member's place in entry order
+(``memberOrdinal``); one person's questions sit together. The page (rendered by
+the page-plain-words DOM checker) draws each as
+"<label> (the <nth> one you added with this name): <question>".
 
 Measured reason for the live marker: each live_coordinate_run with page
 rendering takes about 5 s, above the fast-lane budget.
@@ -25,21 +29,28 @@ from tests import evidence_loader
 
 pytestmark = pytest.mark.live
 REPO = Path(__file__).resolve().parents[1]
-EVIDENCE = REPO / "docs/phases/engine-breadth/milestones/same-label-members-evidence"
+EVIDENCE = REPO / "docs/phases/engine-breadth/milestones/same-label-ordinal-evidence"
 PAGE = REPO / "packages/presentation/pages/citation-walk.v1.html"
+ORDINAL_WORDS = ("first", "second", "third")
 
 
 @lru_cache(maxsize=1)
+def _ordinal_probe() -> Any:
+    return evidence_loader.load(EVIDENCE / "probe.py", "slo_t1_live_probe")
+
+
 def _probe() -> Any:
-    return evidence_loader.load(EVIDENCE / "probe.py", "slm_t1_live_probe")
+    return _ordinal_probe().slm
 
 
 @lru_cache(maxsize=None)
 def _run(case: str) -> dict[str, Any]:
     probe = _probe()
-    core = probe.h.Core("v107", "v105", "v105")
-    assert core.package_path.name == "package.core-calculations.v107.json"
-    return dict(probe.observe(core, case, page=PAGE if shutil.which("node") else None))
+    core = probe.h.Core("v108", "v106", "v106")
+    assert core.package_path.name == "package.core-calculations.v108.json"
+    if shutil.which("node"):
+        return dict(_ordinal_probe().observe(core, case, page=PAGE))
+    return dict(probe.observe(core, case))
 
 
 def _expected_labels(case: str) -> tuple[Counter[str], int]:
@@ -50,6 +61,22 @@ def _expected_labels(case: str) -> tuple[Counter[str], int]:
     label_of = dict(zip([*children, *parents], (probe.LABELS[letter] for letter in letters)))
     parts = [part.split("@") for part in removed.split("+")]
     return Counter(label_of[probe.member_name(where)] for _, where in parts), len({short for short, _ in parts})
+
+
+def _expected_members(case: str) -> list[tuple[str, int]]:
+    """(label, ordinal) for each left-out answer, sorted as the page groups them; 0 is no ordinal."""
+    probe = _probe()
+    _, roster, letters, removed = case.split("/")
+    children, parents = probe.members(roster)
+    order = [*children, *parents]
+    label_of = dict(zip(order, (probe.LABELS[letter] for letter in letters)))
+
+    def ordinal(member: str) -> int:
+        peers = [m for m in order if label_of[m] == label_of[member] and (m in children) == (member in children)]
+        return peers.index(member) + 1 if len(peers) > 1 else 0
+
+    members = [probe.member_name(part.split("@")[1]) for part in removed.split("+")]
+    return sorted((label_of[m], ordinal(m)) for m in members)
 
 
 SAME_LABEL = (
@@ -63,9 +90,12 @@ SAME_LABEL = (
     "single/kid2/AA/age@2",
     "single/kid3/AAA/age@1+age@2+age@3",
     "single/kid3/AAA/age@1+res@3",
+    "single/kid3/AAA/age@3",
     "single/kid3/AAB/age@1+age@2+age@3",
+    "single/kid3/ABA/age@3",
     "single/odckid2/AA/odc-tin@1+odc-tin@2",
     "single/parent2/AA/rel-tin@p1+rel-tin@p2",
+    "single/parent2/AA/rel-tin@p1+rel-citizen@p2",
     "single/parent2/AA/rel-tin@p2",
 )
 CONTROLS = (
@@ -86,12 +116,14 @@ def test_each_member_missing_an_answer_gets_its_own_reason(case: str) -> None:
     for line, said in lines.items():
         assert Counter(label for label, _, _ in said) == labels, (line, said)
         assert len({sentence for _, _, sentence in said}) == distinct, (line, said)
-        assert all(ordinal == 0 for _, ordinal, _ in said), (line, said)
+        assert [(label, ordinal) for label, ordinal, _ in said] == _expected_members(case), (line, said)
+        # One person's questions sit together: label, then ordinal, then sentence.
+        assert said == sorted(said), (line, said)
     # Member questions link no question group (ADR 0087 Decision 3).
     assert run["question_groups"] == 0 and run["question_links"] == {}
 
 
-@pytest.mark.parametrize("case", SAME_LABEL)
+@pytest.mark.parametrize("case", SAME_LABEL + CONTROLS)
 def test_the_page_draws_every_member_reason(case: str) -> None:
     if shutil.which("node") is None:
         pytest.skip("node is not installed")
@@ -100,6 +132,14 @@ def test_the_page_draws_every_member_reason(case: str) -> None:
     assert dom["section_errors"] == 0 and dom["first_read_leaks"] == 0
     expected = {line: len([r for r in said if r[0]]) for line, said in run["reasons"].items()}
     assert dom["member_item_counts"] == {line: n for line, n in expected.items() if n}
+    # The drawn text: the label, its place when the label is shared, then the question.
+    assert set(run["drawn"]) == set(dom["member_item_counts"])
+    for line, items in run["drawn"].items():
+        said = [r for r in run["reasons"][line] if r[0]]
+        assert len(items) == len(said), (line, items)
+        for item, (label, ordinal, sentence) in zip(items, said):
+            which = f" (the {ORDINAL_WORDS[ordinal - 1]} one you added with this name)" if ordinal else ""
+            assert item == f"{label}{which}: {sentence}", (line, item)
 
 
 def test_a_child_and_a_parent_sharing_a_label_keep_their_own_questions() -> None:
@@ -107,3 +147,5 @@ def test_a_child_and_a_parent_sharing_a_label_keep_their_own_questions() -> None
     said = {tuple(r) for rows in run["reasons"].values() for r in rows if r[0]}
     assert {label for label, _, _ in said} == {"Demo Sam"}
     assert len({sentence for _, _, sentence in said}) == 2
+    # A child and a parent are different kinds: neither carries an ordinal.
+    assert {ordinal for _, ordinal, _ in said} == {0}
