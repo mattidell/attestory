@@ -1,0 +1,396 @@
+{
+  "baseline": "0172559abe564a0dc9da0aea521d4dd419e05d8f",
+  "controls_rejected": [
+    "added_name_to_repeated_sale",
+    "changed_block_code_beside_name",
+    "changed_failure_class",
+    "changed_failure_message",
+    "changed_outcome",
+    "changed_report_beside_name",
+    "changed_unnamed_model",
+    "changed_unnamed_report",
+    "moved_question_ref",
+    "removed_name",
+    "swapped_names",
+    "wrong_changed_list_total",
+    "wrong_unlinked_name"
+  ],
+  "core": "v109",
+  "recorded": {
+    "changed_lists": 0,
+    "lists": 775,
+    "lists_by_question": {
+      "lt.basis": 2,
+      "st.adjustment": 2,
+      "st.basis": 6,
+      "st.proceeds": 2
+    },
+    "named_dom_sections": 0,
+    "names_added": 0,
+    "outcomes": {
+      "error": 84,
+      "success": 691
+    },
+    "reason_counts_by_question": {
+      "lt.basis": 64,
+      "st.adjustment": 64,
+      "st.basis": 192,
+      "st.proceeds": 64
+    },
+    "recorded_sale_counts": {
+      "0": 680,
+      "1": 89,
+      "2": 6
+    },
+    "saved_current_sale_counts": {
+      "0": 600,
+      "1": 86,
+      "2": 5
+    },
+    "saved_with_missing_labels": 0,
+    "saved_with_repeated_labels": 5
+  },
+  "registry": "v107",
+  "release": "v107",
+  "scratch_page_sha256": "b942ea2076828ce36429732da134ebabe9fb88182c65f114ae7a6b2fe3e9f32f",
+  "scratch_projection_sha256": "3c408fb00d3f01967e11c7bd7e70cac7178cb5ab795a9a103fee7199600fb473",
+  "shards": 49,
+  "synthetic": {
+    "changed_lists": 10,
+    "lists": 19,
+    "lists_by_question": {
+      "lt.adjustment": 2,
+      "lt.basis": 2,
+      "lt.proceeds": 1,
+      "st.adjustment": 9,
+      "st.basis": 3,
+      "st.proceeds": 1
+    },
+    "named_dom_sections": 322,
+    "names_added": 480,
+    "outcomes": {
+      "success": 19
+    },
+    "reason_counts_by_question": {
+      "lt.adjustment": 64,
+      "lt.basis": 64,
+      "lt.proceeds": 32,
+      "st.adjustment": 288,
+      "st.basis": 96,
+      "st.proceeds": 32
+    },
+    "recorded_sale_counts": {
+      "1": 1,
+      "2": 15,
+      "3": 3
+    },
+    "saved_current_sale_counts": {
+      "1": 1,
+      "2": 15,
+      "3": 3
+    },
+    "saved_with_missing_labels": 2,
+    "saved_with_repeated_labels": 3
+  },
+  "synthetic_cases": {
+    "demo.all-valid": {
+      "controls": [
+        "changed_outcome",
+        "wrong_changed_list_total"
+      ],
+      "current_sales": [
+        2,
+        false,
+        false
+      ],
+      "dom_sections": 0,
+      "historical_sales": 2,
+      "names": 0,
+      "outcome": "success",
+      "questions": {}
+    },
+    "demo.amounts-disagree": {
+      "controls": [],
+      "current_sales": [
+        3,
+        false,
+        false
+      ],
+      "dom_sections": 32,
+      "historical_sales": 3,
+      "names": 64,
+      "outcome": "success",
+      "questions": {
+        "st.basis": 32
+      }
+    },
+    "demo.blank-label": {
+      "controls": [],
+      "current_sales": [
+        2,
+        true,
+        false
+      ],
+      "dom_sections": 0,
+      "historical_sales": 2,
+      "names": 0,
+      "outcome": "success",
+      "questions": {
+        "st.adjustment": 32
+      }
+    },
+    "demo.holding-period": {
+      "controls": [],
+      "current_sales": [
+        2,
+        false,
+        false
+      ],
+      "dom_sections": 0,
+      "historical_sales": 2,
+      "names": 0,
+      "outcome": "success",
+      "questions": {}
+    },
+    "demo.id-label": {
+      "controls": [],
+      "current_sales": [
+        2,
+        true,
+        false
+      ],
+      "dom_sections": 0,
+      "historical_sales": 2,
+      "names": 0,
+      "outcome": "success",
+      "questions": {
+        "st.adjustment": 32
+      }
+    },
+    "demo.long-amounts-disagree": {
+      "controls": [],
+      "current_sales": [
+        2,
+        false,
+        false
+      ],
+      "dom_sections": 32,
+      "historical_sales": 2,
+      "names": 32,
+      "outcome": "success",
+      "questions": {
+        "lt.basis": 32
+      }
+    },
+    "demo.long-missing-basis": {
+      "controls": [],
+      "current_sales": [
+        2,
+        false,
+        false
+      ],
+      "dom_sections": 32,
+      "historical_sales": 2,
+      "names": 32,
+      "outcome": "success",
+      "questions": {
+        "lt.basis": 32
+      }
+    },
+    "demo.long-missing-proceeds": {
+      "controls": [],
+      "current_sales": [
+        3,
+        false,
+        false
+      ],
+      "dom_sections": 32,
+      "historical_sales": 3,
+      "names": 64,
+      "outcome": "success",
+      "questions": {
+        "lt.proceeds": 32
+      }
+    },
+    "demo.missing-adjustment": {
+      "controls": [],
+      "current_sales": [
+        2,
+        false,
+        false
+      ],
+      "dom_sections": 32,
+      "historical_sales": 2,
+      "names": 32,
+      "outcome": "success",
+      "questions": {
+        "st.basis": 32
+      }
+    },
+    "demo.missing-basis": {
+      "controls": [
+        "wrong_unlinked_name",
+        "changed_block_code_beside_name",
+        "changed_report_beside_name"
+      ],
+      "current_sales": [
+        2,
+        false,
+        false
+      ],
+      "dom_sections": 32,
+      "historical_sales": 2,
+      "names": 32,
+      "outcome": "success",
+      "questions": {
+        "st.basis": 32
+      }
+    },
+    "demo.missing-proceeds": {
+      "controls": [],
+      "current_sales": [
+        2,
+        false,
+        false
+      ],
+      "dom_sections": 32,
+      "historical_sales": 2,
+      "names": 32,
+      "outcome": "success",
+      "questions": {
+        "st.proceeds": 32
+      }
+    },
+    "demo.mixed-terms": {
+      "controls": [],
+      "current_sales": [
+        2,
+        false,
+        false
+      ],
+      "dom_sections": 34,
+      "historical_sales": 2,
+      "names": 64,
+      "outcome": "success",
+      "questions": {
+        "lt.adjustment": 32,
+        "st.adjustment": 32
+      }
+    },
+    "demo.near-labels": {
+      "controls": [],
+      "current_sales": [
+        2,
+        false,
+        true
+      ],
+      "dom_sections": 0,
+      "historical_sales": 2,
+      "names": 0,
+      "outcome": "success",
+      "questions": {
+        "st.adjustment": 32
+      }
+    },
+    "demo.older-core": {
+      "controls": [],
+      "current_sales": [
+        2,
+        false,
+        false
+      ],
+      "dom_sections": 0,
+      "historical_sales": 2,
+      "names": 0,
+      "outcome": "success",
+      "questions": {
+        "st.adjustment": 32
+      }
+    },
+    "demo.repeated-label": {
+      "controls": [
+        "added_name_to_repeated_sale",
+        "changed_unnamed_model",
+        "changed_unnamed_report"
+      ],
+      "current_sales": [
+        2,
+        false,
+        true
+      ],
+      "dom_sections": 0,
+      "historical_sales": 2,
+      "names": 0,
+      "outcome": "success",
+      "questions": {
+        "st.adjustment": 32
+      }
+    },
+    "demo.repeated-with-peer": {
+      "controls": [],
+      "current_sales": [
+        2,
+        false,
+        true
+      ],
+      "dom_sections": 0,
+      "historical_sales": 2,
+      "names": 0,
+      "outcome": "success",
+      "questions": {
+        "st.adjustment": 32
+      }
+    },
+    "demo.single-sale": {
+      "controls": [],
+      "current_sales": [
+        1,
+        false,
+        false
+      ],
+      "dom_sections": 0,
+      "historical_sales": 1,
+      "names": 0,
+      "outcome": "success",
+      "questions": {
+        "st.adjustment": 32
+      }
+    },
+    "demo.three-with-peer": {
+      "controls": [],
+      "current_sales": [
+        3,
+        false,
+        false
+      ],
+      "dom_sections": 32,
+      "historical_sales": 3,
+      "names": 64,
+      "outcome": "success",
+      "questions": {
+        "lt.adjustment": 32
+      }
+    },
+    "demo.two-fixes": {
+      "controls": [
+        "removed_name",
+        "swapped_names",
+        "moved_question_ref"
+      ],
+      "current_sales": [
+        2,
+        false,
+        false
+      ],
+      "dom_sections": 32,
+      "historical_sales": 2,
+      "names": 64,
+      "outcome": "success",
+      "questions": {
+        "st.adjustment": 32
+      }
+    }
+  },
+  "unexpected_differences": 0,
+  "workers": 10
+}
