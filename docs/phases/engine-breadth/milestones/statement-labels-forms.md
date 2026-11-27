@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "statement-labels-forms",
-  "status": "Open 2026-11-26. P0 chartered.",
+  "status": "Open 2026-11-26. P0 evidence complete. Owner decision pending.",
   "retrospective": null,
   "scope": [
     "when a return has more than one statement of a form other than Form 1099-B (Forms 1099-INT, 1099-DIV, 1099-R, 1099-G, SSA-1099), each per-statement question on the saved page says which statement it asks about, by the label the filer recorded",
@@ -84,4 +84,29 @@ their pages. The roadmap parks two items this milestone takes:
 
 ## Decisions
 
-None yet.
+- **Owner** — Accepted the
+  [ADR 0089 amendment](../../../adr/0089-statement-question-labels.md)
+  on 2026-11-27, before Track 1. The proposal covers the five specified withholding
+  facts, labels a single unanswered statement as well, and keeps existing
+  question links beside the display-only statement reasons.
+- **Foreman** — If accepted, charter projection-only attribution with
+  explicit eligibility for the five fact types from core v109 and replay
+  the implementation against the landed baseline. Close the line 25b
+  naming item within this boundary.
+
+## P0 result
+
+[Inventory and scratch proof](statement-labels-forms-evidence/p0.md).
+Line 25b already uses the evaluator's statement-keyed join for all five
+forms. SSA-1099 fits the current ADR 0089 identity shape. Forms 1099-INT,
+1099-DIV, IRA-family 1099-R and 1099-G need the projection to admit
+`payer` as part of the full answer identity while still matching on
+`statement`. There is no new need-table entry. Where a reason has a
+question link, the scratch proof preserves the link and adds the statement
+reasons beside it so the saved page shows their labels.
+
+The v109 replay compared 775 recorded and 23 synthetic lists across 18
+shards, with zero unexpected differences. Two recorded 1099-DIV lists
+and 17 synthetic lists gained labels, for 176 labelled reasons. The
+removed, swapped and spurious-label controls all failed the comparator.
+See the [replay summary](statement-labels-forms-evidence/replay-summary.json).
