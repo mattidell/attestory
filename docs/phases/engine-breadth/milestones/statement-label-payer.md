@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "statement-label-payer",
-  "status": "Open 2026-11-27. P0 chartered.",
+  "status": "Open 2026-11-27. P0 complete. Owner decision pending.",
   "retrospective": null,
   "scope": [
     "when two or more statements of one form on a return carry the same recorded label, each per-statement question on the saved page also names the payer or broker the filer recorded, so the questions can be told apart",
@@ -61,8 +61,8 @@ the page shows two identical questions. The roadmap parks:
   (Decision 5). Adding the broker's name would tell them apart."
 
 ADR 0089 Parked lists "the broker label beside a duplicate statement
-label". The same gap exists for the five withholding forms, whose answer
-identity carries a `payer`.
+label". The same gap exists for the five withholding forms. Four of
+their answer identities carry a `payer`. SSA-1099 uses statement and year.
 
 ## Stages
 
@@ -85,7 +85,28 @@ identity carries a `payer`.
 2. **Track 1 (build)**, fresh review, repair, closeout, final review,
    merge.
 
+## P0 result
+
+The [P0 evidence](statement-label-payer-evidence/p0.md) recommends a
+projection-only join to the recorded payer or broker entity label.
+Forms 1099-INT, 1099-DIV, IRA-family 1099-R and 1099-G already carry a
+payer in the attributed withholding answer identity. Both Form 1099-B
+questions can recover the broker from the originating pairing's current
+sale inputs. SSA-1099 has no payer identity.
+
+Against the ratified merge `f56d45ad4` on core v109, the full-surface
+replay matched all 775 recorded lists. Of 21 synthetic lists, ten
+gained 174 exact, ordered names with zero other differences. The
+comparator rejected removed, swapped and spurious names. The
+[replay summary](statement-label-payer-evidence/replay-summary.json)
+records the inventory and totals.
+
 ## Decisions
 
-- **Owner** — Accept or reject the ADR 0089 amendment P0 drafts, before
-  Track 1.
+- **Owner** — Accept or reject the [proposed ADR 0089 amendment](statement-label-payer-evidence/adr-draft.md)
+  before Track 1. Decide whether to use the entity label for 1099-B and
+  the exact statement-label match, including when spacing differences
+  are hard to see. Confirm the statement-only fallback for SSA-1099 and
+  for duplicate groups with missing or indistinguishable party names.
+- **Foreman, after acceptance** — Charter the projection, validator and
+  page changes and their regression coverage within the accepted bounds.
