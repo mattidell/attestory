@@ -1,0 +1,95 @@
+{
+  "format": "line16-next-step-track1-replay.v1",
+  "cores": [
+    {
+      "version": "v108",
+      "registry": "v106",
+      "release_version": "v106",
+      "loader_from": null,
+      "presence_pairs": [],
+      "package_sha256": "6d35ecf5969a926b1530217316c368504cdcdd4f6eb28b62fcdc782c36a387e9",
+      "release_sha256": "78328ab3d745784df1d45072e07cbd72de6ac47fc2967d7b7953a5a7bdca9dfc"
+    },
+    {
+      "version": "v109",
+      "registry": "v107",
+      "release_version": "v107",
+      "loader_from": null,
+      "presence_pairs": [],
+      "package_sha256": "3ee18cb70c5b88d2f95218ff7761ba9f7f074c645f000ad0940ef8191ba705e6",
+      "release_sha256": "ba1d8146a610dbcecf085aa018c7eeceb5920073e8a15b979fb1d5928b84435b"
+    }
+  ],
+  "baseline_projection_sha256": "b9a29c6975b98e7f157efb6d2ff555cbddc566912b5d74899f17b3cedaa04343",
+  "candidate_code_sha256": {
+    "packages/derivation/presentation_projection.py": "c4996392e426c70cc7dee1620b1a36f62ebe4fe8fb4507efdec96cbb1992836e",
+    "packages/tax/loader.py": "059fa4baec4cb9c366b75af09ddc377b7371b180d4b3e8e41d3e1e6f332085df",
+    "packages/derivation/loader.py": "c9101f821548c17614c2205bdb887051f79d7da9554a03622b276f117c1913ad",
+    "packages/derivation/live.py": "fc5d9fbde00794b540ef8ba150e4f852edfaf5222ffcb7d955243404e1b578ed",
+    "packages/derivation/runner.py": "acf361f8e7d5bc6db535e966ab0ea98eb35f38a5b147e4928ac6db7eb4e27142"
+  },
+  "lists": 801,
+  "recorded_lists": 775,
+  "probe_lists": 26,
+  "classes": {
+    "expected_changes": 717,
+    "identical": 84
+  },
+  "passing": 801,
+  "failing": 0,
+  "unexpected_differences": 0,
+  "expected_by_note": {
+    "answer-explanation:no-boxes-2b-2c-2d": 224,
+    "answer-explanation:no-capital-losses": 280,
+    "answer-explanation:no-qof-deferral": 224,
+    "answer-explanation:only-box2a-capital-gains": 448,
+    "reasons order record of a line that gained an explanation": 700,
+    "version:tax.us.2025.package.core-calculations": 371401
+  },
+  "lists_with_added_explanations": [
+    "probe/fails/single/01",
+    "probe/fails/single/02",
+    "probe/fails/single/03",
+    "probe/fails/single/04",
+    "probe/fails/single/05",
+    "probe/fails/single/06",
+    "probe/fails/single/07",
+    "probe/fails/single/08",
+    "probe/fails/single/09",
+    "probe/fails/single/10",
+    "probe/fails/single/11",
+    "probe/fails/single/12",
+    "probe/fails/single/13",
+    "probe/fails/single/14",
+    "probe/fails/single/15",
+    "probe/recorded/m_2a_only_exc1_only2a_no",
+    "probe/recorded/m_empty_exc1_nolosses_no",
+    "probe/recorded/m_empty_exc1_only2a_no",
+    "probe/recorded/t4_s1_removed",
+    "probe/status/married_filing_jointly/required",
+    "probe/status/married_filing_separately/required",
+    "v82/m_2a_only_exc1_only2a_no/honest",
+    "v82/m_empty_exc1_nolosses_no/honest",
+    "v82/m_empty_exc1_only2a_no/honest",
+    "v82/t4_s1_removed/honest"
+  ],
+  "unexpected_lists": {},
+  "wrong_answer_control": {
+    "list": "probe/control/c1-unanswered",
+    "field": "tax.us.2025.form1040.line-16",
+    "fact_type": "tax.us.2025.exception1.only-box2a-capital-gains",
+    "injected_value": "no",
+    "recorded_answer": null,
+    "unmodified": "expected_changes",
+    "mutated": "unexpected",
+    "unexpected_differences": 3
+  },
+  "explanation_sequence_controls": {
+    "list": "probe/fails/single/15",
+    "unmodified_additions": 112,
+    "all_removed": "unexpected",
+    "line16_reversed": "unexpected"
+  },
+  "workers": 9,
+  "shards": 18
+}

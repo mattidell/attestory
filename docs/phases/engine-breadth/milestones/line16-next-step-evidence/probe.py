@@ -1,8 +1,10 @@
 """Stage 1 inventory: what the saved page says on a required Schedule D with no sale.
 
-Run from the repository root (or from a scratch copy, for a scratch core):
+Run from the repository root:
   python3 docs/phases/engine-breadth/milestones/line16-next-step-evidence/probe.py \
-      [--core v108] [--out probe-v108.json] [--workers N]
+      [--core v108] [--out PATH] [--workers N]
+
+By default, output goes to the ignored probe directory for compare.py.
 
 Every list is synthetic demo acts run once through the real live_coordinate_run
 and presentation projection (tools.recorded_replay.saved_output), the same path
@@ -38,6 +40,7 @@ from typing import Any
 
 HERE = Path(__file__).resolve().parent
 REPO = HERE.parents[4]
+PROBE_OUTPUT = REPO / "temp" / "line16-next-step"
 if str(REPO) not in sys.path:
     sys.path.insert(0, str(REPO))
 
@@ -230,14 +233,15 @@ def run(core_specs: list[str], workers: int | None) -> dict[str, Any]:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--core", default="v108")
-    parser.add_argument("--out", default=None)
+    parser.add_argument("--out", type=Path, help="override the default probe output location")
     parser.add_argument("--workers", type=int, default=None)
     args = parser.parse_args()
     body = run([args.core], args.workers)
     text = json.dumps(body, indent=1, ensure_ascii=False) + "\n"
     rr._check_no_local_paths(text, "probe output")
-    if args.out:
-        (HERE / args.out).write_text(text, encoding="utf-8")
+    output = args.out if args.out is not None else PROBE_OUTPUT / f"probe-{args.core}.json"
+    output.parent.mkdir(parents=True, exist_ok=True)
+    output.write_text(text, encoding="utf-8")
     print(json.dumps({"lists": body["lists"], "cores": [c["version"] for c in body["cores"]]}))
 
 

@@ -252,7 +252,7 @@ ARTIFACT_PACKAGE_CAPABILITIES: dict[str, ArtifactPackageCapabilities] = {
         universe_guard_active=(3 <= v <= 17),
         enforces_reader_role=(v >= 34),
     )
-    for v in range(1, 45)
+    for v in range(1, 46)
     if v != 27
 }
 

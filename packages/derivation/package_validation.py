@@ -337,6 +337,9 @@ CLOSURE_MAPPING_SCHEMAS = frozenset({
 INPUT_QUESTION_SCHEMAS = frozenset({"input-question.v1"})
 # ADR 0088: plain explanations and optional fixing fact types per (family_id, block_code).
 FAMILY_BLOCK_EXPLANATION_SCHEMAS = frozenset({"family-block-explanation.v1"})
+# ADR 0091: a plain explanation for one recorded answer value of one fact type
+# whose declared question holds up a line.
+ANSWER_EXPLANATION_SCHEMAS = frozenset({"answer-explanation.v1"})
 
 # ADR-0066 Decision 7: closed supported-semantic-schema set. A registry-valid
 # member whose schema is absent here is rejected with MEMBER_SCHEMA_UNSUPPORTED
@@ -362,6 +365,7 @@ _SUPPORTED_SEMANTIC_SCHEMAS = frozenset({
     "migration-artifact.v1",
     *sorted(INPUT_QUESTION_SCHEMAS),
     *sorted(FAMILY_BLOCK_EXPLANATION_SCHEMAS),
+    *sorted(ANSWER_EXPLANATION_SCHEMAS),
     "operation-semantics.v1",
     "operation-semantics.v2",
     "parameter-declaration.v1",
@@ -2095,6 +2099,10 @@ def validate_package(
             if pin_role != "family-block-explanation":
                 issues.append(MemberIssue(pin["id"], pin["version"], "ROLE_MISMATCH",
                                            f"family-block-explanation declared as role {pin_role!r}"))
+        elif citizen["schema"] in ANSWER_EXPLANATION_SCHEMAS:
+            if pin_role != "answer-explanation":
+                issues.append(MemberIssue(pin["id"], pin["version"], "ROLE_MISMATCH",
+                                           f"answer-explanation declared as role {pin_role!r}"))
         elif citizen["schema"] == "taxable-interest-composition.v1":
             if pin_role != "composition":
                 issues.append(MemberIssue(pin["id"], pin["version"], "ROLE_MISMATCH",
@@ -2193,6 +2201,11 @@ def validate_package(
             if ft_pin and (ft_pin["id"], ft_pin["version"]) not in fact_surface:
                 issues.append(MemberIssue(pin["id"], pin["version"], "FAMILY_BLOCK_EXPLANATION_FACT_TYPE_NOT_ADMITTED",
                                           f"family-block-explanation fact_type {(ft_pin['id'], ft_pin['version'])} not in package fact surface"))
+        if citizen["schema"] in ANSWER_EXPLANATION_SCHEMAS:
+            ft_pin = citizen.get("fact_type")
+            if ft_pin and (ft_pin["id"], ft_pin["version"]) not in fact_surface:
+                issues.append(MemberIssue(pin["id"], pin["version"], "ANSWER_EXPLANATION_FACT_TYPE_NOT_ADMITTED",
+                                          f"answer-explanation fact_type {(ft_pin['id'], ft_pin['version'])} not in package fact surface"))
 
         # Form-field binds symbol & citation validation
         if citizen["schema"] in {"form-field.v1", "form-field.v2", "form-field.v3"}:
@@ -2251,6 +2264,29 @@ def validate_package(
                 fbe_pin["id"], fbe_pin["version"], "FAMILY_BLOCK_EXPLANATION_QUESTION_ABSENT",
                 f"no input-question citizen for fact_type {(ft_pin['id'], ft_pin['version'])!r}",
             ))
+    seen_ae: set[tuple[str, str, str]] = set()
+    for ae_pin, ae_cit in resolved:
+        if ae_cit["schema"] not in ANSWER_EXPLANATION_SCHEMAS:
+            continue
+        ft_key = (ae_cit["fact_type"]["id"], ae_cit["fact_type"]["version"])
+        if ft_key not in iq_fact_types:
+            issues.append(MemberIssue(
+                ae_pin["id"], ae_pin["version"], "ANSWER_EXPLANATION_QUESTION_ABSENT",
+                f"no input-question citizen for fact_type {ft_key!r}",
+            ))
+        body = fact_types_by_key.get(ft_key)
+        domain = ((body or {}).get("value_schema") or {}).get("enum")
+        if not isinstance(domain, list) or ae_cit["value"] not in domain:
+            issues.append(MemberIssue(
+                ae_pin["id"], ae_pin["version"], "ANSWER_EXPLANATION_VALUE_OUTSIDE_DOMAIN",
+                f"value {ae_cit['value']!r} is not in the declared answer domain of {ft_key!r}",
+            ))
+        if (*ft_key, ae_cit["value"]) in seen_ae:
+            issues.append(MemberIssue(
+                ae_pin["id"], ae_pin["version"], "ANSWER_EXPLANATION_DUPLICATE",
+                f"duplicate explanation for ({ft_key!r}, {ae_cit['value']!r})",
+            ))
+        seen_ae.add((*ft_key, ae_cit["value"]))
     declared_line2b = resolved_by_key.get((_DECLARED_LINE2B_ID, _DECLARED_LINE2B_VERSION))
     aggregate_key = (_NOMINEE_AGGREGATE_ID, _NOMINEE_AGGREGATE_VERSION)
     aggregate_member = resolved_by_key.get(aggregate_key)
@@ -3343,7 +3379,7 @@ def validate_package(
                         adj[m_id].add(ft_pin["id"])
                     elif ft_pin and closed_v2_surface:
                         adj[m_id].update(bundles_for_fact.get(ft_pin["id"], set()))
-            elif citizen["schema"] in INPUT_QUESTION_SCHEMAS:
+            elif citizen["schema"] in INPUT_QUESTION_SCHEMAS or citizen["schema"] in ANSWER_EXPLANATION_SCHEMAS:
                 ft_pin = citizen.get("fact_type")
                 if ft_pin and ft_pin["id"] in member_ids:
                     adj[m_id].add(ft_pin["id"])

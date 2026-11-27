@@ -801,6 +801,62 @@ class _StatementQuestions:
         return _statement_label(identity, self._state)
 
 
+def _answer_explanation_sentences(
+    resolved_members: Sequence[Mapping[str, Any]],
+    state: FindingState,
+    *,
+    current_finding_ids: frozenset[str] | None,
+) -> dict[str, str]:
+    """Declared sentences for current answers (ADR 0091, answer-explanation.v1).
+
+    Keys are exact fact ids, plus a fact type id when exactly one fact of that
+    type has a current answer with a declared sentence. A fact with more than
+    one current finding, or whose type version is not the pinned one, gets
+    none. Nothing is composed: the sentence is the citizen's ``explanation``.
+    """
+    declared: dict[tuple[str, str, str], str] = {}
+    for member in resolved_members:
+        if member.get("schema") != "answer-explanation.v1":
+            continue
+        pin = member.get("fact_type")
+        if (isinstance(pin, Mapping) and isinstance(pin.get("id"), str) and isinstance(pin.get("version"), str)
+                and isinstance(member.get("value"), str) and isinstance(member.get("explanation"), str)):
+            declared[(pin["id"], pin["version"], member["value"])] = member["explanation"]
+    if not declared:
+        return {}
+    current_ids = current_finding_ids
+    if current_ids is None:
+        from packages.kernel.currency import compute_currency
+
+        current_ids = compute_currency(state).current_finding_ids
+    fact_map = facts_of(state.fact_state)
+    values: dict[str, list[Any]] = {}
+    for finding_id in current_ids:
+        finding = state.findings.get(finding_id)
+        if not isinstance(finding, Mapping):
+            continue
+        fact_id = finding.get("fact_id")
+        if isinstance(fact_id, str) and fact_id in fact_map:
+            values.setdefault(fact_id, []).append(finding.get("value"))
+    found: dict[str, str] = {}
+    by_type: dict[str, list[str]] = {}
+    for fact_id, answers in values.items():
+        if len(answers) != 1:
+            continue
+        value = answers[0]
+        fact = fact_map[fact_id]
+        body = state.fact_state.fact_types.get(fact.fact_type_id)
+        version = body.get("version") if isinstance(body, Mapping) else None
+        sentence = declared.get((fact.fact_type_id, str(version), value)) if isinstance(value, str) else None
+        if sentence:
+            found[fact_id] = sentence
+            by_type.setdefault(fact.fact_type_id, []).append(fact_id)
+    for fact_type_id, fact_ids in by_type.items():
+        if len(fact_ids) == 1:
+            found[fact_type_id] = found[fact_ids[0]]
+    return found
+
+
 def _closure_question_reasons(
     row: Mapping[str, Any],
     *,
@@ -822,6 +878,8 @@ def _closure_question_reasons(
     collision_sentence: str | None = None,
     collision_category_labels: Mapping[str, str] | None = None,
     statement_questions: _StatementQuestions | None = None,
+    answer_explanations: Mapping[str, str] | None = None,
+    answer_sentences_out: set[str] | None = None,
 ) -> list[dict[str, Any]]:
     """The declared question for every cause a blocked line waits on and a filer can answer.
 
@@ -934,9 +992,27 @@ def _closure_question_reasons(
     # Blocked rows by id that named a per-statement fact type bare (ADR 0089).
     paired_rows: dict[int, Mapping[str, Any]] = {}
 
+    def add_answer_explanation(key: str, fact_type: str) -> None:
+        if not answer_explanations:
+            return
+        if not key.startswith(fact_type + "|"):
+            # A bare type can refer to another fact, including an unanswered
+            # statement selected by ADR 0089. Use only a single known target
+            # of an ordinary type-level question.
+            if statement_questions is not None and statement_questions.applies(fact_type):
+                return
+            targets = question_target_ids.get(fact_type, set())
+            if len(targets) != 1 or fact_type not in answer_explanations:
+                return
+            key = next(iter(targets))
+        sentence = answer_explanations.get(key)
+        if sentence:
+            frames[-1].answer_sentences.add(sentence)
+
     def record_input_fact(key: str, bound: str, current: Mapping[str, Any] | None = None) -> bool:
         """Record a declared question while retaining any exact answer target."""
         if bound in input_questions:
+            add_answer_explanation(key, bound)
             frames[-1].facts.add(bound)
             if statement_questions is not None and statement_questions.applies(bound):
                 if current is not None and key == bound:
@@ -956,6 +1032,7 @@ def _closure_question_reasons(
         # exact known type prefix, then keep the complete fact id for linking.
         for fact_type in sorted(input_questions, key=len, reverse=True):
             if key.startswith(fact_type + "|"):
+                add_answer_explanation(key, fact_type)
                 frames[-1].facts.add(fact_type)
                 if statement_questions is not None and statement_questions.applies(fact_type):
                     frames[-1].unattributed.add(fact_type)
@@ -1365,6 +1442,8 @@ def _closure_question_reasons(
                         "reasonIndices": reason_indices[question],
                         "scope": reference["scope"],
                     })
+    if answer_sentences_out is not None and all_roots_explained and valid_questions:
+        answer_sentences_out.update(root.answer_sentences)
     return reasons
 
 
@@ -1689,7 +1768,7 @@ class _WalkFrame:
 
     __slots__ = (
         "families", "facts", "fact_targets", "unbound_fact_types",
-        "extras", "member_facts", "paired", "unattributed", "examined", "hits",
+        "extras", "answer_sentences", "member_facts", "paired", "unattributed", "examined", "hits",
     )
 
     def __init__(
@@ -1706,6 +1785,7 @@ class _WalkFrame:
         self.fact_targets = set() if fact_targets is None else fact_targets
         self.unbound_fact_types = set() if unbound_fact_types is None else unbound_fact_types
         self.extras: set[str] = set() if extras is None else extras
+        self.answer_sentences: set[str] = set()
         self.member_facts: set[tuple[str, str]] = set() if member_facts is None else member_facts
         # ADR 0089: (fact type, id of a blocked row that named it bare), and
         # fact types also reached some other way, which stay unlabelled.
@@ -1720,6 +1800,7 @@ class _WalkFrame:
         self.fact_targets |= other.fact_targets
         self.unbound_fact_types |= other.unbound_fact_types
         self.extras |= other.extras
+        self.answer_sentences |= other.answer_sentences
         self.member_facts |= other.member_facts
         self.paired |= other.paired
         self.unattributed |= other.unattributed
@@ -5856,6 +5937,9 @@ def build_presentation_model(
         if adopted_package is not None and labels_statement_questions(adopted_package[0], adopted_package[1])
         else None
     )
+    answer_explanations = _answer_explanation_sentences(
+        resolved_members, state, current_finding_ids=current_finding_ids,
+    )
     member_violation_targets: dict[tuple[str, str], set[str]] = {}
     for pub in publications_by_id.values():
         sym = str(pub.get("symbol") or "")
@@ -5914,7 +5998,7 @@ def build_presentation_model(
         return symbol
 
     def field_closure_reasons(
-        field: Mapping[str, Any], row: Mapping[str, Any],
+        field: Mapping[str, Any], row: Mapping[str, Any], answer_sentences: set[str],
     ) -> list[dict[str, Any]]:
         closure_options: dict[str, Any] = {
             "resolved_members": resolved_members,
@@ -5932,6 +6016,8 @@ def build_presentation_model(
             "collision_sentence": collision_sentence,
             "collision_category_labels": collision_category_labels,
             "statement_questions": statement_questions,
+            "answer_explanations": answer_explanations,
+            "answer_sentences_out": answer_sentences,
         }
         mixed_blocker = _line9_mixed_blocker_explanation(
             field, row, by_symbol, adopted_package,
@@ -5958,6 +6044,7 @@ def build_presentation_model(
         producer = rules_by_id.get(str(row.get("artifact_id")))
         selection_attached = False
         row_question_candidates: list[dict[str, Any]] = []
+        answer_sentences: set[str] = set()
         if (resolved["disposition"] == "blocked" and producer is not None
                 and producer.get("schema") in RULE_V13_SELECTION_SCHEMAS and "selection" in producer):
             reasons = _selection_blocked_reasons(
@@ -5968,14 +6055,14 @@ def build_presentation_model(
                 resolved["reasons"] = reasons
                 selection_attached = True
         if resolved["disposition"] == "blocked" and "reasons" not in resolved:
-            closure_reasons = field_closure_reasons(field, row)
+            closure_reasons = field_closure_reasons(field, row, answer_sentences)
             if closure_reasons:
                 resolved["reasons"] = closure_reasons
         elif selection_attached and names_closure_question and resolved["disposition"] == "blocked":
             # The selection reason is already attached, which used to skip
             # the closure walk. From core v75 the walk still runs, and its
             # question is named beside that reason.
-            closure_reasons = field_closure_reasons(field, row)
+            closure_reasons = field_closure_reasons(field, row, answer_sentences)
             if closure_reasons:
                 selection_reasons = resolved["reasons"]
                 combined_reasons, closure_reason_indices = _reasons_beside(
@@ -5992,6 +6079,11 @@ def build_presentation_model(
             )
             if question_refs:
                 resolved["questionRefs"] = question_refs
+        if answer_sentences:
+            # Append the unlinked sentences after assigning existing reason indices.
+            reasons = resolved.setdefault("reasons", [])
+            existing = {reason["sentence"] for reason in reasons}
+            reasons.extend({"sentence": sentence} for sentence in sorted(answer_sentences - existing))
         if row["disposition"] == "published":
             try:
                 graph_builder.add_root(str(row["finding_id"]), role="output", authorization=authorization)

@@ -163,3 +163,20 @@ Owner, 2026-11-26, with the foreman's recommendations:
    sale-explanation-wording.
 
 Track 1 scope: `p0.md` §6.
+
+## Track 1 result
+
+Core v109, registry v107 and release v107 adopt the four ADR 0091 answer
+explanations. The saved page adds each applicable sentence to the blocked
+line's “Why” list and preserves the existing question links. The schema
+manifest adds exactly two checksummed entries.
+
+Published v108 against published v109 replayed 801 lists with zero failures
+or unexpected differences. The same 25 lists as P0 gained explanations.
+The replay preserved values, dispositions, block codes and question links.
+[Track 1 replay summary](line16-next-step-evidence/track1-replay.json)
+
+Focused verification passed, including all seven browser tests on retry.
+Six local suite batches accounted for 6,106 of 7,958 collected tests. The
+foreman deferred the remaining local batches to CI `verify`.
+[Track 1 evidence](line16-next-step-evidence/track1.md)
