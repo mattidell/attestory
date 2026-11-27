@@ -1,0 +1,66 @@
+{
+ "format": "line16-next-step-controls.v1",
+ "lists": [
+  {
+   "list": "v82/m_empty_exc1_nolosses_no/honest",
+   "gains_explanation": true,
+   "real": {
+    "class": "expected_changes",
+    "differences": 551,
+    "unexpected": 0
+   },
+   "no_expectations": {
+    "class": "unexpected",
+    "differences": 551,
+    "unexpected": 551
+   },
+   "wrong_sentence": {
+    "class": "unexpected",
+    "differences": 551,
+    "unexpected": 28
+   },
+   "controls_hold": true
+  },
+  {
+   "list": "probe/fails/single/15",
+   "gains_explanation": true,
+   "real": {
+    "class": "expected_changes",
+    "differences": 645,
+    "unexpected": 0
+   },
+   "no_expectations": {
+    "class": "unexpected",
+    "differences": 645,
+    "unexpected": 645
+   },
+   "wrong_sentence": {
+    "class": "unexpected",
+    "differences": 645,
+    "unexpected": 112
+   },
+   "controls_hold": true
+  },
+  {
+   "list": "probe/control/exception1-holds",
+   "gains_explanation": false,
+   "real": {
+    "class": "expected_changes",
+    "differences": 604,
+    "unexpected": 0
+   },
+   "no_expectations": {
+    "class": "unexpected",
+    "differences": 604,
+    "unexpected": 604
+   },
+   "wrong_sentence": {
+    "class": "expected_changes",
+    "differences": 604,
+    "unexpected": 0
+   },
+   "controls_hold": true
+  }
+ ],
+ "all_controls_hold": true
+}

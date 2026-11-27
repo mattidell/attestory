@@ -1,0 +1,359 @@
+{
+ "format": "line16-next-step-probe-compare.v1",
+ "cores": [
+  {
+   "version": "v108",
+   "registry": "v106",
+   "release_version": "v106",
+   "loader_from": null,
+   "presence_pairs": [],
+   "package_sha256": "6d35ecf5969a926b1530217316c368504cdcdd4f6eb28b62fcdc782c36a387e9",
+   "release_sha256": "78328ab3d745784df1d45072e07cbd72de6ac47fc2967d7b7953a5a7bdca9dfc"
+  },
+  {
+   "version": "v109",
+   "registry": "v107",
+   "release_version": "v107",
+   "loader_from": null,
+   "presence_pairs": [],
+   "package_sha256": "3ee18cb70c5b88d2f95218ff7761ba9f7f074c645f000ad0940ef8191ba705e6",
+   "release_sha256": "ba1d8146a610dbcecf085aa018c7eeceb5920073e8a15b979fb1d5928b84435b"
+  }
+ ],
+ "lists": 26,
+ "verdict": "PASS",
+ "failing": [],
+ "lists_with_explanations": [
+  "fails/single/01",
+  "fails/single/02",
+  "fails/single/03",
+  "fails/single/04",
+  "fails/single/05",
+  "fails/single/06",
+  "fails/single/07",
+  "fails/single/08",
+  "fails/single/09",
+  "fails/single/10",
+  "fails/single/11",
+  "fails/single/12",
+  "fails/single/13",
+  "fails/single/14",
+  "fails/single/15",
+  "recorded/m_2a_only_exc1_only2a_no",
+  "recorded/m_empty_exc1_nolosses_no",
+  "recorded/m_empty_exc1_only2a_no",
+  "recorded/t4_s1_removed",
+  "status/married_filing_jointly/required",
+  "status/married_filing_separately/required"
+ ],
+ "explanations": {
+  "no-boxes-2b-2c-2d": "You answered no to the question about boxes 2b, 2c and 2d of Form 1099-DIV, so you must file Schedule D. If that is wrong, change your answer. If it is right, this calculation does not cover your return.",
+  "no-capital-losses": "You answered no to the question about capital losses, so you must file Schedule D. If that is wrong, change your answer. If it is right, record each sale you must report; if you have no sale to record, this calculation does not cover your return.",
+  "no-qof-deferral": "You answered no to the question about deferring a gain in a qualified opportunity fund, so you must file Form 8949 and Schedule D. If that is wrong, change your answer. If it is right, this calculation does not cover your return.",
+  "only-box2a-capital-gains": "You answered no to the question about capital gains and sales other than box 2a of Form 1099-DIV, so you must file Schedule D. If that is wrong, change your answer. If it is right, record each sale you must report; if you have no sale to record, this calculation does not cover your return."
+ },
+ "rows": {
+  "control/c1-unanswered": {
+   "verdict": "PASS",
+   "problems": [],
+   "fields_with_explanations": 0,
+   "fields_unchanged": 29,
+   "answer_words_stated_on_page": {
+    "v108": [],
+    "v109": []
+   }
+  },
+  "control/exception1-holds": {
+   "verdict": "PASS",
+   "problems": [],
+   "fields_with_explanations": 0,
+   "fields_unchanged": 0,
+   "answer_words_stated_on_page": {
+    "v108": [],
+    "v109": []
+   }
+  },
+  "control/form8949-unanswered": {
+   "verdict": "PASS",
+   "problems": [],
+   "fields_with_explanations": 0,
+   "fields_unchanged": 34,
+   "answer_words_stated_on_page": {
+    "v108": [],
+    "v109": []
+   }
+  },
+  "control/sale-recorded": {
+   "verdict": "PASS",
+   "problems": [],
+   "fields_with_explanations": 0,
+   "fields_unchanged": 0,
+   "answer_words_stated_on_page": {
+    "v108": [],
+    "v109": []
+   }
+  },
+  "fails/single/01": {
+   "verdict": "PASS",
+   "problems": [],
+   "fields_with_explanations": 28,
+   "fields_unchanged": 0,
+   "answer_words_stated_on_page": {
+    "v108": [],
+    "v109": [
+     "no"
+    ]
+   }
+  },
+  "fails/single/02": {
+   "verdict": "PASS",
+   "problems": [],
+   "fields_with_explanations": 28,
+   "fields_unchanged": 0,
+   "answer_words_stated_on_page": {
+    "v108": [],
+    "v109": [
+     "no"
+    ]
+   }
+  },
+  "fails/single/03": {
+   "verdict": "PASS",
+   "problems": [],
+   "fields_with_explanations": 28,
+   "fields_unchanged": 0,
+   "answer_words_stated_on_page": {
+    "v108": [],
+    "v109": [
+     "no"
+    ]
+   }
+  },
+  "fails/single/04": {
+   "verdict": "PASS",
+   "problems": [],
+   "fields_with_explanations": 28,
+   "fields_unchanged": 0,
+   "answer_words_stated_on_page": {
+    "v108": [],
+    "v109": [
+     "no"
+    ]
+   }
+  },
+  "fails/single/05": {
+   "verdict": "PASS",
+   "problems": [],
+   "fields_with_explanations": 28,
+   "fields_unchanged": 0,
+   "answer_words_stated_on_page": {
+    "v108": [],
+    "v109": [
+     "no"
+    ]
+   }
+  },
+  "fails/single/06": {
+   "verdict": "PASS",
+   "problems": [],
+   "fields_with_explanations": 28,
+   "fields_unchanged": 0,
+   "answer_words_stated_on_page": {
+    "v108": [],
+    "v109": [
+     "no"
+    ]
+   }
+  },
+  "fails/single/07": {
+   "verdict": "PASS",
+   "problems": [],
+   "fields_with_explanations": 28,
+   "fields_unchanged": 0,
+   "answer_words_stated_on_page": {
+    "v108": [],
+    "v109": [
+     "no"
+    ]
+   }
+  },
+  "fails/single/08": {
+   "verdict": "PASS",
+   "problems": [],
+   "fields_with_explanations": 28,
+   "fields_unchanged": 0,
+   "answer_words_stated_on_page": {
+    "v108": [],
+    "v109": [
+     "no"
+    ]
+   }
+  },
+  "fails/single/09": {
+   "verdict": "PASS",
+   "problems": [],
+   "fields_with_explanations": 28,
+   "fields_unchanged": 0,
+   "answer_words_stated_on_page": {
+    "v108": [],
+    "v109": [
+     "no"
+    ]
+   }
+  },
+  "fails/single/10": {
+   "verdict": "PASS",
+   "problems": [],
+   "fields_with_explanations": 28,
+   "fields_unchanged": 0,
+   "answer_words_stated_on_page": {
+    "v108": [],
+    "v109": [
+     "no"
+    ]
+   }
+  },
+  "fails/single/11": {
+   "verdict": "PASS",
+   "problems": [],
+   "fields_with_explanations": 28,
+   "fields_unchanged": 0,
+   "answer_words_stated_on_page": {
+    "v108": [],
+    "v109": [
+     "no"
+    ]
+   }
+  },
+  "fails/single/12": {
+   "verdict": "PASS",
+   "problems": [],
+   "fields_with_explanations": 28,
+   "fields_unchanged": 0,
+   "answer_words_stated_on_page": {
+    "v108": [],
+    "v109": [
+     "no"
+    ]
+   }
+  },
+  "fails/single/13": {
+   "verdict": "PASS",
+   "problems": [],
+   "fields_with_explanations": 28,
+   "fields_unchanged": 0,
+   "answer_words_stated_on_page": {
+    "v108": [],
+    "v109": [
+     "no"
+    ]
+   }
+  },
+  "fails/single/14": {
+   "verdict": "PASS",
+   "problems": [],
+   "fields_with_explanations": 28,
+   "fields_unchanged": 0,
+   "answer_words_stated_on_page": {
+    "v108": [],
+    "v109": [
+     "no"
+    ]
+   }
+  },
+  "fails/single/15": {
+   "verdict": "PASS",
+   "problems": [],
+   "fields_with_explanations": 28,
+   "fields_unchanged": 0,
+   "answer_words_stated_on_page": {
+    "v108": [],
+    "v109": [
+     "no"
+    ]
+   }
+  },
+  "personal-loss/exception1_personal_loss_8949": {
+   "verdict": "PASS",
+   "problems": [],
+   "fields_with_explanations": 0,
+   "fields_unchanged": 34,
+   "answer_words_stated_on_page": {
+    "v108": [],
+    "v109": []
+   }
+  },
+  "recorded/m_2a_only_exc1_only2a_no": {
+   "verdict": "PASS",
+   "problems": [],
+   "fields_with_explanations": 28,
+   "fields_unchanged": 0,
+   "answer_words_stated_on_page": {
+    "v108": [],
+    "v109": [
+     "no"
+    ]
+   }
+  },
+  "recorded/m_empty_exc1_nolosses_no": {
+   "verdict": "PASS",
+   "problems": [],
+   "fields_with_explanations": 28,
+   "fields_unchanged": 0,
+   "answer_words_stated_on_page": {
+    "v108": [],
+    "v109": [
+     "no"
+    ]
+   }
+  },
+  "recorded/m_empty_exc1_only2a_no": {
+   "verdict": "PASS",
+   "problems": [],
+   "fields_with_explanations": 28,
+   "fields_unchanged": 0,
+   "answer_words_stated_on_page": {
+    "v108": [],
+    "v109": [
+     "no"
+    ]
+   }
+  },
+  "recorded/t4_s1_removed": {
+   "verdict": "PASS",
+   "problems": [],
+   "fields_with_explanations": 28,
+   "fields_unchanged": 0,
+   "answer_words_stated_on_page": {
+    "v108": [],
+    "v109": [
+     "no"
+    ]
+   }
+  },
+  "status/married_filing_jointly/required": {
+   "verdict": "PASS",
+   "problems": [],
+   "fields_with_explanations": 28,
+   "fields_unchanged": 0,
+   "answer_words_stated_on_page": {
+    "v108": [],
+    "v109": [
+     "no"
+    ]
+   }
+  },
+  "status/married_filing_separately/required": {
+   "verdict": "PASS",
+   "problems": [],
+   "fields_with_explanations": 28,
+   "fields_unchanged": 2,
+   "answer_words_stated_on_page": {
+    "v108": [],
+    "v109": [
+     "no"
+    ]
+   }
+  }
+ }
+}
