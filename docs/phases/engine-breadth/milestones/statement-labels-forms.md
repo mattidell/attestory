@@ -84,9 +84,9 @@ their pages. The roadmap parks two items this milestone takes:
 
 ## Decisions
 
-- **Owner** — Decide whether to accept the
-  [proposed ADR 0089 amendment](statement-labels-forms-evidence/adr-draft.md)
-  before Track 1. The proposal covers the five specified withholding
+- **Owner** — Accepted the
+  [ADR 0089 amendment](../../../adr/0089-statement-question-labels.md)
+  on 2026-11-27, before Track 1. The proposal covers the five specified withholding
   facts, labels a single unanswered statement as well, and keeps existing
   question links beside the display-only statement reasons.
 - **Foreman** — If accepted, charter projection-only attribution with
