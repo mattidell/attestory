@@ -3,8 +3,8 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "same-label-ordinal",
-  "status": "Open 2026-11-26. ADR 0090 accepted by the owner; Track 1 chartered.",
-  "retrospective": null,
+  "status": "Closed 2026-11-26. Projection and page change (ADR 0090); no package version.",
+  "retrospective": "docs/milestone-retrospectives/2026-11-26-same-label-ordinal.md",
   "scope": [
     "when two roster members of one kind share a recorded label, each member question says which one it means by entry order",
     "member questions on a line are grouped by member, so a filer can pair each answer with a person",
@@ -31,7 +31,7 @@
       "docs/phases/engine-breadth/milestones/same-label-ordinal.md"
     ],
     "new_milestone": [
-      "docs/milestone-retrospectives/2026-11-26-same-label-members.md",
+      "docs/milestone-retrospectives/2026-11-26-same-label-ordinal.md",
       "docs/phases/engine-breadth/engine-breadth-roadmap.md#Parked work and open questions"
     ]
   }
@@ -70,7 +70,8 @@ P0: same-label-members P0 designed and proved this on a scratch build
    kind with the same label. Member reasons on a line sort by label, then
    kind, then ordinal, then sentence. Using kind before ordinal keeps each
    person's questions together when two kinds share a label and their
-   ordinal sequences restart.
+   ordinal sequences restart. **Repair 2 (SLM-F2).** A line with no
+   `memberOrdinal` retains the order of reasons from before this milestone.
 3. **Sentence-only matching (SLM-R3, foreman).** `_reasons_beside` and
    `_finalize_question_references` match closure reasons by sentence
    only. A member reason must not be dropped or given another question's
@@ -81,22 +82,40 @@ P0: same-label-members P0 designed and proved this on a scratch build
 
 ## Track 1 result
 
-`0d688c2fc`, `3a4c2ac02`, and `66149e088` implement and test the shared-label
+The curated build (`71581e54b`) implements and tests the shared-label
 ordinal. Member reasons are ordered as specified in Decision 2. A
 selection or fact question with the same sentence leaves the member reason
-visible and outside the question link's reason indices.
+visible and outside the question link's reason indices. Saved-model
+validation also rejects a link directed to a member reason.
 
-All 775 recorded lists matched the starting main projection. Of 23
-synthetic probes, six matched exactly and 17 differed only in member
-ordinals and order. All three browser tests that timed out in the first
-local suite shard passed on retry. The foreman directed the builder to
-finish on the tested commit and defer the remaining local suite shards to
-CI `verify`. See [Track 1 evidence](same-label-ordinal-evidence/track1.md)
-for the replay and test results.
+Repair 2 preserves the previous reason order on closure-only lines that
+carry no ordinal (`b7c7ce2d8`). The comparator resolves the replay baseline
+as the parent of the curated build commit (`4fa33021a`). Both projections
+therefore include the statement-label changes from ADR 0089.
 
-Repair 1 (`2554e3ce0`, `6de14b732`) groups member reasons by kind before ordinal, rejects saved
-question-group links to a member reason, and preserves the original
-sentence order when a merged line carries no ordinal. The candidate replay
-again matched all 775 recorded lists and classified the 17 changed probes
-as ordinal and order changes. The report-value control failed as expected.
-See the [per-case summary](same-label-ordinal-evidence/repair1-replay.json).
+The replay of `4fa33021a` against `08ed3bebe` matched all 775 recorded
+lists. Of 23 probes, six matched exactly and 17 differed only in member
+ordinals and order. The report-value control failed as expected.
+See the [per-case summary](same-label-ordinal-evidence/repair2-replay.json)
+and [Track 1 evidence](same-label-ordinal-evidence/track1.md).
+
+## Closeout
+
+Closed 2026-11-26. Retrospective:
+`docs/milestone-retrospectives/2026-11-26-same-label-ordinal.md`.
+The fresh review (NOT READY) found that ordinals restart for each kind,
+so one member's questions could be split (SLM-O1); that the validator
+accepted a fact question linked to a member reason (SLM-O2); that the
+replay claim had no committed comparator (SLM-O3); and that lines with no
+shared label were reordered (SLM-O4). Repair 1 addressed these findings.
+The final review identified a closure-only ordering case and a stale replay
+baseline after curation. Repair 2 is recorded in the Track 1 result. The
+foreman then rebased onto main after statement-question-labels (ADR 0089)
+merged, resolved the shared `_closure_question_reasons` docstring and
+the ADR index, and ran the walk and live tests of both milestones
+together. Historical commit ids in the evidence note identify the revisions
+from before the rebase and curation. Those revisions are kept under
+`refs/snapshot/2026-11-26-same-label-ordinal-pre-rebase` (Track 1 and
+Repair 1) and `refs/snapshot/2026-11-26-same-label-ordinal-pre-pr-curation`
+(after the rebase). The original replay baseline `b9d529f7d` is a merge on
+main. The roadmap item is retired.
