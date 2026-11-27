@@ -713,11 +713,18 @@ def _js_array_index(value: Any) -> int | None:
     return None
 
 
+_ORDINAL_WORDS = ("first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth", "ninth", "tenth")
+
+
 def _labeled_reason_text(reason: dict[str, Any]) -> str:
     """Bold prefix plus sentence, as ``renderLine`` shows a reason with no question group."""
     member = reason.get("memberLabel")
     if isinstance(member, str) and member:
         name = member
+        ordinal = _js_array_index(reason.get("memberOrdinal"))
+        if ordinal:  # ADR 0090: a shared label says which member, in entry order
+            word = _ORDINAL_WORDS[ordinal - 1] if ordinal <= len(_ORDINAL_WORDS) else f"number {ordinal}"
+            name = f"{member} (the {word} one you added with this name)"
     else:
         label = reason.get("statementLabel")
         parts: list[str] = []

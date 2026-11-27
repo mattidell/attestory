@@ -16,6 +16,7 @@ from packages.derivation.live import live_coordinate_run
 from packages.derivation.live_session import _render_page
 from packages.derivation.live_workspace import WorkspaceCapability
 from packages.derivation.presentation_projection import (
+    PresentationModelError,
     _finalize_question_references,
     _question_group_catalog,
     _question_group_id,
@@ -460,6 +461,26 @@ def test_saved_v99_page_groups_the_shared_answer_and_keeps_other_reasons(
     assert len(browser_data["links"]) == 1
     assert QUESTION not in browser_data["line9"]
     assert LINE9_EXPLANATION in browser_data["line9"]
+
+
+@pytest.mark.live
+def test_saved_fact_question_cannot_link_to_equal_text_member_reason(
+    v99_saved_page: dict[str, Any],
+) -> None:
+    model = copy.deepcopy(v99_saved_page["model"])
+    resolved = next(section["resolved"] for section in model["sections"] if section["resolved"].get("questionRefs"))
+    reference = resolved["questionRefs"][0]
+    original_index = reference["reasonIndices"][0]
+    member_index = len(resolved["reasons"])
+    resolved["reasons"].append({
+        "sentence": resolved["reasons"][original_index]["sentence"],
+        "memberLabel": "Demo Sam",
+        "memberOrdinal": 2,
+    })
+    validate_presentation_model(model)
+    reference["reasonIndices"] = [member_index]
+    with pytest.raises(PresentationModelError, match="reasonIndices"):
+        validate_presentation_model(model)
 
 
 @pytest.mark.live

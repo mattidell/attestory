@@ -65,9 +65,12 @@ P0: same-label-members P0 designed and proved this on a scratch build
 ## Decisions
 
 1. **Contract.** ADR 0090 Decision 2, as accepted.
-2. **Order of member reasons (SLM-R4, foreman).** Member reasons on a line
-   sort by label, then ordinal, then sentence, so each person's questions
-   sit together.
+2. **Order of member reasons (SLM-R4, foreman), amended (Repair 1, SLM-O1).**
+   ADR 0090 counts a member's position among current entities of the same
+   kind with the same label. Member reasons on a line sort by label, then
+   kind, then ordinal, then sentence. Using kind before ordinal keeps each
+   person's questions together when two kinds share a label and their
+   ordinal sequences restart.
 3. **Sentence-only matching (SLM-R3, foreman).** `_reasons_beside` and
    `_finalize_question_references` match closure reasons by sentence
    only. A member reason must not be dropped or given another question's
@@ -75,3 +78,25 @@ P0: same-label-members P0 designed and proved this on a scratch build
    reason; Track 1 makes the match account for the member, with a test,
    or shows on the code that no member reason can reach those paths and
    says why.
+
+## Track 1 result
+
+`0d688c2fc`, `3a4c2ac02`, and `66149e088` implement and test the shared-label
+ordinal. Member reasons are ordered as specified in Decision 2. A
+selection or fact question with the same sentence leaves the member reason
+visible and outside the question link's reason indices.
+
+All 775 recorded lists matched the starting main projection. Of 23
+synthetic probes, six matched exactly and 17 differed only in member
+ordinals and order. All three browser tests that timed out in the first
+local suite shard passed on retry. The foreman directed the builder to
+finish on the tested commit and defer the remaining local suite shards to
+CI `verify`. See [Track 1 evidence](same-label-ordinal-evidence/track1.md)
+for the replay and test results.
+
+Repair 1 (`2554e3ce0`, `6de14b732`) groups member reasons by kind before ordinal, rejects saved
+question-group links to a member reason, and preserves the original
+sentence order when a merged line carries no ordinal. The candidate replay
+again matched all 775 recorded lists and classified the 17 changed probes
+as ordinal and order changes. The report-value control failed as expected.
+See the [per-case summary](same-label-ordinal-evidence/repair1-replay.json).
