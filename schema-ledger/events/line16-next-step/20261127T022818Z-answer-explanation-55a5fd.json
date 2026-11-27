@@ -1,0 +1,15 @@
+{
+  "format": 1,
+  "event_id": "20261127T022818Z-answer-explanation-55a5fd",
+  "recorded_at": "2026-11-27T02:28:18Z",
+  "milestone_key": "line16-next-step",
+  "milestone_branch": "milestone/line16-next-step-2025",
+  "milestone_commit": "a3b06d7e24f5bcc731857816296d6b9fec1ec69c",
+  "schema_family": "answer-explanation",
+  "schema_path": "packages/schemas/derivation/answer-explanation.v1.schema.json",
+  "schema_version": "v1",
+  "action": "propose",
+  "change_kind": "additive",
+  "replaces_event": null,
+  "summary": "ADR 0091: new citizen holding one plain sentence per (fact type, value), shown as an unlinked reason in the page's Why list."
+}

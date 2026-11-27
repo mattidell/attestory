@@ -1,0 +1,15 @@
+{
+  "format": 1,
+  "event_id": "20261127T022818Z-artifact-package-8f7d2c",
+  "recorded_at": "2026-11-27T02:28:18Z",
+  "milestone_key": "line16-next-step",
+  "milestone_branch": "milestone/line16-next-step-2025",
+  "milestone_commit": "a3b06d7e24f5bcc731857816296d6b9fec1ec69c",
+  "schema_family": "artifact-package",
+  "schema_path": "packages/schemas/derivation/artifact-package.v45.schema.json",
+  "schema_version": "v45",
+  "action": "propose",
+  "change_kind": "additive",
+  "replaces_event": null,
+  "summary": "Copy v44 and admit answer-explanation.v1 members (ADR 0091). v44 bytes untouched."
+}
