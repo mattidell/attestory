@@ -1346,6 +1346,21 @@ labelled reasons after it. When the statement cannot be identified for
 certain, the page keeps the generic sentence. 798 lists replay with no
 number, disposition or code change; 19 gain 176 labelled reasons.
 
+## Bounded return — Statements With the Same Label Name Their Payer (2025)
+
+[Plan](milestones/statement-label-payer.md); retrospective:
+`docs/milestone-retrospectives/2026-11-27-statement-label-payer.md`.
+Projection and page (ADR 0089 second amendment 2026-11-27); core v109
+unchanged.
+
+When two or more statements of one form and year carry the same recorded
+label, each statement question on the saved page also names the payer
+(Forms 1099-INT, 1099-DIV, IRA-family 1099-R and 1099-G) or the broker
+(Form 1099-B), provided every name is present and the names differ after
+ignoring case and collapsing whitespace. Otherwise, and for SSA-1099,
+the page keeps the statement labels. No recorded list
+changes; 10 synthetic lists gain 174 names.
+
 ## Hardening — Derivation Schema Capability Table Consolidation
 
 [Plan](milestones/rule-artifact-capability-table-consolidation.md); retrospective:
@@ -1573,8 +1588,9 @@ delivers an item removes it.
   every cause that can block the line, and the generic remedy. A reason
   naming only the loss needs a value rule to carry a selection reason or a
   check to carry a subject; both are derivation changes.
-- Two Form 1099-B statements with one label get two identical questions
-  (Decision 5). Adding the broker's name would tell them apart.
+- Statements of one form whose labels and payer or broker names both
+  repeat still get identical questions (ADR 0089 second amendment);
+  ordinals or other details would need their own decision.
 - The per-statement box 4 and box 7 questions keep their general wording
   and only gain the label (Decision 6).
 - Questions about a sale with no Form 1099-B do not name the sale
