@@ -174,7 +174,7 @@ def pinned_brokers(walker, fact_type, statement, year, rows):
             finding = walker._state.findings.get(pin["id"], {})
             fact = walker._facts().get(finding.get("fact_id"))
             if fact is None:
-                if pin.get("origin") == "derived" and pin["id"] in walker._publications:
+                if pin["id"] in walker._publications:
                     continue
                 return set()
             if fact.fact_type_id not in pairing["income"]:

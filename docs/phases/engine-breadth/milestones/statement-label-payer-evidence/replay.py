@@ -360,7 +360,13 @@ def main():
         with ProcessPoolExecutor(max_workers=args.workers, mp_context=multiprocessing.get_context("spawn")) as pool:
             futures = [pool.submit(run_shard, shard, core, page_path) for shard in shards]
             for future in as_completed(futures):
-                results.update(future.result())
+                try:
+                    results.update(future.result())
+                except Exception as exc:
+                    print(f"Replay failed: {exc}", file=sys.stderr, flush=True)
+                    if hasattr(pool, "terminate_workers"):
+                        pool.terminate_workers()
+                    raise
                 print(f"{len(results)}/{len(recorded) + len(probes)} lists", file=sys.stderr, flush=True)
     if results.keys() != {key for key, _, _ in recorded + probes}:
         raise ValueError("incomplete replay")
