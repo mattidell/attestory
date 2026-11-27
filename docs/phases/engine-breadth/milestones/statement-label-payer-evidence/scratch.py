@@ -73,6 +73,13 @@ def scratch_page(page):
 def scratch_projection(source):
     source = replace_once(
         source,
+        "    answer_explanations = _answer_explanation_sentences(",
+        '    if statement_questions is not None:\n'
+        '        statement_questions._p0_enabled = adopted_package == ("tax.us.2025.package.core-calculations", "v109")\n'
+        '    answer_explanations = _answer_explanation_sentences(',
+    )
+    source = replace_once(
+        source,
         "        targets: dict[str, dict[str, str]] = {}\n        for row in rows:",
         "        targets: dict[str, dict[str, str]] = {}\n"
         "        sources: dict[str, list[Mapping[str, Any]]] = {}\n        for row in rows:",
@@ -166,7 +173,11 @@ def pinned_brokers(walker, fact_type, statement, year, rows):
                 continue
             finding = walker._state.findings.get(pin["id"], {})
             fact = walker._facts().get(finding.get("fact_id"))
-            if fact is None or fact.fact_type_id not in pairing["income"]:
+            if fact is None:
+                if pin.get("origin") == "derived" and pin["id"] in walker._publications:
+                    continue
+                return set()
+            if fact.fact_type_id not in pairing["income"]:
                 continue
             keys = dict(fact.keys)
             if keys.get("statement") != statement:
@@ -182,6 +193,8 @@ def pinned_brokers(walker, fact_type, statement, year, rows):
 
 
 def party_label(walker, fact_type, identity, rows):
+    if not walker._p0_enabled:
+        return None
     is_broker = fact_type in {BOX4, BOX7}
     spec = B_SPEC if is_broker else WITHHOLDING.get(fact_type)
     if spec is None:
@@ -195,7 +208,11 @@ def party_label(walker, fact_type, identity, rows):
     memo = vars(walker).setdefault("_p0_cohorts", {})
     key = (spec[0], year, label)
     if key not in memo:
-        memo[key] = cohort(walker, spec, year, label, party_key)
+        same_label = sum(
+            entity_label(walker, entity_id, spec[0]) == label
+            for entity_id in walker._state.fact_state.entities
+        )
+        memo[key] = cohort(walker, spec, year, label, party_key) if same_label > 1 else {}
     pair = memo[key].get(statement)
     if pair is None:
         return None
