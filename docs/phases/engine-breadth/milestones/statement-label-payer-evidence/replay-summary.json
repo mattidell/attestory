@@ -1,0 +1,78 @@
+{
+  "baseline": "f56d45ad450cc56f7d7559dbeed300ea27b3430e",
+  "controls_rejected": [
+    "added_name_to_distinct_statement",
+    "removed_name",
+    "swapped_names"
+  ],
+  "core": "v109",
+  "recorded": {
+    "changed_lists": 0,
+    "lists": 775,
+    "lists_with_introduced_duplicate_labels": {
+      "tax.us.f1099b-statement": 191
+    },
+    "names_added": 0,
+    "outcomes": {
+      "error": 84,
+      "success": 691
+    },
+    "saved_lists_with_current_duplicate_labels": {
+      "tax.us.f1099b-statement": 59
+    }
+  },
+  "registry": "v107",
+  "release": "v107",
+  "scratch_page_sha256": "5c379581e2161b87b1b2ff8623c40d3fda6e1e936612e14ccfda86eb1af39573",
+  "scratch_projection_sha256": "7dec704abb8c4aef3b6bc3809b532687192a6afc6ff4368b835eb6dc8a35f27b",
+  "shards": 38,
+  "synthetic": {
+    "changed_lists": 10,
+    "lists": 21,
+    "lists_with_introduced_duplicate_labels": {
+      "tax.us.1099div-statement": 1,
+      "tax.us.1099g-statement": 1,
+      "tax.us.1099int-statement": 7,
+      "tax.us.1099r-statement": 1,
+      "tax.us.f1099b-statement": 6,
+      "tax.us.ssa1099-statement": 1
+    },
+    "names_added": 174,
+    "outcomes": {
+      "success": 21
+    },
+    "saved_lists_with_current_duplicate_labels": {
+      "tax.us.1099div-statement": 1,
+      "tax.us.1099g-statement": 1,
+      "tax.us.1099int-statement": 7,
+      "tax.us.1099r-statement": 1,
+      "tax.us.f1099b-statement": 6,
+      "tax.us.ssa1099-statement": 1
+    }
+  },
+  "synthetic_names_by_case": {
+    "demo.box4.answered-peer": 6,
+    "demo.box4.distinct-statements": 0,
+    "demo.box4.duplicate": 12,
+    "demo.box4.same-broker-label": 0,
+    "demo.box7.answered-peer": 30,
+    "demo.box7.distinct-statements": 0,
+    "demo.box7.duplicate": 60,
+    "demo.box7.same-broker-label": 0,
+    "demo.div.duplicate": 12,
+    "demo.g.duplicate": 12,
+    "demo.int.all-answered": 0,
+    "demo.int.answered-peer": 6,
+    "demo.int.blank-payer": 0,
+    "demo.int.distinct-statements": 0,
+    "demo.int.duplicate": 12,
+    "demo.int.literal-payer": 12,
+    "demo.int.near-payers": 0,
+    "demo.int.near-statements": 0,
+    "demo.int.same-payer-label": 0,
+    "demo.ira.duplicate": 12,
+    "demo.ssa.duplicate": 0
+  },
+  "unexpected_differences": 0,
+  "workers": 9
+}
