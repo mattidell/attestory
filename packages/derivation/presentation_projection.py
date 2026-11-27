@@ -35,8 +35,9 @@ import json
 import re
 import inspect
 import math
+from collections.abc import Mapping
 from decimal import Decimal, InvalidOperation
-from typing import Any, Callable, Mapping, Sequence, cast
+from typing import Any, Callable, Sequence, cast
 
 from packages.derivation.derived_enumeration import derived_activity_present, fact_type_matches_symbol
 from packages.derivation.explanation_graph import GraphBuilder, validate_graph, validate_output_schema
@@ -656,8 +657,8 @@ class _RosterMembers:
 class _StatementQuestions:
     """Which statements a per-statement question asks about (ADR 0089).
 
-    A Form 1099-B box 4 amount or box 7 question reaches a blocked line
-    through a ``require_paired`` block that names only the bare fact type.
+    An eligible question reaches a blocked line through a
+    ``require_paired`` block that names only the bare fact type.
     The statements it asks about are recovered by running the evaluator's
     own pairing test (``evaluator.paired_coverage``) over the rows that
     block read, which it pins as inputs. A declared need narrows a gated
@@ -676,25 +677,74 @@ class _StatementQuestions:
         by_symbol: Mapping[str, Sequence[Mapping[str, Any]]],
         entity_kinds: frozenset[str],
         needs: Mapping[str, frozenset[str]],
+        withholding_entities: Mapping[str, Mapping[str, str]] | None = None,
+        current_finding_ids: frozenset[str] | None = None,
     ) -> None:
         self._rules = rules_by_id
         self._state = state
         self._publications = publications_by_id
         self._by_symbol = by_symbol
         self._needs = needs
+        self._withholding_entities = withholding_entities or {}
+        self._current_finding_ids = current_finding_ids
         self._fact_map: dict[str, Fact] | None = None
         self._identity: dict[str, list[str]] = {}
+        self._withholding_years: dict[str, frozenset[str]] = {}
         declared: dict[str, Mapping[str, Any]] = {}
+        withholding_declarations: dict[tuple[str, str], Mapping[str, Any] | None] = {}
+        question_versions: dict[str, set[str | None]] = {}
         for member in resolved_members:
-            if str(member.get("schema", "")).startswith("bundle."):
+            schema = str(member.get("schema", ""))
+            if schema.startswith("bundle."):
                 for fact_type in member.get("fact_types") or []:
                     if isinstance(fact_type, Mapping) and isinstance(fact_type.get("id"), str):
-                        declared.setdefault(fact_type["id"], fact_type)
+                        fact_type_id = fact_type["id"]
+                        declared.setdefault(fact_type_id, fact_type)
+                        version = fact_type.get("version")
+                        if fact_type_id in self._withholding_entities and isinstance(version, str):
+                            key = (fact_type_id, version)
+                            previous = withholding_declarations.setdefault(key, fact_type)
+                            if previous != fact_type:
+                                withholding_declarations[key] = None
+            if schema.startswith("input-question."):
+                pin = member.get("fact_type")
+                question = member.get("question")
+                if isinstance(pin, Mapping) and isinstance(question, str) and question.strip():
+                    fact_type_id = str(pin.get("id"))
+                    if fact_type_id in self._withholding_entities:
+                        version = pin.get("version")
+                        question_versions.setdefault(fact_type_id, set()).add(
+                            version if isinstance(version, str) else None,
+                        )
         for fact_type_id, declaration in {**declared, **state.fact_state.fact_types}.items():
+            withholding_keys = self._withholding_entities.get(fact_type_id)
+            if withholding_keys is not None:
+                versions = question_versions.get(fact_type_id, set())
+                if len(versions) != 1:
+                    continue
+                version = next(iter(versions))
+                pinned = withholding_declarations.get((fact_type_id, version)) if version is not None else None
+                if pinned is None:
+                    continue
+                declaration = pinned
             identity = declaration.get("identity_keys") if isinstance(declaration, Mapping) else None
             if not isinstance(identity, list) or not all(isinstance(key, Mapping) for key in identity):
                 continue
             entity = [key for key in identity if key.get("kind") == "entity"]
+            if withholding_keys is not None:
+                shape = {
+                    (key.get("name"), key.get("kind"), key.get("entity_kind"))
+                    for key in identity
+                }
+                expected = {
+                    (name, "entity", kind) for name, kind in withholding_keys.items()
+                } | {("tax-year", "literal", None)}
+                if len(identity) == len(expected) and shape == expected:
+                    years = next(key.get("values") for key in identity if key["name"] == "tax-year")
+                    if isinstance(years, list) and all(isinstance(year, str) for year in years):
+                        self._identity[fact_type_id] = [str(key["name"]) for key in identity]
+                        self._withholding_years[fact_type_id] = frozenset(years)
+                continue
             if (len(entity) == 1 and entity[0].get("name") == "statement"
                     and entity[0].get("entity_kind") in entity_kinds
                     and all(key.get("kind") in {"entity", "literal"} for key in identity)):
@@ -704,10 +754,29 @@ class _StatementQuestions:
         """Whether ``fact_type`` is a per-statement fact this decision labels."""
         return fact_type in self._identity
 
+    def is_line25b_withholding(self, fact_type: str) -> bool:
+        return fact_type in self._withholding_entities
+
     def _facts(self) -> dict[str, Fact]:
         if self._fact_map is None:
             self._fact_map = facts_of(self._state.fact_state)
         return self._fact_map
+
+    def _current_ids(self) -> frozenset[str]:
+        if self._current_finding_ids is None:
+            from packages.kernel.currency import compute_currency
+
+            self._current_finding_ids = compute_currency(self._state).current_finding_ids
+        return self._current_finding_ids
+
+    def _valid_withholding_identity(self, fact_type: str, keys: Mapping[str, str]) -> bool:
+        if keys["tax-year"] not in self._withholding_years[fact_type]:
+            return False
+        for name, kind in self._withholding_entities[fact_type].items():
+            entity = self._state.fact_state.entities.get(keys[name])
+            if entity is None or entity.status != "current" or entity.entity.get("kind") != kind:
+                return False
+        return True
 
     @staticmethod
     def _paired_nodes(node: Any, withholding: str) -> list[Mapping[str, Any]]:
@@ -721,6 +790,28 @@ class _StatementQuestions:
             for item in node:
                 found.extend(_StatementQuestions._paired_nodes(item, withholding))
         return found
+
+    @staticmethod
+    def _mentions_outside_pair(node: Any, pairing: Mapping[str, Any], fact_type: str) -> bool:
+        """Look for another route that could put this fact type in missing."""
+        if node is pairing:
+            return False
+        match node:
+            case {"op": "any", "args": [
+                {"op": "all", "args": [{"op": "require_closed", "source_set": str(source_set)}, check]},
+                {"op": "ref", "name": name},
+            ]} if check is pairing and name == fact_type and source_set != fact_type:
+                # Both first-arm checks return true or block. The second arm
+                # therefore cannot be the source of this DEPENDENCY_ABSENT.
+                return False
+            case Mapping():
+                return any(_StatementQuestions._mentions_outside_pair(value, pairing, fact_type)
+                           for value in node.values())
+            case list():
+                return any(_StatementQuestions._mentions_outside_pair(value, pairing, fact_type)
+                           for value in node)
+            case _:
+                return isinstance(node, str) and node == fact_type
 
     def _needed(self, need_symbols: frozenset[str]) -> set[str]:
         """Statement entity ids of every sale whose published need is above zero."""
@@ -755,24 +846,41 @@ class _StatementQuestions:
 
         names = self._identity.get(fact_type)
         rule = self._rules.get(str(row.get("artifact_id")))
-        nodes = self._paired_nodes(rule, fact_type) if names is not None and rule is not None else []
-        if row.get("code") != "DEPENDENCY_ABSENT" or names is None or len(nodes) != 1:
+        if row.get("code") != "DEPENDENCY_ABSENT" or names is None or rule is None:
+            return None
+        nodes = self._paired_nodes(rule, fact_type)
+        if len(nodes) != 1:
             return None
         node = nodes[0]
         if node.get("key") != "statement":
             return None
+        withholding = self.is_line25b_withholding(fact_type)
+        if withholding and (
+            row.get("artifact_id") != "tax.us.2025.rule.form1040-line25b"
+            or row.get("missing") != [fact_type]
+            or self._mentions_outside_pair(rule, node, fact_type)
+        ):
+            return None
         facts = self._facts()
         # The rows the block read: its input pins, as the evaluator saw them.
         rows_by_name: dict[str, list[PairedSourceRow]] = {}
+        paired_types = {fact_type, *node["income"]}
         for pin in row.get("pins") or []:
             if not isinstance(pin, Mapping) or pin.get("role") != "input":
                 continue
-            finding = self._state.findings.get(str(pin.get("id")))
-            fact = facts.get(str(finding.get("fact_id"))) if isinstance(finding, Mapping) else None
+            pin_id = str(pin.get("id"))
+            finding = self._state.findings.get(pin_id)
+            fact_id = finding.get("fact_id") if isinstance(finding, Mapping) else None
+            fact = facts.get(fact_id) if isinstance(fact_id, str) else None
             if fact is None:
+                # A resolved derived publication cannot be a source row in the pairing.
+                if withholding and not (pin.get("origin") == "derived" and pin_id in self._publications):
+                    return None
                 continue
+            if withholding and fact.fact_type_id in paired_types and pin_id not in self._current_ids():
+                return None
             rows_by_name.setdefault(fact.fact_type_id, []).append(
-                PairedSourceRow(finding_id=str(pin["id"]), keys=tuple(fact.keys)))
+                PairedSourceRow(finding_id=pin_id, keys=tuple(fact.keys)))
         coverage = paired_coverage(node, rows_by_name)
         if coverage.bad:
             return None
@@ -789,7 +897,9 @@ class _StatementQuestions:
                 statement = keys.get("statement", "")
                 if statement not in identities:
                     continue
-                if not all(key in keys for key in names):
+                if not all(keys.get(key) for key in names):
+                    return None
+                if withholding and not self._valid_withholding_identity(fact_type, keys):
                     return None
                 identities[statement].add(tuple((key, keys[key]) for key in names))
         if any(len(matches) != 1 for matches in identities.values()):
@@ -880,6 +990,7 @@ def _closure_question_reasons(
     statement_questions: _StatementQuestions | None = None,
     answer_explanations: Mapping[str, str] | None = None,
     answer_sentences_out: set[str] | None = None,
+    withholding_reasons_out: dict[str, list[dict[str, Any]]] | None = None,
 ) -> list[dict[str, Any]]:
     """The declared question for every cause a blocked line waits on and a filer can answer.
 
@@ -999,7 +1110,8 @@ def _closure_question_reasons(
             # A bare type can refer to another fact, including an unanswered
             # statement selected by ADR 0089. Use only a single known target
             # of an ordinary type-level question.
-            if statement_questions is not None and statement_questions.applies(fact_type):
+            if (statement_questions is not None and statement_questions.applies(fact_type)
+                    and not statement_questions.is_line25b_withholding(fact_type)):
                 return
             targets = question_target_ids.get(fact_type, set())
             if len(targets) != 1 or fact_type not in answer_explanations:
@@ -1332,6 +1444,7 @@ def _closure_question_reasons(
         labelled = _statement_reasons(
             root, paired_rows, statement_questions, input_questions,
             other_sentences={questions[family] for family in families} | extras,
+            withholding_reasons_out=withholding_reasons_out,
         )
         reasons = []
         for text in sorted(sentences):
@@ -1454,6 +1567,7 @@ def _statement_reasons(
     input_questions: Mapping[str, str],
     *,
     other_sentences: set[str],
+    withholding_reasons_out: dict[str, list[dict[str, Any]]] | None = None,
 ) -> dict[str, list[dict[str, Any]]]:
     """ADR 0089: one reason per statement for each per-statement question the walk reached.
 
@@ -1470,6 +1584,9 @@ def _statement_reasons(
     for fact_type, row_id in sorted(root.paired):
         rows_by_type.setdefault(fact_type, []).append(paired_rows[row_id])
     for fact_type, rows in sorted(rows_by_type.items()):
+        withholding = statement_questions.is_line25b_withholding(fact_type)
+        if withholding and withholding_reasons_out is None:
+            continue
         sentence = input_questions.get(fact_type)
         if (sentence is None or fact_type in root.unattributed or fact_type not in root.facts
                 or sentence in other_sentences
@@ -1483,16 +1600,24 @@ def _statement_reasons(
                 targets = {}
                 break
             targets.update(found)
+        if withholding and len({identity["statement"] for identity in targets.values()}) != len(targets):
+            continue
         entries: list[tuple[str, str, dict[str, Any]]] = []
         for fact_id, identity in targets.items():
             statement_label = statement_questions.label(identity)
+            if withholding:
+                statement_label.pop("lender", None)
             label = statement_label.get("statement")
-            if label is None:
+            if label is None or (withholding and not label.strip()):
                 entries = []
                 break
             entries.append((label, fact_id, {"sentence": sentence, "statementLabel": statement_label}))
         if entries:
-            out[sentence] = [entry for _label, _fact_id, entry in sorted(entries, key=lambda item: (item[0], item[1]))]
+            reasons = [entry for _label, _fact_id, entry in sorted(entries, key=lambda item: (item[0], item[1]))]
+            if withholding and withholding_reasons_out is not None:
+                withholding_reasons_out[sentence] = reasons
+            else:
+                out[sentence] = reasons
     return out
 
 
@@ -1761,6 +1886,27 @@ def _finalize_question_references(
         scopes = sorted(reference["scopes"], key=lambda scope: json.dumps(scope, sort_keys=True))
         result.append({"groupId": group_id, "reasonIndices": indices, "scopes": scopes})
     return result
+
+
+def _expand_withholding_reasons(
+    reasons: Sequence[dict[str, Any]],
+    references: Sequence[dict[str, Any]],
+    by_sentence: Mapping[str, list[dict[str, Any]]],
+) -> list[dict[str, Any]]:
+    """Expand generic reasons after their existing links have been resolved."""
+    linked = {index for reference in references for index in reference["reasonIndices"]}
+    offsets: dict[int, int] = {}
+    expanded: list[dict[str, Any]] = []
+    for index, reason in enumerate(reasons):
+        offsets[index] = len(expanded)
+        additions = by_sentence.get(reason["sentence"]) if set(reason) == {"sentence"} else None
+        if not additions or index in linked:
+            expanded.append(reason)
+        if additions:
+            expanded.extend(additions)
+    for reference in references:
+        reference["reasonIndices"] = [offsets[index] for index in reference["reasonIndices"]]
+    return expanded
 
 
 class _WalkFrame:
@@ -5879,6 +6025,7 @@ def build_presentation_model(
         labels_statement_questions,
         later_any_arm_refs_while_count_blocked,
         unconfirmed_family_names_closure_question,
+        withholding_statement_question_entities,
     )
 
     names_closure_question = (
@@ -5933,6 +6080,8 @@ def build_presentation_model(
             rules_by_id=rules_by_id, state=state, resolved_members=resolved_members,
             publications_by_id=publications_by_id, by_symbol=by_symbol,
             entity_kinds=STATEMENT_QUESTION_ENTITY_KINDS, needs=STATEMENT_QUESTION_NEEDS,
+            withholding_entities=withholding_statement_question_entities(*adopted_package),
+            current_finding_ids=current_finding_ids,
         )
         if adopted_package is not None and labels_statement_questions(adopted_package[0], adopted_package[1])
         else None
@@ -6004,6 +6153,7 @@ def build_presentation_model(
             "resolved_members": resolved_members,
             "by_symbol": by_symbol,
             "question_refs_out": row_question_candidates,
+            "withholding_reasons_out": withholding_reasons,
             "question_refs_by_family": question_refs_by_family,
             "question_refs_by_fact_type": question_refs_by_fact_type,
             "symbol_fact_types": symbol_fact_types,
@@ -6044,6 +6194,7 @@ def build_presentation_model(
         producer = rules_by_id.get(str(row.get("artifact_id")))
         selection_attached = False
         row_question_candidates: list[dict[str, Any]] = []
+        withholding_reasons: dict[str, list[dict[str, Any]]] = {}
         answer_sentences: set[str] = set()
         if (resolved["disposition"] == "blocked" and producer is not None
                 and producer.get("schema") in RULE_V13_SELECTION_SCHEMAS and "selection" in producer):
@@ -6079,6 +6230,10 @@ def build_presentation_model(
             )
             if question_refs:
                 resolved["questionRefs"] = question_refs
+        if withholding_reasons:
+            resolved["reasons"] = _expand_withholding_reasons(
+                resolved["reasons"], resolved.get("questionRefs", ()), withholding_reasons,
+            )
         if answer_sentences:
             # Append the unlinked sentences after assigning existing reason indices.
             reasons = resolved.setdefault("reasons", [])
