@@ -20,10 +20,10 @@
       "release_sha256": "ba1d8146a610dbcecf085aa018c7eeceb5920073e8a15b979fb1d5928b84435b"
     }
   ],
-  "baseline_projection_sha256": "54dcf2fc42d6875182fbef9316af33ce5063e4d9825de57c52b4c33571c398b7",
+  "baseline_projection_sha256": "b9a29c6975b98e7f157efb6d2ff555cbddc566912b5d74899f17b3cedaa04343",
   "candidate_code_sha256": {
-    "packages/derivation/presentation_projection.py": "06a280c48bf6b00d03a9299c863a68dac7401b3c28f495ed5064773fd2aa4fe0",
-    "packages/tax/loader.py": "5ce6a06bc1d47fc8b95b49539cf3ce72bf2f9fa26ce9316c475454e3731c3bad",
+    "packages/derivation/presentation_projection.py": "2683ad948cd2554dd38576d1a487fd66a2c887c32213363cf015977dea9e7e8e",
+    "packages/tax/loader.py": "059fa4baec4cb9c366b75af09ddc377b7371b180d4b3e8e41d3e1e6f332085df",
     "packages/derivation/loader.py": "c9101f821548c17614c2205bdb887051f79d7da9554a03622b276f117c1913ad",
     "packages/derivation/live.py": "fc5d9fbde00794b540ef8ba150e4f852edfaf5222ffcb7d955243404e1b578ed",
     "packages/derivation/runner.py": "acf361f8e7d5bc6db535e966ab0ea98eb35f38a5b147e4928ac6db7eb4e27142"
