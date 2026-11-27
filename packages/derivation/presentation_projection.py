@@ -52,6 +52,13 @@ from packages.derivation.schema_capabilities import (
 from packages.kernel.facts import Fact, fact_id_for, facts_of
 from packages.kernel.findings import FindingState
 from packages.tax.coverage import untranslated_source_findings
+from packages.tax.loader import (
+    STATEMENT_BROKER_ANCHOR,
+    STATEMENT_BROKER_ENTITIES,
+    STATEMENT_BROKER_PAIRINGS,
+    STATEMENT_BROKER_SALES,
+    STATEMENT_PAYER_INCOME,
+)
 
 PRESENTATION_MODEL_VERSION = "presentation-model.v3"
 V2_PRESENTATION_MODEL_VERSION = "presentation-model.v2"
@@ -679,6 +686,7 @@ class _StatementQuestions:
         needs: Mapping[str, frozenset[str]],
         withholding_entities: Mapping[str, Mapping[str, str]] | None = None,
         current_finding_ids: frozenset[str] | None = None,
+        adopted_package: tuple[str, str] | None = None,
     ) -> None:
         self._rules = rules_by_id
         self._state = state
@@ -687,11 +695,19 @@ class _StatementQuestions:
         self._needs = needs
         self._withholding_entities = withholding_entities or {}
         self._current_finding_ids = current_finding_ids
+        self._adopted_package = adopted_package
         self._fact_map: dict[str, Fact] | None = None
         self._identity: dict[str, list[str]] = {}
         self._withholding_years: dict[str, frozenset[str]] = {}
+        self._broker_years: dict[str, frozenset[str]] = {}
+        self._party_sources: dict[str, dict[str, Fact]] | None = None
+        self._unresolved_source_types: set[str] = set()
+        self._cohorts: dict[str, dict[tuple[str, str], dict[str, tuple[str, str]]]] = {}
+        pinned_identities = set(self._withholding_entities)
+        if self._withholding_entities:  # The second amendment has the same core v109 floor.
+            pinned_identities.update(STATEMENT_BROKER_PAIRINGS)
         declared: dict[str, Mapping[str, Any]] = {}
-        withholding_declarations: dict[tuple[str, str], Mapping[str, Any] | None] = {}
+        pinned_declarations: dict[tuple[str, str], Mapping[str, Any] | None] = {}
         question_versions: dict[str, set[str | None]] = {}
         for member in resolved_members:
             schema = str(member.get("schema", ""))
@@ -701,54 +717,59 @@ class _StatementQuestions:
                         fact_type_id = fact_type["id"]
                         declared.setdefault(fact_type_id, fact_type)
                         version = fact_type.get("version")
-                        if fact_type_id in self._withholding_entities and isinstance(version, str):
+                        if fact_type_id in pinned_identities and isinstance(version, str):
                             key = (fact_type_id, version)
-                            previous = withholding_declarations.setdefault(key, fact_type)
+                            previous = pinned_declarations.setdefault(key, fact_type)
                             if previous != fact_type:
-                                withholding_declarations[key] = None
+                                pinned_declarations[key] = None
             if schema.startswith("input-question."):
                 pin = member.get("fact_type")
                 question = member.get("question")
                 if isinstance(pin, Mapping) and isinstance(question, str) and question.strip():
                     fact_type_id = str(pin.get("id"))
-                    if fact_type_id in self._withholding_entities:
+                    if fact_type_id in pinned_identities:
                         version = pin.get("version")
                         question_versions.setdefault(fact_type_id, set()).add(
                             version if isinstance(version, str) else None,
                         )
         for fact_type_id, declaration in {**declared, **state.fact_state.fact_types}.items():
             withholding_keys = self._withholding_entities.get(fact_type_id)
-            if withholding_keys is not None:
+            if fact_type_id in pinned_identities:
                 versions = question_versions.get(fact_type_id, set())
-                if len(versions) != 1:
+                version = next(iter(versions)) if len(versions) == 1 else None
+                pinned = pinned_declarations.get((fact_type_id, version)) if version is not None else None
+                expected_keys = withholding_keys if withholding_keys is not None else {
+                    "statement": STATEMENT_BROKER_ENTITIES["statement"],
+                }
+                years = self._identity_years(pinned, expected_keys)
+                if withholding_keys is not None:
+                    if years and pinned is not None:
+                        self._identity[fact_type_id] = [key["name"] for key in pinned["identity_keys"]]
+                        self._withholding_years[fact_type_id] = years
                     continue
-                version = next(iter(versions))
-                pinned = withholding_declarations.get((fact_type_id, version)) if version is not None else None
-                if pinned is None:
-                    continue
-                declaration = pinned
+                if years:
+                    self._broker_years[fact_type_id] = years
             identity = declaration.get("identity_keys") if isinstance(declaration, Mapping) else None
             if not isinstance(identity, list) or not all(isinstance(key, Mapping) for key in identity):
                 continue
             entity = [key for key in identity if key.get("kind") == "entity"]
-            if withholding_keys is not None:
-                shape = {
-                    (key.get("name"), key.get("kind"), key.get("entity_kind"))
-                    for key in identity
-                }
-                expected = {
-                    (name, "entity", kind) for name, kind in withholding_keys.items()
-                } | {("tax-year", "literal", None)}
-                if len(identity) == len(expected) and shape == expected:
-                    years = next(key.get("values") for key in identity if key["name"] == "tax-year")
-                    if isinstance(years, list) and all(isinstance(year, str) for year in years):
-                        self._identity[fact_type_id] = [str(key["name"]) for key in identity]
-                        self._withholding_years[fact_type_id] = frozenset(years)
-                continue
             if (len(entity) == 1 and entity[0].get("name") == "statement"
                     and entity[0].get("entity_kind") in entity_kinds
                     and all(key.get("kind") in {"entity", "literal"} for key in identity)):
                 self._identity[fact_type_id] = [str(key.get("name")) for key in identity]
+
+    @staticmethod
+    def _identity_years(declaration: Mapping[str, Any] | None, entities: Mapping[str, str]) -> frozenset[str]:
+        identity = declaration.get("identity_keys") if declaration is not None else None
+        if not isinstance(identity, list) or not all(isinstance(key, Mapping) for key in identity):
+            return frozenset()
+        expected = {(name, "entity", kind) for name, kind in entities.items()} | {("tax-year", "literal", None)}
+        if len(identity) != len(expected) or not all(
+            (key.get("name"), key.get("kind"), key.get("entity_kind")) in expected for key in identity
+        ) or len({key["name"] for key in identity}) != len(expected):
+            return frozenset()
+        years = next(key.get("values") for key in identity if key["name"] == "tax-year")
+        return frozenset(years) if isinstance(years, list) and all(isinstance(year, str) for year in years) else frozenset()
 
     def applies(self, fact_type: str) -> bool:
         """Whether ``fact_type`` is a per-statement fact this decision labels."""
@@ -909,6 +930,176 @@ class _StatementQuestions:
 
     def label(self, identity: Mapping[str, str]) -> dict[str, str]:
         return _statement_label(identity, self._state)
+
+    def _current_label(self, entity_id: str, kind: str) -> str | None:
+        entity = self._state.fact_state.entities.get(entity_id)
+        if entity is None or entity.status != "current" or entity.entity.get("kind") != kind:
+            return None
+        label = entity.entity.get("label")
+        return label if isinstance(label, str) and label.strip() and not _UNSAFE_STRING_PATTERN.search(label) else None
+
+    def _current_sources_by_type(self) -> dict[str, dict[str, Fact]]:
+        if self._party_sources is None:
+            self._party_sources = {}
+            facts = self._facts()
+            for finding_id in self._current_ids():
+                finding = self._state.findings.get(finding_id)
+                fact_id = finding.get("fact_id") if finding else None
+                if not isinstance(fact_id, str):
+                    continue
+                fact = facts.get(fact_id)
+                if fact is not None:
+                    self._party_sources.setdefault(fact.fact_type_id, {})[finding_id] = fact
+                else:
+                    self._unresolved_source_types.add(fact_id.partition("|")[0])
+        return self._party_sources
+
+    def _party_cohorts(
+        self, entities: Mapping[str, str], party_key: str, source_types: frozenset[str],
+    ) -> dict[tuple[str, str], dict[str, tuple[str, str]]]:
+        groups: dict[tuple[str, str], dict[str, set[str]]] = {}
+        uncertain_labels: set[str] = set()
+        sources = self._current_sources_by_type()
+        if source_types & self._unresolved_source_types:
+            return {}
+        for source_type in source_types:
+            for fact in sources.get(source_type, {}).values():
+                keys = dict(fact.keys)
+                statement = keys.get("statement", "")
+                if not statement:
+                    return {}
+                label = self._current_label(statement, entities["statement"])
+                if label is None:
+                    continue
+                year = keys.get("tax-year")
+                if not year:
+                    uncertain_labels.add(label)
+                    continue
+                groups.setdefault((year, label), {}).setdefault(statement, set()).add(keys.get(party_key, ""))
+        return {
+            key: self._distinct_party_names(peers, entities[party_key])
+            for key, peers in groups.items() if len(peers) > 1 and key[1] not in uncertain_labels
+        }
+
+    def _distinct_party_names(self, peers: Mapping[str, set[str]], kind: str) -> dict[str, tuple[str, str]]:
+        names: dict[str, tuple[str, str]] = {}
+        normalized: set[str] = set()
+        for statement, parties in peers.items():
+            if len(parties) != 1:
+                return {}
+            party, = parties
+            name = self._current_label(party, kind)
+            if name is None:
+                return {}
+            folded = " ".join(name.split()).casefold()
+            if folded in normalized:
+                return {}
+            normalized.add(folded)
+            names[statement] = (party, name)
+        return names
+
+    def _party_inputs(self, row: Mapping[str, Any], fact_type: str) -> list[Fact] | None:
+        """Establish the pairing's current, versioned source inputs before naming a party."""
+        rule_id = row.get("artifact_id")
+        if not isinstance(rule_id, str) or row.get("code") != "DEPENDENCY_ABSENT" or row.get("missing") != [fact_type]:
+            return None
+        rule = self._rules.get(rule_id)
+        if rule is None:
+            return None
+        nodes = self._paired_nodes(rule, fact_type)
+        if len(nodes) != 1:
+            return None
+        node = nodes[0]
+        if node.get("key") != "statement" or self._mentions_outside_pair(rule, node, fact_type):
+            return None
+        pairings = STATEMENT_BROKER_PAIRINGS.get(fact_type)
+        income = pairings.get(rule_id) if pairings is not None else STATEMENT_PAYER_INCOME.get(fact_type)
+        source_types = node.get("income")
+        if not income or not isinstance(source_types, list) or len(source_types) != len(income) or not all(
+            isinstance(source, str) for source in source_types
+        ) or set(source_types) != income:
+            return None
+        pins = row.get("pins")
+        if self._adopted_package is None or not isinstance(pins, list) or [
+            (pin.get("id"), pin.get("version"))
+            for pin in pins if isinstance(pin, Mapping) and pin.get("role") == "adoption"
+        ] != [self._adopted_package]:
+            return None
+        expected = {fid: fact for source in source_types for fid, fact in
+                    self._current_sources_by_type().get(source, {}).items()}
+        covered = self._current_sources_by_type().get(fact_type, {})
+        paired_types = {*source_types, fact_type}
+        if paired_types & self._unresolved_source_types:
+            return None
+        seen: set[str] = set()
+        for pin in pins:
+            if not isinstance(pin, Mapping):
+                return None
+            if pin.get("role") != "input":
+                continue
+            fid = pin.get("id")
+            version = pin.get("version")
+            if not isinstance(fid, str) or not isinstance(version, str) or not version:
+                return None
+            finding = self._state.findings.get(fid)
+            if finding is None:
+                publication = self._publications.get(fid)
+                if publication is None or version != publication.get("version"):
+                    return None
+                continue
+            fact_id = finding.get("fact_id")
+            fact = self._facts().get(fact_id) if isinstance(fact_id, str) else None
+            if fact is None:
+                return None
+            if fact.fact_type_id in paired_types:
+                # The ordinary marshal records these sources as SourceFact v1,
+                # independently of the asserted finding's schema version.
+                if (fid not in expected and fid not in covered) or version != "v1" or pin.get("origin") != "assertion":
+                    return None
+                seen.add(fid)
+        if seen != expected.keys() | covered.keys():
+            return None
+        return list(expected.values())
+
+    def party_label(
+        self, fact_type: str, identity: Mapping[str, str], rows: Sequence[Mapping[str, Any]],
+    ) -> str | None:
+        """Find a distinguishing recorded name within a same-form, same-year cohort."""
+        broker = fact_type in STATEMENT_BROKER_PAIRINGS
+        if broker:
+            sources = STATEMENT_BROKER_SALES | {STATEMENT_BROKER_ANCHOR}
+            entities = STATEMENT_BROKER_ENTITIES
+            party_key = "broker"
+            years = self._broker_years.get(fact_type, frozenset())
+        else:
+            sources = STATEMENT_PAYER_INCOME.get(fact_type, frozenset())
+            entities = self._withholding_entities.get(fact_type, {})
+            party_key = "payer"
+            years = self._withholding_years.get(fact_type, frozenset())
+        statement, year = identity.get("statement", ""), identity.get("tax-year", "")
+        expected_keys = ({"statement"} if broker else set(entities)) | {"tax-year"}
+        if not sources or set(identity) != expected_keys or year not in years or not rows:
+            return None
+        label = self._current_label(statement, entities["statement"])
+        if label is None:
+            return None
+        kind = entities["statement"]
+        if kind not in self._cohorts:
+            self._cohorts[kind] = self._party_cohorts(entities, party_key, sources)
+        party = self._cohorts[kind].get((year, label), {}).get(statement)
+        if party is None:
+            return None
+        party_id, name = party
+        if not broker and identity.get(party_key) != party_id:
+            return None
+        for row in rows:
+            inputs = self._party_inputs(row, fact_type)
+            if inputs is None:
+                return None
+            matches = [keys for fact in inputs if (keys := dict(fact.keys)).get("statement") == statement]
+            if not matches or any(keys.get("tax-year") != year or keys.get(party_key) != party_id for keys in matches):
+                return None
+        return name
 
 
 def _answer_explanation_sentences(
@@ -1594,12 +1785,15 @@ def _statement_reasons(
                        if text == sentence and other in root.facts) != 1):
             continue
         targets: dict[str, dict[str, str]] = {}
+        origins: dict[str, list[Mapping[str, Any]]] = {}
         for row in rows:
             found = statement_questions.targets(row, fact_type)
             if not found:
                 targets = {}
                 break
             targets.update(found)
+            for fact_id, _ in found:
+                origins.setdefault(fact_id, []).append(row)
         if withholding and len({identity["statement"] for identity in targets.values()}) != len(targets):
             continue
         entries: list[tuple[str, str, dict[str, Any]]] = []
@@ -1611,7 +1805,10 @@ def _statement_reasons(
             if label is None or (withholding and not label.strip()):
                 entries = []
                 break
-            entries.append((label, fact_id, {"sentence": sentence, "statementLabel": statement_label}))
+            entry: dict[str, Any] = {"sentence": sentence, "statementLabel": statement_label}
+            if name := statement_questions.party_label(fact_type, identity, origins[fact_id]):
+                entry["statementPayerLabel"] = name
+            entries.append((label, fact_id, entry))
         if entries:
             reasons = [entry for _label, _fact_id, entry in sorted(entries, key=lambda item: (item[0], item[1]))]
             if withholding and withholding_reasons_out is not None:
@@ -6082,6 +6279,7 @@ def build_presentation_model(
             entity_kinds=STATEMENT_QUESTION_ENTITY_KINDS, needs=STATEMENT_QUESTION_NEEDS,
             withholding_entities=withholding_statement_question_entities(*adopted_package),
             current_finding_ids=current_finding_ids,
+            adopted_package=adopted_package,
         )
         if adopted_package is not None and labels_statement_questions(adopted_package[0], adopted_package[1])
         else None
@@ -6460,7 +6658,9 @@ def _validate_resolved(resolved: Mapping[str, Any], path: str) -> None:
                 raise PresentationModelError(f"{path}.reasons: expected a non-empty list")
             for index, reason in enumerate(reasons):
                 rp = f"{path}.reasons[{index}]"
-                _require_keys(reason, frozenset({"sentence"}), frozenset({"factId", "statementLabel", "memberLabel", "memberOrdinal"}), rp)
+                _require_keys(reason, frozenset({"sentence"}), frozenset({
+                    "factId", "statementLabel", "statementPayerLabel", "memberLabel", "memberOrdinal",
+                }), rp)
                 if not isinstance(reason["sentence"], str) or not reason["sentence"]:
                     raise PresentationModelError(f"{rp}.sentence: expected non-empty string")
                 if "memberLabel" in reason and (not isinstance(reason["memberLabel"], str) or not reason["memberLabel"]):
@@ -6476,6 +6676,12 @@ def _validate_resolved(resolved: Mapping[str, Any], path: str) -> None:
                 if not isinstance(label, dict) or not all(isinstance(v, str) and v for v in label.values()) \
                         or set(label) - {"lender", "statement", "taxYear"}:
                     raise PresentationModelError(f"{rp}.statementLabel: expected lender/statement/taxYear strings")
+                if "statementPayerLabel" in reason:
+                    name = reason["statementPayerLabel"]
+                    if (not isinstance(name, str) or not name.strip()
+                            or not label.get("statement", "").strip() or not label.get("taxYear", "").strip()
+                            or "memberLabel" in reason or "factId" in reason):
+                        raise PresentationModelError(f"{rp}.statementPayerLabel: expected a recorded name beside a statement")
     else:  # guard_inapplicable
         _require_keys(resolved, frozenset({"disposition", "act"}), frozenset(), path)
         if resolved["act"] is not None:
@@ -6833,6 +7039,8 @@ def _validate_question_groups(model: Mapping[str, Any]) -> None:
                     raise PresentationModelError(f"{p}.reasonIndices: linked reason differs from question")
                 if "memberLabel" in reason:
                     raise PresentationModelError(f"{p}.reasonIndices: member reasons cannot link to a question group")
+                if "statementPayerLabel" in reason:
+                    raise PresentationModelError(f"{p}.reasonIndices: payer-labelled reasons cannot link to a question group")
                 seen_indices.add(reason_index)
             scopes = reference["scopes"]
             if not isinstance(scopes, list) or not scopes:

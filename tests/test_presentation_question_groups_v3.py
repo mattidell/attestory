@@ -464,21 +464,25 @@ def test_saved_v99_page_groups_the_shared_answer_and_keeps_other_reasons(
 
 
 @pytest.mark.live
-def test_saved_fact_question_cannot_link_to_equal_text_member_reason(
-    v99_saved_page: dict[str, Any],
+@pytest.mark.parametrize("label", [
+    {"memberLabel": "Demo Sam", "memberOrdinal": 2},
+    {"statementLabel": {"statement": "Demo statement", "taxYear": "2025"},
+     "statementPayerLabel": "Demo Payer"},
+])
+def test_saved_fact_question_cannot_link_to_equal_text_display_reason(
+    v99_saved_page: dict[str, Any], label: dict[str, Any],
 ) -> None:
     model = copy.deepcopy(v99_saved_page["model"])
     resolved = next(section["resolved"] for section in model["sections"] if section["resolved"].get("questionRefs"))
     reference = resolved["questionRefs"][0]
     original_index = reference["reasonIndices"][0]
-    member_index = len(resolved["reasons"])
+    display_index = len(resolved["reasons"])
     resolved["reasons"].append({
         "sentence": resolved["reasons"][original_index]["sentence"],
-        "memberLabel": "Demo Sam",
-        "memberOrdinal": 2,
+        **label,
     })
     validate_presentation_model(model)
-    reference["reasonIndices"] = [member_index]
+    reference["reasonIndices"] = [display_index]
     with pytest.raises(PresentationModelError, match="reasonIndices"):
         validate_presentation_model(model)
 
@@ -593,8 +597,8 @@ def test_equal_text_statement_reasons_remain_visible_without_group_links(
         },
         {
             "sentence": QUESTION,
-            "factId": "demo.answer.second",
-            "statementLabel": {"statement": "Second demo statement"},
+            "statementLabel": {"statement": "Second demo statement", "taxYear": "2025"},
+            "statementPayerLabel": "Demo  Payer & Sons",
         },
     ]
     validate_presentation_model(model)
@@ -614,7 +618,7 @@ def test_equal_text_statement_reasons_remain_visible_without_group_links(
     )
     assert visible["reasons"] == [
         f"First demo statement: {QUESTION}",
-        f"Second demo statement: {QUESTION}",
+        f"Second demo statement, Demo  Payer & Sons: {QUESTION}",
     ]
     assert visible["groupLinks"] == 0
     assert visible["groupCards"] == 0

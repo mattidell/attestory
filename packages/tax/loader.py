@@ -217,6 +217,35 @@ def withholding_statement_question_entities(package_id: str, version: str) -> Ma
     return {}
 
 
+STATEMENT_BROKER_SALES = frozenset(f"tax.us.2025.f1099b.{kind}-txn" for kind in _F1099B_SALE_KINDS)
+STATEMENT_BROKER_PAIRINGS: Mapping[str, Mapping[str, frozenset[str]]] = {
+    "tax.us.2025.f1099b.statement-box4-withholding": {
+        "tax.us.2025.rule.form1040-line25b": STATEMENT_BROKER_SALES,
+    },
+    "tax.us.2025.f1099b.statement-box7-loss-not-allowed": {
+        "tax.us.2025.rule.schedule-d-line16": STATEMENT_BROKER_SALES,
+        **{f"tax.us.2025.rule.f1099b.{kind}-txn.box7-loss-check": frozenset({f"tax.us.2025.f1099b.{kind}-txn"})
+           for kind in _F1099B_SALE_KINDS},
+    },
+}
+STATEMENT_BROKER_ANCHOR = "tax.us.2025.f1099b.statement-anchor"
+STATEMENT_BROKER_ENTITIES: Mapping[str, str] = {
+    "statement": "tax.us.f1099b-statement", "broker": "tax.us.f1099b-broker",
+}
+STATEMENT_PAYER_INCOME: Mapping[str, frozenset[str]] = {
+    "tax.us.2025.f1099int.box4-withholding": frozenset({
+        "tax.us.2025.f1099int.box1-interest", "tax.us.2025.f1099int.box3-interest",
+        "tax.us.2025.f1099int.box8-tax-exempt-interest", "tax.us.2025.f1099int.box10-market-discount",
+    }),
+    "tax.us.2025.f1099div.box4-withholding": frozenset({
+        "tax.us.2025.f1099div.box1a-ordinary", "tax.us.2025.f1099div.box2a-capital-gain-distribution",
+        "tax.us.2025.f1099div.box12-exempt-interest-dividends",
+    }),
+    "tax.us.2025.f1099r.ira-box4-withholding": frozenset({"tax.us.2025.f1099r.ira-box1-taxable-distribution"}),
+    "tax.us.2025.f1099g.box4-withholding": frozenset({"tax.us.2025.f1099g.box1-unemployment"}),
+}
+
+
 def labels_statement_questions(package_id: str, version: str) -> bool:
     """Whether a per-statement Form 1099-B question names its statement (ADR 0089).
 
