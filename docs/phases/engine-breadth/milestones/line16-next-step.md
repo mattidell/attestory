@@ -174,6 +174,7 @@ manifest adds exactly two checksummed entries.
 Published v108 against published v109 replayed 801 lists with zero failures
 or unexpected differences. The same 25 lists as P0 gained explanations.
 The replay preserved values, dispositions, block codes and question links.
+[Track 1 replay summary](line16-next-step-evidence/track1-replay.json)
 
 Focused verification passed, including all seven browser tests on retry.
 Six local suite batches accounted for 6,106 of 7,958 collected tests. The
