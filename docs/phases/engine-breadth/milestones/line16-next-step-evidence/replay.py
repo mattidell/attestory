@@ -1,201 +1,290 @@
-"""Full-surface replay: published core v108 against scratch core v109.
+"""Replay published core v108 against v109 in one fresh parallel run.
 
-Run inside the scratch export that scratch_build.py made (so both cores run
-on the scratch code, which is what a Track 1 build would publish):
-  python3 docs/phases/engine-breadth/milestones/line16-next-step-evidence/replay.py \
-      --part <part-file-outside-repo> [--workers N] [--only-probe] [--out replay.json]
-
-One shared tools.recorded_replay.replay process pool runs every recorded list
-(recorded_lists(), 775) plus the 26 probe lists (probe.cases(), keyed
-"probe/..."). Each list runs on both cores through the full-surface snapshot
-(FullSurfaceCompare) and is classified strictly: any difference that no
-expectation below names fails the list. The expectations are only:
-
-- the package version v108 -> v109 wherever it is recorded;
-- an added reason whose sentence is exactly one of the four declared answer
-  explanations (read from the citizens in scratch.diff), at a new trailing
-  reason index;
-- the reasons list order record of a line that gained such a reason (every
-  existing reason keeps its index and sentence, which other records check).
-
-No value, disposition, code, question group, question reference or row may
-change. --controls re-checks one changed list with an empty expectation set
-and with a wrong sentence, both of which must fail.
+The v108 run uses the projection from before the Track 1 build. The v109
+run uses the current production path. The comparison allows the core version
+move and trailing, unlinked explanations for current answers to questions on
+blocked lines. Everything else in the saved model and report is compared.
 """
 from __future__ import annotations
 
 import argparse
+import copy
+import hashlib
 import importlib.util
 import json
+import multiprocessing
+import os
 import re
+import subprocess
 import sys
-import time
-from collections import Counter
+from collections import Counter, defaultdict
+from concurrent.futures import ProcessPoolExecutor, as_completed
+from functools import cache
 from pathlib import Path
+from types import ModuleType
+from typing import Any
+from unittest.mock import patch
 
 HERE = Path(__file__).resolve().parent
 REPO = HERE.parents[4]
 if str(REPO) not in sys.path:
     sys.path.insert(0, str(REPO))
 
+from packages.derivation import live  # noqa: E402
 from tools import recorded_replay as rr  # noqa: E402
 
 P = "tax.us.2025."
 CORES = ("v108", "v109")
+PROJECTION = "packages/derivation/presentation_projection.py"
+REPLAY_FILES = (PROJECTION, "packages/tax/loader.py", "packages/derivation/loader.py",
+                "packages/derivation/live.py", "packages/derivation/runner.py")
 
 
-def _probe():
-    name = "l16ns_probe_for_replay"
-    if name in sys.modules:
-        return sys.modules[name]
-    spec = importlib.util.spec_from_file_location(name, HERE / "probe.py")
+@cache
+def baseline_ref() -> str:
+    history = subprocess.check_output(
+        ["git", "log", "--first-parent", "--format=%H%x09%s", "HEAD"], cwd=REPO, text=True, timeout=30,
+    )
+    for row in history.splitlines():
+        ref, _, subject = row.partition("\t")
+        if subject.startswith("build(line16-next-step)"):
+            return subprocess.check_output(
+                ["git", "rev-parse", ref + "^"], cwd=REPO, text=True, timeout=30,
+            ).strip()
+    raise RuntimeError("Track 1 build commit is absent from history")
+
+
+@cache
+def baseline_projection_source() -> bytes:
+    return subprocess.check_output(["git", "show", f"{baseline_ref()}:{PROJECTION}"], cwd=REPO, timeout=30)
+
+
+@cache
+def baseline_projector() -> Any:
+    name = "packages.derivation._line16_replay_baseline"
+    module = ModuleType(name)
+    module.__file__ = str(REPO / PROJECTION)
+    sys.modules[name] = module
+    exec(compile(baseline_projection_source(), PROJECTION, "exec"), vars(module))
+    return module.build_presentation_model
+
+
+@cache
+def _probe() -> Any:
+    spec = importlib.util.spec_from_file_location("l16ns_probe_for_replay", HERE / "probe.py")
     assert spec is not None and spec.loader is not None
     module = importlib.util.module_from_spec(spec)
-    sys.modules[name] = module
+    sys.modules[spec.name] = module
     spec.loader.exec_module(module)
     return module
 
 
-def explanations() -> dict[str, str]:
-    """slug -> declared sentence, from the new citizen files in scratch.diff."""
-    text = (HERE / "scratch.diff").read_text(encoding="utf-8")
-    found = {}
-    for block in re.split(r"(?m)^diff --git ", text):
-        if "answer-explanation.exception1-" not in block.split("\n", 1)[0]:
+@cache
+def explanations() -> dict[str, tuple[str, str, str]]:
+    """Map each adopted sentence to its exact fact type pin and answer value."""
+    core = rr.resolve_core("v109")
+    package = json.loads(core.package_path.read_text(encoding="utf-8"))
+    members = {(member["id"], member["version"]) for member in package["members"]
+               if member["role"] == "answer-explanation"}
+    declared = {}
+    for path in core.content.glob("answer-explanation.exception1-*.json"):
+        citizen = json.loads(path.read_text(encoding="utf-8"))
+        if (citizen["id"], citizen["version"]) in members:
+            pin = citizen["fact_type"]
+            declared[citizen["explanation"]] = (pin["id"], pin["version"], citizen["value"])
+    assert len(declared) == len(members) == 4
+    return declared
+
+
+def candidate_output(core: Any, acts: rr.Acts, run_id: str) -> tuple[dict, dict]:
+    """Read current findings at the coordinator boundary, independently of the saved reasons."""
+    answers: dict[str, list[tuple[str, Any]]] = defaultdict(list)
+    fact_types = {pin[0] for pin in explanations().values()}
+    projector = live.build_presentation_model
+
+    def observe(**kwargs: Any) -> dict:
+        state = kwargs["state"]
+        for finding_id in kwargs["current_finding_ids"]:
+            finding = state.findings.get(finding_id, {})
+            fact_id = finding.get("fact_id", "")
+            fact_type = fact_id.partition("|")[0]
+            if fact_type in fact_types:
+                version = state.fact_state.fact_types[fact_type]["version"]
+                answers[fact_id].append((version, finding["value"]))
+        return projector(**kwargs)
+
+    with patch.object(live, "build_presentation_model", observe):
+        return rr.saved_output(core, acts, run_id), answers
+
+
+def version_expectation() -> rr.Expectation:
+    return rr.version_change(P + "package.core-calculations", *CORES)
+
+
+def reason_expectations(left: dict, right: dict, answers: dict) -> list[rr.Expectation]:
+    if left["outcome"] != "success" or right["outcome"] != "success":
+        return []
+    old_lines = {line["id"]: line["resolved"] for line in left["model"]["sections"]}
+    groups = {group["id"]: group["answerTarget"] for group in right["model"].get("questionGroups", [])}
+    result = []
+    sections = right["model"]["sections"]
+    for line, label in zip(sections, rr._item_labels(sections), strict=True):
+        old = old_lines.get(line["id"], {})
+        resolved = line["resolved"]
+        if old.get("disposition") != "blocked" or resolved.get("disposition") != "blocked":
             continue
-        body = "\n".join(line[1:] for line in block.splitlines() if line.startswith("+") and not line.startswith("+++"))
-        citizen = json.loads(body)
-        found[citizen["fact_type"]["id"].removeprefix(P + "exception1.")] = citizen["explanation"]
-    assert len(found) == 4, found
-    return found
+        before = old.get("reasons", [])
+        after = resolved.get("reasons", [])
+        if len(after) <= len(before) or after[:len(before)] != before:
+            continue
+        refs = resolved.get("questionRefs", [])
+        linked_indices = {index for ref in refs for index in ref["reasonIndices"]}
+        targets = [groups[ref["groupId"]] for ref in refs]
+        current = set()
+        for target in targets:
+            fact_type = target["factTypeId"]
+            version = target["factTypeVersion"]
+            findings = answers.get(target["factId"], [])
+            if len(findings) == 1 and findings[0][0] == version and isinstance(findings[0][1], str):
+                current.add((fact_type, version, findings[0][1]))
+        identity = f"sections[{label}]"
+        allowed = []
+        for index in range(len(before), len(after)):
+            reason = after[index]
+            sentence = reason.get("sentence")
+            declared = explanations().get(sentence)
+            if (declared is None or reason != {"sentence": sentence}
+                    or index in linked_indices or declared not in current
+                    or sum(item.get("sentence") == sentence for item in after) != 1):
+                continue
+            slug = declared[0].removeprefix(P + "exception1.")
+            reason_identity = re.escape(f"{identity}/resolved.reasons[[{index}]]")
+            allowed.append(rr.Expectation(("page",), "sentence", f"^{reason_identity}$",
+                                          "added", after=sentence, note=f"answer-explanation:{slug}"))
+        result.extend(allowed)
+        if len(allowed) == len(after) - len(before):
+            result.append(rr.Expectation(("page",), r"resolved\.reasons@order", f"^{re.escape(identity)}$", "changed",
+                                         note="reasons order record of a line that gained an explanation"))
+    return result
 
 
-def expectations(sentences: dict[str, str] | None = None) -> list:
-    sentences = explanations() if sentences is None else sentences
-    out = [rr.version_change(P + "package.core-calculations", *CORES)]
-    for slug, sentence in sorted(sentences.items()):
-        out.append(rr.Expectation(("page",), "sentence", r"/resolved\.reasons\[\[\d+\]\]$", "added",
-                                  after=sentence, note=f"answer-explanation:{slug}"))
-    out.append(rr.Expectation(("page",), r"resolved\.reasons@order", "", "changed",
-                              note="reasons order record of a line that gained an explanation"))
-    return out
+def snapshot(saved: dict) -> dict:
+    if saved["outcome"] == "success":
+        return rr.snapshot(saved["model"], saved["report"])
+    return rr.failure_snapshot(saved["outcome"], saved["error"], saved["message"])
 
 
-def lists(only_probe: bool) -> list:
-    probe = [("probe/" + key, acts) for key, acts in _probe().cases()]
-    return probe if only_probe else rr.recorded_lists() + probe
+def compare(left: dict, right: dict, answers: dict) -> dict:
+    specs = [version_expectation(), *reason_expectations(left, right, answers)]
+    verdict = rr.classify_full(snapshot(left), snapshot(right), specs)
+    verdict["outcomes"] = [left["outcome"], right["outcome"]]
+    return verdict
 
 
-def summarize(results: dict, specs: list, cores: tuple) -> dict:
+def run_pair(key: str, acts: rr.Acts, cores: tuple) -> tuple[dict, dict, dict]:
+    run_id = "demo.fsr." + hashlib.sha256(key.encode()).hexdigest()[:20]
+    with patch.object(live, "build_presentation_model", baseline_projector()):
+        left = rr.saved_output(cores[0], acts, run_id)
+    right, answers = candidate_output(cores[1], acts, run_id)
+    return left, right, answers
+
+
+def replay_list(key: str, acts: rr.Acts, cores: tuple) -> dict:
+    verdict = compare(*run_pair(key, acts, cores))
+    verdict["unexpected_total"] = len(verdict["unexpected"])
+    verdict["unexpected"] = verdict["unexpected"][:3]
+    return verdict
+
+
+def replay_shard(items: list[tuple[str, rr.Acts]], cores: tuple) -> dict:
+    return {key: replay_list(key, acts, cores) for key, acts in items}
+
+
+def run_shards(items: list[tuple[str, rr.Acts]], cores: tuple, workers: int) -> tuple[dict, int]:
+    shard_count = min(len(items), workers * 2)
+    results = {}
+    with ProcessPoolExecutor(max_workers=workers, mp_context=multiprocessing.get_context("spawn")) as pool:
+        shards = [pool.submit(replay_shard, items[index::shard_count], cores) for index in range(shard_count)]
+        for shard in as_completed(shards):
+            results.update(shard.result())
+            print(f"[{len(results)}/{len(items)}] completed", file=sys.stderr, flush=True)
+    return results, shard_count
+
+
+def wrong_answer_control(cores: tuple) -> dict:
+    key = "probe/control/c1-unanswered"
+    acts = dict(("probe/" + key, acts) for key, acts in _probe().cases())[key]
+    left, right, answers = run_pair(key, acts, cores)
+    real = compare(left, right, answers)
+    assert real["class"] == "expected_changes"
+    c1 = P + "exception1.only-box2a-capital-gains"
+    sentence = next(text for text, (fact_type, _, value) in explanations().items()
+                    if (fact_type, value) == (c1, "no"))
+    assert not any(fact_id.partition("|")[0] == c1 for fact_id in answers)
+    mutated = copy.deepcopy(right)
+    field = P + "form1040.line-16"
+    line = next(line for line in mutated["model"]["sections"] if line["field"]["id"] == field)
+    assert line["resolved"]["disposition"] == "blocked"
+    line["resolved"].setdefault("reasons", []).append({"sentence": sentence})
+    verdict = compare(left, mutated, answers)
+    assert verdict["class"] == "unexpected"
+    assert any(diff["attribute"] == "sentence" and diff["after"] == sentence for diff in verdict["unexpected"])
+    return {"list": key, "field": field, "fact_type": c1, "injected_value": "no",
+            "recorded_answer": None, "unmodified": real["class"], "mutated": verdict["class"],
+            "unexpected_differences": len(verdict["unexpected"])}
+
+
+def summarize(results: dict, cores: tuple, control: dict) -> dict:
     classes = Counter(row["class"] for row in results.values())
-    used = {index for row in results.values() for index in row.get("used", [])}
-    by_attribute: dict[str, dict] = {}
-    for key, row in results.items():
-        for item in row["unexpected"]:
-            slot = by_attribute.setdefault(f"{item['kind']}|{item['change']}|{re.sub(r'[0-9]+', 'N', item['attribute'])}",
-                                           {"lists": set(), "samples": []})
-            slot["lists"].add(key)
-            if len(slot["samples"]) < 3:
-                slot["samples"].append({"list": key, **item})
-    expected = sum((Counter(row["expected_by_note"]) for row in results.values()), Counter())
-    changed = sorted(key for key, row in results.items() if row["class"] == "expected_changes")
-    recorded = [key for key in results if not key.startswith("probe/")]
     return {
-        "format": "line16-next-step-replay.v1",
+        "format": "line16-next-step-track1-replay.v1",
         "cores": [rr.core_fingerprint(core) for core in cores],
+        "baseline_projection_sha256": hashlib.sha256(baseline_projection_source()).hexdigest(),
+        "candidate_code_sha256": {p: hashlib.sha256((REPO / p).read_bytes()).hexdigest() for p in REPLAY_FILES},
         "lists": len(results),
-        "recorded_lists": len(recorded),
-        "probe_lists": len(results) - len(recorded),
+        "recorded_lists": sum(not key.startswith("probe/") for key in results),
+        "probe_lists": sum(key.startswith("probe/") for key in results),
         "classes": dict(sorted(classes.items())),
-        "passing": sum(1 for row in results.values() if row["class"] != "unexpected"),
-        "failing": sum(1 for row in results.values() if row["class"] == "unexpected"),
+        "passing": len(results) - classes["unexpected"],
+        "failing": classes["unexpected"],
         "unexpected_differences": sum(row["unexpected_total"] for row in results.values()),
-        "unexpected_by_kind_attribute": {name: {"lists": len(slot["lists"]), "samples": slot["samples"]}
-                                         for name, slot in sorted(by_attribute.items())},
-        "expectations": [rr.describe_expectation(spec) for spec in specs],
-        "expectations_used": len(used),
-        "expected_by_note": dict(sorted(expected.items())),
-        "outcomes": dict(sorted(Counter("/".join(row["outcomes"]) for row in results.values()).items())),
-        "lists_with_added_explanations": [key for key in changed
-                                          if any(n.startswith("answer-explanation:") for n in results[key]["expected_by_note"])],
-        "lists_with_only_version_moves": [key for key in changed
-                                          if not any(n.startswith("answer-explanation:") for n in results[key]["expected_by_note"])][:5],
-        "list_classes": {key: row["class"] for key, row in sorted(results.items())},
-        "failing_lists": {key: row["unexpected_total"] for key, row in sorted(results.items()) if row["class"] == "unexpected"},
+        "expected_by_note": dict(sorted(sum((Counter(row["expected_by_note"]) for row in results.values()), Counter()).items())),
+        "lists_with_added_explanations": sorted(key for key, row in results.items()
+                                                if any(n.startswith("answer-explanation:") for n in row["expected_by_note"])),
+        "unexpected_lists": {key: row["unexpected"] for key, row in results.items() if row["unexpected"]},
+        "wrong_answer_control": control,
     }
 
 
-def controls(key: str) -> dict:
-    """The real comparison passes; no expectations, or a wrong sentence, fails."""
-    chosen = dict(lists(only_probe=key.startswith("probe/")))
-    cores = tuple(rr.resolve_core(c) for c in CORES)
-    wrong = {slug: sentence + " X" for slug, sentence in explanations().items()}
-    rows = {}
-    gains = False
-    for name, specs in (("real", expectations()), ("no_expectations", []), ("wrong_sentence", expectations(wrong))):
-        verdict = rr.FullSurfaceCompare(specs)(key, chosen[key], cores)
-        rows[name] = {"class": verdict["class"], "differences": verdict["differences"],
-                      "unexpected": verdict["unexpected_total"]}
-        if name == "real":
-            gains = any(note.startswith("answer-explanation:") for note in verdict["expected_by_note"])
-    # A wrong sentence can only fail a list that gains an explanation; on any
-    # other list it must change nothing (the explanations are not reached).
-    wrong_ok = (rows["wrong_sentence"]["class"] == "unexpected") if gains else (rows["wrong_sentence"]["class"] != "unexpected")
-    return {"list": key, "gains_explanation": gains, **rows,
-            "controls_hold": rows["real"]["class"] != "unexpected" and rows["no_expectations"]["class"] == "unexpected"
-            and wrong_ok}
-
-
-def main() -> None:
+def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--part")
-    parser.add_argument("--workers", type=int, default=None)
-    parser.add_argument("--only-probe", action="store_true")
-    parser.add_argument("--controls", default=None, help="comma-separated list keys")
-    parser.add_argument("--max-new", type=int, default=None,
-                        help="run at most this many lists not yet in --part, then stop (foreground-sized steps)")
-    parser.add_argument("--out")
+    parser.add_argument("--workers", type=int, default=max(1, (os.cpu_count() or 2) - 1))
+    subset = parser.add_mutually_exclusive_group()
+    subset.add_argument("--only-probe", action="store_true")
+    subset.add_argument("--controls", action="store_true")
+    parser.add_argument("--out", type=Path)
     args = parser.parse_args()
+    if args.workers < 1:
+        parser.error("--workers must be positive")
+    cores = tuple(rr.resolve_core(c) for c in CORES)
+    control = wrong_answer_control(cores)
     if args.controls:
-        body = {"format": "line16-next-step-controls.v1", "lists": [controls(k) for k in args.controls.split(",")]}
-        body["all_controls_hold"] = all(row["controls_hold"] for row in body["lists"])
+        body = control
     else:
-        started = time.monotonic()
-        cores = tuple(rr.resolve_core(c) for c in CORES)
-        specs = expectations()
-        chosen = lists(args.only_probe)
-        steps: list = []
-        done: set = set()
-        if args.part:
-            part = Path(args.part)
-            done = set((json.loads(part.read_text(encoding="utf-8")).get("results") or {}) if part.exists() else ())
-            sidecar = part.with_name(part.name + ".steps.json")
-            steps = json.loads(sidecar.read_text(encoding="utf-8")) if sidecar.exists() else []
-            if args.max_new is not None:
-                pending = [item for item in chosen if item[0] not in done][: args.max_new]
-                step = [item for item in chosen if item[0] in done] + pending
-            else:
-                step = chosen
-        else:
-            step = chosen
-        results = rr.replay(step, cores, rr.FullSurfaceCompare(specs), workers=args.workers, part=args.part)
-        elapsed = round(time.monotonic() - started, 1)
-        if args.part:
-            steps.append({"new_lists": len(step) - len(done), "wall_time_s": elapsed})
-            sidecar.write_text(json.dumps(steps) + "\n", encoding="utf-8")
-        if len(results) < len(chosen):
-            print(json.dumps({"done": len(results), "of": len(chosen), "step_wall_time_s": elapsed}))
-            return
-        body = summarize(results, specs, cores)
-        body["workers"] = args.workers or "cpu_count - 1"
-        body["steps"] = steps
-        body["wall_time_s"] = round(sum(s["wall_time_s"] for s in steps), 1) if steps else elapsed
-    text = json.dumps(body, indent=1, ensure_ascii=False) + "\n"
+        probe = [("probe/" + key, acts) for key, acts in _probe().cases()]
+        chosen = probe if args.only_probe else rr.recorded_lists() + probe
+        if len({key for key, _ in chosen}) != len(chosen):
+            raise ValueError("replay list keys are not unique")
+        results, shard_count = run_shards(chosen, cores, args.workers)
+        body = summarize(results, cores, control)
+        body.update(workers=args.workers, shards=shard_count)
+    text = json.dumps(body, indent=2, ensure_ascii=False) + "\n"
     rr._check_no_local_paths(text, "replay summary")
     if args.out:
-        (HERE / args.out).write_text(text, encoding="utf-8")
-    print(json.dumps({k: v for k, v in body.items() if k not in ("list_classes", "expectations")}, indent=1)[:6000])
+        args.out.write_text(text, encoding="utf-8")
+    print(text, end="")
+    return int(bool(body.get("unexpected_lists")))
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())
