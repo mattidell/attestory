@@ -1,0 +1,130 @@
+{
+  "baseline": "5993ce933",
+  "core": "v109",
+  "recorded": {
+    "causes": {
+      "Form 1099-B box 4 amount": 738,
+      "no catalogued answer fact": 2242,
+      "other statement label": 3458,
+      "several adopted declarations": 39,
+      "several catalogued targets": 64
+    },
+    "changed_lists": 531,
+    "error_keys_sha256": "2767993ef1bce2c29eda8c07df82a0533d7180042ba34c387ed9636bf59d487b",
+    "existing_links": 33157,
+    "failure_details_sha256": "d79e9d7326d6da014b80f80080f2dd371cf6a0488bfd726dea93a4bcfeed46c5",
+    "links_added": 6541,
+    "lists": 775,
+    "ordered_links_sha256": "53ad14db8599e8f5903b9ab7930d33ff4c27cda6c451a24107345ff7958da803",
+    "outcomes": {
+      "error": 84,
+      "success": 691
+    },
+    "questions": {
+      "tax.us.2025.closure-mapping.f1099b.noncovered": 39,
+      "tax.us.2025.input-question.f1099b-box4": 738,
+      "tax.us.2025.input-question.f1099b-code-b-st-adjustment": 64,
+      "tax.us.2025.input-question.f1099b-no-sale-box4-present": 2034,
+      "tax.us.2025.input-question.f1099b-noncovered-sold": 39,
+      "tax.us.2025.input-question.f1099b-statement-box7-loss-not-allowed": 3450,
+      "tax.us.2025.input-question.f1099div-box4": 8,
+      "tax.us.2025.input-question.schedule-d-boundary-no-other-form8949-adjustments": 208
+    }
+  },
+  "registry": "v107",
+  "release": "v107",
+  "supplemental": {
+    "causes": {
+      "Form 1099-B box 4 amount": 12,
+      "no catalogued answer fact": 1270,
+      "several adopted declarations": 185,
+      "student-loan selection": 8
+    },
+    "changed_lists": 7,
+    "error_keys_sha256": null,
+    "existing_links": 0,
+    "failure_details_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "links_added": 1475,
+    "lists": 7,
+    "ordered_links_sha256": "468e83a51beaf189d4581fd9e512012663e5b244310b3f8cde1babc8431fe1bc",
+    "outcomes": {
+      "success": 7
+    },
+    "questions": {
+      "tax.us.2025.closure-mapping.ctc-child-roster": 60,
+      "tax.us.2025.closure-mapping.eic-child-roster": 45,
+      "tax.us.2025.closure-mapping.f1098": 95,
+      "tax.us.2025.closure-mapping.f1099div-7": 75,
+      "tax.us.2025.closure-mapping.f1099div-b4": 30,
+      "tax.us.2025.closure-mapping.f1099g-b4": 30,
+      "tax.us.2025.closure-mapping.f1099int-b4": 30,
+      "tax.us.2025.closure-mapping.f1099k": 5,
+      "tax.us.2025.closure-mapping.f1099r-box4": 30,
+      "tax.us.2025.closure-mapping.ssa1099-b6": 30,
+      "tax.us.2025.closure-mapping.w2-box2": 30,
+      "tax.us.2025.closure-mapping.w2g-b1": 165,
+      "tax.us.2025.closure-mapping.w2g-b4": 30,
+      "tax.us.2025.input-question.ctc-no-other-dependent": 65,
+      "tax.us.2025.input-question.ctc-no-puerto-rico-or-4563-exclusion": 55,
+      "tax.us.2025.input-question.direct-ftc-scope-no-form-4972-on-line16": 60,
+      "tax.us.2025.input-question.direct-ftc-scope-no-line17-schedule2-additional": 60,
+      "tax.us.2025.input-question.direct-ftc-scope-no-sch3-line2": 70,
+      "tax.us.2025.input-question.direct-ftc-scope-no-sch3-line3": 70,
+      "tax.us.2025.input-question.direct-ftc-scope-no-sch3-line4": 70,
+      "tax.us.2025.input-question.direct-ftc-scope-no-sch3-line5": 70,
+      "tax.us.2025.input-question.direct-ftc-scope-no-sch3-line6": 70,
+      "tax.us.2025.input-question.eic-no-unsupported-situations": 35,
+      "tax.us.2025.input-question.f1099b-box4": 12,
+      "tax.us.2025.input-question.line26-estimated-payments": 25,
+      "tax.us.2025.input-question.line38-scope-no-estimated-tax-penalty": 5,
+      "tax.us.2025.input-question.lines29-31-scope-no-other-refundable-credits": 25,
+      "tax.us.2025.input-question.qbi-no-qbi-deduction-declared": 95,
+      "tax.us.2025.input-question.schedule1a-no-parts-ii-iv-deductions-declared": 95,
+      "tax.us.2025.input-question.schedule2-partii-scope-no-line21-additional-taxes": 20,
+      "tax.us.2025.input-question.sli-scope-no-form-2555": 55,
+      "tax.us.2025.input-question.sli-scope-no-form-4563": 55,
+      "tax.us.2025.input-question.sli-scope-no-puerto-rico-or-samoa-income": 55,
+      "tax.us.2025.input-question.standard-deduction-can-be-claimed-as-dependent": 95,
+      "tax.us.2025.input-question.w2g-scope-no-sch1-other-income-except-w2g": 155,
+      "tax.us.2025.rule.sli-answer-status-no-employer-educational-assistance-interest": 1,
+      "tax.us.2025.rule.sli-answer-status-no-qtp-earnings-used": 2,
+      "tax.us.2025.rule.sli-answer-status-no-qualified-employer-plan-interest": 1,
+      "tax.us.2025.rule.sli-answer-status-no-related-person-interest": 2,
+      "tax.us.2025.sli-combined-standing": 2,
+      "tax.us.2025.sli-worksheet-inputs": 2
+    }
+  },
+  "synthetic": {
+    "causes": {
+      "other statement label": 72,
+      "roster member": 76,
+      "sale label": 160,
+      "several catalogued targets": 32
+    },
+    "changed_lists": 14,
+    "error_keys_sha256": null,
+    "existing_links": 660,
+    "failure_details_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "links_added": 340,
+    "lists": 21,
+    "ordered_links_sha256": "46ac028a4c8af1b8615ba32b99ac70aa2d7ba330a23c881c004a4d1cf5945b9b",
+    "outcomes": {
+      "success": 21
+    },
+    "questions": {
+      "tax.us.2025.input-question.ctc-child-lived-with-you": 14,
+      "tax.us.2025.input-question.eic-child-age": 27,
+      "tax.us.2025.input-question.eic-child-residency": 9,
+      "tax.us.2025.input-question.f1099div-box4": 12,
+      "tax.us.2025.input-question.f1099g-box4": 12,
+      "tax.us.2025.input-question.f1099int-box4": 24,
+      "tax.us.2025.input-question.f1099r-box4": 12,
+      "tax.us.2025.input-question.f8949-no1099b-st-adjustment": 128,
+      "tax.us.2025.input-question.f8949-no1099b-st-basis": 64,
+      "tax.us.2025.input-question.odc-dependent-citizen-or-resident": 13,
+      "tax.us.2025.input-question.odc-dependent-tin": 13,
+      "tax.us.2025.input-question.ssa1099-box6": 12
+    }
+  },
+  "unexpected_differences": 0
+}

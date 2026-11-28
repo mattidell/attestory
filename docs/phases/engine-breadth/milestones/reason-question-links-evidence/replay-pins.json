@@ -1,0 +1,23 @@
+{
+  "recorded": {
+    "changed_lists": 531,
+    "failure_details_sha256": "d79e9d7326d6da014b80f80080f2dd371cf6a0488bfd726dea93a4bcfeed46c5",
+    "links_added": 6541,
+    "lists": 775,
+    "ordered_links_sha256": "53ad14db8599e8f5903b9ab7930d33ff4c27cda6c451a24107345ff7958da803"
+  },
+  "supplemental": {
+    "changed_lists": 7,
+    "failure_details_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "links_added": 1475,
+    "lists": 7,
+    "ordered_links_sha256": "468e83a51beaf189d4581fd9e512012663e5b244310b3f8cde1babc8431fe1bc"
+  },
+  "synthetic": {
+    "changed_lists": 14,
+    "failure_details_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "links_added": 340,
+    "lists": 21,
+    "ordered_links_sha256": "46ac028a4c8af1b8615ba32b99ac70aa2d7ba330a23c881c004a4d1cf5945b9b"
+  }
+}
