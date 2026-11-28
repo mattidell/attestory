@@ -49,6 +49,7 @@ from packages.derivation.schema_capabilities import (
     ATTACHMENT_EXCLUSIVE_SELECTION_SCHEMAS,
     ATTACHMENT_PROJECTION_ROW_SETS_SCHEMAS,
     ATTACHMENT_PROJECTION_SCHEMAS,
+    RULE_REQUIRE_PAIRED_SCHEMAS,
     RULE_V13_SELECTION_SCHEMAS,
 )
 from packages.kernel.facts import Fact, fact_id_for, facts_of
@@ -1328,7 +1329,8 @@ class _SaleQuestions:
                 or row.get("missing") != [answer] or answer not in (f"{source}.basis", f"{source}.proceeds")):
             return None
         rule = self.member(artifact)
-        if rule is None or rule.get("schema") != "rule-artifact.v17" or rule.get("version") != "v3":
+        if (rule is None or rule.get("schema") not in RULE_REQUIRE_PAIRED_SCHEMAS
+                or rule.get("version") != "v3"):
             return None
         family = source.removesuffix("-txn")
         source_sets = {
