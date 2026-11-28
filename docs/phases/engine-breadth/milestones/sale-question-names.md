@@ -3,8 +3,8 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "sale-question-names",
-  "status": "Open 2026-11-27. ADR 0089 amendment accepted; Track 1 chartered.",
-  "retrospective": null,
+  "status": "Closed 2026-11-27. Projection and page (ADR 0089 third amendment 2026-11-27); core v109 unchanged.",
+  "retrospective": "docs/milestone-retrospectives/2026-11-27-sale-question-names.md",
   "scope": [
     "when a return has more than one sale with no Form 1099-B (Form 8949 boxes C and F) and the saved page asks a per-sale question, each question names the sale by what the filer recorded (description, dates or label), so the filer can tell which sale it asks about",
     "every recorded return keeps its numbers, dispositions and block codes"
@@ -32,7 +32,7 @@
       "docs/phases/engine-breadth/milestones/sale-question-names.md"
     ],
     "new_milestone": [
-      "docs/milestone-retrospectives/2026-11-27-statement-label-payer.md",
+      "docs/milestone-retrospectives/2026-11-27-sale-question-names.md",
       "docs/phases/engine-breadth/engine-breadth-roadmap.md#Parked work and open questions"
     ]
   }
@@ -111,3 +111,38 @@ differences.
   question whose rule does not say which amount disagrees.
 - **Foreman** — Carry the accepted routes and their core and input guards
   into the Track 1 charter after the owner decision.
+
+## Closeout
+
+Pre-curation history is available at `refs/snapshot/2026-11-27-sale-question-names-pre-pr-curation`.
+
+Closed 2026-11-27. Retrospective: `docs/milestone-retrospectives/2026-11-27-sale-question-names.md`.
+The owner accepted the third ADR 0089 amendment on 2026-11-27. Track 1
+([evidence](sale-question-names-evidence/track1.md)) changed the
+projection, its validator, the page renderer and its text observer, and
+moved the shared blank-label rule into `packages/presentation/labels.py`.
+The fresh review (NOT READY) found six gaps: an answered peer whose label
+equals its entity id was not counted as a collision (SQN-01); dropping an
+answered box F peer from the supplied currency set could name a box C
+sale (SQN-02); wash-sale attribution trusted a witness payload under an
+unchanged id (SQN-03); a label of only U+FEFF was blank in one layer and
+not another (SQN-04); the replay did not pin its baseline census and
+accepted the same setup error on both sides (SQN-05); and the DOM probe
+skipped sections and checked only prefixes (SQN-06). Repair 1 fixed all
+six with regressions and controls and re-ran the replay: 775 recorded
+lists match (691 saves, 84 errors); 7 of 19 synthetic lists gain 352
+names; all 61,060 saved sections match; 18 controls are rejected; zero
+unexpected differences. The roadmap item (questions about a sale with no
+Form 1099-B do not name the sale) is retired. The owner's question on
+capturing sale amounts once is recorded in the roadmap's open owner-held
+questions.
+
+Repair 2 requires wash-sale witnesses to match their publication acts,
+recognizes compatible successor rule versions by their semantic content,
+and normalizes Unicode sale labels for collision and blankness. It pins
+the P0 replay outcome census and error cases, runs the inventory probe
+with the P0 baseline projector, and points readers to the accepted ADR
+for the decision. Track 1 matched 797 lists and 61,318 saved sections, with seven lists
+gaining 352 names and all 18 controls rejected. The P0 replay matched
+794 lists, retained the scratch proof's 480 names across 10 synthetic
+lists, and rejected all 15 controls.
