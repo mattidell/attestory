@@ -1,0 +1,44 @@
+{
+  "baseline": "parent of the build(sale-question-names) commit in HEAD history",
+  "controls_rejected": [
+    "added_name_to_repeated_sale",
+    "changed_block_code_beside_name",
+    "changed_failure_class",
+    "changed_failure_message",
+    "changed_outcome",
+    "changed_report_beside_name",
+    "changed_unnamed_model",
+    "changed_unnamed_report",
+    "moved_question_ref",
+    "removed_name",
+    "removed_named_reason",
+    "swapped_names",
+    "wrong_changed_list_total",
+    "wrong_unlinked_name"
+  ],
+  "core": "v109",
+  "recorded": {
+    "changed_lists": 0,
+    "lists": 775,
+    "named_dom_sections": 0,
+    "names_added": 0,
+    "outcomes": {
+      "error": 84,
+      "success": 691
+    }
+  },
+  "registry": "v107",
+  "release": "v107",
+  "shards": 49,
+  "synthetic": {
+    "changed_lists": 7,
+    "lists": 19,
+    "named_dom_sections": 226,
+    "names_added": 352,
+    "outcomes": {
+      "success": 19
+    }
+  },
+  "unexpected_differences": 0,
+  "workers": 10
+}
