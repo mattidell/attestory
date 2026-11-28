@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "sale-question-names",
-  "status": "Open 2026-11-27. P0 evidence complete. Amendment proposed.",
+  "status": "Open 2026-11-27. ADR 0089 amendment accepted; Track 1 chartered.",
   "retrospective": null,
   "scope": [
     "when a return has more than one sale with no Form 1099-B (Form 8949 boxes C and F) and the saved page asks a per-sale question, each question names the sale by what the filer recorded (description, dates or label), so the filer can tell which sale it asks about",
@@ -104,12 +104,10 @@ differences.
 
 ## Decisions
 
-- **Owner** — Accept or reject the proposed ADR 0089 amendment before
-  Track 1, including the multiple-sale floor and the fallback for missing
-  or repeated labels.
-- **Owner** — Decide whether the existing basis question should name a
-  sale whose amounts disagree when the blocked rule leaves the disagreeing
-  column unspecified. P0 demonstrates that route, including disagreements
-  caused by proceeds or a missing adjustment.
+- **Owner** — Accepted the
+  [ADR 0089 amendment](../../../adr/0089-statement-question-labels.md)
+  on 2026-11-27, before Track 1: more than one sale, generic display for a
+  missing or repeated label, and no name beside a basis consistency
+  question whose rule does not say which amount disagrees.
 - **Foreman** — Carry the accepted routes and their core and input guards
   into the Track 1 charter after the owner decision.
