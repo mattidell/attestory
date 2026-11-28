@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
+import json
 from collections import Counter, defaultdict
 from concurrent.futures import ProcessPoolExecutor, as_completed
 from copy import deepcopy
@@ -18,6 +20,7 @@ from probe import (
 import scratch
 from packages.derivation import live
 from tests import evidence_loader
+from tests.helpers import current_core_returns as ccr
 from tools import recorded_replay as rr
 from tools.package_successor import build_successor, load_corpus
 
@@ -54,6 +57,51 @@ def synthetic():
     return cases
 
 
+
+def box4_acts():
+    harness = rr._get_harness()
+    acts = harness.sale(harness.opened(), "covered", "st", proceeds=2000, basis=1000,
+                        tag="demo.reason-links.box4")
+    acts = harness.answer(acts, **harness.honest({"covered"}))
+    precedent = preceding("sale-block-explanations-evidence", "inventory_probe.py")
+    acts = precedent.add_standard_answers(acts, rr.resolve_core(CORE), harness, ccr,
+                                          has_1099b=True, tag="demo.reason-links.box4")
+    answer_type = harness.P + "f1099b.statement-box4-withholding-reported"
+    acts = harness.strip(acts, answer_type)
+    entity = next(a["payload"]["entity"]["id"] for a in acts if a["kind"] == "entity-introduced"
+                  and a["payload"]["entity"]["kind"] == "tax.us.f1099b-statement")
+    reported = harness.fact_id_for(answer_type, (("statement", entity), ("tax-year", harness.YEAR)))
+    harness._add(acts, "assertion", {"finding": harness._attested("demo.reason-links.reported", reported, "yes")})
+    return harness.renumber(acts)
+
+
+def supplemental(next_core):
+    from tests.test_sli_track5_worksheet_integration import Return
+
+    forms = preceding("statement-labels-forms-evidence")
+    box4 = box4_acts()
+    cases = [
+        ("demo.box4.current", box4, CORE, True),
+        ("demo.box4.older", box4, "v89", True),
+    ]
+    for kind in ("missing", "stated-no", "loan-cost", "loan-cost-successor", "unlinked"):
+        ws = Return(amounts={"cedar": 1500., "birch": 800.} if kind == "missing" else None)
+        with ws.raw:
+            if kind == "missing":
+                ws.old_answers("cedar")
+                ws.old_answers("birch", skip=("no-qtp-earnings-used", "no-related-person-interest"))
+            elif kind == "stated-no":
+                ws.old_answers("cedar", values={"no-related-person-interest": "no"})
+            elif kind.startswith("loan-cost"):
+                ws.link("financing", "autumn", "autumn")
+                ws.link("statement-inclusion", "autumn", "cedar")
+                ws.answer("enroll", "autumn", "yes")
+                ws.common_answers("cedar")
+            acts = forms.close_sale_scope(ccr.state_taxpayer_facts(list(ws.acts()), core="v88"))
+        cases.append((f"demo.sli.{kind}", acts, next_core if kind.endswith("successor") else CORE, True))
+    return cases
+
+
 def successor(directory):
     base = rr.resolve_core(CORE)
     content = directory / "content"
@@ -62,8 +110,6 @@ def successor(directory):
     copytree(base.releases, releases)
     core = rr.ReplayCore("v110", "v108", "v108", content, releases, loader_from=CORE)
     corpus, _ = load_corpus(base.content)
-    import json
-
     previous = json.loads(base.package_path.read_bytes())
     candidate = build_successor(
         previous, (base.content / f"published-packages.{base.registry}.json").read_bytes(),
@@ -135,6 +181,8 @@ def classify(model, expected, members, catalog):
                 name.endswith(".input-question.f1099b-box4") for name in question_ids
             ):
                 cause = "Form 1099-B box 4 amount"
+            elif any(ref["schema"] in {"rule-artifact.v13", "bundle.v2"} for ref in refs):
+                cause = "student-loan selection"
             elif "statementLabel" in reason:
                 cause = "other statement label"
             elif len(keys) != 1:
@@ -230,9 +278,6 @@ def require_outcomes(rows, outcomes, error_keys):
         if Counter(row[field] for row in rows) != outcomes:
             raise ValueError("outcome census differs")
         if error_keys is not None:
-            import hashlib
-            import json
-
             errors = sorted(row["key"] for row in rows if row[field] == "error")
             if hashlib.sha256(json.dumps(errors, separators=(",", ":")).encode()).hexdigest() != error_keys:
                 raise ValueError("error set differs")
@@ -252,25 +297,35 @@ def summarize(rows, outcomes, error_keys=None):
     }
 
 
+def require_additions(summary, expected):
+    for cohort, pinned in expected.items():
+        if any(summary[cohort][field] != value for field, value in pinned.items()):
+            raise ValueError("pinned count, ordered links or error details differ")
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--workers", type=int, default=7)
     parser.add_argument("--out", type=Path, required=True)
-    parser.add_argument("--cases-only", action="store_true")
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument("--cases-only", action="store_true")
+    mode.add_argument("--supplemental-only", action="store_true")
     args = parser.parse_args()
     if args.workers < 1:
         parser.error("workers must be positive")
-    recorded = {} if args.cases_only else dict(rr.recorded_lists())
-    demo = synthetic()
-    if owner := evidence_loader.current_owner():
-        evidence_loader.release(owner)
+    recorded = {} if args.cases_only or args.supplemental_only else dict(rr.recorded_lists())
+    demo = {} if args.supplemental_only else synthetic()
     with TemporaryDirectory() as directory:
         next_core = successor(Path(directory))
         work = [(key, acts, CORE, True) for key, acts in demo.items()]
-        work.extend([
-            ("demo.older-core", demo["demo.family.unclosed"], "v89", True),
-            ("demo.successor-core", demo["demo.sale.two-fixes"], next_core, True),
-        ])
+        if demo:
+            work.extend([
+                ("demo.older-core", demo["demo.family.unclosed"], "v89", True),
+                ("demo.successor-core", demo["demo.sale.two-fixes"], next_core, True),
+            ])
+        work.extend(supplemental(next_core))
+        if owner := evidence_loader.current_owner():
+            evidence_loader.release(owner)
         work.extend((key, acts, CORE, False) for key, acts in recorded.items())
         batches = args.workers * 3
         shards = [work[i::batches] for i in range(min(batches, len(work)))]
@@ -281,14 +336,23 @@ def main():
                 print(f"{len(by_key)}/{len(work)}", flush=True)
     if by_key.keys() != {key for key, _, _, _ in work}:
         raise ValueError("incomplete replay")
-    recorded_rows, demo_rows = ([by_key[key] for key, _, _, flag in work if flag == wanted]
-                                for wanted in (False, True))
+    recorded_rows = [by_key[key] for key in recorded]
+    demo_rows = [by_key[key] for key, _, _, flag in work if flag and not key.startswith(("demo.sli.", "demo.box4."))]
+    extra_rows = [by_key[key] for key, _, _, flag in work if flag and key.startswith(("demo.sli.", "demo.box4."))]
     summary = {
         "baseline": BASE, "core": CORE, "registry": "v107", "release": "v107",
         "recorded": summarize(recorded_rows, OUTCOMES if recorded else {}, ERROR_KEYS if recorded else None),
-        "synthetic": summarize(demo_rows, {"success": len(demo_rows)}),
-        "synthetic_cases": {row["key"]: row for row in demo_rows},
+        "synthetic": summarize(demo_rows, {"success": len(demo_rows)} if demo_rows else {}),
+        "supplemental": summarize(extra_rows, {"success": len(extra_rows)}),
+        "synthetic_cases": {row["key"]: row for row in demo_rows + extra_rows},
     }
+    pins = json.loads((HERE / "replay-pins.json").read_text(encoding="utf-8"))
+    selected = ["supplemental"]
+    if not args.supplemental_only:
+        selected.append("synthetic")
+    if not args.supplemental_only and not args.cases_only:
+        selected.append("recorded")
+    require_additions(summary, {cohort: pins[cohort] for cohort in selected})
     args.out.write_text(summary_json(summary), encoding="utf-8")
 
 

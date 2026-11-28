@@ -7,6 +7,8 @@ from functools import cache
 import sys
 from types import ModuleType
 
+from selection import asking_rule, asking_values, published_value_prompt
+
 from probe import (
     PAGE, PROJECTION, PROMPT, baseline_source, declaration_text, declarations,
     linked_positions, ordered_producers, producer, prompt_id,
@@ -31,8 +33,11 @@ def attach_prompts(resolved, plain, section):
     linked = linked_positions(resolved)
     for i, reason in enumerate(resolved.get("reasons", ())):
         if i in linked:
+            reason.pop(PROMPT, None)
             continue
-        witnessed = PROMPT in reason or refs_for_text(plain.get(reason["sentence"], ()), reason["sentence"])
+        witnessed = PROMPT in reason or (
+            "memberLabel" not in reason and refs_for_text(plain.get(reason["sentence"], ()), reason["sentence"])
+        )
         if witnessed:
             reason[PROMPT] = prompt_id(section, i)
 
@@ -56,6 +61,47 @@ def replace_once(source, anchor, replacement):
 
 def scratch_projection(source):
     edits = (
+        (
+            "    dispositions: Sequence[Mapping[str, Any]],\n) -> list[dict[str, Any]]:\n    \"\"\"Why a blocked ADR 0077",
+            "    dispositions: Sequence[Mapping[str, Any]],\n    publication_act_findings=None,\n"
+            ") -> list[dict[str, Any]]:\n    \"\"\"Why a blocked ADR 0077",
+        ),
+        (
+            '    def add(sentence: Any, keys: Mapping[str, str], fact_id: str | None) -> None:',
+            '    known_prompts = asking_values(resolved_members)\n'
+            '    def add(sentence: Any, keys: Mapping[str, str], fact_id: str | None, prompt=False) -> None:',
+        ),
+        (
+            '        entry: dict[str, Any] = {"sentence": sentence}\n        if fact_id is not None:',
+            '        entry: dict[str, Any] = {"sentence": sentence}\n'
+            '        if prompt:\n            entry[PROMPT] = True\n        if fact_id is not None:',
+        ),
+        (
+            '                add(wording, dict(pinned_facts[0].keys), pinned_facts[0].fact_id)',
+            '                add(wording, dict(pinned_facts[0].keys), pinned_facts[0].fact_id,\n'
+            '                    prompt=not cannot_record and asking_rule(publisher))',
+        ),
+        (
+            '            sentence: Any = None\n            if len(results)',
+            '            sentence: Any = None\n            is_prompt = False\n            if len(results)',
+        ),
+        (
+            '                sentence = descriptions.get(symbol, {}).get(str(value))\n            else:\n'
+            '                sentence = publisher.get("wording")\n            if sentence and cannot_record:\n'
+            '                sentence = rule.get("wording")\n            add(sentence, keys, subject)',
+            '                sentence = descriptions.get(symbol, {}).get(str(value))\n'
+            '                is_prompt = published_value_prompt(symbol, value, results[0], published,\n'
+            '                                                    publication_act_findings or {}, known_prompts)\n'
+            '            else:\n                sentence = publisher.get("wording")\n'
+            '                is_prompt = asking_rule(publisher)\n'
+            '            if sentence and cannot_record:\n                sentence = rule.get("wording")\n'
+            '            add(sentence, keys, subject, prompt=is_prompt and not cannot_record)',
+        ),
+        (
+            '                publications_by_id=publications_by_id, dispositions=dispositions,\n            )\n            if reasons:',
+            '                publications_by_id=publications_by_id, dispositions=dispositions,\n'
+            '                publication_act_findings=publication_act_findings,\n            )\n            if reasons:',
+        ),
         (
             "    sale_reasons_out: dict[str, list[dict[str, Any]]] | None = None,\n",
             "    sale_reasons_out: dict[str, list[dict[str, Any]]] | None = None,\n    prompt_origins_out=None,\n    prompt_indexes=None,\n",
@@ -131,7 +177,8 @@ def projectors():
     original = baseline_source(PROJECTION)
     namespace = {
         name: globals()[name] for name in
-        ("PROMPT", "attach_prompts", "declarations", "reached_prompts", "refs_for_text", "validate_prompts", "prompt_id")
+        ("PROMPT", "attach_prompts", "declarations", "reached_prompts", "refs_for_text", "validate_prompts", "prompt_id",
+         "asking_values", "asking_rule", "published_value_prompt")
     }
     modules = []
     for name, source, bindings in (

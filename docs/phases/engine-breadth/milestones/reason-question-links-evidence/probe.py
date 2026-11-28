@@ -14,6 +14,7 @@ REPO = HERE.parents[4]
 sys.path.insert(0, str(REPO))
 
 from tools import recorded_replay as rr
+from selection import selection_declarations
 
 BASE = "5993ce933"
 CORE = "v109"
@@ -91,6 +92,8 @@ def baseline_prompts(model, members):
             for member in declarations_for_subject:
                 if text := declaration_text(member):
                     by_text[text].append(producer(member))
+    for text, member in selection_declarations(members):
+        by_text[text].append(producer(member))
     found = {}
     for section in model["sections"]:
         resolved = section["resolved"]

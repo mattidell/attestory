@@ -13,8 +13,9 @@ from tempfile import TemporaryDirectory
 from unittest.mock import patch
 
 from probe import CORE, HERE, PROMPT, baseline_prompts, declarations, digest, prompt_positions, summary_json
-from replay import compare, require_outcomes, successor, synthetic
+from replay import compare, require_additions, require_outcomes, successor, supplemental, synthetic
 import scratch
+from selection import asking_rule, asking_values, published_value_prompt
 from packages.derivation import live
 from tools import recorded_replay as rr
 
@@ -28,12 +29,6 @@ def rejects(checked, name, action, error):
         checked.append(name)
         return
     raise ValueError(f"control accepted: {name}")
-
-
-def require_additions(summary, expected):
-    for cohort, pinned in expected.items():
-        if any(summary[cohort][field] != value for field, value in pinned.items()):
-            raise ValueError("pinned count, ordered links or error details differ")
 
 
 def census_controls():
@@ -65,7 +60,7 @@ def census_controls():
         refused, dict(refused, message="demo changed refusal"), None,
     ), "failure changed")
 
-    pins = {"changed_lists": 2, "ordered_links_sha256": "demo.order", "failure_details_sha256": "demo.errors"}
+    pins = {"lists": 3, "changed_lists": 2, "ordered_links_sha256": "demo.order", "failure_details_sha256": "demo.errors"}
     summary = {"demo": pins}
     require_additions(summary, summary)
     for field in pins:
@@ -159,10 +154,10 @@ def model_controls(before, after, wanted):
 DOM_INSPECTION = """
   const sections = {};
   const targets = {};
-  let errors = 0;
+  const errors = [];
   let controls = 0;
   walkElements(mainEl, (node) => {
-    if (node.classList.contains("section-error")) errors += 1;
+    if (node.classList.contains("section-error")) errors.push(node.getAttribute("data-reason-code"));
     if (node.id.startsWith("question-prompt-")) {
       const title = node.children.find((child) => child.tagName === "H3");
       (targets[node.id] ||= []).push(collectVisibleText(title).join(""));
@@ -214,7 +209,7 @@ def observe_dom(helper, page, model):
 
 
 def check_dom(old, new, wanted):
-    if old["sections"].keys() != new["sections"].keys() or new["errors"] or new["controls"]:
+    if old["sections"].keys() != new["sections"].keys() or old["errors"] != new["errors"] or new["controls"]:
         raise ValueError("DOM sections or display-only requirement differ")
     target_counts = Counter()
     positions = set()
@@ -275,6 +270,42 @@ def publication_controls(kwargs):
     if len(observed) != 3:
         raise ValueError("publication controls did not reach a labelled fixing question")
     return observed
+
+
+
+def selection_controls(kwargs):
+    """Damage a live standing's publication evidence and the adopted prompt declarations."""
+    value = "loan-cost-answer-missing"
+    pub = next(p for p in kwargs["publications"]
+               if p.finding["symbol"].startswith("tax.us.2025.sli.statement-combined-standing|")
+               and p.finding["value"] == value)
+    fid = pub.finding["id"]
+    row = next(row for row in kwargs["dispositions"] if row.get("finding_id") == fid)
+    members = kwargs["resolved_members"]
+    known = asking_values(members)
+    symbol = row["symbol"].partition("|")[0]
+    statement = pub.act["finding"]
+    acts = {fid: statement} if pub.act["run_id"] == kwargs["run_id"] else {}
+    if not published_value_prompt(symbol, value, row, pub.finding, acts, known):
+        raise ValueError("live standing did not establish its question")
+    negatives = {
+        "missing_standing_act": (symbol, value, row, pub.finding, {}, known),
+        "mismatched_standing_act": (symbol, value, row, pub.finding, {fid: {**statement, "version": "v9"}}, known),
+        "mismatched_standing_finding": (symbol, value, row, {**pub.finding, "version": "v9"}, acts, known),
+        "mismatched_standing_symbol": (symbol, value, {**row, "symbol": "demo.other"}, pub.finding, acts, known),
+        "unpublished_standing": (symbol, value, {**row, "disposition": "blocked"}, pub.finding, acts, known),
+        "missing_standing_declaration": (symbol, value, row, pub.finding, acts, {}),
+        "pure_explanation_standing": (symbol, "loan-cost-no", row, pub.finding, acts, known),
+    }
+    if any(published_value_prompt(*args) for args in negatives.values()):
+        raise ValueError("a damaged standing still justified an asking reason")
+    rule = next(member for member in members if asking_rule(member) and "related-person-interest" in member["id"])
+    if any(asking_rule(altered) for altered in (
+        {**rule, "version": "v2"}, {**rule, "joined": {"id": "demo.other-answer", "version": "v1"}},
+        {**rule, "requires": []},
+    )):
+        raise ValueError("an unapproved rule shape still justified an asking reason")
+    return sorted([*negatives, "unapproved_rule_version", "wrong_joined_answer", "missing_required_answer"])
 
 
 def walk_controls():
@@ -343,33 +374,13 @@ def main():
         directory = Path(directory)
         helper = dom_observer(directory)
         next_core = successor(directory)
-        harness = rr._get_harness()
-        box4 = harness.sale(harness.opened(), "covered", "st", proceeds=2000, basis=1000,
-                            tag="demo.reason-links.box4")
-        box4 = harness.answer(box4, **harness.honest({"covered"}, new_questions=True))
-        box4 = harness.say(box4, harness.P + "f1099b.no-sale-box4-present", "no", "demo.reason-links.no-sale")
-        # The statement reports withholding without an amount. The amount
-        # fact identity has not been created by an assertion.
-        answer_type = harness.P + "f1099b.statement-box4-withholding-reported"
-        bundle = harness.bundle_for(answer_type, rr.resolve_core(CORE).content)
-        if answer_type not in harness._adopted(box4):
-            harness._add(box4, "bundle-adoption", {"bundle": bundle})
-        box4 = harness.strip(box4, answer_type)
-        statement = next(act["payload"]["entity"]["id"] for act in box4
-                         if act["kind"] == "entity-introduced"
-                         and act["payload"]["entity"]["kind"] == "tax.us.f1099b-statement")
-        reported = harness.fact_id_for(harness.P + "f1099b.statement-box4-withholding-reported",
-                                       (("statement", statement), ("tax-year", harness.YEAR)))
-        harness._add(box4, "assertion", {"finding": harness._attested("demo.reason-links.reported", reported, "yes")})
-        box4 = harness.renumber(box4)
-        for key, acts, core in (
-            ("demo.roster.eic", demo["demo.roster.eic"], CORE),
-            ("demo.sale.single-sale", demo["demo.sale.single-sale"], CORE),
-            ("demo.sale.two-fixes", demo["demo.sale.two-fixes"], CORE),
-            ("demo.sale.successor", demo["demo.sale.two-fixes"], next_core),
-            ("demo.box4.current", box4, CORE),
-            ("demo.box4.older", box4, "v89"),
-        ):
+        for key, acts, core, _ in [
+            ("demo.roster.eic", demo["demo.roster.eic"], CORE, True),
+            ("demo.sale.single-sale", demo["demo.sale.single-sale"], CORE, True),
+            ("demo.sale.two-fixes", demo["demo.sale.two-fixes"], CORE, True),
+            ("demo.sale.successor", demo["demo.sale.two-fixes"], next_core, True),
+            *supplemental(next_core),
+        ]:
             before, after, kwargs = saved_pair(key, acts, core)
             wanted = baseline_prompts(before["model"], kwargs["resolved_members"])
             compare(before, after, wanted)
@@ -378,12 +389,15 @@ def main():
             new = observe_dom(helper, page, after["model"])
             row = {
                 "core": rr.resolve_core(core).version, "rendered_links": check_dom(old, new, wanted),
+                "shared_dom_errors": len(old["errors"]),
                 "producers": dict(Counter(ref["id"] for refs in wanted.values() for ref in refs)),
             }
             if key in {"demo.roster.eic", "demo.sale.single-sale", "demo.sale.two-fixes"}:
                 row["rejected"] = model_controls(before, after, wanted)
             if key in {"demo.sale.two-fixes", "demo.sale.successor"}:
                 row.setdefault("rejected", []).extend(publication_controls(kwargs))
+            if key.startswith("demo.sli.loan-cost"):
+                row["rejected"] = selection_controls(kwargs)
             if key == "demo.roster.eic":
                 broken = deepcopy(new)
                 section, index = next(iter(wanted))
