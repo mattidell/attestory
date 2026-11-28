@@ -64,6 +64,10 @@ def declaration_text(member):
     return member.get("question", member.get("closure_question"))
 
 
+def prompt_id(section, index):
+    return f"question-prompt-{section}-{index}"
+
+
 def linked_positions(resolved):
     return {i for ref in resolved.get("questionRefs", ()) for i in ref["reasonIndices"]}
 

@@ -4,17 +4,13 @@ from __future__ import annotations
 
 from collections import defaultdict
 from functools import cache
-import re
 import sys
 from types import ModuleType
 
 from probe import (
     PAGE, PROJECTION, PROMPT, baseline_source, declaration_text, declarations,
-    linked_positions, ordered_producers, producer,
+    linked_positions, ordered_producers, producer, prompt_id,
 )
-
-PRODUCER_SCHEMAS = {"input-question.v1", *(f"source-closure-mapping.v{n}" for n in range(1, 5))}
-
 
 def refs_for_text(members, sentence):
     return ordered_producers(producer(member) for member in members if declaration_text(member) == sentence)
@@ -31,13 +27,14 @@ def reached_prompts(indexes, families, facts):
     return plain
 
 
-def attach_prompts(resolved, plain):
+def attach_prompts(resolved, plain, section):
     linked = linked_positions(resolved)
     for i, reason in enumerate(resolved.get("reasons", ())):
         if i in linked:
             continue
-        if "memberLabel" not in reason and (refs := refs_for_text(plain.get(reason["sentence"], ()), reason["sentence"])):
-            reason[PROMPT] = refs
+        witnessed = PROMPT in reason or refs_for_text(plain.get(reason["sentence"], ()), reason["sentence"])
+        if witnessed:
+            reason[PROMPT] = prompt_id(section, i)
 
 
 def validate_prompts(model, error):
@@ -47,13 +44,7 @@ def validate_prompts(model, error):
         for i, reason in enumerate(resolved.get("reasons", ())):
             if PROMPT not in reason:
                 continue
-            refs = reason[PROMPT]
-            if (resolved["disposition"] != "blocked" or i in linked or not isinstance(refs, list)
-                    or not refs or any(not isinstance(ref, dict) or set(ref) != {"schema", "id", "version"}
-                        or ref["schema"] not in PRODUCER_SCHEMAS or not isinstance(ref["id"], str)
-                        or not ref["id"] or not isinstance(ref["version"], str)
-                        or not re.fullmatch(r"v[0-9]+", ref["version"]) for ref in refs)
-                    or refs != ordered_producers(refs)):
+            if resolved["disposition"] != "blocked" or i in linked or reason[PROMPT] != prompt_id(section["id"], i):
                 raise error("invalid display-only question prompt")
 
 
@@ -113,7 +104,7 @@ def scratch_projection(source):
         ),
         (
             "        if answer_sentences:\n            # Append",
-            "        attach_prompts(resolved, prompt_origins)\n"
+            "        attach_prompts(resolved, prompt_origins, section_id)\n"
             "        if answer_sentences:\n            # Append",
         ),
         (
@@ -140,7 +131,7 @@ def projectors():
     original = baseline_source(PROJECTION)
     namespace = {
         name: globals()[name] for name in
-        ("PROMPT", "attach_prompts", "declarations", "reached_prompts", "refs_for_text", "validate_prompts")
+        ("PROMPT", "attach_prompts", "declarations", "reached_prompts", "refs_for_text", "validate_prompts", "prompt_id")
     }
     modules = []
     for name, source, bindings in (
@@ -159,13 +150,9 @@ def projectors():
 def scratch_page():
     html = baseline_source(PAGE)
     html = replace_once(html, 'function renderQuestionGroups(container) {', '''
-function promptAddress(section, index) {
-  return "question-prompt-" + encodeURIComponent(section.id) + "-" + index;
-}
-
-function promptCard(section, index, content) {
+function promptCard(section, destination, content) {
   const root = document.getElementById("question-groups-root");
-  const card = el("article", { class: "question-group", id: promptAddress(section, index) }, []);
+  const card = el("article", { class: "question-group", id: destination }, []);
   card.appendChild(el("h3", null, content()));
   const field = section.field;
   card.appendChild(el("p", null, [(field.label || section.id) +
@@ -189,7 +176,7 @@ function renderQuestionGroups(container) {''')
         '      }\n'
         '      let content = reasonContent();\n'
         '      if (MODEL.schema === "presentation-model.v3" && reason.questionPrompt) {\n'
-        '        promptCard(section, index, reasonContent);\n'
-        '        content = [el("a", { href: "#" + promptAddress(section, index) }, content)];\n'
+        '        promptCard(section, reason.questionPrompt, reasonContent);\n'
+        '        content = [el("a", { href: "#" + encodeURIComponent(reason.questionPrompt) }, content)];\n'
         '      }\n'
         '      return [el("li", { id: isLine21 ? "line21-reason-" + index : undefined }, content)];')

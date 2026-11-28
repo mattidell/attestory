@@ -13,7 +13,7 @@ from unittest.mock import patch
 
 from probe import (
     BASE, CORE, HERE, PROMPT, asking_positions, baseline_prompts, declarations, digest,
-    producer_key, prompt_positions, summary_json,
+    producer_key, prompt_id, prompt_positions, summary_json,
 )
 import scratch
 from packages.derivation import live
@@ -86,8 +86,9 @@ def compare(before, after, expected):
         if left != right:
             raise ValueError("failure changed")
         return
-    if list(prompt_positions(after["model"]).items()) != list(expected.items()):
-        raise ValueError("ordered prompt positions or producers differ")
+    expected_links = [(pos, prompt_id(*pos)) for pos in expected]
+    if list(prompt_positions(after["model"]).items()) != expected_links:
+        raise ValueError("ordered prompt positions or destinations differ")
     stripped = deepcopy(after["model"])
     for section in stripped["sections"]:
         resolved = section["resolved"]
@@ -209,7 +210,7 @@ def run_list(key, acts, core, is_synthetic):
         raise ValueError(f"{key}: {exc}{detail}") from exc
     row = {
         "key": key, "baseline_outcome": before["outcome"], "candidate_outcome": after["outcome"],
-        "links": len(wanted), "ordered_links_sha256": digest([(s, i, refs) for (s, i), refs in wanted.items()]),
+        "links": len(wanted), "ordered_links_sha256": digest([(s, i, prompt_id(s, i)) for s, i in wanted]),
     }
     if before["outcome"] == "success":
         model = before["model"]
