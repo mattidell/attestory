@@ -1361,6 +1361,20 @@ ignoring case and collapsing whitespace. Otherwise, and for SSA-1099,
 the page keeps the statement labels. No recorded list
 changes; 10 synthetic lists gain 174 names.
 
+## Bounded return — Each Sale Question Names Its Sale (2025)
+
+[Plan](milestones/sale-question-names.md); retrospective:
+`docs/milestone-retrospectives/2026-11-27-sale-question-names.md`.
+Projection and page (ADR 0089 third amendment 2026-11-27); core v109
+unchanged.
+
+When a return has more than one sale with no Form 1099-B (Form 8949
+boxes C and F), each proceeds, basis and wash-sale question on the saved
+page names its sale by the label the filer recorded, provided the label
+is present and unique among the current sales. Otherwise, and beside a
+basis consistency question, the page keeps the generic display. No
+recorded list changes; 7 synthetic lists gain 352 names.
+
 ## Hardening — Derivation Schema Capability Table Consolidation
 
 [Plan](milestones/rule-artifact-capability-table-consolidation.md); retrospective:
@@ -1593,8 +1607,17 @@ delivers an item removes it.
   ordinals or other details would need their own decision.
 - The per-statement box 4 and box 7 questions keep their general wording
   and only gain the label (Decision 6).
-- Questions about a sale with no Form 1099-B do not name the sale
-  (ADR 0089, Parked).
+- A basis consistency question about a sale with no Form 1099-B does not
+  name the sale, because its rule does not say which amount disagrees
+  (ADR 0089 third amendment, Parked).
+- Capturing sale amounts once (owner, 2026-11-27): a no-1099-B sale
+  records its amounts on the sale and again as per-column facts (ADR 0054
+  twin scalars, ADR 0061), guarded by an amounts-agree check. The owner
+  directed that amounts be captured once and that any second
+  representation cross a named boundary with a known flow. The open
+  question is whether the per-column facts become findings derived from
+  the sale, which first needs a check that attachment collection can sum
+  per-subject derived results.
 - Other questions could declare answer explanations (ADR 0091, which
   adopts only the four Exception 1 "no" sentences).
 - Recorded lists produce only one of the six optional model blocks
