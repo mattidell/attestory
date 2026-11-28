@@ -1379,6 +1379,13 @@ function uniqueTexts(values) {
   return [...new Set(values)];
 }
 
+function hasSaleLabelText(label) {
+  if (typeof label !== "string") return false;
+  // Match sale_label_key's visible-text test before comparing or showing labels.
+  const visible = label.replace(/[\p{Cf}\p{Default_Ignorable_Code_Point}]/gu, "").normalize("NFC");
+  return /[^\p{White_Space}\p{M}\p{C}]/u.test(visible);
+}
+
 function renderLine(container, section) {
   const field = section.field;
   const resolved = section.resolved;
@@ -1459,8 +1466,7 @@ function renderLine(container, section) {
           el("a", { href: "#question-group-" + group.id }, ["See the question and affected lines above"]),
         ]))];
       }
-      // Match has_sale_label_text, including Python's four extra whitespace controls.
-      if (typeof reason.saleLabel === "string" && /[^\p{White_Space}\p{Cf}\u001c-\u001f]/u.test(reason.saleLabel)) {
+      if (hasSaleLabelText(reason.saleLabel)) {
         return [el("li", { id: isLine21 ? "line21-reason-" + index : undefined }, [
           el("strong", { class: "sale-label" }, [reason.saleLabel + ": "]), reason.sentence,
         ])];

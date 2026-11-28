@@ -16,7 +16,7 @@ import sys
 from types import ModuleType
 from unittest.mock import patch
 
-from probe import ALPHA, CORE, HERE, SALE_TYPES, ZULU, build_sales, cases, questions
+from probe import ALPHA, CORE, HERE, SALE_TYPES, ZULU, Sale, build_sales, cases, questions
 from packages.derivation import live
 from tests import evidence_loader
 from tools import recorded_replay as rr
@@ -47,10 +47,18 @@ EXPECTED = {
     "demo.all-valid": {},
     "demo.single-sale": {"st.adjustment": ()},
     "demo.older-core": {"st.adjustment": ()},
+    "demo.nfc-collision": {"st.basis": ()},
+    "demo.format-collision": {"st.basis": ()},
+    "demo.combining-only": {"st.adjustment": ()},
+}
+UNICODE_CASES = {
+    "demo.nfc-collision": (Sale("demo Café", "st", "missing-basis"), Sale("demo Cafe\u0301", "lt")),
+    "demo.format-collision": (Sale("demo Café", "st", "missing-basis"), Sale("demo Ca\u200bfé", "lt")),
+    "demo.combining-only": (Sale("\u034f", condition="gain"), Sale(ALPHA, condition="exceeds")),
 }
 EXPECTED_CHANGED = {"recorded": 0, "synthetic": 7}
 # The landed baseline census was recorded by P0 and the Track 1 build replay.
-EXPECTED_OUTCOMES = {"recorded": {"success": 691, "error": 84}, "synthetic": {"success": 19}}
+EXPECTED_OUTCOMES = {"recorded": {"success": 691, "error": 84}, "synthetic": {"success": 22}}
 # The 84 case keys agree in member-reads-once timing-before and line16-names
 # Track 1 evidence. Hash the sorted keys so a swap cannot preserve the census.
 RECORDED_ERROR_KEYS_SHA256 = "2767993ef1bce2c29eda8c07df82a0533d7180042ba34c387ed9636bf59d487b"
@@ -280,7 +288,7 @@ def dom_controls(key, page, model, want):
             return next(reason for i, reason in enumerate(resolved["reasons"]) if i not in linked)
 
         checked = [mutated("dom_spurious_single_sale_prefix", lambda broken: generic_reason(broken).update({LABEL: ZULU}))]
-        for label in ("\ufeff", "\u2003\u200b"):
+        for label in ("\ufeff", "\u2003\u200b", "\u034f", "\u0301", "\u115f"):
             blank = deepcopy(model)
             generic_reason(blank)[LABEL] = label
             check_dom(observe_dom(page, blank), want)
@@ -358,12 +366,12 @@ def require_outcomes(rows, expected, expected_error_keys=None):
     return dict(baseline), dict(candidate)
 
 
-def census_controls(rows, expected, expected_error_keys):
+def census_controls(rows, expected, expected_error_keys, *, compare_saved=compare):
     broken = deepcopy(rows)
     previously_saved = next(row for row in broken if row["baseline_outcome"] == "success")
     # compare() alone accepts identical errors on both sides.
     setup_error = {"outcome": "error", "error": "DemoSetupError", "message": "demo setup failed"}
-    previously_saved["names"] = compare(setup_error, setup_error, None)
+    previously_saved["names"] = compare_saved(setup_error, setup_error, None)
     previously_saved.update(baseline_outcome="error", candidate_outcome="error")
     wrong = dict(expected)
     wrong["success"] -= 1
@@ -401,7 +409,7 @@ def main():
     if args.workers < 1:
         parser.error("workers must be positive")
     baseline()
-    known_cases = cases()
+    known_cases = cases() | UNICODE_CASES
     known_cases["demo.older-core"] = known_cases["demo.two-fixes"]
     if EXPECTED.keys() != known_cases.keys():
         raise ValueError("synthetic inventory and expectations disagree")

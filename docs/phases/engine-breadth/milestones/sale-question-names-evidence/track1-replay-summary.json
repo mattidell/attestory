@@ -39,18 +39,18 @@
   },
   "registry": "v107",
   "release": "v107",
-  "shards": 49,
+  "shards": 52,
   "synthetic": {
     "baseline_outcomes": {
-      "success": 19
+      "success": 22
     },
     "changed_lists": 7,
-    "dom_sections": 1634,
-    "lists": 19,
+    "dom_sections": 1892,
+    "lists": 22,
     "named_dom_sections": 226,
     "names_added": 352,
     "outcomes": {
-      "success": 19
+      "success": 22
     }
   },
   "unexpected_differences": 0,

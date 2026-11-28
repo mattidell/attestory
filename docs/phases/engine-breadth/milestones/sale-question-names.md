@@ -114,6 +114,8 @@ differences.
 
 ## Closeout
 
+Pre-curation history is available at `refs/snapshot/2026-11-27-sale-question-names-pre-pr-curation`.
+
 Closed 2026-11-27. Retrospective: `docs/milestone-retrospectives/2026-11-27-sale-question-names.md`.
 The owner accepted the third ADR 0089 amendment on 2026-11-27. Track 1
 ([evidence](sale-question-names-evidence/track1.md)) changed the
@@ -134,3 +136,13 @@ unexpected differences. The roadmap item (questions about a sale with no
 Form 1099-B do not name the sale) is retired. The owner's question on
 capturing sale amounts once is recorded in the roadmap's open owner-held
 questions.
+
+Repair 2 requires wash-sale witnesses to match their publication acts,
+recognizes compatible successor rule versions by their semantic content,
+and normalizes Unicode sale labels for collision and blankness. It pins
+the P0 replay outcome census and error cases, runs the inventory probe
+with the P0 baseline projector, and points readers to the accepted ADR
+for the decision. Track 1 matched 797 lists and 61,318 saved sections, with seven lists
+gaining 352 names and all 18 controls rejected. The P0 replay matched
+794 lists, retained the scratch proof's 480 names across 10 synthetic
+lists, and rejected all 15 controls.

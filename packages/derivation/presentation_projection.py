@@ -55,7 +55,7 @@ from packages.derivation.schema_capabilities import (
 from packages.kernel.currency import compute_currency
 from packages.kernel.facts import Fact, fact_id_for, facts_of
 from packages.kernel.findings import FindingState
-from packages.presentation.labels import has_sale_label_text
+from packages.presentation.labels import has_sale_label_text, sale_label_key
 from packages.tax.coverage import untranslated_source_findings
 from packages.tax.loader import (
     STATEMENT_BROKER_ANCHOR,
@@ -1195,6 +1195,14 @@ def _answer_explanation_sentences(
 
 _SALE_FAMILY_PREFIX = "tax.us.2025.f8949.no1099b-"
 _SALE_SCHEDULE_D_LINES = {f"{_SALE_FAMILY_PREFIX}st-txn": "3", f"{_SALE_FAMILY_PREFIX}lt-txn": "10"}
+# Canonical JSON digests of the adopted Schedule D rules, excluding their
+# schema/version and prose metadata. The guard and every other semantic field
+# must agree before a later adopted rule can use the same attribution.
+_SALE_PAIRING_SIGNATURES = {
+    "3": "350f6b2567770f637083e86a935c38ecbd82eb793ae42bc3460b7887bb233e4f",
+    "10": "28492acfb2aa2ea132c941b6034746d24d0b3c01d0272ee11415bc2d55f126f7",
+}
+_SALE_RULE_METADATA = frozenset({"schema", "version", "notes", "description"})
 _SALE_ANSWER_SOURCES = {
     f"{source}.{kind}": source for source in _SALE_SCHEDULE_D_LINES
     for kind in ("basis", "proceeds", "adjustment")
@@ -1219,6 +1227,7 @@ class _SaleQuestions:
         current_ids: frozenset[str] | None,
         members: Sequence[Mapping[str, Any]],
         publications: Mapping[str, Mapping[str, Any]],
+        publication_act_findings: Mapping[str, Mapping[str, Any]],
     ) -> None:
         self.adopted_package = adopted_package
         self.enabled = (
@@ -1230,6 +1239,7 @@ class _SaleQuestions:
         self.current_ids = current_ids
         self.members = members
         self.publications = publications
+        self.publication_act_findings = publication_act_findings
         self._identities: dict[str, bool] = {}
 
     def applies(self, fact_type: str) -> bool:
@@ -1334,7 +1344,12 @@ class _SaleQuestions:
             return None
         rule = self.member(artifact)
         if (rule is None or rule.get("schema") not in RULE_REQUIRE_PAIRED_SCHEMAS
-                or rule.get("version") != "v3"):
+                or not isinstance(rule.get("version"), str)
+                or re.fullmatch(r"v[1-9][0-9]*", rule["version"]) is None):
+            return None
+        semantics = {key: value for key, value in rule.items() if key not in _SALE_RULE_METADATA}
+        encoded = json.dumps(semantics, sort_keys=True, separators=(",", ":")).encode("utf-8")
+        if hashlib.sha256(encoded).hexdigest() != _SALE_PAIRING_SIGNATURES[line]:
             return None
         family = source.removesuffix("-txn")
         source_sets = {
@@ -1439,6 +1454,7 @@ class _SaleQuestions:
             value = result.get("value")
             pins = self.pins(result)
             if (fact_id in seen or fact_id not in source_ids or result.get("id") != fid
+                    or self.publication_act_findings.get(fid) != result
                     or result.get("schema") != "derived-finding.v2" or result.get("version") != "v2"
                     or not isinstance(value, Mapping) or value.get("member_fact_id") != fact_id or pins is None
                     or [pin for pin in pins if pin["role"] == "package"]
@@ -1526,7 +1542,7 @@ class _SaleQuestions:
         labels = self.labels
         if len(labels) < 2:
             return {}
-        normalized = Counter(" ".join(label.split()).casefold() for label in labels.values() if label is not None)
+        normalized = Counter(sale_label_key(label) for label in labels.values() if label is not None)
         matched: dict[str, set[str]] = {}
         unresolved = set(other_sentences)
         for trace in traces:
@@ -1547,7 +1563,7 @@ class _SaleQuestions:
                 sale = dict(self.facts[target].keys)["sale"]
                 label = labels.get(sale)
                 if (label is None or label == sale or _UNSAFE_STRING_PATTERN.search(label)
-                        or normalized[" ".join(label.split()).casefold()] != 1):
+                        or normalized[sale_label_key(label)] != 1):
                     break
                 names.append((label, target))
             else:
@@ -6679,6 +6695,7 @@ def build_presentation_model(
                 raise PresentationModelError(f"duplicate resolved citation identity {identity!r}")
             citations[identity] = member
     publications_by_id: dict[str, Mapping[str, Any]] = {}
+    publication_act_findings: dict[str, Mapping[str, Any]] = {}
     for publication in publications:
         finding = publication.finding
         finding_id = finding.get("id") if isinstance(finding, Mapping) else None
@@ -6687,6 +6704,9 @@ def build_presentation_model(
         if finding_id in publications_by_id:
             raise PresentationModelError(f"duplicate publication finding id {finding_id!r}")
         publications_by_id[finding_id] = finding
+        act = getattr(publication, "act", None)
+        if isinstance(act, Mapping) and act.get("run_id") == run_id and isinstance(act.get("finding"), Mapping):
+            publication_act_findings[finding_id] = act["finding"]
     by_symbol = _dispositions_by_symbol(dispositions, rules_by_id)
     question_groups, question_refs_by_family, question_refs_by_fact_type = _question_group_catalog(
         resolved_members, state, current_finding_ids=current_finding_ids,
@@ -6706,7 +6726,7 @@ def build_presentation_model(
         else None
     )
     sale_questions = _SaleQuestions(
-        adopted_package, state, current_finding_ids, resolved_members, publications_by_id,
+        adopted_package, state, current_finding_ids, resolved_members, publications_by_id, publication_act_findings,
     )
     answer_explanations = _answer_explanation_sentences(
         resolved_members, state, current_finding_ids=current_finding_ids,

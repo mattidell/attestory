@@ -19,6 +19,7 @@ import scratch
 from packages.derivation import live
 from tests import evidence_loader
 from tools import recorded_replay as rr
+from track1_replay import RECORDED_ERROR_KEYS_SHA256, census_controls, require_outcomes
 
 LABEL = "saleLabel"
 BEFORE = "v108"
@@ -284,6 +285,7 @@ def run_list(key, acts, is_synthetic, page):
         actual = names_at_positions(after["model"]) if after["outcome"] == "success" else {}
         raise ValueError(f"{key}: {exc} {error} ({len(actual)} actual names)") from exc
     return {
+        "key": key, "baseline_outcome": before["outcome"], "candidate_outcome": after["outcome"],
         "outcome": before["outcome"], "names": names, "controls": rejected, "dom_sections": rendered,
         "questions": dict(seen), "historical_sales": historical_sales(acts), "current_sales": counts,
     }
@@ -293,10 +295,11 @@ def run_shard(items, page):
     return {key: run_list(key, acts, synthetic, page) for key, acts, synthetic in items}
 
 
-def summarize(rows, expected):
+def summarize(rows, expected, expected_outcomes, expected_error_keys=None):
+    baseline, candidate = require_outcomes(rows, expected_outcomes, expected_error_keys)
     saves = [r for r in rows if r["outcome"] == "success"]
     return {
-        "lists": len(rows), "outcomes": dict(Counter(r["outcome"] for r in rows)),
+        "lists": len(rows), "baseline_outcomes": baseline, "outcomes": candidate,
         "changed_lists": require_changed(rows, expected), "names_added": sum(r["names"] for r in rows),
         "recorded_sale_counts": dict(Counter(r["historical_sales"] for r in rows)),
         "saved_current_sale_counts": dict(Counter(r["current_sales"][0] for r in saves)),
@@ -348,13 +351,21 @@ def main():
                 print(f"{len(results)}/{len(recorded) + len(synthetic)}", flush=True)
     if results.keys() != {key for key, _, _ in synthetic + recorded}:
         raise ValueError("incomplete replay")
+    recorded_rows = [results[key] for key, _, _ in recorded]
+    recorded_outcomes = {"success": 691, "error": 84} if recorded else {}
+    error_keys = RECORDED_ERROR_KEYS_SHA256 if recorded else None
+    recorded_summary = summarize(recorded_rows, EXPECTED_CHANGED["recorded"], recorded_outcomes, error_keys)
+    rejected = [name for result in results.values() for name in result["controls"]]
+    if recorded:
+        rejected.extend(census_controls(recorded_rows, recorded_outcomes, error_keys, compare_saved=compare))
+        recorded_summary["error_keys_sha256"] = error_keys
     summary = {
         "baseline": scratch.BASE, "core": CORE, "registry": "v107", "release": "v107",
         "workers": args.workers, "shards": len(shards),
-        "recorded": summarize([results[key] for key, _, _ in recorded], EXPECTED_CHANGED["recorded"]),
-        "synthetic": summarize([results[key] for key, _, _ in synthetic], EXPECTED_CHANGED["synthetic"]),
+        "recorded": recorded_summary,
+        "synthetic": summarize([results[key] for key, _, _ in synthetic], EXPECTED_CHANGED["synthetic"], {"success": 19}),
         "synthetic_cases": {key: results[key] for key, _, _ in synthetic},
-        "controls_rejected": sorted(name for result in results.values() for name in result["controls"]),
+        "controls_rejected": sorted(rejected),
         "unexpected_differences": 0,
         "scratch_projection_sha256": hashlib.sha256(scratch.scratch_projection(projection).encode()).hexdigest(),
         "scratch_page_sha256": hashlib.sha256(scratch.scratch_page(page).encode()).hexdigest(),

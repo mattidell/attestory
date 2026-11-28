@@ -21,6 +21,7 @@ from packages.derivation.presentation_projection import (
     build_presentation_model,
     validate_presentation_model,
 )
+from packages.derivation.runner import Publication, _content_id
 from packages.kernel.findings import FindingState
 from tests import evidence_loader
 from tools import recorded_replay as rr
@@ -91,7 +92,7 @@ def test_single_sale_and_label_collisions_with_an_answered_peer_keep_generic_que
     assert any("wash-sale loss disallowed do you enter" in reason["sentence"] for reason in line["reasons"])
 
 
-@pytest.mark.parametrize("label", [" ", "\t", "\ufeff", "\u2003\u200b", "demo.sfa.demo.sale-names.0.sale"])
+@pytest.mark.parametrize("label", [" ", "\t", "\ufeff", "\u2003\u200b", "\u034f", "\u0301", "\u115f", "demo.sfa.demo.sale-names.0.sale"])
 def test_unusable_label_on_one_of_two_targets_keeps_generic_question(label: str) -> None:
     sales = (PROBE.Sale(label, condition="gain"), PROBE.Sale(ALPHA, condition="exceeds"))
     line = _line(_saved(sales, "missing-label"), "st")
@@ -177,6 +178,7 @@ def _trusted_input_controls(
         options: Json = dict(
             adopted_package=walker.adopted_package, state=walker.state, current_ids=walker.current_ids,
             members=walker.members, publications=walker.publications,
+            publication_act_findings=walker.publication_act_findings,
         )
         altered = _SaleQuestions(**(options | changes))
         assert altered.reasons(new_traces, new_questions, new_other) == {}, name
@@ -242,7 +244,7 @@ def _trusted_input_controls(
         check("inactive pairings", members=change_member(rule["id"], when={
             "op": "any", "args": [True, rule["when"]],
         }))
-        check("unpinned rule version", members=change_member(rule["id"], version="v999"))
+        check("invalid rule version", members=change_member(rule["id"], version=None))
         family_pin = next(pin for pin in row["pins"] if pin["role"] == "package" and pin["id"] == family)
         changed_row("missing row source-set pin", _pin_changes(row, family_pin))
         source_pin = next(pin for pin in row["pins"] if pin["id"] == source_id)
@@ -365,7 +367,7 @@ def test_copied_violation_with_unchanged_witness_id_keeps_generic_question() -> 
         changed = {**healthy, "value": {**healthy["value"], "violations": [deepcopy(violation)]}}
         altered = _SaleQuestions(walker.adopted_package, walker.state, walker.current_ids, walker.members, {
             **walker.publications, healthy_id: changed,
-        })
+        }, {**walker.publication_act_findings, healthy_id: changed})
         return original(altered, traces, questions, other)
 
     with patch.object(_SaleQuestions, "reasons", alter_witness):
@@ -373,3 +375,70 @@ def test_copied_violation_with_unchanged_witness_id_keeps_generic_question() -> 
     assert seen
     assert not _ordered_names(line)
     assert any("wash-sale loss disallowed do you enter" in reason["sentence"] for reason in line["reasons"])
+
+
+def test_recomputed_witness_id_still_requires_the_published_finding() -> None:
+    sales = (PROBE.Sale(ZULU, condition="gain"), PROBE.Sale(ALPHA, condition="exceeds"), PROBE.Sale(PEER))
+    seen: list[str] = []
+
+    def forge(**kwargs: Any) -> Json:
+        pubs: list[Publication] = kwargs["publications"]
+        marker = "no1099b-st.member-validation.synthesized."
+        witnesses = [pub for pub in pubs if marker in pub.finding["symbol"]]
+        healthy = next(pub for pub in witnesses if not pub.finding["value"]["violations"])
+        violated = next(
+            violation for pub in witnesses for violation in pub.finding["value"]["violations"]
+            if violation["block_code"] == "ADJUSTMENT_EXCEEDS_LOSS"
+        )
+        finding = deepcopy(healthy.finding)
+        value = finding["value"]
+        value["violations"] = [deepcopy(violated)]
+        source = next(pin for pin in finding["pins"] if pin["role"] == "input")
+        family = next(pin for pin in finding["pins"] if pin["role"] == "package")
+        finding["id"] = _content_id("derived-finding.v2:", {
+            **value,
+            "member_value_pin": {"id": source["id"], "version": source["version"]},
+            "declaration": {"id": family["id"], "version": family["version"]},
+        })
+        assert healthy.act["finding"]["id"] != finding["id"]
+        seen.append(finding["id"])
+        return build_presentation_model(**{**kwargs, "publications": [
+            replace(pub, finding=finding) if pub is healthy else pub for pub in pubs
+        ]})
+
+    with patch.object(live, "build_presentation_model", forge):
+        line = _line(_saved(sales, "recomputed-witness"), "st")
+    assert seen
+    assert not _ordered_names(line)
+    assert any("wash-sale loss disallowed do you enter" in reason["sentence"] for reason in line["reasons"])
+
+
+@pytest.mark.parametrize("changed_reads", [False, True])
+def test_successor_rule_version_is_gated_by_semantics(tmp_path: Path, changed_reads: bool) -> None:
+    def change(rule: Json) -> None:
+        rule["notes"] = "Demo successor notes."
+        if changed_reads:
+            rule["requires"].append("tax.us.2025.f8949.no1099b-lt-proceeds-subtotal")
+
+    core = TRUSTED.successor(tmp_path, change)
+    model = _saved(PROBE.cases()["demo.missing-basis"], "successor-read-set", core)
+    line = _line(model, "st")
+    assert _ordered_names(line) == ([] if changed_reads else [ZULU])
+    assert any("basis of each short-term sale" in reason["sentence"] for reason in line["reasons"])
+
+
+@pytest.mark.parametrize("peer_label", ["demo Cafe\u0301", "demo Ca\u200bfé", "demo Ca\u034ffé"])
+def test_visually_identical_answered_peer_keeps_question_generic(peer_label: str) -> None:
+    sales = (PROBE.Sale("demo Café", "st", "missing-basis"), PROBE.Sale(peer_label, "lt"))
+    line = _line(_saved(sales, "unicode-label-collision"), "st")
+    assert line["reasons"] == [{
+        "sentence": "What is the basis of each short-term sale you recorded without a Form 1099-B?",
+    }]
+
+
+def test_p0_probe_counts_baseline_reasons_on_the_curated_branch() -> None:
+    key = "demo.two-fixes"
+    result = PROBE.observe(PROBE.build_sales(PROBE.cases()[key]), key)
+    adjustment = result["questions"]["tax.us.2025.f8949.no1099b-st-txn.adjustment"]
+    assert len(adjustment["sections"]) == len(set(adjustment["sections"])) == 32
+    assert len(adjustment["refs"]) == 2
