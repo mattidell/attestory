@@ -11,12 +11,14 @@ from unittest.mock import patch
 
 import pytest
 
+from packages.derivation import live
 from packages.derivation.presentation_projection import (
     PresentationModelError,
     _SALE_ANSWER_SOURCES,
     _SALE_MEMBER_VALIDATION,
     _SaleQuestions,
     _SaleQuestionTrace,
+    build_presentation_model,
     validate_presentation_model,
 )
 from packages.kernel.findings import FindingState
@@ -89,7 +91,7 @@ def test_single_sale_and_label_collisions_with_an_answered_peer_keep_generic_que
     assert any("wash-sale loss disallowed do you enter" in reason["sentence"] for reason in line["reasons"])
 
 
-@pytest.mark.parametrize("label", [" ", "\t", "demo.sfa.demo.sale-names.0.sale"])
+@pytest.mark.parametrize("label", [" ", "\t", "\ufeff", "\u2003\u200b", "demo.sfa.demo.sale-names.0.sale"])
 def test_unusable_label_on_one_of_two_targets_keeps_generic_question(label: str) -> None:
     sales = (PROBE.Sale(label, condition="gain"), PROBE.Sale(ALPHA, condition="exceeds"))
     line = _line(_saved(sales, "missing-label"), "st")
@@ -304,3 +306,70 @@ def test_trusted_inputs_fail_closed_on_each_core(tmp_path: Path, version: str, r
     )
     assert len(seen) == 1
     _trusted_input_controls(*seen[0], route, version)
+
+
+@pytest.mark.parametrize("term", ["st", "lt"])
+def test_answered_peer_with_its_own_id_as_label_still_counts_as_collision(term: str) -> None:
+    label = "demo.sfa.demo.sale-names.1.sale"
+    sales = (PROBE.Sale(label, term, "missing-basis"), PROBE.Sale(label, term))
+    line = _line(_saved(sales, "peer-id-label-" + term), term)
+    assert _ordered_names(line) == []
+    holding_period = {"st": "short-term", "lt": "long-term"}[term]
+    assert line["reasons"] == [{
+        "sentence": f"What is the basis of each {holding_period} sale you recorded without a Form 1099-B?",
+    }]
+
+
+@pytest.mark.parametrize("version", ["v109", "v110"])
+def test_omitted_answered_box_f_peer_keeps_box_c_question_generic(tmp_path: Path, version: str) -> None:
+    core = TRUSTED.successor(tmp_path) if version == "v110" else rr.resolve_core(version)
+    sales = (PROBE.Sale(ALPHA, "st", "missing-basis"), PROBE.Sale(PEER), PROBE.Sale(ALPHA, "lt"))
+    seen: list[str] = []
+
+    def omit_peer(**kwargs: Any) -> Json:
+        findings = kwargs["state"].findings
+        peer, = [
+            fid for fid in kwargs["current_finding_ids"]
+            if findings[fid]["fact_id"].startswith("tax.us.2025.f8949.no1099b-lt-txn|")
+        ]
+        seen.append(peer)
+        return build_presentation_model(**{**kwargs, "current_finding_ids": kwargs["current_finding_ids"] - {peer}})
+
+    with patch.object(live, "build_presentation_model", omit_peer):
+        line = _line(_saved(sales, "omitted-peer-" + version, core), "st")
+    assert seen
+    assert line["reasons"] == [{
+        "sentence": "What is the basis of each short-term sale you recorded without a Form 1099-B?",
+    }]
+
+
+def test_copied_violation_with_unchanged_witness_id_keeps_generic_question() -> None:
+    sales = (PROBE.Sale(ZULU, condition="gain"), PROBE.Sale(ALPHA, condition="exceeds"), PROBE.Sale(PEER))
+    original = _SaleQuestions.reasons
+    seen: list[str] = []
+
+    def alter_witness(
+        walker: _SaleQuestions, traces: Iterable[_SaleQuestionTrace],
+        questions: Mapping[str, str], other: set[str],
+    ) -> dict[str, list[Json]]:
+        witnesses = [
+            (fid, result) for fid, result in walker.publications.items()
+            if "no1099b-st.member-validation.synthesized." in result["symbol"]
+        ]
+        healthy_id, healthy = next((fid, result) for fid, result in witnesses if not result["value"]["violations"])
+        violation = next(
+            violation for _, result in witnesses for violation in result["value"]["violations"]
+            if violation["block_code"] == "ADJUSTMENT_EXCEEDS_LOSS"
+        )
+        seen.append(healthy_id)
+        changed = {**healthy, "value": {**healthy["value"], "violations": [deepcopy(violation)]}}
+        altered = _SaleQuestions(walker.adopted_package, walker.state, walker.current_ids, walker.members, {
+            **walker.publications, healthy_id: changed,
+        })
+        return original(altered, traces, questions, other)
+
+    with patch.object(_SaleQuestions, "reasons", alter_witness):
+        line = _line(_saved(sales, "copied-violation"), "st")
+    assert seen
+    assert not _ordered_names(line)
+    assert any("wash-sale loss disallowed do you enter" in reason["sentence"] for reason in line["reasons"])

@@ -8,7 +8,7 @@ from packages.derivation.presentation_projection import PresentationModelError, 
 
 
 @pytest.mark.parametrize("extra", [
-    {"saleLabel": ""}, {"saleLabel": " \t"}, {"saleLabel": 123}, {"saleLabel": None},
+    {"saleLabel": ""}, {"saleLabel": "\ufeff"}, {"saleLabel": "\u2003\u200b"}, {"saleLabel": " \t"}, {"saleLabel": 123}, {"saleLabel": None},
     {"saleLabel": "demo name", "factId": "demo.fact"},
     {"saleLabel": "demo name", "memberLabel": "demo member"},
     {"saleLabel": "demo name", "statementLabel": {"statement": "demo statement", "taxYear": "2025"}},

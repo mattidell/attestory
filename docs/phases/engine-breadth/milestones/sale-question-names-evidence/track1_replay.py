@@ -20,6 +20,7 @@ from probe import ALPHA, CORE, HERE, SALE_TYPES, ZULU, build_sales, cases, quest
 from packages.derivation import live
 from tests import evidence_loader
 from tools import recorded_replay as rr
+from tools.sale_page_observation import _expected_blocked_reason_texts
 
 LABEL = "saleLabel"
 BUILD_SUBJECT = "build(sale-question-names)"
@@ -48,6 +49,11 @@ EXPECTED = {
     "demo.older-core": {"st.adjustment": ()},
 }
 EXPECTED_CHANGED = {"recorded": 0, "synthetic": 7}
+# The landed baseline census was recorded by P0 and the Track 1 build replay.
+EXPECTED_OUTCOMES = {"recorded": {"success": 691, "error": 84}, "synthetic": {"success": 19}}
+# The 84 case keys agree in member-reads-once timing-before and line16-names
+# Track 1 evidence. Hash the sorted keys so a swap cannot preserve the census.
+RECORDED_ERROR_KEYS_SHA256 = "2767993ef1bce2c29eda8c07df82a0533d7180042ba34c387ed9636bf59d487b"
 
 
 def git(*args):
@@ -222,36 +228,73 @@ def controls(key, before, after, want):
     return out
 
 
-def check_dom(page, model, want):
-    expected, inputs = {}, []
-    for section in want["sections"]:
-        prefixes = [f"{r[LABEL]}:" for r in reasons(section) if LABEL in r]
-        if not prefixes:
-            continue
-        key = section["id"]
-        rendered_section = next(s for s in model["sections"] if s["id"] == key)
-        refs = {ref["groupId"] for ref in rendered_section["resolved"].get("questionRefs", ())}
-        inputs.append(json.dumps({"key": key, "model": {
-            **model, "sections": [rendered_section],
-            "questionGroups": [group for group in model["questionGroups"] if group["id"] in refs],
-        }}))
-        expected[key] = prefixes
-    if not expected:
-        return 0
+def observe_dom(page, model):
     helper = HERE.parent / "page-plain-words-evidence/check_page_dom.mjs"
+    request = json.dumps({"key": "saved-page", "model": model}) + "\n"
     finished = subprocess.run(
-        ["node", str(helper), str(page)], input="\n".join(inputs) + "\n", check=True, text=True,
-        capture_output=True, timeout=30, env={**os.environ, "PPW_CHECK_DETAIL": "1"},
+        ["node", str(helper), str(page)], input=request, check=True, text=True,
+        capture_output=True, timeout=30, env={**os.environ, "PPW_CHECK_BLOCKED_REASONS": "1"},
     )
-    observed = json.loads(finished.stdout)
-    if observed.keys() != expected.keys():
-        raise ValueError("DOM probe did not render all named sections")
-    for key, result in observed.items():
-        lines = result["first_read_text"].splitlines()
-        prefixes = [line.rstrip() for line in lines if line.startswith("demo ") and line.rstrip().endswith(":")]
-        if prefixes != expected[key] or result["section_errors"]:
-            raise ValueError(f"wrong rendered sale names on {key}: {prefixes!r}")
-    return len(observed)
+    return json.loads(finished.stdout)["saved-page"]
+
+
+def expected_dom(model):
+    expected = {}
+    for section in model["sections"]:
+        texts = _expected_blocked_reason_texts(model, section["resolved"])
+        pairs = [
+            {"text": text, "sale_prefixes": [f"{r[LABEL]}: "] if LABEL in r else []}
+            for text, r in zip(texts, reasons(section), strict=True)
+        ]
+        expected[section["id"]] = {
+            "reasons": pairs,
+            "sale_prefixes": [prefix for pair in pairs for prefix in pair["sale_prefixes"]],
+            "errors": 0,
+        }
+    return expected
+
+
+def check_dom(observed, want):
+    if observed.keys() != want.keys():
+        raise ValueError("DOM probe did not render every section")
+    for key, expected in want.items():
+        if observed[key] != expected:
+            raise ValueError(f"blocked reason DOM differs on {key}")
+    return len(want), sum(bool(section["sale_prefixes"]) for section in want.values())
+
+
+def dom_controls(key, page, model, want):
+    def mutated(name, mutate):
+        broken = deepcopy(model)
+        mutate(broken)
+        return reject(name, lambda: check_dom(observe_dom(page, broken), want), f"blocked reason DOM differs on {section_id}")
+
+    if key == "demo.single-sale":
+        expected_section = next(s for s in model["sections"] if s["field"]["id"].endswith(".schedule-d.line-3"))
+        section_id = expected_section["id"]
+
+        def generic_reason(broken):
+            section = next(s for s in broken["sections"] if s["id"] == section_id)
+            resolved = section["resolved"]
+            linked = {i for ref in resolved.get("questionRefs", ()) for i in ref["reasonIndices"]}
+            return next(reason for i, reason in enumerate(resolved["reasons"]) if i not in linked)
+
+        checked = [mutated("dom_spurious_single_sale_prefix", lambda broken: generic_reason(broken).update({LABEL: ZULU}))]
+        for label in ("\ufeff", "\u2003\u200b"):
+            blank = deepcopy(model)
+            generic_reason(blank)[LABEL] = label
+            check_dom(observe_dom(page, blank), want)
+        return checked
+    if key == "demo.missing-basis":
+        section_id = next(s["id"] for s in model["sections"] if any(LABEL in r for r in reasons(s)))
+
+        def wrong_question(broken):
+            section = next(s for s in broken["sections"] if s["id"] == section_id)
+            reason = next(r for r in reasons(section) if LABEL in r)
+            reason["sentence"] = "Demo unrelated question?"
+
+        return [mutated("dom_prefix_beside_wrong_question", wrong_question)]
+    return []
 
 
 def run_list(key, acts, is_synthetic, page):
@@ -278,13 +321,18 @@ def run_list(key, acts, is_synthetic, page):
             want, _ = expected_model(before["model"], texts, EXPECTED[key] if is_synthetic else None)
         names = compare(before, after, want)
         rejected = controls(key, before, after, want)
-        rendered = check_dom(page, after["model"], want) if is_synthetic else 0
+        rendered = named = 0
+        if want is not None:
+            expected = expected_dom(want)
+            rendered, named = check_dom(observe_dom(page, after["model"]), expected)
+            rejected.extend(dom_controls(key, page, after["model"], expected))
     except ValueError as exc:
         error = after["message"] if before["outcome"] == "success" and after["outcome"] != "success" else ""
         actual = names_at_positions(after["model"]) if after["outcome"] == "success" else {}
         raise ValueError(f"{key}: {exc} {error} ({len(actual)} actual names)") from exc
     return {
-        "outcome": before["outcome"], "names": names, "controls": rejected, "dom_sections": rendered,
+        "key": key, "baseline_outcome": before["outcome"], "candidate_outcome": after["outcome"],
+        "names": names, "controls": rejected, "dom_sections": rendered, "named_dom_sections": named,
     }
 
 
@@ -292,11 +340,55 @@ def run_shard(items, page):
     return {key: run_list(key, acts, synthetic, page) for key, acts, synthetic in items}
 
 
-def summarize(rows, expected):
+def error_keys_sha256(rows, outcome_field):
+    keys = sorted(row["key"] for row in rows if row[outcome_field] == "error")
+    return hashlib.sha256(json.dumps(keys, separators=(",", ":")).encode()).hexdigest()
+
+
+def require_outcomes(rows, expected, expected_error_keys=None):
+    baseline = Counter(row["baseline_outcome"] for row in rows)
+    candidate = Counter(row["candidate_outcome"] for row in rows)
+    if baseline != expected or candidate != baseline:
+        raise ValueError(f"outcome census differs from the landed baseline: {dict(sorted(baseline.items()))}, {dict(sorted(candidate.items()))}")
+    if expected_error_keys is not None and any(
+        error_keys_sha256(rows, field) != expected_error_keys
+        for field in ("baseline_outcome", "candidate_outcome")
+    ):
+        raise ValueError("error cases differ from the landed baseline")
+    return dict(baseline), dict(candidate)
+
+
+def census_controls(rows, expected, expected_error_keys):
+    broken = deepcopy(rows)
+    previously_saved = next(row for row in broken if row["baseline_outcome"] == "success")
+    # compare() alone accepts identical errors on both sides.
+    setup_error = {"outcome": "error", "error": "DemoSetupError", "message": "demo setup failed"}
+    previously_saved["names"] = compare(setup_error, setup_error, None)
+    previously_saved.update(baseline_outcome="error", candidate_outcome="error")
+    wrong = dict(expected)
+    wrong["success"] -= 1
+    wrong["error"] += 1
+    quoted = dict(sorted(wrong.items()))
+    rejected = [reject(
+        "same_setup_error_replaces_recorded_save", lambda: require_outcomes(broken, expected, expected_error_keys),
+        f"outcome census differs from the landed baseline: {quoted}, {quoted}",
+    )]
+    previously_errored = next(row for row in broken if row is not previously_saved and row["baseline_outcome"] == "error")
+    previously_errored.update(baseline_outcome="success", candidate_outcome="success")
+    rejected.append(reject(
+        "recorded_save_and_error_swap_with_same_census", lambda: require_outcomes(broken, expected, expected_error_keys),
+        "error cases differ from the landed baseline",
+    ))
+    return rejected
+
+
+def summarize(rows, expected_changed, expected_outcomes, expected_error_keys=None):
+    baseline, candidate = require_outcomes(rows, expected_outcomes, expected_error_keys)
     return {
-        "lists": len(rows), "outcomes": dict(Counter(r["outcome"] for r in rows)),
-        "changed_lists": require_changed(rows, expected), "names_added": sum(r["names"] for r in rows),
-        "named_dom_sections": sum(r["dom_sections"] for r in rows),
+        "lists": len(rows), "baseline_outcomes": baseline, "outcomes": candidate,
+        "changed_lists": require_changed(rows, expected_changed), "names_added": sum(r["names"] for r in rows),
+        "dom_sections": sum(r["dom_sections"] for r in rows),
+        "named_dom_sections": sum(r["named_dom_sections"] for r in rows),
     }
 
 
@@ -337,12 +429,23 @@ def main():
             print(f"{len(results)}/{len(recorded) + len(synthetic)}", flush=True)
     if results.keys() != {key for key, _, _ in synthetic + recorded}:
         raise ValueError("incomplete replay")
+    recorded_rows = [results[key] for key, _, _ in recorded]
+    synthetic_rows = [results[key] for key, _, _ in synthetic]
+    recorded_census = {} if args.cases_only else EXPECTED_OUTCOMES["recorded"]
+    recorded_errors = None if args.cases_only else RECORDED_ERROR_KEYS_SHA256
+    recorded_summary = summarize(recorded_rows, EXPECTED_CHANGED["recorded"], recorded_census, recorded_errors)
+    if recorded_errors is not None:
+        recorded_summary["error_keys_sha256"] = error_keys_sha256(recorded_rows, "baseline_outcome")
+    synthetic_summary = summarize(synthetic_rows, EXPECTED_CHANGED["synthetic"], EXPECTED_OUTCOMES["synthetic"])
+    rejected = [name for result in results.values() for name in result["controls"]]
+    if recorded_rows:
+        rejected.extend(census_controls(recorded_rows, recorded_census, recorded_errors))
     summary = {
         "baseline": "parent of the build(sale-question-names) commit in HEAD history", "core": CORE, "registry": "v107", "release": "v107",
         "workers": args.workers, "shards": len(shards),
-        "recorded": summarize([results[key] for key, _, _ in recorded], EXPECTED_CHANGED["recorded"]),
-        "synthetic": summarize([results[key] for key, _, _ in synthetic], EXPECTED_CHANGED["synthetic"]),
-        "controls_rejected": sorted(name for result in results.values() for name in result["controls"]),
+        "recorded": recorded_summary,
+        "synthetic": synthetic_summary,
+        "controls_rejected": sorted(rejected),
         "unexpected_differences": 0,
     }
     encoded = json.dumps(summary, indent=2, sort_keys=True) + "\n"

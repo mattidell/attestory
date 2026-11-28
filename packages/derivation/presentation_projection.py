@@ -52,8 +52,10 @@ from packages.derivation.schema_capabilities import (
     RULE_REQUIRE_PAIRED_SCHEMAS,
     RULE_V13_SELECTION_SCHEMAS,
 )
+from packages.kernel.currency import compute_currency
 from packages.kernel.facts import Fact, fact_id_for, facts_of
 from packages.kernel.findings import FindingState
+from packages.presentation.labels import has_sale_label_text
 from packages.tax.coverage import untranslated_source_findings
 from packages.tax.loader import (
     STATEMENT_BROKER_ANCHOR,
@@ -1265,6 +1267,8 @@ class _SaleQuestions:
             if fact_type in self.state.fact_state.fact_types
         ):
             return None
+        if self.current_ids != compute_currency(self.state).current_finding_ids:
+            return None
         rows: dict[str, dict[str, str]] = {}
         for fid in self.current_ids:
             finding = self.state.findings.get(fid)
@@ -1399,6 +1403,8 @@ class _SaleQuestions:
     def fixes(
         self, row: Mapping[str, Any], answer: str, source: str, code: str, declared: Mapping[str, Any],
     ) -> set[str] | None:
+        from packages.derivation.runner import _content_id
+
         family_id = source.removesuffix("-txn")
         artifact = family_id + _SALE_MEMBER_VALIDATION
         missing = row.get("missing")
@@ -1450,6 +1456,15 @@ class _SaleQuestions:
                 for v in violations
             ):
                 return None
+            # The witness id commits to the violation payload as well as the
+            # member identity, source pin and family declaration.
+            if fid != _content_id("derived-finding.v2:", {
+                "member_fact_id": fact_id,
+                "member_value_pin": {"id": source_id, "version": "v1"},
+                "declaration": {"id": family_id, "version": "v1"},
+                "violations": violations,
+            }):
+                return None
             seen.add(fact_id)
             codes = {v["block_code"] for v in violations}
             observed_codes.update(codes)
@@ -1499,10 +1514,8 @@ class _SaleQuestions:
                 if sale in labels or entity is None:
                     return {}
                 label = entity.get("label")
-                labels[sale] = (
-                    label if isinstance(label, str) and label.strip() and label != sale
-                    and not _UNSAFE_STRING_PATTERN.search(label) else None
-                )
+                # Even a label unusable for display can collide with a peer.
+                labels[sale] = label if isinstance(label, str) and has_sale_label_text(label) else None
         return labels
 
     def reasons(
@@ -1531,8 +1544,10 @@ class _SaleQuestions:
                 continue
             names = []
             for target in targets:
-                label = labels.get(dict(self.facts[target].keys)["sale"])
-                if label is None or normalized[" ".join(label.split()).casefold()] != 1:
+                sale = dict(self.facts[target].keys)["sale"]
+                label = labels.get(sale)
+                if (label is None or label == sale or _UNSAFE_STRING_PATTERN.search(label)
+                        or normalized[" ".join(label.split()).casefold()] != 1):
                     break
                 names.append((label, target))
             else:
@@ -7087,7 +7102,7 @@ def _validate_resolved(resolved: Mapping[str, Any], path: str) -> None:
                     raise PresentationModelError(f"{rp}.factId: expected non-empty string")
                 if "saleLabel" in reason:
                     name = reason["saleLabel"]
-                    if set(reason) != {"sentence", "saleLabel"} or not isinstance(name, str) or not name.strip():
+                    if set(reason) != {"sentence", "saleLabel"} or not has_sale_label_text(name):
                         raise PresentationModelError(f"{rp}.saleLabel: expected a display-only recorded sale name")
                 label = reason.get("statementLabel", {})
                 if not isinstance(label, dict) or not all(isinstance(v, str) and v for v in label.values()) \

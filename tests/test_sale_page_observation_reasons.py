@@ -269,3 +269,9 @@ def test_sale_name_is_displayed_with_recorded_spacing_beside_the_original_questi
     )
     resolved = model["sections"][0]["resolved"]
     assert _expected_blocked_reason_texts(model, resolved) == [LINK, f"demo  A & B shares: {SENTENCE}"]
+
+
+def test_blank_unicode_sale_name_keeps_the_generic_question() -> None:
+    for label in ("\ufeff", "\u2003\u200b"):
+        model = _model([{"sentence": SENTENCE, "saleLabel": label}], include_refs=False)
+        assert _expected_blocked_reason_texts(model, model["sections"][0]["resolved"]) == [SENTENCE]

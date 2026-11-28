@@ -9,16 +9,26 @@
     "changed_report_beside_name",
     "changed_unnamed_model",
     "changed_unnamed_report",
+    "dom_prefix_beside_wrong_question",
+    "dom_spurious_single_sale_prefix",
     "moved_question_ref",
+    "recorded_save_and_error_swap_with_same_census",
     "removed_name",
     "removed_named_reason",
+    "same_setup_error_replaces_recorded_save",
     "swapped_names",
     "wrong_changed_list_total",
     "wrong_unlinked_name"
   ],
   "core": "v109",
   "recorded": {
+    "baseline_outcomes": {
+      "error": 84,
+      "success": 691
+    },
     "changed_lists": 0,
+    "dom_sections": 59426,
+    "error_keys_sha256": "2767993ef1bce2c29eda8c07df82a0533d7180042ba34c387ed9636bf59d487b",
     "lists": 775,
     "named_dom_sections": 0,
     "names_added": 0,
@@ -31,7 +41,11 @@
   "release": "v107",
   "shards": 49,
   "synthetic": {
+    "baseline_outcomes": {
+      "success": 19
+    },
     "changed_lists": 7,
+    "dom_sections": 1634,
     "lists": 19,
     "named_dom_sections": 226,
     "names_added": 352,
