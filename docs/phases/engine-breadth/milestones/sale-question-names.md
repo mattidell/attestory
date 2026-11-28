@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "sale-question-names",
-  "status": "Open 2026-11-27. P0 chartered.",
+  "status": "Open 2026-11-27. ADR 0089 amendment accepted; Track 1 chartered.",
   "retrospective": null,
   "scope": [
     "when a return has more than one sale with no Form 1099-B (Form 8949 boxes C and F) and the saved page asks a per-sale question, each question names the sale by what the filer recorded (description, dates or label), so the filer can tell which sale it asks about",
@@ -81,6 +81,33 @@ roadmap parks:
 2. **Track 1 (build)**, fresh review, repair, closeout, final review,
    merge.
 
+## P0 result
+
+Core v109 exposes proceeds, basis and wash-sale adjustment questions for
+both terms. The current sale entity's recorded label can name the sale
+reached by the existing question walk. The scratch route uses the pinned
+pairing, published amount disagreement or per-sale validation witness.
+It leaves the saved question and its answer links intact and adds a
+display-only prefix when the label distinguishes the sale among its current
+peers. A blank or repeated target label keeps the existing display.
+
+All 775 recorded lists matched across the full saved model and report
+comparison, including 691 saves and 84 admission errors. No recorded list
+gained a name. Ten of 19 synthetic lists gained 480 exact ordered names.
+Thirteen replay mutations were rejected. The live input probes passed 93
+checks each on v109 and its scratch v110 successor, and the published
+v108 control kept the prior display. The replay found zero unexpected
+differences.
+
+[P0 evidence and proposed ADR 0089 amendment](sale-question-names-evidence/p0.md) ·
+[Replay summary](sale-question-names-evidence/replay-summary.json)
+
 ## Decisions
 
-- **Owner** — Accept or reject the amendment P0 drafts, before Track 1.
+- **Owner** — Accepted the
+  [ADR 0089 amendment](../../../adr/0089-statement-question-labels.md)
+  on 2026-11-27, before Track 1: more than one sale, generic display for a
+  missing or repeated label, and no name beside a basis consistency
+  question whose rule does not say which amount disagrees.
+- **Foreman** — Carry the accepted routes and their core and input guards
+  into the Track 1 charter after the owner decision.
