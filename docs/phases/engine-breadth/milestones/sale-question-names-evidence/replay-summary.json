@@ -1,0 +1,463 @@
+{
+  "baseline": "0172559abe564a0dc9da0aea521d4dd419e05d8f",
+  "controls_rejected": [
+    "added_name_to_repeated_sale",
+    "changed_block_code_beside_name",
+    "changed_failure_class",
+    "changed_failure_message",
+    "changed_outcome",
+    "changed_report_beside_name",
+    "changed_unnamed_model",
+    "changed_unnamed_report",
+    "moved_question_ref",
+    "recorded_save_and_error_swap_with_same_census",
+    "removed_name",
+    "same_setup_error_replaces_recorded_save",
+    "swapped_names",
+    "wrong_changed_list_total",
+    "wrong_unlinked_name"
+  ],
+  "core": "v109",
+  "recorded": {
+    "baseline_outcomes": {
+      "error": 84,
+      "success": 691
+    },
+    "changed_lists": 0,
+    "error_keys_sha256": "2767993ef1bce2c29eda8c07df82a0533d7180042ba34c387ed9636bf59d487b",
+    "lists": 775,
+    "lists_by_question": {
+      "lt.basis": 2,
+      "st.adjustment": 2,
+      "st.basis": 6,
+      "st.proceeds": 2
+    },
+    "named_dom_sections": 0,
+    "names_added": 0,
+    "outcomes": {
+      "error": 84,
+      "success": 691
+    },
+    "reason_counts_by_question": {
+      "lt.basis": 64,
+      "st.adjustment": 64,
+      "st.basis": 192,
+      "st.proceeds": 64
+    },
+    "recorded_sale_counts": {
+      "0": 680,
+      "1": 89,
+      "2": 6
+    },
+    "saved_current_sale_counts": {
+      "0": 600,
+      "1": 86,
+      "2": 5
+    },
+    "saved_with_missing_labels": 0,
+    "saved_with_repeated_labels": 5
+  },
+  "registry": "v107",
+  "release": "v107",
+  "scratch_page_sha256": "b942ea2076828ce36429732da134ebabe9fb88182c65f114ae7a6b2fe3e9f32f",
+  "scratch_projection_sha256": "3c408fb00d3f01967e11c7bd7e70cac7178cb5ab795a9a103fee7199600fb473",
+  "shards": 34,
+  "synthetic": {
+    "baseline_outcomes": {
+      "success": 19
+    },
+    "changed_lists": 10,
+    "lists": 19,
+    "lists_by_question": {
+      "lt.adjustment": 2,
+      "lt.basis": 2,
+      "lt.proceeds": 1,
+      "st.adjustment": 9,
+      "st.basis": 3,
+      "st.proceeds": 1
+    },
+    "named_dom_sections": 322,
+    "names_added": 480,
+    "outcomes": {
+      "success": 19
+    },
+    "reason_counts_by_question": {
+      "lt.adjustment": 64,
+      "lt.basis": 64,
+      "lt.proceeds": 32,
+      "st.adjustment": 288,
+      "st.basis": 96,
+      "st.proceeds": 32
+    },
+    "recorded_sale_counts": {
+      "1": 1,
+      "2": 15,
+      "3": 3
+    },
+    "saved_current_sale_counts": {
+      "1": 1,
+      "2": 15,
+      "3": 3
+    },
+    "saved_with_missing_labels": 2,
+    "saved_with_repeated_labels": 3
+  },
+  "synthetic_cases": {
+    "demo.all-valid": {
+      "baseline_outcome": "success",
+      "candidate_outcome": "success",
+      "controls": [
+        "changed_outcome",
+        "wrong_changed_list_total"
+      ],
+      "current_sales": [
+        2,
+        false,
+        false
+      ],
+      "dom_sections": 0,
+      "historical_sales": 2,
+      "key": "demo.all-valid",
+      "names": 0,
+      "outcome": "success",
+      "questions": {}
+    },
+    "demo.amounts-disagree": {
+      "baseline_outcome": "success",
+      "candidate_outcome": "success",
+      "controls": [],
+      "current_sales": [
+        3,
+        false,
+        false
+      ],
+      "dom_sections": 32,
+      "historical_sales": 3,
+      "key": "demo.amounts-disagree",
+      "names": 64,
+      "outcome": "success",
+      "questions": {
+        "st.basis": 32
+      }
+    },
+    "demo.blank-label": {
+      "baseline_outcome": "success",
+      "candidate_outcome": "success",
+      "controls": [],
+      "current_sales": [
+        2,
+        true,
+        false
+      ],
+      "dom_sections": 0,
+      "historical_sales": 2,
+      "key": "demo.blank-label",
+      "names": 0,
+      "outcome": "success",
+      "questions": {
+        "st.adjustment": 32
+      }
+    },
+    "demo.holding-period": {
+      "baseline_outcome": "success",
+      "candidate_outcome": "success",
+      "controls": [],
+      "current_sales": [
+        2,
+        false,
+        false
+      ],
+      "dom_sections": 0,
+      "historical_sales": 2,
+      "key": "demo.holding-period",
+      "names": 0,
+      "outcome": "success",
+      "questions": {}
+    },
+    "demo.id-label": {
+      "baseline_outcome": "success",
+      "candidate_outcome": "success",
+      "controls": [],
+      "current_sales": [
+        2,
+        true,
+        false
+      ],
+      "dom_sections": 0,
+      "historical_sales": 2,
+      "key": "demo.id-label",
+      "names": 0,
+      "outcome": "success",
+      "questions": {
+        "st.adjustment": 32
+      }
+    },
+    "demo.long-amounts-disagree": {
+      "baseline_outcome": "success",
+      "candidate_outcome": "success",
+      "controls": [],
+      "current_sales": [
+        2,
+        false,
+        false
+      ],
+      "dom_sections": 32,
+      "historical_sales": 2,
+      "key": "demo.long-amounts-disagree",
+      "names": 32,
+      "outcome": "success",
+      "questions": {
+        "lt.basis": 32
+      }
+    },
+    "demo.long-missing-basis": {
+      "baseline_outcome": "success",
+      "candidate_outcome": "success",
+      "controls": [],
+      "current_sales": [
+        2,
+        false,
+        false
+      ],
+      "dom_sections": 32,
+      "historical_sales": 2,
+      "key": "demo.long-missing-basis",
+      "names": 32,
+      "outcome": "success",
+      "questions": {
+        "lt.basis": 32
+      }
+    },
+    "demo.long-missing-proceeds": {
+      "baseline_outcome": "success",
+      "candidate_outcome": "success",
+      "controls": [],
+      "current_sales": [
+        3,
+        false,
+        false
+      ],
+      "dom_sections": 32,
+      "historical_sales": 3,
+      "key": "demo.long-missing-proceeds",
+      "names": 64,
+      "outcome": "success",
+      "questions": {
+        "lt.proceeds": 32
+      }
+    },
+    "demo.missing-adjustment": {
+      "baseline_outcome": "success",
+      "candidate_outcome": "success",
+      "controls": [],
+      "current_sales": [
+        2,
+        false,
+        false
+      ],
+      "dom_sections": 32,
+      "historical_sales": 2,
+      "key": "demo.missing-adjustment",
+      "names": 32,
+      "outcome": "success",
+      "questions": {
+        "st.basis": 32
+      }
+    },
+    "demo.missing-basis": {
+      "baseline_outcome": "success",
+      "candidate_outcome": "success",
+      "controls": [
+        "wrong_unlinked_name",
+        "changed_block_code_beside_name",
+        "changed_report_beside_name"
+      ],
+      "current_sales": [
+        2,
+        false,
+        false
+      ],
+      "dom_sections": 32,
+      "historical_sales": 2,
+      "key": "demo.missing-basis",
+      "names": 32,
+      "outcome": "success",
+      "questions": {
+        "st.basis": 32
+      }
+    },
+    "demo.missing-proceeds": {
+      "baseline_outcome": "success",
+      "candidate_outcome": "success",
+      "controls": [],
+      "current_sales": [
+        2,
+        false,
+        false
+      ],
+      "dom_sections": 32,
+      "historical_sales": 2,
+      "key": "demo.missing-proceeds",
+      "names": 32,
+      "outcome": "success",
+      "questions": {
+        "st.proceeds": 32
+      }
+    },
+    "demo.mixed-terms": {
+      "baseline_outcome": "success",
+      "candidate_outcome": "success",
+      "controls": [],
+      "current_sales": [
+        2,
+        false,
+        false
+      ],
+      "dom_sections": 34,
+      "historical_sales": 2,
+      "key": "demo.mixed-terms",
+      "names": 64,
+      "outcome": "success",
+      "questions": {
+        "lt.adjustment": 32,
+        "st.adjustment": 32
+      }
+    },
+    "demo.near-labels": {
+      "baseline_outcome": "success",
+      "candidate_outcome": "success",
+      "controls": [],
+      "current_sales": [
+        2,
+        false,
+        true
+      ],
+      "dom_sections": 0,
+      "historical_sales": 2,
+      "key": "demo.near-labels",
+      "names": 0,
+      "outcome": "success",
+      "questions": {
+        "st.adjustment": 32
+      }
+    },
+    "demo.older-core": {
+      "baseline_outcome": "success",
+      "candidate_outcome": "success",
+      "controls": [],
+      "current_sales": [
+        2,
+        false,
+        false
+      ],
+      "dom_sections": 0,
+      "historical_sales": 2,
+      "key": "demo.older-core",
+      "names": 0,
+      "outcome": "success",
+      "questions": {
+        "st.adjustment": 32
+      }
+    },
+    "demo.repeated-label": {
+      "baseline_outcome": "success",
+      "candidate_outcome": "success",
+      "controls": [
+        "added_name_to_repeated_sale",
+        "changed_unnamed_model",
+        "changed_unnamed_report"
+      ],
+      "current_sales": [
+        2,
+        false,
+        true
+      ],
+      "dom_sections": 0,
+      "historical_sales": 2,
+      "key": "demo.repeated-label",
+      "names": 0,
+      "outcome": "success",
+      "questions": {
+        "st.adjustment": 32
+      }
+    },
+    "demo.repeated-with-peer": {
+      "baseline_outcome": "success",
+      "candidate_outcome": "success",
+      "controls": [],
+      "current_sales": [
+        2,
+        false,
+        true
+      ],
+      "dom_sections": 0,
+      "historical_sales": 2,
+      "key": "demo.repeated-with-peer",
+      "names": 0,
+      "outcome": "success",
+      "questions": {
+        "st.adjustment": 32
+      }
+    },
+    "demo.single-sale": {
+      "baseline_outcome": "success",
+      "candidate_outcome": "success",
+      "controls": [],
+      "current_sales": [
+        1,
+        false,
+        false
+      ],
+      "dom_sections": 0,
+      "historical_sales": 1,
+      "key": "demo.single-sale",
+      "names": 0,
+      "outcome": "success",
+      "questions": {
+        "st.adjustment": 32
+      }
+    },
+    "demo.three-with-peer": {
+      "baseline_outcome": "success",
+      "candidate_outcome": "success",
+      "controls": [],
+      "current_sales": [
+        3,
+        false,
+        false
+      ],
+      "dom_sections": 32,
+      "historical_sales": 3,
+      "key": "demo.three-with-peer",
+      "names": 64,
+      "outcome": "success",
+      "questions": {
+        "lt.adjustment": 32
+      }
+    },
+    "demo.two-fixes": {
+      "baseline_outcome": "success",
+      "candidate_outcome": "success",
+      "controls": [
+        "removed_name",
+        "swapped_names",
+        "moved_question_ref"
+      ],
+      "current_sales": [
+        2,
+        false,
+        false
+      ],
+      "dom_sections": 32,
+      "historical_sales": 2,
+      "key": "demo.two-fixes",
+      "names": 64,
+      "outcome": "success",
+      "questions": {
+        "st.adjustment": 32
+      }
+    }
+  },
+  "unexpected_differences": 0,
+  "workers": 5
+}

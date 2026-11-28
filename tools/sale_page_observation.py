@@ -718,6 +718,11 @@ _ORDINAL_WORDS = ("first", "second", "third", "fourth", "fifth", "sixth", "seven
 
 def _labeled_reason_text(reason: dict[str, Any]) -> str:
     """Bold prefix plus sentence, as ``renderLine`` shows a reason with no question group."""
+    from packages.presentation.labels import has_sale_label_text
+
+    sale = reason.get("saleLabel")
+    if has_sale_label_text(sale):
+        return f"{sale}: {reason['sentence']}"
     member = reason.get("memberLabel")
     if isinstance(member, str) and member:
         name = member

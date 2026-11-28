@@ -173,14 +173,55 @@ The cohort can remain indistinguishable when the available names repeat
 or a name is missing. Ordinals and other identifying details would require
 their own decision.
 
+## Amendment (2026-11-27, third) — A question about a sale with no Form 1099-B names the sale
+
+Status: **accepted** (owner, 2026-11-27, before Track 1; the consistency
+route is excluded, as the foreman recommended). Milestone:
+sale-question-names. Evidence:
+`docs/phases/engine-breadth/milestones/sale-question-names-evidence/p0.md`.
+
+Sales with no Form 1099-B (Form 8949 boxes C and F) have no statement, so
+the decisions above do not reach their per-sale questions. The current
+sale entity's recorded label can name the sale.
+
+1. On core-calculations v109 and successor cores retaining the declared
+   routes and identity contracts, a saved question about a Box C or F sale
+   may display the recorded label of that sale when the return contains
+   more than one current source-backed no-1099-B sale. Use the complete
+   `sale`/tax-year identity. The label is presentation text.
+2. Attribute only a question reached by the existing walk. Use the shared
+   pairing test over the block's current source/answer pins for missing
+   basis or proceeds, and the same-family, same-code member validation
+   publications and current source pins for the wash-sale fixing
+   questions. Where more than one witnessed leaf reaches a sentence,
+   require proof from each leaf. A basis consistency block whose rule
+   does not say which amount disagrees is not attributed: its question
+   keeps the existing reason.
+3. Use the matching current sale entity's nonblank, distinguishable
+   recorded label. Compare labels across all current Box C/F sale peers,
+   including answered peers, with case and whitespace normalized for
+   collision detection. Preserve recorded spelling and spacing in the
+   display. Keep the existing reason for a sentence if any of its targets
+   cannot be identified and named uniquely. Keep the existing single-sale
+   display.
+4. Show one `saleLabel` display reason per identified sale and sentence,
+   sorted by recorded label and canonical identity. Retain an existing
+   linked reason before the new reasons and shift references to their
+   original targets. Keep question text and groups, answer scopes and
+   targets, numbers, dispositions, block codes, report rows, pins and
+   existing statement and roster labels. The saved page supplies display
+   only.
+
 ## Parked
 
-Other statement pairings; per-statement question wording; naming the sale on questions for
-sales without a Form 1099-B.
+Other statement pairings; per-statement question wording; naming the sale
+beside a basis consistency question whose rule does not say which amount
+disagrees.
 
 ## Links
 
 - Plan: `docs/phases/engine-breadth/milestones/statement-question-labels.md`
 - Amendment plan: `docs/phases/engine-breadth/milestones/statement-labels-forms.md`
 - Second amendment plan: `docs/phases/engine-breadth/milestones/statement-label-payer.md`
+- Third amendment plan: `docs/phases/engine-breadth/milestones/sale-question-names.md`
 - ADR 0087 (roster member labels), ADR 0046 (presentation surface contract)
