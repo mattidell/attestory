@@ -12,7 +12,7 @@ from shutil import copytree
 from tempfile import TemporaryDirectory
 from unittest.mock import patch
 
-from probe import ALPHA, CORE, ZULU, build_sales, cases
+from probe import ALPHA, CORE, P, ZULU, build_sales, cases
 import scratch
 from packages.derivation import live
 from tools import recorded_replay as rr
@@ -213,8 +213,8 @@ def run(route, key, core=CORE):
     return seen
 
 
-def successor(directory):
-    """Create a live scratch v110 with every v109 member pin retained."""
+def successor(directory, change_rule=None):
+    """Create a live scratch v110, optionally replacing the Box C rule."""
     base = rr.resolve_core(CORE)
     content = directory / "content"
     releases = directory / "releases"
@@ -223,12 +223,25 @@ def successor(directory):
     core = rr.ReplayCore("v110", "v108", "v108", content, releases, loader_from=CORE)
     corpus, _ = load_corpus(base.content)
     predecessor = json.loads(base.package_path.read_bytes())
+    changes = {"package_version": core.version, "release_version": core.release_version}
+    if change_rule is not None:
+        rule_id = P + "rule.schedule-d-line3"
+        pin = next(pin for pin in predecessor["members"] if pin["id"] == rule_id)
+        rule = {**deepcopy(corpus[(rule_id, pin["version"])]), "version": "v4"}
+        change_rule(rule)
+        corpus[(rule_id, "v4")] = rule
+        (content / "rule.schedule-d-line3.v4.json").write_text(json.dumps(rule), encoding="utf-8")
+        replacement = {"op": "replace", "old": pin, "new": {**pin, "version": "v4"}}
+        changes["members"] = [replacement]
+        entrypoint = {"id": rule_id, "version": pin["version"]}
+        if entrypoint in predecessor["entrypoints"]:
+            changes["entrypoints"] = [{"op": "replace", "old": entrypoint, "new": {**entrypoint, "version": "v4"}}]
     candidate = build_successor(
         predecessor, (base.content / f"published-packages.{base.registry}.json").read_bytes(),
         json.loads(base.release_path.read_bytes()), corpus,
-        {"package_version": core.version, "release_version": core.release_version},
+        changes,
     )
-    if json.loads(candidate.package)["members"] != predecessor["members"]:
+    if change_rule is None and json.loads(candidate.package)["members"] != predecessor["members"]:
         raise ValueError("control requires identical adopted member pins")
     core.package_path.write_bytes(candidate.package)
     (content / f"published-packages.{core.registry}.json").write_bytes(candidate.registry)

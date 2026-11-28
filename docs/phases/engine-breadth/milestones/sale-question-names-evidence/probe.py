@@ -13,7 +13,7 @@ HERE = Path(__file__).resolve().parent
 REPO = HERE.parents[4]
 sys.path.insert(0, str(REPO))
 
-from packages.derivation import live, presentation_projection
+from packages.derivation import live
 from tests.helpers import current_core_returns as ccr
 from tools import recorded_replay as rr
 
@@ -105,12 +105,15 @@ def questions(members):
 
 
 def observe(acts: rr.Acts, key: str, core: str = CORE) -> dict:
-    """Capture question reasons and the already-read evidence in a live run."""
+    """Capture the original P0 question inventory through the live coordinator."""
+    from scratch import projectors
+
+    baseline, _ = projectors()
     census = {}
 
     def projector(**kwargs):
         by_type = questions(kwargs["resolved_members"])
-        model = presentation_projection.build_presentation_model(**kwargs)
+        model = baseline.build_presentation_model(**kwargs)
         found = {}
         groups = {group["id"]: group for group in model["questionGroups"]}
         for section in model["sections"]:

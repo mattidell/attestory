@@ -10,14 +10,21 @@
     "changed_unnamed_model",
     "changed_unnamed_report",
     "moved_question_ref",
+    "recorded_save_and_error_swap_with_same_census",
     "removed_name",
+    "same_setup_error_replaces_recorded_save",
     "swapped_names",
     "wrong_changed_list_total",
     "wrong_unlinked_name"
   ],
   "core": "v109",
   "recorded": {
+    "baseline_outcomes": {
+      "error": 84,
+      "success": 691
+    },
     "changed_lists": 0,
+    "error_keys_sha256": "2767993ef1bce2c29eda8c07df82a0533d7180042ba34c387ed9636bf59d487b",
     "lists": 775,
     "lists_by_question": {
       "lt.basis": 2,
@@ -54,8 +61,11 @@
   "release": "v107",
   "scratch_page_sha256": "b942ea2076828ce36429732da134ebabe9fb88182c65f114ae7a6b2fe3e9f32f",
   "scratch_projection_sha256": "3c408fb00d3f01967e11c7bd7e70cac7178cb5ab795a9a103fee7199600fb473",
-  "shards": 49,
+  "shards": 34,
   "synthetic": {
+    "baseline_outcomes": {
+      "success": 19
+    },
     "changed_lists": 10,
     "lists": 19,
     "lists_by_question": {
@@ -94,6 +104,8 @@
   },
   "synthetic_cases": {
     "demo.all-valid": {
+      "baseline_outcome": "success",
+      "candidate_outcome": "success",
       "controls": [
         "changed_outcome",
         "wrong_changed_list_total"
@@ -105,11 +117,14 @@
       ],
       "dom_sections": 0,
       "historical_sales": 2,
+      "key": "demo.all-valid",
       "names": 0,
       "outcome": "success",
       "questions": {}
     },
     "demo.amounts-disagree": {
+      "baseline_outcome": "success",
+      "candidate_outcome": "success",
       "controls": [],
       "current_sales": [
         3,
@@ -118,6 +133,7 @@
       ],
       "dom_sections": 32,
       "historical_sales": 3,
+      "key": "demo.amounts-disagree",
       "names": 64,
       "outcome": "success",
       "questions": {
@@ -125,6 +141,8 @@
       }
     },
     "demo.blank-label": {
+      "baseline_outcome": "success",
+      "candidate_outcome": "success",
       "controls": [],
       "current_sales": [
         2,
@@ -133,6 +151,7 @@
       ],
       "dom_sections": 0,
       "historical_sales": 2,
+      "key": "demo.blank-label",
       "names": 0,
       "outcome": "success",
       "questions": {
@@ -140,6 +159,8 @@
       }
     },
     "demo.holding-period": {
+      "baseline_outcome": "success",
+      "candidate_outcome": "success",
       "controls": [],
       "current_sales": [
         2,
@@ -148,11 +169,14 @@
       ],
       "dom_sections": 0,
       "historical_sales": 2,
+      "key": "demo.holding-period",
       "names": 0,
       "outcome": "success",
       "questions": {}
     },
     "demo.id-label": {
+      "baseline_outcome": "success",
+      "candidate_outcome": "success",
       "controls": [],
       "current_sales": [
         2,
@@ -161,6 +185,7 @@
       ],
       "dom_sections": 0,
       "historical_sales": 2,
+      "key": "demo.id-label",
       "names": 0,
       "outcome": "success",
       "questions": {
@@ -168,6 +193,8 @@
       }
     },
     "demo.long-amounts-disagree": {
+      "baseline_outcome": "success",
+      "candidate_outcome": "success",
       "controls": [],
       "current_sales": [
         2,
@@ -176,6 +203,7 @@
       ],
       "dom_sections": 32,
       "historical_sales": 2,
+      "key": "demo.long-amounts-disagree",
       "names": 32,
       "outcome": "success",
       "questions": {
@@ -183,6 +211,8 @@
       }
     },
     "demo.long-missing-basis": {
+      "baseline_outcome": "success",
+      "candidate_outcome": "success",
       "controls": [],
       "current_sales": [
         2,
@@ -191,6 +221,7 @@
       ],
       "dom_sections": 32,
       "historical_sales": 2,
+      "key": "demo.long-missing-basis",
       "names": 32,
       "outcome": "success",
       "questions": {
@@ -198,6 +229,8 @@
       }
     },
     "demo.long-missing-proceeds": {
+      "baseline_outcome": "success",
+      "candidate_outcome": "success",
       "controls": [],
       "current_sales": [
         3,
@@ -206,6 +239,7 @@
       ],
       "dom_sections": 32,
       "historical_sales": 3,
+      "key": "demo.long-missing-proceeds",
       "names": 64,
       "outcome": "success",
       "questions": {
@@ -213,6 +247,8 @@
       }
     },
     "demo.missing-adjustment": {
+      "baseline_outcome": "success",
+      "candidate_outcome": "success",
       "controls": [],
       "current_sales": [
         2,
@@ -221,6 +257,7 @@
       ],
       "dom_sections": 32,
       "historical_sales": 2,
+      "key": "demo.missing-adjustment",
       "names": 32,
       "outcome": "success",
       "questions": {
@@ -228,6 +265,8 @@
       }
     },
     "demo.missing-basis": {
+      "baseline_outcome": "success",
+      "candidate_outcome": "success",
       "controls": [
         "wrong_unlinked_name",
         "changed_block_code_beside_name",
@@ -240,6 +279,7 @@
       ],
       "dom_sections": 32,
       "historical_sales": 2,
+      "key": "demo.missing-basis",
       "names": 32,
       "outcome": "success",
       "questions": {
@@ -247,6 +287,8 @@
       }
     },
     "demo.missing-proceeds": {
+      "baseline_outcome": "success",
+      "candidate_outcome": "success",
       "controls": [],
       "current_sales": [
         2,
@@ -255,6 +297,7 @@
       ],
       "dom_sections": 32,
       "historical_sales": 2,
+      "key": "demo.missing-proceeds",
       "names": 32,
       "outcome": "success",
       "questions": {
@@ -262,6 +305,8 @@
       }
     },
     "demo.mixed-terms": {
+      "baseline_outcome": "success",
+      "candidate_outcome": "success",
       "controls": [],
       "current_sales": [
         2,
@@ -270,6 +315,7 @@
       ],
       "dom_sections": 34,
       "historical_sales": 2,
+      "key": "demo.mixed-terms",
       "names": 64,
       "outcome": "success",
       "questions": {
@@ -278,6 +324,8 @@
       }
     },
     "demo.near-labels": {
+      "baseline_outcome": "success",
+      "candidate_outcome": "success",
       "controls": [],
       "current_sales": [
         2,
@@ -286,6 +334,7 @@
       ],
       "dom_sections": 0,
       "historical_sales": 2,
+      "key": "demo.near-labels",
       "names": 0,
       "outcome": "success",
       "questions": {
@@ -293,6 +342,8 @@
       }
     },
     "demo.older-core": {
+      "baseline_outcome": "success",
+      "candidate_outcome": "success",
       "controls": [],
       "current_sales": [
         2,
@@ -301,6 +352,7 @@
       ],
       "dom_sections": 0,
       "historical_sales": 2,
+      "key": "demo.older-core",
       "names": 0,
       "outcome": "success",
       "questions": {
@@ -308,6 +360,8 @@
       }
     },
     "demo.repeated-label": {
+      "baseline_outcome": "success",
+      "candidate_outcome": "success",
       "controls": [
         "added_name_to_repeated_sale",
         "changed_unnamed_model",
@@ -320,6 +374,7 @@
       ],
       "dom_sections": 0,
       "historical_sales": 2,
+      "key": "demo.repeated-label",
       "names": 0,
       "outcome": "success",
       "questions": {
@@ -327,6 +382,8 @@
       }
     },
     "demo.repeated-with-peer": {
+      "baseline_outcome": "success",
+      "candidate_outcome": "success",
       "controls": [],
       "current_sales": [
         2,
@@ -335,6 +392,7 @@
       ],
       "dom_sections": 0,
       "historical_sales": 2,
+      "key": "demo.repeated-with-peer",
       "names": 0,
       "outcome": "success",
       "questions": {
@@ -342,6 +400,8 @@
       }
     },
     "demo.single-sale": {
+      "baseline_outcome": "success",
+      "candidate_outcome": "success",
       "controls": [],
       "current_sales": [
         1,
@@ -350,6 +410,7 @@
       ],
       "dom_sections": 0,
       "historical_sales": 1,
+      "key": "demo.single-sale",
       "names": 0,
       "outcome": "success",
       "questions": {
@@ -357,6 +418,8 @@
       }
     },
     "demo.three-with-peer": {
+      "baseline_outcome": "success",
+      "candidate_outcome": "success",
       "controls": [],
       "current_sales": [
         3,
@@ -365,6 +428,7 @@
       ],
       "dom_sections": 32,
       "historical_sales": 3,
+      "key": "demo.three-with-peer",
       "names": 64,
       "outcome": "success",
       "questions": {
@@ -372,6 +436,8 @@
       }
     },
     "demo.two-fixes": {
+      "baseline_outcome": "success",
+      "candidate_outcome": "success",
       "controls": [
         "removed_name",
         "swapped_names",
@@ -384,6 +450,7 @@
       ],
       "dom_sections": 32,
       "historical_sales": 2,
+      "key": "demo.two-fixes",
       "names": 64,
       "outcome": "success",
       "questions": {
@@ -392,5 +459,5 @@
     }
   },
   "unexpected_differences": 0,
-  "workers": 10
+  "workers": 5
 }
