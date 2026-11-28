@@ -35,8 +35,10 @@ import json
 import re
 import inspect
 import math
-from collections.abc import Mapping
+from collections import Counter
+from collections.abc import Iterable, Mapping
 from decimal import Decimal, InvalidOperation
+from functools import cached_property
 from typing import Any, Callable, Sequence, cast
 
 from packages.derivation.derived_enumeration import derived_activity_present, fact_type_matches_symbol
@@ -47,10 +49,13 @@ from packages.derivation.schema_capabilities import (
     ATTACHMENT_EXCLUSIVE_SELECTION_SCHEMAS,
     ATTACHMENT_PROJECTION_ROW_SETS_SCHEMAS,
     ATTACHMENT_PROJECTION_SCHEMAS,
+    RULE_REQUIRE_PAIRED_SCHEMAS,
     RULE_V13_SELECTION_SCHEMAS,
 )
+from packages.kernel.currency import compute_currency
 from packages.kernel.facts import Fact, fact_id_for, facts_of
 from packages.kernel.findings import FindingState
+from packages.presentation.labels import has_sale_label_text
 from packages.tax.coverage import untranslated_source_findings
 from packages.tax.loader import (
     STATEMENT_BROKER_ANCHOR,
@@ -1188,6 +1193,368 @@ def _answer_explanation_sentences(
     return found
 
 
+_SALE_FAMILY_PREFIX = "tax.us.2025.f8949.no1099b-"
+_SALE_SCHEDULE_D_LINES = {f"{_SALE_FAMILY_PREFIX}st-txn": "3", f"{_SALE_FAMILY_PREFIX}lt-txn": "10"}
+_SALE_ANSWER_SOURCES = {
+    f"{source}.{kind}": source for source in _SALE_SCHEDULE_D_LINES
+    for kind in ("basis", "proceeds", "adjustment")
+}
+_SALE_ENTITY_KIND = "tax.us.f8949-sale"
+_SALE_IDENTITY = [
+    {"name": "sale", "kind": "entity", "entity_kind": _SALE_ENTITY_KIND},
+    {"name": "tax-year", "kind": "literal", "values": ["2025"]},
+]
+_SALE_FIX_CODES = frozenset({"CODE_W_ON_GAIN", "ADJUSTMENT_EXCEEDS_LOSS"})
+_SALE_MEMBER_VALIDATION = ".member-validation.synthesized"
+_SaleQuestionTrace = tuple[str, Mapping[str, Any] | None, str, Mapping[str, Any] | None]
+
+
+class _SaleQuestions:
+    """Name the sales behind already reached Box C/F question leaves (ADR 0089)."""
+
+    def __init__(
+        self,
+        adopted_package: tuple[str, str] | None,
+        state: FindingState,
+        current_ids: frozenset[str] | None,
+        members: Sequence[Mapping[str, Any]],
+        publications: Mapping[str, Mapping[str, Any]],
+    ) -> None:
+        self.adopted_package = adopted_package
+        self.enabled = (
+            adopted_package is not None and adopted_package[0] == "tax.us.2025.package.core-calculations"
+            and re.fullmatch(r"v[1-9][0-9]*", adopted_package[1]) is not None
+            and int(adopted_package[1][1:]) >= 109 and current_ids is not None
+        )
+        self.state = state
+        self.current_ids = current_ids
+        self.members = members
+        self.publications = publications
+        self._identities: dict[str, bool] = {}
+
+    def applies(self, fact_type: str) -> bool:
+        return self.enabled and fact_type in _SALE_ANSWER_SOURCES
+
+    @cached_property
+    def facts(self) -> Mapping[str, Fact]:
+        return facts_of(self.state.fact_state)
+
+    def fact(self, fact_id: str, fact_type: str) -> Fact | None:
+        fact = self.facts.get(fact_id)
+        if fact is None or fact.fact_id != fact_id or fact.fact_type_id != fact_type:
+            return None
+        keys = dict(fact.keys)
+        if (len(fact.keys) != 2 or set(keys) != {"sale", "tax-year"} or not keys["sale"]
+                or keys["tax-year"] != "2025"
+                or fact_id != fact_id_for(fact_type, (("sale", keys["sale"]), ("tax-year", "2025")))
+                or self.sale_entity(keys["sale"]) is None):
+            return None
+        return fact
+
+    def sale_entity(self, sale: str) -> Mapping[str, Any] | None:
+        entity = self.state.fact_state.entities.get(sale)
+        if (entity is None or entity.status != "current" or entity.entity.get("id") != sale
+                or entity.entity.get("kind") != _SALE_ENTITY_KIND):
+            return None
+        return entity.entity
+
+    @cached_property
+    def current(self) -> dict[str, dict[str, str]] | None:
+        """Index complete, unambiguous current identities, including answered peers."""
+        if self.current_ids is None or any(
+            not self.identity_contract(fact_type)
+            for fact_type in _SALE_SCHEDULE_D_LINES.keys() | _SALE_ANSWER_SOURCES.keys()
+            if fact_type in self.state.fact_state.fact_types
+        ):
+            return None
+        if self.current_ids != compute_currency(self.state).current_finding_ids:
+            return None
+        rows: dict[str, dict[str, str]] = {}
+        for fid in self.current_ids:
+            finding = self.state.findings.get(fid)
+            fact_id = finding.get("fact_id") if finding is not None else None
+            if not isinstance(fact_id, str) or finding is None or finding.get("id") != fid:
+                return None
+            fact_type = fact_id.partition("|")[0]
+            if fact_type not in _SALE_SCHEDULE_D_LINES and fact_type not in _SALE_ANSWER_SOURCES:
+                continue
+            records = rows.setdefault(fact_type, {})
+            if self.fact(fact_id, fact_type) is None or fact_id in records:
+                return None
+            records[fact_id] = fid
+        return rows
+
+    def identity_contract(self, fact_type: str) -> bool:
+        if fact_type not in self._identities:
+            declarations = [
+                item for member in self.members for item in member.get("fact_types", ())
+                if item.get("id") == fact_type
+            ]
+            effective = self.state.fact_state.fact_types.get(fact_type)
+            self._identities[fact_type] = bool(declarations) and effective is not None and all(
+                d.get("version") == "v1" and d.get("identity_keys") == _SALE_IDENTITY
+                for d in [*declarations, effective]
+            )
+        return self._identities[fact_type]
+
+    def member(self, member_id: str) -> Mapping[str, Any] | None:
+        matches = [member for member in self.members if member.get("id") == member_id]
+        return matches[0] if len(matches) == 1 else None
+
+    def family(self, family: str, fact_type: str) -> Mapping[str, Any] | None:
+        member = self.member(family)
+        if (member is None or member.get("schema") != "source-family.v2" or member.get("version") != "v1"
+                or member.get("member_predicate") != {"fact_type": fact_type}):
+            return None
+        return member
+
+    def pins(self, record: Mapping[str, Any]) -> list[Mapping[str, Any]] | None:
+        pins = record.get("pins")
+        if self.adopted_package is None or not isinstance(pins, list) or not all(
+            isinstance(pin, Mapping) and isinstance(pin.get("role"), str)
+            and isinstance(pin.get("id"), str) and isinstance(pin.get("version"), str)
+            for pin in pins
+        ):
+            return None
+        adoptions = [pin for pin in pins if pin["role"] == "adoption"]
+        package_id, version = self.adopted_package
+        if adoptions != [{"role": "adoption", "id": package_id, "version": version}]:
+            return None
+        return pins
+
+    def pairing(
+        self, row: Mapping[str, Any], answer: str, source: str, pins: Sequence[Mapping[str, Any]],
+    ) -> set[str] | None:
+        from packages.derivation.evaluator import PairedSourceRow, paired_coverage
+
+        line = _SALE_SCHEDULE_D_LINES[source]
+        artifact = f"tax.us.2025.rule.schedule-d-line{line}"
+        if (row.get("artifact_id") != artifact or row.get("code") != "DEPENDENCY_ABSENT"
+                or row.get("missing") != [answer] or answer not in (f"{source}.basis", f"{source}.proceeds")):
+            return None
+        rule = self.member(artifact)
+        if (rule is None or rule.get("schema") not in RULE_REQUIRE_PAIRED_SCHEMAS
+                or rule.get("version") != "v3"):
+            return None
+        family = source.removesuffix("-txn")
+        source_sets = {
+            family: source,
+            **{f"{family}-{kind}": f"{source}.{kind}" for kind in ("proceeds", "basis", "adjustment")},
+        }
+        for source_set, fact_type in source_sets.items():
+            if self.family(source_set, fact_type) is None or [
+                pin["version"] for pin in pins if pin["role"] == "package" and pin["id"] == source_set
+            ] != ["v1"]:
+                return None
+        pairings = [
+            {"op": "require_paired", "key": "sale", "income": [source], "withholding": f"{source}.{kind}"}
+            for kind in ("proceeds", "basis")
+        ]
+        # The guard evaluates these checks directly in order. A matching node
+        # inside a conditional arm would not prove that it blocked the row.
+        if rule.get("when") != {"op": "all", "args": [
+            *({"op": "require_closed", "source_set": name} for name in source_sets), *pairings,
+        ]}:
+            return None
+        nodes = _StatementQuestions._paired_nodes(rule, answer)
+        if len(nodes) != 1 or _StatementQuestions._mentions_outside_pair(rule, nodes[0], answer):
+            return None
+
+        current = self.current
+        current_ids = self.current_ids
+        if current is None or current_ids is None:
+            return None
+        expected = {
+            fid: fact_id for ft in (source, answer) for fact_id, fid in current.get(ft, {}).items()
+        }
+        seen: set[str] = set()
+        rows: dict[str, list[PairedSourceRow]] = {source: [], answer: []}
+        for pin in pins:
+            if pin["role"] != "input":
+                continue
+            fid = pin["id"]
+            finding = self.state.findings.get(fid)
+            if finding is None:
+                result = self.publications.get(fid)
+                if (result is None or result.get("id") != fid or pin.get("origin") != "derived"
+                        or pin["version"] != result.get("version") or self.pins(result) is None):
+                    return None
+                continue
+            fact_id = finding.get("fact_id")
+            if (fid not in current_ids or finding.get("id") != fid or not isinstance(fact_id, str)
+                    or fact_id not in self.facts or pin.get("origin") != "assertion" or pin["version"] != "v1"):
+                return None
+            if fid in expected:
+                fact = self.facts[expected[fid]]
+                if fid in seen:
+                    return None
+                seen.add(fid)
+                rows[fact.fact_type_id].append(PairedSourceRow(finding_id=fid, keys=fact.keys))
+        if seen != expected.keys():
+            return None
+        coverage = paired_coverage(nodes[0], rows)
+        if coverage.bad:
+            return None
+        return {
+            fact_id for fact_id in current.get(source, {})
+            if dict(self.facts[fact_id].keys)["sale"] in coverage.uncovered
+        }
+
+    def fixes(
+        self, row: Mapping[str, Any], answer: str, source: str, code: str, declared: Mapping[str, Any],
+    ) -> set[str] | None:
+        from packages.derivation.runner import _content_id
+
+        family_id = source.removesuffix("-txn")
+        artifact = family_id + _SALE_MEMBER_VALIDATION
+        missing = row.get("missing")
+        if (answer != source + ".adjustment" or row.get("artifact_id") != artifact
+                or row.get("code") != "DEPENDENCY_INVALID" or code not in _SALE_FIX_CODES
+                or not isinstance(missing, list) or not all(isinstance(c, str) for c in missing)
+                or code not in missing or declared.get("fact_type") != {"id": answer, "version": "v1"}
+                or declared.get("schema") != "family-block-explanation.v1"
+                or declared.get("family_id") != family_id
+                or declared.get("block_code") != code):
+            return None
+        family = self.family(family_id, source)
+        current = self.current
+        if family is None or current is None:
+            return None
+        constraints = {
+            c["id"]: c["block_code"] for c in family.get("member_constraints", ())
+            if isinstance(c, Mapping) and isinstance(c.get("id"), str) and isinstance(c.get("block_code"), str)
+        }
+        if not set(missing).issubset(constraints.values()):
+            return None
+        source_ids = current.get(source, {})
+        seen: set[str] = set()
+        observed_codes: set[str] = set()
+        targets: set[str] = set()
+        prefix = artifact + "."
+        for fid, result in self.publications.items():
+            symbol = result.get("symbol")
+            if not isinstance(symbol, str) or not symbol.startswith(prefix):
+                continue
+            fact_id = symbol.removeprefix(prefix)
+            value = result.get("value")
+            pins = self.pins(result)
+            if (fact_id in seen or fact_id not in source_ids or result.get("id") != fid
+                    or result.get("schema") != "derived-finding.v2" or result.get("version") != "v2"
+                    or not isinstance(value, Mapping) or value.get("member_fact_id") != fact_id or pins is None
+                    or [pin for pin in pins if pin["role"] == "package"]
+                    != [{"role": "package", "id": family_id, "version": "v1"}]):
+                return None
+            source_id = source_ids[fact_id]
+            if [pin for pin in pins if pin["role"] == "input"] != [
+                {"role": "input", "id": source_id, "version": "v1", "origin": "assertion"},
+            ]:
+                return None
+            violations = value.get("violations")
+            if not isinstance(violations, list) or not all(
+                isinstance(v, Mapping) and isinstance(v.get("constraint_id"), str)
+                and isinstance(v.get("block_code"), str) and constraints.get(v["constraint_id"]) == v["block_code"]
+                for v in violations
+            ):
+                return None
+            # The witness id commits to the violation payload as well as the
+            # member identity, source pin and family declaration.
+            if fid != _content_id("derived-finding.v2:", {
+                "member_fact_id": fact_id,
+                "member_value_pin": {"id": source_id, "version": "v1"},
+                "declaration": {"id": family_id, "version": "v1"},
+                "violations": violations,
+            }):
+                return None
+            seen.add(fact_id)
+            codes = {v["block_code"] for v in violations}
+            observed_codes.update(codes)
+            if code in codes:
+                targets.add(fact_id)
+        if seen != source_ids.keys() or observed_codes != set(missing):
+            return None
+        return targets
+
+    def targets(self, trace: _SaleQuestionTrace, sentence: str) -> set[str] | None:
+        answer, row, leaf, declared = trace
+        if row is None or row.get("disposition") != "blocked":
+            return None
+        question = [
+            member for member in self.members
+            if str(member.get("schema", "")).startswith("input-question.")
+            and isinstance(member.get("fact_type"), Mapping) and member["fact_type"].get("id") == answer
+        ]
+        source = _SALE_ANSWER_SOURCES[answer]
+        if (len(question) != 1 or question[0].get("schema") != "input-question.v1"
+                or question[0]["fact_type"] != {"id": answer, "version": "v1"}
+                or question[0].get("question") != sentence
+                or not self.identity_contract(answer) or not self.identity_contract(source)):
+            return None
+        pins = self.pins(row)
+        if pins is None:
+            return None
+        if declared is not None:
+            return self.fixes(row, answer, source, leaf, declared)
+        if leaf == answer:
+            return self.pairing(row, answer, source, pins)
+        return None
+
+    @cached_property
+    def labels(self) -> dict[str, str | None]:
+        if self.current is None:
+            return {}
+        labels: dict[str, str | None] = {}
+        for source in _SALE_SCHEDULE_D_LINES:
+            facts = self.current.get(source, {})
+            if facts and not self.identity_contract(source):
+                return {}
+            for fact_id in facts:
+                keys = dict(self.facts[fact_id].keys)
+                sale = keys["sale"]
+                entity = self.sale_entity(sale)
+                if sale in labels or entity is None:
+                    return {}
+                label = entity.get("label")
+                # Even a label unusable for display can collide with a peer.
+                labels[sale] = label if isinstance(label, str) and has_sale_label_text(label) else None
+        return labels
+
+    def reasons(
+        self, traces: Iterable[_SaleQuestionTrace], questions: Mapping[str, str], other_sentences: set[str],
+    ) -> dict[str, list[dict[str, Any]]]:
+        if not self.enabled:
+            return {}
+        labels = self.labels
+        if len(labels) < 2:
+            return {}
+        normalized = Counter(" ".join(label.split()).casefold() for label in labels.values() if label is not None)
+        matched: dict[str, set[str]] = {}
+        unresolved = set(other_sentences)
+        for trace in traces:
+            sentence = questions.get(trace[0])
+            if not sentence or sentence in unresolved:
+                continue
+            targets = self.targets(trace, sentence)
+            if targets:
+                matched.setdefault(sentence, set()).update(targets)
+            else:
+                unresolved.add(sentence)
+        out: dict[str, list[dict[str, Any]]] = {}
+        for sentence, targets in matched.items():
+            if sentence in unresolved:
+                continue
+            names = []
+            for target in targets:
+                sale = dict(self.facts[target].keys)["sale"]
+                label = labels.get(sale)
+                if (label is None or label == sale or _UNSAFE_STRING_PATTERN.search(label)
+                        or normalized[" ".join(label.split()).casefold()] != 1):
+                    break
+                names.append((label, target))
+            else:
+                out[sentence] = [{"sentence": sentence, "saleLabel": label} for label, _ in sorted(names)]
+        return out
+
+
 def _closure_question_reasons(
     row: Mapping[str, Any],
     *,
@@ -1212,6 +1579,8 @@ def _closure_question_reasons(
     answer_explanations: Mapping[str, str] | None = None,
     answer_sentences_out: set[str] | None = None,
     withholding_reasons_out: dict[str, list[dict[str, Any]]] | None = None,
+    sale_questions: _SaleQuestions | None = None,
+    sale_reasons_out: dict[str, list[dict[str, Any]]] | None = None,
 ) -> list[dict[str, Any]]:
     """The declared question for every cause a blocked line waits on and a filer can answer.
 
@@ -1342,11 +1711,15 @@ def _closure_question_reasons(
         if sentence:
             frames[-1].answer_sentences.add(sentence)
 
-    def record_input_fact(key: str, bound: str, current: Mapping[str, Any] | None = None) -> bool:
+    def record_input_fact(
+        key: str, bound: str, current: Mapping[str, Any] | None = None, *, fixing: bool = False,
+    ) -> bool:
         """Record a declared question while retaining any exact answer target."""
         if bound in input_questions:
             add_answer_explanation(key, bound)
             frames[-1].facts.add(bound)
+            if sale_questions is not None and sale_questions.applies(bound) and not fixing:
+                frames[-1].sale_traces[bound, id(current), key] = (bound, current, key, None)
             if statement_questions is not None and statement_questions.applies(bound):
                 if current is not None and key == bound:
                     paired_rows[id(current)] = current
@@ -1367,6 +1740,8 @@ def _closure_question_reasons(
             if key.startswith(fact_type + "|"):
                 add_answer_explanation(key, fact_type)
                 frames[-1].facts.add(fact_type)
+                if sale_questions is not None and sale_questions.applies(fact_type):
+                    frames[-1].sale_traces[fact_type, id(None), key] = (fact_type, None, key, None)
                 if statement_questions is not None and statement_questions.applies(fact_type):
                     frames[-1].unattributed.add(fact_type)
                 if key in question_target_ids.get(fact_type, set()):
@@ -1491,15 +1866,17 @@ def _closure_question_reasons(
                 fix_ft = declared.get("fact_type")
                 if isinstance(fix_ft, Mapping) and isinstance(fix_ft.get("id"), str):
                     fix_ft_id = str(fix_ft["id"])
+                    if sale_questions is not None and sale_questions.applies(fix_ft_id):
+                        frames[-1].sale_traces[fix_ft_id, id(current), key] = (fix_ft_id, current, key, declared)
                     matched_target = False
                     for member_fact_id in sorted((member_violation_targets or {}).get((family_id, key), ())):
                         if "|" in member_fact_id:
                             candidate_id = f"{fix_ft_id}|{member_fact_id.partition('|')[2]}"
                             if candidate_id in question_target_ids.get(fix_ft_id, set()):
-                                record_input_fact(candidate_id, fix_ft_id)
+                                record_input_fact(candidate_id, fix_ft_id, fixing=True)
                                 matched_target = True
                     if not matched_target:
-                        record_input_fact(fix_ft_id, fix_ft_id)
+                        record_input_fact(fix_ft_id, fix_ft_id, fixing=True)
                 return True
         sentence = meaning_for(current, key)
         if sentence:
@@ -1641,6 +2018,8 @@ def _closure_question_reasons(
                 frame.member_facts.add((key, keys))
             else:
                 frame.facts.add(key)
+                if sale_questions is not None and sale_questions.applies(key):
+                    frame.sale_traces[key, id(None), key] = (key, None, key, None)
                 if statement_questions is not None and statement_questions.applies(key):
                     frame.unattributed.add(key)
         return True
@@ -1667,6 +2046,16 @@ def _closure_question_reasons(
             other_sentences={questions[family] for family in families} | extras,
             withholding_reasons_out=withholding_reasons_out,
         )
+        if sale_questions is not None and root.sale_traces and sale_reasons_out is not None:
+            traced_types = {trace[0] for trace in root.sale_traces.values()}
+            other_sentences = (
+                {questions[family] for family in families} | extras | set(labelled) | set(withholding_reasons_out or ())
+                | {input_questions[fact] for fact in facts - traced_types}
+                | {input_questions[fact] for fact, _ in member_facts}
+            )
+            sale_reasons_out.update(
+                sale_questions.reasons(root.sale_traces.values(), input_questions, other_sentences),
+            )
         reasons = []
         for text in sorted(sentences):
             reasons.extend(labelled.get(text) or [{"sentence": text}])
@@ -2141,7 +2530,7 @@ class _WalkFrame:
 
     __slots__ = (
         "families", "facts", "fact_targets", "unbound_fact_types",
-        "extras", "answer_sentences", "member_facts", "paired", "unattributed", "examined", "hits",
+        "extras", "answer_sentences", "member_facts", "paired", "unattributed", "examined", "hits", "sale_traces",
     )
 
     def __init__(
@@ -2164,6 +2553,7 @@ class _WalkFrame:
         # fact types also reached some other way, which stay unlabelled.
         self.paired: set[tuple[str, int]] = set()
         self.unattributed: set[str] = set()
+        self.sale_traces: dict[tuple[str, int, str], _SaleQuestionTrace] = {}
         self.examined: set[str] = set()
         self.hits: set[str] = set()
 
@@ -2177,6 +2567,7 @@ class _WalkFrame:
         self.member_facts |= other.member_facts
         self.paired |= other.paired
         self.unattributed |= other.unattributed
+        self.sale_traces.update(other.sale_traces)
         self.examined |= other.examined
         self.hits |= other.hits
 
@@ -6314,6 +6705,9 @@ def build_presentation_model(
         if adopted_package is not None and labels_statement_questions(adopted_package[0], adopted_package[1])
         else None
     )
+    sale_questions = _SaleQuestions(
+        adopted_package, state, current_finding_ids, resolved_members, publications_by_id,
+    )
     answer_explanations = _answer_explanation_sentences(
         resolved_members, state, current_finding_ids=current_finding_ids,
     )
@@ -6382,6 +6776,8 @@ def build_presentation_model(
             "by_symbol": by_symbol,
             "question_refs_out": row_question_candidates,
             "withholding_reasons_out": withholding_reasons,
+            "sale_reasons_out": sale_reasons,
+            "sale_questions": sale_questions,
             "question_refs_by_family": question_refs_by_family,
             "question_refs_by_fact_type": question_refs_by_fact_type,
             "symbol_fact_types": symbol_fact_types,
@@ -6423,6 +6819,7 @@ def build_presentation_model(
         selection_attached = False
         row_question_candidates: list[dict[str, Any]] = []
         withholding_reasons: dict[str, list[dict[str, Any]]] = {}
+        sale_reasons: dict[str, list[dict[str, Any]]] = {}
         answer_sentences: set[str] = set()
         if (resolved["disposition"] == "blocked" and producer is not None
                 and producer.get("schema") in RULE_V13_SELECTION_SCHEMAS and "selection" in producer):
@@ -6458,9 +6855,10 @@ def build_presentation_model(
             )
             if question_refs:
                 resolved["questionRefs"] = question_refs
-        if withholding_reasons:
+        display_reasons = withholding_reasons | sale_reasons
+        if display_reasons:
             resolved["reasons"] = _expand_withholding_reasons(
-                resolved["reasons"], resolved.get("questionRefs", ()), withholding_reasons,
+                resolved["reasons"], resolved.get("questionRefs", ()), display_reasons,
             )
         if answer_sentences:
             # Append the unlinked sentences after assigning existing reason indices.
@@ -6689,7 +7087,7 @@ def _validate_resolved(resolved: Mapping[str, Any], path: str) -> None:
             for index, reason in enumerate(reasons):
                 rp = f"{path}.reasons[{index}]"
                 _require_keys(reason, frozenset({"sentence"}), frozenset({
-                    "factId", "statementLabel", "statementPayerLabel", "memberLabel", "memberOrdinal",
+                    "factId", "statementLabel", "statementPayerLabel", "memberLabel", "memberOrdinal", "saleLabel",
                 }), rp)
                 if not isinstance(reason["sentence"], str) or not reason["sentence"]:
                     raise PresentationModelError(f"{rp}.sentence: expected non-empty string")
@@ -6702,6 +7100,10 @@ def _validate_resolved(resolved: Mapping[str, Any], path: str) -> None:
                     raise PresentationModelError(f"{rp}.memberOrdinal: expected a positive integer beside memberLabel")
                 if "factId" in reason and (not isinstance(reason["factId"], str) or not reason["factId"]):
                     raise PresentationModelError(f"{rp}.factId: expected non-empty string")
+                if "saleLabel" in reason:
+                    name = reason["saleLabel"]
+                    if set(reason) != {"sentence", "saleLabel"} or not has_sale_label_text(name):
+                        raise PresentationModelError(f"{rp}.saleLabel: expected a display-only recorded sale name")
                 label = reason.get("statementLabel", {})
                 if not isinstance(label, dict) or not all(isinstance(v, str) and v for v in label.values()) \
                         or set(label) - {"lender", "statement", "taxYear"}:
@@ -7069,6 +7471,8 @@ def _validate_question_groups(model: Mapping[str, Any]) -> None:
                     raise PresentationModelError(f"{p}.reasonIndices: linked reason differs from question")
                 if "memberLabel" in reason:
                     raise PresentationModelError(f"{p}.reasonIndices: member reasons cannot link to a question group")
+                if "saleLabel" in reason:
+                    raise PresentationModelError(f"{p}.reasonIndices: sale names cannot link to a question group")
                 if "statementPayerLabel" in reason:
                     raise PresentationModelError(f"{p}.reasonIndices: payer-labelled reasons cannot link to a question group")
                 seen_indices.add(reason_index)

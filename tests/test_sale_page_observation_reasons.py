@@ -259,3 +259,19 @@ def test_malformed_question_ref_does_not_accept_the_link() -> None:
     assert _reason_outcome(model, []) == (False, [
         "demo-line: model explanation/reasons differ from the rendered DOM",
     ])
+
+
+def test_sale_name_is_displayed_with_recorded_spacing_beside_the_original_question() -> None:
+    model = _model(
+        [{"sentence": SENTENCE}, {"sentence": SENTENCE, "saleLabel": "demo  A & B shares"}],
+        groups=[_group(GROUP_ID)],
+        refs=[_ref(GROUP_ID, [0])],
+    )
+    resolved = model["sections"][0]["resolved"]
+    assert _expected_blocked_reason_texts(model, resolved) == [LINK, f"demo  A & B shares: {SENTENCE}"]
+
+
+def test_blank_unicode_sale_name_keeps_the_generic_question() -> None:
+    for label in ("\ufeff", "\u2003\u200b"):
+        model = _model([{"sentence": SENTENCE, "saleLabel": label}], include_refs=False)
+        assert _expected_blocked_reason_texts(model, model["sections"][0]["resolved"]) == [SENTENCE]

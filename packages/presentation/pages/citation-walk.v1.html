@@ -82,7 +82,7 @@
 
   .diagnostic { margin-top:.6rem; padding:.5rem .75rem; background:var(--diag-bg); border-radius:6px; font-size:.9rem; }
   .diagnostic.suppressed { opacity:.85; font-style:italic; }
-  .statement-payer-label { white-space:pre-wrap; }
+  .statement-payer-label, .sale-label { white-space:pre-wrap; }
 
   section.line.blocked-line { border:3px solid var(--blocked-bg); background: var(--error-bg); }
   .blocked-banner { display:flex; align-items:flex-start; gap:.6rem; }
@@ -1458,6 +1458,12 @@ function renderLine(container, section) {
           ...(groupIndex ? ["; "] : []),
           el("a", { href: "#question-group-" + group.id }, ["See the question and affected lines above"]),
         ]))];
+      }
+      // Match has_sale_label_text, including Python's four extra whitespace controls.
+      if (typeof reason.saleLabel === "string" && /[^\p{White_Space}\p{Cf}\u001c-\u001f]/u.test(reason.saleLabel)) {
+        return [el("li", { id: isLine21 ? "line21-reason-" + index : undefined }, [
+          el("strong", { class: "sale-label" }, [reason.saleLabel + ": "]), reason.sentence,
+        ])];
       }
       const label = reason.statementLabel || {};
       // A roster member's question names that member by the label the filer recorded (ADR 0087).

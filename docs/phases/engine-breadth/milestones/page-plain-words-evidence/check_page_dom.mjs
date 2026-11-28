@@ -233,6 +233,29 @@ function findLeaks(texts, badgeTexts, contentSupplied) {
   return { leaks, contentMatches };
 }
 
+function blockedReasonSnapshot(sectionsRoot) {
+  return Object.fromEntries(sectionsRoot.children.map((section) => {
+    const reasons = [];
+    const salePrefixes = [];
+    let errors = 0;
+    walkElements(section, (node) => {
+      if (node.classList.contains("section-error")) errors += 1;
+      if (node.classList.contains("sale-label")) salePrefixes.push(collectVisibleText(node).join(""));
+      if (!node.classList.contains("blocked-reasons")) return;
+      for (const list of node.children.filter((child) => child.tagName === "UL")) {
+        for (const item of list.children.filter((child) => child.tagName === "LI")) {
+          const prefixes = [];
+          walkElements(item, (child) => {
+            if (child.classList.contains("sale-label")) prefixes.push(collectVisibleText(child).join(""));
+          });
+          reasons.push({ text: collectVisibleText(item).join(""), sale_prefixes: prefixes });
+        }
+      }
+    });
+    return [section.id, { reasons, sale_prefixes: salePrefixes, errors }];
+  }));
+}
+
 function renderAndCheck(pageHtml, modelObj) {
   const scriptSrc = extractScript(pageHtml).replace(
     "const MODEL = Object.freeze(__MODEL_JSON__);",
@@ -290,6 +313,9 @@ function renderAndCheck(pageHtml, modelObj) {
   };
   vm.runInNewContext(scriptSrc, context);
   void origAppend;
+  if (process.env.PPW_CHECK_BLOCKED_REASONS === "1") {
+    return blockedReasonSnapshot(byId.get("sections-root"));
+  }
 
   // Count section errors and collect badges
   let sectionErrors = 0;
