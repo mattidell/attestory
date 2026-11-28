@@ -89,3 +89,29 @@ apart from plain text.
    owner.
 2. **Track 1 (build)**, fresh review, repair, closeout, final review,
    merge.
+
+## P0 result
+
+The scratch projection uses a display-only fragment link on each
+otherwise unlinked asking reason. The destination displays the existing
+question and its affected line. It can be named when an answer fact is
+absent or the walk cannot identify one. The existing typed question
+groups retain their answer scopes and targets. The scratch proof
+preserves reason order, labels, report rows, numbers, dispositions and
+block codes.
+
+The shared replay checks 775 recorded lists and 28 synthetic lists.
+The recorded baseline saves 691 lists and errors on 84, with the same
+error set and masked details in the replay. Of those recorded saves,
+531 gain 6,541 links. The 28 synthetic lists all save and 21 gain 1,815
+links. The evidence includes DOM checks on v89, v109 and a scratch v110
+successor, exact ordered additions, and controls for a moved, removed,
+retargeted or extra link and for each replay outcome path.
+
+The [P0 evidence and proposed ADR](reason-question-links-evidence/p0.md)
+give the inventory, walk witnesses and failure controls. Before
+Track 1, the owner should accept or revise the new ADR and confirm
+coverage of the student-loan selection prompts. The foreman should set
+the display for repeated prompt destinations. The single destination
+per reason used in the experiment preserves context and can make the
+question area long on a heavily blocked return.
